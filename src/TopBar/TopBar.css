@@ -1,0 +1,11 @@
+.topbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 1005;
+    text-align: center;
+    height: 80px;
+    font-weight: 700;
+    font-size: 22px;
+    justify-content: center;
+}
