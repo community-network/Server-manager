@@ -4,24 +4,11 @@ const defaultUser = {
   discord: {
     name: "",
     discriminator: 0,
-    id: 0,
     avatar: ""
-  },
-  bob: {
-    role: "",
-    role_color: "",
-    in_server: false,
-    nickname: ""
   },
   auth: {
     is_signed_in: false,
     is_admin: false
-  },
-  origin: {
-    name: "",
-    id: 0,
-    platoon: 0,
-    is_in_platoon: false
   }
 };
 
@@ -46,7 +33,7 @@ export class ApiProvider {
     for (let s in params) {
       paramStr += s + "=" + params[s] + "&";
     }
-    const apiEP = "//bandofbrothers.site/api/";
+    const apiEP = "//operations.bandofbrothers.site/api/";
     return apiEP + method + "?" + paramStr;
   }
   async fetchMethod(method, params) {

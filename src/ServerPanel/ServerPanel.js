@@ -16,24 +16,33 @@ export default class ServerPanel extends Component {
     let api = this.context;
     console.log(this);
     var reason = window.prompt("Please enter reason to kick", "Kicked by admin.");
-    api.kickPlayer(this.nickname, reason || "");
+    api.kickPlayer(this.nickname, reason || "").then(result => this.checkError(result));
   }
   banPlayer() {
     let api = this.context;
     let state = window.confirm("Are you sure you want to ban " + this.nickname + "?");
     if (state) {
-      api.banPlayer(this.nickname);
+        api.banPlayer(this.nickname).then(result => this.checkError(result));
     }
   }
   giveVip() {
     let api = this.context;
     let state = window.confirm("Give Vip to " + this.nickname + "?");
     if (state) {
-        api.addVip(this.nickname);
+        let result = api.addVip(this.nickname).then(result => this.checkError(result));
     }
   }
   inputNickname(ev) {
     this.nickname = ev.target.value;
+  }
+  checkError(result) {
+    if (!result) {
+        alert("Api currently not working.");
+    } else if (result.hasOwnProperty("error")) {
+        alert(result.error);
+    } else {
+        alert(JSON.stringify(result,null,'\t'));
+    }
   }
   render() {
     let api = this.context;
