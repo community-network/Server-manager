@@ -14,12 +14,13 @@ export default class ServerPanel extends Component {
 
   kickPlayer() {
     let api = this.context;
-    console.log(this);
+    if (this.nickname === "") return;
     var reason = window.prompt("Please enter reason to kick", "Kicked by admin.");
     api.kickPlayer(this.nickname, reason || "").then(result => this.checkError(result));
   }
   banPlayer() {
     let api = this.context;
+    if (this.nickname === "") return;
     let state = window.confirm("Are you sure you want to ban " + this.nickname + "?");
     if (state) {
         api.banPlayer(this.nickname).then(result => this.checkError(result));
@@ -27,6 +28,7 @@ export default class ServerPanel extends Component {
   }
   giveVip() {
     let api = this.context;
+    if (this.nickname === "") return;
     let state = window.confirm("Give Vip to " + this.nickname + "?");
     if (state) {
         let result = api.addVip(this.nickname).then(result => this.checkError(result));
@@ -56,7 +58,7 @@ export default class ServerPanel extends Component {
             <input type="text" placeholder="Nickname" onChange={this.inputNickname} />
             <input type="button" value="Ban" onClick={this.banPlayer} />
             <input type="button" value="Kick" onClick={this.kickPlayer} />
-            <input type="button" value="Give Vip" onClick={this.giveVip} />
+            <input type="button" value="Give Vip" onClick={this.giveVip} title="Function is disabled as it may cause issues." disabled />
           </div>
         )
     } else {

@@ -1,76 +1,25 @@
 import React from "react";
+import JsonClient from "./JsonApi";
 
-const defaultUser = {
-  discord: {
-    name: "",
-    discriminator: 0,
-    avatar: ""
-  },
-  auth: {
-    is_signed_in: false,
-    is_admin: false
-  }
-};
-
-export class ApiProvider {
+export class ApiProvider extends JsonClient {
   constructor() {
-    this.isWorking = true;
-    this.user = this.getUserInfo();
-    this.server = "Operations";
+    super();
+    this.server = "Community Operations #1";
   }
-  tryToLogin() {
-    this.getUserInfo();
+  logout() {
+    return this.fetchMethod("logout");
   }
-  openLoginPage() {
-    window.location = this.constructApiUrl("login");
+  kickPlayer(name, reason) {
+    return this.postJsonMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this.server, "reason": reason });
   }
-  async logout() {
-    await this.fetchMethod("logout");
+  banPlayer(name) {
+    return this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server });
   }
-  constructApiUrl(method, params) {
-    params = params || {};
-    let paramStr = "";
-    for (let s in params) {
-      paramStr += s + "=" + params[s] + "&";
-    }
-    const apiEP = "//operations.bandofbrothers.site/api/";
-    return apiEP + method + "?" + paramStr;
+  addVip(name) {
+    return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this.server });
   }
-  async fetchMethod(method, params) {
-    let result = await fetch(this.constructApiUrl(method, params), {
-      credentials: "include"
-    });
-    return result;
-  }
-  async kickPlayer(name, reason) {
-    let result = await this.fetchMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this.server, "reason": reason });
-    return await result.json();
-  }
-  async banPlayer(name) {
-    let result = await this.fetchMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server });
-    return await result.json();
-  }
-  async addVip(name) {
-    let result = await this.fetchMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this.server });
-    return await result.json();
-  }
-  userSetInfo(a) {
-    if (!a.hasOwnProperty("error")) {
-      return a;
-    } else {
-      return defaultUser;
-    }
-  }
-  async getUserInfo() {
-    let response = await this.fetchMethod("getinfo");
-    if (response !== undefined) {
-      let json = await response.json().catch((e) => console.log(e));
-      if (json !== undefined) {
-        return this.userSetInfo(json);
-      }
-    }
-    this.isWorking = false;
-    return defaultUser;
+  getBanList() {
+
   }
 }
 
