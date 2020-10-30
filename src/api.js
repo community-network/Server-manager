@@ -18,8 +18,8 @@ export class ApiProvider extends JsonClient {
   addVip(name) {
     return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this.server });
   }
-  getBanList() {
-
+  movePlayer(team, name) {
+    return this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this.server });
   }
 }
 
