@@ -26,7 +26,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: CI=false npm run build --if-present
-
     - name: Commit new build
     - run: |
         git config user.name github-actions
