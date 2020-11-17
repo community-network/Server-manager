@@ -26,9 +26,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: CI=false npm run build --if-present
-    - run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "Build"
-        git push
+    - run: git checkout HEAD^
