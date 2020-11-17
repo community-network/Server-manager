@@ -4,9 +4,24 @@
     align-items: center;
     width: 100%;
     text-align: center;
-    height: 200px;
-    font-weight: 600;
-    font-size: 28px;
-    justify-content: center;
+    height: 80px;
+    justify-content: left;
     font-family: "Montserrat";
+}
+.title {
+  font-size: 22px;
+  margin-right: 100px;
+  font-weight: 600;
+}
+.link {
+  color: #eeeeee;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.link:hover {
+  background-color: #21212B;
 }

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import "./ServerPanel.css";
 
 import { OperationsApi } from "../api";
 
-export default class ServerPanel extends Component {
+class AdminTools extends Component {
   static contextType = OperationsApi;
 
-  state = { ready: false, status: { msg: "", type: "" } };
+  state = { ready: false, status: { msg: "", type: "" }, popup: { is: false } };
   nickname = "";
 
   kickPlayer = this.kickPlayer.bind(this);
@@ -16,20 +16,73 @@ export default class ServerPanel extends Component {
   movePlayer = this.movePlayer.bind(this);
 
   kickPlayer() {
+    // Load API
     let api = this.context;
+    // If no nickname, return
     if (this.nickname === "") return;
-    var reason = window.prompt("Please enter reason to kick", "Kicked by admin.");
-    this.updateStatus({ msg: "Executing", type: "warn" });
-    api.kickPlayer(this.nickname, reason || "").then(result => this.checkError(result));
+
+    var promise = new Promise((resolve, reject) => {
+      var submit = (reason, time) => {
+        resolve(reason);
+      };
+      var chancel = (ev) => {
+        ev.preventDefault();
+        reject("Chanceled");
+      };
+      this.setState(
+        s => ({
+          ...s,
+          status: { msg: "Executing", type: "warn" },
+          popup: { is: true, description: "Enter a reason to kick.", title: "Kick " + this.nickname, submit: submit, chancel: chancel }
+        })
+      );
+    });
+
+    promise.then(
+      (reason) => api.kickPlayer(this.nickname, reason || "")
+        .then(result => this.checkError(result)),
+      (e) => {}
+    ).finally(_ => this.setState(
+      s => ({
+        ...s,
+        popup: { is: false }
+      })
+    ));
+
   }
   banPlayer() {
     let api = this.context;
     if (this.nickname === "") return;
-    let state = window.confirm("Are you sure you want to ban " + this.nickname + "?");
-    if (state) {
-        this.updateStatus({ msg: "Executing", type: "warn" });
-        api.banPlayer(this.nickname).then(result => this.checkError(result));
-    }
+
+    var promise = new Promise((resolve, reject) => {
+      var submit = (reason, time) => {
+        console.log(time);
+        resolve({reason, time});
+      };
+      var chancel = (ev) => {
+        ev.preventDefault();
+        reject("Chanceled");
+      };
+      this.setState(
+        s => ({
+          ...s,
+          status: { msg: "Executing", type: "warn" },
+          popup: { is: true, description: "Enter a reason to ban.", title: "Ban " + this.nickname, submit: submit, chancel: chancel, time: true }
+        })
+      );
+    });
+
+    promise.then(
+      ({reason, time}) => api.banPlayer(this.nickname, reason, time)
+        .then(result => this.checkError(result)),
+      (e) => {}
+    ).finally(_ => this.setState(
+      s => ({
+        ...s,
+        popup: { is: false }
+      })
+    ));
+
   }
   movePlayer() {
     let api = this.context;
@@ -58,21 +111,33 @@ export default class ServerPanel extends Component {
     } else if (result.hasOwnProperty("error")) {
         this.updateStatus({ msg: result.error, type: "error" });
     } else {
-        this.updateStatus(JSON.stringify(result,null,'\t'));
+        this.updateStatus({ msg: JSON.stringify(result,null,'\t'), type: "good" });
     }
   }
   updateStatus(status) {
-    this.setState(s => ({ ready: s.ready, status: status, user: s.user }));
+    this.setState(
+      s => ({ ...s, status: status })
+    );
   }
   render() {
     let api = this.context;
-    api.user.then((u) => (!this.state.ready) ? this.setState({ready: true, user: u}) : null);
+
+
     if (!this.state.ready) {
+        api.switchServer(this.props.server);
+        api.user.then(
+          u => (!this.state.ready) ? this.setState(
+            s => ({ ...s, ready: true, user: u })
+          ) : null
+        );
         return "Loading..";
     }
     if (this.state.user.auth.is_admin) {
         return (
         <React.Fragment>
+          <div className="sectiontitle">
+            Admin tools - Server #{this.props.server}
+          </div>
           <div className="serverpanel">
             <input type="text" placeholder="Nickname" onChange={this.inputNickname} />
             <input type="button" value="Ban" onClick={this.banPlayer} />
@@ -81,14 +146,43 @@ export default class ServerPanel extends Component {
             <input type="button" value="Give Vip" onClick={this.giveVip} title="Function is disabled as it may cause issues." disabled />
           </div>
           <div className="statusbar">
-            <Status text={this.state.status.msg} type={this.state.status.type} />
+            <Status text={this.state.status.msg.toString()} type={this.state.status.type} />
           </div>
+          {(this.state.popup.is) ? <PopUp title={this.state.popup.title} description={this.state.popup.description} time={this.state.popup.time} submit={this.state.popup.submit} chancel={this.state.popup.chancel} />  : ""}
          </React.Fragment>
         )
     } else if(!this.state.user.is_signed_in) {
         api.openLoginPage();
     } else {
       return "No premissions.";
+    }
+  }
+}
+export default class ServerPanel extends Component {
+  static contextType = OperationsApi;
+  render() {
+    return (
+      <React.Fragment>
+        <AdminTools server={this.props.server} />
+        <BanList />
+      </React.Fragment>
+    );
+  }
+
+}
+class BanList extends Component {
+  static contextType = OperationsApi;
+  state = {ready: false, list: []}
+  render() {
+    let api = this.context;
+    if(!this.state.ready){
+      api.getBanList().then(l => this.setState({ ready: true, list: l}));
+      return "Loading..";
+    } else {
+    console.log(this.state);
+      return (<div>
+
+      </div>);
     }
   }
 }
@@ -99,4 +193,40 @@ function Status(props) {
     {props.text}
     </div>
   );
-}
+ }
+
+ function PopUp(props) {
+  const [reason, setReason] = React.useState("");
+  var time = "0";
+
+  return (
+    <div className="popup">
+      <form onSubmit={ (ev) => { ev.preventDefault(); console.log(time); props.submit(reason, time); } }>
+        <h3>{props.title}</h3>
+        <p>{props.description}</p>
+        <label for="reason">Enter reason:</label>
+        <input type="text" id="reason" name="reason" onChange={(e) => setReason(e.target.value)} />
+        {(props.time) ? <BanTime change={(e) => {time = e.target.value;} } /> : "" }
+        <input type="button" value="Chancel" onClick={props.chancel} />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  );
+ }
+
+ function BanTime(props) {
+  return (
+    <div>
+      <label for="time">Choose a ban time:</label>
+      <select id="time" name="time" onChange={props.change}>
+        <option value="0" selected>Perm</option>
+        <option value="1">1 day</option>
+        <option value="2">2 days</option>
+        <option value="7">1 week</option>
+      </select>
+    </div>
+  );
+ }
+
+
+
