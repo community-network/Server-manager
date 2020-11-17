@@ -29,3 +29,9 @@ jobs:
     - run: npm ci
     - run: CI=false npm run build --if-present
     - run: git checkout HEAD^
+    - run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Automatic build"
+        git push
