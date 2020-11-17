@@ -31,4 +31,5 @@ export default class TopBar extends Component {
       </div>);
     }
   }
+
 }
