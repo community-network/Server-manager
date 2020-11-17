@@ -4,7 +4,11 @@ import JsonClient from "./JsonApi";
 export class ApiProvider extends JsonClient {
   constructor() {
     super();
-    this.server = "Community Operations #1";
+    this.switchServer("1");
+  }
+  switchServer(number) {
+    this.server = "Community Operations #" + number;
+    this._server = "Community Operations %23" + number;
   }
   logout() {
     return this.fetchMethod("logout");
@@ -12,14 +16,21 @@ export class ApiProvider extends JsonClient {
   kickPlayer(name, reason) {
     return this.postJsonMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this.server, "reason": reason });
   }
-  banPlayer(name) {
-    return this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server });
+  banPlayer(name, reason, time) {
+    console.log(time);
+    return this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server, "bantime": time.toString(), "reason": reason });
   }
   addVip(name) {
-    return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this.server });
+    return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this._server });
   }
   movePlayer(team, name) {
-    return this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this.server });
+    return this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this._server });
+  }
+  getBanList() {
+    return this.getJsonMethod("infolist", { "type": "bannedList", "servername": this._server });
+  }
+  getLogs() {
+    return this.getJsonMethod("taillog");
   }
 }
 

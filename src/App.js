@@ -1,18 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
 
 import TopBar from "./TopBar/TopBar.js";
 import ServerPanel from "./ServerPanel/ServerPanel.js";
 
 import { OperationsApi, ApiProvider } from "./api";
+import { BrowserRouter, Route } from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-        <TopBar />
-        <OperationsApi.Provider value={new ApiProvider()}>
-            <ServerPanel />
-        </OperationsApi.Provider>
+    <BrowserRouter>
+       <OperationsApi.Provider value={new ApiProvider()}>
+          <TopBar />
+          <Route path="/" exact >
+          </Route>
+          <Route path="/s1/">
+            <ServerPanel server="1" />
+          </Route>
+          <Route path="/s2/">
+            <ServerPanel server="2" />
+          </Route>
+       </OperationsApi.Provider>
+    </BrowserRouter>
     </div>
   );
 }
