@@ -60,7 +60,6 @@ export default class JsonClient {
     if (!response.hasOwnProperty("error")) {
       return response;
     }
-    alert(response.error);
     return defaultUser;
   }
 }
