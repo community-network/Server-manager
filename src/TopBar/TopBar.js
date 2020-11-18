@@ -24,8 +24,9 @@ export default class TopBar extends Component {
               <a href="#logout-attempt" className="link" onClick={
                 (e) => {
                   e.preventDefault();
-                  api.logout();
-                  window.location = "/";
+                  api.logout().then(_ => {
+                    window.location = "/";
+                  });
                 }
               }>Logout</a>
             </React.Fragment>
