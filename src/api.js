@@ -17,7 +17,6 @@ export class ApiProvider extends JsonClient {
     return this.postJsonMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this.server, "reason": reason });
   }
   banPlayer(name, reason, time) {
-    console.log(time);
     return this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server, "bantime": time.toString(), "reason": reason });
   }
   addVip(name) {
