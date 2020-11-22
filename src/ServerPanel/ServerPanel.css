@@ -34,9 +34,35 @@ input[type="text"] {
 }
 
 .status {
-  padding: 20px;
+  padding: 15px 40px;
+  margin: 20px 0;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  color: #ffffff;
+  font-weight: 500;
   display: block;
+  box-sizing: border-box;
 }
+
+.status.warn {
+  border-color: hsla(60, 100%, 73%, 0.5);
+  background-color: hsla(60, 100%, 73%, 0.1);
+  color: hsla(60, 100%, 73%, 0.8);
+}
+
+.status.error {
+  border-color: hsla(0, 100%, 73%, 0.5);
+  background-color: hsla(0, 100%, 73%, 0.1);
+  color: hsla(0, 100%, 73%, 0.8);
+}
+
+.status.ok {
+  border-color: hsla(119, 100%, 73%, 0.5);
+  background-color: hsla(119, 100%, 73%, 0.1);
+  color: hsla(119, 100%, 73%, 0.8);
+}
+
 .sectiontitle {
   font-size: 16px;
   font-weight: 600;
@@ -72,4 +98,11 @@ input[type="text"] {
   padding: 20px 30px;
   border-radius: 10px;
   max-width: 500px;
+}
+.banlist td {
+  padding: 5px 10px;
+}
+.banlist th {
+  text-align: left;
+  padding: 5px 10px;
 }
