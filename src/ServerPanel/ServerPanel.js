@@ -6,7 +6,7 @@ import { OperationsApi } from "../api";
 class AdminTools extends Component {
   static contextType = OperationsApi;
 
-  state = { ready: false, status: { msg: "", type: "" }, popup: { is: false } };
+  state = { ready: false, status: { msg: "Servers are working.", type: "ok" }, popup: { is: false }, choose: { is: false } };
   nickname = "";
 
   kickPlayer = this.kickPlayer.bind(this);
@@ -87,11 +87,42 @@ class AdminTools extends Component {
   movePlayer() {
     let api = this.context;
     if (this.nickname === "") return;
-    var side = window.prompt("Please, enter side (1 or 2)", "1");
-    if (side === "1" || side === "2") {
-        this.updateStatus({ msg: "Executing", type: "warn" });
-        api.movePlayer(side, this.nickname).then(result => this.checkError(result));
-    }
+
+    var promise = new Promise((resolve, reject) => {
+      var attack = _ => {
+        resolve(2);
+      };
+      var defend = _ => {
+        resolve(1);
+      };
+      var chancel = (ev) => {
+        ev.preventDefault();
+        reject("Chanceled");
+      };
+      this.setState(
+        s => ({
+          ...s,
+          status: { msg: "Executing", type: "warn" },
+          choose: { is: true, title: "Move player " + this.nickname + " ?", attack: attack, chancel: chancel, defend: defend }
+        })
+      );
+    });
+
+    promise.then(
+      (side) => api.movePlayer(side, this.nickname)
+        .then(result => this.checkError(result)),
+      (e) => this.setState(
+        s => ({
+          ...s,
+          status: { msg: "Servers are working.", type: "ok" },
+        })
+      )
+    ).finally(_ => this.setState(
+      s => ({
+        ...s,
+        choose: { is: false }
+      })
+    ));
   }
   giveVip() {
     let api = this.context;
@@ -111,7 +142,7 @@ class AdminTools extends Component {
     } else if (result.hasOwnProperty("error")) {
         this.updateStatus({ msg: result.error, type: "error" });
     } else {
-        this.updateStatus({ msg: JSON.stringify(result,null,'\t'), type: "good" });
+        this.updateStatus({ msg: JSON.stringify(result,null,'\t'), type: "ok" });
     }
   }
   updateStatus(status) {
@@ -149,6 +180,7 @@ class AdminTools extends Component {
             <Status text={this.state.status.msg.toString()} type={this.state.status.type} />
           </div>
           {(this.state.popup.is) ? <PopUp title={this.state.popup.title} description={this.state.popup.description} time={this.state.popup.time} submit={this.state.popup.submit} chancel={this.state.popup.chancel} />  : ""}
+          {(this.state.choose.is) ? <ChooseSide title={this.state.choose.title} chancel={this.state.choose.chancel} attack={this.state.choose.attack} defend={this.state.choose.defend} /> : ""}
          </React.Fragment>
         )
     } else if(!this.state.user.is_signed_in) {
@@ -176,13 +208,30 @@ class BanList extends Component {
   render() {
     let api = this.context;
     if(!this.state.ready){
+      console.log("loading..");
       api.getBanList().then(l => this.setState({ ready: true, list: l}));
       return "Loading..";
     } else {
-    console.log(this.state);
-      return (<div>
-
-      </div>);
+      console.log(this.state);
+      return (
+        <table className="banlist">
+        <thead>
+          <th>Nickname</th>
+          <th>Reason</th>
+          <th>Admin</th>
+          <th>Period</th>
+          <th>Ban time</th>
+        </thead>
+        <tbody>
+        {
+          this.state.list.players.map(
+            (j, i) => (
+              <BannedPlayer key={i} player={j} />
+            )
+          )
+        }
+        </tbody></table>
+      );
     }
   }
 }
@@ -214,6 +263,20 @@ function Status(props) {
   );
  }
 
+ function ChooseSide(props) {
+  return (
+    <div className="popup">
+      <form>
+        <h3>{props.title}</h3>
+        <p>Choose where to move the player: Attack or Defend forces</p>
+        <input type="button" value="Attack" onClick={props.attack} />
+        <input type="button" value="Defend" onClick={props.defend} />
+        <input type="button" value="Chancel"  onClick={props.chancel}/>
+      </form>
+    </div>
+  );
+ }
+
  function BanTime(props) {
   return (
     <div>
@@ -228,5 +291,14 @@ function Status(props) {
   );
  }
 
-
-
+function BannedPlayer(props) {
+  return (
+    <tr>
+      <td>{props.player.displayName}</td>
+      <td>{props.player.reason}</td>
+      <td>{props.player.admin}</td>
+      <td>{props.player.banned_until}</td>
+      <td>{props.player.ban_timestamp}</td>
+    </tr>
+  );
+}

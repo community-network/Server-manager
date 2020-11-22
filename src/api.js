@@ -20,13 +20,13 @@ export class ApiProvider extends JsonClient {
     return this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server, "bantime": time.toString(), "reason": reason });
   }
   addVip(name) {
-    return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this._server });
+    return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this.server });
   }
   movePlayer(team, name) {
-    return this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this._server });
+    return this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this.server });
   }
   getBanList() {
-    return this.getJsonMethod("infolist", { "type": "bannedList", "servername": this._server });
+    return this.getJsonMethod("infolist", { "type": "bannedList", "name": encodeURIComponent(this.server) });
   }
   getLogs() {
     return this.getJsonMethod("taillog");

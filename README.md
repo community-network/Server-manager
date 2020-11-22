@@ -2,7 +2,7 @@
 
 Build naming:
 
-`<Y>.<D><M>.<H><M>`
+`<Y>.<M><D>.<H><M>`
 
 Example: **v20.1118.1235**
 
