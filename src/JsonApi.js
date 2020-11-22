@@ -39,8 +39,8 @@ export default class JsonClient {
       return result.json().then(json => json, error => ({ "error": error }));
     }, error => ({ "error": error }));
   }
-  async getJsonMethod(method, params) {
-    return await this.fetchMethod(method, params).then(result => {
+  getJsonMethod(method, params) {
+    return this.fetchMethod(method, params).then(result => {
       return result.json().then(json => json, error => ({ "error": error }));
     }, error => ({ "error": error }));
   }
