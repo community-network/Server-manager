@@ -13,7 +13,7 @@ export default class JsonClient {
     for (let s in params) {
       paramStr += s + "=" + params[s] + "&";
     }
-    const apiEP = "https://operations.bandofbrothers.site/api/";
+    const apiEP = "https://operations.gametools.network/api/";
     return apiEP + method + "?" + paramStr;
   }
   async fetchMethod(method, params) {
