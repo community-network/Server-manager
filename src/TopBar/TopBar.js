@@ -21,6 +21,7 @@ export default class TopBar extends Component {
             <React.Fragment>
               {(this.state.user.auth.region == "EU" || this.state.user.auth.region == "ALL") ? <Link to="/s1/" className="link">Server #1</Link> : ""}
               {(this.state.user.auth.region == "NA" || this.state.user.auth.region == "ALL") ? <Link to="/s2/" className="link">Server #2</Link> : ""}
+              {(this.state.user.auth.region == "NA" || this.state.user.auth.region == "EU" || this.state.user.auth.region == "ALL") ? <Link to="/logs/" className="link">Server Logs</Link> : ""}
               <a href="#logout-attempt" className="link" onClick={
                 (e) => {
                   e.preventDefault();
