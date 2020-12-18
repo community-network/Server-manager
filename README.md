@@ -1,4 +1,4 @@
-# Website for Community Network
+# Operations admin panel
 
 Build naming:
 
