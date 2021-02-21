@@ -1,0 +1,15 @@
+.Column {
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px;
+    flex-grow: 2;
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+}
+
+.Grow {
+    flex-grow: 2;
+}

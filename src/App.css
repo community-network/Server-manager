@@ -1,7 +1,54 @@
-body {
-  margin: 0;
+
+:root {
+    --color-base: #0E0E14;
+    --color-container: #181820;
+    --color-container-v2: #1C1C26;
+    --color-second: #21212B;
+    --color-second-v1: #1F1F28;
+    --color-second-v2: #262631;
+    --color-text: #d8d8d8;
+    --color-text-low: #929292;
+    --color-text-high: #ffffff;
+    --color-purple: #696ff2;
 }
+
+body {
+    margin: 0;
+    background: var(--color-base);
+    color: var(--color-text-high);
+
+    /* Fonts */
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
-  width: 80%;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+h2 {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+}
+
+p {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text);
+    margin: 6px 0 18px 0;
 }

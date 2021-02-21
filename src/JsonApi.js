@@ -7,25 +7,26 @@ export default class JsonClient {
   openLoginPage() {
     window.location = this.constructApiUrl("login");
   }
-  constructApiUrl(method, params) {
-    params = params || {};
-    let paramStr = "";
-    for (let s in params) {
-      paramStr += s + "=" + params[s] + "&";
+    constructApiUrl(method, params) {
+        params = params || {};
+        let paramStr = "";
+        for (let s in params) {
+            paramStr += s + "=" + params[s] + "&";
+        }
+        if (paramStr !== "") paramStr = "?" + paramStr;
+        const apiEP = "https://dev.gametools.network/api/";
+        return apiEP + method + paramStr;
     }
-    const apiEP = "https://operations.gametools.network/api/";
-    return apiEP + method + "?" + paramStr;
-  }
-  async fetchMethod(method, params) {
-    let result = await fetch(this.constructApiUrl(method, params), {
-      credentials: "include"
-    });
-    return result;
-  }
-  async postMethod(method, params) {
-    let result = await fetch(this.constructApiUrl(method, {}), params);
-    return result;
-  }
+    async fetchMethod(method, params) {
+        let result = await fetch(this.constructApiUrl(method, params), {
+            credentials: "include"
+        });
+        return result;
+    }
+    async postMethod(method, params) {
+        let result = await fetch(this.constructApiUrl(method, {}), params);
+        return result;
+    }
   async postJsonMethod(method, params) {
     const options = {
       method: 'POST',
@@ -52,8 +53,11 @@ export default class JsonClient {
         avatar: ""
       },
       auth: {
-        is_signed_in: false,
-        is_admin: false
+          inGuild: false,
+          isAdmin: false,
+          isDeveloper: false,
+          isOwner: false,
+          signedIn: false
       }
     };
     let response = await this.getJsonMethod("getinfo");

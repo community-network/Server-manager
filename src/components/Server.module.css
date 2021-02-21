@@ -1,0 +1,88 @@
+
+.SmallText {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-right: 15px;
+}
+
+
+.ServerInfoColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.ServerInfoRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.serverImage {
+    width: 112px;
+    border-radius: 10px;
+}
+
+.ServerName {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.GameInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 15px;
+}
+
+.GameInfo > * {
+    padding: 1px 0;
+}
+
+.ServerDescriptionColumn {
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+}
+
+.ServerDescriptionRow {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+
+.SwitchGame {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background: var(--color-second);
+    color: var(--color-text);
+    margin: 0 10px;
+    padding: 0 15px;
+    font-family: "Montserrat";
+    font-weight: 600;
+}
+
+
+.SettingsRow {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    align-items: center;
+    height: 30px;
+}
+
+.SmallInput {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+
+    background: var(--color-second);
+    color: var(--color-text-low);
+    padding: 5px 10px;
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-weight: 500;
+
+    width: 100px;
+}

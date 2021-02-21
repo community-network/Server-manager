@@ -1,0 +1,136 @@
+.buttonRow {
+    display: flex;
+    flex-direction: row;
+    margin: 6px -6px !important;
+}
+
+.button {
+    border: 1px solid var(--color-second);
+    padding: 10px 20px;
+    height: 40px;
+    border-radius: 8px;
+    color: #DBDBDB;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--color-container-v2);
+    display: flex;
+    flex-direction: row;
+    flex-grow: 2;
+    justify-content: center;
+    margin: 0 6px;
+    text-decoration: none;
+    outline: none;
+    font-family: "Montserrat";
+    max-width: 300px;
+}
+
+.button:hover {
+    background: #262631;
+    cursor: pointer;
+}
+
+.button:disabled {
+    background: var(--color-second-v1);
+    color: var(--color-text-low);
+    cursor: not-allowed;
+}
+
+.TextInput {
+    border: 1px solid var(--color-second);
+    outline: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    height: 40px;
+    background: var(--color-container-v2);
+    margin: 6px 0;
+    min-width: 300px;
+    font-weight: 500;
+    font-size: 13   px;
+    color: var(--color-text);
+    font-family: "Montserrat";
+    max-width: 300px;
+}
+
+.SmallButton {
+    display: flex;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.TextInput:disabled {
+    background: var(--color-second-v1);
+    color: var(--color-text-low);
+    cursor: not-allowed;
+}
+
+.Switch, .SwitchActive {
+    position: relative;
+    height: 16px;
+    width: 36px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.SwitchInner {
+    position: relative;
+    display: block;
+    width: 36px;
+    height: 16px;
+    margin-top: 0px;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.SwitchHandle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--color-text-low);
+    display: block;
+    margin: -12px 0 0 0;
+    left: 4px;
+    z-index: 2;
+    transition: all 0.1s ease-out;
+}
+
+.SwitchOff, .SwitchOn {
+    display: inline-block;
+    background: var(--color-second);
+    width: 36px;
+    height: 16px;
+    position: absolute;
+    transition: all 0.1s ease-out;
+    z-index: 0;
+    border-radius: 8px;
+}
+
+.SwitchOn {
+    background: var(--color-purple);
+}
+
+.Switch .SwitchOff {
+    transform: translateX(0%);
+}
+
+.Switch .SwitchOn {
+    transform: translateX(-100%);
+}
+
+.SwitchActive .SwitchOff {
+    transform: translateX(100%);
+}
+
+.SwitchActive .SwitchOn {
+    transform: translateX(0%);
+}
+
+.SwitchActive .SwitchHandle {
+    left: 24px;
+    background-color: white;
+}
+

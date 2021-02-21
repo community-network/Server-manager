@@ -1,30 +1,36 @@
+
+import React from "react";
+import { useLocation } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+
 import './App.css';
+import './fade.css';
 
-import TopBar from "./TopBar/TopBar.js";
-import ServerPanel from "./ServerPanel/ServerPanel.js";
-import LogPanel from "./LogPanel";
+import Views from "./views";
 
-import { OperationsApi, ApiProvider } from "./api";
-import { BrowserRouter, Route } from 'react-router-dom'
+import { Sidebar, PageContainer, PageColumn } from "./components";
+
+
+function ViewportHolder(props) {
+    return (
+        <div className="App">{props.children}</div>
+    );
+}
 
 function App() {
+
+    let location = useLocation();
+
     return (
         <div className="App">
-            <BrowserRouter>
-                <OperationsApi.Provider value={new ApiProvider()}>
-                    <TopBar />
-                    <Route path="/" exact />
-                    <Route path="/s1/">
-                        <ServerPanel server="1" />
-                    </Route>
-                    <Route path="/s2/">
-                        <ServerPanel server="2" />
-                     </Route>
-                    <Route path="/logs/">
-                        <LogPanel />
-                    </Route>
-                </OperationsApi.Provider>
-            </BrowserRouter>
+            <Sidebar />
+            <TransitionGroup component={PageContainer}>
+                <CSSTransition key={location.key} classNames="fade" timeout={200}>
+                    <PageColumn>
+                        <Views location={location} />
+                    </PageColumn>
+                </CSSTransition>
+            </TransitionGroup>
         </div>
     );
 }

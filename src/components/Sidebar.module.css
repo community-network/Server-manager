@@ -1,0 +1,47 @@
+
+.PageLink, .PageButton {
+    display: flex;
+    flex-direction: row;
+    padding: 6px 24px;
+}
+
+.PageLink > a, .PageButton > span {
+    text-decoration: none;
+    color: var( --color-text);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 10px;
+    flex-grow: 2;
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+}
+
+
+.PageLink > a:hover {
+    background-color: var(--color-second-v1);
+}
+
+.PageButton > span:hover {
+    color: var( --color-text-high);
+}
+
+.PageLink > .PageLinkActive, .PageLink > .PageLinkActive:hover {
+    background: var( --color-second);
+    color: var(--color-text-high);
+}
+
+.Sidebar {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    background: var( --color-container);
+}
+
+.Logo {
+    height: 80px;
+}
+
+.TopSidebar {
+    padding: 0 48px;
+}

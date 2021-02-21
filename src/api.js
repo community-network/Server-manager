@@ -1,36 +1,139 @@
-import React from "react";
 import JsonClient from "./JsonApi";
 
 export class ApiProvider extends JsonClient {
-  constructor() {
-    super();
-    this.switchServer("1");
-  }
-  switchServer(number) {
-    this.server = "Community Operations #" + number;
-    this._server = "Community Operations %23" + number;
-  }
-  logout() {
-    return this.fetchMethod("logout");
-  }
-  kickPlayer(name, reason) {
-    return this.postJsonMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this.server, "reason": reason });
-  }
-  banPlayer(name, reason, time) {
-    return this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this.server, "bantime": time.toString(), "reason": reason });
-  }
-  addVip(name) {
-    return this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this.server });
-  }
-  movePlayer(team, name) {
-    return this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this.server });
-  }
-  getBanList() {
-    return this.getJsonMethod("infolist", { "type": "bannedList", "name": encodeURIComponent(this.server) });
-  }
-  getLogs() {
-    return this.getJsonMethod("taillog");
-  }
+
+    constructor() {
+        super();
+        this._server = "Community Operations #";
+    }
+
+    logout() {
+        var asyncUser = this.logoutAndChangeUser();
+        this.user = asyncUser;
+    }
+
+    async logoutAndChangeUser() {
+        await this.fetchMethod("logout/");
+        var user = await this.getUserInfo();
+        return user;
+    }
+
+    async kickPlayer(server, name, reason) {
+        //await this.user;
+        return await this.postJsonMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this._server + server, "reason": reason });
+    }
+
+    async banPlayer(server, name, reason, time) {
+        //await this.user;
+        return await this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this._server + server, "bantime": time.toString(), "reason": reason });
+    }
+
+    async addVip(server, name) {
+        //await this.user;
+        return await this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this._server + server });
+    }
+
+    async movePlayer(server, team, name) {
+        //await this.user;
+        return await this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this._server + server });
+    }
+
+    async getBanList(server) {
+        //await this.user;
+        return await this.getJsonMethod("infolist", { "type": "bannedList", "name": encodeURIComponent(this._server + server) });
+    }
+
+    async getLogs() {
+        //await this.user;
+        return await this.getJsonMethod("taillog");
+    }
+
+    async getDevGroups() {
+        return await this.getJsonMethod("devgroups");
+    }
+
+    async addGroup({ groupName, discordId, modRole, adminRole }) {
+        return await this.postJsonMethod("addgroup", {
+            "groupname": groupName,
+            "adminroleid": adminRole,
+            "discordid": discordId, // id of the discord group (server id)
+            "modroleid": modRole // id of the staff role in discord (in this server)
+        });
+    }
+
+    async removeGroup({ gid }) {
+        return await this.postJsonMethod("delgroup", {
+            "groupId": gid,
+        });
+    }
+
+    async getGroup(gid) {
+        return await this.getJsonMethod("groups", { "groupid": gid });
+    }
+
+    async addGroupOwner({ gid, uid, nickname }) {
+        return await this.postJsonMethod("addowner", {
+            "userid": uid, // discord userid
+            "nickname": nickname, // will change when the user signs in
+            "groupid": gid, // group to add the user to
+        });
+    }
+
+    async addGroupAdmin({ gid, uid, nickname }) {
+        return await this.postJsonMethod("addadmin", {
+            "userid": uid, // discord userid
+            "nickname": nickname, // will change when the user signs in
+            "groupid": gid, // group to add the user to
+        });
+    }
+
+    async removeGroupAdmin({ gid, uid }) {
+        return await this.postJsonMethod("deladmin", {
+            "userid": uid,
+            "groupid": gid,
+        });
+    }
+
+    async removeGroupOwner({ gid, uid }) {
+        return await this.postJsonMethod("delowner", {
+            "userid": uid,
+            "groupid": gid,
+        });
+    }
+
+    async getServer(sid) {
+        return await this.getJsonMethod("server", { "serverid": sid });
+    }
+
+    async getServerGame(sid) {
+        return await this.getJsonMethod("servers", { "serverid": sid });
+    }
+
+    async removeServer({ gid, sid }) {
+        return await this.postJsonMethod("delserver", {
+            "serverid": sid,
+            "groupid": gid,
+        });
+    }
+
+    async renameServer({ name, sid }) {
+        return await this.postJsonMethod("renameserver", {
+            "serverid": sid,
+            "servername": name,
+        });
+    }
+
+    async changeServerAlias({ gid, alias, sid }) {
+        return await this.postJsonMethod("serveralias", {
+            "serverid": sid,
+            "groupid": gid,
+            "serveralias": alias,
+        });
+    }
+
+
+
+
 }
 
-export const OperationsApi = React.createContext();
+export const OperationsApi = new ApiProvider();
