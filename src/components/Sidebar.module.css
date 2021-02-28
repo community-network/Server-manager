@@ -34,6 +34,8 @@
 .Sidebar {
     width: 340px;
     display: flex;
+    position: fixed;
+    height: 100vh;
     flex-direction: column;
     background: var( --color-container);
 }

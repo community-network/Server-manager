@@ -4,7 +4,6 @@ export class ApiProvider extends JsonClient {
 
     constructor() {
         super();
-        this._server = "Community Operations #";
     }
 
     logout() {
@@ -18,33 +17,49 @@ export class ApiProvider extends JsonClient {
         return user;
     }
 
-    async kickPlayer(server, name, reason) {
-        //await this.user;
-        return await this.postJsonMethod("changeplayer", { "request": "kickPlayer", "playername": name, "servername": this._server + server, "reason": reason });
+    async kickPlayer({ sid, name, reason }) {
+        return await this.postJsonMethod("changeplayer", {
+            "request": "kickPlayer",
+            "playername": name,
+            "serverid": sid,
+            "reason": reason
+        });
     }
 
-    async banPlayer(server, name, reason, time) {
-        //await this.user;
-        return await this.postJsonMethod("changeserver", { "request": "addServerBan", "playername": name, "servername": this._server + server, "bantime": time.toString(), "reason": reason });
+    async banPlayer({ name, reason, time, sid }) {
+        return await this.postJsonMethod("changeserver", {
+            "request": "addServerBan",
+            "playername": name,
+            "serverid": sid,
+            "bantime": time.toString(),
+            "reason": reason
+        }); 
     }
 
-    async addVip(server, name) {
-        //await this.user;
-        return await this.postJsonMethod("changeserver", { "request": "addServerVip", "playername": name, "servername": this._server + server });
+    async addVip({ sid, name }) {
+        return await this.postJsonMethod("changeserver", {
+            "request": "addServerVip",
+            "playername": name,
+            "serverid": sid
+        });
     }
 
-    async movePlayer(server, team, name) {
-        //await this.user;
-        return await this.postJsonMethod("moveplayer", { "teamid": team, "playername": name, "servername": this._server + server });
+    async movePlayer({ sid, team, name }) {
+        return await this.postJsonMethod("moveplayer", {
+            "teamid": team,
+            "playername": name,
+            "serverid": sid
+        });
     }
 
-    async getBanList(server) {
-        //await this.user;
-        return await this.getJsonMethod("infolist", { "type": "bannedList", "name": encodeURIComponent(this._server + server) });
+    async getBanList( sid ) {
+        return await this.getJsonMethod("infolist", {
+            "type": "bannedList",
+            "serverid": sid
+        });
     }
 
     async getLogs() {
-        //await this.user;
         return await this.getJsonMethod("taillog");
     }
 
@@ -52,12 +67,14 @@ export class ApiProvider extends JsonClient {
         return await this.getJsonMethod("devgroups");
     }
 
-    async addGroup({ groupName, discordId, modRole, adminRole }) {
+    async addGroup({ groupName, discordId, modRole, adminRole, sid, remid }) {
         return await this.postJsonMethod("addgroup", {
             "groupname": groupName,
             "adminroleid": adminRole,
-            "discordid": discordId, // id of the discord group (server id)
-            "modroleid": modRole // id of the staff role in discord (in this server)
+            "discordid": discordId,
+            "modroleid": modRole,
+            "remid": remid,
+            "sid": sid,
         });
     }
 
@@ -75,7 +92,7 @@ export class ApiProvider extends JsonClient {
         return await this.postJsonMethod("addowner", {
             "userid": uid, // discord userid
             "nickname": nickname, // will change when the user signs in
-            "groupid": gid, // group to add the user to
+            "groupid": gid,
         });
     }
 
@@ -83,7 +100,7 @@ export class ApiProvider extends JsonClient {
         return await this.postJsonMethod("addadmin", {
             "userid": uid, // discord userid
             "nickname": nickname, // will change when the user signs in
-            "groupid": gid, // group to add the user to
+            "groupid": gid,
         });
     }
 
@@ -130,8 +147,6 @@ export class ApiProvider extends JsonClient {
             "serveralias": alias,
         });
     }
-
-
 
 
 }

@@ -12,12 +12,20 @@ export function Server(props) {
     //const { error: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid), { staleTime: 60000 });
 
     var serverCard = "";
+    var playerName = "";
 
     // runningGame["servers"][0]
 
+    // console.log(runningGame);
+
+
+    const movePlayer = useMutation(
+        variables => OperationsApi.removeGroupAdmin(variables)
+    );
+
     if (!serverError && server) {
         serverCard = (
-            <>
+            <Row>
                 <Column>
                     <Header>
                         <h2>Dashboard</h2>
@@ -40,14 +48,49 @@ export function Server(props) {
                         </ServerInfoHolder>
                     </Card>
                 </Column>
-            </>
+            </Row>
         );
     }
 
     return (
-        <Row>
+        <>
             {serverCard}
-        </Row>
+            <Row>
+                <Column>
+                    <Card>
+                        <h2>Console</h2>
+                        <Row>
+                            <TextInput name="Player name" callback={e => { playerName = e.target.value; }} />
+                            <ButtonRow>
+                                <Button name="Kick" />
+                                <Button name="Move" callback={_ => movePlayer.mutate({ sid, team: "1", name: playerName })} />
+                                <Button name="Ban" />
+                                <Button name="Unban" />
+                                <Button name="Give VIP" />
+                                <Button name="Remove VIP" />
+                            </ButtonRow>
+                        </Row>
+                    </Card>
+                </Column>
+            </Row>
+            <Row>
+                <Column>
+                    <Card>
+                        <h2>Team 1</h2>
+                    </Card>
+                </Column>
+                <Column>
+                    <Card>
+                        <h2>Team 2</h2>
+                    </Card>
+                </Column>
+            </Row>
+        </>
     );
 
+}
+
+
+function ServerConsole() {
+    return <></>;
 }
