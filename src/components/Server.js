@@ -107,8 +107,17 @@ export function PlayerInfo(props) {
     var info = props.game.data[0].players[props.team].players;
     return (
         info.map(player => 
-            <div>{player.platoon !== "" ? `[${player.platoon}] ` : ""}
-            {player.name}</div>
+            <Link className={styles.PlayerRow} to={"/stats/" + player.name}>
+                <span className={styles.PlayerName}>
+                    {player.platoon !== "" ? `[${player.platoon}] ` : ""}
+                    {player.name}
+                </span>
+                <div className={styles.PlayerButtons}>
+                    <Button name="Kick"></Button>
+                    <Button name="Ban"></Button>
+                    <Button name="Give vip"></Button>
+                </div>
+            </Link>
         )
     );
 }

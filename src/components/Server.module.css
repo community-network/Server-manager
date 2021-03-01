@@ -86,3 +86,28 @@
 
     width: 100px;
 }
+
+.PlayerRow {
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: var(--color-text-low);
+    background: var(--color-second);
+    margin: 6px 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.PlayerName {
+    flex-grow: 2;
+    color: var(--color-text-high);
+}
+
+.PlayerRow:hover {
+    background: var(--color-second-v2);
+}
+
+.PlayerButtons {
+    display: flex;
+    flex-direction: row;
+}
