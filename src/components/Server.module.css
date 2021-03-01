@@ -98,10 +98,16 @@
     align-items: center;
 }
 
+
 .PlayerName {
     flex-grow: 2;
     color: var(--color-text-high);
 }
+
+.playerBackgroundInfo {
+    margin-right: 10px;
+}
+
 
 .PlayerRow:hover {
     background: var(--color-second-v2);

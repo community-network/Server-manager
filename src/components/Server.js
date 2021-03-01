@@ -107,11 +107,12 @@ export function PlayerInfo(props) {
     var info = props.game.data[0].players[props.team].players;
     return (
         info.map(player => 
-            <Link className={styles.PlayerRow} to={"/stats/" + player.name}>
+            <Link className={styles.PlayerRow} to={"#"}>
                 <span className={styles.PlayerName}>
                     {player.platoon !== "" ? `[${player.platoon}] ` : ""}
                     {player.name}
                 </span>
+                <div className={styles.playerBackgroundInfo}>Click on the name for stats</div>
                 <div className={styles.PlayerButtons}>
                     <Button name="Kick"></Button>
                     <Button name="Ban"></Button>
