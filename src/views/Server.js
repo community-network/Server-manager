@@ -9,7 +9,7 @@ export function Server(props) {
     var sid = props.match.params.sid;
 
     const { error: serverError, data: server } = useQuery('server' + sid, () => OperationsApi.getServer(sid), { staleTime: 60000 });
-    //const { error: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid), { staleTime: 60000 });
+    const { error: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid), { staleTime: 60000 });
 
     var serverCard = "";
     var playerName = "";
@@ -23,7 +23,7 @@ export function Server(props) {
         variables => OperationsApi.removeGroupAdmin(variables)
     );
 
-    if (!serverError && server) {
+    if (!serverError && server && !gameError && runningGame) {
         serverCard = (
             <Row>
                 <Column>
@@ -34,7 +34,7 @@ export function Server(props) {
                         <h2>Server info</h2>
                         <p>Server info</p>
                         <ServerInfoHolder>
-                            <ServerRotation game={{}} /> 
+                            <ServerRotation game={runningGame} /> 
                         </ServerInfoHolder>
                     </Card>
                 </Column>

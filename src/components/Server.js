@@ -80,14 +80,15 @@ export function ServerInfo(props) {
 
 
 export function ServerRotation(props) {
-    var game = props.game;
+    var game = props.game.data[0].info;
+    console.log(game)
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
                 <img className={styles.serverImage} src={"https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Tunguska/18/37/MP_Scar_LandscapeLarge-ee25fbd6.jpg"} />
                 <div className={styles.GameInfo}>
-                    <span className={styles.ServerName}>{"Sinai Desert - CQ"}</span>
-                    <SmallText>{"32/64 players"}</SmallText>
+                    <span className={styles.ServerName}>{game.prefix}</span>
+                    <SmallText>{`${game.serverInfo} players`}</SmallText>
                     <SmallText>{"Running now"}</SmallText>
                 </div>
             </div>
