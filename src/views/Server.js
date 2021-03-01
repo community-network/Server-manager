@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo } from "../components";
+import { Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
 
 
 export function Server(props) {
@@ -13,6 +13,7 @@ export function Server(props) {
 
     var serverCard = "";
     var playerName = "";
+    var playerList = "";
 
     // runningGame["servers"][0]
 
@@ -52,6 +53,25 @@ export function Server(props) {
         );
     }
 
+    if (!gameError && runningGame) {
+        playerList = (
+            <Row>
+                <Column>
+                    <Card>
+                        <h2>Team 1</h2>
+                        <PlayerInfo game={runningGame} team="0" /> 
+                    </Card>
+                </Column>
+                <Column>
+                    <Card>
+                        <h2>Team 2</h2>
+                        <PlayerInfo game={runningGame} team="1" /> 
+                    </Card>
+                </Column>
+            </Row>
+        )
+    }
+
     return (
         <>
             {serverCard}
@@ -73,18 +93,7 @@ export function Server(props) {
                     </Card>
                 </Column>
             </Row>
-            <Row>
-                <Column>
-                    <Card>
-                        <h2>Team 1</h2>
-                    </Card>
-                </Column>
-                <Column>
-                    <Card>
-                        <h2>Team 2</h2>
-                    </Card>
-                </Column>
-            </Row>
+            {playerList}
         </>
     );
 

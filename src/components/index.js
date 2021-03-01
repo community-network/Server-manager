@@ -8,4 +8,4 @@ export { Header } from "./Header";
 export { UserRow, UserStRow } from "./User";
 export { GroupRow, ServerRow } from "./Group";
 
-export { ServerInfo, ServerRotation, ServerInfoHolder } from "./Server";
+export { ServerInfo, ServerRotation, ServerInfoHolder, PlayerInfo } from "./Server";

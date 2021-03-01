@@ -78,10 +78,8 @@ export function ServerInfo(props) {
     );
 }
 
-
 export function ServerRotation(props) {
     var game = props.game.data[0].info;
-    console.log(game)
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
@@ -96,13 +94,24 @@ export function ServerRotation(props) {
                 <Button name="Restart" />
                 <select className={styles.SwitchGame}>
                     <option value="">Switch game..</option>
-                    <option value="0">Ballroom Blitz - Conquest</option>
+                    {game.rotation.map(value => 
+                        <option value={value.index}>{value.mapname}</option>
+                    )}
                  </select>
             </ButtonRow>
         </div>
     );
 }
 
+export function PlayerInfo(props) {
+    var info = props.game.data[0].players[props.team].players;
+    return (
+        info.map(player => 
+            <div>{player.platoon !== "" ? `[${player.platoon}] ` : ""}
+            {player.name}</div>
+        )
+    );
+}
 
 export function ServerInfoHolder(props) {
     return (
