@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import styles from "./Buttons.module.css";
@@ -70,6 +70,37 @@ export function Switch(props) {
                 <span className={styles.SwitchOff}></span>
             </span>
             <span className={styles.SwitchHandle}></span>
+        </div>
+    );
+}
+
+export function DropdownButton(props) {
+    const [open, setOpen] = useState(false);
+
+    let container = React.useRef();
+
+    useEffect(() => {
+        let handleClickOutside = (event) => {
+            if (container.current && !container.current.contains(event.target)) {
+                setOpen(false)
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return function cleanup() {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    })
+
+    return (
+        <div className={styles.container} ref={container}>
+            <button type="button" className={styles.button} onClick={() => setOpen(!open)}>{props.name}</button>
+            {open && (<div className={styles.dropdown}>
+                <ul className={styles.ul}>
+                    {
+                        props.options.map(option => <li className={styles.li} onClick={option.callback}>{option.name}</li>)
+                    }
+                </ul>
+            </div>)}
         </div>
     );
 }

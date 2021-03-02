@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Server.module.css";
 import { Link } from "react-router-dom";
-import { Button, ButtonRow, Switch } from "./Buttons";
+import {Button, ButtonRow, Switch, DropdownButton} from "./Buttons";
 
 
 export function SmallText(props) {
@@ -105,6 +105,12 @@ export function ServerRotation(props) {
 
 export function PlayerInfo(props) {
     var info = props.game.data[0].players[props.team].players;
+    let getDropdownOptions = (player) => {
+        return [
+            { name: "Give VIP", callback: () => console.log("Player " + player.name + " Getting a VIP Slot") },
+            { name: "Remove VIP", callback: () => console.log("Player " + player.name + " Being Removed from VIP Slot") },
+        ]
+    };
     return (
         info.map(player => 
             <div className={styles.PlayerRow}>
@@ -117,7 +123,7 @@ export function PlayerInfo(props) {
                     <Button name="Move" background_color="#2e2e2e"></Button>
                     <Button name="Kick" background_color="#004e14"></Button>
                     <Button name="Ban" background_color="#4e0013"></Button>
-                    <Button name="☰"></Button>
+                    <DropdownButton options={getDropdownOptions(player)} name="☰"></DropdownButton>
                 </div>
             </div>
         )
