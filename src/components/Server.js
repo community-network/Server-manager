@@ -83,7 +83,7 @@ export function ServerRotation(props) {
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
-                <img className={styles.serverImage} src={"https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Tunguska/18/37/MP_Scar_LandscapeLarge-ee25fbd6.jpg"} />
+                <img className={styles.serverImage} src={game.url} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{game.prefix}</span>
                     <SmallText>{`${game.serverInfo} players`}</SmallText>
@@ -107,18 +107,18 @@ export function PlayerInfo(props) {
     var info = props.game.data[0].players[props.team].players;
     return (
         info.map(player => 
-            <Link className={styles.PlayerRow} to={"#"}>
+            <div className={styles.PlayerRow}>
                 <span className={styles.PlayerName}>
                     {player.platoon !== "" ? `[${player.platoon}] ` : ""}
                     {player.name}
                 </span>
-                <div className={styles.playerBackgroundInfo}>Click on the name for stats</div>
                 <div className={styles.PlayerButtons}>
+                    <Button name="Stats"></Button>
                     <Button name="Kick"></Button>
                     <Button name="Ban"></Button>
-                    <Button name="Give vip"></Button>
+                    <Button name="☰"></Button>
                 </div>
-            </Link>
+            </div>
         )
     );
 }
