@@ -114,8 +114,9 @@ export function PlayerInfo(props) {
                 </span>
                 <div className={styles.PlayerButtons}>
                     <Button name="Stats"></Button>
-                    <Button name="Kick"></Button>
-                    <Button name="Ban"></Button>
+                    <Button name="Move" background_color="#2e2e2e"></Button>
+                    <Button name="Kick" background_color="#004e14"></Button>
+                    <Button name="Ban" background_color="#4e0013"></Button>
                     <Button name="☰"></Button>
                 </div>
             </div>

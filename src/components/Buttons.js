@@ -6,6 +6,9 @@ import styles from "./Buttons.module.css";
 
 export function Button(props) {
     var style = {};
+    if (props.background_color) {
+        style["background"] = props.background_color
+    }
     if (props.width) {
         style["width"] = props.width;
     }
