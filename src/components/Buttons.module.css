@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.button:disabled {
+.button:disabled, a:disabled {
     background: var(--color-second-v1);
     color: var(--color-text-low);
     cursor: not-allowed;

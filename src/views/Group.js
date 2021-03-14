@@ -52,6 +52,35 @@ export function Group(props) {
         }
     );
 
+    const removeServer = useMutation(
+        variables => OperationsApi.removeServer(variables),
+        {
+            // When mutate is called:
+            onMutate: async ({ gid, sid }) => {
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('groupId' + gid)
+                // Snapshot the previous value
+                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                // Optimistically update to the new value
+                queryClient.setQueryData('groupId' + gid, old => {
+                    old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousGroup, gid }
+            },
+            // If the mutation fails, use the context returned from onMutate to roll back
+            onError: (err, newTodo, context) => {
+                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('groupId' + context.gid)
+            },
+        }
+    );
+
+
 
     const removeOwner = useMutation(
         variables => OperationsApi.removeGroupOwner(variables),
@@ -95,7 +124,8 @@ export function Group(props) {
 
             for (var i in group.servers) {
                 var server = group.servers[i];
-                serverList.push(<ServerRow server={server} key={i} />);
+                var ServerDelButton = <SmallButton name="Delete" content={deleteIcon} callback={() => { removeServer.mutate({ gid, sid: server.id }); }} />;
+                serverList.push(<ServerRow server={server} key={i} button={ServerDelButton} />);
             }
 
             groupCard = (
@@ -368,7 +398,7 @@ export function AddGroup(props) {
         let newVars = newGroupState.variables;
         newGroupState.roleDisplay = (newVars.discordId !== "");
         newGroupState.canAdd =
-            newGroupState.roleDisplay && (newVars.adminRole !== "") && (newVars.modRole !== "") && (newVars.groupName !== "");
+            (newVars.groupName !== "") && (newVars.remid !== "") && (newVars.sid !== "");
         changeState(newGroupState);
     };
 
@@ -384,6 +414,8 @@ export function AddGroup(props) {
                     <TextInput name="Discord Server ID" callback={(e) => { checkInputVariables({ discordId: e.target.value }) }} />
                     <TextInput name="Mod role ID" disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ modRole: e.target.value }) }} />
                     <TextInput name="Admin role ID" disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ adminRole: e.target.value }) }} />
+                    <TextInput name="SID cookie" type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <TextInput name="REMID cookie" type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <ButtonRow>
                         <Button name="Create group" disabled={!addGroupState.canAdd} callback={() => { AddNewGroupExecute.mutate(addGroupState.variables); history.push("/dev/"); }} />
                     </ButtonRow>
@@ -448,6 +480,72 @@ export function DeleteGroup(props) {
         </Row>
     );
 }
+
+export function AddGroupServer(props) {
+    var gid = props.match.params.gid;
+
+    var name = "", alias = "";
+
+    const queryClient = useQueryClient();
+
+
+    const AddGroupServerExecute = useMutation(
+        variables => OperationsApi.addGroupServer(variables),
+        {
+            // When mutate is called:
+            onMutate: async({ gid, name, alias }) => {
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('groupId' + gid)
+                // Snapshot the previous value
+                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                // Optimistically update to the new value
+                const UTCNow = new Date(Date.now()).toUTCString();
+
+                queryClient.setQueryData('groupId' + gid, old => {
+                    old.data[0].servers.push({
+                        "addedAt": UTCNow,
+                        "id": null,
+                        "name": name
+                    });
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousGroup, gid }
+            },
+            // If the mutation fails, use the context returned from onMutate to roll back
+            onError: (err, newTodo, context) => {
+                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('groupId' + context.gid)
+            },
+        }
+    );
+
+    const history = useHistory();
+
+    return (
+        <Row>
+            <Column>
+                <Header>
+                    <h2>Add new Server</h2>
+                </Header>
+                <Card>
+                    <h2>Group Server</h2>
+                    <TextInput name="Server name" callback={(e) => { name = e.target.value }} />
+                    <TextInput name="Alias (optional)" callback={(e) => { alias = e.target.value; }} />
+                    <ButtonRow>
+                        <Button name="Add Server" callback={() => { AddGroupServerExecute.mutate({ gid, alias, name }); history.push("/group/" + gid); }} />
+                    </ButtonRow>
+                </Card>
+            </Column>
+        </Row>
+    );
+
+}
+
 
 export function EditGroup(props) {
     return (<></>);

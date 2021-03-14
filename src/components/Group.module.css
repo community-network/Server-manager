@@ -1,16 +1,25 @@
 .GroupRow {
-    padding: 15px 24px;
+    padding: 0 24px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-second);
     border-radius: 10px;
     color: var(--color-text-low);
-    background: var(--color-second);
+    background: var(--color-container-v2);
     margin: 6px 0;
     text-decoration: none;
     display: flex;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .GroupName {
     flex-grow: 2;
     color: var(--color-text-high);
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
 }
 
 .GroupRow:hover {

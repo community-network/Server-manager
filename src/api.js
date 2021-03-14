@@ -17,12 +17,19 @@ export class ApiProvider extends JsonClient {
         return user;
     }
 
-    async kickPlayer({ sid, name, reason }) {
+    async kickPlayer({ sid, playername, reason }) {
         return await this.postJsonMethod("changeplayer", {
             "request": "kickPlayer",
-            "playername": name,
+            "playername": playername,
             "serverid": sid,
             "reason": reason
+        });
+    }
+
+    async changeRotation({ sid, map }) {
+        return await this.postJsonMethod("changelevel", {
+            "mapnumber": map,
+            "serverid": sid
         });
     }
 
@@ -36,11 +43,30 @@ export class ApiProvider extends JsonClient {
         }); 
     }
 
-    async addVip({ sid, name }) {
+    async unbanPlayer({ name, reason, sid }) {
+        return await this.postJsonMethod("changeserver", {
+            "request": "removeServerBan",
+            "playername": name,
+            "serverid": sid,
+            "reason": reason
+        });
+    }
+
+    async addVip({ sid, name, reason }) {
         return await this.postJsonMethod("changeserver", {
             "request": "addServerVip",
             "playername": name,
-            "serverid": sid
+            "serverid": sid,
+            reason
+        });
+    }
+
+    async removeVip({ sid, name, reason }) {
+        return await this.postJsonMethod("changeserver", {
+            "request": "removeServerVip",
+            "playername": name,
+            "serverid": sid,
+            reason
         });
     }
 
@@ -96,6 +122,14 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async addGroupServer({ gid, name, alias }) {
+        return await this.postJsonMethod("addserver", {
+            "servername": name,
+            "serveralias": alias,
+            "groupid": gid,
+        });
+    }
+
     async addGroupAdmin({ gid, uid, nickname }) {
         return await this.postJsonMethod("addadmin", {
             "userid": uid, // discord userid
@@ -123,7 +157,12 @@ export class ApiProvider extends JsonClient {
     }
 
     async getServerGame(sid) {
-        return await this.getJsonMethod("servers", { "serverid": sid });
+        var game = await this.getJsonMethod("servers", { "serverid": sid });
+        if ("error" in game.data[0]) {
+            throw Error(game.data[0].error);
+        } else {
+            return game;
+        }
     }
 
     async removeServer({ gid, sid }) {

@@ -14,10 +14,21 @@ export function GroupRow(props) {
 
 export function ServerRow(props) {
     var server = props.server;
+
+    // If not yet setteled
+    if (server.id === null) {
+        return (
+            <div className={styles.GroupRow}>
+                <span className={styles.GroupName}>{server.name}</span>
+                {props.button}
+            </div>
+        );
+    }
+
     return (
-        <Link className={styles.GroupRow} to={"/server/" + server.id}>
-            <span className={styles.GroupName}>{server.name}</span>
-            Open Console
-        </Link>
+        <div className={styles.GroupRow}>
+            <Link className={styles.GroupName} to={"/server/" + server.id}>{server.name}</Link>
+            {props.button}
+        </div>
     );
 }

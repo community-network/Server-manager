@@ -52,14 +52,16 @@
 
 .SwitchGame {
     outline: none;
-    border: none;
+    border: 1px solid var(--color-second);
+    height: 40px;
     border-radius: 10px;
-    background: var(--color-second);
+    background: var(--color-container-v2);
     color: var(--color-text);
     margin: 0 10px;
     padding: 0 15px;
     font-family: "Montserrat";
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 13px;
 }
 
 

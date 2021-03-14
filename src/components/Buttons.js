@@ -13,11 +13,14 @@ export function Button(props) {
         style["width"] = props.width;
     }
     return (
-        <button className={styles.button} disabled={props.disabled} onClick={props.callback} title={props.name} style={style}>{props.name}</button>
+        <button value={props.value} className={styles.button} disabled={props.disabled} onClick={props.callback} title={props.name} style={style}>{props.name}</button>
     );
 }
 
 export function ButtonLink(props) {
+    if (props.disabled) {
+        return <Button name={props.name} disabled={true} />
+    }
     return (
         <NavLink className={styles.button} to={props.to} title={props.name}>{props.name}</NavLink>
     );
@@ -37,7 +40,7 @@ export function TextInput(props) {
         elementClassName = styles.TextInputDis;
     }*/
     return (
-        <input className={styles.TextInput} disabled={props.disabled} type="text" placeholder={props.name} onChange={props.callback} />
+        <input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onChange={props.callback} />
     );
 }
 

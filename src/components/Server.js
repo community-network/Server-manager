@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Server.module.css";
 import { Link } from "react-router-dom";
-import {Button, ButtonRow, Switch, DropdownButton} from "./Buttons";
+import { Button, ButtonRow, Switch, DropdownButton, ButtonLink } from "./Buttons";
 
 
 export function SmallText(props) {
@@ -80,6 +80,7 @@ export function ServerInfo(props) {
 
 export function ServerRotation(props) {
     var game = props.game.data[0].info;
+    var [rotationId, setRotationId] = useState("");
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
@@ -91,24 +92,29 @@ export function ServerRotation(props) {
                 </div>
             </div>
             <ButtonRow>
-                <Button name="Restart" />
-                <select className={styles.SwitchGame}>
+                <Button name="Restart" callback={_ => props.rotate(game.rotationId)} />
+                <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
                     <option value="">Switch game..</option>
                     {game.rotation.map(value => 
                         <option value={value.index}>{value.mapname}</option>
                     )}
-                 </select>
+                </select>
+                {(rotationId !== "") ? <Button name="Apply" callback={_ => { props.rotate(rotationId); setRotationId(""); }} /> : ""}
             </ButtonRow>
         </div>
     );
 }
 
 export function PlayerInfo(props) {
+
     var info = props.game.data[0].players[props.team].players;
+
+    var moveTeam = (props.team == "0") ? "1" : "2";
+
     let getDropdownOptions = (player) => {
         return [
-            { name: "Give VIP", callback: () => console.log("Player " + player.name + " Getting a VIP Slot") },
-            { name: "Remove VIP", callback: () => console.log("Player " + player.name + " Being Removed from VIP Slot") },
+            { name: "Give VIP", callback: () => props.giveVip.mutate({ sid: props.sid, name: player.name, reason: "" }) },
+            { name: "Remove VIP", callback: () => props.removeVip.mutate({ sid: props.sid, name: player.name, reason: "" }) },
         ]
     };
     return (
@@ -119,10 +125,10 @@ export function PlayerInfo(props) {
                     {player.name}
                 </span>
                 <div className={styles.PlayerButtons}>
-                    <Button name="Stats"></Button>
-                    <Button name="Move" background_color="#2e2e2e"></Button>
-                    <Button name="Kick" background_color="#004e14"></Button>
-                    <Button name="Ban" background_color="#4e0013"></Button>
+                    {/*<Button name="Stats"></Button>*/}
+                    <Button name="Move" callback={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam})} />
+                    <ButtonLink name="Kick" to={`/server/${props.sid}/kick/${player.name}/`} />
+                    <ButtonLink name="Ban" to={`/server/${props.sid}/ban/${player.name}/`} />
                     <DropdownButton options={getDropdownOptions(player)} name="☰"></DropdownButton>
                 </div>
             </div>
