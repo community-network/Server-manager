@@ -1,16 +1,17 @@
-# Website for Community Network
+# [Server Manager](https://manager.gametools.network/)
 
-Build naming:
+Battlefield One server manager created by Community Network.
 
-`<Y>.<M><D>.<H><M>`
+### Features
 
-Example: **v20.1118.1235**
+ * Group based server managment
+ * User management and privilegy system
+ * Full support for game console
+ * Live game info, including player list
 
-## Order of releasing
 
-1. Commit all changes to /dev/
-2. Pull request /dev/ -> /build/
-3. Auto Build
-4. On success, merge
-5. Prepare build release info, make docs changing and commit to /build/
-5. Pull request & Merge /build/ -> /main/
+### Soon
+
+ * Server auto kick system
+ * Logs, ban and vip lists
+ * Discord integration
