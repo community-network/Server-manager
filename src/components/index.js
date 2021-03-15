@@ -1,9 +1,9 @@
 
 export { PageContainer, PageColumn } from "./PageContainer";
 export { Sidebar } from "./Sidebar";
-export { Button, ButtonLink, ButtonRow, TextInput, SmallButton, Switch } from "./Buttons";
+export { Button, ButtonLink, ButtonRow, TextInput, SmallButton, Switch, ChoosePageButtons } from "./Buttons";
 export { Column, Row, Grow } from "./Flex";
-export { Card, CardRow } from "./Card";
+export { Card, CardRow, PageCard } from "./Card";
 export { Header } from "./Header";
 export { UserRow, UserStRow, FakeUserStRow } from "./User";
 export { GroupRow, ServerRow } from "./Group";

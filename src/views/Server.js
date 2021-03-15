@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
+import { Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
 
 
 export function Server(props) {
@@ -24,56 +24,57 @@ export function Server(props) {
     var [removeVipStatus, changeRemoveVipStatus] = useState({ name: "Remove Vip", status: false });
     var [unbanStatus, changeUnbanStatus] = useState({ name: "Unban", status: false });
 
+    var [tabsListing, setTabsListing] = useState("info");
 
     const UnbanPlayer = useMutation(
         v => OperationsApi.unbanPlayer(v), {
-            onMutate: async () => {
-                changeUnbanStatus({ name: "Pending..", status: true });
-                return { status: unbanStatus }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
+        onMutate: async () => {
+            changeUnbanStatus({ name: "Pending..", status: true });
+            return { status: unbanStatus }
+        },
+        // If the mutation fails, use the context returned from onMutate to roll back
+        onError: (err, newTodo, context) => {
 
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                changeUnbanStatus(context.status);
-            },
-        }
+        },
+        // Always refetch after error or success:
+        onSettled: (data, error, variables, context) => {
+            changeUnbanStatus(context.status);
+        },
+    }
     );
 
     const RemoveVip = useMutation(
         v => OperationsApi.removeVip(v), {
-            onMutate: async () => {
-                changeRemoveVipStatus({ name: "Pending..", status: true });
-                return { status: removeVipStatus }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
+        onMutate: async () => {
+            changeRemoveVipStatus({ name: "Pending..", status: true });
+            return { status: removeVipStatus }
+        },
+        // If the mutation fails, use the context returned from onMutate to roll back
+        onError: (err, newTodo, context) => {
 
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                changeRemoveVipStatus(context.status);
-            },
-        }
+        },
+        // Always refetch after error or success:
+        onSettled: (data, error, variables, context) => {
+            changeRemoveVipStatus(context.status);
+        },
+    }
     );
 
     const AddVip = useMutation(
         v => OperationsApi.addVip(v), {
-            onMutate: async () => {
-                changeAddVipStatus({ name: "Pending..", status: true });
-                return { status: addVipStatus }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
-                
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                changeAddVipStatus(context.status);
-            },
-        }
+        onMutate: async () => {
+            changeAddVipStatus({ name: "Pending..", status: true });
+            return { status: addVipStatus }
+        },
+        // If the mutation fails, use the context returned from onMutate to roll back
+        onError: (err, newTodo, context) => {
+
+        },
+        // Always refetch after error or success:
+        onSettled: (data, error, variables, context) => {
+            changeAddVipStatus(context.status);
+        },
+    }
     );
 
     const movePlayer = useMutation(
@@ -110,36 +111,51 @@ export function Server(props) {
         }
     );
 
+    const serverTabs = [
+        {
+            name: "Server info",
+            callback: () => setTabsListing("info"),
+        },
+        {
+            name: "Settings",
+            callback: () => setTabsListing("settings"),
+        }
+    ];
+
+    const catTabs = {
+        info: (
+            <ServerInfoHolder>
+                <ServerRotation game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} />
+            </ServerInfoHolder>
+        ),
+        settings: (
+            <>
+                <p>Servers can be attached to Discord bots. <br /> Main bot settings for current server.</p>
+                <ServerInfoHolder>
+                    <ServerInfo server={server} />
+                </ServerInfoHolder>
+            </>
+        )
+    }
+
     if (!serverError && server && !gameError && runningGame) {
         serverCard = (
             <Row>
                 <Column>
-                    <Header>
-                        <h2>Dashboard</h2>
-                    </Header>
-                    <Card>
-                        <h2>Server info</h2>
-                        <p>Server info</p>
-                        <ServerInfoHolder>
-                            <ServerRotation game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} /> 
-                        </ServerInfoHolder>
-                    </Card>
-                </Column>
-                <Column>
-                    <Header />
-                    <Card>
-                        <h2>Discord Integration</h2>
-                        <p>Servers can be attached to Discord bots. <br /> Main bot settings for current server.</p>
-                        <ServerInfoHolder>
-                            <ServerInfo server={server} />
-                        </ServerInfoHolder>
-                    </Card>
+                    <PageCard buttons={serverTabs} >
+                        {catTabs[tabsListing]}
+                    </PageCard>
                 </Column>
             </Row>
         );
     }
 
+    var isOpsMode = false;
+
     if (!gameError && runningGame) {
+
+        isOpsMode = runningGame.data[0].info.mode === "Operations";
+
         var f1 = runningGame.data[0].players[0].players.find(e => e.name == playerName);
         var f2 = runningGame.data[0].players[1].players.find(e => e.name == playerName);
 
@@ -174,6 +190,13 @@ export function Server(props) {
 
     return (
         <>
+            <Row>
+                <Column>
+                    <Header>
+                        <h2>Dashboard</h2>
+                    </Header>
+                </Column>
+            </Row>
             {serverCard}
             <Row>
                 <Column>
@@ -188,8 +211,8 @@ export function Server(props) {
                                 <Button disabled={!playerInGame} name="Move" callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
                                 <ButtonLink disabled={playerName === ""} name="Ban" to={`/server/${sid}/ban/${playerName}/`} />
                                 <Button disabled={playerName === "" || unbanStatus.status} name={unbanStatus.name} callback={_ => UnbanPlayer.mutate({ sid, name: playerName, reason: "" })} />
-                                <Button disabled={playerName === "" || addVipStatus.status } name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />
-                                <Button disabled={playerName === "" || removeVipStatus.status} name={removeVipStatus.name} callback={_ => RemoveVip.mutate({ sid, name: playerName, reason: "" })}  />
+                                <Button disabled={playerName === "" || addVipStatus.status || isOpsMode} name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />
+                                <Button disabled={playerName === "" || removeVipStatus.status || isOpsMode} name={removeVipStatus.name} callback={_ => RemoveVip.mutate({ sid, name: playerName, reason: "" })}  />
                             </ButtonRow>
                         </Row>
                     </Card>
