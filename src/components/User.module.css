@@ -16,7 +16,7 @@
     font-weight: 500;
     align-self: center;
     color: var(--color-text-heigh);
-    flex-grow: 2;
+    min-width: 200px;
 }
 
 .DiscordNum {
@@ -45,6 +45,7 @@
     border-radius: 10px;
     background: var(--color-container-v2);
     margin: 6px 0;
+    align-items: center;
 }
 
 .DiscordId {
@@ -53,4 +54,12 @@
     font-weight: 500;
     align-self: center;
     margin-right: 24px;
+}
+
+.DateAdded {
+    color: var(--color-text);
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 24px;
+    flex-grow: 2;
 }

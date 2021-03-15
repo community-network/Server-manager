@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
 
 import Home from "./Home";
 import Account from "./Account";
@@ -11,7 +11,7 @@ import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, 
 
 export default function Views(props) {
     return (
-        <Switch location={props.location}>
+        <Switch>
 
             <Route exact path="/" component={Home} />
 

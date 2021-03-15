@@ -99,12 +99,16 @@ export function Sidebar(props) {
     return (
         <div className={styles.Sidebar}>
             <TopSidebar />
-            <div>
-                {accountLink}
-                {devLink}
-                {groupLinks}
-                <PageButton onClick={() => { window.location = "https://discord.gametools.network/" }} name="Need help?" />
-                {logoutLink}
+            <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                <div style={{ display: "flex", flexGrow: 2, flexDirection: "column" }}>
+                    {accountLink}
+                    {devLink}
+                    {groupLinks}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", marginBottom: "30px"}}>
+                    <PageButton onClick={() => { window.location = "https://discord.gametools.network/" }} name="Need help?" />
+                    {logoutLink}
+                </div>
             </div>
         </div>
     );
