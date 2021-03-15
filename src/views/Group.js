@@ -201,7 +201,7 @@ function GroupAdmins(props) {
     return <>
         <h5>Admin role can manage servers. You need to have at least <br />Owner role to add new admins.</h5>
         {
-            props.group.owners.map((admin, i) => (
+            props.group.admins.map((admin, i) => (
                 <UserStRow user={admin} key={i} button={
                     <SmallButton
                         name="Delete"
