@@ -32,3 +32,14 @@ export function ServerRow(props) {
         </div>
     );
 }
+
+export function GroupAdminAccount(props) {
+
+    var { remid, sid } = props.cookie;
+
+    return (
+        <div className={styles.AdminAccount}>
+        </div>
+    );
+
+}

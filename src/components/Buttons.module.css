@@ -167,3 +167,38 @@
     background-color: white;
 }
 
+.ChoosePageButton, .ChoosePageButtonActive {
+    border: 1px solid var(--color-second);
+    padding: 0 20px;
+    height: 30px;
+    border-radius: 8px 8px 0 0;
+    align-items: center;
+    color: #DBDBDB;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--color-container-v2);
+    display: flex;
+    margin: 0 6px;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "Montserrat";
+    border-bottom-color: transparent;
+}
+
+.ChoosePageButton:hover {
+    background: #262631;
+    cursor: pointer;
+}
+
+.ChoosePageButtonActive {
+    background: var(--color-container);
+    color: var(--color-text-low);
+}
+
+.ChoosePageButtonHolder {
+    display: flex;
+    flex-direction: row;
+    margin: 0 -6px !important;
+    align-items: center;
+    z-index: 2;
+}

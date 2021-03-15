@@ -24,10 +24,17 @@ export function UserRow(props) {
 
 export function UserStRow(props) {
     var user = props.user;
+    var dateAdded = new Date(Date.parse(user.addedAt));
+
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var dateString = `${dateAdded.getUTCDate()} ${months[dateAdded.getUTCMonth()]} ${dateAdded.getUTCHours()}:${dateAdded.getUTCMinutes()}`;
     return (
         <div className={styles.UserRowSt}>
             <div className={styles.DiscordName}>
                 {user.name}
+            </div>
+            <div className={styles.DateAdded}>
+                {dateString}
             </div>
             <div className={styles.DiscordId}>
                 {user.id}

@@ -45,6 +45,11 @@ export function TextInput(props) {
 }
 
 export function SmallButton(props) {
+    if (props.disabled) {
+        return (
+            ""
+        );
+    }
     return (
         <div className={styles.SmallButton} onClick={_ => props.callback(props.vars)} title={props.name}>{props.content || props.name}</div>
     );
@@ -106,4 +111,28 @@ export function DropdownButton(props) {
             </div>)}
         </div>
     );
+}
+
+
+export function ChoosePageButtons(props) {
+
+    const [active, setActive] = useState(0);
+
+    return (
+        <div className={styles.ChoosePageButtonHolder} >
+            {
+                props.buttons.map((button, i) => (
+                    <div
+                        key={i}
+                        className={(i === active) ? styles.ChoosePageButtonActive : styles.ChoosePageButton}
+                        onClick={_ => { setActive(i); button.callback() }}
+                        title={button.name}
+                    >
+                        {button.content || button.name}
+                    </div>
+                ))
+            }
+        </div>
+    );
+    
 }
