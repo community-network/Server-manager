@@ -36,3 +36,9 @@ export function UserStRow(props) {
         </div>
     );
 }
+
+export function FakeUserStRow(props) {
+    return (
+        <div className={styles.UserRowSt} />
+    );
+}

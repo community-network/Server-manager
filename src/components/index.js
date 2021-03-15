@@ -5,7 +5,7 @@ export { Button, ButtonLink, ButtonRow, TextInput, SmallButton, Switch } from ".
 export { Column, Row, Grow } from "./Flex";
 export { Card, CardRow } from "./Card";
 export { Header } from "./Header";
-export { UserRow, UserStRow } from "./User";
+export { UserRow, UserStRow, FakeUserStRow } from "./User";
 export { GroupRow, ServerRow } from "./Group";
 
 export { ServerInfo, ServerRotation, ServerInfoHolder, PlayerInfo } from "./Server";

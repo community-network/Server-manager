@@ -1,4 +1,11 @@
 
+const MODE = "dev";
+
+const endPoints = {
+    dev: "https://homedev.gametools.network/api/",
+    prod: "https://manager-api.gametools.network/api/"
+}
+
 export default class JsonClient {
   constructor() {
     this.isWorking = true;
@@ -14,7 +21,7 @@ export default class JsonClient {
             paramStr += s + "=" + params[s] + "&";
         }
         if (paramStr !== "") paramStr = "?" + paramStr;
-        const apiEP = "https://homedev.gametools.network/api/";
+        const apiEP = endPoints[MODE];
         return apiEP + method + paramStr;
     }
     async fetchMethod(method, params) {

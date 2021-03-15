@@ -83,7 +83,10 @@ export function Sidebar(props) {
             if (user.auth.isDeveloper) {
                 devLink = <PageLink to="/dev/" name="Developer Options" />;
             }
-            accountLink = <PageLink to="/account/" name="Account" />;
+            accountLink = [
+                <PageLink key={0} to="/account/" name="Account" />,
+                <PageLink key={1} to="/group/new/" name="Create Group" />
+            ];
             logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); history.push('/'); }} name="Logout" />;
             groupLinks = [];
             for (let i in user.permissions.isAdminOf) {

@@ -7,15 +7,15 @@ import { Column, Card, Header, ButtonLink, ButtonRow, GroupRow, Row } from "../c
 
 export function Developer() {
 
-    const { isLoading, error, data } = useQuery('devGroups', () => OperationsApi.getDevGroups())
+    const { isLoading, isError, data } = useQuery('devGroups', () => OperationsApi.getDevGroups())
     
     var groups = [];
 
-    if (!isLoading && !error && data) {
+    if (!isLoading && !isError && data) {
         data.data.map((g, i) => {
             groups.push(<GroupRow key={i} group={g} />);
         });
-    } else if (error) {
+    } else if (isError) {
         return <Redirect to="/" />;
     }
 
