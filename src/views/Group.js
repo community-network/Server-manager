@@ -5,6 +5,11 @@ import { OperationsApi } from "../api";
 import { Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
 
 
+const deleteIcon = (
+    <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
+        <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+    </svg>
+);
 
 
 export function Group(props) {
@@ -16,11 +21,6 @@ export function Group(props) {
     const { error: groupError, data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
     const { error: userError, data: user } = useQuery('user', () => OperationsApi.user);
 
-    const deleteIcon = (
-        <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
-            <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-        </svg>
-    );
 
     const removeAdmin = useMutation(
         variables => OperationsApi.removeGroupAdmin(variables),
@@ -142,10 +142,7 @@ export function Group(props) {
             name: "Owners",
             callback: () => setListing("owners"),
         },
-
-    if (groups) {
-        var group = groups.data[0];
-        if (group) {
+    ]
 
     const settingsCycle = [
         {
@@ -192,8 +189,10 @@ export function Group(props) {
             </Row>
             <Row>
                 <Column>
-                    {groupCard}
-                </Column>
+                    <PageCard buttons={pageCycle} >
+                        {catListing[listing]}
+                    </PageCard>
+                 </Column>
             </Row>
         </>
     );
@@ -282,7 +281,6 @@ function GroupServers(props) {
 function GroupOwners(props) {
 
     var hasRights = false;
-        return "Loading.."
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
     const fakeListing = [1, 1, 1];
@@ -315,8 +313,6 @@ function GroupOwners(props) {
                 )
             }
         </ButtonRow>
-    </>;
-}
     </>;
 }
 
