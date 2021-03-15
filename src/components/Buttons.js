@@ -46,7 +46,7 @@ export function TextInput(props) {
 
 export function SmallButton(props) {
     return (
-        <div className={styles.SmallButton} onClick={props.callback} title={props.name}>{props.content || props.name}</div>
+        <div className={styles.SmallButton} onClick={_ => props.callback(props.vars)} title={props.name}>{props.content || props.name}</div>
     );
 }
 

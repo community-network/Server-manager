@@ -124,8 +124,18 @@ export function Group(props) {
 
             for (var i in group.servers) {
                 var server = group.servers[i];
-                var ServerDelButton = <SmallButton name="Delete" content={deleteIcon} callback={() => { removeServer.mutate({ gid, sid: server.id }); }} />;
-                serverList.push(<ServerRow server={server} key={i} button={ServerDelButton} />);
+                serverList.push(
+                    <ServerRow server={server} key={i} button={
+                        <SmallButton
+                            name="Delete"
+                            content={deleteIcon}
+                            vars={{ gid, sid: server.id }}
+                            callback={removeServer.mutate}
+                        />
+                    } />
+                );
+
+
             }
 
             groupCard = (
@@ -151,14 +161,29 @@ export function Group(props) {
 
             for (var i in group.owners) {
                 var owner = group.owners[i];
-                var OwnerDelButton = <SmallButton name="Delete" content={deleteIcon} callback={() => { removeOwner.mutate({ gid, uid: owner.id }); }} />;
-                ownerList.push(<UserStRow user={owner} key={i} button={OwnerDelButton} />);
+                ownerList.push(
+                    <UserStRow user={owner} key={i} button={
+                        <SmallButton
+                            name="Delete"
+                            content={deleteIcon}
+                            vars={{ gid, uid: owner.id }}
+                            callback={removeOwner.mutate}
+                        />
+                    } />
+                );
             }
 
-            for (var i in group.admins) {
+            for (var i in group.admins) {   
                 var admin = group.admins[i];
-                var AdminDelButton = <SmallButton name="Delete" content={deleteIcon} callback={() => { removeAdmin.mutate({ gid, uid: admin.id }); }} />;
-                adminList.push(<UserStRow user={admin} key={i} button={AdminDelButton} />);
+                adminList.push(
+                    <UserStRow user={admin} key={i} button={
+                        <SmallButton
+                            name="Delete"
+                            content={deleteIcon}
+                            vars={{ gid, uid: group.admins[i].id }}
+                            callback={removeAdmin.mutate} />
+                    } />
+                );
             }
             
         } else {
