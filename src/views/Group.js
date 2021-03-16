@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, Grow, TextInput, SmallButton, PageCard } from "../components";
+import { Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
 
 
 const deleteIcon = (
@@ -11,15 +11,15 @@ const deleteIcon = (
     </svg>
 );
 
+
 export function Group(props) {
 
     var gid = props.match.params.gid;
 
     const queryClient = useQueryClient();
-    
 
-    const { isError: groupError, data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
-    const { isError: userError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { error: groupError, data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    const { error: userError, data: user } = useQuery('user', () => OperationsApi.user);
 
 
     const removeAdmin = useMutation(
@@ -80,6 +80,8 @@ export function Group(props) {
         }
     );
 
+
+
     const removeOwner = useMutation(
         variables => OperationsApi.removeGroupOwner(variables),
         {
@@ -113,11 +115,18 @@ export function Group(props) {
 
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
     const [listing, setListing] = useState("servers");
+    const [settingsListing, setSettingsListing] = useState("account");
 
     const catListing = {
         owners: <GroupOwners group={group} user={user} gid={gid} onDelete={removeOwner} />,
         admins: <GroupAdmins group={group} user={user} gid={gid} onDelete={removeAdmin} />,
         servers: <GroupServers group={group} user={user} gid={gid} onDelete={removeServer} />,
+    }
+
+    const catSettings = {
+        account: <GroupServerAccount gid={gid} user={user} group={group} />,
+        discord: "",
+        danger: <GroupDangerZone gid={gid} user={user} group={group} />,
     }
 
     const pageCycle = [
@@ -133,10 +142,24 @@ export function Group(props) {
             name: "Owners",
             callback: () => setListing("owners"),
         },
+    ]
 
+    const settingsCycle = [
+        {
+            name: "Server account",
+            callback: () => setSettingsListing("account"),
+        },
+        {
+            name: "Discord integration",
+            callback: () => setSettingsListing("discord"),
+        },
+        {
+            name: "Danger zone",
+            callback: () => setSettingsListing("danger"),
+        },
     ];
 
-    if (groupError || userError) {
+    if (groupError || userError || (groups && groups.data && groups.data.length === 0)) {
         return <Redirect to="/" />;
     }
 
@@ -151,30 +174,17 @@ export function Group(props) {
             </Row>
             <Row>
                 <Column>
-                    {(group) ? (
-                        <Card>
-                            <h2>{group.groupName}</h2>
-                            <p>
-                                <Row>
-                                    <Grow>Discord ID:</Grow> {group.discordGroupId}<br />
-                                </Row>
-                                <Row>
-                                    <Grow>Moderator role:</Grow> {group.discordModRoleId}<br />
-                                </Row>
-                                <Row>
-                                    <Grow>Admin role:</Grow> {group.discordAdminRoleId}
-                                </Row>
-                            </p>
-                            <ButtonRow>
-                                <ButtonLink name="Edit" to={"/group/" + gid + "/edit/"} />
-                                <ButtonLink name="Delete" to={"/group/" + gid + "/delete/"} />
-                            </ButtonRow>
-                        </Card>
-                    ) : (
-                        <Card>
-                            <h2>Group not found!</h2>
-                        </Card>
-                    )}
+                    <Card>
+                        <h2>Group name - {(group) ? group.groupName : "pending.."}</h2>
+                        <p style={{ marginBottom: 0 }}>Identity {gid}</p>
+                    </Card>
+                </Column>
+            </Row>
+            <Row>
+                <Column>
+                    <PageCard buttons={settingsCycle} >
+                        {catSettings[settingsListing]}
+                    </PageCard>
                 </Column>
             </Row>
             <Row>
@@ -182,7 +192,7 @@ export function Group(props) {
                     <PageCard buttons={pageCycle} >
                         {catListing[listing]}
                     </PageCard>
-                </Column>
+                 </Column>
             </Row>
         </>
     );
@@ -192,25 +202,29 @@ export function Group(props) {
 
 function GroupAdmins(props) {
 
-    if (!props.group || !props.user) {
-        return "Loading.."
-    }
+    var hasRights = false;
 
-    const hasRights = props.user.auth.isOwner;
+    if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+    const fakeListing = [1, 1, 1];
 
     return <>
         <h5>Admin role can manage servers. You need to have at least <br />Owner role to add new admins.</h5>
         {
-            props.group.admins.map((admin, i) => (
-                <UserStRow user={admin} key={i} button={
-                    <SmallButton
-                        name="Delete"
-                        disabled={!hasRights}
-                        content={deleteIcon}
-                        vars={{ gid: props.gid, uid: admin.id }}
-                        callback={props.onDelete.mutate} />
-                } />
-            ))
+            (props.group) ? (
+                props.group.admins.map((admin, i) => (
+                    <UserStRow user={admin} key={i} button={
+                        <SmallButton
+                            name="Delete"
+                            disabled={!hasRights}
+                            content={deleteIcon}
+                            vars={{ gid: props.gid, uid: admin.id }}
+                            callback={props.onDelete.mutate} />
+                    } />
+                ))
+            ) : (
+                fakeListing.map((_, i) => <FakeUserStRow key={i} />)
+            )
         }
         <ButtonRow>
             {
@@ -227,26 +241,30 @@ function GroupAdmins(props) {
 
 function GroupServers(props) {
 
-    if (!props.group || !props.user) {
-        return "Loading.."
-    }
+    var hasRights = false;
 
-    const hasRights = props.user.auth.isOwner || props.user.auth.isDeveloper;
+    if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+    const fakeListing = [1, 1, 1];
 
     return <>
         <h5>Servers instances added to current group. You need to have <br />Owner role in order to add new servers.</h5>
         {
-            props.group.servers.map((server, i) => (
-                <ServerRow server={server} key={i} button={
-                    <SmallButton
-                        name="Delete"
-                        content={deleteIcon}
-                        disabled={!hasRights}
-                        vars={{ gid: props.gid, sid: server.id }}
-                        callback={props.onDelete.mutate}
-                    />
-                } />
-            ))
+            (props.group) ? (
+                props.group.servers.map((server, i) => (
+                    <ServerRow server={server} key={i} button={
+                        <SmallButton
+                            name="Delete"
+                            content={deleteIcon}
+                            disabled={!hasRights}
+                            vars={{ gid: props.gid, sid: server.id }}
+                            callback={props.onDelete.mutate}
+                        />
+                    } />
+                ))
+            ) : (
+                fakeListing.map((_, i) => <FakeUserStRow key={i} />)
+            )
         }
         <ButtonRow>
             {
@@ -262,37 +280,101 @@ function GroupServers(props) {
 
 function GroupOwners(props) {
 
-    if (!props.group || !props.user) {
-        return "Loading.."
-    }
+    var hasRights = false;
+    if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
-    const hasRights = props.user.auth.isOwner || props.user.auth.isDeveloper;
+    const fakeListing = [1, 1, 1];
 
     return <>
         <h5>List of current group Owners. This role can add new Servers, <br />Admins and other owners. Be carefull with it!</h5>
         {
-            props.group.owners.map((owner, i) => (
-                <UserStRow user={owner} key={i} button={
-                    <SmallButton
-                        name="Delete"
-                        content={deleteIcon}
-                        disabled={!hasRights}
-                        vars={{ gid: props.gid, uid: owner.id }}
-                        callback={props.onDelete.mutate}
-                    />
-                } />
-            ))
+            (props.group) ? (
+                props.group.owners.map((owner, i) => (
+                    <UserStRow user={owner} key={i} button={
+                        <SmallButton
+                            name="Delete"
+                            content={deleteIcon}
+                            disabled={!hasRights}
+                            vars={{ gid: props.gid, uid: owner.id }}
+                            callback={props.onDelete.mutate}
+                        />
+                    } />
+                ))
+            ) : (
+                fakeListing.map((_, i) => <FakeUserStRow key={i} />)
+            )
         }
         <ButtonRow>
             {
                 (hasRights) ? (
                     <ButtonLink name="Add Owner" to={"/group/" + props.gid + "/add/owner"} />
                 ) : (
-                        <Button disabled={true} name="Not allowed" content="Add Owner" />
-                    )
+                    <Button disabled={true} name="Not allowed" content="Add Owner" />
+                )
             }
         </ButtonRow>
     </>;
+}
+
+
+function GroupServerAccount(props) {
+    var allowedTo = false;
+    if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+
+    const [sid, setSid] = useState("");
+    const [remid, setRemid] = useState("");
+
+    useEffect(() => {
+        if (props.group) {
+            if (remid !== props.group.cookie.remid)
+                setRemid(props.group.cookie.remid);
+            if (sid !== props.group.cookie.sid)
+                setSid(props.group.cookie.sid);
+        } 
+    }, [props.group]);
+
+    return (
+        <>
+            <p style={{ marginTop: "8px" }}>
+                Account manager, that will administrate your servers.
+            </p>
+
+            <Row>
+                <TextInput type="password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
+                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+                    Session cookies
+                </p>
+            </Row>
+            <Row>
+                <TextInput type="password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
+                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+                    Reminder session cookies
+                </p>
+            </Row>
+            {
+                (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid)) ? (
+                    <ButtonRow>
+                        <Button name="Apply" disabled={!allowedTo} />
+                    </ButtonRow>
+                ): ""
+            }
+        </>
+    );
+}
+
+function GroupDangerZone(props) {
+
+    var allowedTo = false;
+    if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+
+    return (
+        <>
+            <p>Once you delete a group, it will remove all the servers,<br /> server account and users used in it.</p>
+            <ButtonRow>
+                <ButtonLink name="Delete Group" to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
+            </ButtonRow>
+        </>
+    );
 }
 
 export function AddGroupOwner(props) {
@@ -484,12 +566,33 @@ export function AddGroup(props) {
                 </Header>
                 <Card>
                     <h2>Group info</h2>
+                    <p style={{ marginBottom: "8px" }}>
+                        Create a new group to manage your community servers.<br />
+                        <i>NOTE: This tools are in opened Beta test</i>
+                    </p>
                     <TextInput name="Name" callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
+                    <h5 style={{ marginTop: "8px" }}>
+                        Optionaly, you can add your discord server, to integrate server tools
+                    </h5>
                     <TextInput name="Discord Server ID" callback={(e) => { checkInputVariables({ discordId: e.target.value }) }} />
                     <TextInput name="Mod role ID" disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ modRole: e.target.value }) }} />
                     <TextInput name="Admin role ID" disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ adminRole: e.target.value }) }} />
+                    <h5 style={{ marginTop: "8px" }}>
+                        Every group need to be assigned special account with certain requirments: <br />
+                        It should be a BF1 server moderator (owner access not required)<br />
+                        This account shouldn't be used anywhere else, otherwise it will lead in errors<br />
+                    </h5>
+                    <h5 style={{ marginTop: "8px" }}>
+                        Session cookies can be found at <i>accounts.ea.com</i>
+                    </h5>
                     <TextInput name="SID cookie" type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <h5 style={{ marginTop: "8px" }}>
+                        Reminder session cookies can be found at <i>accounts.ea.com</i>
+                    </h5>
                     <TextInput name="REMID cookie" type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
+                    <h5 style={{ marginTop: "8px" }}>
+                        By pressing this button, you agree to give <br />server manager tool access to the account.
+                    </h5>
                     <ButtonRow>
                         <Button name="Create group" disabled={!addGroupState.canAdd} callback={() => { AddNewGroupExecute.mutate(addGroupState.variables); history.push("/dev/"); }} />
                     </ButtonRow>

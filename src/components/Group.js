@@ -27,7 +27,9 @@ export function ServerRow(props) {
 
     return (
         <div className={styles.GroupRow}>
-            <Link className={styles.GroupName} to={"/server/" + server.id}>{server.name}</Link>
+            <Link className={styles.GroupName} to={"/server/" + server.id}>
+                {server.name}
+            </Link>
             {props.button}
         </div>
     );

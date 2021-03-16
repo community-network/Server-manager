@@ -90,7 +90,11 @@ export class ApiProvider extends JsonClient {
     }
 
     async getDevGroups() {
-        return await this.getJsonMethod("devgroups");
+        var devGroups = await this.getJsonMethod("devgroups");
+        if ("error" in devGroups) {
+            throw Error("Error on server.");
+        }
+        return devGroups;
     }
 
     async addGroup({ groupName, discordId, modRole, adminRole, sid, remid }) {
