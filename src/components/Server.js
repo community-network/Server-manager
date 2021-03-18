@@ -163,7 +163,7 @@ export function BanList(props) {
         <div>
             <h5>
                 List of banned players on this server.<br />
-                Used <b>{banList.data[0].players.length} slots out of 200</b>.
+                Used <b>{banList.data.length} slots out of 200</b>.
                 Use our group-based virtual ban list,<br /> to ban unlimited amount of players.
             </h5>
             <TextInput name={"Search.."} />
@@ -172,7 +172,7 @@ export function BanList(props) {
 
                     <tbody>
                         {
-                            banList.data[0].players.map(
+                            banList.data.map(
                                 (player, i) => (<BanRow player={player} key={i} />)
                             )
                         }
