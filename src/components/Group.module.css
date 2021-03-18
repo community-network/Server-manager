@@ -25,3 +25,28 @@
 .GroupRow:hover {
     background: var(--color-second-v2);
 }
+
+.gameStatsAd {
+    display: flex;
+    flex-direction: row;
+    margin: 6px 0;
+    align-items: center;
+    border: 1px solid var(--color-second);
+    padding: 0 20px;
+    height: 50px;
+    border-radius: 8px;
+    background: var(--color-container-v2);
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.gameStatsAd img {
+    height: 40px;
+    width: 40px;
+    margin-right: 12px;
+}
+
+.gameStatsAd span {
+    font-size: 13px;
+    font-weight: 500;
+}

@@ -26,9 +26,9 @@ function PageLink(props) {
 
 function PageButton(props) {
     return (
-        <div className={styles.PageButton}>
+        <a className={styles.PageButton} target="_blank" rel="noopener noreferrer" href={props.href} title={props.name}>
             <span onClick={props.onClick}>{props.name}</span>
-        </div>
+        </a>
     );
 }
 
@@ -109,7 +109,7 @@ export function Sidebar(props) {
                     {groupLinks}
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", marginBottom: "30px"}}>
-                    <PageButton onClick={() => { window.location = "https://discord.gametools.network/" }} name="Need help?" />
+                    <PageButton href="https://discord.gametools.network/" name="Need help?" />
                     {logoutLink}
                 </div>
             </div>

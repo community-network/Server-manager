@@ -1,5 +1,5 @@
 
-const MODE = "prod";
+const MODE = "dev";
 
 const endPoints = {
     dev: "https://homedev.gametools.network/api/",

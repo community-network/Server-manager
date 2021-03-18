@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import styles from "./Buttons.module.css";
+import { Status } from "./Status";
 
 
 export function Button(props) {
@@ -13,7 +14,7 @@ export function Button(props) {
         style["width"] = props.width;
     }
     return (
-        <button value={props.value} className={styles.button} disabled={props.disabled} onClick={props.callback} title={props.name} style={style}>{props.name}</button>
+        <button value={props.value} className={styles.button} disabled={props.disabled} onClick={props.callback} title={props.name} style={style}>{props.name}<Status status={props.status} /></button>
     );
 }
 
@@ -22,7 +23,7 @@ export function ButtonLink(props) {
         return <Button name={props.name} disabled={true} />
     }
     return (
-        <NavLink className={styles.button} to={props.to} title={props.name}>{props.name}</NavLink>
+        <NavLink style={props.style} className={styles.button} to={props.to} title={props.name}>{props.name}</NavLink>
     );
 }
 
@@ -40,7 +41,7 @@ export function TextInput(props) {
         elementClassName = styles.TextInputDis;
     }*/
     return (
-        <input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onChange={props.callback} />
+        <input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />
     );
 }
 

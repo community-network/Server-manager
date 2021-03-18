@@ -4,6 +4,8 @@
     font-weight: 600;
     color: var(--color-text);
     margin-right: 15px;
+    line-height: 1.5em;
+    margin: 5px 0;
 }
 
 
@@ -18,12 +20,15 @@
 }
 
 .serverImage {
+    outline: none;
     width: 112px;
     border-radius: 10px;
+    height: 70px;
+    background-color: var(--color-container-v2);
 }
 
 .ServerName {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
 }
 
@@ -93,11 +98,13 @@
     padding: 10px 20px;
     border-radius: 10px;
     color: var(--color-text-low);
-    background: var(--color-second);
+    background: var(--color-container);
+    border: 1px solid var(--color-second);
     margin: 6px 0;
     text-decoration: none;
     display: flex;
     align-items: center;
+    height: 62px;
 }
 
 
@@ -110,12 +117,62 @@
     margin-right: 10px;
 }
 
-
-.PlayerRow:hover {
-    background: var(--color-second-v2);
-}
-
 .PlayerButtons {
     display: flex;
     flex-direction: row;
+}
+
+.PlayerRow:hover {
+    background: var(--color-container-v2);
+}
+
+.PlayerRow:hover .PlayerButtons button, .PlayerRow:hover .PlayerButtons a {
+    border: 1px solid var(--color-second-v2);
+}
+
+
+
+
+.serverStatus, .serverStatusOk, .serverStatusErr {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #FFC375;
+    background-color: rgba(255, 195, 117, 0.05);
+}
+
+.serverStatusOk {
+    color: #4d984e;
+    background-color: rgba(120, 255, 117, 0.05);
+}
+
+.serverStatusErr {
+    color: #FF7575;
+    background-color: rgba(120, 117, 117, 0.05);
+}
+
+
+.BanRow > td {
+    border: none;
+    padding: 10px 20px;
+    font-size: 13px;
+}
+
+.BanRow > td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.BanRow > td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.BanDisplayName {
+    font-weight: 500;
+}
+
+.BanRow:hover > td {
+    background: var(--color-container-v2);
+    cursor: pointer;
 }

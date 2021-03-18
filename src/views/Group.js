@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
+import { GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
 
 
 const deleteIcon = (
@@ -125,7 +125,7 @@ export function Group(props) {
 
     const catSettings = {
         account: <GroupServerAccount gid={gid} user={user} group={group} />,
-        discord: "",
+        discord: <GroupDiscordSettings gid={gid} user={user} group={group} />,
         danger: <GroupDangerZone gid={gid} user={user} group={group} />,
     }
 
@@ -208,11 +208,17 @@ function GroupAdmins(props) {
 
     const fakeListing = [1, 1, 1];
 
+    let adminList;
+    if (props.group) {
+        adminList = [...props.group.admins];
+        adminList.sort((a, b) => Date.parse(b.addedAt) - Date.parse(a.addedAt));
+    }
+
     return <>
         <h5>Admin role can manage servers. You need to have at least <br />Owner role to add new admins.</h5>
         {
             (props.group) ? (
-                props.group.admins.map((admin, i) => (
+                adminList.map((admin, i) => (
                     <UserStRow user={admin} key={i} button={
                         <SmallButton
                             name="Delete"
@@ -285,11 +291,17 @@ function GroupOwners(props) {
 
     const fakeListing = [1, 1, 1];
 
+    let ownerList;
+    if (props.group) {
+        ownerList = [...props.group.owners];
+        ownerList.sort((a, b) => Date.parse(b.addedAt) - Date.parse(a.addedAt));
+    }
+
     return <>
         <h5>List of current group Owners. This role can add new Servers, <br />Admins and other owners. Be carefull with it!</h5>
         {
-            (props.group) ? (
-                props.group.owners.map((owner, i) => (
+            (ownerList) ? (
+                ownerList.map((owner, i) => (
                     <UserStRow user={owner} key={i} button={
                         <SmallButton
                             name="Delete"
@@ -321,8 +333,11 @@ function GroupServerAccount(props) {
     var allowedTo = false;
     if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
 
+    const queryClient = useQueryClient();
+
     const [sid, setSid] = useState("");
     const [remid, setRemid] = useState("");
+    const [applyStatus, setApplyStatus] = useState(null);
 
     useEffect(() => {
         if (props.group) {
@@ -333,28 +348,57 @@ function GroupServerAccount(props) {
         } 
     }, [props.group]);
 
+    const editCookies = useMutation(
+        variables => OperationsApi.editGroup(variables),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async () => {
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('groupId' + props.gid);
+            }
+        }
+    );
+
     return (
         <>
-            <p style={{ marginTop: "8px" }}>
-                Account manager, that will administrate your servers.
-            </p>
+            <h5 style={{ marginTop: "0px" }}>
+                Account manager, that will administrate your servers.<br />
+                These cookies can be found at <i>accounts.ea.com</i>
+            </h5>
 
             <Row>
                 <TextInput type="password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Session cookies
+                    Reminder cookies
                 </p>
             </Row>
             <Row>
                 <TextInput type="password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Reminder session cookies
+                    Session cookies
                 </p>
             </Row>
             {
                 (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid)) ? (
                     <ButtonRow>
-                        <Button name="Apply" disabled={!allowedTo} />
+                        <Button name="Apply" disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editCookies.mutate(
+                                {
+                                    gid: props.gid,
+                                    value: {
+                                        cookie: { sid, remid }
+                                    }
+                                }
+                            )
+                        } status={applyStatus} />
                     </ButtonRow>
                 ): ""
             }
@@ -362,16 +406,161 @@ function GroupServerAccount(props) {
     );
 }
 
+function GroupDiscordSettings(props) {
+    var allowedTo = false;
+    if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+
+    const queryClient = useQueryClient();
+
+    const [adminId, setAdminId] = useState("");
+    const [modId, setModId] = useState("");
+    const [serverId, setServerId] = useState("");
+    const [applyStatus, setApplyStatus] = useState(null);
+
+    useEffect(() => {
+        if (props.group) {
+
+            if (serverId !== props.group.discordGroupId)
+                setServerId(props.group.discordGroupId);
+
+            if (modId !== props.group.discordModRoleId)
+                setModId(props.group.discordModRoleId);
+
+            if (adminId !== props.group.discordAdminRoleId)
+                setAdminId(props.group.discordAdminRoleId);
+
+        }
+    }, [props.group]);
+
+    const editDiscordDetails = useMutation(
+        variables => OperationsApi.editGroup(variables),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async () => {
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('groupId' + props.gid);
+            }
+        }
+    );
+
+    return (
+        <>
+            <GameStatsAd />
+            <h5 style={{ marginTop: "8px" }}>
+                With our bot, you can allow admins to controll your servers<br /> by using commands with ! prefix. 
+            </h5>
+            <Row>
+                <TextInput disabled={!allowedTo} callback={(e) => setServerId(e.target.value)} defaultValue={serverId} name={"Discord Server"} />
+                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+                    Your server Discord ID
+                </p>
+            </Row>
+            <h5 style={{ marginTop: "8px" }}>
+                Every person with that role id can use<br /> discord commands to contol the server.
+            </h5>
+            <Row>
+                <TextInput disabled={!allowedTo} callback={(e) => setAdminId(e.target.value)} defaultValue={adminId} name={"Admin Discord ID"} />
+                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+                    Id of Admin role
+                </p>
+            </Row>
+            <Row>
+                <TextInput disabled={!allowedTo} callback={(e) => setModId(e.target.value)} defaultValue={modId} name={"Mod DIscord ID"} />
+                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+                    Id of Moderator role, moderators can only kick players
+                </p>
+            </Row>
+            {
+                (props.group && (serverId !== props.group.discordGroupId || modId !== props.group.discordModRoleId || adminId !== props.group.discordAdminRoleId)) ? (
+                    <ButtonRow>
+                        <Button name="Apply" disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editDiscordDetails.mutate(
+                                {
+                                    gid: props.gid,
+                                    value: {
+                                        discordGroupId: serverId,
+                                        discordModRoleId: modId,
+                                        discordAdminRoleId: adminId
+                                    }
+                                }
+                            )
+                        } status={applyStatus} />
+                    </ButtonRow>
+                ) : ""
+            }
+        </>
+    );
+}
+
+
 function GroupDangerZone(props) {
 
     var allowedTo = false;
     if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
 
+    const queryClient = useQueryClient();
+
+    const [groupName, setGroupName] = useState("");
+    const [applyStatus, setApplyStatus] = useState(null);
+
+    useEffect(() => {
+
+        if (props.group && groupName !== props.group.groupName) {
+            setGroupName(props.group.groupName);    
+        }
+
+    }, [props.group]);
+
+    const editGroupName = useMutation(
+        variables => OperationsApi.editGroup(variables),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async () => {
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('groupId' + props.gid);
+            }
+        }
+    );
+
     return (
         <>
-            <p>Once you delete a group, it will remove all the servers,<br /> server account and users used in it.</p>
+            <h5 style={{ marginTop: "0px" }}>You can change the name of current Group.</h5>
+            <TextInput disabled={!allowedTo} callback={(e) => setGroupName(e.target.value)} defaultValue={groupName} name={"Group name"} />
+            {
+                (props.group && (groupName !== props.group.groupName)) ? (
+                    <ButtonRow>
+                        <Button name="Apply changes" disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editGroupName.mutate(
+                                {
+                                    gid: props.gid,
+                                    value: {
+                                        groupName,
+                                    }
+                                }
+                            )
+                        } status={applyStatus} />
+                    </ButtonRow>
+                ) : ""
+            }
+            <h5 style={{ marginTop: "8px" }}>Once you delete a group, it will remove all the servers,<br /> server account and users used in it.</h5>
             <ButtonRow>
-                <ButtonLink name="Delete Group" to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
+                <ButtonLink style={{ color: "#FF7575"}} name="Delete Group" to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
             </ButtonRow>
         </>
     );
@@ -514,8 +703,6 @@ export function AddGroupAdmin(props) {
 
 export function AddGroup(props) {
 
-    var groupName = "", discordId = "", staffRole = "";
-
     const [addGroupState, changeState] = useState({
         variables: {
             groupName: "",
@@ -568,7 +755,7 @@ export function AddGroup(props) {
                     <h2>Group info</h2>
                     <p style={{ marginBottom: "8px" }}>
                         Create a new group to manage your community servers.<br />
-                        <i>NOTE: This tools are in opened Beta test</i>
+                        <i>NOTE: This tools are in open Beta test</i>
                     </p>
                     <TextInput name="Name" callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>

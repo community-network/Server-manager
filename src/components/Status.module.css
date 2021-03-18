@@ -1,0 +1,49 @@
+.status {
+    height: 18px;
+    width: 18px;
+    align-items: center;
+}
+
+.loadingIcon {
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-name: Loading;
+    animation-iteration-count: infinite;
+}
+
+.errorIcon {
+    color: #FF7575;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-name: Shake;
+    animation-iteration-count: 1;
+}
+
+@keyframes Loading {
+    0% {
+        transform: rotateZ(0);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes Shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    33% {
+        transform: translateX(2px);
+    }
+
+    66% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

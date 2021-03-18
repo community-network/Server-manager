@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
+import { BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
 
 
 export function Server(props) {
@@ -12,6 +12,8 @@ export function Server(props) {
 
     const { isError: serverError, data: server } = useQuery('server' + sid, () => OperationsApi.getServer(sid), { staleTime: 60000 });
     const { isError: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid), { staleTime: 60000 });
+
+    const { isError: banListGettingError, data: banList } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }), { staleTime: 60000 });
 
     var serverCard = "";
     var playerList = "";
@@ -117,6 +119,14 @@ export function Server(props) {
             callback: () => setTabsListing("info"),
         },
         {
+            name: "Ban list",
+            callback: () => setTabsListing("banlist"),
+        },
+        {
+            name: "Vip players",
+            callback: () => setTabsListing("viplist"),
+        },
+        {
             name: "Settings",
             callback: () => setTabsListing("settings"),
         }
@@ -128,6 +138,8 @@ export function Server(props) {
                 <ServerRotation game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} />
             </ServerInfoHolder>
         ),
+        banlist: <BanList banList={banList} />,
+        viplist: "",
         settings: (
             <>
                 <p>Servers can be attached to Discord bots. <br /> Main bot settings for current server.</p>
@@ -138,17 +150,17 @@ export function Server(props) {
         )
     }
 
-    if (!serverError && server && !gameError && runningGame) {
-        serverCard = (
-            <Row>
-                <Column>
-                    <PageCard buttons={serverTabs} >
-                        {catTabs[tabsListing]}
-                    </PageCard>
-                </Column>
-            </Row>
-        );
-    }
+    //if (!serverError && server && !gameError && runningGame) {
+    serverCard = (
+        <Row>
+            <Column>
+                <PageCard buttons={serverTabs} >
+                    {catTabs[tabsListing]}
+                </PageCard>
+            </Column>
+        </Row>
+    );
+    //}
 
     var isOpsMode = false;
 
