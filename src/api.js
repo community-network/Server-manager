@@ -78,7 +78,7 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async getBanList( sid ) {
+    async getBanList({ sid }) {
         return await this.getJsonMethod("infolist", {
             "type": "bannedList",
             "serverid": sid
@@ -112,6 +112,16 @@ export class ApiProvider extends JsonClient {
         return await this.postJsonMethod("delgroup", {
             "groupId": gid,
         });
+    }
+
+    async editGroup({ gid, type, value }) {
+        var answer = await this.postJsonMethod("editgroup", {
+            "groupid": gid,
+            "values": value
+        });
+        if ("error" in answer) {
+            throw new Error(answer.error.message)
+        }
     }
 
     async getGroup(gid) {

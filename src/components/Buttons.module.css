@@ -23,6 +23,7 @@
     outline: none;
     font-family: "Montserrat";
     max-width: 300px;
+    justify-content: space-between;
 }
 
 .container {
@@ -33,13 +34,15 @@
 .dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 300px;
-    margin: 2px 2px;
+    right: 4px;
+    width: 200px;
+    margin: 6px 2px;
+    border-radius: 8px;
     z-index: 2;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+    border: 1px solid var(--color-second);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.18);
     background: var(--color-container-v2);
+    overflow: hidden;
 }
 
 .ul {
@@ -50,6 +53,7 @@
 
 .li {
     padding: 8px 12px;
+   
 }
 
 .li:hover {

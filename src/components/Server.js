@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Server.module.css";
 import { Link } from "react-router-dom";
-import { Button, ButtonRow, Switch, DropdownButton, ButtonLink } from "./Buttons";
+import { Button, ButtonRow, Switch, DropdownButton, ButtonLink, TextInput} from "./Buttons";
 
 
 export function SmallText(props) {
@@ -79,27 +79,35 @@ export function ServerInfo(props) {
 }
 
 export function ServerRotation(props) {
-    var game = props.game.data[0].info;
-    var [rotationId, setRotationId] = useState("");
+    
+    var server = null, game = null;
+    if (props.game && props.game.data && props.game.data.length > 0) {
+        server = props.game.data[0];
+        game = server.info;
+    }
+
+    var [rotationId, setRotationId] = useState(""); 
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
-                <img className={styles.serverImage} src={game.url} />
+                <img className={styles.serverImage} src={(game) ? game.url : "/no-server-image.png"} />
                 <div className={styles.GameInfo}>
-                    <span className={styles.ServerName}>{game.prefix}</span>
-                    <SmallText>{`${game.serverInfo} players`}</SmallText>
-                    <SmallText>{"Running now"}</SmallText>
+                    <span className={styles.ServerName}>{(game) ? game.prefix : "Loading" }</span>
+                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} players` : "-"}</SmallText>
                 </div>
             </div>
+            <div className={(server) ? (server.isAdmin) ? styles.serverStatusOk : styles.serverStatusErr : styles.serverStatus }>
+                <span>Status: {(server) ? (server.isAdmin) ? "Managable" : "Permission denied" : "Pending.."}</span>
+            </div>
             <ButtonRow>
-                <Button name="Restart" callback={_ => props.rotate(game.rotationId)} />
+                <Button name="Restart" disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
                 <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
                     <option value="">Switch game..</option>
-                    {game.rotation.map(value => 
-                        <option value={value.index}>{value.mapname}</option>
-                    )}
+                    {(game) ? game.rotation.map((value, i) =>
+                        <option value={value.index} key={i}>{value.mapname}</option>
+                    ) : ""}
                 </select>
-                {(rotationId !== "") ? <Button name="Apply" callback={_ => { props.rotate(rotationId); setRotationId(""); }} /> : ""}
+                {(rotationId !== "") ? <Button name="Apply" disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
             </ButtonRow>
         </div>
     );
@@ -118,11 +126,13 @@ export function PlayerInfo(props) {
         ]
     };
     return (
-        info.map(player => 
-            <div className={styles.PlayerRow}>
+        info.map((player, i) => 
+            <div className={styles.PlayerRow} key={i}>
                 <span className={styles.PlayerName}>
                     {player.platoon !== "" ? `[${player.platoon}] ` : ""}
                     {player.name}
+                    {" - "}
+                    {player.ping}
                 </span>
                 <div className={styles.PlayerButtons}>
                     {/*<Button name="Stats"></Button>*/}
@@ -144,3 +154,45 @@ export function ServerInfoHolder(props) {
     );
 }
 
+export function BanList(props) {
+    if (!props.banList) {
+        return "Loading..";
+    }
+    const banList = props.banList;
+    return (
+        <div>
+            <h5>
+                List of banned players on this server.<br />
+                Used <b>{banList.data[0].players.length} slots out of 200</b>.
+                Use our group-based virtual ban list,<br /> to ban unlimited amount of players.
+            </h5>
+            <TextInput name={"Search.."} />
+            <div style={{ maxHeight: "400px", overflowY: "scroll", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+
+                    <tbody>
+                        {
+                            banList.data[0].players.map(
+                                (player, i) => (<BanRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function BanRow(props) {
+    const player = props.player;
+    return (
+        <tr className={styles.BanRow}>
+            <td className={styles.BanDisplayName}>{player.displayName}</td>
+            <td title="Player ID">{player.id}</td>
+            <td>{player.reason}</td>
+            <td>{player.admin}</td>
+            <td>{player.banned_until}</td>
+            <td>{player.ban_timestamp}</td>
+        </tr>
+    );
+}

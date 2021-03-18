@@ -45,3 +45,12 @@ export function GroupAdminAccount(props) {
     );
 
 }
+
+export function GameStatsAd(props) {
+    return (
+        <a target="_blank" rel="noopener noreferrer" className={styles.gameStatsAd} href="https://discord.com/oauth2/authorize?client_id=714524944783900794&scope=bot&permissions=83968">
+            <img src="./game-stats.png" />
+            <span>Add Game Stats bot on your Discord server, in order to control BF1 servers with cammands.</span>
+        </a>
+    );
+}
