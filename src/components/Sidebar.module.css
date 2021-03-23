@@ -4,10 +4,12 @@
     flex-direction: row;
     padding: 6px 24px;
     text-decoration: none;
+    align-content: center;
 }
 
 .PageLink > a, .PageButton > span {
     text-decoration: none;
+    display: flex;
     color: var( --color-text);
     font-size: 14px;
     font-weight: 600;
@@ -16,6 +18,7 @@
     flex-grow: 2;
     transition: all 0.1s ease-out;
     cursor: pointer;
+    align-items: center;
 }
 
 
@@ -39,6 +42,7 @@
     height: 100vh;
     flex-direction: column;
     background: var( --color-container);
+    z-index: 100;
 }
 
 .Logo {
@@ -47,4 +51,14 @@
 
 .TopSidebar {
     padding: 0 48px;
+}
+
+.sideIcon {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+}
+
+.PageLink > a > span {
+    flex-grow: 2;
 }

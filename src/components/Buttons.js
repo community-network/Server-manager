@@ -35,14 +35,10 @@ export function ButtonRow(props) {
 
 
 export function TextInput(props) {
-/*    var callback = props.callback, elementClassName = styles.TextInput;
-    if (props.disabled) {
-        callback = null;
-        elementClassName = styles.TextInputDis;
-    }*/
-    return (
-        <input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />
-    );
+    if (props.value === undefined) {
+        return <input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />;
+    }
+    return <input value={props.value} defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />;
 }
 
 export function SmallButton(props) {
@@ -58,8 +54,7 @@ export function SmallButton(props) {
 
 export function Switch(props) {
 
-    const [checkedSwitch, clickSwitch] = useState(props.checked || false);
-    const switchClassName = checkedSwitch ? styles.Switch : styles.SwitchActive;
+    const [checkedSwitch, clickSwitch] = useState(false);
 
     const switchTheSwitch = () => {
         var newVal = !checkedSwitch;
@@ -67,18 +62,29 @@ export function Switch(props) {
         if (props.callback) props.callback(newVal);
     };
 
+    useEffect(() => {
+        if (props.checked !== null) {
+            clickSwitch(props.checked);
+        }
+    }, [props.checked])
+
     /*  If user uses tabs, make it clickable on Enter key */
     const SwitchOnenter = (e) => {
         if (e.charCode === 13) switchTheSwitch();
     };
 
+    const switchClassName = checkedSwitch ? styles.SwitchActive : styles.Switch;
+
     return (
-        <div className={switchClassName} onClick={switchTheSwitch} onKeyPress={SwitchOnenter} role="switch" tabindex="1">
-            <span className={styles.SwitchInner}>
-                <span className={styles.SwitchOn}></span>
-                <span className={styles.SwitchOff}></span>
-            </span>
-            <span className={styles.SwitchHandle}></span>
+        <div className={styles.SwitchRow}>
+            <div className={switchClassName} onClick={switchTheSwitch} onKeyPress={SwitchOnenter} role="switch" tabIndex="1">
+                <span className={styles.SwitchInner}>
+                    <span className={styles.SwitchOn}></span>
+                    <span className={styles.SwitchOff}></span>
+                </span>
+                <span className={styles.SwitchHandle}></span>
+            </div>
+            <span>{props.name}</span>
         </div>
     );
 }

@@ -201,6 +201,16 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async editServer({ sid, value }) {
+        var answer = await this.postJsonMethod("editserver", {
+            "serverid": sid,
+            "values": value
+        });
+        if ("error" in answer) {
+            throw new Error(answer.error.message)
+        }
+    }
+
 
 }
 

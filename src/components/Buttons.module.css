@@ -171,6 +171,19 @@
     background-color: white;
 }
 
+.SwitchRow {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+}
+
+.SwitchRow > span {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
 .ChoosePageButton, .ChoosePageButtonActive {
     border: 1px solid var(--color-second);
     padding: 0 20px;

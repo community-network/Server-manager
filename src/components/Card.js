@@ -25,3 +25,11 @@ export function PageCard(props) {
         </>
     );
 }
+
+export function Tag(props) {
+    return (
+        <span className={styles.Tag}>
+            {props.children}
+        </span>
+    );
+}

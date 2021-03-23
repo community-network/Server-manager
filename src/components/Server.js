@@ -26,16 +26,13 @@ export function ServerInfo(props) {
         <>
             <div className={styles.ServerInfoColumn}>
                 <SettingsRow>
-                    <SmallText>Auto kick/ban</SmallText>
+                    <SmallText>Virtual ban list</SmallText>
                 </SettingsRow>
                 <SettingsRow>
-                    <SmallText>Kick on ping</SmallText>
+                    <SmallText>Kick on high ping</SmallText>
                 </SettingsRow>
                 <SettingsRow>
-                    <SmallText>Discord bot channel</SmallText>
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallText>Bot lang</SmallText> 
+                    <SmallText>BFBan Anti Cheat</SmallText>
                 </SettingsRow>
             </div>
             <div className={styles.ServerDescriptionColumn}>

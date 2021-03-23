@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
+import { Tag, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
 
 
 export function Server(props) {
@@ -25,7 +25,7 @@ export function Server(props) {
     var [addVipStatus, changeAddVipStatus] = useState({ name: "Add Vip", status: false });
     var [removeVipStatus, changeRemoveVipStatus] = useState({ name: "Remove Vip", status: false });
     var [unbanStatus, changeUnbanStatus] = useState({ name: "Unban", status: false });
-
+    
     var [tabsListing, setTabsListing] = useState("info");
 
     const UnbanPlayer = useMutation(
@@ -127,8 +127,8 @@ export function Server(props) {
             callback: () => setTabsListing("viplist"),
         },
         {
-            name: "Settings",
-            callback: () => setTabsListing("settings"),
+            name: "Server Protection",
+            callback: () => setTabsListing("protection"),
         }
     ];
 
@@ -140,12 +140,9 @@ export function Server(props) {
         ),
         banlist: <BanList banList={banList} />,
         viplist: "",
-        settings: (
+        protection: (
             <>
-                <p>Servers can be attached to Discord bots. <br /> Main bot settings for current server.</p>
-                <ServerInfoHolder>
-                    <ServerInfo server={server} />
-                </ServerInfoHolder>
+                <ServerAutomation server={server} sid={sid} />
             </>
         )
     }
@@ -164,7 +161,7 @@ export function Server(props) {
 
     var isOpsMode = false;
 
-    if (!gameError && runningGame) {
+    if (!gameError && runningGame && !("error" in runningGame.data[0].players[0])) {
 
         isOpsMode = runningGame.data[0].info.mode === "Operations";
 
@@ -234,6 +231,126 @@ export function Server(props) {
         </>
     );
 
+}
+
+function ServerAutomation(props) {
+
+    var allowedTo = false;
+    if (props.server) allowedTo = true;
+
+    const queryClient = useQueryClient();
+
+    const [kickOnPingDisabled, setKickOnPingDisabled] = useState(false);
+    const [serverState, setServerState] = useState(null);
+    const [canApply, setCanApply] = useState(false);
+    const [applyStatus, setApplyStatus] = useState(null);
+
+    useEffect(() => {
+
+        if (props.server) {
+            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage } = props.server;
+            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage };
+            if (serverState === null) {
+                setServerState(originalServerState);
+                setKickOnPingDisabled(autoPingKick !== 0);
+            } else {
+                let newCanApply = false;
+                for (var i in originalServerState) {
+                    newCanApply |= serverState[i] !== originalServerState[i];
+                }
+                if (serverState.autoPingKick === 0) setKickOnPingDisabled(false);
+                setCanApply(newCanApply);
+            }
+           
+        }
+        
+
+    }, [props.server, serverState]);
+
+    const changeSrerverState = (v) => {
+        setServerState(s => ({ ...s, ...v }));
+    }
+
+    const editServerSettings = useMutation(
+        variables => OperationsApi.editServer({ value: variables, sid: props.sid }),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async () => {
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('server' + props.sid);
+            }
+        }
+    );
+
+    const getServerValue = (key) => {
+        if (props.server && key in props.server) {
+            return props.server[key]
+        }
+        return "";
+    };
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>Auto server protection <Tag>New!</Tag></h2>
+            <h5 style={{ marginTop: "8px" }}>
+                Introducing new tools developed to protect your servers against hackers.<br />
+                Global Virtual Ban list auto-kicks players on <b>all group servers</b> providing<br />
+                infinity amount of ban slots and synchronized ban list.
+            </h5>
+            <Switch checked={getServerValue("autoBanKick")} name="Enable Global V-Ban" callback={(v) => changeSrerverState({ autoBanKick: v })}/>
+            <h5 style={{ marginTop: "8px" }}>This msg appear to users who got <br />auto-kicked by V-Ban Global system.</h5>
+            
+            <TextInput
+                disabled={!allowedTo || (serverState && !serverState.autoBanKick)}
+                callback={(e) => changeSrerverState({ autoGlobalBanMessage: e.target.value })}
+                defaultValue={getServerValue("autoGlobalBanMessage")}
+                name={"V-Ban message"}
+            />
+            <h5 style={{ marginTop: "8px" }}>Protect server agains known cheaters in <i>bfban.com</i></h5>
+            <Switch checked={getServerValue("autoBfbanKick")} name="Enable BFBan Anti Cheat" callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
+            <h5 style={{ marginTop: "8px" }}>Auto kick players with constant high ping</h5>
+            <Switch checked={kickOnPingDisabled} name="Kick on high ping" callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
+            <TextInput
+                type="number"
+                disabled={!allowedTo || !kickOnPingDisabled}
+                callback={
+                    (e) => {
+                        console.log(e.target.value);
+                        if (e.target.value < 0) {} else {
+                            if (e.target.value !== "") changeSrerverState({ autoPingKick: parseInt(e.target.value) })
+                        }
+                    }
+                }
+                value={(serverState) ? serverState.autoPingKick : "" }
+                name={"High ping value"}
+            />
+            <TextInput
+                disabled={!allowedTo || !kickOnPingDisabled}
+                callback={(e) => changeSrerverState({ autoPingKickMessage: e.target.value })}
+                defaultValue={getServerValue("autoPingKickMessage")}
+                name={"Auto ping msg"}
+            />
+            {
+                (props.server && canApply) ? (
+                    <ButtonRow>
+                        <Button name="Apply changes" disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editServerSettings.mutate(
+                                serverState
+                            )
+                        } status={applyStatus} />
+                    </ButtonRow>
+                ) : ""
+            }
+        </>
+    );
 }
 
 
