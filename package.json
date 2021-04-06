@@ -15,7 +15,7 @@
     "react-transition-group": "^4.4.1",
     "reinstall": "^2.0.0",
     "uninstall": "^0.0.0",
-    "version": "^0.1.2",
+    "version": "^0.0.4",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
