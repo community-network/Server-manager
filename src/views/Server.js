@@ -115,7 +115,7 @@ export function Server(props) {
 
     const serverTabs = [
         {
-            name: "Server info",
+            name: "Current game",
             callback: () => setTabsListing("info"),
         },
         {
@@ -127,8 +127,16 @@ export function Server(props) {
             callback: () => setTabsListing("viplist"),
         },
         {
+            name: "Logs",
+            callback: () => setTabsListing("loglist"),
+        },
+        {
             name: "Server Protection",
             callback: () => setTabsListing("protection"),
+        },
+        {
+            name: "Settings",
+            callback: () => setTabsListing("settings"),
         }
     ];
 
@@ -140,11 +148,13 @@ export function Server(props) {
         ),
         banlist: <BanList banList={banList} />,
         viplist: "",
+        loglist: "",
         protection: (
             <>
                 <ServerAutomation server={server} sid={sid} />
             </>
-        )
+        ),
+        settings: ""
     }
 
     //if (!serverError && server && !gameError && runningGame) {
@@ -202,7 +212,7 @@ export function Server(props) {
             <Row>
                 <Column>
                     <Header>
-                        <h2>Dashboard</h2>
+                        <h2>Server panel</h2>
                     </Header>
                 </Column>
             </Row>
@@ -415,40 +425,70 @@ function ServerBanPlayer(props) {
 
     var { sid, eaid } = props;
 
-    var [reason, setReason] = useState("");
-    var [banTime, setBanTime] = useState(0);
+    const [reason, setReason] = useState("");
+    const [banTime, setBanTime] = useState(0);
+    const [globalVsClassicBan, setGlobalVsClassicBan] = useState(true);
+
+    var [globalBanApplyStatus, setGlobalBanApplyStatus] = useState(null);
+    var [banApplyStatus, setBanApplyStatus] = useState(null);
+
     const queryClient = useQueryClient();
+    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
 
     const BanPlayer = useMutation(
         v => OperationsApi.banPlayer(v),
         {
-            // When mutate is called:
-            onMutate: async ({ sid, eaid }) => {
-                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('serverGame' + sid)
-                // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('serverGame' + sid)
-                // Optimistically update to the new value
-                queryClient.setQueryData('serverGame' + sid, old => {
-                    old.data[0].players[0].players = old.data[0].players[0].players.filter(e => e.name !== eaid);
-                    old.data[0].players[1].players = old.data[0].players[1].players.filter(e => e.name !== eaid);
-                    return old;
-                })
-                // Return a context object with the snapshotted value
-                return { previousGroup, sid }
+            onMutate: async () => {
+                setBanApplyStatus(true)
             },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
-                queryClient.setQueryData('serverGame' + context.sid, context.previousGroup)
+            onError: () => {
+                setBanApplyStatus(false)
+                setTimeout(_ => setBanApplyStatus(null), 2000);
             },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                //queryClient.invalidateQueries('groupId' + context.gid)
+            onSuccess: () => {
+                setBanApplyStatus(null)
+            },
+        }
+    );
+
+    const GlobalBanPlayer = useMutation(
+        v => OperationsApi.globalBanPlayer(v),
+        {
+            onMutate: async () => {
+                setGlobalBanApplyStatus(true)
+            },
+            onError: () => {
+                setGlobalBanApplyStatus(false)
+                setTimeout(_ => setGlobalBanApplyStatus(null), 2000);
+            },
+            onSuccess: () => {
+                setGlobalBanApplyStatus(null)
             },
         }
     );
 
     const history = useHistory();
+    var gid = null;
+
+    if (user) {
+        user.permissions.isAdminOf.map(
+            group => {
+                for (let someSid of group.servers) {
+                    if (someSid == sid) {
+                        gid = group.id;
+                    }
+                }
+            }
+        )
+    }
+
+    const isDisabled =
+        reason === "" ||
+        banTime < 0 ||
+        globalBanApplyStatus !== null ||
+        banApplyStatus !== null ||
+        userGettingError || !user || gid == null;
+
 
     return (
         <Row>
@@ -457,12 +497,26 @@ function ServerBanPlayer(props) {
                     <h2>Ban player</h2>
                 </Header>
                 <Card>
-                    <h2>You are going to ban player {props.eaid}</h2>
-                    <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
+                    <h2 style={{ marginLeft: "20px" }}>You are going to ban player {props.eaid}</h2>
+                    <h5>Enter a reason to ban this player.</h5>
+                    <TextInput name="Reason" callback={(e) => setReason(e.target.value)} disabled={globalVsClassicBan} />
+                    <Switch value={globalVsClassicBan} name="Use Virtual Ban instead of classic ban list" callback={ (v) => setGlobalVsClassicBan(v) } />
+                    <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.</h5>
                     <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} />
                     <ButtonRow>
                         <ButtonLink name="Chancel" to={`/server/${props.sid}/`} />
-                        <Button name="Ban hammer!" disabled={reason === "" || banTime < 0} callback={() => { BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime }); history.push(`/server/${props.sid}/`); }} />
+                        <Button
+                            name="Ban, Ban, Ban!"
+                            style={{ color: "#FF7575" }}
+                            disabled={isDisabled}
+                            callback={() => {
+                                if (globalVsClassicBan) {
+                                    GlobalBanPlayer.mutate({ gid, reason, name: props.eaid });
+                                } else {
+                                    BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime });
+                                }
+                            }}
+                            status={banApplyStatus} />
                     </ButtonRow>
                 </Card>
             </Column>

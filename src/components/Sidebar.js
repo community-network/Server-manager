@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { NavLink, Link, useHistory } from 'react-router-dom';
-
+import ABSwitch, { getChannel } from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
 
 import { OperationsApi } from "../api";
+
+import { APP_VERSION } from "../App";
+
 
 function TopSidebar() {
     return (
@@ -80,7 +83,8 @@ export function Sidebar(props) {
                             signedIn: false
                         }
                     };
-                })
+                });
+                history.push('/');
                 // Return a context object with the snapshotted value
                 return { prevUser }
             },
@@ -114,16 +118,17 @@ export function Sidebar(props) {
             }
 
             accountLink = [
-                <PageLink key={0} to="/account/" name="Account" />,
-                <PageLink key={1} to="/group/new/" name="Create Group" content={addGroupContent} />
+                ABSwitch("", <PageLink key={0} to="/home/" name="Home page" />, "homePage"),
+                <PageLink key={1} to="/account/" name="Account" />,
+                <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />
             ];
-            logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); history.push('/'); }} name="Logout" />;
+            logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); }} name="Logout" />;
             groupLinks = [];
             for (let i in user.permissions.isAdminOf) {
                 let group = user.permissions.isAdminOf[i];
                 groupLinks.push(<PageLink to={ "/group/" + group.id } name={group.groupName} key={i} />);
             }
-
+                
         }
     }
 
@@ -132,17 +137,17 @@ export function Sidebar(props) {
     return (
         <div className={styles.Sidebar}>
             <TopSidebar />
-            <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                <div style={{ display: "flex", flexGrow: 2, flexDirection: "column" }}>
-                    {accountLink}
-                    {devLink}
+            <div style={{ display: "flex", flexGrow: 2, flexDirection: "column", overflowY: "auto", marginBottom: "50px" }}>
+                {accountLink}
+                {devLink}
+                <div className={styles.GroupLinks}>
                     {groupLinks}
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", marginBottom: "30px"}}>
-                    <PageButton href="https://discord.gametools.network/" name="Need help?" />
-                    {logoutLink}
-                </div>
+                <PageButton href="https://discord.gametools.network/" name="Need help?" />
+                {logoutLink}
+                
             </div>
+            <p style={{ paddingLeft: "48px", fontSize: "12px" }}>Server Panel v{APP_VERSION} channel {(getChannel() === 0) ? "A" : "B"}</p>
         </div>
     );
 

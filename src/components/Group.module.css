@@ -40,6 +40,10 @@
     text-decoration: none;
 }
 
+.gameStatsAd:hover {
+    background: var(--color-second-v1);
+}
+
 .gameStatsAd img {
     height: 40px;
     width: 40px;

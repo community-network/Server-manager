@@ -1,0 +1,78 @@
+.MainPageCard {
+    display: flex;
+    width: 100%;
+    margin: 80px;
+    background-color: #181820;
+    flex-direction: row;
+    flex-grow: 2;
+    border-radius: 20px;
+}
+.MainPage {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.titleBlock {
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 600px;
+    justify-content: right;
+    line-height: 1.5;
+}
+.listing {
+    padding: 60px 80px;
+    display: flex;
+    border-radius: 20px;
+    flex-direction: column;
+    background-color: #1C1C26;
+    flex-grow: 2;
+}
+
+.listing > h2 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.ListItem {
+    margin-top: 20px;
+}
+
+.titleContent {
+    display: flex;
+    text-align: right;
+    flex-direction: column;
+    max-width: 340px;
+}
+
+.titleContent > h1 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.titleContent > p {
+    line-height: 1.7;
+}
+
+.LoginButton {
+    display: flex;
+    min-width: 180px;
+    border-radius: 8px;
+    height: 40px;
+    background-color: #6D61F2;
+    flex-grow: 1;
+    flex-shrink: 2;
+    padding: 0 40px;
+    align-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+    color: white;
+}
+
+.LoginButton:hover {
+    background-color: #7C70FF;
+}

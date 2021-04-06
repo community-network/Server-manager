@@ -26,6 +26,14 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async globalBanPlayer({ name, reason, gid}) {
+        return await this.postJsonMethod("addautoban", {
+            "playername": name,
+            "groupid": gid,
+            "reason": reason
+        });
+    }
+
     async changeRotation({ sid, map }) {
         return await this.postJsonMethod("changelevel", {
             "mapnumber": map,

@@ -8,4 +8,5 @@ export { Header } from "./Header";
 export { UserRow, UserStRow, FakeUserStRow } from "./User";
 export { GroupRow, ServerRow, GameStatsAd } from "./Group";
 export { Status } from "./Status";
+export { MainPageComponent } from "./MainPage";
 export { ServerInfo, ServerRotation, ServerInfoHolder, PlayerInfo, BanList } from "./Server";

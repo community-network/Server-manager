@@ -24,53 +24,6 @@ export function ServerInfo(props) {
     var server = props.server;
     return (
         <>
-            <div className={styles.ServerInfoColumn}>
-                <SettingsRow>
-                    <SmallText>Virtual ban list</SmallText>
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallText>Kick on high ping</SmallText>
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallText>BFBan Anti Cheat</SmallText>
-                </SettingsRow>
-            </div>
-            <div className={styles.ServerDescriptionColumn}>
-                <SettingsRow>
-                    <Switch checked={server.autoBanKick} callback={() => { }} />
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallIntInput value={server.autoPingKick} />
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallIntInput value={server.discordBotChannel} />
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallIntInput value={server.discordBotLang} />
-                </SettingsRow>
-            </div>
-            <div className={styles.ServerDescriptionColumn}>
-                <SettingsRow>
-                    <SmallText>Bot Min players</SmallText>
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallText>Bot Prev Req Count</SmallText>
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallText>Bot Started Amount</SmallText>
-                </SettingsRow>
-            </div>
-            <div className={styles.ServerDescriptionColumn}>
-                <SettingsRow>
-                    <SmallIntInput value={server.discordBotMinPlayerAmount} />
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallIntInput value={server.discordBotPrevReqCount} />
-                </SettingsRow>
-                <SettingsRow>
-                    <SmallIntInput value={server.discordBotStartedAmount} />
-                </SettingsRow>
-            </div>
         </>
     );
 }
@@ -125,12 +78,18 @@ export function PlayerInfo(props) {
     return (
         info.map((player, i) => 
             <div className={styles.PlayerRow} key={i}>
+                <span className={styles.PlayerIndex}>
+                    {i + 1}
+                </span>
                 <span className={styles.PlayerName}>
                     {player.platoon !== "" ? `[${player.platoon}] ` : ""}
                     {player.name}
-                    {" - "}
+                </span>
+                <span className={styles.PlayerPing}>
                     {player.ping}
                 </span>
+                <span className={styles.PlayerNone} />
+                
                 <div className={styles.PlayerButtons}>
                     {/*<Button name="Stats"></Button>*/}
                     <Button name="Move" callback={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam})} />
@@ -152,7 +111,7 @@ export function ServerInfoHolder(props) {
 }
 
 export function BanList(props) {
-    if (!props.banList) {
+    if (!props.banList && !props.banList.data) {
         return "Loading..";
     }
     const banList = props.banList;
@@ -164,9 +123,16 @@ export function BanList(props) {
                 Use our group-based virtual ban list,<br /> to ban unlimited amount of players.
             </h5>
             <TextInput name={"Search.."} />
-            <div style={{ maxHeight: "400px", overflowY: "scroll", marginTop: "8px" }}>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
-
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <th>Player name</th>
+                        <th>Player id</th>
+                        <th>Reason</th>
+                        <th>Admin</th>
+                        <th>Until</th>
+                        <th>Timestamp</th>
+                    </thead>
                     <tbody>
                         {
                             banList.data.map(

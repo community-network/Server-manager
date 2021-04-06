@@ -105,12 +105,28 @@
     display: flex;
     align-items: center;
     height: 62px;
+    font-size: 14px;
 }
 
 
 .PlayerName {
-    flex-grow: 2;
     color: var(--color-text-high);
+    margin-right: 10px;
+}
+
+.PlayerIndex {
+    padding-right: 20px;
+}
+
+.PlayerPing {
+    background: #21212b;
+    padding: 3px 11px;
+    border-radius: 5px;
+    color: var(--color-text);
+}
+
+.PlayerNone {
+    flex-grow: 2;
 }
 
 .playerBackgroundInfo {
@@ -158,6 +174,7 @@
     border: none;
     padding: 10px 20px;
     font-size: 13px;
+    color: var(--color-text);
 }
 
 .BanRow > td:first-child {
@@ -175,4 +192,13 @@
 .BanRow:hover > td {
     background: var(--color-container-v2);
     cursor: pointer;
+}
+
+th {
+    font-size: 14px;
+    text-align: left;
+    padding: 10px 20px;
+    font-weight: 500;
+    color: var(--color-text-high);
+    background: var(--color-container);
 }

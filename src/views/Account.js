@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Column, Card, Header, Button, CardRow, UserRow, Row } from "../components";
 
-
 export default function Account() {
 
     const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);

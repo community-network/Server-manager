@@ -1,6 +1,6 @@
 {
-  "name": "Operations-website",
-  "version": "0.1.0",
+  "name": "server-manager",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
@@ -13,6 +13,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-transition-group": "^4.4.1",
+    "reinstall": "^2.0.0",
+    "uninstall": "^0.0.0",
+    "version": "^0.1.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

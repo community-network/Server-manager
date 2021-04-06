@@ -40,13 +40,13 @@ a {
 }
 
 h2 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     margin: 0 0 8px 0;
 }
 
 h5 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     margin: 0 20px 8px 20px;
     color: var(--color-text);
@@ -54,7 +54,7 @@ h5 {
 }
 
 p {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1.5;
     color: var(--color-text);

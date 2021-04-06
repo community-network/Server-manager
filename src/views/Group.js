@@ -708,12 +708,16 @@ export function AddGroup(props) {
             groupName: "",
             discordId: "",
             adminRole: "",
-            modRole: ""
+            modRole: "",
+            remid: "",
+            sid: "",
         },
         roleDisplay: false,
         canAdd: false
     });
 
+    const [applyStatus, setApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
     const queryClient = useQueryClient();
     const history = useHistory();
 
@@ -721,12 +725,22 @@ export function AddGroup(props) {
         variables => OperationsApi.addGroup(variables),
         {
             onMutate: async (variables) => {
+                setApplyStatus(true);
                 await queryClient.cancelQueries('devGroups');
                 return {}
             },
-            onSettled: (data, error, variables, context) => {
-                queryClient.refetchQueries('devGroups');
+            onSuccess: async () => {
+                setApplyStatus(null);
+                history.push("/");
             },
+            onError: async (error) => {
+                setError(error);
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.refetchQueries('devGroups');
+            }
         }
     );
 
@@ -741,7 +755,7 @@ export function AddGroup(props) {
         let newVars = newGroupState.variables;
         newGroupState.roleDisplay = (newVars.discordId !== "");
         newGroupState.canAdd =
-            (newVars.groupName !== "") && (newVars.remid !== "") && (newVars.sid !== "");
+            (newVars.remid.length > 1) && (newVars.sid.length > 1) && (newVars.groupName.length > 2);
         changeState(newGroupState);
     };
 
@@ -750,13 +764,11 @@ export function AddGroup(props) {
             <Column>
                 <Header>
                     <h2>Create new Group</h2>
+                    
                 </Header>
                 <Card>
-                    <h2>Group info</h2>
-                    <p style={{ marginBottom: "8px" }}>
-                        Create a new group to manage your community servers.<br />
-                        <i>NOTE: This tools are in open Beta test</i>
-                    </p>
+                    <h5>Create a new group to manage your community servers</h5>
+                    {/*<h2>Create a new group to manage your community servers</h2>*/}
                     <TextInput name="Name" callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         Optionaly, you can add your discord server, to integrate server tools
@@ -781,7 +793,8 @@ export function AddGroup(props) {
                         By pressing this button, you agree to give <br />server manager tool access to the account.
                     </h5>
                     <ButtonRow>
-                        <Button name="Create group" disabled={!addGroupState.canAdd} callback={() => { AddNewGroupExecute.mutate(addGroupState.variables); history.push("/dev/"); }} />
+                        <Button name="Create group" disabled={!addGroupState.canAdd || applyStatus !== null} status={applyStatus} callback={() => AddNewGroupExecute.mutate(addGroupState.variables)} />
+                        <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
                     </ButtonRow>
                 </Card>
             </Column>
