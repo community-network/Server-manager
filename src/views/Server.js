@@ -10,10 +10,8 @@ export function Server(props) {
 
     const queryClient = useQueryClient();
 
-    const { isError: serverError, data: server } = useQuery('server' + sid, () => OperationsApi.getServer(sid), { staleTime: 60000 });
-    const { isError: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid), { staleTime: 60000 });
-
-    const { isError: banListGettingError, data: banList } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }), { staleTime: 60000 });
+    const { isError: serverError, data: server } = useQuery('server' + sid, () => OperationsApi.getServer(sid));
+    const { isError: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid));
 
     var serverCard = "";
     var playerList = "";
@@ -429,7 +427,6 @@ function ServerBanPlayer(props) {
     const [banTime, setBanTime] = useState(0);
     const [globalVsClassicBan, setGlobalVsClassicBan] = useState(false);
 
-    var [globalBanApplyStatus, setGlobalBanApplyStatus] = useState(null);
     var [banApplyStatus, setBanApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
@@ -445,7 +442,7 @@ function ServerBanPlayer(props) {
             onError: (error) => {
                 setBanApplyStatus(false);
                 setError(error);
-                setTimeout(_ => setBanApplyStatus(null), 2000);
+                setTimeout(_ => setBanApplyStatus(null), 3000);
             },
             onSuccess: () => {
                 setBanApplyStatus(null)
@@ -457,15 +454,15 @@ function ServerBanPlayer(props) {
         v => OperationsApi.globalBanPlayer(v),
         {
             onMutate: async () => {
-                setGlobalBanApplyStatus(true)
+                setBanApplyStatus(true)
             },
             onError: (error) => {
-                setGlobalBanApplyStatus(false);
+                setBanApplyStatus(false);
                 setError(error);
-                setTimeout(_ => setGlobalBanApplyStatus(null), 2000);
+                setTimeout(_ => setBanApplyStatus(null), 3000);
             },
             onSuccess: () => {
-                setGlobalBanApplyStatus(null)
+                setBanApplyStatus(null)
             },
         }
     );
@@ -488,7 +485,6 @@ function ServerBanPlayer(props) {
     const isDisabled =
         reason === "" ||
         banTime < 0 ||
-        globalBanApplyStatus !== null ||
         banApplyStatus !== null ||
         userGettingError || !user || gid == null;
 
