@@ -1,6 +1,6 @@
 
 import React from "react";
-import { HashRouter, useLocation, Route, Switch } from 'react-router-dom';
+import { HashRouter, useLocation, Route, Switch, useHistory } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import './App.css';
@@ -34,7 +34,7 @@ function App() {
                     <Route>
                         <Sidebar />
                         <TransitionGroup component={PageContainer}>
-                            <CSSTransition key={location.key} classNames="fade" timeout={200}>
+                            <CSSTransition key={location.hash} classNames="fade" timeout={200}>
                                 <PageColumn>
                                     <Views />
                                 </PageColumn>

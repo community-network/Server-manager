@@ -427,10 +427,11 @@ function ServerBanPlayer(props) {
 
     const [reason, setReason] = useState("");
     const [banTime, setBanTime] = useState(0);
-    const [globalVsClassicBan, setGlobalVsClassicBan] = useState(true);
+    const [globalVsClassicBan, setGlobalVsClassicBan] = useState(false);
 
     var [globalBanApplyStatus, setGlobalBanApplyStatus] = useState(null);
     var [banApplyStatus, setBanApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
     const queryClient = useQueryClient();
     const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
@@ -441,8 +442,9 @@ function ServerBanPlayer(props) {
             onMutate: async () => {
                 setBanApplyStatus(true)
             },
-            onError: () => {
-                setBanApplyStatus(false)
+            onError: (error) => {
+                setBanApplyStatus(false);
+                setError(error);
                 setTimeout(_ => setBanApplyStatus(null), 2000);
             },
             onSuccess: () => {
@@ -457,8 +459,9 @@ function ServerBanPlayer(props) {
             onMutate: async () => {
                 setGlobalBanApplyStatus(true)
             },
-            onError: () => {
-                setGlobalBanApplyStatus(false)
+            onError: (error) => {
+                setGlobalBanApplyStatus(false);
+                setError(error);
                 setTimeout(_ => setGlobalBanApplyStatus(null), 2000);
             },
             onSuccess: () => {
@@ -499,15 +502,15 @@ function ServerBanPlayer(props) {
                 <Card>
                     <h2 style={{ marginLeft: "20px" }}>You are going to ban player {props.eaid}</h2>
                     <h5>Enter a reason to ban this player.</h5>
-                    <TextInput name="Reason" callback={(e) => setReason(e.target.value)} disabled={globalVsClassicBan} />
+                    <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
                     <Switch value={globalVsClassicBan} name="Use Virtual Ban instead of classic ban list" callback={ (v) => setGlobalVsClassicBan(v) } />
-                    <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.</h5>
-                    <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} />
+                    <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.<br />Not supported yet by V-Ban.</h5>
+                    <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
                     <ButtonRow>
-                        <ButtonLink name="Chancel" to={`/server/${props.sid}/`} />
+                        <ButtonLink name="Chancel" to={`/server/${props.sid}/`} style={{maxWidth: "143px"}} />
                         <Button
-                            name="Ban, Ban, Ban!"
-                            style={{ color: "#FF7575" }}
+                            name="Ban!"
+                            style={{ maxWidth: "144px" }}
                             disabled={isDisabled}
                             callback={() => {
                                 if (globalVsClassicBan) {
@@ -517,6 +520,7 @@ function ServerBanPlayer(props) {
                                 }
                             }}
                             status={banApplyStatus} />
+                        <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
                     </ButtonRow>
                 </Card>
             </Column>

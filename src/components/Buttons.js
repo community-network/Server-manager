@@ -6,7 +6,7 @@ import { Status } from "./Status";
 
 
 export function Button(props) {
-    var style = {};
+    var style = props.style || {};
     if (props.background_color) {
         style["background"] = props.background_color
     }
