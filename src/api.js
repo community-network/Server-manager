@@ -93,8 +93,23 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async getLogs() {
-        return await this.getJsonMethod("taillog");
+    async getVipList({ sid }) {
+        return await this.getJsonMethod("infolist", {
+            "type": "vipList",
+            "serverid": sid
+        });
+    }
+
+    async getServerLogs({ sid }) {
+        return await this.getJsonMethod("tailserverlog", {
+            "serverid": sid
+        });
+    }
+
+    async getGroupLogs({ gid }) {
+        return await this.getJsonMethod("tailuserlog", {
+            "serverid": gid
+        });
     }
 
     async getDevGroups() {

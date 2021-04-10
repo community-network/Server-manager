@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Server.module.css";
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Link } from "react-router-dom";
-import { Button, ButtonRow, Switch, DropdownButton, ButtonLink, TextInput} from "./Buttons";
+import { Button, ButtonRow, Switch, DropdownButton, ButtonLink, TextInput } from "./Buttons";
+import { OperationsApi } from "../api";
 
 
 export function SmallText(props) {
@@ -111,10 +113,18 @@ export function ServerInfoHolder(props) {
 }
 
 export function BanList(props) {
-    if (!props.banList && !props.banList.data) {
+    const sid = props.sid;
+    const { isError, data: banList, error } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }));
+
+    if (!banList) {
+        // TODO: add fake item list on loading
         return "Loading..";
     }
-    const banList = props.banList;
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
     return (
         <div>
             <h5>
@@ -156,6 +166,133 @@ function BanRow(props) {
             <td>{player.admin}</td>
             <td>{player.banned_until}</td>
             <td>{player.ban_timestamp}</td>
+        </tr>
+    );
+}
+
+export function LogList(props) {
+    const sid = props.sid;
+    const { isError, data: logList, error } = useQuery('serverLogList' + sid, () => OperationsApi.getServerLogs({ sid }));
+
+    if (!logList) {
+        // TODO: add fake item list on loading
+        return "Loading..";
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    logList.logs.sort((a, b) => (
+        Date.parse(b.timeStamp) - Date.parse(a.timeStamp)
+    ));
+
+    return (
+        <div>
+            <h5>Log list</h5>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+            {
+                logList.logs.map(
+                    (log, i) => (<LogRow log={log} key={i} />)
+                )
+            }
+            </div>
+        </div>
+    );
+}
+
+function LogRow(props) {
+    const log = props.log;
+    const action = (() => {
+        switch (log.action) {
+            case "addServerBan":
+                return "banned";
+            case "kickPlayer":
+                return "kicked";
+            case "removeServerBan":
+                return "unbanned"
+            case "addServerVip":
+                return "gave vip to";
+            case "movePlayer":
+                return "moved";
+            case "removeServerVip":
+                return "removed vip of"
+            default:
+                return "did magic to";
+        }
+    })();
+    var datetime = new Date(log.timeStamp);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    // Local time
+    datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${datetime.getHours()}:${datetime.getMinutes()}`;
+    return (
+        <div className={styles.logRow}>
+            <span className={styles.logAdmin}>{log.adminName}</span>
+            <span className={styles.logAction}>{action}</span>
+            <span className={styles.logPlayer}>{log.toPlayer}</span>
+            <span className={styles.logReason}>{
+                ((log.reason === "") ? "without any reason" : "with reason " + log.reason)
+            }</span>
+            <span className={styles.logTime}>{datetime}</span>
+        </div>
+    );
+}
+
+export function VipList(props) {
+    const sid = props.sid;
+    const { isError, data: vipList, error } = useQuery('serverVipList' + sid, () => OperationsApi.getVipList({ sid }));
+
+    if (!vipList) {
+        // TODO: add fake item list on loading
+        return "Loading..";
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+    
+
+    return (
+        <div>
+            <div className={styles.VipHeader}>
+                <TextInput name={"Search.."} />
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <h5 style={{ marginBottom: 0 }}>
+                        List of VIP players on this server.<br />
+                        Used <b>{vipList.data.length} slots out of 50</b>.
+                    </h5>
+                </div>
+            </div>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <tr>
+                            <th>Player name</th>
+                            <th>Player id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            vipList.data.map(
+                                (player, i) => (<VipRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function VipRow(props) {
+    const player = props.player;
+    return (
+        <tr className={styles.VipRow}>
+            <td title={player.displayName} className={styles.VipName}>
+                <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
+                {player.displayName}
+            </td>
+            <td title="Player ID">{player.id}</td>
         </tr>
     );
 }

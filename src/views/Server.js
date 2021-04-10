@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Tag, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, ServerRow, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
+import { Tag, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
 
 
 export function Server(props) {
@@ -146,9 +146,9 @@ export function Server(props) {
                 <ServerRotation game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} />
             </ServerInfoHolder>
         ),
-        banlist: <BanList banList={banList} />,
-        viplist: "",
-        loglist: "",
+        banlist: <BanList sid={sid} />,
+        viplist: <VipList sid={sid} />,
+        loglist: <LogList sid={sid} />,
         protection: (
             <>
                 <ServerAutomation server={server} sid={sid} />

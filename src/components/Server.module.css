@@ -170,30 +170,45 @@
 }
 
 
-.BanRow > td {
+.BanRow > td, .VipRow > td {
     border: none;
     padding: 10px 20px;
     font-size: 13px;
     color: var(--color-text);
 }
 
-.BanRow > td:first-child {
+.BanRow > td:first-child, .VipRow > td:first-child {
     border-radius: 8px 0 0 8px;
 }
 
-.BanRow > td:last-child {
+.BanRow > td:last-child, .VipRow > td:last-child {
     border-radius: 0 8px 8px 0;
 }
 
-.BanDisplayName {
+.BanDisplayName, VipName {
     font-weight: 500;
 }
 
-.BanRow:hover > td {
+.VipRowImg > img {
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+}
+.VipName {
+    display: flex;
+    flex-direction: row;
+}
+.VipRowImg {
+    margin-right: 20px;
+}
+.BanRow:hover > td, .VipRow:hover > td {
     background: var(--color-container-v2);
     cursor: pointer;
 }
-
+.VipHeader {
+    display: flex;
+    flex-direction: row;
+}
 th {
     font-size: 14px;
     text-align: left;
@@ -201,4 +216,27 @@ th {
     font-weight: 500;
     color: var(--color-text-high);
     background: var(--color-container);
+}
+
+.logAdmin, .logPlayer {
+    margin-right: 10px;
+    color: var(--color-text-high);
+}
+.logAction, .logReason {
+    margin-right: 10px;
+    color: var(--color-text);
+}
+.logRow {
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid var(--color-second);
+    background: var(--color-container-v2);
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+}
+
+.logReason {
+    flex-grow: 2;
 }
