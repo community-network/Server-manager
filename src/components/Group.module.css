@@ -92,3 +92,20 @@
 .globalUnban {
     cursor: pointer;
 }
+
+.serverBadgeErr, .serverBadgeOk, .serverBadgePending {
+    padding: 3px 10px;
+    color: #4aaeff;
+    margin-left: 15px;
+    border-radius: 3px;
+    background: var(--color-second);
+    font-size: 12px;
+}
+
+.serverBadgeErr {
+    color: #FF7575;
+}
+
+.serverBadgeOk {
+    color: #61d663;
+}

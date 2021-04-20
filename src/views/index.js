@@ -15,7 +15,6 @@ export default function Views(props) {
             <Route exact path="/account/" component={Account} />
 
             <Route exact path="/server/:sid/" component={Server} />
-            {/* exact path="/server/:sid/manage/" />*/}
             <Route exact path="/server/:sid/:action/:eaid/" component={ServerAction} />
 
             <Route exact path="/group/new/" component={AddGroup} />
@@ -26,7 +25,6 @@ export default function Views(props) {
             <Route exact path="/group/:gid/add/owner/" component={AddGroupOwner} />
 
             <Route exact path="/group/:gid/edit/" component={EditGroup} />
-            <Route exact path="/group/:gid/logs/" />
             <Route exact path="/group/:gid/delete" component={DeleteGroup} />
 
             <Route exact path="/dev/" component={Developer} />

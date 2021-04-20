@@ -384,7 +384,12 @@ function GroupServerAccount(props) {
                 Account manager, that will administrate your servers.<br />
                 These cookies can be found at <i>accounts.ea.com</i>
             </h5>
-
+            {(props.group && !props.group.validCookie) ? (
+                <p style={{ marginTop: "0px", border: "1px solid var(--color-second)", padding: "10px 22px", borderRadius: "8px", color: "#FF7575", background: "var(--color-container-v2)" }}>
+                    Error: The cookies you are using right now are invalid!
+                </p>
+            ) : ""}
+            
             <Row>
                 <TextInput type="password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>

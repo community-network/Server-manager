@@ -14,7 +14,7 @@ import { Sidebar, PageContainer, PageColumn } from "./components";
 
 export const history = createHashHistory();
 
-export const APP_VERSION = "1.0.0";
+export const APP_VERSION = "1.0.1";
 
 function App() {
 
@@ -26,6 +26,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={Main} />
                     <Route>
+                        {/*<TopBar />*/}
                         <Sidebar />
                         <TransitionGroup component={PageContainer}>
                             <CSSTransition key={location.hash} classNames="fade" timeout={200}>

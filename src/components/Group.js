@@ -23,16 +23,51 @@ export function ServerRow(props) {
     if (server.id === null) {
         return (
             <div className={styles.GroupRow}>
-                <span className={styles.GroupName}>{server.name}</span>
+                <span className={styles.GroupName}>
+                    {server.name}
+                    <span className={styles.serverBadgePending}>
+                        Pending status
+                    </span>
+                </span>
                 {props.button}
             </div>
         );
     }
 
+    const serverStatus = (() => {
+        switch (server.status) {
+            case "noServer":
+                return (
+                    <span className={styles.serverBadgeErr}>
+                        Server not found
+                    </span>
+                )
+            case "noAdmin":
+                return (
+                    <span className={styles.serverBadgeErr}>
+                        No admin rights
+                    </span>
+                )
+            case "pending":
+                return (
+                    <span className={styles.serverBadgePending}>
+                        Pending status
+                    </span>
+                )
+            default:
+                return (
+                    <span className={styles.serverBadgeOk}>
+                        Running
+                    </span>
+                )    
+        }
+    })();
+
     return (
         <div className={styles.GroupRow}>
             <Link className={styles.GroupName} to={"/server/" + server.id}>
                 {server.name}
+                {serverStatus}
             </Link>
             {props.button}
         </div>
