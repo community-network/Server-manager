@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from 'react-query';
 import { Redirect } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, Button, CardRow, UserRow, Row } from "../components";
+import { Column, Card, Header, CardRow, UserRow, Row } from "../components";
 
 export default function Account() {
 

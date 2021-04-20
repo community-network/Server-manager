@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
+import { GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
 
 
 const deleteIcon = (
@@ -121,7 +121,10 @@ export function Group(props) {
         owners: <GroupOwners group={group} user={user} gid={gid} onDelete={removeOwner} />,
         admins: <GroupAdmins group={group} user={user} gid={gid} onDelete={removeAdmin} />,
         servers: <GroupServers group={group} user={user} gid={gid} onDelete={removeServer} />,
+        vbanlist: <VBanList user={user} gid={gid} />,
+        grouplogs: <GroupLogs gid={gid} />,
     }
+
 
     const catSettings = {
         account: <GroupServerAccount gid={gid} user={user} group={group} />,
@@ -142,6 +145,14 @@ export function Group(props) {
             name: "Owners",
             callback: () => setListing("owners"),
         },
+        {
+            name: "VBan list",
+            callback: () => setListing("vbanlist"),
+        },
+        {
+            name: "Group logs",
+            callback: () => setListing("grouplogs"),
+        }
     ]
 
     const settingsCycle = [

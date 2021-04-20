@@ -1,7 +1,7 @@
 
 .SmallText {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--color-text);
     margin-right: 15px;
     line-height: 1.5em;
@@ -193,13 +193,22 @@
     height: 20px;
     width: 20px;
     border-radius: 20px;
+    align-items: center;
 }
 .VipName {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    align-content: center;
+}
+.VipName > span {
+    align-self: center;
 }
 .VipRowImg {
+    height: 20px;
+    width: 20px;
     margin-right: 20px;
+    align-items: center;
 }
 .BanRow:hover > td, .VipRow:hover > td {
     background: var(--color-container-v2);
@@ -229,6 +238,7 @@ th {
 .logRow {
     padding: 10px 20px;
     margin: 10px 0;
+    height: 40px;
     border-radius: 8px;
     border: 1px solid var(--color-second);
     background: var(--color-container-v2);
@@ -238,5 +248,23 @@ th {
 }
 
 .logReason {
+   
+}
+.logReasonDetailed {
     flex-grow: 2;
+    color: var(--color-text-high);
+}
+
+.logIcon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.logPlayer {
+    background: var(--color-second);
+    padding: 3px 10px;
+    border-radius: 3px;
+    height: auto;
+    align-self: center;
 }

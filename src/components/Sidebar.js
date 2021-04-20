@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import ABSwitch, { getChannel } from "../testing/ABtesting";
@@ -13,7 +13,7 @@ function TopSidebar() {
     return (
         <div className={styles.TopSidebar}>
             <Link to="/" title="Main page">
-                <img src="/Comnet-logo.png" className={styles.Logo} />
+                <img src="/release-logo.png" className={styles.Logo} />
             </Link>
         </div>
     );
@@ -147,7 +147,7 @@ export function Sidebar(props) {
                 {logoutLink}
                 
             </div>
-            <p style={{ paddingLeft: "48px", fontSize: "12px" }}>Server Panel v{APP_VERSION} channel {(getChannel() === 0) ? "A" : "B"}</p>
+            <p style={{ paddingLeft: "48px", fontSize: "12px" }}>v{APP_VERSION} channel {(getChannel() === 0) ? "A" : "B"}</p>
         </div>
     );
 

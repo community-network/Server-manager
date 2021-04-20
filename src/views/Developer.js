@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from 'react-query';
 import { Redirect } from 'react-router-dom';
 import { OperationsApi } from "../api";

@@ -77,7 +77,7 @@ export function Switch(props) {
 
     return (
         <div className={styles.SwitchRow}>
-            <div className={switchClassName} onClick={switchTheSwitch} onKeyPress={SwitchOnenter} role="switch" tabIndex="1">
+            <div className={switchClassName} onClick={switchTheSwitch} isChecked={checkedSwitch} onKeyPress={SwitchOnenter} role="switch" tabIndex="1">
                 <span className={styles.SwitchInner}>
                     <span className={styles.SwitchOn}></span>
                     <span className={styles.SwitchOff}></span>
@@ -131,9 +131,12 @@ export function ChoosePageButtons(props) {
                 props.buttons.map((button, i) => (
                     <div
                         key={i}
+                        isChecked={i === active}
+                        role="switch"
                         className={(i === active) ? styles.ChoosePageButtonActive : styles.ChoosePageButton}
                         onClick={_ => { setActive(i); button.callback() }}
                         title={button.name}
+                        tabIndex="1" 
                     >
                         {button.content || button.name}
                     </div>

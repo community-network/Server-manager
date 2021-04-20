@@ -1,6 +1,6 @@
 
 import React from "react";
-import { HashRouter, useLocation, Route, Switch, useHistory } from 'react-router-dom';
+import { HashRouter, useLocation, Route, Switch } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import './App.css';
@@ -14,13 +14,7 @@ import { Sidebar, PageContainer, PageColumn } from "./components";
 
 export const history = createHashHistory();
 
-export const APP_VERSION = "0.2.0-prev1";
-
-function ViewportHolder(props) {
-    return (
-        <div className="App">{props.children}</div>
-    );
-}   
+export const APP_VERSION = "1.0.0";
 
 function App() {
 

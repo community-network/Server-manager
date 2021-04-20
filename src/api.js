@@ -2,10 +2,6 @@ import JsonClient from "./JsonApi";
 
 export class ApiProvider extends JsonClient {
 
-    constructor() {
-        super();
-    }
-
     logout() {
         var asyncUser = this.logoutAndChangeUser();
         this.user = asyncUser;
@@ -31,6 +27,14 @@ export class ApiProvider extends JsonClient {
             "playername": name,
             "groupid": gid,
             "reason": reason
+        });
+    }
+
+    async globalUnbanPlayer({ name, gid}) {
+        return await this.postJsonMethod("delautoban", {
+            "playername": name,
+            "groupid": gid,
+            "reason": ""
         });
     }
 
@@ -93,6 +97,13 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+
+    async getAutoBanList({ gid }) {
+        return await this.getJsonMethod("autoban", {
+            "groupid": gid
+        });
+    }
+
     async getVipList({ sid }) {
         return await this.getJsonMethod("infolist", {
             "type": "vipList",
@@ -108,7 +119,7 @@ export class ApiProvider extends JsonClient {
 
     async getGroupLogs({ gid }) {
         return await this.getJsonMethod("tailuserlog", {
-            "serverid": gid
+            "groupid": gid
         });
     }
 

@@ -54,3 +54,41 @@
     font-size: 13px;
     font-weight: 500;
 }
+
+.logAdmin, .logPlayer {
+    margin-right: 10px;
+    color: var(--color-text-high);
+}
+.logAction, .logReason {
+    margin-right: 10px;
+    color: var(--color-text);
+}
+.logRow, .BanRow {
+    padding: 10px 20px;
+    margin: 10px 0;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--color-second);
+    background: var(--color-container-v2);
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+}
+
+.logReason, .banReasonDetailed {
+    flex-grow: 2;
+}
+
+.BanDisplayName {
+    margin-right: 10px;
+    color: var(--color-text-high);
+}
+
+.banReason {
+    margin-right: 10px;
+    color: var(--color-text);
+}
+
+.globalUnban {
+    cursor: pointer;
+}

@@ -21,7 +21,7 @@ function ErrorIcon(props) {
 export function Status(props) {
     return (
         <div className={styles.status}>
-            {(props.status == undefined || props.status == null) ?  "" : (props.status) ? <LoadingIcon /> : <ErrorIcon />}
+            {(props.status === undefined || props.status === null) ?  "" : (props.status) ? <LoadingIcon /> : <ErrorIcon />}
         </div>
     );
 }

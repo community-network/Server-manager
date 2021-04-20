@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Server.module.css";
-import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { Link } from "react-router-dom";
-import { Button, ButtonRow, Switch, DropdownButton, ButtonLink, TextInput } from "./Buttons";
+import { useQuery } from 'react-query';
+import { Button, ButtonRow, DropdownButton, ButtonLink, TextInput } from "./Buttons";
 import { OperationsApi } from "../api";
 
 
@@ -45,7 +44,7 @@ export function ServerRotation(props) {
                 <img className={styles.serverImage} src={(game) ? game.url : "/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : "Loading" }</span>
-                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} players` : "-"}</SmallText>
+                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} [${game.inQue}] players` : "-"}</SmallText>
                 </div>
             </div>
             <div className={(server) ? (server.isAdmin) ? styles.serverStatusOk : styles.serverStatusErr : styles.serverStatus }>
@@ -69,7 +68,7 @@ export function PlayerInfo(props) {
 
     var info = props.game.data[0].players[props.team].players;
 
-    var moveTeam = (props.team == "0") ? "1" : "2";
+    var moveTeam = (props.team === "0") ? "1" : "2";
 
     let getDropdownOptions = (player) => {
         return [
@@ -116,6 +115,8 @@ export function BanList(props) {
     const sid = props.sid;
     const { isError, data: banList, error } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }));
 
+    const [searchWord, setSearchWord] = useState("");
+
     if (!banList) {
         // TODO: add fake item list on loading
         return "Loading..";
@@ -132,7 +133,7 @@ export function BanList(props) {
                 Used <b>{banList.data.length} slots out of 200</b>.
                 Use our group-based virtual ban list,<br /> to ban unlimited amount of players.
             </h5>
-            <TextInput name={"Search.."} />
+            <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
@@ -145,7 +146,7 @@ export function BanList(props) {
                     </thead>
                     <tbody>
                         {
-                            banList.data.map(
+                            banList.data.filter(p => p.displayName.includes(searchWord)).map(
                                 (player, i) => (<BanRow player={player} key={i} />)
                             )
                         }
@@ -158,7 +159,7 @@ export function BanList(props) {
 
 function BanRow(props) {
     const player = props.player;
-    return (
+    return (    
         <tr className={styles.BanRow}>
             <td className={styles.BanDisplayName}>{player.displayName}</td>
             <td title="Player ID">{player.id}</td>
@@ -174,27 +175,27 @@ export function LogList(props) {
     const sid = props.sid;
     const { isError, data: logList, error } = useQuery('serverLogList' + sid, () => OperationsApi.getServerLogs({ sid }));
 
-    if (!logList) {
-        // TODO: add fake item list on loading
-        return "Loading..";
-    }
-
     if (isError) {
         return `Error ${error.code}: {error.message}`
     }
 
-    logList.logs.sort((a, b) => (
-        Date.parse(b.timeStamp) - Date.parse(a.timeStamp)
-    ));
+    if (logList) {
+        logList.logs.sort((a, b) => (
+            Date.parse(b.timeStamp) - Date.parse(a.timeStamp)
+        ));
+    }
+
 
     return (
         <div>
             <h5>Log list</h5>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
-            {
-                logList.logs.map(
-                    (log, i) => (<LogRow log={log} key={i} />)
-                )
+                {
+                    (logList) ? logList.logs.map(
+                        (log, i) => (<LogRow log={log} key={i} />)
+                    ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
+                        (_, i) => (<EmptyLogRow key={i} />)
+                    )
             }
             </div>
         </div>
@@ -221,26 +222,103 @@ function LogRow(props) {
                 return "did magic to";
         }
     })();
+
     var datetime = new Date(log.timeStamp);
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     // Local time
     datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${datetime.getHours()}:${datetime.getMinutes()}`;
+
+    if (log.action === "autokick-ping") {
+        return (
+            <div className={styles.logRow}>
+                <svg className={styles.logIcon} viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19.5,5.5V18.5H17.5V5.5H19.5M12.5,10.5V18.5H10.5V10.5H12.5M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" />
+                </svg>
+                <span className={styles.logAdmin}>Ping checker</span>
+                <span className={styles.logAction}>kicked</span>
+                <span className={styles.logPlayer}>{log.toPlayer}</span>
+                <span className={styles.logAction}>{log.reason}</span>
+                <span className={styles.logReasonDetailed}></span>
+                <span className={styles.logTime}>{datetime}</span>
+            </div>
+        );
+    }
+
+    if (log.action === "autokick-globalBans") {
+        return (
+            <div className={styles.logRow}>
+                <svg className={styles.logIcon} viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C10.1 4 8.4 4.6 7.1 5.7L18.3 16.9C19.3 15.5 20 13.8 20 12C20 7.6 16.4 4 12 4M16.9 18.3L5.7 7.1C4.6 8.4 4 10.1 4 12C4 16.4 7.6 20 12 20C13.9 20 15.6 19.4 16.9 18.3Z" />
+                </svg>
+                <span className={styles.logAdmin}>VBan</span>
+                <span className={styles.logAction}>kicked</span>
+                <span className={styles.logPlayer}>{log.toPlayer}</span>
+                <span className={styles.logReason}>with reason</span>
+                <span className={styles.logReasonDetailed}>{log.reason}</span>
+                <span className={styles.logTime}>{datetime}</span>
+            </div>
+        );
+    }
+
+    if (log.action === "autokick-bfban") {
+        return (
+            <div className={styles.logRow}>
+                <svg className={styles.logIcon} viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C10.1 4 8.4 4.6 7.1 5.7L18.3 16.9C19.3 15.5 20 13.8 20 12C20 7.6 16.4 4 12 4M16.9 18.3L5.7 7.1C4.6 8.4 4 10.1 4 12C4 16.4 7.6 20 12 20C13.9 20 15.6 19.4 16.9 18.3Z" />
+                </svg>
+                <span className={styles.logAdmin}>BFBAN</span>
+                <span className={styles.logAction}>kicked</span>
+                <span className={styles.logPlayer}>{log.toPlayer}</span>
+                <span className={styles.logReason}>with reason</span>
+                <span className={styles.logReasonDetailed}>{log.reason}</span>
+                <span className={styles.logTime}>{datetime}</span>
+            </div>
+        );
+    }
+
+    if (action === "moved" && log.toPlayer === "server") {
+        return (
+            <div className={styles.logRow}>
+                <svg className={styles.logIcon} viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M15,19L9,16.89V5L15,7.11M20.5,3C20.44,3 20.39,3 20.34,3L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21C3.55,21 3.61,21 3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3Z" />                </svg>
+                <span className={styles.logAdmin}>{log.adminName}</span>
+                <span className={styles.logAction}>{log.reason}</span>
+                <span className={styles.logReasonDetailed}></span>
+                <span className={styles.logTime}>{datetime}</span>
+            </div>
+        );
+    }
     return (
         <div className={styles.logRow}>
+            <svg className={styles.logIcon} viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+            </svg>
             <span className={styles.logAdmin}>{log.adminName}</span>
             <span className={styles.logAction}>{action}</span>
             <span className={styles.logPlayer}>{log.toPlayer}</span>
             <span className={styles.logReason}>{
-                ((log.reason === "") ? "without any reason" : "with reason " + log.reason)
+                ((log.reason === "") ? "without any reason" : "with reason")
             }</span>
+            <span className={styles.logReasonDetailed}>{log.reason}</span>
             <span className={styles.logTime}>{datetime}</span>
         </div>
+    );
+}
+
+
+function EmptyLogRow() {
+    return (
+        <div className={styles.logRow}></div>
     );
 }
 
 export function VipList(props) {
     const sid = props.sid;
     const { isError, data: vipList, error } = useQuery('serverVipList' + sid, () => OperationsApi.getVipList({ sid }));
+
+    const [searchWord, setSearchWord] = useState("");
+
 
     if (!vipList) {
         // TODO: add fake item list on loading
@@ -255,7 +333,7 @@ export function VipList(props) {
     return (
         <div>
             <div className={styles.VipHeader}>
-                <TextInput name={"Search.."} />
+                <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h5 style={{ marginBottom: 0 }}>
                         List of VIP players on this server.<br />
@@ -273,7 +351,7 @@ export function VipList(props) {
                     </thead>
                     <tbody>
                         {
-                            vipList.data.map(
+                            vipList.data.filter(p => p.displayName.includes(searchWord)).map(
                                 (player, i) => (<VipRow player={player} key={i} />)
                             )
                         }
@@ -290,7 +368,7 @@ function VipRow(props) {
         <tr className={styles.VipRow}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
-                {player.displayName}
+                <span>{player.displayName}</span>
             </td>
             <td title="Player ID">{player.id}</td>
         </tr>

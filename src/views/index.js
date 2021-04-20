@@ -1,12 +1,12 @@
 import React from "react";
-import { Route, Switch, HashRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Account from "./Account";
 import { Developer } from "./Developer";
 import { Server, ServerAction } from "./Server";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer } from "./Group";
 
-import ABSwitch from "../testing/ABtesting";
+//import ABSwitch from "../testing/ABtesting";
 
 export default function Views(props) {
     return (

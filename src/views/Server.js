@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Tag, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, Grow, TextInput, SmallButton, ServerInfo, PlayerInfo } from "../components";
+import { Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo } from "../components";
 
 
 export function Server(props) {
@@ -88,7 +88,7 @@ export function Server(props) {
                 const previousGroup = queryClient.getQueryData('serverGame' + sid)
                 // Optimistically update to the new value
                 queryClient.setQueryData('serverGame' + sid, old => {
-                    if (team == "1") {
+                    if (team === "1") {
                         old.data[0].players[1].players.push(old.data[0].players[0].players.find(e => e.name === name));
                         old.data[0].players[0].players = old.data[0].players[0].players.filter(p => p.name !== name);
                     } else {
@@ -152,7 +152,11 @@ export function Server(props) {
                 <ServerAutomation server={server} sid={sid} />
             </>
         ),
-        settings: ""
+        settings: ( 
+            <>
+                <ServerSettings server={server} sid={sid} />
+            </>
+        )
     }
 
     //if (!serverError && server && !gameError && runningGame) {
@@ -173,8 +177,8 @@ export function Server(props) {
 
         isOpsMode = runningGame.data[0].info.mode === "Operations";
 
-        var f1 = runningGame.data[0].players[0].players.find(e => e.name == playerName);
-        var f2 = runningGame.data[0].players[1].players.find(e => e.name == playerName);
+        var f1 = runningGame.data[0].players[0].players.find(e => e.name === playerName);
+        var f2 = runningGame.data[0].players[1].players.find(e => e.name === playerName);
 
         if (f1 !== undefined) {
             playerNicknameTeam = "1";
@@ -307,7 +311,7 @@ function ServerAutomation(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>Auto server protection <Tag>New!</Tag></h2>
+            <h2 style={{ marginLeft: "20px" }}>Auto server protection</h2>
             <h5 style={{ marginTop: "8px" }}>
                 Introducing new tools developed to protect your servers against hackers.<br />
                 Global Virtual Ban list auto-kicks players on <b>all group servers</b> providing<br />
@@ -354,6 +358,103 @@ function ServerAutomation(props) {
                                 serverState
                             )
                         } status={applyStatus} />
+                    </ButtonRow>
+                ) : ""
+            }
+        </>
+    );
+}
+
+function ServerSettings(props) {
+
+    var allowedTo = false;
+    if (props.server) allowedTo = true;
+
+    const queryClient = useQueryClient();
+
+    const [serverState, setServerState] = useState(null);
+    const [canApply, setCanApply] = useState(false);
+    const [applyStatus, setApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+
+    useEffect(() => {
+        if (props.server) {
+            const { serverName, serverAlias } = props.server;
+            const originalServerState = { serverName, serverAlias };
+            if (serverState === null) {
+                setServerState(originalServerState);
+            } else {
+                let newCanApply = false;
+                for (var i in originalServerState) {
+                    newCanApply |= serverState[i] !== originalServerState[i];
+                }
+                setCanApply(newCanApply);
+            }
+
+        }
+    }, [props.server, serverState]);
+
+    const changeSrerverState = (v) => {
+        setServerState(s => ({ ...s, ...v }));
+    }
+
+    const editServerSettings = useMutation(
+        variables => OperationsApi.editServer({ value: variables, sid: props.sid }),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async (error) => {
+                setApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('server' + props.sid);
+            }
+        }
+    );
+
+    const getServerValue = (key) => {
+        if (props.server && key in props.server) {
+            return props.server[key]
+        }
+        return "";
+    };
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>Server settings</h2>
+
+            <h5 style={{ marginTop: "8px" }}>Change Server Name</h5>
+
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ serverName: e.target.value })}
+                defaultValue={getServerValue("serverName")}
+                name={"Server Name"}
+            />
+
+            <h5 style={{ marginTop: "8px" }}>Alias to use with a Discord bot. (Can be a server number, for example)</h5>
+
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ serverAlias: e.target.value })}
+                defaultValue={getServerValue("serverAlias")}
+                name={"Alias"}
+            />
+            {
+                (props.server && canApply) ? (
+                    <ButtonRow>
+                        <Button name="Apply changes" disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editServerSettings.mutate(
+                                serverState
+                            )
+                        } status={applyStatus} />
+                        <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
                     </ButtonRow>
                 ) : ""
             }
@@ -410,7 +511,7 @@ function ServerKickPlayer(props) {
                     <h2>You are going to kick player {props.eaid}</h2>
                     <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
                     <ButtonRow>
-                        <ButtonLink name="Chancel" to={`/server/${props.sid}/`} />
+                        <ButtonLink name="Go back" to={`/server/${props.sid}/`} />
                         <Button name="Kick him!" disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid }); history.push(`/server/${props.sid}/`); }} />
                     </ButtonRow>
                 </Card>
@@ -423,6 +524,7 @@ function ServerBanPlayer(props) {
 
     var { sid, eaid } = props;
 
+    const history = useHistory();
     const [reason, setReason] = useState("");
     const [banTime, setBanTime] = useState(0);
     const [globalVsClassicBan, setGlobalVsClassicBan] = useState(false);
@@ -430,7 +532,6 @@ function ServerBanPlayer(props) {
     var [banApplyStatus, setBanApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const queryClient = useQueryClient();
     const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
 
     const BanPlayer = useMutation(
@@ -445,7 +546,8 @@ function ServerBanPlayer(props) {
                 setTimeout(_ => setBanApplyStatus(null), 3000);
             },
             onSuccess: () => {
-                setBanApplyStatus(null)
+                setBanApplyStatus(null);
+                history.push(`/server/${ props.sid } /`);
             },
         }
     );
@@ -462,19 +564,19 @@ function ServerBanPlayer(props) {
                 setTimeout(_ => setBanApplyStatus(null), 3000);
             },
             onSuccess: () => {
-                setBanApplyStatus(null)
+                setBanApplyStatus(null);
+
             },
         }
     );
 
-    const history = useHistory();
     var gid = null;
 
     if (user) {
         user.permissions.isAdminOf.map(
             group => {
                 for (let someSid of group.servers) {
-                    if (someSid == sid) {
+                    if (someSid === sid) {
                         gid = group.id;
                     }
                 }
@@ -503,7 +605,7 @@ function ServerBanPlayer(props) {
                     <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.<br />Not supported yet by V-Ban.</h5>
                     <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
                     <ButtonRow>
-                        <ButtonLink name="Chancel" to={`/server/${props.sid}/`} style={{maxWidth: "143px"}} />
+                        <ButtonLink name="Go back" to={`/server/${props.sid}/`} style={{maxWidth: "143px"}} />
                         <Button
                             name="Ban!"
                             style={{ maxWidth: "144px" }}
