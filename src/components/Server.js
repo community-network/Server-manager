@@ -82,7 +82,7 @@ export function PlayerInfo(props) {
                 <span className={styles.PlayerIndex}>
                     {i + 1}
                 </span>
-                <a href={`https://gametools.network/stats/pc/playerid/${player.playerId}`} target="_blank" className={styles.PlayerName}>
+                <a href={`https://gametools.network/stats/pc/playerid/${player.playerId}?name=${player.name}`} target="_blank" className={styles.PlayerName}>
                     {player.platoon !== "" ? `[${player.platoon}] ` : ""}
                     {player.name}
                 </a>
