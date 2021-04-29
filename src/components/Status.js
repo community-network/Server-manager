@@ -19,9 +19,10 @@ function ErrorIcon(props) {
 }
 
 export function Status(props) {
+    const notEnabled = (props.status === undefined || props.status === null) ;
     return (
-        <div className={styles.status}>
-            {(props.status === undefined || props.status === null) ?  "" : (props.status) ? <LoadingIcon /> : <ErrorIcon />}
+        <div className={notEnabled ? "" : styles.status}>
+            {(notEnabled) ?  "" : (props.status) ? <LoadingIcon /> : <ErrorIcon />}
         </div>
     );
 }

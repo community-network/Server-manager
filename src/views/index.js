@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Account from "./Account";
 import { Developer } from "./Developer";
 import { Server, ServerAction } from "./Server";
-import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer } from "./Group";
+import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "./Group";
 
 //import ABSwitch from "../testing/ABtesting";
 
@@ -28,6 +28,8 @@ export default function Views(props) {
             <Route exact path="/group/:gid/delete" component={DeleteGroup} />
 
             <Route exact path="/dev/" component={Developer} />
+
+            <Route exact path="/makeops/" component={MakeOps} />
 
         </Switch>
     );

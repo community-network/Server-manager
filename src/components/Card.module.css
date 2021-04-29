@@ -34,3 +34,42 @@
     color: var(--color-text);
     margin-left: 10px;
 }
+
+.modalDisabled {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    z-index: 900;
+    height: 0;
+    width: 0;
+}
+
+.modalContent {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+   
+    padding: 24px;
+    border-radius: 8px;
+    background-color: var(--color-container);
+    border: 1px solid var(--color-second);
+    z-index: 5;
+}
+
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5);
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./User.module.css";
+import { SelectableRow } from "./Buttons";
 
 export function UserRow(props) {
     var user = props.discord;
@@ -27,20 +28,19 @@ export function UserStRow(props) {
     var dateAdded = new Date(Date.parse(user.addedAt));
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var dateString = `${dateAdded.getUTCDate()} ${months[dateAdded.getUTCMonth()]} ${dateAdded.getUTCHours()}:${dateAdded.getUTCMinutes()}`;
+    var dateString = `${dateAdded.getDate()} ${months[dateAdded.getMonth()]} ${String(dateAdded.getHours()).padStart(2, '0')}:${String(dateAdded.getMinutes()).padStart(2, '0')}`;
     return (
-        <div className={styles.UserRowSt}>
+        <SelectableRow callback={props.callback}>
             <div className={styles.DiscordName}>
                 {user.name}
-            </div>
-            <div className={styles.DateAdded}>
-                {dateString}
             </div>
             <div className={styles.DiscordId}>
                 {user.id}
             </div>
-            {props.button}
-        </div>
+            <div className={styles.DateAdded}>
+                {dateString}
+            </div>
+        </SelectableRow>
     );
 }
 

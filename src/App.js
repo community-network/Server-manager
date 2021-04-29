@@ -9,12 +9,12 @@ import './fade.css';
 import Views from "./views";
 import Main from "./views/Main";
 import { createHashHistory } from 'history';
-import { Sidebar, PageContainer, PageColumn } from "./components";
+import { Sidebar, PageContainer, PageColumn, ModalProvider } from "./components";
 
 
 export const history = createHashHistory();
 
-export const APP_VERSION = "1.0.1";
+export const APP_VERSION = "1.0.2";
 
 function App() {
 
@@ -23,20 +23,24 @@ function App() {
     return (
         <div className="App">
             <HashRouter>
-                <Switch>
-                    <Route exact path="/" component={Main} />
-                    <Route>
-                        {/*<TopBar />*/}
-                        <Sidebar />
-                        <TransitionGroup component={PageContainer}>
-                            <CSSTransition key={location.hash} classNames="fade" timeout={200}>
-                                <PageColumn>
-                                    <Views />
-                                </PageColumn>
-                            </CSSTransition>
-                        </TransitionGroup>
-                    </Route>
-                </Switch>
+                <ModalProvider>
+                    <Switch>
+                        <Route exact path="/" component={Main} />
+                        <Route>
+                            
+                            {/*<TopBar />*/}
+                            <Sidebar />
+                            <TransitionGroup component={PageContainer}>
+                                <CSSTransition key={location.hash} classNames="fade" timeout={200}>
+                                    <PageColumn>
+                                        <Views />
+                                    </PageColumn>
+                                </CSSTransition>
+                            </TransitionGroup>
+                            
+                        </Route>
+                    </Switch>
+                </ModalProvider>
             </HashRouter>
         </div>
     );

@@ -200,6 +200,15 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async setupOps({ server, sid, remid }) {
+        return await this.postJsonMethod("makeoperations", {
+            "servername": server,
+            "sid": sid,
+            "remid": remid,
+        });
+    }
+
+
     async getServer(sid) {
         return await this.getJsonMethod("server", { "serverid": sid });
     }

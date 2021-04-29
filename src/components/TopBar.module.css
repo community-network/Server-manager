@@ -1,0 +1,29 @@
+.bar {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    background: var( --color-container);
+    height: 60px;
+    width: 100%;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.barWrap {
+    position: relative;
+    display: block;
+    height: 60px;
+    width: 100%;
+}
+
+.mainPage {
+    display: flex;
+    margin-left: 48px;
+    align-self: center;
+    justify-content: center;
+}
+
+.logo {
+    height: 16px;
+}

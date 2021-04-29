@@ -33,3 +33,58 @@ export function Tag(props) {
         </span>
     );
 }
+
+
+
+const ModalControll = {
+    isShown: false,
+    children: "",
+    show: (e) => {},
+    close: (e) => {},
+}
+
+const ModalContext = React.createContext(ModalControll);
+
+export const useModal = () => React.useContext(ModalContext);
+
+function Modal(props) {
+
+    const controller = useModal();
+
+    return (
+        <div className={props.show ? styles.modal : styles.modalDisabled}>
+            <div className={styles.modalBackground} onClick={() => controller.close()}></div>
+            <div className={styles.modalContent}>{props.content}</div>
+        </div>
+    );
+}
+
+export function ModalProvider(props) {
+
+    const [controllerState, setControllerState] = React.useState({
+        isShown: false,
+        children: "",
+    });
+
+    const showModal = (e) => {
+        setControllerState(s => ({
+            ...s,
+            isShown: true,
+            children: e,
+        }));
+    }
+
+    const closeModal = () => {
+        setControllerState(s => ({
+            ...s,
+            isShown: false,
+        }));
+    }
+
+    return (
+        <ModalContext.Provider value={{...controllerState, show: showModal, close: closeModal}}>
+            <Modal show={controllerState.isShown} content={controllerState.children} />
+            {props.children}
+        </ModalContext.Provider>
+    );
+}
