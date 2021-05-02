@@ -97,6 +97,11 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async getStarterList({ sid }) {
+        return await this.getJsonMethod("firestarters", {
+            "serverid": sid
+        });
+    }
 
     async getAutoBanList({ gid }) {
         return await this.getJsonMethod("autoban", {

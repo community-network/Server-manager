@@ -171,6 +171,59 @@ function BanRow(props) {
     );
 }
 
+export function FireStarter(props) {
+    const sid = props.sid;
+    const { isError, data: starterList, error } = useQuery('serverStarterList' + sid, () => OperationsApi.getStarterList({ sid }));
+
+    const [searchWord, setSearchWord] = useState("");
+
+    if (!starterList) {
+        // TODO: add fake item list on loading
+        return "Loading..";
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    return (
+        <div>
+            <h5>
+                We measure when your server's preround ended and count all the players that are in the server when it starts,<br />
+                so you can check here who is helping you start your server.
+            </h5>
+            <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <th>Player name</th>
+                        <th>Player id</th>
+                        <th>Amount</th>
+                    </thead>
+                    <tbody>
+                        {
+                            starterList.data.filter(p => p.playerName.includes(searchWord)).map(
+                                (player, i) => (<StarterRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function StarterRow(props) {
+    const player = props.player;
+    return (    
+        <tr className={styles.BanRow}>
+            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.playerName}</td>
+            <td title="Player ID">{player.playerId}</td>
+            <td>{player.amount}</td>
+        </tr>
+    );
+}
+
 export function LogList(props) {
     const sid = props.sid;
     const { isError, data: logList, error } = useQuery('serverLogList' + sid, () => OperationsApi.getServerLogs({ sid }));
