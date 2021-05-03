@@ -502,7 +502,7 @@ function GroupDiscordSettings(props) {
     );
 
     return (
-        <>
+        <> 
             <GameStatsAd />
             <h5 style={{ marginTop: "8px" }}>
                 With our bot, you can allow admins to controll your servers<br /> by using commands with ! prefix. 
