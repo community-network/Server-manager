@@ -331,9 +331,9 @@ function ServerAutomation(props) {
                 defaultValue={getServerValue("autoGlobalBanMessage")}
                 name={"V-Ban message"}
             />
-            <h5 style={{ marginTop: "8px" }}>Protect server agains known cheaters in <i>bfban.com</i></h5>
+            <h5 style={{ marginTop: "30px" }}>Protect server agains known cheaters in <i>bfban.com</i></h5>
             <Switch checked={getServerValue("autoBfbanKick")} name="Enable BFBan Anti Cheat" callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
-            <h5 style={{ marginTop: "8px" }}>Auto kick players with constant high ping</h5>
+            <h5 style={{ marginTop: "30px" }}>Auto kick players with constant high ping</h5>
             <Switch checked={kickOnPingDisabled} name="Kick on high ping" callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
             <TextInput
                 type="number"
@@ -354,6 +354,21 @@ function ServerAutomation(props) {
                 callback={(e) => changeSrerverState({ autoPingKickMessage: e.target.value })}
                 defaultValue={getServerValue("autoPingKickMessage")}
                 name={"Auto ping msg"}
+            />
+            <h5 style={{ marginTop: "8px" }}>Mimimum amount of players for autokick to start working (0 for always)</h5>
+            <TextInput
+                type="number"
+                disabled={!allowedTo || !kickOnPingDisabled}
+                callback={
+                    (e) => {
+                        console.log(e.target.value);
+                        if (e.target.value < 0) {} else {
+                            if (e.target.value !== "") changeSrerverState({ minAutoPingKick: parseInt(e.target.value) })
+                        }
+                    }
+                }
+                value={(serverState) ? serverState.minAutoPingKick : "" }
+                name={"Minimum amount of players"}
             />
             {
                 (props.server && canApply) ? (
