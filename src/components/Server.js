@@ -274,6 +274,8 @@ export function FireStarter(props) {
         return `Error ${error.code}: {error.message}`
     }
 
+    starterList.data.sort((a, b) => b.amount - a.amount);
+
     return (
         <div>
             <h5>
