@@ -502,10 +502,13 @@ function GroupDiscordSettings(props) {
     );
 
     return (
-        <>
+        <> 
             <GameStatsAd />
             <h5 style={{ marginTop: "8px" }}>
                 With our bot, you can allow admins to controll your servers<br /> by using commands with ! prefix. 
+            </h5>
+            <h5>
+                for a list of commands that you can use in Discord, use the "!bfadmin" command.
             </h5>
             <Row>
                 <TextInput disabled={!allowedTo} callback={(e) => setServerId(e.target.value)} defaultValue={serverId} name={"Discord Server"} />

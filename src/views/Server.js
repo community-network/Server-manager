@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo } from "../components";
+import { Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
 
 
 export function Server(props) {
@@ -125,6 +125,10 @@ export function Server(props) {
             callback: () => setTabsListing("viplist"),
         },
         {
+            name: "Firestarter list",
+            callback: () => setTabsListing("firestarter"),
+        },
+        {
             name: "Logs",
             callback: () => setTabsListing("loglist"),
         },
@@ -146,6 +150,7 @@ export function Server(props) {
         ),
         banlist: <BanList sid={sid} />,
         viplist: <VipList sid={sid} />,
+        firestarter: <FireStarter sid={sid} />,
         loglist: <LogList sid={sid} />,
         protection: (
             <>
@@ -326,9 +331,9 @@ function ServerAutomation(props) {
                 defaultValue={getServerValue("autoGlobalBanMessage")}
                 name={"V-Ban message"}
             />
-            <h5 style={{ marginTop: "8px" }}>Protect server agains known cheaters in <i>bfban.com</i></h5>
+            <h5 style={{ marginTop: "30px" }}>Protect server agains known cheaters in <i>bfban.com</i></h5>
             <Switch checked={getServerValue("autoBfbanKick")} name="Enable BFBan Anti Cheat" callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
-            <h5 style={{ marginTop: "8px" }}>Auto kick players with constant high ping</h5>
+            <h5 style={{ marginTop: "30px" }}>Auto kick players with constant high ping</h5>
             <Switch checked={kickOnPingDisabled} name="Kick on high ping" callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
             <TextInput
                 type="number"
@@ -349,6 +354,21 @@ function ServerAutomation(props) {
                 callback={(e) => changeSrerverState({ autoPingKickMessage: e.target.value })}
                 defaultValue={getServerValue("autoPingKickMessage")}
                 name={"Auto ping msg"}
+            />
+            <h5 style={{ marginTop: "8px" }}>Mimimum amount of players for autokick to start working (0 for always)</h5>
+            <TextInput
+                type="number"
+                disabled={!allowedTo || !kickOnPingDisabled}
+                callback={
+                    (e) => {
+                        console.log(e.target.value);
+                        if (e.target.value < 0) {} else {
+                            if (e.target.value !== "") changeSrerverState({ minAutoPingKick: parseInt(e.target.value) })
+                        }
+                    }
+                }
+                value={(serverState) ? serverState.minAutoPingKick : "" }
+                name={"Minimum amount of players"}
             />
             {
                 (props.server && canApply) ? (
