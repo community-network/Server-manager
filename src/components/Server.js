@@ -2,11 +2,38 @@ import React, { useState } from "react";
 import styles from "./Server.module.css";
 import { useQuery } from 'react-query';
 import { Button, ButtonRow, DropdownButton, ButtonLink, TextInput } from "./Buttons";
+import { useModal } from "./Card";
 import { OperationsApi } from "../api";
 
 
 export function SmallText(props) {
     return (<span className={styles.SmallText}>{props.children}</span>);
+}
+
+function PlayerStatsModal(props) {
+    const player = props.player;
+    const { isError, data: stats, isLoading } = useQuery('playerStatsByEAID' + player, () => fetch("https://api.gametools.network/bf1/stats/?name="+player+"&lang=en-us&platform=pc&=").then(r=>r.json()));
+    
+    const statsBlock = (!isLoading && !isError) ? (
+        <div className={styles.statsBlock}>
+            <h5>Skill: {stats.skill}</h5>
+            <h5>Level: {stats.rank}</h5>
+            <h5>KPM: {stats.killsPerMinute}</h5>
+            <h5>Win: {stats.winPercent}</h5>
+            <h5>Accuracy: {stats.Accuracy}</h5>
+            <h5>Headshots: {stats.headshots}</h5>
+            <h5>KD: {stats.killDeath}</h5>
+            <h5>ID: {stats.id}</h5>
+            <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank">Full stats..</a>
+        </div>
+    ) : "Loading stats..";
+
+    return (   
+        <>
+            <h2>Game stats for {player}</h2>
+            {statsBlock}
+        </>
+    );
 }
 
 export function EditableText(props) {
@@ -37,6 +64,40 @@ export function ServerRotation(props) {
         game = server.info;
     }
 
+    var server_status = (
+        <span className={styles.serverBadgePending}>
+            Pending status
+        </span>
+    );
+    
+    if (server) {
+        if (server.isAdmin) {
+            server_status = (
+                <span className={styles.serverBadgeOk}>
+                    <span className={styles.liveUpdate}></span>
+                    Running
+                </span>
+            )  
+        } else {
+            server_status = (
+                <span className={styles.serverBadgeErr}>
+                    No admin rights
+                </span>
+            )
+        }
+        if (server.serverStatus === "noServer") {
+            server_status = (
+                <span className={styles.serverBadgeErr}>
+                    Status: Server not found
+                </span>
+            )
+        }
+    }
+    var update_timestamp = "";
+    if (server) {
+        const timestamp = new Date(server.update_timestamp);
+        update_timestamp =  `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`;
+    }
     var [rotationId, setRotationId] = useState(""); 
     return (
         <div className={styles.ServerInfoColumn}>
@@ -47,25 +108,27 @@ export function ServerRotation(props) {
                     <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} [${game.inQue}] players` : "-"}</SmallText>
                 </div>
             </div>
-            <div className={(server) ? (server.isAdmin) ? styles.serverStatusOk : styles.serverStatusErr : styles.serverStatus }>
-                <span>Status: {(server) ? (server.isAdmin) ? "Managable" : "Permission denied" : "Pending.."}</span>
-            </div>
             <ButtonRow>
                 <Button name="Restart" disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
                 <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
                     <option value="">Switch game..</option>
                     {(game) ? game.rotation.map((value, i) =>
-                        <option value={value.index} key={i}>{value.mapname}</option>
+                        <option value={value.index} key={i}>{value.mapname} - {value.mode}</option>
                     ) : ""}
                 </select>
                 {(rotationId !== "") ? <Button name="Apply" disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
             </ButtonRow>
+            <div className={styles.serverStatusArray}>
+                <span>{server_status}</span>
+                <span className={styles.serverBadge}>Last update - {update_timestamp}</span>
+            </div>
+            
         </div>
     );
 }
 
 export function PlayerInfo(props) {
-
+    const modal = useModal();
     var info = props.game.data[0].players[props.team].players;
 
     var moveTeam = (props.team === "0") ? "1" : "2";
@@ -79,25 +142,50 @@ export function PlayerInfo(props) {
     return (
         info.map((player, i) => 
             <div className={styles.PlayerRow} key={i}>
+
                 <span className={styles.PlayerIndex}>
                     {i + 1}
                 </span>
-                <a href={`https://gametools.network/stats/pc/playerid/${player.playerId}?name=${player.name}`} target="_blank" className={styles.PlayerName}>
-                    {player.platoon !== "" ? `[${player.platoon}] ` : ""}
-                    {player.name}
-                </a>
-                <span className={styles.PlayerPing}>
-                    {player.ping}
+                <span className={styles.PlayerLevel}>
+                    {
+                        (player.rank === null) ? "??" : player.rank
+                    }
+                </span>
+                <span className={styles.PlayerName} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
+                    {
+                        (player.platoon === "") ? "" : `[${player.platoon}] ` 
+                    }
+                    {
+                        player.name
+                    }
                 </span>
                 <span className={styles.PlayerNone} />
+
+
                 
                 <div className={styles.PlayerButtons}>
-                    {/*<Button name="Stats"></Button>*/}
-                    <Button name="Move" callback={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam})} />
-                    <ButtonLink name="Kick" to={`/server/${props.sid}/kick/${player.name}/`} />
-                    <ButtonLink name="Ban" to={`/server/${props.sid}/ban/${player.name}/`} />
-                    <DropdownButton options={getDropdownOptions(player)} name="☰"></DropdownButton>
+                    <div className={styles.PlayerButton} onClick={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam})}>
+                        Move
+                    </div>
+                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.kickModal sid={props.sid} eaid={player.name} />)}>
+                        Kick
+                    </div>
+                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.banModal sid={props.sid} eaid={player.name} />)}>
+                        Ban
+                    </div>
+                    {/*<ButtonLink name="Kick" to={`/server/${props.sid}/kick/${player.name}/`} />
+                    <ButtonLink name="Ban" to={`/server/${props.sid}/ban/${player.name}/`} />*/}
+                    {/*<DropdownButton options={getDropdownOptions(player)} name="☰"></DropdownButton>*/}
+                    
                 </div>
+
+                <span className={styles.PlayerPing}>
+                    {player.ping}
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M4,6V4H4.1C12.9,4 20,11.1 20,19.9V20H18V19.9C18,12.2 11.8,6 4,6M4,10V8A12,12 0 0,1 16,20H14A10,10 0 0,0 4,10M4,14V12A8,8 0 0,1 12,20H10A6,6 0 0,0 4,14M4,16A4,4 0 0,1 8,20H4V16Z" />
+                    </svg>
+                </span>
+                
             </div>
         )
     );
@@ -186,6 +274,8 @@ export function FireStarter(props) {
         return `Error ${error.code}: {error.message}`
     }
 
+    starterList.data.sort((a, b) => b.amount - a.amount);
+
     return (
         <div>
             <h5>
@@ -225,6 +315,7 @@ function StarterRow(props) {
 }
 
 export function LogList(props) {
+    
     const sid = props.sid;
     const { isError, data: logList, error } = useQuery('serverLogList' + sid, () => OperationsApi.getServerLogs({ sid }));
 
@@ -256,6 +347,7 @@ export function LogList(props) {
 }
 
 function LogRow(props) {
+    const modal = useModal();
     const log = props.log;
     const action = (() => {
         switch (log.action) {
@@ -280,7 +372,7 @@ function LogRow(props) {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     // Local time
-    datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${datetime.getHours()}:${datetime.getMinutes()}`;
+    datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
     if (log.action === "autokick-ping") {
         return (
@@ -290,7 +382,7 @@ function LogRow(props) {
                 </svg>
                 <span className={styles.logAdmin}>Ping checker</span>
                 <span className={styles.logAction}>kicked</span>
-                <span className={styles.logPlayer}>{log.toPlayer}</span>
+                <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logAction}>{log.reason}</span>
                 <span className={styles.logReasonDetailed}></span>
                 <span className={styles.logTime}>{datetime}</span>
@@ -306,7 +398,7 @@ function LogRow(props) {
                 </svg>
                 <span className={styles.logAdmin}>VBan</span>
                 <span className={styles.logAction}>kicked</span>
-                <span className={styles.logPlayer}>{log.toPlayer}</span>
+                <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logReason}>with reason</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
                 <span className={styles.logTime}>{datetime}</span>
@@ -322,7 +414,7 @@ function LogRow(props) {
                 </svg>
                 <span className={styles.logAdmin}>BFBAN</span>
                 <span className={styles.logAction}>kicked</span>
-                <span className={styles.logPlayer}>{log.toPlayer}</span>
+                <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logReason}>with reason</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
                 <span className={styles.logTime}>{datetime}</span>
@@ -349,7 +441,7 @@ function LogRow(props) {
             </svg>
             <span className={styles.logAdmin}>{log.adminName}</span>
             <span className={styles.logAction}>{action}</span>
-            <span className={styles.logPlayer}>{log.toPlayer}</span>
+            <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
             <span className={styles.logReason}>{
                 ((log.reason === "") ? "without any reason" : "with reason")
             }</span>

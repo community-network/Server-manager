@@ -63,10 +63,13 @@
     background: var(--color-container-v2);
     color: var(--color-text);
     margin: 0 10px;
-    padding: 0 15px;
+    padding: 0 15px 0 15px;
     font-family: "Montserrat";
     font-weight: 500;
     font-size: 13px;
+}
+.SwitchGame > option {
+    font-family: "Montserrat" !important;
 }
 
 
@@ -109,8 +112,12 @@
 
 
 .PlayerName {
-    color: var(--color-text-high);
+    color: var(--color-text);
     margin-right: 10px;
+    cursor: pointer;
+}
+.PlayerName:hover {
+    color: var(--color-text-high);
 }
 
 .PlayerIndex {
@@ -291,6 +298,10 @@ th {
     border-radius: 3px;
     height: auto;
     align-self: center;
+    cursor: pointer;
+}
+.logPlayer:hover {
+    background: var(--color-second-v2);
 }
 
 .serverBadgeErr, .serverBadgeOk, .serverBadgePending, .serverBadge {
@@ -350,4 +361,8 @@ th {
     100% {
         opacity: 0.4;
     }
+}
+
+.statsBlock > h5 {
+    margin: 0;
 }
