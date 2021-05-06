@@ -3,10 +3,13 @@ import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 
 export function Server(props) {
     var sid = props.match.params.sid;
+    const { t } = useTranslation();
 
     const queryClient = useQueryClient();
 
@@ -113,31 +116,31 @@ export function Server(props) {
 
     const serverTabs = [
         {
-            name: "Current game",
+            name: t("server.game.main"),
             callback: () => setTabsListing("info"),
         },
         {
-            name: "Ban list",
+            name: t("server.banList.main"),
             callback: () => setTabsListing("banlist"),
         },
         {
-            name: "Vip players",
+            name: t("server.vipList.main"),
             callback: () => setTabsListing("viplist"),
         },
         {
-            name: "Firestarter list",
+            name: t("server.firestarterList.main"),
             callback: () => setTabsListing("firestarter"),
         },
         {
-            name: "Logs",
+            name: t("server.logs.main"),
             callback: () => setTabsListing("loglist"),
         },
         {
-            name: "Server Protection",
+            name: t("server.protection.main"),
             callback: () => setTabsListing("protection"),
         },
         {
-            name: "Settings",
+            name: t("server.settings.main"),
             callback: () => setTabsListing("settings"),
         }
     ];
@@ -200,13 +203,13 @@ export function Server(props) {
             <Row>
                 <Column>
                     <Card>
-                        <h2>Team 1</h2>
+                        <h2>{t("server.players.teamOne")}</h2>
                         <PlayerInfo game={runningGame} team="0" sid={sid} onMove={movePlayer} giveVip={AddVip} removeVip={RemoveVip} /> 
                     </Card>
                 </Column>
                 <Column>
                     <Card>
-                        <h2>Team 2</h2>
+                        <h2>{t("server.players.teamTwo")}</h2>
                         <PlayerInfo game={runningGame} team="1" sid={sid} onMove={movePlayer} giveVip={AddVip} removeVip={RemoveVip} /> 
                     </Card>
                 </Column>
@@ -219,7 +222,7 @@ export function Server(props) {
             <Row>
                 <Column>
                     <Header>
-                        <h2>Server panel</h2>
+                        <h2>{t("server.main")}</h2>
                     </Header>
                 </Column>
             </Row>
@@ -227,7 +230,7 @@ export function Server(props) {
             <Row>
                 <Column>
                     <Card>
-                        <h2>Console</h2>
+                        <h2>{t("server.console.main")}</h2>
                         <Row>
                             <TextInput name="Player name" callback={e => setPlayerName(e.target.value)} style={{
                                 marginRight: 12,

@@ -3,7 +3,8 @@ import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { useModal, GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
-
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 const deleteIcon = (
     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
@@ -116,6 +117,7 @@ export function Group(props) {
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
     const [listing, setListing] = useState("servers");
     const [settingsListing, setSettingsListing] = useState("account");
+    const { t } = useTranslation();
 
     const catListing = {
         owners: <GroupOwners group={group} user={user} gid={gid} onDelete={removeOwner} />,
@@ -134,38 +136,38 @@ export function Group(props) {
 
     const pageCycle = [
         {
-            name: "Servers",
+            name: t("group.servers.main"),
             callback: () => setListing("servers"),
         },
         {
-            name: "Admins",
+            name: t("group.admins.main"),
             callback: () => setListing("admins"),
         },
         {
-            name: "Owners",
+            name: t("group.owners.main"),
             callback: () => setListing("owners"),
         },
         {
-            name: "VBan list",
+            name: t("group.vban.main"),
             callback: () => setListing("vbanlist"),
         },
         {
-            name: "Group logs",
+            name: t("group.logs.main"),
             callback: () => setListing("grouplogs"),
         }
     ]
 
     const settingsCycle = [
         {
-            name: "Server account",
+            name: t("group.account.main"),
             callback: () => setSettingsListing("account"),
         },
         {
-            name: "Discord integration",
+            name: t("group.discord.main"),
             callback: () => setSettingsListing("discord"),
         },
         {
-            name: "Danger zone",
+            name: t("group.danger.main"),
             callback: () => setSettingsListing("danger"),
         },
     ];
@@ -179,15 +181,15 @@ export function Group(props) {
             <Row>
                 <Column>
                     <Header>
-                        <h2>Group</h2>
+                        <h2>{t("group.main")}</h2>
                     </Header>
                 </Column>
             </Row>
             <Row>
                 <Column>
                     <Card>
-                        <h2>Group name - {(group) ? group.groupName : "pending.."}</h2>
-                        <p style={{ marginBottom: 0 }}>Identity {gid}</p>
+                        <h2>{t("group.name")} - {(group) ? group.groupName : t("pending")}</h2>
+                        <p style={{ marginBottom: 0 }}>{t("group.id")} {gid}</p>
                     </Card>
                 </Column>
             </Row>
@@ -217,6 +219,7 @@ function GroupAdmins(props) {
 
     var hasRights = false;
     const [selected, setSelected] = useState([]);
+    const { t } = useTranslation();
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
@@ -240,23 +243,23 @@ function GroupAdmins(props) {
     }
 
     return <>
-        <h5>Admin role can manage servers. You need to have at least <br />Owner role to add new admins.</h5>
+        <h5>{t("group.admins.description0")}<br />{t("group.admins.description1")}</h5>
         {
-            (isSelected) ? (<h5><b>You selected {selected.length} admins.</b></h5>) : (<h5>Select admins to remove them.</h5>)
+            (isSelected) ? (<h5><b>{t("group.admins.selected", {number: selected.length})}</b></h5>) : (<h5>{t("group.admins.select")}</h5>)
         }
         <ButtonRow>
             {
                 (hasRights) ? (
-                    <Button name="Add Admin" callback={() => modal.show(<AddGroupAdmin gid={props.group.id} callback={modal.close} />)} />
+                    <Button name={t("group.admins.add")} callback={() => modal.show(<AddGroupAdmin gid={props.group.id} callback={modal.close} />)} />
                 ) : (
-                    <Button disabled={true} name="Not allowed" content="Add Admin" />
+                    <Button disabled={true} name={t("denied")} content={t("group.admins.add")} />
                 )
             }
             {
                 (hasRights && isSelected) ? (
-                    <Button name="Remove Selected Admins" callback={removeAdmins} />
+                    <Button name={t("group.admins.removeSelected")} callback={removeAdmins} />
                 ) : (
-                    <Button disabled={true} name="Remove admins" />
+                    <Button disabled={true} name={t("group.admins.remove")} />
                 )
             }
         </ButtonRow>
@@ -280,9 +283,10 @@ function GroupServers(props) {
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
     const fakeListing = [1, 1, 1];
+    const { t } = useTranslation();
 
     return <>
-        <h5>Servers instances added to current group. You need to have <br />Owner role in order to add new servers.</h5>
+        <h5>{t("group.servers.description0")}<br />{t("group.servers.description1")}</h5>
         {
             (props.group) ? (
                 props.group.servers.map((server, i) => (
@@ -303,9 +307,9 @@ function GroupServers(props) {
         <ButtonRow>
             {
                 (hasRights) ? (
-                    <ButtonLink name="Add Server" to={"/group/" + props.gid + "/add/server"} />
+                    <ButtonLink name={t("group.servers.add")} to={"/group/" + props.gid + "/add/server"} />
                 ) : (
-                    <Button disabled={true} name="Not allowed" content="Add Server" />
+                    <Button disabled={true} name={t("denied")} content={t("group.servers.add")} />
                 )
             }
         </ButtonRow>
@@ -316,6 +320,7 @@ function GroupOwners(props) {
 
     const modal = useModal();
     const [selected, setSelected] = useState([]);
+    const { t } = useTranslation();
 
     var hasRights = false;
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
@@ -340,23 +345,23 @@ function GroupOwners(props) {
     }
 
     return <>
-        <h5>List of current group Owners. This role can add new Servers, <br />Admins and other owners. Be carefull with it!</h5>
+        <h5>{t("group.owners.description0")}<br />{t("group.owners.description1")}</h5>
         {
-            (isSelected) ? (<h5><b>You selected {selected.length} owners.</b></h5>) : (<h5>Select owners to remove them.</h5>)
+            (isSelected) ? (<h5><b>{t("group.owners.selected", {number: selected.length})}</b></h5>) : (<h5>{t("group.owners.select")}</h5>)
         }
         <ButtonRow>
             {
                 (hasRights) ? (
-                    <Button name="Add Owner" callback={() => modal.show(<AddGroupOwner gid={props.group.id} callback={modal.close} />)} />
+                    <Button name={t("group.owners.add")} callback={() => modal.show(<AddGroupOwner gid={props.group.id} callback={modal.close} />)} />
                 ) : (
-                    <Button disabled={true} name="Not allowed" content="Add Owner" />
+                    <Button disabled={true} name={t("denied")} content={t("group.owners.add")} />
                 )
             }
             {
                 (hasRights && isSelected) ? (
-                    <Button name="Remove Owners" callback={removeOwners} />
+                    <Button name={t("group.owners.removeSelected")} callback={removeOwners} />
                 ) : (
-                    <Button disabled={true} name="Select Owners to remove" />
+                    <Button disabled={true} name={t("group.owners.remove")} />
                 )
             }
         </ButtonRow>
@@ -383,6 +388,7 @@ function GroupServerAccount(props) {
     const [sid, setSid] = useState("");
     const [remid, setRemid] = useState("");
     const [applyStatus, setApplyStatus] = useState(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (props.group) {
@@ -415,31 +421,30 @@ function GroupServerAccount(props) {
     return (
         <>
             <h5 style={{ marginTop: "0px" }}>
-                Account manager, that will administrate your servers.<br />
-                These cookies can be found at <i>accounts.ea.com</i>
+                {t("group.account.description0")}<br />{t("group.account.description1")}<i>accounts.ea.com</i>
             </h5>
             {(props.group && !props.group.validCookie) ? (
                 <p style={{ marginTop: "0px", border: "1px solid var(--color-second)", padding: "10px 22px", borderRadius: "8px", color: "#FF7575", background: "var(--color-container-v2)" }}>
-                    Error: The cookies you are using right now are invalid!
+                    {t("cookie.invalid")}
                 </p>
             ) : ""}
             
             <Row>
                 <TextInput type="password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Reminder cookies
+                    {t("cookie.remid")}
                 </p>
             </Row>
             <Row>
                 <TextInput type="password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Session cookies
+                    {t("cookie.sid")}
                 </p>
             </Row>
             {
                 (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid)) ? (
                     <ButtonRow>
-                        <Button name="Apply" disabled={!allowedTo || applyStatus !== null} callback={
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editCookies.mutate(
                                 {
                                     gid: props.gid,
@@ -466,6 +471,7 @@ function GroupDiscordSettings(props) {
     const [modId, setModId] = useState("");
     const [serverId, setServerId] = useState("");
     const [applyStatus, setApplyStatus] = useState(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (props.group) {
@@ -505,36 +511,36 @@ function GroupDiscordSettings(props) {
         <> 
             <GameStatsAd />
             <h5 style={{ marginTop: "8px" }}>
-                With our bot, you can allow admins to controll your servers<br /> by using commands with ! prefix. 
+                {t("group.discord.description0")}<br />{t("group.discord.description1")}
             </h5>
             <h5>
-                for a list of commands that you can use in Discord, use the "!bfadmin" command.
+                {t("group.discord.commandList")}
             </h5>
             <Row>
-                <TextInput disabled={!allowedTo} callback={(e) => setServerId(e.target.value)} defaultValue={serverId} name={"Discord Server"} />
+                <TextInput disabled={!allowedTo} callback={(e) => setServerId(e.target.value)} defaultValue={serverId} name={t("discord.id")} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Your server Discord ID
+                    {t("discord.idDescription")}
                 </p>
             </Row>
             <h5 style={{ marginTop: "8px" }}>
-                Every person with that role id can use<br /> discord commands to contol the server.
+                {t("group.discord.permDescription0")}<br />{t("group.discord.permDescription1")}
             </h5>
             <Row>
-                <TextInput disabled={!allowedTo} callback={(e) => setAdminId(e.target.value)} defaultValue={adminId} name={"Admin Discord ID"} />
+                <TextInput disabled={!allowedTo} callback={(e) => setAdminId(e.target.value)} defaultValue={adminId} name={t("discord.adminId")}  />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Id of Admin role
+                    {t("discord.adminIdDescription")}
                 </p>
             </Row>
             <Row>
-                <TextInput disabled={!allowedTo} callback={(e) => setModId(e.target.value)} defaultValue={modId} name={"Mod DIscord ID"} />
+                <TextInput disabled={!allowedTo} callback={(e) => setModId(e.target.value)} defaultValue={modId} name={t("discord.modId")} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    Id of Moderator role, moderators can only kick players
+                    {t("discord.modIdDescription")}
                 </p>
             </Row>
             {
                 (props.group && (serverId !== props.group.discordGroupId || modId !== props.group.discordModRoleId || adminId !== props.group.discordAdminRoleId)) ? (
                     <ButtonRow>
-                        <Button name="Apply" disabled={!allowedTo || applyStatus !== null} callback={
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editDiscordDetails.mutate(
                                 {
                                     gid: props.gid,
@@ -563,6 +569,7 @@ function GroupDangerZone(props) {
 
     const [groupName, setGroupName] = useState("");
     const [applyStatus, setApplyStatus] = useState(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -593,12 +600,12 @@ function GroupDangerZone(props) {
 
     return (
         <>
-            <h5 style={{ marginTop: "0px" }}>You can change the name of current Group.</h5>
-            <TextInput disabled={!allowedTo} callback={(e) => setGroupName(e.target.value)} defaultValue={groupName} name={"Group name"} />
+            <h5 style={{ marginTop: "0px" }}>{t("group.danger.nameChange")}</h5>
+            <TextInput disabled={!allowedTo} callback={(e) => setGroupName(e.target.value)} defaultValue={groupName} name={t("group.name")} />
             {
                 (props.group && (groupName !== props.group.groupName)) ? (
                     <ButtonRow>
-                        <Button name="Apply changes" disabled={!allowedTo || applyStatus !== null} callback={
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editGroupName.mutate(
                                 {
                                     gid: props.gid,
@@ -611,9 +618,9 @@ function GroupDangerZone(props) {
                     </ButtonRow>
                 ) : ""
             }
-            <h5 style={{ marginTop: "8px" }}>Once you delete a group, it will remove all the servers,<br /> server account and users used in it.</h5>
+            <h5 style={{ marginTop: "8px" }}>{t("group.danger.deleteInfo0")}<br />{t("group.danger.deleteInfo1")}</h5>
             <ButtonRow>
-                <ButtonLink style={{ color: "#FF7575"}} name="Delete Group" to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
+                <ButtonLink style={{ color: "#FF7575"}} name={t("group.danger.delete")} to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
             </ButtonRow>
         </>
     );
@@ -624,6 +631,7 @@ export function AddGroupOwner(props) {
 
     const [nickname, setNickname] = useState("");
     const [uid, setUid] = useState("");
+    const { t } = useTranslation();
 
     const queryClient = useQueryClient();
 
@@ -665,11 +673,11 @@ export function AddGroupOwner(props) {
     return (
         <>
 
-            <h2>Add new Owner</h2>
-            <TextInput name="Nickname (any, will be auto-updated)" callback={(e)=>setNickname(e.target.value)}/>
-            <TextInput name="Discord UID" callback={(e) => setUid(e.target.value) }/>
+            <h2>{t("group.owners.addNew")}</h2>
+            <TextInput name={t("group.addMenu.nickname")} callback={(e)=>setNickname(e.target.value)}/>
+            <TextInput name={t("group.addMenu.id")} callback={(e) => setUid(e.target.value) }/>
             <ButtonRow>
-                <Button name="Add Owner" callback={() => { AddGroupOwnerExecute.mutate({ gid, uid, nickname }); props.callback();  }} />
+                <Button name={t("group.owners.add")} callback={() => { AddGroupOwnerExecute.mutate({ gid, uid, nickname }); props.callback();  }} />
             </ButtonRow>
 
         </>
@@ -681,6 +689,7 @@ export function AddGroupAdmin(props) {
     var gid = props.gid;
 
     const [addAdminState, changeState] = useState({ uid: "", nickname: "", canAdd: false });
+    const { t } = useTranslation();
 
     const queryClient = useQueryClient();
 
@@ -729,11 +738,11 @@ export function AddGroupAdmin(props) {
 
     return (
         <>
-            <h2>Add new Admin</h2>
-            <TextInput name="Nickname (any, will be auto-updated)" callback={(e) => updateState({nickname: e.target.value}) } />
-            <TextInput name="Discord UID" callback={(e) => updateState({uid: e.target.value}) } />
+            <h2>{t("group.admins.addNew")}</h2>
+            <TextInput name={t("group.addMenu.nickname")} callback={(e) => updateState({nickname: e.target.value}) } />
+            <TextInput name={t("group.addMenu.id")} callback={(e) => updateState({uid: e.target.value}) } />
             <ButtonRow>
-                <Button name="Add Admin" disabled={!addAdminState.canAdd} callback={() => { AddGroupAdminExecute.mutate({ gid, uid: addAdminState.uid, nickname: addAdminState.nickname }); props.callback(); }} />
+                <Button name={t("group.admins.add")} disabled={!addAdminState.canAdd} callback={() => { AddGroupAdminExecute.mutate({ gid, uid: addAdminState.uid, nickname: addAdminState.nickname }); props.callback(); }} />
             </ButtonRow>
         </>
     );
@@ -755,6 +764,7 @@ export function AddGroup(props) {
         roleDisplay: false,
         canAdd: false
     });
+    const { t } = useTranslation();
 
     const [applyStatus, setApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
@@ -803,37 +813,36 @@ export function AddGroup(props) {
         <Row>
             <Column>
                 <Header>
-                    <h2>Create new Group</h2>
+                    <h2>{t("createGroup.main")}</h2>
                     
                 </Header>
                 <Card>
-                    <h5>Create a new group to manage your community servers</h5>
-                    {/*<h2>Create a new group to manage your community servers</h2>*/}
+                    <h5>{t("createGroup.description")}</h5>
                     <TextInput name="Name" callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        Optionaly, you can add your discord server, to integrate server tools
+                        {t("createGroup.discordDescription")}
                     </h5>
-                    <TextInput name="Discord Server ID" callback={(e) => { checkInputVariables({ discordId: e.target.value }) }} />
-                    <TextInput name="Mod role ID" disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ modRole: e.target.value }) }} />
-                    <TextInput name="Admin role ID" disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ adminRole: e.target.value }) }} />
+                    <TextInput name={t("discord.id")} callback={(e) => { checkInputVariables({ discordId: e.target.value }) }} />
+                    <TextInput name={t("discord.modId")} disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ modRole: e.target.value }) }} />
+                    <TextInput name={t("discord.adminId")} disabled={!addGroupState.roleDisplay} callback={(e) => { checkInputVariables({ adminRole: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        Every group need to be assigned special account with certain requirments: <br />
-                        It should be a BF1 server moderator (owner access not required)<br />
-                        This account shouldn't be used anywhere else, otherwise it will lead in errors<br />
+                        {t("createGroup.cookieDescription0")}<br />
+                        {t("createGroup.cookieDescription1")}<br />
+                        {t("createGroup.cookieDescription2")}<br />
                     </h5>
                     <h5 style={{ marginTop: "8px" }}>
-                        Session cookies can be found at <i>accounts.ea.com</i>
+                        {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name="SID cookie" type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <TextInput name={t("cookie.sid")} type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        Reminder session cookies can be found at <i>accounts.ea.com</i>
+                        {t("cookie.remidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name="REMID cookie" type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
+                    <TextInput name={t("cookie.remid")} type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        By pressing this button, you agree to give <br />server manager tool access to the account.
+                    {t("createGroup.acceptDescription0")}<br />{t("createGroup.acceptDescription1")}
                     </h5>
                     <ButtonRow>
-                        <Button name="Create group" disabled={!addGroupState.canAdd || applyStatus !== null} status={applyStatus} callback={() => AddNewGroupExecute.mutate(addGroupState.variables)} />
+                        <Button name={t("createGroup.accept")} disabled={!addGroupState.canAdd || applyStatus !== null} status={applyStatus} callback={() => AddNewGroupExecute.mutate(addGroupState.variables)} />
                         <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
                     </ButtonRow>
                 </Card>
@@ -848,6 +857,7 @@ export function DeleteGroup(props) {
 
     const queryClient = useQueryClient();
     const history = useHistory();
+    const { t } = useTranslation();
 
     const DeleteGroupExecute = useMutation(
         variables => OperationsApi.removeGroup(variables),
@@ -883,14 +893,14 @@ export function DeleteGroup(props) {
         <Row>
             <Column>
                 <Header>
-                    <h2>Delete Group</h2>
+                    <h2>{t("group.danger.delete")}</h2>
                 </Header>
                 <Card>
-                    <h2>Danger zone</h2>
-                    <p>Are you sure you want to delete this group?</p>
+                    <h2>{t("group.danger.main")}</h2>
+                    <p>{t("group.danger.check")}</p>
                     <ButtonRow>
-                        <ButtonLink name="Oh, no!" to={"/group/" + thisGid} />
-                        <Button name="Yes, delete" callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history.push("/dev/"); }} />
+                        <ButtonLink name={t("group.danger.back")} to={"/group/" + thisGid} />
+                        <Button name={t("group.danger.confirm")} callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history.push("/dev/"); }} />
                     </ButtonRow>
                 </Card>
             </Column>
@@ -904,6 +914,7 @@ export function AddGroupServer(props) {
     var name = "", alias = "";
 
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
 
     const AddGroupServerExecute = useMutation(
@@ -947,14 +958,14 @@ export function AddGroupServer(props) {
         <Row>
             <Column>
                 <Header>
-                    <h2>Add new Server</h2>
+                    <h2>{t("group.serverAddMenu.main")}</h2>
                 </Header>
                 <Card>
-                    <h2>Group Server</h2>
-                    <TextInput name="Server name" callback={(e) => { name = e.target.value }} />
-                    <TextInput name="Alias (optional)" callback={(e) => { alias = e.target.value; }} />
+                    <h2>{t("group.serverAddMenu.description")}</h2>
+                    <TextInput name={t("group.serverAddMenu.name")} callback={(e) => { name = e.target.value }} />
+                    <TextInput name={t("group.serverAddMenu.alias")} callback={(e) => { alias = e.target.value; }} />
                     <ButtonRow>
-                        <Button name="Add Server" callback={() => { AddGroupServerExecute.mutate({ gid, alias, name }); history.push("/group/" + gid); }} />
+                        <Button name={t("group.servers.add")} callback={() => { AddGroupServerExecute.mutate({ gid, alias, name }); history.push("/group/" + gid); }} />
                     </ButtonRow>
                 </Card>
             </Column>
@@ -983,6 +994,7 @@ export function MakeOps(props) {
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
     const queryClient = useQueryClient();
     const history = useHistory();
+    const { t } = useTranslation();
 
     const SetupOperations = useMutation(
         variables => OperationsApi.setupOps(variables),
@@ -1022,30 +1034,31 @@ export function MakeOps(props) {
         <Row>
             <Column>
                 <Header>
-                    <h2>Setup Operations Gamemode</h2>
+                    <h2>{t("operations.main")}</h2>
                 </Header>
                 <Card>
                     <h5>
-                        Setup operations gamemode on your server. <br />Note, that you will lose in-game admin panel!<br /> 
-                        Make sure to add server into this pannel and check it.
+                        {t("operations.description0")}<br />
+                        {t("operations.description1")}<br /> 
+                        {t("operations.description2")}
                     </h5>
                     <TextInput name="Server name" callback={(e) => { checkInputVariables({ server: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        Server <b>owner</b> cookies.
+                        {t("operations.server")}<b>{t("operations.owner")}</b>{t("operations.cookies")}
                     </h5>
                     <h5 style={{ marginTop: "8px" }}>
-                        Session cookies can be found at <i>accounts.ea.com</i>
+                        {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name="SID cookie" type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <TextInput name={t("cookie.sid")} type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        Reminder session cookies can be found at <i>accounts.ea.com</i>
+                        {t("cookie.remidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name="REMID cookie" type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
+                    <TextInput name={t("cookie.remid")} type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                        By pressing this button, you agree to give <br />server manager tool access to the account.
+                        {t("operations.acceptDescription0")}<br />{t("operations.acceptDescription1")}
                     </h5>
                     <ButtonRow>
-                        <Button name="Make Operations" disabled={!addGroupState.canAdd || applyStatus !== null} status={applyStatus} callback={() => SetupOperations.mutate(addGroupState.variables)} />
+                        <Button name={t("operations.accept")} disabled={!addGroupState.canAdd || applyStatus !== null} status={applyStatus} callback={() => SetupOperations.mutate(addGroupState.variables)} />
                         <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
                     </ButtonRow>
                 </Card>
