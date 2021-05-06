@@ -14,7 +14,7 @@ import { Sidebar, PageContainer, PageColumn, ModalProvider } from "./components"
 
 export const history = createHashHistory();
 
-export const APP_VERSION = "1.0.2";
+export const APP_VERSION = "1.0.3";
 
 function App() {
 

@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Account from "./Account";
 import { Developer } from "./Developer";
-import { Server, ServerAction } from "./Server";
+import { Server } from "./Server";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "./Group";
 
 //import ABSwitch from "../testing/ABtesting";
@@ -15,7 +15,6 @@ export default function Views(props) {
             <Route exact path="/account/" component={Account} />
 
             <Route exact path="/server/:sid/" component={Server} />
-            <Route exact path="/server/:sid/:action/:eaid/" component={ServerAction} />
 
             <Route exact path="/group/new/" component={AddGroup} />
             <Route exact path="/group/:gid/" component={Group} />

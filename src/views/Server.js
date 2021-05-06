@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
+import { useModal, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
 
 
 export function Server(props) {
     var sid = props.match.params.sid;
 
     const queryClient = useQueryClient();
+    const modal = useModal();
 
     const { isError: serverError, data: server } = useQuery('server' + sid, () => OperationsApi.getServer(sid));
     const { isError: gameError, data: runningGame } = useQuery('serverGame' + sid, () => OperationsApi.getServerGame(sid));
@@ -201,13 +202,13 @@ export function Server(props) {
                 <Column>
                     <Card>
                         <h2>Team 1</h2>
-                        <PlayerInfo game={runningGame} team="0" sid={sid} onMove={movePlayer} giveVip={AddVip} removeVip={RemoveVip} /> 
+                        <PlayerInfo game={runningGame} team="0" sid={sid} onMove={movePlayer} banModal={ServerBanPlayer} kickModal={ServerKickPlayer} giveVip={AddVip} removeVip={RemoveVip} /> 
                     </Card>
                 </Column>
                 <Column>
                     <Card>
                         <h2>Team 2</h2>
-                        <PlayerInfo game={runningGame} team="1" sid={sid} onMove={movePlayer} giveVip={AddVip} removeVip={RemoveVip} /> 
+                        <PlayerInfo game={runningGame} team="1" sid={sid} onMove={movePlayer} banModal={ServerBanPlayer} kickModal={ServerKickPlayer}  giveVip={AddVip} removeVip={RemoveVip} /> 
                     </Card>
                 </Column>
             </Row>
@@ -233,9 +234,9 @@ export function Server(props) {
                                 marginRight: 12,
                             }}/>
                             <ButtonRow>
-                                <ButtonLink disabled={playerName === ""} name="Kick" to={`/server/${sid}/kick/${playerName}/`} />
+                                <Button disabled={playerName === ""} name="Kick" callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
                                 <Button disabled={!playerInGame} name="Move" callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
-                                <ButtonLink disabled={playerName === ""} name="Ban" to={`/server/${sid}/ban/${playerName}/`} />
+                                <Button disabled={playerName === ""} name="Ban" callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
                                 <Button disabled={playerName === "" || unbanStatus.status} name={unbanStatus.name} callback={_ => UnbanPlayer.mutate({ sid, name: playerName, reason: "" })} />
                                 <Button disabled={playerName === "" || addVipStatus.status || isOpsMode} name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />
                                 <Button disabled={playerName === "" || removeVipStatus.status || isOpsMode} name={removeVipStatus.name} callback={_ => RemoveVip.mutate({ sid, name: playerName, reason: "" })}  />
@@ -358,15 +359,18 @@ function ServerAutomation(props) {
             <h5 style={{ marginTop: "8px" }}>Mimimum amount of players for autokick to start working (0 for always)</h5>
             <TextInput
                 type="number"
-                disabled={!allowedTo || !kickOnPingDisabled}
+                disabled={true/*!allowedTo || !kickOnPingDisabled*/}
                 callback={
                     (e) => {
-                        console.log(e.target.value);
+                        console.log(e.target.value < 0);
                         if (e.target.value < 0) {} else {
-                            if (e.target.value !== "") changeSrerverState({ minAutoPingKick: parseInt(e.target.value) })
+                            if (e.target.value !== "") {
+                                changeSrerverState({ minAutoPingKick: parseInt(e.target.value) })
+                            }
                         }
                     }
                 }
+                defaultValue={getServerValue("minAutoPingKick")}
                 value={(serverState) ? serverState.minAutoPingKick : "" }
                 name={"Minimum amount of players"}
             />
@@ -486,8 +490,11 @@ function ServerSettings(props) {
 function ServerKickPlayer(props) {
 
     var { sid, eaid } = props;
+    const modal = useModal();
 
     var [reason, setReason] = useState("");
+    var [kickApplyStatus, setKickApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
     const queryClient = useQueryClient();
 
     const KickPlayer = useMutation(
@@ -505,11 +512,19 @@ function ServerKickPlayer(props) {
                     old.data[0].players[1].players = old.data[0].players[1].players.filter(e => e.name !== eaid);
                     return old;
                 })
+                setKickApplyStatus(true);
                 // Return a context object with the snapshotted value
                 return { previousGroup, sid }
             },
+            onSuccess: () => {
+                setKickApplyStatus(null);
+                modal.close();
+            },
             // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
+            onError: (error, newTodo, context) => {
+                setKickApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setKickApplyStatus(null), 3000);
                 queryClient.setQueryData('serverGame' + context.sid, context.previousGroup)
             },
             // Always refetch after error or success:
@@ -522,26 +537,19 @@ function ServerKickPlayer(props) {
     const history = useHistory();
 
     return (
-        <Row>
-            <Column>
-                <Header>
-                    <h2>Kick player</h2>
-                </Header>
-                <Card>
-                    <h2>You are going to kick player {props.eaid}</h2>
-                    <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
-                    <ButtonRow>
-                        <ButtonLink name="Go back" to={`/server/${props.sid}/`} />
-                        <Button name="Kick him!" disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid }); history.push(`/server/${props.sid}/`); }} />
-                    </ButtonRow>
-                </Card>
-            </Column>
-        </Row>
+        <>
+            <h2>You are going to kick player {props.eaid}</h2>
+            <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
+            <ButtonRow>
+                <Button status={kickApplyStatus} name="Kick him!" disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid }); history.push(`/server/${props.sid}/`); }} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
     );
 }
 
 function ServerBanPlayer(props) {
-
+    const modal = useModal();
     var { sid, eaid } = props;
 
     const history = useHistory();
@@ -567,7 +575,7 @@ function ServerBanPlayer(props) {
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
-                history.push(`/server/${ props.sid } /`);
+                modal.close();
             },
         }
     );
@@ -612,58 +620,28 @@ function ServerBanPlayer(props) {
 
 
     return (
-        <Row>
-            <Column>
-                <Header>
-                    <h2>Ban player</h2>
-                </Header>
-                <Card>
-                    <h2 style={{ marginLeft: "20px" }}>You are going to ban player {props.eaid}</h2>
-                    <h5>Enter a reason to ban this player.</h5>
-                    <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
-                    <Switch value={globalVsClassicBan} name="Use Virtual Ban instead of classic ban list" callback={ (v) => setGlobalVsClassicBan(v) } />
-                    <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.<br />Not supported yet by V-Ban.</h5>
-                    <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
-                    <ButtonRow>
-                        <ButtonLink name="Go back" to={`/server/${props.sid}/`} style={{maxWidth: "143px"}} />
-                        <Button
-                            name="Ban!"
-                            style={{ maxWidth: "144px" }}
-                            disabled={isDisabled}
-                            callback={() => {
-                                if (globalVsClassicBan) {
-                                    GlobalBanPlayer.mutate({ gid, reason, name: props.eaid });
-                                } else {
-                                    BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime });
-                                }
-                            }}
-                            status={banApplyStatus} />
-                        <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
-                    </ButtonRow>
-                </Card>
-            </Column>
-        </Row>
+        <>
+            <h2 style={{ marginLeft: "20px" }}>You are going to ban player {props.eaid}</h2>
+            <h5>Enter a reason to ban this player.</h5>
+            <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
+            <Switch value={globalVsClassicBan} name="Use Virtual Ban instead of classic ban list" callback={ (v) => setGlobalVsClassicBan(v) } />
+            <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.<br />Not supported yet by V-Ban.</h5>
+            <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
+            <ButtonRow>
+                <Button
+                    name="Ban!"
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => {
+                        if (globalVsClassicBan) {
+                            GlobalBanPlayer.mutate({ gid, reason, name: props.eaid });
+                        } else {
+                            BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime });
+                        }
+                    }}
+                    status={banApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
     );
-}
-
-export function ServerAction(props) {
-
-    var { eaid, action, sid } = props.match.params;
-
-    if (action === "kick") {
-        return <ServerKickPlayer eaid={eaid} sid={sid} />;
-    } else if (action === "ban") {
-        return <ServerBanPlayer eaid={eaid} sid={sid} />;
-    }
-
-    return (
-        <Row>
-            <Column>
-                <Header>
-                    <h2>Uh? Method {action} is not allowed..</h2>
-                </Header>
-            </Column>
-        </Row>
-    );
-
 }
