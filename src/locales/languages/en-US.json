@@ -27,6 +27,38 @@
         "modId": "Mod role ID",
         "modIdDescription": "Id of Moderator role, moderators can only kick players"
     },
+    "mainPage": {
+        "main": "A new way to manage your Battlefield 1 servers",
+        "description": "Server Manager is a new Gametools & BFBan service created by Community Network",
+        "login": "Log in",
+        "featureList": {
+            "main": "Features",
+            "0": {
+                "heading": "BFBan Anti Cheat",
+                "body": "Protect your servers against hackers confirmed on www.bfban.com"
+            },
+            "1": {
+                "heading": "Unlimited Global V-Ban list",
+                "body": "Ban as many players as you want to on all your servers with virtal ban list."
+            },
+            "2": {
+                "heading": "High ping players kick",
+                "body": "Automaticaly kick players from your servers based on ping threshold."
+            },
+            "3": {
+                "heading": "Discord tools to maintain server",
+                "body": "Contol your servers right in the Discord based on roles."
+            },
+            "4": {
+                "heading": "Server action logging",
+                "body": "See full logs on every actions made on your servers and groups."
+            },
+            "5": {
+                "heading": "Full control over your servers",
+                "body": "Admins can controll server with same functions as in game."
+            }
+        }
+    },
     "account": {
         "main": "Account",
         "discordProfile": "Discord Profile",
@@ -280,5 +312,14 @@
             "tempbanAmount": "Ban time",
             "confirm": "Ban!"
         }
+    },
+    "sidebar": {
+        "main": "Main page",
+        "home": "Home page",
+        "account": "Account",
+        "devOptions": "Developer Options",
+        "createGroup": "Create Group",
+        "logout": "Logout",
+        "help": "Need help?"
     }
 }

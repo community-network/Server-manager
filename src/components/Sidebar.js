@@ -3,6 +3,8 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import ABSwitch, { getChannel } from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 import { OperationsApi } from "../api";
 
@@ -10,9 +12,10 @@ import { APP_VERSION } from "../App";
 
 
 function TopSidebar() {
+    const { t } = useTranslation();
     return (
         <div className={styles.TopSidebar}>
-            <Link to="/" title="Main page">
+            <Link to="/" title={t("sidebar.main")}>
                 <img src="/release-logo.png" className={styles.Logo} />
             </Link>
         </div>
@@ -54,6 +57,7 @@ export function Sidebar(props) {
     const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
 
     var devLink = "", accountLink = "", logoutLink = "", groupLinks = "";
+    const { t } = useTranslation();
 
     var history = useHistory();
     const queryClient = useQueryClient();
@@ -101,28 +105,28 @@ export function Sidebar(props) {
 
             const devOptionsContent = (
                 <>
-                    <span>Developer Options</span>
+                    <span>{t("sidebar.devOptions")}</span>
                     <WrenchIcon />
                 </>
             );
 
             const addGroupContent = (
                 <>
-                    <span>Create Group</span>
+                    <span>{t("sidebar.createGroup")}</span>
                     <AddIcon />
                 </>
             );
 
             if (user.auth.isDeveloper) {
-                devLink = <PageLink to="/dev/" name="Developer Options" content={devOptionsContent} />;
+                devLink = <PageLink to="/dev/" name={t("sidebar.devOptions")} content={devOptionsContent} />;
             }
 
             accountLink = [
-                ABSwitch("", <PageLink key={0} to="/home/" name="Home page" />, "homePage"),
-                <PageLink key={1} to="/account/" name="Account" />,
-                <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />
+                ABSwitch("", <PageLink key={0} to="/home/" name={t("sidebar.main")} />, "homePage"),
+                <PageLink key={1} to="/account/" name={t("sidebar.account")} />,
+                <PageLink key={2} to="/group/new/" name={t("sidebar.createGroup")} content={addGroupContent} />
             ];
-            logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); }} name="Logout" />;
+            logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); }} name={t("sidebar.logout")} />;
             groupLinks = [];
             for (let i in user.permissions.isAdminOf) {
                 let group = user.permissions.isAdminOf[i];
@@ -143,7 +147,7 @@ export function Sidebar(props) {
                 <div className={styles.GroupLinks}>
                     {groupLinks}
                 </div>
-                <PageButton href="https://discord.gametools.network/" name="Need help?" />
+                <PageButton href="https://discord.gametools.network/" name={t("sidebar.help")} />
                 {logoutLink}
                 
             </div>
