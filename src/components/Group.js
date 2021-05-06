@@ -30,7 +30,7 @@ export function ServerRow(props) {
                 <span className={styles.GroupName}>
                     {server.name}
                     <span className={styles.serverBadgePending}>
-                        {t("group.servers.status.pending")}
+                        {t("serverStatus.pending")}
                     </span>
                 </span>
                 {props.button}
@@ -43,25 +43,25 @@ export function ServerRow(props) {
             case "noServer":
                 return (
                     <span className={styles.serverBadgeErr}>
-                        {t("group.servers.status.noServer")}
+                        {t("serverStatus.noServer")}
                     </span>
                 )
             case "noAdmin":
                 return (
                     <span className={styles.serverBadgeErr}>
-                        {t("group.servers.status.noAdmin")}
+                        {t("serverStatus.noAdmin")}
                     </span>
                 )
             case "pending":
                 return (
                     <span className={styles.serverBadgePending}>
-                        {t("group.servers.status.pending")}
+                        {t("serverStatus.pending")}
                     </span>
                 )
             default:
                 return (
                     <span className={styles.serverBadgeOk}>
-                        {t("group.servers.status.running")}
+                        {t("serverStatus.running")}
                     </span>
                 )    
         }

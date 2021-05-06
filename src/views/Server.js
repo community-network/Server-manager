@@ -236,9 +236,9 @@ export function Server(props) {
                                 marginRight: 12,
                             }}/>
                             <ButtonRow>
-                                <Button disabled={playerName === ""} name="Kick" callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
-                                <Button disabled={!playerInGame} name="Move" callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
-                                <Button disabled={playerName === ""} name="Ban" callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
+                                <Button disabled={playerName === ""} name={t("server.action.kick")} callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
+                                <Button disabled={!playerInGame} name={t("server.action.move")} callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
+                                <Button disabled={playerName === ""} name={t("server.action.ban")} callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
                                 <Button disabled={playerName === "" || unbanStatus.status} name={unbanStatus.name} callback={_ => UnbanPlayer.mutate({ sid, name: playerName, reason: "" })} />
                                 <Button disabled={playerName === "" || addVipStatus.status || isOpsMode} name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />
                                 <Button disabled={playerName === "" || removeVipStatus.status || isOpsMode} name={removeVipStatus.name} callback={_ => RemoveVip.mutate({ sid, name: playerName, reason: "" })}  />
@@ -259,6 +259,7 @@ function ServerAutomation(props) {
     if (props.server) allowedTo = true;
 
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     const [kickOnPingDisabled, setKickOnPingDisabled] = useState(false);
     const [serverState, setServerState] = useState(null);
@@ -319,25 +320,30 @@ function ServerAutomation(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>Auto server protection</h2>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.protection.title")}</h2>
             <h5 style={{ marginTop: "8px" }}>
-                Introducing new tools developed to protect your servers against hackers.<br />
-                Global Virtual Ban list auto-kicks players on <b>all group servers</b> providing<br />
-                infinity amount of ban slots and synchronized ban list.
+                {t("server.protection.vBanDescription0")}<br />
+                {t("server.protection.vBanDescription1")}
+                <b>{t("server.protection.vBanDescription2")}</b>
+                {t("server.protection.vBanDescription3")}<br />
+                {t("server.protection.vBanDescription4")}
             </h5>
-            <Switch checked={getServerValue("autoBanKick")} name="Enable Global V-Ban" callback={(v) => changeSrerverState({ autoBanKick: v })}/>
-            <h5 style={{ marginTop: "8px" }}>This msg appear to users who got <br />auto-kicked by V-Ban Global system.</h5>
+            <Switch checked={getServerValue("autoBanKick")} name={t("server.protection.vBanEnable")} callback={(v) => changeSrerverState({ autoBanKick: v })}/>
+            <h5 style={{ marginTop: "8px" }}>
+                {t("server.protection.vbanReasonDesc0")}<br />
+                {t("server.protection.vbanReasonDesc1")}
+            </h5>
             
             <TextInput
                 disabled={!allowedTo || (serverState && !serverState.autoBanKick)}
                 callback={(e) => changeSrerverState({ autoGlobalBanMessage: e.target.value })}
                 defaultValue={getServerValue("autoGlobalBanMessage")}
-                name={"V-Ban message"}
+                name={t("server.protection.vBanMsg")}
             />
-            <h5 style={{ marginTop: "30px" }}>Protect server agains known cheaters in <i>bfban.com</i></h5>
-            <Switch checked={getServerValue("autoBfbanKick")} name="Enable BFBan Anti Cheat" callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
-            <h5 style={{ marginTop: "30px" }}>Auto kick players with constant high ping</h5>
-            <Switch checked={kickOnPingDisabled} name="Kick on high ping" callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
+            <h5 style={{ marginTop: "30px" }}>{t("server.protection.bfbanDescription")}<i>bfban.com</i></h5>
+            <Switch checked={getServerValue("autoBfbanKick")} name={t("server.protection.bfbanEnable")} callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
+            <h5 style={{ marginTop: "30px" }}>{t("server.protection.pingKickDescription")}</h5>
+            <Switch checked={kickOnPingDisabled} name={t("server.protection.pingKickEnable")} callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
             <TextInput
                 type="number"
                 disabled={!allowedTo || !kickOnPingDisabled}
@@ -350,15 +356,15 @@ function ServerAutomation(props) {
                     }
                 }
                 value={(serverState) ? serverState.autoPingKick : "" }
-                name={"High ping value"}
+                name={t("server.protection.pingKickAmount")}
             />
             <TextInput
                 disabled={!allowedTo || !kickOnPingDisabled}
                 callback={(e) => changeSrerverState({ autoPingKickMessage: e.target.value })}
                 defaultValue={getServerValue("autoPingKickMessage")}
-                name={"Auto ping msg"}
+                name={t("server.protection.pingKickMsg")}
             />
-            <h5 style={{ marginTop: "8px" }}>Mimimum amount of players for autokick to start working (0 for always)</h5>
+            <h5 style={{ marginTop: "8px" }}>{t("server.protection.pingKickMinDesc")}</h5>
             <TextInput
                 type="number"
                 disabled={true/*!allowedTo || !kickOnPingDisabled*/}
@@ -374,12 +380,12 @@ function ServerAutomation(props) {
                 }
                 defaultValue={getServerValue("minAutoPingKick")}
                 value={(serverState) ? serverState.minAutoPingKick : "" }
-                name={"Minimum amount of players"}
+                name={t("server.protection.pingKickMin")}
             />
             {
                 (props.server && canApply) ? (
                     <ButtonRow>
-                        <Button name="Apply changes" disabled={!allowedTo || applyStatus !== null} callback={
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editServerSettings.mutate(
                                 serverState
                             )
@@ -397,6 +403,7 @@ function ServerSettings(props) {
     if (props.server) allowedTo = true;
 
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     const [serverState, setServerState] = useState(null);
     const [canApply, setCanApply] = useState(false);
@@ -453,29 +460,29 @@ function ServerSettings(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>Server settings</h2>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.settings.title")}</h2>
 
-            <h5 style={{ marginTop: "8px" }}>Change Server Name</h5>
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.nameDescription")}</h5>
 
             <TextInput
                 disabled={!allowedTo}
                 callback={(e) => changeSrerverState({ serverName: e.target.value })}
                 defaultValue={getServerValue("serverName")}
-                name={"Server Name"}
+                name={t("server.settings.name")}
             />
 
-            <h5 style={{ marginTop: "8px" }}>Alias to use with a Discord bot. (Can be a server number, for example)</h5>
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.aliasDescription")}</h5>
 
             <TextInput
                 disabled={!allowedTo}
                 callback={(e) => changeSrerverState({ serverAlias: e.target.value })}
                 defaultValue={getServerValue("serverAlias")}
-                name={"Alias"}
+                name={t("server.settings.alias")}
             />
             {
                 (props.server && canApply) ? (
                     <ButtonRow>
-                        <Button name="Apply changes" disabled={!allowedTo || applyStatus !== null} callback={
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editServerSettings.mutate(
                                 serverState
                             )
@@ -493,6 +500,7 @@ function ServerKickPlayer(props) {
 
     var { sid, eaid } = props;
     const modal = useModal();
+    const { t } = useTranslation();
 
     var [reason, setReason] = useState("");
     var [kickApplyStatus, setKickApplyStatus] = useState(null);
@@ -540,10 +548,10 @@ function ServerKickPlayer(props) {
 
     return (
         <>
-            <h2>You are going to kick player {props.eaid}</h2>
-            <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
+            <h2>{t("server.kickMenu.main", {name: props.eaid})}</h2>
+            <TextInput name={t("server.kickMenu.reason")} callback={(e) => setReason(e.target.value)} />
             <ButtonRow>
-                <Button status={kickApplyStatus} name="Kick him!" disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid }); history.push(`/server/${props.sid}/`); }} />
+                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid }); history.push(`/server/${props.sid}/`); }} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
@@ -553,6 +561,7 @@ function ServerKickPlayer(props) {
 function ServerBanPlayer(props) {
     const modal = useModal();
     var { sid, eaid } = props;
+    const { t } = useTranslation();
 
     const history = useHistory();
     const [reason, setReason] = useState("");
@@ -623,15 +632,15 @@ function ServerBanPlayer(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>You are going to ban player {props.eaid}</h2>
-            <h5>Enter a reason to ban this player.</h5>
-            <TextInput name="Reason" callback={(e) => setReason(e.target.value)} />
-            <Switch value={globalVsClassicBan} name="Use Virtual Ban instead of classic ban list" callback={ (v) => setGlobalVsClassicBan(v) } />
-            <h5>If you want to temporary ban him, specify time in<br /> hours below, or leave it 0 to make permament ban.<br />Not supported yet by V-Ban.</h5>
-            <TextInput type="number" name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
+            <h2 style={{ marginLeft: "20px" }}>{t("server.banMenu.main", {name: props.eaid})} </h2>
+            <h5>{t("server.banMenu.reasonDescription")}</h5>
+            <TextInput name={t("server.banMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <Switch value={globalVsClassicBan} name={t("server.banMenu.vBanOption")} callback={ (v) => setGlobalVsClassicBan(v) } />
+            <h5>{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}<br />{t("server.banMenu.tempbanDesc2")}</h5>
+            <TextInput type={t("server.banMenu.tempbanAmount")} name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
             <ButtonRow>
                 <Button
-                    name="Ban!"
+                    name={t("server.banMenu.confirm")}
                     style={{ maxWidth: "144px" }}
                     disabled={isDisabled}
                     callback={() => {

@@ -4,7 +4,8 @@ import { useQuery } from 'react-query';
 import { Button, ButtonRow, DropdownButton, ButtonLink, TextInput } from "./Buttons";
 import { useModal } from "./Card";
 import { OperationsApi } from "../api";
-
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 export function SmallText(props) {
     return (<span className={styles.SmallText}>{props.children}</span>);
@@ -13,24 +14,25 @@ export function SmallText(props) {
 function PlayerStatsModal(props) {
     const player = props.player;
     const { isError, data: stats, isLoading } = useQuery('playerStatsByEAID' + player, () => fetch("https://api.gametools.network/bf1/stats/?name="+player+"&lang=en-us&platform=pc&=").then(r=>r.json()));
+    const { t } = useTranslation();
     
     const statsBlock = (!isLoading && !isError) ? (
         <div className={styles.statsBlock}>
-            <h5>Skill: {stats.skill}</h5>
-            <h5>Level: {stats.rank}</h5>
-            <h5>KPM: {stats.killsPerMinute}</h5>
-            <h5>Win: {stats.winPercent}</h5>
-            <h5>Accuracy: {stats.Accuracy}</h5>
-            <h5>Headshots: {stats.headshots}</h5>
-            <h5>KD: {stats.killDeath}</h5>
-            <h5>ID: {stats.id}</h5>
-            <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank">Full stats..</a>
+            <h5>{t("server.playerStats.skill")}{stats.skill}</h5>
+            <h5>{t("server.playerStats.rank")}{stats.rank}</h5>
+            <h5>{t("server.playerStats.killsPerMinute")}{stats.killsPerMinute}</h5>
+            <h5>{t("server.playerStats.winPercent")}{stats.winPercent}</h5>
+            <h5>{t("server.playerStats.accuracy")}{stats.Accuracy}</h5>
+            <h5>{t("server.playerStats.headshots")}{stats.headshots}</h5>
+            <h5>{t("server.playerStats.killDeath")}{stats.killDeath}</h5>
+            <h5>{t("server.playerStats.id")}{stats.id}</h5>
+            <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank">{t("server.playerStats.toStatsPage")}</a>
         </div>
-    ) : "Loading stats..";
+    ) : t("server.playerStats.loading");
 
     return (   
         <>
-            <h2>Game stats for {player}</h2>
+            <h2>{t("server.playerStats.main", {player: player})}</h2>
             {statsBlock}
         </>
     );
@@ -57,7 +59,7 @@ export function ServerInfo(props) {
 }
 
 export function ServerRotation(props) {
-    
+    const { t } = useTranslation();
     var server = null, game = null;
     if (props.game && props.game.data && props.game.data.length > 0) {
         server = props.game.data[0];
@@ -66,7 +68,7 @@ export function ServerRotation(props) {
 
     var server_status = (
         <span className={styles.serverBadgePending}>
-            Pending status
+            {t("serverStatus.pending")}
         </span>
     );
     
@@ -75,20 +77,20 @@ export function ServerRotation(props) {
             server_status = (
                 <span className={styles.serverBadgeOk}>
                     <span className={styles.liveUpdate}></span>
-                    Running
+                    {t("serverStatus.running")}
                 </span>
             )  
         } else {
             server_status = (
                 <span className={styles.serverBadgeErr}>
-                    No admin rights
+                    {t("serverStatus.noAdmin")}
                 </span>
             )
         }
         if (server.serverStatus === "noServer") {
             server_status = (
                 <span className={styles.serverBadgeErr}>
-                    Status: Server not found
+                    {t("serverStatus.noServer")}
                 </span>
             )
         }
@@ -104,23 +106,23 @@ export function ServerRotation(props) {
             <div className={styles.ServerDescriptionRow}>
                 <img className={styles.serverImage} src={(game) ? game.url : "/no-server-image.png"} />
                 <div className={styles.GameInfo}>
-                    <span className={styles.ServerName}>{(game) ? game.prefix : "Loading" }</span>
-                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} [${game.inQue}] players` : "-"}</SmallText>
+                    <span className={styles.ServerName}>{(game) ? game.prefix : t("loading") }</span>
+                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", {inQue: game.inQue})}` : "-"}</SmallText>
                 </div>
             </div>
             <ButtonRow>
-                <Button name="Restart" disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
+                <Button name={t("server.game.restart")} disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
                 <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
-                    <option value="">Switch game..</option>
+                    <option value="">{t("server.game.mapSwitch")}</option>
                     {(game) ? game.rotation.map((value, i) =>
                         <option value={value.index} key={i}>{value.mapname} - {value.mode}</option>
                     ) : ""}
                 </select>
-                {(rotationId !== "") ? <Button name="Apply" disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
+                {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
             </ButtonRow>
             <div className={styles.serverStatusArray}>
                 <span>{server_status}</span>
-                <span className={styles.serverBadge}>Last update - {update_timestamp}</span>
+                <span className={styles.serverBadge}>{t("server.game.playerlistUpdate")} - {update_timestamp}</span>
             </div>
             
         </div>
@@ -201,13 +203,14 @@ export function ServerInfoHolder(props) {
 
 export function BanList(props) {
     const sid = props.sid;
+    const { t } = useTranslation();
     const { isError, data: banList, error } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
 
     if (!banList) {
         // TODO: add fake item list on loading
-        return "Loading..";
+        return t("loading");
     }
 
     if (isError) {
@@ -217,20 +220,20 @@ export function BanList(props) {
     return (
         <div>
             <h5>
-                List of banned players on this server.<br />
-                Used <b>{banList.data.length} slots out of 200</b>.
-                Use our group-based virtual ban list,<br /> to ban unlimited amount of players.
+                {t("server.banList.description0")}<br />
+                {t("server.banList.description1")} <b>{t("server.banList.description2", {number: banList.data.length})}</b>.
+                {t("server.banList.description3")}<br />{t("server.banList.description4")}
             </h5>
-            <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
+            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>Player name</th>
-                        <th>Player id</th>
-                        <th>Reason</th>
-                        <th>Admin</th>
-                        <th>Until</th>
-                        <th>Timestamp</th>
+                        <th>{t("server.banList.table.playerName")}</th>
+                        <th>{t("server.banList.table.playerId")}</th>
+                        <th>{t("server.banList.table.reason")}</th>
+                        <th>{t("server.banList.table.admin")}</th>
+                        <th>{t("server.banList.table.until")}</th>
+                        <th>{t("server.banList.table.timestamp")}</th>
                     </thead>
                     <tbody>
                         {
@@ -247,10 +250,11 @@ export function BanList(props) {
 
 function BanRow(props) {
     const player = props.player;
+    const { t } = useTranslation();
     return (    
         <tr className={styles.BanRow}>
             <td className={styles.BanDisplayName}>{player.displayName}</td>
-            <td title="Player ID">{player.id}</td>
+            <td title={t("server.banList.table.playerId")}>{player.id}</td>
             <td>{player.reason}</td>
             <td>{player.admin}</td>
             <td>{player.banned_until}</td>
@@ -261,13 +265,14 @@ function BanRow(props) {
 
 export function FireStarter(props) {
     const sid = props.sid;
+    const { t } = useTranslation();
     const { isError, data: starterList, error } = useQuery('serverStarterList' + sid, () => OperationsApi.getStarterList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
 
     if (!starterList) {
         // TODO: add fake item list on loading
-        return "Loading..";
+        return t("loading");
     }
 
     if (isError) {
@@ -279,16 +284,15 @@ export function FireStarter(props) {
     return (
         <div>
             <h5>
-                We measure when your server's preround ended and count all the players that are in the server when it starts,<br />
-                so you can check here who is helping you start your server.
+                {t("server.firestarterList.description0")}<br />{t("server.firestarterList.description1")}
             </h5>
-            <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
+            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>Player name</th>
-                        <th>Player id</th>
-                        <th>Amount</th>
+                        <th>{t("server.firestarterList.table.playerName")}</th>
+                        <th>{t("server.firestarterList.table.playerId")}</th>
+                        <th>{t("server.firestarterList.table.amount")}</th>
                     </thead>
                     <tbody>
                         {
@@ -305,10 +309,11 @@ export function FireStarter(props) {
 
 function StarterRow(props) {
     const player = props.player;
+    const { t } = useTranslation();
     return (    
         <tr className={styles.BanRow}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.playerName}</td>
-            <td title="Player ID">{player.playerId}</td>
+            <td title={t("server.firestarterList.table.playerId")}>{player.playerId}</td>
             <td>{player.amount}</td>
         </tr>
     );
@@ -347,24 +352,25 @@ export function LogList(props) {
 }
 
 function LogRow(props) {
+    const { t } = useTranslation();
     const modal = useModal();
     const log = props.log;
     const action = (() => {
         switch (log.action) {
             case "addServerBan":
-                return "banned";
+                return t("server.logs.reasons.addServerBan");
             case "kickPlayer":
-                return "kicked";
+                return t("server.logs.reasons.kickPlayer");
             case "removeServerBan":
-                return "unbanned"
+                return t("server.logs.reasons.removeServerBan");
             case "addServerVip":
-                return "gave vip to";
+                return t("server.logs.reasons.addServerVip");
             case "movePlayer":
-                return "moved";
+                return t("server.logs.reasons.movePlayer");
             case "removeServerVip":
-                return "removed vip of"
+                return t("server.logs.reasons.removeServerVip");
             default:
-                return "did magic to";
+                return t("server.logs.reasons.magic");
         }
     })();
 
@@ -380,8 +386,8 @@ function LogRow(props) {
                 <svg className={styles.logIcon} viewBox="0 0 24 24">
                     <path fill="currentColor" d="M19.5,5.5V18.5H17.5V5.5H19.5M12.5,10.5V18.5H10.5V10.5H12.5M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" />
                 </svg>
-                <span className={styles.logAdmin}>Ping checker</span>
-                <span className={styles.logAction}>kicked</span>
+                <span className={styles.logAdmin}>{t("server.logs.types.pingChecker")}</span>
+                <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logAction}>{log.reason}</span>
                 <span className={styles.logReasonDetailed}></span>
@@ -396,8 +402,8 @@ function LogRow(props) {
                 <svg className={styles.logIcon} viewBox="0 0 24 24">
                     <path fill="currentColor" d="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C10.1 4 8.4 4.6 7.1 5.7L18.3 16.9C19.3 15.5 20 13.8 20 12C20 7.6 16.4 4 12 4M16.9 18.3L5.7 7.1C4.6 8.4 4 10.1 4 12C4 16.4 7.6 20 12 20C13.9 20 15.6 19.4 16.9 18.3Z" />
                 </svg>
-                <span className={styles.logAdmin}>VBan</span>
-                <span className={styles.logAction}>kicked</span>
+                <span className={styles.logAdmin}>{t("server.logs.types.vBan")}</span>
+                <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logReason}>with reason</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
@@ -412,10 +418,10 @@ function LogRow(props) {
                 <svg className={styles.logIcon} viewBox="0 0 24 24">
                     <path fill="currentColor" d="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C10.1 4 8.4 4.6 7.1 5.7L18.3 16.9C19.3 15.5 20 13.8 20 12C20 7.6 16.4 4 12 4M16.9 18.3L5.7 7.1C4.6 8.4 4 10.1 4 12C4 16.4 7.6 20 12 20C13.9 20 15.6 19.4 16.9 18.3Z" />
                 </svg>
-                <span className={styles.logAdmin}>BFBAN</span>
-                <span className={styles.logAction}>kicked</span>
+                <span className={styles.logAdmin}>{t("server.logs.types.bfban")}</span>
+                <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
-                <span className={styles.logReason}>with reason</span>
+                <span className={styles.logReason}>{t("server.logs.reason")}</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
                 <span className={styles.logTime}>{datetime}</span>
             </div>
@@ -443,7 +449,7 @@ function LogRow(props) {
             <span className={styles.logAction}>{action}</span>
             <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
             <span className={styles.logReason}>{
-                ((log.reason === "") ? "without any reason" : "with reason")
+                ((log.reason === "") ? t("server.logs.noReason") : t("server.logs.reason"))
             }</span>
             <span className={styles.logReasonDetailed}>{log.reason}</span>
             <span className={styles.logTime}>{datetime}</span>
@@ -460,6 +466,7 @@ function EmptyLogRow() {
 
 export function VipList(props) {
     const sid = props.sid;
+    const { t } = useTranslation();
     const { isError, data: vipList, error } = useQuery('serverVipList' + sid, () => OperationsApi.getVipList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
@@ -467,7 +474,7 @@ export function VipList(props) {
 
     if (!vipList) {
         // TODO: add fake item list on loading
-        return "Loading..";
+        return t("loading");
     }
 
     if (isError) {
@@ -481,8 +488,8 @@ export function VipList(props) {
                 <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h5 style={{ marginBottom: 0 }}>
-                        List of VIP players on this server.<br />
-                        Used <b>{vipList.data.length} slots out of 50</b>.
+                        {t("server.vipList.description0")}<br />
+                        {t("server.vipList.description1")}<b>{t("server.vipList.description2", {number: vipList.data.length})}</b>.
                     </h5>
                 </div>
             </div>
@@ -490,8 +497,8 @@ export function VipList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th>Player name</th>
-                            <th>Player id</th>
+                            <th>{t("server.vipList.table.playerName")}</th>
+                            <th>{t("server.vipList.table.playerId")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -509,13 +516,14 @@ export function VipList(props) {
 
 function VipRow(props) {
     const player = props.player;
+    const { t } = useTranslation();
     return (
         <tr className={styles.VipRow}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
             </td>
-            <td title="Player ID">{player.id}</td>
+            <td title={t("server.vipList.table.playerId")}>{player.id}</td>
         </tr>
     );
 }

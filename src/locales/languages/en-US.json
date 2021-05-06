@@ -1,7 +1,9 @@
 {
     "beta": "beta",
     "eBeta": "Early beta",
+    "search": "Search...",
     "pending": "Pending...",
+    "loading": "Loading..",
     "denied": "Not allowed",
     "apply": "Apply",
     "cookie": {
@@ -10,6 +12,12 @@
         "sidDescription": "Session cookies can be found at ",
         "remidDescription": "Reminder session cookies can be found at ",
         "sid": "SID cookie"
+    },
+    "serverStatus": {
+        "pending": "Pending status",
+        "noServer": "Server not found",
+        "noAdmin": "No admin rights",
+        "running": "Running"
     },
     "discord": {
         "id": "Discord Server ID",
@@ -65,13 +73,7 @@
             "main": "Servers",
             "description0": "Servers instances added to current group. You need to have",
             "description1": "Owner role in order to add new servers.",
-            "add": "Add Server",
-            "status": {
-                "pending": "Pending status",
-                "noServer": "Server not found",
-                "noAdmin": "No admin rights",
-                "running": "Running"
-            }
+            "add": "Add Server"
         },
         "owners": {
             "main": "Owners",
@@ -145,26 +147,102 @@
     },
     "server": {
         "main": "Server panel",
+        "action": {
+            "kick": "Kick",
+            "move": "Move",
+            "ban": "Ban"
+        },
         "game": {
-            "main": "Current game"
+            "main": "Current game",
+            "info": "[{{inQue}}] players",
+            "restart": "Restart",
+            "mapSwitch": "Switch game..",
+            "playerlistUpdate": "Last update"
         },
         "banList": {
-            "main": "Ban list"
+            "main": "Ban list",
+            "description0": "List of banned players on this server.",
+            "description1": "Used",
+            "description2": "{{number}} slots out of 200",
+            "description3": " Use our group-based virtual ban list,",
+            "description4": "to ban unlimited amount of players.",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "reason": "Reason",
+                "admin": "Admin",
+                "until": "Until",
+                "timestamp": "Timestamp"
+            }
         },
         "vipList": {
-            "main": "Vip players"
+            "main": "Vip players",
+            "description0": "List of VIP players on this server.",
+            "description1": "Used ",
+            "description2": "{{number}} slots out of 50",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID"
+            }
+
         },
         "firestarterList": {
-            "main": "Firestarter list"
+            "main": "Firestarter list",
+            "description0": "We measure when your server's preround ended and count all the players that are in the server when it starts,",
+            "description1": "so you can check here who is helping you start your server.",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "amount": "Amount"
+            }
         },
         "logs": {
-            "main": "Logs"
+            "main": "Logs",
+            "reasons": {
+                "addServerBan": "banned",
+                "kickPlayer": "kicked",
+                "removeServerBan": "unbanned",
+                "addServerVip": "gave vip to",
+                "movePlayer": "moved",
+                "removeServerVip": "removed vip of",
+                "magic": "did magic to"
+            },
+            "types": {
+                "pingChecker": "Ping checker",
+                "vBan": "VBan",
+                "bfban": "BFBan"
+            },
+            "reason": "with reason",
+            "noReason": "without any reason"
         },
         "protection": {
-            "main": "Server Protection"
+            "main": "Server Protection",
+            "title": "Auto server protection",
+            "vBanDescription0": "Introducing new tools developed to protect your servers against hackers.",
+            "vBanDescription1": "Global Virtual Ban list auto-kicks players on ",
+            "vBanDescription2": "all group servers",
+            "vBanDescription3": " providing",
+            "vBanDescription4": "infinity amount of ban slots and synchronized ban list.",
+            "vBanEnable": "Enable Global V-Ban",
+            "vbanReasonDesc0": "This msg appear to users who got ",
+            "vbanReasonDesc1": "auto-kicked by V-Ban Global system.",
+            "vBanMsg": "V-Ban message",
+            "bfbanDescription": "Protect server agains known cheaters in ",
+            "bfbanEnable": "Enable BFBan Anti Cheat",
+            "pingKickDescription": "Auto kick players with constant high ping",
+            "pingKickEnable": "Kick on high ping",
+            "pingKickAmount": "High ping value",
+            "pingKickMsg": "Auto ping msg",
+            "pingKickMinDesc": "Mimimum amount of players for autokick to start working (0 for always)",
+            "pingKickMin": "High ping value"
         },
         "settings": {
-            "main": "Settings"
+            "main": "Settings",
+            "title": "Server settings",
+            "nameDescription": "Change Server Name",
+            "name": "Server Name",
+            "aliasDescription": "Alias to use with a Discord bot. (Can be a server number, for example)",
+            "alias": "Alias"
         },
         "console": {
             "main": "Console"
@@ -172,6 +250,35 @@
         "players": {
             "teamOne": "Team 1",
             "teamTwo": "Team 2"
+        },
+        "playerStats": {
+            "main": "Game stats for {{player}}",
+            "loading": "Loading stats...",
+            "skill": "Skill: ",
+            "rank": "Level: ",
+            "killsPerMinute": "KPM: ",
+            "winPercent": "Win: ",
+            "accuracy": "Accuracy: ",
+            "headshots": "Headshots: ",
+            "killDeath": "KD: ",
+            "id": "ID: ",
+            "toStatsPage": "Full stats.."
+        },
+        "kickMenu": {
+            "main": "You are going to kick player {{name}}",
+            "reason": "Reason",
+            "confirm": "Kick him!"
+        },
+        "banMenu": {
+            "main": "You are going to ban player {{name}}",
+            "reasonDescription": "Enter a reason to ban this player.",
+            "reason": "Reason",
+            "vBanOption": "Use Virtual Ban instead of classic ban list",
+            "tempbanDesc0": "If you want to temporary ban him, specify time in",
+            "tempbanDesc1": "hours below, or leave it 0 to make permament ban.",
+            "tempbanDesc2": "Not supported yet by V-Ban.",
+            "tempbanAmount": "Ban time",
+            "confirm": "Ban!"
         }
     }
 }
