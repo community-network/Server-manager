@@ -86,26 +86,26 @@ export function Server(props) {
             // When mutate is called:
             onMutate: async ({ sid, team, name }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('serverGame' + sid)
+                //await queryClient.cancelQueries('serverGame' + sid)
                 // Snapshot the previous value
                 const previousGroup = queryClient.getQueryData('serverGame' + sid)
                 // Optimistically update to the new value
-                queryClient.setQueryData('serverGame' + sid, old => {
-                    if (team === "1") {
-                        old.data[0].players[1].players.push(old.data[0].players[0].players.find(e => e.name === name));
-                        old.data[0].players[0].players = old.data[0].players[0].players.filter(p => p.name !== name);
-                    } else {
-                        old.data[0].players[0].players.push(old.data[0].players[1].players.find(e => e.name === name));
-                        old.data[0].players[1].players = old.data[0].players[1].players.filter(p => p.name !== name);
-                    }
-                    return old;
-                })
+                // queryClient.setQueryData('serverGame' + sid, old => {
+                //     if (team === "1") {
+                //         old.data[0].players[1].players.push(old.data[0].players[0].players.find(e => (!e) ? false : e.name === name));
+                //         old.data[0].players[0].players = old.data[0].players[0].players.filter(p => (!p) ? false : p.name !== name);
+                //     } else {
+                //         old.data[0].players[0].players.push(old.data[0].players[1].players.find(e => (!e) ? false : e.name === name));
+                //         old.data[0].players[1].players = old.data[0].players[1].players.filter(p => (!p) ? false : p.name !== name);
+                //     }
+                //     return old;
+                // })
                 // Return a context object with the snapshotted value
                 return { previousGroup, sid }
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('serverGame' + context.sid, context.previousGroup)
+                //queryClient.setQueryData('serverGame' + context.sid, context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
@@ -145,6 +145,8 @@ export function Server(props) {
         }
     ];
 
+    const [teamId, setTeamId] = useState(false);
+
     const catTabs = {
         info: (
             <ServerInfoHolder>
@@ -180,18 +182,21 @@ export function Server(props) {
     //}
 
     var isOpsMode = false;
-
-    if (!gameError && runningGame && !("error" in runningGame.data[0].players[0])) {
+    var isMovableModal = !gameError && runningGame && !("error" in runningGame.data[0].players[0]) && (runningGame.data[0].players[0].players.length > 0 || runningGame.data[0].players[1].players.length > 0) && (runningGame.data[0].players[0].players !== undefined || runningGame.data[0].players[1].players.players !== undefined );
+    //console.log(runningGame.data[0].players[0].players.length)
+    if (!gameError && runningGame && isMovableModal) {
 
         isOpsMode = runningGame.data[0].info.mode === "Operations";
 
-        var f1 = runningGame.data[0].players[0].players.find(e => e.name === playerName);
-        var f2 = runningGame.data[0].players[1].players.find(e => e.name === playerName);
+        var f1 = runningGame.data[0].players[0].players.find(e => (!e) ? false : e.name === playerName);
+        var f2 = runningGame.data[0].players[1].players.find(e => (!e) ? false : e.name === playerName);
 
         if (f1 !== undefined) {
             playerNicknameTeam = "1";
         } else if(f2 !== undefined) {
             playerNicknameTeam = "2";
+        } else {
+            isMovableModal = false;
         }
 
         var playerInGame = (playerName !== "") &&
@@ -217,6 +222,25 @@ export function Server(props) {
         )
     }
 
+    const movePlayerPopup = (vars) => {
+        if (isMovableModal) {
+            movePlayer.mutate(vars);
+        } else {
+            modal.show(
+                <>
+                    <h2>Player is not found on the server!</h2>
+                    <p>Choose a side to move player to, if you think it is an error.</p>
+                    <ButtonRow>
+                        <h5 style={{margin: "0 6px 0 12px"}}>Team 1</h5>
+                        <Switch checked={teamId} callback={(v) => setTeamId(v)}/>
+                        <h5 style={{margin: "0"}}>Team 2</h5>
+                    </ButtonRow>
+                    <Button disabled={playerName === ""} name="Move" callback={_ => {movePlayer.mutate({ sid, team: teamId ? "1" : "2", name: playerName }); modal.close()}} />
+                </>
+            );
+        }
+    }
+
     return (
         <>
             <Row>
@@ -237,7 +261,7 @@ export function Server(props) {
                             }}/>
                             <ButtonRow>
                                 <Button disabled={playerName === ""} name="Kick" callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
-                                <Button disabled={playerName === ""} name="Move" callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
+                                <Button disabled={playerName === ""} name="Move" callback={_ => movePlayerPopup({ sid, team: playerNicknameTeam, name: playerName })} />
                                 <Button disabled={playerName === ""} name="Ban" callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
                                 <Button disabled={playerName === "" || unbanStatus.status} name={unbanStatus.name} callback={_ => UnbanPlayer.mutate({ sid, name: playerName, reason: "" })} />
                                 <Button disabled={playerName === "" || addVipStatus.status || isOpsMode} name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />

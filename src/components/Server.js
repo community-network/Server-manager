@@ -141,6 +141,9 @@ export function PlayerInfo(props) {
             { name: "Remove VIP", callback: () => props.removeVip.mutate({ sid: props.sid, name: player.name, reason: "" }) },
         ]
     };
+
+    if (info.length > 0 && info[0] === undefined) return "";
+
     return (
         info.map((player, i) => 
             <div className={styles.PlayerRow} key={i}>
