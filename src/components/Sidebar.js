@@ -120,7 +120,8 @@ export function Sidebar(props) {
             accountLink = [
                 ABSwitch("", <PageLink key={0} to="/home/" name="Home page" />, "homePage"),
                 <PageLink key={1} to="/account/" name="Account" />,
-                <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />
+                <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />,
+                <PageLink key={3} to="/makeops/" name="Make Operations" />,
             ];
             logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); }} name="Logout" />;
             groupLinks = [];
