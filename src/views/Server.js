@@ -235,7 +235,7 @@ export function Server(props) {
                             }}/>
                             <ButtonRow>
                                 <Button disabled={playerName === ""} name="Kick" callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
-                                <Button disabled={!playerInGame} name="Move" callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
+                                <Button disabled={playerName === ""} name="Move" callback={_ => movePlayer.mutate({ sid, team: playerNicknameTeam, name: playerName })} />
                                 <Button disabled={playerName === ""} name="Ban" callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
                                 <Button disabled={playerName === "" || unbanStatus.status} name={unbanStatus.name} callback={_ => UnbanPlayer.mutate({ sid, name: playerName, reason: "" })} />
                                 <Button disabled={playerName === "" || addVipStatus.status || isOpsMode} name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />
