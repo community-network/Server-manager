@@ -1,0 +1,325 @@
+{
+    "beta": "beta",
+    "eBeta": "Early beta",
+    "search": "Search...",
+    "pending": "Pending...",
+    "loading": "Loading..",
+    "denied": "Not allowed",
+    "apply": "Apply",
+    "cookie": {
+        "invalid": "Error: The cookies you are using right now are invalid!",
+        "remid": "REMID cookie",
+        "sidDescription": "Session cookies can be found at ",
+        "remidDescription": "Reminder session cookies can be found at ",
+        "sid": "SID cookie"
+    },
+    "serverStatus": {
+        "pending": "Pending status",
+        "noServer": "Server not found",
+        "noAdmin": "No admin rights",
+        "running": "Running"
+    },
+    "discord": {
+        "id": "Discord Server ID",
+        "idDescription": "Your Discord server ID",
+        "adminId": "Admin role ID",
+        "adminIdDescription": "Id of Admin role",
+        "modId": "Mod role ID",
+        "modIdDescription": "Id of Moderator role, moderators can only kick players"
+    },
+    "mainPage": {
+        "main": "A new way to manage your Battlefield 1 servers",
+        "description": "Server Manager is a new Gametools & BFBan service created by Community Network",
+        "login": "Log in",
+        "featureList": {
+            "main": "Features",
+            "0": {
+                "heading": "BFBan Anti Cheat",
+                "body": "Protect your servers against hackers confirmed on www.bfban.com"
+            },
+            "1": {
+                "heading": "Unlimited Global V-Ban list",
+                "body": "Ban as many players as you want to on all your servers with virtal ban list."
+            },
+            "2": {
+                "heading": "High ping players kick",
+                "body": "Automaticaly kick players from your servers based on ping threshold."
+            },
+            "3": {
+                "heading": "Discord tools to maintain server",
+                "body": "Contol your servers right in the Discord based on roles."
+            },
+            "4": {
+                "heading": "Server action logging",
+                "body": "See full logs on every actions made on your servers and groups."
+            },
+            "5": {
+                "heading": "Full control over your servers",
+                "body": "Admins can controll server with same functions as in game."
+            }
+        }
+    },
+    "account": {
+        "main": "Account",
+        "discordProfile": "Discord Profile",
+        "permissions": {
+            "main": "Permissions",
+            "admin": "Administrator",
+            "server": "Server owner",
+            "system": "System administrator"
+        }
+    },
+    "dev": {
+        "main": "Developer Options",
+        "listGroups": "List of Groups",
+        "addGroup": "Add new Group",
+        "manage": "Manage group"
+    },
+    "createGroup": {
+        "main": "Create new Group",
+        "description": "Create a new group to manage your community servers",
+        "discordDescription": "Optionaly, you can add your discord server, to integrate server tools",
+        "cookieDescription0": "Every group need to be assigned special account with certain requirments:",
+        "cookieDescription1": "It should be a BF1 server moderator (owner access not required)",
+        "cookieDescription2": "This account shouldn't be used anywhere else, otherwise it will lead in errors",
+        "acceptDescription0": "By pressing this button, you agree to give",
+        "acceptDescription1": "server manager tool access to the account.",
+        "accept": "Create group"
+    },
+    "group": {
+        "main": "Group",
+        "name": "Group name",
+        "id": "Identity",
+        "admins": {
+            "main": "Admins",
+            "description0": "Admin role can manage servers. You need to have at least",
+            "description1": "Owner role to add new admins.",
+            "add": "Add admin",
+            "addNew": "Add new Admin",
+            "removeSelected": "Remove Selected Admins",
+            "remove": "Remove admins",
+            "select": "Select admins to remove them.",
+            "selected": "You selected {{number}} admins."
+        },
+        "servers": {
+            "main": "Servers",
+            "description0": "Servers instances added to current group. You need to have",
+            "description1": "Owner role in order to add new servers.",
+            "add": "Add Server"
+        },
+        "owners": {
+            "main": "Owners",
+            "description0": "List of current group Owners. This role can add new Servers,",
+            "description1": "Admins and other owners. Be carefull with it!",
+            "add": "Add Owner",
+            "addNew": "Add new Owner",
+            "removeSelected": "Remove Selected Owners",
+            "remove": "Remove Owners",
+            "select": "Select owners to remove them.",
+            "selected": "You selected {{number}} owners."
+        },
+        "vban": {
+            "main": "Vban list",
+            "description0": "List of banned players on this group.",
+            "description1": "Used {{number}} slots",
+            "reason": "",
+            "noReason": "with reason",
+            "unban": "Unban"
+        },
+        "logs": {
+            "main": "Group logs",
+            "description": "Group log list"
+        },
+        "account": {
+            "main": "Server account",
+            "description0": "Account manager, that will administrate your servers.",
+            "description1": "These cookies can be found at "
+        },
+        "discord": {
+            "main": "Discord integration",
+            "description0": "With our bot, you can allow admins to controll your servers",
+            "description1": "by using commands with ! prefix.",
+            "gamestats": "Add Game Stats bot on your Discord server, in order to control BF1 servers with commands.",
+            "commandList": "for a list of commands that you can use in Discord, use the \"!bfadmin\" command.",
+            "permDescription0": "Every person with that role id can use",
+            "permDescription1": "discord commands to contol the server."
+        },
+        "danger": {
+            "main": "Danger zone",
+            "nameChange": "You can change the name of current Group.",
+            "delete": "Delete Group",
+            "deleteInfo0": "Once you delete a group, it will remove all the servers,",
+            "deleteInfo1": "server account and users used in it.",
+            "check": "Are you sure you want to delete this group?",
+            "confirm": "Yes, delete",
+            "back": "Oh, no!"
+        },
+        "addMenu": {
+            "id": "Discord UID",
+            "nickname": "Nickname (any, will be auto-updated)"
+        },
+        "serverAddMenu": {
+            "main": "Add new Server",
+            "description": "Group Server",
+            "name": "Server name",
+            "alias": "Alias (optional)"
+        }
+    },
+    "operations": {
+        "main": "Setup Operations Gamemode",
+        "description0": "Setup operations gamemode on your server.",
+        "description1": "Note, that you will lose in-game admin panel!",
+        "description2": "Make sure to add server into this pannel and check it.",
+        "acceptDescription0": "By pressing this button, you agree to give",
+        "acceptDescription1": "server manager tool access to the account.",
+        "accept": "Make Operations",
+        "server": "Server ",
+        "owner": "owner",
+        "cookies": " cookies."
+    },
+    "server": {
+        "main": "Server panel",
+        "action": {
+            "kick": "Kick",
+            "move": "Move",
+            "ban": "Ban"
+        },
+        "game": {
+            "main": "Current game",
+            "info": "[{{inQue}}] players",
+            "restart": "Restart",
+            "mapSwitch": "Switch game..",
+            "playerlistUpdate": "Last update"
+        },
+        "banList": {
+            "main": "Ban list",
+            "description0": "List of banned players on this server.",
+            "description1": "Used",
+            "description2": "{{number}} slots out of 200",
+            "description3": " Use our group-based virtual ban list,",
+            "description4": "to ban unlimited amount of players.",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "reason": "Reason",
+                "admin": "Admin",
+                "until": "Until",
+                "timestamp": "Timestamp"
+            }
+        },
+        "vipList": {
+            "main": "Vip players",
+            "description0": "List of VIP players on this server.",
+            "description1": "Used ",
+            "description2": "{{number}} slots out of 50",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID"
+            }
+
+        },
+        "firestarterList": {
+            "main": "Firestarter list",
+            "description0": "We measure when your server's preround ended and count all the players that are in the server when it starts,",
+            "description1": "so you can check here who is helping you start your server.",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "amount": "Amount"
+            }
+        },
+        "logs": {
+            "main": "Logs",
+            "reasons": {
+                "addServerBan": "banned",
+                "kickPlayer": "kicked",
+                "removeServerBan": "unbanned",
+                "addServerVip": "gave vip to",
+                "movePlayer": "moved",
+                "removeServerVip": "removed vip of",
+                "magic": "did magic to"
+            },
+            "types": {
+                "pingChecker": "Ping checker",
+                "vBan": "VBan",
+                "bfban": "BFBan"
+            },
+            "reason": "with reason",
+            "noReason": "without any reason"
+        },
+        "protection": {
+            "main": "Server Protection",
+            "title": "Auto server protection",
+            "vBanDescription0": "Introducing new tools developed to protect your servers against hackers.",
+            "vBanDescription1": "Global Virtual Ban list auto-kicks players on ",
+            "vBanDescription2": "all group servers",
+            "vBanDescription3": " providing",
+            "vBanDescription4": "infinity amount of ban slots and synchronized ban list.",
+            "vBanEnable": "Enable Global V-Ban",
+            "vbanReasonDesc0": "This msg appear to users who got ",
+            "vbanReasonDesc1": "auto-kicked by V-Ban Global system.",
+            "vBanMsg": "V-Ban message",
+            "bfbanDescription": "Protect server agains known cheaters in ",
+            "bfbanEnable": "Enable BFBan Anti Cheat",
+            "pingKickDescription": "Auto kick players with constant high ping",
+            "pingKickEnable": "Kick on high ping",
+            "pingKickAmount": "High ping value",
+            "pingKickMsg": "Auto ping msg",
+            "pingKickMinDesc": "Mimimum amount of players for autokick to start working (0 for always)",
+            "pingKickMin": "High ping value"
+        },
+        "settings": {
+            "main": "Settings",
+            "title": "Server settings",
+            "nameDescription": "Change Server Name",
+            "name": "Server Name",
+            "aliasDescription": "Alias to use with a Discord bot. (Can be a server number, for example)",
+            "alias": "Alias"
+        },
+        "console": {
+            "main": "Console"
+        },
+        "players": {
+            "teamOne": "Team 1",
+            "teamTwo": "Team 2"
+        },
+        "playerStats": {
+            "main": "Game stats for {{player}}",
+            "loading": "Loading stats...",
+            "skill": "Skill: ",
+            "rank": "Level: ",
+            "killsPerMinute": "KPM: ",
+            "winPercent": "Win: ",
+            "accuracy": "Accuracy: ",
+            "headshots": "Headshots: ",
+            "killDeath": "KD: ",
+            "id": "ID: ",
+            "toStatsPage": "Full stats.."
+        },
+        "kickMenu": {
+            "main": "You are going to kick player {{name}}",
+            "reason": "Reason",
+            "confirm": "Kick him!"
+        },
+        "banMenu": {
+            "main": "You are going to ban player {{name}}",
+            "reasonDescription": "Enter a reason to ban this player.",
+            "reason": "Reason",
+            "vBanOption": "Use Virtual Ban instead of classic ban list",
+            "tempbanDesc0": "If you want to temporary ban him, specify time in",
+            "tempbanDesc1": "hours below, or leave it 0 to make permament ban.",
+            "tempbanDesc2": "Not supported yet by V-Ban.",
+            "tempbanAmount": "Ban time",
+            "confirm": "Ban!"
+        }
+    },
+    "sidebar": {
+        "main": "Main page",
+        "home": "Home page",
+        "account": "Account",
+        "devOptions": "Developer Options",
+        "createGroup": "Create Group",
+        "logout": "Logout",
+        "help": "Need help?"
+    }
+}

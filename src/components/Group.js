@@ -5,19 +5,23 @@ import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { OperationsApi } from "../api";
 import { TextInput } from "./Buttons";
 import { Tag } from "./Card";
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 export function GroupRow(props) {
+    const { t } = useTranslation();
     var group = props.group;
     return (
         <Link className={styles.GroupRow} to={"/group/" + group.id}>
             <span className={styles.GroupName}>{group.groupName}</span>
-            Manage group
+            {t("dev.manage")}
         </Link>
     );
 }
 
 export function ServerRow(props) {
     var server = props.server;
+    const { t } = useTranslation();
 
     // If not yet setteled
     if (server.id === null) {
@@ -26,7 +30,7 @@ export function ServerRow(props) {
                 <span className={styles.GroupName}>
                     {server.name}
                     <span className={styles.serverBadgePending}>
-                        Pending status
+                        {t("serverStatus.pending")}
                     </span>
                 </span>
                 {props.button}
@@ -39,25 +43,25 @@ export function ServerRow(props) {
             case "noServer":
                 return (
                     <span className={styles.serverBadgeErr}>
-                        Server not found
+                        {t("serverStatus.noServer")}
                     </span>
                 )
             case "noAdmin":
                 return (
                     <span className={styles.serverBadgeErr}>
-                        No admin rights
+                        {t("serverStatus.noAdmin")}
                     </span>
                 )
             case "pending":
                 return (
                     <span className={styles.serverBadgePending}>
-                        Pending status
+                        {t("serverStatus.pending")}
                     </span>
                 )
             default:
                 return (
                     <span className={styles.serverBadgeOk}>
-                        Running
+                        {t("serverStatus.running")}
                     </span>
                 )    
         }
@@ -86,10 +90,11 @@ export function GroupAdminAccount(props) {
 }
 
 export function GameStatsAd(props) {
+    const { t } = useTranslation();
     return (
         <a target="_blank" rel="noopener noreferrer" className={styles.gameStatsAd} href="https://discord.com/oauth2/authorize?client_id=714524944783900794&scope=bot&permissions=83968">
             <img src="./game-stats.png" />
-            <span>Add Game Stats bot on your Discord server, in order to control BF1 servers with commands.</span>
+            <span>{t("group.discord.gamestats")}</span>
         </a>
     );
 }
@@ -102,6 +107,7 @@ export function VBanList(props) {
     const queryClient = useQueryClient();
 
     const [searchWord, setSearchWord] = useState("");
+    const { t } = useTranslation();
 
     const unbanVGlobalBan = useMutation(
         variables => OperationsApi.globalUnbanPlayer(variables),
@@ -143,7 +149,7 @@ export function VBanList(props) {
     return (
         <div>
             <h5>
-                List of banned players on this group. Used <b>{banList.data.length} slots</b>. <Tag>Early beta</Tag>
+                {t("group.vban.description0")} <b>{t("group.vban.description1", {number: banList.data.length})}</b>. <Tag>{t("eBeta")}</Tag>
             </h5>
             <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
             <div className={styles.BanListing}>
@@ -160,14 +166,15 @@ export function VBanList(props) {
 
 function GlobalBanRow(props) {
     const player = props.player;
+    const { t } = useTranslation();
     return (
         <div className={styles.BanRow}>
             <span className={styles.BanDisplayName}>{player.playerName}</span>
             <span className={styles.banReason}>{
-                ((player.reason === "") ? "without any reason" : "with reason")
+                ((player.reason === "") ? t("group.vban.noReason") : t("group.vban.reason"))
             }</span>
             <span className={styles.banReasonDetailed}>{player.reason}</span>
-            <span className={styles.globalUnban} onClick={props.callback}>Unban</span>
+            <span className={styles.globalUnban} onClick={props.callback}>{t("group.vban.unban")}</span>
         </div>
     );
 }
@@ -175,6 +182,7 @@ function GlobalBanRow(props) {
 export function GroupLogs(props) {
     const gid = props.gid;
     const { isError, data: logList, error } = useQuery('groupogList' + gid, () => OperationsApi.getGroupLogs({ gid }));
+    const { t } = useTranslation();
 
     if (isError) {
         return `Error ${error.code}: {error.message}`
@@ -189,7 +197,7 @@ export function GroupLogs(props) {
 
     return (
         <div>
-            <h5>Group log list</h5>
+            <h5>{t("group.logs.description")}</h5>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 {
                     (logList) ? logList.logs.map(

@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./MainPage.module.css";
 import { OperationsApi } from "../api";
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 function ListItem(props) {
     return (
@@ -12,30 +14,32 @@ function ListItem(props) {
 }
 
 function LoginButton() {
+    const { t } = useTranslation();
     return (
-        <a className={styles.LoginButton} href={OperationsApi.constructApiUrl("login")}>Log in</a>
+        <a className={styles.LoginButton} href={OperationsApi.constructApiUrl("login")}>{t("mainPage.login")}</a>
     );
 }
 
 export function MainPageComponent(props) {
+    const { t } = useTranslation();
     return (
         <div className={styles.MainPage}>
             <div className={styles.MainPageCard}>
                 <div className={styles.titleBlock}>
                     <div className={styles.titleContent}>
-                        <h1>A new way to manage your Battlefield 1 servers</h1>
-                        <p>Server Manager is a new Gametools & BFBan service created by Community Network</p>
+                        <h1>{t("mainPage.main")}</h1>
+                        <p>{t("mainPage.description")}</p>
                         <LoginButton />
                     </div>
                 </div>
                 <div className={styles.listing}>
-                    <h2>Features</h2>
-                    <ListItem header="BFBan Anti Cheat">Protect your servers against hackers confirmed on www.bfban.com</ListItem>
-                    <ListItem header="Unlimited Global V-Ban list">Ban as many players as you want to on all your servers with virtal ban list.</ListItem>
-                    <ListItem header="High ping players kick">Automaticaly kick players from your servers based on ping threshold.</ListItem>
-                    <ListItem header="Discord tools to maintain server">Contoll your servers right in the Discord based on roles.</ListItem>
-                    <ListItem header="Server action logging">See full logs on every actions made on your servers and groups.</ListItem>
-                    <ListItem header="Full controll over your servers">Admins can controll server with same functions as in game.</ListItem>
+                    <h2>{t("mainPage.featureList.main")}</h2>
+                    <ListItem header={t("mainPage.featureList.0.heading")}>{t("mainPage.featureList.0.body")}</ListItem>
+                    <ListItem header={t("mainPage.featureList.1.heading")}>{t("mainPage.featureList.1.body")}</ListItem>
+                    <ListItem header={t("mainPage.featureList.2.heading")}>{t("mainPage.featureList.2.body")}</ListItem>
+                    <ListItem header={t("mainPage.featureList.3.heading")}>{t("mainPage.featureList.3.body")}</ListItem>
+                    <ListItem header={t("mainPage.featureList.4.heading")}>{t("mainPage.featureList.4.body")}</ListItem>
+                    <ListItem header={t("mainPage.featureList.5.heading")}>{t("mainPage.featureList.5.body")}</ListItem>
                 </div>
             </div>
         </div>

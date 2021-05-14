@@ -3,10 +3,11 @@ import { useQuery } from 'react-query';
 import { Redirect } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Column, Card, Header, ButtonLink, ButtonRow, GroupRow, Row } from "../components";
-
+import '../locales/config';
+import { useTranslation } from 'react-i18next';
 
 export function Developer() {
-
+    const { t } = useTranslation();
     const { isLoading, isError, data } = useQuery('devGroups', () => OperationsApi.getDevGroups())
     
     var groups = [];
@@ -23,13 +24,13 @@ export function Developer() {
         <Row>
             <Column>
                 <Header>
-                    <h2>Developer Options</h2>
+                    <h2>{t("dev.main")}</h2>
                 </Header>
                 <Card>
-                    <h2>List of Groups</h2>
+                    <h2>{t("dev.listGroups")}</h2>
                     {groups}
                     <ButtonRow>
-                        <ButtonLink name="Add new Group" to="/group/new/" />
+                        <ButtonLink name={t("dev.addGroup")} to="/group/new/" />
                     </ButtonRow>
                 </Card>
             </Column>
