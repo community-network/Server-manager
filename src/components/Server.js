@@ -240,7 +240,7 @@ export function BanList(props) {
                     </thead>
                     <tbody>
                         {
-                            banList.data.filter(p => p.displayName.includes(searchWord)).map(
+                            banList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
                                 (player, i) => (<BanRow player={player} key={i} />)
                             )
                         }
@@ -299,7 +299,7 @@ export function FireStarter(props) {
                     </thead>
                     <tbody>
                         {
-                            starterList.data.filter(p => p.playerName.includes(searchWord)).map(
+                            starterList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
                                 (player, i) => (<StarterRow player={player} key={i} />)
                             )
                         }
@@ -506,7 +506,7 @@ export function VipList(props) {
                     </thead>
                     <tbody>
                         {
-                            vipList.data.filter(p => p.displayName.includes(searchWord)).map(
+                            vipList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
                                 (player, i) => (<VipRow player={player} key={i} />)
                             )
                         }
