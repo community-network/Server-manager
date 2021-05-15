@@ -293,8 +293,8 @@ function ServerAutomation(props) {
     useEffect(() => {
 
         if (props.server) {
-            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage } = props.server;
-            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage };
+            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick } = props.server;
+            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick };
             if (serverState === null) {
                 setServerState(originalServerState);
                 setKickOnPingDisabled(autoPingKick !== 0);
@@ -391,7 +391,7 @@ function ServerAutomation(props) {
             <h5 style={{ marginTop: "8px" }}>{t("server.protection.pingKickMinDesc")}</h5>
             <TextInput
                 type="number"
-                disabled={true/*!allowedTo || !kickOnPingDisabled*/}
+                disabled={!allowedTo || !kickOnPingDisabled}
                 callback={
                     (e) => {
                         console.log(e.target.value < 0);
@@ -404,9 +404,9 @@ function ServerAutomation(props) {
                 }
                 defaultValue={getServerValue("minAutoPingKick")}
                 value={(serverState) ? serverState.minAutoPingKick : "" }
-                name={t("server.protection.pingKickMin")}
+                name={t("server.protection.minAutoPingKick")}
             />
-            {
+            {   
                 (props.server && canApply) ? (
                     <ButtonRow>
                         <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={

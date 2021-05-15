@@ -266,7 +266,8 @@
             "pingKickAmount": "High ping value",
             "pingKickMsg": "Auto ping msg",
             "pingKickMinDesc": "Mimimum amount of players for autokick to start working (0 for always)",
-            "pingKickMin": "High ping value"
+            "pingKickMin": "High ping value",
+            "minAutoPingKick": "Minimum playeramount before it kicks"
         },
         "settings": {
             "main": "Settings",
