@@ -169,13 +169,13 @@ export function PlayerInfo(props) {
 
                 
                 <div className={styles.PlayerButtons}>
-                    <div className={styles.PlayerButton} onClick={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam})}>
+                    <div className={styles.PlayerButton} onClick={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam, playerId: player.playerId})}>
                         Move
                     </div>
-                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.kickModal sid={props.sid} eaid={player.name} />)}>
+                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.kickModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
                         Kick
                     </div>
-                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.banModal sid={props.sid} eaid={player.name} />)}>
+                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.banModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
                         Ban
                     </div>
                     {/*<ButtonLink name="Kick" to={`/server/${props.sid}/kick/${player.name}/`} />

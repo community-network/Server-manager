@@ -525,7 +525,6 @@ function ServerKickPlayer(props) {
     var { sid, eaid } = props;
     const modal = useModal();
     const { t } = useTranslation();
-
     var [reason, setReason] = useState("");
     var [kickApplyStatus, setKickApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
@@ -575,7 +574,7 @@ function ServerKickPlayer(props) {
             <h2>{t("server.kickMenu.main", {name: props.eaid})}</h2>
             <TextInput name={t("server.kickMenu.reason")} callback={(e) => setReason(e.target.value)} />
             <ButtonRow>
-                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid }); history.push(`/server/${props.sid}/`); }} />
+                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId }); history.push(`/server/${props.sid}/`); }} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
@@ -669,9 +668,9 @@ function ServerBanPlayer(props) {
                     disabled={isDisabled}
                     callback={() => {
                         if (globalVsClassicBan) {
-                            GlobalBanPlayer.mutate({ gid, reason, name: props.eaid });
+                            GlobalBanPlayer.mutate({ gid, reason, name: props.eaid, playerId: props.playerId });
                         } else {
-                            BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime });
+                            BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime, playerId: props.playerId });
                         }
                     }}
                     status={banApplyStatus} />
