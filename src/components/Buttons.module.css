@@ -25,7 +25,7 @@
     text-decoration: none;
     outline: none;
     font-family: "Montserrat";
-    max-width: 300px;
+    //max-width: 300px;
     justify-content: space-between;
 }
 
@@ -83,12 +83,11 @@
     height: 40px;
     background: var(--color-container-v2);
     margin: 6px 0;
-    min-width: 300px;
     font-weight: 500;
     font-size: 13px;
     color: var(--color-text);
     font-family: "Montserrat";
-    max-width: 300px;
+    width: 160px;
 }
 
 .SmallButton {
@@ -227,6 +226,7 @@
     margin: 0 -6px !important;
     align-items: center;
     z-index: 2;
+    overflow-x: auto;
 }
 
 .selectableRow, .selectableRowSelected {

@@ -3,7 +3,11 @@
     flex-direction: column;
     flex-grow: 2;
     padding: 0 24px;
-    margin-left: 340px;
+    padding-top: 60px;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow-y: auto;
+    
 }
 
 .PageColumn {

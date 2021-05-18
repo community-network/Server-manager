@@ -35,14 +35,22 @@
     color: var(--color-text-high);
 }
 
-.Sidebar {
+.Sidebar, .HiddenSidebar {
     width: 340px;
     display: flex;
-    position: fixed;
     height: 100vh;
     flex-direction: column;
     background: var( --color-container);
+    transition: all 0.1s ease-out;
     z-index: 100;
+    padding-top: 70px;
+    box-sizing: border-box;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.HiddenSidebar {
+    margin-left: -340px;
 }
 
 .Logo {

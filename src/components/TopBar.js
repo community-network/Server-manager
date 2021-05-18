@@ -8,16 +8,41 @@ import { OperationsApi } from "../api";
 
 import { APP_VERSION } from "../App";
 
-export function TopBar() {
+export function TopBar(props) {
+
+    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
+    var accountPage = "";
+    
+    if (!userError && !isLoading && user && user.auth.signedIn) {
+        accountPage = (
+            <Link to="/account/" title={user.discord.name} className={styles.accountPage}>
+                {/*<span>{user.discord.name}</span>*/}
+                <img src={user.discord.avatar} />
+            </Link>
+        );
+    }
+
+
     return (
         <>
             <div className={styles.bar}>
+
+
                 <Link to="/" title="Main page" className={styles.mainPage}>
                     <img src="/logo-release.png" className={styles.logo} />
                 </Link>
 
+                <button className={styles.showBar} onClick={props.hideSidebar}>
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+                    </svg>
+                </button>
+                <div className={styles.filler} ></div>
+
+                {accountPage}
+
             </div>
-            <div className={styles.barWrap}></div>
+
         </>
     );
 }

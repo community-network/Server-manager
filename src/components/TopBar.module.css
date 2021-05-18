@@ -12,6 +12,7 @@
 
 .barWrap {
     position: relative;
+    flex-shrink: 0;
     display: block;
     height: 60px;
     width: 100%;
@@ -20,10 +21,58 @@
 .mainPage {
     display: flex;
     margin-left: 48px;
+    margin-top: 4px;
     align-self: center;
     justify-content: center;
 }
 
 .logo {
     height: 16px;
+}
+
+.showBar {
+    display: flex;
+    align-items: center;
+    margin: 8px 0 8px 32px;
+    background: transparent;
+    border: none;
+    padding: 6px;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.showBar:hover {
+    color: var(--color-text-high);
+}
+
+.showBar svg {
+    width: 24px;
+    height: 24px;
+}
+.filler {
+    flex-grow: 2;
+}
+
+.accountPage {
+    display: flex;
+    align-items: center;
+    background: var(--color-container-v2);
+    color: var(--color-text);
+    text-decoration: none;
+    height: 24px;
+    border-radius: 50%;
+    align-self: center;
+    margin-right: 48px;
+}
+
+.accountPage span {
+    margin-right: 12px;
+}
+.accountPage:hover {
+    color: var(--color-text-high);
+}
+
+.accountPage img {
+    width: 24px;
+    height: 24px;
 }

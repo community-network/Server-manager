@@ -1,11 +1,10 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { NavLink, Link, useHistory } from 'react-router-dom';
+import { NavLink, Link, useHistory, Redirect } from 'react-router-dom';
 import ABSwitch, { getChannel } from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
-
 import { OperationsApi } from "../api";
 
 import { APP_VERSION } from "../App";
@@ -54,7 +53,11 @@ function WrenchIcon() {
 
 export function Sidebar(props) {
 
-    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
+    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user, {
+
+        retry: 0,
+     
+      });
 
     var devLink = "", accountLink = "", logoutLink = "", groupLinks = "";
     const { t } = useTranslation();
@@ -99,9 +102,8 @@ export function Sidebar(props) {
         }
     );
 
-
-    if (!userError && !isLoading && user) {
-        if (user.auth.signedIn) {
+    if (!isLoading) {
+        if (!userError && user && user.auth.signedIn) {
 
             const devOptionsContent = (
                 <>
@@ -123,7 +125,7 @@ export function Sidebar(props) {
 
             accountLink = [
                 ABSwitch("", <PageLink key={0} to="/home/" name="Home page" />, "homePage"),
-                <PageLink key={1} to="/account/" name="Account" />,
+                //<PageLink key={1} to="/account/" name="Account" />,
                 <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />,
                 <PageLink key={3} to="/makeops/" name="Make Operations" />,
             ];
@@ -134,14 +136,16 @@ export function Sidebar(props) {
                 groupLinks.push(<PageLink to={ "/group/" + group.id } name={group.groupName} key={i} />);
             }
                 
+        } else {
+            return <Redirect to="/" />;
         }
     }
 
     
 
     return (
-        <div className={styles.Sidebar}>
-            <TopSidebar />
+        <div className={props.visible ? styles.Sidebar : styles.HiddenSidebar }>
+            {/*<TopSidebar />*/}
             <div style={{ display: "flex", flexGrow: 2, flexDirection: "column", overflowY: "auto", marginBottom: "50px" }}>
                 {accountLink}
                 {devLink}

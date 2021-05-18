@@ -3,6 +3,7 @@
     flex-direction: column;
     padding: 0 12px;
     flex-grow: 2;
+    max-width: 100%;    
 }
 
 .Row {
