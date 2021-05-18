@@ -31,15 +31,15 @@ export function TopBar(props) {
             <div className={styles.bar}>
 
 
-                <Link to="/" title="Main page" className={styles.mainPage}>
-                    <img src="/logo-release.png" className={styles.logo} />
-                </Link>
 
                 <button className={styles.showBar} onClick={props.hideSidebar}>
                     <svg viewBox="0 0 24 24">
                         <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
                     </svg>
                 </button>
+                <Link to="/" title="Main page" className={styles.mainPage}>
+                    <img src="/logo-release.png" className={styles.logo} />
+                </Link>
                 <div className={styles.filler} ></div>
 
                 {accountPage}
