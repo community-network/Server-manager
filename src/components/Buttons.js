@@ -18,6 +18,18 @@ export function Button(props) {
     );
 }
 
+export function ButtonUrl(props) {
+    var style = props.style || {};
+    if (props.background_color) {
+        style["background"] = props.background_color
+    }
+    if (props.width) {
+        style["width"] = props.width;
+    }
+    return (
+        <a href={props.href}><button value={props.value} className={styles.button} disabled={props.disabled} onClick={props.callback} title={props.name} style={style}>{props.name}<Status status={props.status} /></button></a>
+    );
+}
 export function ButtonLink(props) {
     if (props.disabled) {
         return <Button name={props.name} disabled={true} />

@@ -10,6 +10,19 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.Avatar {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+@media only screen and (max-width: 500px) {
+    .accountText {
+        display: none;
+    }
+}
+
 .barWrap {
     position: relative;
     flex-shrink: 0;
@@ -56,7 +69,7 @@
 .accountPage {
     display: flex;
     align-items: center;
-    background: var(--color-container-v2);
+    /* background: var(--color-container-v2); */
     color: var(--color-text);
     text-decoration: none;
     height: 24px;
