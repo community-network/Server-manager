@@ -1,0 +1,326 @@
+{
+    "beta": "测试",
+    "eBeta": "早期测试",
+    "search": "搜索中",
+    "pending": "处理中",
+    "loading": "载入中",
+    "denied": "不被允许",
+    "apply": "应用",
+    "cookie": {
+        "invalid": "错误：你当前的cookie无效",
+        "remid": "REMID cookie",
+        "sidDescription": "Session cookies可以在此处被找到 ",
+        "remidDescription": "Reminder session cookies可以在此处被找到",
+        "sid": "SID cookie"
+    },
+    "serverStatus": {
+        "pending": "处理状态",
+        "noServer": "错误：服务器未找到",
+        "noAdmin": "错误：当前账号没有该服务器管理权限",
+        "running": "运行中"
+    },
+    "discord": {
+        "id": "你的Discord Server ID",
+        "idDescription": "请输入你的Discord频道服务器数字ID",
+        "adminId": "根管理的discord账号数字ID",
+        "adminIdDescription": "根管理的discord数字ID",
+        "modId": "子管理的discord数字ID",
+        "modIdDescription": "子管理只能踢人"
+    },
+    "mainPage": {
+        "main": "一种全新的管理战地1服务器的工具",
+        "description": "服务器管理工具是一个由Community-Network创建的全新Gametools & BFBan 服务",
+        "login": "登录",
+        "featureList": {
+            "main": "特点",
+            "0": {
+                "heading": "BFBan反外挂",
+                "body": "自动踢出www.bfban.com实锤名单，进而保护您的服务器"
+            },
+            "1": {
+                "heading": "无限的群组全局Vban名单",
+                "body": "支持在服务器组上建立一个无限数量的Vban名单，它在该组下所有服务器生效"
+            },
+            "2": {
+                "heading": "高ping玩家踢出",
+                "body": "自动踢出服务器高ping玩家，防止服务器lag"
+            },
+            "3": {
+                "heading": "基于Discord角色的游戏工具",
+                "body": "可以凭借discord账户进行服务器管理."
+            },
+            "4": {
+                "heading": "服务器操作日志",
+                "body": "服务器的所有操作都将记录在案随时查阅."
+            },
+            "5": {
+                "heading": "对你的服务器进行完全掌控",
+                "body": "管理员可以和游戏内一样的对服务器进行控制."
+            }
+        }
+    },
+    "account": {
+        "main": "账户",
+        "discordProfile": "Discord资料",
+        "permissions": {
+            "main": "权限",
+            "admin": "管理员",
+            "server": "服务器拥有者",
+            "system": "系统管理员"
+        }
+    },
+    "dev": {
+        "main": "开发者选项",
+        "listGroups": "群组列表",
+        "addGroup": "添加服务器群组",
+        "manage": "管理服务器群组"
+    },
+    "createGroup": {
+        "main": "创建新的群组",
+        "description": "创建一个新的群组来管理你社区的所有服务器",
+        "discordDescription": "可选的，你可以写入您的discord频道数字ID，让工具和频道有机的结合",
+        "cookieDescription0": "每一个群组必须指定一个特定ORIGIN账号满足一下内容:",
+        "cookieDescription1": "它必须是这些服务器的管理员(不一定是服主)",
+        "cookieDescription2": "该账号在设置后不能在其他地方登录包括网页、Origin、小助手等",
+        "acceptDescription0": "通过这个按钮,你将同意授权",
+        "acceptDescription1": "服务器管理工具使用该账号.",
+        "accept": "创建群组"
+    },
+    "group": {
+        "main": "群组",
+        "name": "群组名称",
+        "id": "身份",
+        "admins": {
+            "main": "根管理员",
+            "description0": "根管理员角色可以管理服务器，你必须使用一个",
+            "description1": "跟管理员所有者可以添加子管理员.",
+            "add": "添加根管理员",
+            "addNew": "添加一个新管理员",
+            "removeSelected": "删除所选的管理员",
+            "remove": "删除管理员",
+            "select": "选择管理去删除.",
+            "selected": "你选择了{{number}} 几个管理."
+        },
+        "servers": {
+            "main": "服务器",
+            "description0": "服务器实例将被增加到该实例. ",
+            "description1": "必须有群组根管理去添加服务器.",
+            "add": "添加服务器"
+        },
+        "owners": {
+            "main": "所有者",
+            "description0": "该群组的所有所有者，所有者可以关联新的服务器,",
+            "description1": "增加新的管理和增加其他所有者，要非常小心的添加!",
+            "add": "添加所有者",
+            "addNew": "添加新的所有者",
+            "removeSelected": "删除选定的所有者",
+            "remove": "删除所有者",
+            "select": "选定所有者并且删除他们.",
+            "selected": "你选择了{{number}} 个所有者."
+        },
+        "vban": {
+            "main": "Vban虚拟封禁名单",
+            "description0": "该群组的虚拟封禁名单.",
+            "description1": "已经使用了{{number}} 个栏位",
+            "reason": "",
+            "noReason": "理由",
+            "unban": "解ban"
+        },
+        "logs": {
+            "main": "群组日志",
+            "description": "群组日志列表"
+        },
+        "account": {
+            "main": "服务器Origin管理账号",
+            "description0": "该ORIGIN账号将会管理你的游戏服务器.",
+            "description1": "这些cookie可以在该处被找到 "
+        },
+        "discord": {
+            "main": "Discord频道整合",
+            "description0": "通过整合discord频道您的频道管理可以使用discord机器人来管理服务器",
+            "description1": "通过! 的前缀命令来使用.",
+            "gamestats": "为你的Discord频道增加Gamestats机器人,这样你就可以使用命令来管理服务器.",
+            "commandList": "使用\"!bfadmin\" 可以列出你可以使用的所有命令",
+            "permDescription0": "每一个人都可以使用discord数字ID进行授权",
+            "permDescription1": "Discord机器人命令可以进行控制服务器."
+        },
+        "danger": {
+            "main": "高危区域",
+            "nameChange": "你可以更改该群组的名称.",
+            "delete": "删除群组",
+            "deleteInfo0": "一旦你删除了该群组，该群组下的所有服务器将会从列表中移除,",
+            "deleteInfo1": "包括服务器管理账号和相关的用户",
+            "check": "你确定要删除该群组吗?",
+            "confirm": "是的删除",
+            "back": "奥上帝不要删除!"
+        },
+        "addMenu": {
+            "id": "请输入Discord数字UID",
+            "nickname": "昵称"
+        },
+        "serverAddMenu": {
+            "main": "增加新的服务器",
+            "description": "群组服务器",
+            "name": "服务器在列表中唯一的真实名字（英文）",
+            "alias": "服务器昵称(可选)"
+        }
+    },
+    "operations": {
+        "main": "设置行动模式",
+        "description0": "在你的服务器上设置行动模式.",
+        "description1": "注意，这将使你丧失游戏内管理面板!",
+        "description2": "请确定已经将该服务器加入我们的服管面板.",
+        "acceptDescription0": "通过这个按钮，你将同意并且继续",
+        "acceptDescription1": "服管工具使用该账号.",
+        "accept": "设置行动！",
+        "server": "服务器 ",
+        "owner": "服务器所有者账号的cookie",
+        "cookies": " cookies."
+    },
+    "server": {
+        "main": "服务器面板",
+        "action": {
+            "kick": "踢出",
+            "move": "移动",
+            "ban": "封禁"
+        },
+        "game": {
+            "main": "目前的游戏",
+            "info": "[{{inQue}}] 个玩家",
+            "restart": "重启",
+            "mapSwitch": "切图..",
+            "playerlistUpdate": "最后一次刷新"
+        },
+        "banList": {
+            "main": "封禁列表",
+            "description0": "展示该服务器所有封禁玩家.",
+            "description1": "已经使用了",
+            "description2": "200个当中的{{number}} ",
+            "description3": "使用我们群组的V-ban虚拟封禁列表功能,",
+            "description4": "可以封禁无限数量的玩家.",
+            "table": {
+                "playerName": "玩家名称",
+                "playerId": "玩家数字ID",
+                "reason": "理由",
+                "admin": "管理",
+                "until": "直到",
+                "timestamp": "时间标签"
+            }
+        },
+        "vipList": {
+            "main": "VIP列表",
+            "description0": "展示该服务器所有VIP.",
+            "description1": "已经使用了 ",
+            "description2": "50个当中的{{number}} ",
+            "table": {
+                "playerName": "玩家名称",
+                "playerId": "玩家数字ID"
+            }
+
+        },
+        "firestarterList": {
+            "main": "暖服统计",
+            "description0": "我们可以统计每天开服之前的所有在场玩家,",
+            "description1": "这样你就可以知道谁在帮你暖服.",
+            "table": {
+                "playerName": "玩家ORIGIN ID",
+                "playerId": "玩家数字ID",
+                "amount": "总次数"
+            }
+        },
+        "logs": {
+            "main": "日志",
+            "reasons": {
+                "addServerBan": "已封禁",
+                "kickPlayer": "已踢出",
+                "removeServerBan": "已经解封",
+                "addServerVip": "已经将VIP给",
+                "movePlayer": "已挪边",
+                "removeServerVip": "已经将VIP删除",
+                "magic": "对其使用了魔法"
+            },
+            "types": {
+                "pingChecker": "ping检查",
+                "vBan": "VBan",
+                "bfban": "BFBan"
+            },
+            "reason": "理由",
+            "noReason": "没有任何理由"
+        },
+        "protection": {
+            "main": "服务器保护",
+            "title": "自动保护服务器",
+            "vBanDescription0": "我们最新开发的服务器保护工具将使你的服务器原理外挂.",
+            "vBanDescription1": "全局V-ban虚拟封禁将使该群组下的 ",
+            "vBanDescription2": "所有服务器",
+            "vBanDescription3": "被提供",
+            "vBanDescription4": "无限的ban位和同步的封禁列表.",
+            "vBanEnable": "开启全局V-ban",
+            "vbanReasonDesc0": "这条信息将会出现在被vban玩家屏幕上（英语） ",
+            "vbanReasonDesc1": "auto-kicked by V-Ban Global system.",
+            "vBanMsg": "V-Ban信息",
+            "bfbanDescription": "保护服务器远离BFBAN实锤外挂 ",
+            "bfbanEnable": "开启BFBAN反作弊",
+            "pingKickDescription": "自动踢出指定高ping玩家",
+            "pingKickEnable": "踢出高ping玩家",
+            "pingKickAmount": "指定高ping数值",
+            "pingKickMsg": "high ping kick",
+            "pingKickMinDesc": "自动踢高ping开始工作的玩家数（0表示永远起作用）",
+            "pingKickMin": "开始高ping踢出玩家数",
+            "minAutoPingKick": "高ping被踢的最小玩家总数量"
+        },
+        "settings": {
+            "main": "设置",
+            "title": "服务器设置",
+            "nameDescription": "修改服务器名称",
+            "name": "服务器名称",
+            "aliasDescription": "在Discord频道机器人中显示的服务器昵称. (举个例子，可以是服务器编号)",
+            "alias": "昵称"
+        },
+        "console": {
+            "main": "控制台"
+        },
+        "players": {
+            "teamOne": "队伍 1",
+            "teamTwo": "队伍 2"
+        },
+        "playerStats": {
+            "main": "玩家统计{{player}}",
+            "loading": "状态载入中...",
+            "skill": "技巧值: ",
+            "rank": "等级: ",
+            "killsPerMinute": "每分钟击杀: ",
+            "winPercent": "胜率: ",
+            "accuracy": "准度: ",
+            "headshots": "爆头: ",
+            "killDeath": "KD: ",
+            "id": "ID: ",
+            "toStatsPage": "查看完整数据.."
+        },
+        "kickMenu": {
+            "main": "你将把 {{name}}踢出",
+            "reason": "理由",
+            "confirm": "踢了他!"
+        },
+        "banMenu": {
+            "main": "你将把{{name}}封禁",
+            "reasonDescription": "请输入ban该玩家的理由.",
+            "reason": "理由",
+            "vBanOption": "使用V-ban虚拟ban位取真实ban位",
+            "tempbanDesc0": "如果你想临时封禁他，那么请下方输入一个时间点",
+            "tempbanDesc1": "小时, 或者输入0永久封禁.",
+            "tempbanDesc2": "目前还没被V-ban支持.",
+            "tempbanAmount": "封禁时间",
+            "confirm": "封禁！"
+        }
+    },
+    "sidebar": {
+        "main": "主页",
+        "home": "首页",
+        "account": "账户",
+        "devOptions": "开发者选项",
+        "createGroup": "创建群组",
+        "logout": "注销",
+        "help": "需要帮助？"
+    }
+}
