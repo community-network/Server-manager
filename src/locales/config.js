@@ -1,19 +1,19 @@
 import i18n from 'i18next';
 import translationEN from './languages/en-US.json';
 // import translationRU from './languages/ru-RU.json';
-// import translationCH from './languages/zh-CN.json';
+import translationCH from './languages/zh-CN.json';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from "i18next-browser-languagedetector";
 
 export const resources = {
   "en-US": {
     translation: translationEN,
-//   },
+     },
 //   "ru-RU": {
 //     translation: translationRU,
 //   },
-//   "zh-CN": {
-//     translation: translationCH,
+     "zh-CN": {
+       translation: translationCH,
   }
 }
 
