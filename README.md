@@ -8,10 +8,13 @@ Battlefield One server manager created by Community Network.
  * User management and privilegy system
  * Full support for game console
  * Live game info, including player list
-
-
-### Soon
-
- * Server auto kick system
  * Logs, ban and vip lists
  * Discord integration
+ * Starters list
+ * Ops auto setup
+ * Cloud protection:
+    1. BFBan anti cheat
+    2. Virtual ban list with infinity number of ban slots
+    3. High ping auto kick
+
+
