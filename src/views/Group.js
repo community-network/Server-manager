@@ -195,14 +195,14 @@ export function Group(props) {
             </Row>
             <Row>
                 <Column>
-                    <PageCard buttons={settingsCycle} >
+                    <PageCard buttons={settingsCycle} maxWidth="500" >
                         {catSettings[settingsListing]}
                     </PageCard>
                 </Column>
             </Row>
             <Row>
                 <Column>
-                    <PageCard buttons={pageCycle} >
+                    <PageCard buttons={pageCycle} maxWidth="560" >
                         {catListing[listing]}
                     </PageCard>
                  </Column>

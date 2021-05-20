@@ -14,12 +14,6 @@
     font-size: 14px;
 }
 
-@media only screen and (max-width: 900px) {
-    .manageDev {
-        display: none;
-    }
-}
-
 .GroupName {
     flex-grow: 2;
     color: var(--color-text-high);

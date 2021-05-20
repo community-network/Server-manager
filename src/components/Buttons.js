@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import styles from "./Buttons.module.css";
 import { Status } from "./Status";
+import { useMeasure } from 'react-use';
 
 
 export function Button(props) {
@@ -47,10 +48,16 @@ export function ButtonRow(props) {
 
 
 export function TextInput(props) {
-    if (props.value === undefined) {
-        return <input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />;
-    }
-    return <input value={props.value} defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />;
+
+    var inputField = (props.value === undefined) ? 
+    (<input defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />) : 
+    (<input value={props.value} defaultValue={props.defaultValue} className={styles.TextInput} disabled={props.disabled} style={props.style} type={props.type || "text"} placeholder={props.name} onReset={props.callback} onChange={props.callback} />)
+    
+    return (
+        <div className={styles.TextInputWrapper}>
+            {inputField}
+        </div>
+    );
 }
 
 export function SmallButton(props) {
@@ -96,12 +103,12 @@ export function Switch(props) {
                 </span>
                 <span className={styles.SwitchHandle}></span>
             </div>
-            <span>{props.name}</span>
+            <span style={{maxWidth: "300px"}}>{props.name}</span>
         </div>
     );
 }
 
-export function DropdownButton(props) {
+export function PlayerDropdownButton(props) {
     const [open, setOpen] = useState(false);
 
     let container = React.useRef();
@@ -120,7 +127,7 @@ export function DropdownButton(props) {
 
     return (
         <div className={styles.container} ref={container}>
-            <button type="button" className={styles.button} onClick={() => setOpen(!open)}>{props.name}</button>
+            <button type="button" className={styles.PlayerButton} onClick={() => setOpen(!open)}>{props.name}</button>
             {open && (<div className={styles.dropdown}>
                 <ul className={styles.ul}>
                     {
@@ -136,10 +143,62 @@ export function DropdownButton(props) {
 export function ChoosePageButtons(props) {
 
     const [active, setActive] = useState(0);
+    const [pageCardRef, { width }] = useMeasure();
+    let maxWidth = props.maxWidth || 900
+
+    const [open, setOpen] = useState(false);
+    let container = React.useRef();
+
+    useEffect(() => {
+        let handleClickOutside = (event) => {
+            if (container.current && !container.current.contains(event.target)) {
+                setOpen(false)
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return function cleanup() {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    })
 
     return (
-        <div className={styles.ChoosePageButtonHolder} >
-            {
+        <div className={styles.ChoosePageButtonHolder} ref={pageCardRef}>
+            {width < maxWidth ? 
+                <>
+                    <div 
+                        className={styles.ChoosePageButtonActive}
+                        title={props.buttons[active].name}
+                    >
+                        {props.buttons[active].content || props.buttons[active].name}
+                    </div>
+                    <div
+                        className={styles.ChoosePageButton}
+                        onClick={() => setOpen(!open)}
+                        ref={container}
+                    >☰
+                    {open && (<div className={styles.dropdown}>
+                        <ul className={styles.ul}>
+                            {
+                                
+                                props.buttons.map((button, i) => {
+                                    return (
+                                <li 
+                                    key={i}
+                                    className={styles.li}
+                                    onClick={_ => { setActive(i); button.callback() }}
+                                    title={button.name}
+                                    tabIndex="1" 
+                                >
+                                    {button.name}
+                                </li>)
+                            })
+                            }
+                        </ul>
+                    </div>)}
+                    </div>
+                    
+                </>
+            :
                 props.buttons.map((button, i) => (
                     <div
                         key={i}

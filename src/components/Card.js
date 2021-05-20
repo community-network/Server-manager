@@ -17,12 +17,12 @@ export function CardRow(props) {
 
 export function PageCard(props) {
     return (
-        <>
-            <ChoosePageButtons buttons={props.buttons} />
+        <div>
+            <ChoosePageButtons buttons={props.buttons} maxWidth={props.maxWidth} />
             <div className={styles.PageCard} style={props.style}>
                 {props.children}
              </div>
-        </>
+        </div>
     );
 }
 

@@ -2,9 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { useModal, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, ButtonLink, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
+import { useModal, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, TopRow, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
+
+
+/*
+    Checks string to not have special characters and be les or 30 symbols in length
+*/
+function checkGameString(v) {
+    // Not sure wich ones should work, this seems right, maybe some else
+    const allowed_keys = "abcdefghijklmnopqrstuvwxyz0123456789_-.: &?!";
+    for (let l of v) {
+        if (!allowed_keys.includes(l.toLowerCase())) return false;
+    }
+    return (v.length <= 30);
+}
 
 export function Server(props) {
     var sid = props.match.params.sid;
@@ -205,7 +218,7 @@ export function Server(props) {
             );
 
         playerList = (
-            <Row>
+            <TopRow>
                 <Column>
                     <Card>
                         <h2>{t("server.players.teamOne")}</h2>
@@ -218,7 +231,7 @@ export function Server(props) {
                         <PlayerInfo game={runningGame} team="1" sid={sid} onMove={movePlayer} banModal={ServerBanPlayer} kickModal={ServerKickPlayer}  giveVip={AddVip} removeVip={RemoveVip} /> 
                     </Card>
                 </Column>
-            </Row>
+            </TopRow>
         )
     }
 
@@ -569,10 +582,13 @@ function ServerKickPlayer(props) {
 
     const history = useHistory();
 
+    const checkReason = (v) => (checkGameString(v)) ? setReason(v) : false;
+
     return (
         <>
             <h2>{t("server.kickMenu.main", {name: props.eaid})}</h2>
-            <TextInput name={t("server.kickMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <h5 style={{maxWidth: "400px", margin: "6px 0"}}>{t("server.kickMenu.reasonDescription")}</h5>
+            <TextInput name={t("server.kickMenu.reason")} value={reason} callback={(e) => checkReason(e.target.value)} />
             <ButtonRow>
                 <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId }); history.push(`/server/${props.sid}/`); }} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
@@ -580,6 +596,7 @@ function ServerKickPlayer(props) {
         </>
     );
 }
+
 
 function ServerBanPlayer(props) {
     const modal = useModal();
@@ -652,14 +669,14 @@ function ServerBanPlayer(props) {
         banApplyStatus !== null ||
         userGettingError || !user || gid == null;
 
-
+    const checkReason = (v) => (checkGameString(v)) ? setReason(v) : false;
     return (
         <>
             <h2 style={{ marginLeft: "20px" }}>{t("server.banMenu.main", {name: props.eaid})} </h2>
-            <h5>{t("server.banMenu.reasonDescription")}</h5>
-            <TextInput name={t("server.banMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.reasonDescription")}</h5>
+            <TextInput value={reason} name={t("server.banMenu.reason")} callback={(e) => checkReason(e.target.value)} />
             <Switch value={globalVsClassicBan} name={t("server.banMenu.vBanOption")} callback={ (v) => setGlobalVsClassicBan(v) } />
-            <h5>{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}<br />{t("server.banMenu.tempbanDesc2")}</h5>
+            <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}<br />{t("server.banMenu.tempbanDesc2")}</h5>
             <TextInput type={t("server.banMenu.tempbanAmount")} name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
             <ButtonRow>
                 <Button

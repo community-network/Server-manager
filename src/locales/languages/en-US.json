@@ -299,6 +299,7 @@
         },
         "kickMenu": {
             "main": "You are going to kick player {{name}}",
+            "reasonDescription": "This reason will be visibe to player! It is also limited in characters to 30, and allow only a few special symbols.",
             "reason": "Reason",
             "confirm": "Kick him!"
         },

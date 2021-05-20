@@ -15,6 +15,12 @@ export function Row(props) {
     );
 }
 
+export function TopRow(props) {
+    return (
+        <div className={styles.topRow}>{props.children}</div>
+    );
+}
+
 export function Grow(props) {
     return (
         <div className={styles.Grow}>{props.children}</div>

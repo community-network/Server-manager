@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { Redirect, useHistory} from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, CardRow, UserRow, Row, Button, ButtonRow, ButtonUrl } from "../components";
+import { Column, Card, Header, CardRow, UserRow, TopRow, Button, ButtonRow, ButtonUrl } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -62,7 +62,7 @@ export default function Account() {
     }
 
     return (
-        <Row>
+        <TopRow>
             <Column>
                 <Header>
                     <h2>{t("account.main")}</h2>
@@ -86,7 +86,7 @@ export default function Account() {
                     <CardRow>{t("account.permissions.system")}</CardRow>
                 </Card>
             </Column>
-        </Row>
+        </TopRow>
     );
 
 }

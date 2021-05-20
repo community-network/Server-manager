@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Server.module.css";
 import { useQuery } from 'react-query';
-import { Button, ButtonRow, DropdownButton, ButtonLink, TextInput } from "./Buttons";
+import { Button, ButtonRow, PlayerDropdownButton, ButtonLink, TextInput } from "./Buttons";
 import { useModal } from "./Card";
 import { OperationsApi } from "../api";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
+import { useMeasure } from 'react-use';
 
 export function SmallText(props) {
     return (<span className={styles.SmallText}>{props.children}</span>);
@@ -130,22 +131,26 @@ export function ServerRotation(props) {
 }
 
 export function PlayerInfo(props) {
+    const { t } = useTranslation();
     const modal = useModal();
+    const [playerListRef, { width }] = useMeasure();
     var info = props.game.data[0].players[props.team].players;
 
     var moveTeam = (props.team === "0") ? "1" : "2";
 
     let getDropdownOptions = (player) => {
         return [
-            { name: "Give VIP", callback: () => props.giveVip.mutate({ sid: props.sid, name: player.name, reason: "" }) },
-            { name: "Remove VIP", callback: () => props.removeVip.mutate({ sid: props.sid, name: player.name, reason: "" }) },
+            { name: t("server.action.move"), callback: () => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam, playerId: player.playerId}) },
+            { name: t("server.action.kick"), callback: () => modal.show(<props.kickModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>) },
+            { name: t("server.action.ban"), callback: () => modal.show(<props.banModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>) },
         ]
     };
 
     if (info.length > 0 && info[0] === undefined) return "";
 
     return (
-        info.map((player, i) => 
+        <div ref={playerListRef}>
+        {info.map((player, i) => 
             <div className={styles.PlayerRow} key={i}>
 
                 <span className={styles.PlayerIndex}>
@@ -167,34 +172,36 @@ export function PlayerInfo(props) {
                 <span className={styles.PlayerNone} />
 
 
-                
-                <div className={styles.PlayerButtons}>
-                    <div className={styles.PlayerButton} onClick={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam, playerId: player.playerId})}>
-                        Move
+                {width < 600 ? 
+                    <div>
+                        <PlayerDropdownButton options={getDropdownOptions(player)} name="☰"></PlayerDropdownButton>
+                    </div>:
+                <>
+                    <div className={styles.PlayerButtons}>
+                        <div className={styles.PlayerButton} onClick={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam, playerId: player.playerId})}>
+                            {t("server.action.move")}
+                        </div>
+                        <div className={styles.PlayerButton} onClick={_ => modal.show(<props.kickModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
+                            {t("server.action.kick")}
+                        </div>
+                        <div className={styles.PlayerButton} onClick={_ => modal.show(<props.banModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
+                            {t("server.action.ban")}
+                        </div>
                     </div>
-                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.kickModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
-                        Kick
-                    </div>
-                    <div className={styles.PlayerButton} onClick={_ => modal.show(<props.banModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
-                        Ban
-                    </div>
-                    {/*<ButtonLink name="Kick" to={`/server/${props.sid}/kick/${player.name}/`} />
-                    <ButtonLink name="Ban" to={`/server/${props.sid}/ban/${player.name}/`} />*/}
-                    {/*<DropdownButton options={getDropdownOptions(player)} name="☰"></DropdownButton>*/}
-                    
-                </div>
 
-                <span className={styles.PlayerPing}>
-                    {player.ping}
-                    <svg viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M4,6V4H4.1C12.9,4 20,11.1 20,19.9V20H18V19.9C18,12.2 11.8,6 4,6M4,10V8A12,12 0 0,1 16,20H14A10,10 0 0,0 4,10M4,14V12A8,8 0 0,1 12,20H10A6,6 0 0,0 4,14M4,16A4,4 0 0,1 8,20H4V16Z" />
-                    </svg>
-                </span>
+                    <span className={styles.PlayerPing}>
+                        {player.ping}
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M4,6V4H4.1C12.9,4 20,11.1 20,19.9V20H18V19.9C18,12.2 11.8,6 4,6M4,10V8A12,12 0 0,1 16,20H14A10,10 0 0,0 4,10M4,14V12A8,8 0 0,1 12,20H10A6,6 0 0,0 4,14M4,16A4,4 0 0,1 8,20H4V16Z" />
+                        </svg>
+                    </span>
+                </>
+                }
                 
             </div>
-        )
-    );
-}
+        )}
+    </div>
+    )}
 
 export function ServerInfoHolder(props) {
     return (

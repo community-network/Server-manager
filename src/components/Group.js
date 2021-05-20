@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Group.module.css";
+import { useMeasure } from 'react-use';
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { OperationsApi } from "../api";
@@ -11,10 +12,13 @@ import { useTranslation } from 'react-i18next';
 export function GroupRow(props) {
     const { t } = useTranslation();
     var group = props.group;
+
+    const [groupListRef, { width }] = useMeasure();
     return (
-        <Link className={styles.GroupRow} to={"/group/" + group.id}>
+        <Link ref={groupListRef} className={styles.GroupRow} to={"/group/" + group.id}>
             <span className={styles.GroupName}>{group.groupName}</span>
-            <span className={styles.manageDev}>{t("dev.manage")}</span>
+            {width < 350? <span></span>:
+                <span className={styles.manageDev}>{t("dev.manage")}</span>}
         </Link>
     );
 }
