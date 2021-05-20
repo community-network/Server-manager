@@ -62,46 +62,6 @@ export function Sidebar(props) {
     var devLink = "", accountLink = "", groupLinks = "";
     const { t } = useTranslation();
 
-    var history = useHistory();
-    const queryClient = useQueryClient();
-
-    const logoutExecutor = useMutation(
-        v => OperationsApi.logout(),
-        {
-            // When mutate is called:
-            onMutate: async (v) => {
-                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('user');
-                // Snapshot the previous value
-                const prevUser = queryClient.getQueryData('user');
-                // Optimistically update to the new value
-                queryClient.setQueryData('user', old => {
-                    return {
-                        discord: {
-                            name: "",
-                            discriminator: 0,
-                            avatar: ""
-                        },
-                        auth: {
-                            inGuild: false,
-                            isAdmin: false,
-                            isDeveloper: false,
-                            isOwner: false,
-                            signedIn: false
-                        }
-                    };
-                });
-                history.push('/');
-                // Return a context object with the snapshotted value
-                return { prevUser }
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('user')
-            },
-        }
-    );
-
     if (!isLoading) {
         if (!userError && user && user.auth.signedIn) {
 

@@ -28,7 +28,7 @@ export function ButtonUrl(props) {
         style["width"] = props.width;
     }
     return (
-        <a href={props.href}><button value={props.value} className={styles.button} disabled={props.disabled} onClick={props.callback} title={props.name} style={style}>{props.name}<Status status={props.status} /></button></a>
+        <a href={props.href} target="_blank" rel="noopener noreferrer"><button value={props.value} onClick={props.onClick} className={styles.button} disabled={props.disabled} title={props.name} style={style}>{props.name}<Status status={props.status} /></button></a>
     );
 }
 export function ButtonLink(props) {

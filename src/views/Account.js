@@ -72,7 +72,7 @@ export default function Account() {
                     {userLine}
                     <p></p>
                     <ButtonRow>
-                        <Button name={t("dev.addGroup")} onClick={() => { logoutExecutor.mutate({}); }} name={t("sidebar.logout")} />
+                        <ButtonUrl name={t("sidebar.logout")} onClick={() => { logoutExecutor.mutate({}); }} name={t("sidebar.logout")} />
                         <ButtonUrl href="https://discord.gametools.network/" name={t("sidebar.help")} />
                     </ButtonRow>
                 </Card>
