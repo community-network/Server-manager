@@ -14,7 +14,7 @@ export function GroupRow(props) {
     return (
         <Link className={styles.GroupRow} to={"/group/" + group.id}>
             <span className={styles.GroupName}>{group.groupName}</span>
-            {t("dev.manage")}
+            <span className={styles.manageDev}>{t("dev.manage")}</span>
         </Link>
     );
 }

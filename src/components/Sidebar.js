@@ -59,7 +59,7 @@ export function Sidebar(props) {
      
       });
 
-    var devLink = "", accountLink = "", logoutLink = "", groupLinks = "";
+    var devLink = "", accountLink = "", groupLinks = "";
     const { t } = useTranslation();
 
     var history = useHistory();
@@ -129,7 +129,6 @@ export function Sidebar(props) {
                 <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />,
                 <PageLink key={3} to="/makeops/" name="Make Operations" />,
             ];
-            logoutLink = <PageButton onClick={() => { logoutExecutor.mutate({}); }} name={t("sidebar.logout")} />;
             groupLinks = [];
             for (let i in user.permissions.isAdminOf) {
                 let group = user.permissions.isAdminOf[i];
@@ -146,17 +145,14 @@ export function Sidebar(props) {
     return (
         <div className={props.visible ? styles.Sidebar : styles.HiddenSidebar }>
             {/*<TopSidebar />*/}
-            <div style={{ display: "flex", flexGrow: 2, flexDirection: "column", overflowY: "auto", marginBottom: "50px" }}>
+            <div style={{ display: "flex", flexGrow: 2, flexDirection: "column", overflowY: "auto" }}>
                 {accountLink}
                 {devLink}
                 <div className={styles.GroupLinks}>
                     {groupLinks}
                 </div>
-                <PageButton href="https://discord.gametools.network/" name={t("sidebar.help")} />
-                {logoutLink}
-                
             </div>
-            <p style={{ paddingLeft: "48px", fontSize: "12px" }}>v{APP_VERSION} channel {(getChannel() === 0) ? "A" : "B"}</p>
+            {/* <p style={{ paddingLeft: "48px", fontSize: "12px" }}>v{APP_VERSION} channel {(getChannel() === 0) ? "A" : "B"}</p> */}
         </div>
     );
 
