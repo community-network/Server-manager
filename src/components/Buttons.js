@@ -131,7 +131,7 @@ export function PlayerDropdownButton(props) {
             {open && (<div className={styles.dropdown}>
                 <ul className={styles.ul}>
                     {
-                        props.options.map(option => <li className={styles.li} onClick={option.callback}>{option.name}</li>)
+                        props.options.map(option => <li className={styles.li} onClick={() => {setOpen(!open); return option.callback()}}>{option.name}</li>)
                     }
                 </ul>
             </div>)}
