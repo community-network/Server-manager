@@ -2,28 +2,34 @@
     display: flex;
     width: 100%;
     margin: 80px;
+    max-width: 1500px;
     background-color: #181820;
     flex-direction: row;
     flex-grow: 2;
     border-radius: 20px;
+    height: 635px;
 }
 .MainPage {
     display: flex;
     height: 100%;
     width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 .titleBlock {
     padding: 60px 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    min-width: 600px;
+    /* min-width: 600px; */
     justify-content: right;
     line-height: 1.5;
 }
 .listing {
     padding: 60px 80px;
     display: flex;
+    max-width: 1000px;
+    height: 635px;
     border-radius: 20px;
     flex-direction: column;
     background-color: #1C1C26;
@@ -75,4 +81,43 @@
 
 .LoginButton:hover {
     background-color: #7C70FF;
+}
+
+@media (max-width: 1350px) {
+    .titleContent {
+        text-align: left;
+    }
+    .LoginButton {
+        align-self:auto
+    }
+    .titleBlock {
+        justify-content: left;
+    }
+    .MainPage {
+        justify-content: space-around;
+    }
+    .MainPageCard {
+        margin: 25px;
+        display: block;
+        /* margin-left: 30px; */
+        max-width: 550px;
+    }
+    .listing {
+        height: auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .titleBlock {
+        padding: 30px 20px;
+    }
+    .listing {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 340px) {
+    .titleContent {
+        width: 247px;
+    }
 }
