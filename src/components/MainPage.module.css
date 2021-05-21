@@ -109,7 +109,7 @@
 
 @media (max-width: 520px) {
     .titleBlock {
-        padding: 30px 20px;
+        padding: 10px 20px 30px 30px ;
     }
     .listing {
         padding: 30px 20px;
