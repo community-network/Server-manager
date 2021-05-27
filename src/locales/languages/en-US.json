@@ -62,6 +62,7 @@
     "account": {
         "main": "Account",
         "discordProfile": "Discord Profile",
+        "loggedIn": "Logged in",
         "permissions": {
             "main": "Permissions",
             "admin": "Administrator",
@@ -179,10 +180,14 @@
     },
     "server": {
         "main": "Server panel",
+        "playerName": "Player name",
         "action": {
             "kick": "Kick",
             "move": "Move",
-            "ban": "Ban"
+            "ban": "Ban",
+            "unban": "Unban",
+            "addVip": "Add vip",
+            "removeVip": "Remove vip"
         },
         "game": {
             "main": "Current game",
@@ -321,6 +326,7 @@
         "account": "Account",
         "devOptions": "Developer Options",
         "createGroup": "Create Group",
+        "makeOperations": "Make Operations",
         "logout": "Logout",
         "help": "Need help?"
     }

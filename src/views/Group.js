@@ -818,7 +818,7 @@ export function AddGroup(props) {
                 </Header>
                 <Card>
                     <h5>{t("createGroup.description")}</h5>
-                    <TextInput name="Name" callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
+                    <TextInput name={t("group.name")} callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("createGroup.discordDescription")}
                     </h5>

@@ -5,6 +5,7 @@ import { OperationsApi } from "../api";
 import { Column, Card, Header, CardRow, UserRow, TopRow, Button, ButtonRow, ButtonUrl } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
+import ChangeLanguage from '../locales/ChangeLanguage';
 
 export default function Account() {
     var history = useHistory();
@@ -74,6 +75,7 @@ export default function Account() {
                     <ButtonRow>
                         <ButtonUrl name={t("sidebar.logout")} onClick={() => { logoutExecutor.mutate({}); }} name={t("sidebar.logout")} />
                         <ButtonUrl href="https://discord.gametools.network/" name={t("sidebar.help")} />
+                        <ChangeLanguage/>
                     </ButtonRow>
                 </Card>
             </Column>

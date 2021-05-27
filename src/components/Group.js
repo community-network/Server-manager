@@ -155,7 +155,7 @@ export function VBanList(props) {
             <h5>
                 {t("group.vban.description0")} <b>{t("group.vban.description1", {number: banList.data.length})}</b>. <Tag>{t("eBeta")}</Tag>
             </h5>
-            <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
+            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
             <div className={styles.BanListing}>
                 {
                     banList.data.filter(p => p.playerName.includes(searchWord)).map(

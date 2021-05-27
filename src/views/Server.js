@@ -36,9 +36,9 @@ export function Server(props) {
 
     var [playerName, setPlayerName] = useState("");
 
-    var [addVipStatus, changeAddVipStatus] = useState({ name: "Add Vip", status: false });
-    var [removeVipStatus, changeRemoveVipStatus] = useState({ name: "Remove Vip", status: false });
-    var [unbanStatus, changeUnbanStatus] = useState({ name: "Unban", status: false });
+    var [addVipStatus, changeAddVipStatus] = useState({ name: t("server.action.addVip"), status: false });
+    var [removeVipStatus, changeRemoveVipStatus] = useState({ name: t("server.action.removeVip"), status: false });
+    var [unbanStatus, changeUnbanStatus] = useState({ name: t("server.action.unban"), status: false });
     
     var [tabsListing, setTabsListing] = useState("info");
 
@@ -269,13 +269,13 @@ export function Server(props) {
                     <Card>
                         <h2>{t("server.console.main")}</h2>
                         <Row>
-                            <TextInput name="Player name" callback={e => setPlayerName(e.target.value)} style={{
+                            <TextInput name={t("server.playerName")} callback={e => setPlayerName(e.target.value)} style={{
                                 marginRight: 12,
                             }}/>
                             <ButtonRow>
-                                <Button disabled={playerName === ""} name="Kick" callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
-                                <Button disabled={playerName === ""} name="Move" callback={_ => movePlayerPopup({ sid, team: playerNicknameTeam, name: playerName })} />
-                                <Button disabled={playerName === ""} name="Ban" callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
+                                <Button disabled={playerName === ""} name={t("server.action.kick")} callback={_ => modal.show(<ServerKickPlayer sid={sid} eaid={playerName} />)} />
+                                <Button disabled={playerName === ""} name={t("server.action.move")} callback={_ => movePlayerPopup({ sid, team: playerNicknameTeam, name: playerName })} />
+                                <Button disabled={playerName === ""} name={t("server.action.ban")} callback={_ => modal.show(<ServerBanPlayer sid={sid} eaid={playerName} />)} />
                                 <Button disabled={playerName === "" || unbanStatus.status} name={unbanStatus.name} callback={_ => UnbanPlayer.mutate({ sid, name: playerName, reason: "" })} />
                                 <Button disabled={playerName === "" || addVipStatus.status || isOpsMode} name={addVipStatus.name} callback={_ => AddVip.mutate({ sid, name: playerName, reason: "" })}  />
                                 <Button disabled={playerName === "" || removeVipStatus.status || isOpsMode} name={removeVipStatus.name} callback={_ => RemoveVip.mutate({ sid, name: playerName, reason: "" })}  />
