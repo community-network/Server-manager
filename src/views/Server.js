@@ -605,6 +605,7 @@ function ServerBanPlayer(props) {
 
     const history = useHistory();
     const [reason, setReason] = useState("");
+    const [playerId, setPid] = useState(undefined);
     const [banTime, setBanTime] = useState(0);
     const [globalVsClassicBan, setGlobalVsClassicBan] = useState(false);
 
@@ -612,6 +613,12 @@ function ServerBanPlayer(props) {
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
     const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+
+    useEffect(() => {
+        if(playerId !== props.playerId) {
+            setPid(props.playerId);
+        }
+    }, [props.playerId]);
 
     const BanPlayer = useMutation(
         v => OperationsApi.banPlayer(v),
@@ -677,7 +684,9 @@ function ServerBanPlayer(props) {
             <TextInput value={reason} name={t("server.banMenu.reason")} callback={(e) => checkReason(e.target.value)} />
             <Switch value={globalVsClassicBan} name={t("server.banMenu.vBanOption")} callback={ (v) => setGlobalVsClassicBan(v) } />
             <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}<br />{t("server.banMenu.tempbanDesc2")}</h5>
-            <TextInput type={t("server.banMenu.tempbanAmount")} name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
+            <TextInput type={"text"} name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
+            <h5 style={{maxWidth: "300px"}} >If set, nickanme will be ignored to force ban by Player ID.</h5>
+            <TextInput type="number" name="Player ID" value={playerId} callback={(e) => setPid(e.target.value)} />
             <ButtonRow>
                 <Button
                     name={t("server.banMenu.confirm")}
@@ -685,9 +694,9 @@ function ServerBanPlayer(props) {
                     disabled={isDisabled}
                     callback={() => {
                         if (globalVsClassicBan) {
-                            GlobalBanPlayer.mutate({ gid, reason, name: props.eaid, playerId: props.playerId });
+                            GlobalBanPlayer.mutate({ gid, reason, name: props.eaid, playerId });
                         } else {
-                            BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime, playerId: props.playerId });
+                            BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime, playerId });
                         }
                     }}
                     status={banApplyStatus} />
