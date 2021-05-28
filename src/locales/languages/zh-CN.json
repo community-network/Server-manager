@@ -62,7 +62,7 @@
     "account": {
         "main": "账户",
         "discordProfile": "Discord资料",
-        "loggedIn": "Logged in",
+        "loggedIn": "已登陆",
         "permissions": {
             "main": "权限",
             "admin": "管理员",
@@ -186,8 +186,8 @@
             "move": "移动",
             "ban": "封禁",
             "unban": "解ban",
-            "addVip": "Add vip",
-            "removeVip": "Remove vip"
+            "addVip": "增加vip",
+            "removeVip": "删除vip"
         },
         "game": {
             "main": "目前的游戏",
@@ -325,7 +325,7 @@
         "account": "账户",
         "devOptions": "开发者选项",
         "createGroup": "创建群组",
-        "makeOperations": "Make Operations",
+        "makeOperations": "设置行动",
         "logout": "注销",
         "help": "需要帮助？"
     }
