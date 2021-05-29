@@ -430,13 +430,13 @@ function GroupServerAccount(props) {
             ) : ""}
             
             <Row>
-                <TextInput type="password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
+                <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
                     {t("cookie.remid")}
                 </p>
             </Row>
             <Row>
-                <TextInput type="password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
+                <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
                     {t("cookie.sid")}
                 </p>
@@ -833,11 +833,11 @@ export function AddGroup(props) {
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name={t("cookie.sid")} type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <TextInput name={t("cookie.sid")} autocomplete="new-password" autocomplete="off" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.remidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name={t("cookie.remid")} type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
+                    <TextInput name={t("cookie.remid")} autocomplete="new-password" autocomplete="off" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                     {t("createGroup.acceptDescription0")}<br />{t("createGroup.acceptDescription1")}
                     </h5>
@@ -1049,11 +1049,11 @@ export function MakeOps(props) {
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name={t("cookie.sid")} type="password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <TextInput name={t("cookie.sid")} type="password" autocomplete="new-password" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.remidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name={t("cookie.remid")} type="password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
+                    <TextInput name={t("cookie.remid")} type="password" autocomplete="new-password" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("operations.acceptDescription0")}<br />{t("operations.acceptDescription1")}
                     </h5>
