@@ -1,0 +1,333 @@
+{
+    "beta": "beta",
+    "eBeta": "Erken erişim",
+    "search": "Arama...",
+    "pending": "Bekliyor...",
+    "loading": "Yükleniyor..",
+    "denied": "İzin verilmedi",
+    "apply": "Onaylandı",
+    "cookie": {
+        "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
+        "remid": "REMID tanımlama bilgisi",
+        "sidDescription": "Oturum çerezleri şu adreste bulunabilir ",
+        "remidDescription": "Hatırlatma oturumu çerezleri şu adreste bulunabilir ",
+        "sid": "SID tanımlama bilgisi"
+    },
+    "serverStatus": {
+        "pending": "Bekleme durumu",
+        "noServer": "Sunucu bulunamadı",
+        "noAdmin": "Yönetici hakları yok",
+        "running": "Çalışıyor"
+    },
+    "discord": {
+        "id": "Discord Sunucu ID",
+        "idDescription": "Discord sunucu kimliğiniz",
+        "adminId": "Yönetici rolü ID",
+        "adminIdDescription": "Yönetici rolü kimliği",
+        "modId": "Mod rol ID",
+        "modIdDescription": "Moderatör rolünün kimliği, moderatörler yalnızca oyuncuları atabilir"
+    },
+    "mainPage": {
+        "main": "Battlefield 1 sunucularınızı yönetmenin yeni bir yolu",
+        "description": "Sunucu Yöneticisi, Community Network tarafından oluşturulan yeni bir Gametools & BFBan hizmetidir",
+        "login": "Giriş",
+        "featureList": {
+            "main": "Özellikleri",
+            "0": {
+                "heading": "BFBan Anti Cheat",
+                "body": "Sunucularınızı www.bfban.com'da onaylanan hilecilere karşı koruyun"
+            },
+            "1": {
+                "heading": "Sınırsız Global V-Ban listesi",
+                "body": "Virtal yasak listesi ile tüm sunucularınızda istediğiniz kadar oyuncuyu yasaklayın."
+            },
+            "2": {
+                "heading": "Yüksek ping oyuncuları atma",
+                "body": "Belirlenen ping seviyesine göre otomatik oyundan atma"
+            },
+            "3": {
+                "heading": "Sunucuyu korumak için Discord araçları",
+                "body": "Rollere göre sunucularınızı doğrudan Discord'da kontrol edin."
+            },
+            "4": {
+                "heading": "Sunucu eylem günlüğü",
+                "body": "Sunucularınızda ve gruplarınızda yapılan her eylemin tam günlüklerini görün."
+            },
+            "5": {
+                "heading": "Sunucularınız üzerinde tam kontrol",
+                "body": "Yöneticiler sunucuyu oyundaki ile aynı işlevlerle kontrol edebilir."
+            }
+        }
+    },
+    "account": {
+        "main": "Hesap",
+        "discordProfile": "Discord Profili",
+        "loggedIn": "Giriş",
+        "permissions": {
+            "main": "İzinler",
+            "admin": "Yönetici",
+            "server": "Sunucu sahibi",
+            "system": "Sistem yöneticisi"
+        }
+    },
+    "dev": {
+        "main": "Geliştirici Seçenekleri",
+        "listGroups": "Grup Listesi",
+        "addGroup": "Yeni Grup ekle",
+        "manage": "Grubu yönet"
+    },
+    "createGroup": {
+        "main": "Yeni Grup Oluştur",
+        "description": "Topluluk sunucularınızı yönetmek için yeni bir grup oluşturun",
+        "discordDescription": "İsteğe bağlı olarak, sunucu araçlarını entegre etmek için discord sunucunuzu ekleyebilirsiniz.",
+        "cookieDescription0": "Her gruba belirli gereksinimleri olan özel bir hesap atanmalıdır:",
+        "cookieDescription1": "Bir BF1 sunucu moderatörü olmalıdır (sahip erişimi gerekli değildir)",
+        "cookieDescription2": "Bu hesap başka hiçbir yerde kullanılmamalıdır, aksi takdirde hatalara yol açar",
+        "acceptDescription0": "Bu düğmeye basarak, vermeyi kabul etmiş olursunuz.",
+        "acceptDescription1": "hesaba sunucu yöneticisi aracı erişimi.",
+        "accept": "Grup oluştur"
+    },
+    "group": {
+        "main": "Grup",
+        "name": "Grup ismi",
+        "id": "ID",
+        "admins": {
+            "main": "Yöneticiler",
+            "description0": "Yönetici rolü, sunucuları yönetebilir. En azından sahip olmalısın",
+            "description1": "Sunucu yöneticisi yeni yönetici ekliyebilir.",
+            "add": "Yönetici ekle",
+            "addNew": "Yeni Yönetici ekle",
+            "removeSelected": "Seçili Yöneticileri Kaldır",
+            "remove": "Yöneticileri kaldır",
+            "select": "Kaldırılacak yöneticileri seçin.",
+            "selected": "{{Number}} yönetici seçtiniz."
+        },
+        "servers": {
+            "main": "Sunucular",
+            "description0": "Servers instances added to current group. You need to have",
+            "description1": "Yeni sunucular eklemek için sunucu sahibi rolü olmalı",
+            "add": "Add Server"
+        },
+        "owners": {
+            "main": "Sahipler",
+            "description0": "Mevcut grup Sahiplerinin listesi. Bu rol yeni Sunucular ekleyebilir,",
+            "description1": "Yöneticiler ve sunucu sahipler, dikkatli edin!",
+            "add": "Sahip Ekle",
+            "addNew": "Yeni Sahip ekle",
+            "removeSelected": "Seçili Sahipleri Kaldır",
+            "remove": "Sahipleri Kaldır",
+            "select": "Kaldırılacak sahipleri seçin.",
+            "selected": "{{Number}} sahip seçtiniz."
+        },
+        "vban": {
+            "main": "Vban liste",
+            "description0": "Bu grupta yasaklanan oyuncuların listesi.",
+            "description1": "{{Number}} Yuva kullanıldı",
+            "reason": "",
+            "noReason": "Sebeple",
+            "unban": "Yasağı kaldır"
+        },
+        "logs": {
+            "main": "Grup kayıtları",
+            "description": "Grup kayıt listesi"
+        },
+        "account": {
+            "main": "Sunucu hesabı",
+            "description0": "Hesap yöneticisi, sunucularınızı yönetecek.",
+            "description1": "Bu çerezler şu adreste bulunabilir "
+        },
+        "discord": {
+            "main": "Discord entegrasyonu",
+            "description0": "Bot ile, yöneticilerin sunucularınızı kontrol etmesine izin verebilirsiniz",
+            "description1": "! ön ek. ile komutları kullanarak",
+            "gamestats": "BF1 sunucularını komutlarla kontrol etmek için Discord sunucunuza Game Stats botunu ekleyin.",
+            "commandList": "Discord'da kullanabileceğiniz komutların bir listesi için \"! bfadmin \" komutunu kullanın.",
+            "permDescription0": "Bu rol kimliğine sahip her kişi kullanabilir",
+            "permDescription1": "sunucuyu kontrol etmek için discord komutları."
+        },
+        "danger": {
+            "main": "Riskli bölge",
+            "nameChange": "Mevcut Grubun adını değiştirebilirsiniz.",
+            "delete": "Grubu Sil",
+            "deleteInfo0": "Bir grubu sildiğinizde, tüm sunucuları kaldırır,",
+            "deleteInfo1": "sunucu hesabı ve içinde kullanılan kullanıcılar.",
+            "check": "Bu grubu silmek istediğinizden emin misiniz?",
+            "confirm": "Evet, sil",
+            "back": "Dur, hayır!"
+        },
+        "addMenu": {
+            "id": "Discord UID",
+            "nickname": "Nickname ((Otomatik olarak güncellenecektir))"
+        },
+        "serverAddMenu": {
+            "main": "Yeni Sunucu ekle",
+            "description": "Grup Sunucusu",
+            "name": "Sunucu adı",
+            "alias": "Takma ad (isteğe bağlı)"
+        }
+    },
+    "operations": {
+        "main": "Operasyon oyun modu oluştur",
+        "description0": "Sunucunuzda kurulum işlemleri ",
+        "description1": "Oyun içi yönetici panelini kaybedeceğinizi unutmayın!",
+        "description2": "Bu panele sunucu eklediğinizden emin olun ve kontrol edin.",
+        "acceptDescription0": "Bu düğmeye basarak, onay vermeyi kabul etmiş olursunuz.",
+        "acceptDescription1": "hesaba sunucu yöneticisi aracı erişimi.",
+        "accept": "Operasyonu oluşturun",
+        "server": "Sunucu ",
+        "owner": "sahip",
+        "cookies": " Çerezler."
+    },
+    "server": {
+        "main": "Sunucu paneli",
+        "playerName": "Oyuncu ismi",
+        "action": {
+            "kick": "AT",
+            "move": "Taşı",
+            "ban": "Yasakla",
+            "unban": "yasak kaldır",
+            "addVip": "Vip ekle",
+            "removeVip": "Vip kaldır"
+        },
+        "game": {
+            "main": "Suanki oyun",
+            "info": "[{{inQue}}] oyuncular",
+            "restart": "Yeniden başlat",
+            "mapSwitch": "Oyunu değiştir ..",
+            "playerlistUpdate": "Son Güncelleme"
+        },
+        "banList": {
+            "main": "Yasak listesi",
+            "description0": "Bu sunucudaki yasaklı oyuncuların listesi.",
+            "description1": "200'de",
+            "description2": "{{number}} yuva kullanıldı",
+            "description3": " Grup tabanlı sanal yasak listemizi kullanın.,",
+            "description4": "sınırsız sayıda oyuncuyu yasaklıyabilirsiniz.",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID",
+                "reason": "Nedeni",
+                "admin": "Yönetici",
+                "until": "E kadar",
+                "timestamp": "işlem zamanı"
+            }
+        },
+        "vipList": {
+            "main": "VIP oyuncular",
+            "description0": "Bu sunucudaki VIP oyuncuların listesi.",
+            "description1": "50'de ",
+            "description2": "{{number}} yuva kullanıldı",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID"
+            }
+
+        },
+        "firestarterList": {
+            "main": "Başlatıcılar",
+            "description0": "Sunucunuzun önceden bittiği zamanı ölçüyor ve başladığında sunucudaki tüm oyuncuları sayıyoruz,",
+            "description1": "böylece sunucunuzu başlatmanıza kimin yardım ettiğini kontrol edebilirsiniz.",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID",
+                "amount": "Miktar"
+            }
+        },
+        "logs": {
+            "main": "Kayıtlar",
+            "reasons": {
+                "addServerBan": "yasaklandı",
+                "kickPlayer": "tarafından",
+                "removeServerBan": "yasak kaldır",
+                "addServerVip": "Vip verdi",
+                "movePlayer": "Takımını degiştirdi",
+                "removeServerVip": "Vip kaldırdı",
+                "magic": "Büyü Yaptı"
+            },
+            "types": {
+                "pingChecker": "Ping kontrolçüsü",
+                "vBan": "VBan",
+                "bfban": "BFBan"
+            },
+            "reason": "sebebiyle",
+            "noReason": "sebebsiz"
+         },
+        "protection": {
+            "main": "Sunucu Koruması",
+            "title": "Otomatik Sunucu Koruması",
+            "vBanDescription0": "Sunucularınızı hilecilere karşı korumak için geliştirilmiş yeni araçlarla tanışın.",
+            "vBanDescription1": "Sonsuz miktarda ban slotu ",
+            "vBanDescription2": "ve senkronize ban listesi sağlayan ",
+            "vBanDescription3": "tüm grup sunucularındaki oyuncuları ",
+            "vBanDescription4": "otomatik olarak atar.",
+            "vBanEnable": "Global V-Ban'ı Etkinleştir",
+            "vbanReasonDesc0": "Bu mesaj, V-Ban Global sistemi tarafından ",
+            "vbanReasonDesc1": "otomatik olarak atılan kullanıcılara görünür.",
+            "vBanMsg": "V-Ban mesajı",
+            "bfbanDescription": "Sunucuyu bilinen hilecilere karşı koruyun",
+            "bfbanEnable": "BFBan Anti-Cheat'i aktive et",
+            "pingKickDescription": "Sürekli yüksek pingli oyuncuları otomatik olarak at",
+            "pingKickEnable": "Yüksek gecikme ile atılma aktive et",
+            "pingKickAmount": "Yüksek gecikme değeri ",
+            "pingKickMsg": "Otomatik gecikme mesajı",
+            "pingKickMinDesc": "Otomatik atmanın başlaması için minimum oyuncu sayısı. (her zaman için 0 )",
+            "pingKickMin": "Yüksek gecikme değeri",
+            "minAutoPingKick": "Atılma öncesi minimum oyuncu gecikmesi"
+        },
+        "settings": {
+            "main": "Ayarlar",
+            "title": "Sunucu Ayarları",
+            "nameDescription": "Sunucu Adını Değiştir",
+            "name": "Sunucu Adı",
+            "aliasDescription": "Discord botu ile kullanmak için ön ad. (Örneğin, sunucu numarası olabilir.)",
+            "alias": "Ön Ad"
+        },
+        "console": {
+            "main": "Konsol"
+        },
+        "players": {
+            "teamOne": "Takım 1",
+            "teamTwo": "Takım 2"
+        },
+        "playerStats": {
+            "main": "{{player}} 'nin Oyun İstatistikleri",
+            "loading": "İstatistikler Yükleniyor...",
+            "skill": "Yetenek: ",
+            "rank": "Seviye: ",
+            "killsPerMinute": "KPM: ",
+            "winPercent": "Oyun Kazanma Oranı: ",
+            "accuracy": "İsabet Oranı: ",
+            "headshots": "Kafadan Vurma Oranı: ",
+            "killDeath": "KD: ",
+            "id": "ID: ",
+            "toStatsPage": "Tüm İstatistikler.."
+        },
+        "kickMenu": {
+            "main": "{{name}} oyuncusunu atacaksınız",
+            "reasonDescription": "Bu sebep oyuncuya gözükecektir! 30 Karakter sınırı vardır ve yalnızca bazı özel karakterler desteklenebilmektedir.",
+            "reason": "Sebep",
+            "confirm": "At!"
+        },
+        "banMenu": {
+            "main": "{{name}} oyuncusunu yasaklayacaksınız",
+            "reasonDescription": "Oyuncuyu yasaklama nedeninizi giriniz",
+            "reason": "Sebep",
+            "vBanOption": "Klasik yasaklama listesi yerine vBan'ı kullan.",
+            "tempbanDesc0": "Eğer geçici bir yasaklama yapacaksanız belirli bir zaman aralığı girin.",
+            "tempbanDesc1": "Saat altında, ya da kalıcı yasaklama için 0 yazın.",
+            "tempbanDesc2": "V-Ban tarafından şu anda desteklenmiyor.",
+            "tempbanAmount": "Yasaklanma süresi",
+            "confirm": "Yasakla!"
+        }
+    },
+    "sidebar": {
+        "main": "Ana Menü",
+        "home": "Ev",
+        "account": "Hesap",
+        "devOptions": "Geliştirici Ayarları",
+        "createGroup": "Grup Oluştur",
+        "makeOperations": "Operasyon Yap",
+        "logout": "Çıkış Yap",
+        "help": "Yardım?"
+    }
+}

@@ -13,6 +13,7 @@ const LanguageSelector = () => {
         <select className={styles.selector} value={getLanguage()} onChange={changeLanguage}>
             <option value="en-US">English</option>
             <option value="zh-CN">简体中文</option>
+            <option value="tr-TR">Türkçe</option>
         </select>
     )
 }
