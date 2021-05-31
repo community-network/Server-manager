@@ -5,7 +5,7 @@
     "pending": "Bekliyor...",
     "loading": "Yükleniyor..",
     "denied": "İzin verilmedi",
-    "apply": "Onaylandı",
+    "apply": "Onayla",
     "cookie": {
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
         "remid": "REMID tanımlama bilgisi",
@@ -83,8 +83,8 @@
         "cookieDescription0": "Her gruba belirli gereksinimleri olan özel bir hesap atanmalıdır:",
         "cookieDescription1": "Bir BF1 sunucu moderatörü olmalıdır (sahip erişimi gerekli değildir)",
         "cookieDescription2": "Bu hesap başka hiçbir yerde kullanılmamalıdır, aksi takdirde hatalara yol açar",
-        "acceptDescription0": "Bu düğmeye basarak, vermeyi kabul etmiş olursunuz.",
-        "acceptDescription1": "hesaba sunucu yöneticisi aracı erişimi.",
+        "acceptDescription0": "Bu düğmeye basarak, sunucu yönetici paneline,",
+        "acceptDescription1": "hesabınızı baglamış olursunuz.",
         "accept": "Grup oluştur"
     },
     "group": {
@@ -93,36 +93,36 @@
         "id": "ID",
         "admins": {
             "main": "Yöneticiler",
-            "description0": "Yönetici rolü, sunucuları yönetebilir. En azından sahip olmalısın",
+            "description0": "Yönetici rolü, sunucuları yönetebilir.",
             "description1": "Sunucu yöneticisi yeni yönetici ekliyebilir.",
             "add": "Yönetici ekle",
             "addNew": "Yeni Yönetici ekle",
             "removeSelected": "Seçili Yöneticileri Kaldır",
             "remove": "Yöneticileri kaldır",
             "select": "Kaldırılacak yöneticileri seçin.",
-            "selected": "{{Number}} yönetici seçtiniz."
+            "selected": "{{Number}} kullanıcı seçtiniz."
         },
         "servers": {
             "main": "Sunucular",
-            "description0": "Servers instances added to current group. You need to have",
+            "description0": "Aşagıda yer alan sunuculara yeni sunucu eklebilir",
             "description1": "Yeni sunucular eklemek için sunucu sahibi rolü olmalı",
             "add": "Add Server"
         },
         "owners": {
             "main": "Sahipler",
-            "description0": "Mevcut grup Sahiplerinin listesi. Bu rol yeni Sunucular ekleyebilir,",
-            "description1": "Yöneticiler ve sunucu sahipler, dikkatli edin!",
+            "description0": "Sunucu sahiplerinin isimleri aşağıda yer almaktadır. Bu rol yeni sunucu,",
+            "description1": "sunucu sahibi ve yönetici ekleyebilir, dikkatli olun!",
             "add": "Sahip Ekle",
             "addNew": "Yeni Sahip ekle",
             "removeSelected": "Seçili Sahipleri Kaldır",
             "remove": "Sahipleri Kaldır",
             "select": "Kaldırılacak sahipleri seçin.",
-            "selected": "{{Number}} sahip seçtiniz."
+            "selected": "{{Number}} kullanıcı seçtiniz."
         },
         "vban": {
             "main": "Vban liste",
             "description0": "Bu grupta yasaklanan oyuncuların listesi.",
-            "description1": "{{Number}} Yuva kullanıldı",
+            "description1": " {{Number}} Yuva kullanıldı",
             "reason": "",
             "noReason": "Sebeple",
             "unban": "Yasağı kaldır"
@@ -141,7 +141,7 @@
             "description0": "Bot ile, yöneticilerin sunucularınızı kontrol etmesine izin verebilirsiniz",
             "description1": "! ön ek. ile komutları kullanarak",
             "gamestats": "BF1 sunucularını komutlarla kontrol etmek için Discord sunucunuza Game Stats botunu ekleyin.",
-            "commandList": "Discord'da kullanabileceğiniz komutların bir listesi için \"! bfadmin \" komutunu kullanın.",
+            "commandList": "Discord'da kullanabileceğiniz komutların bir listesi için \"!bfadmin \" komutunu kullanın.",
             "permDescription0": "Bu rol kimliğine sahip her kişi kullanabilir",
             "permDescription1": "sunucuyu kontrol etmek için discord komutları."
         },
@@ -171,8 +171,8 @@
         "description0": "Sunucunuzda kurulum işlemleri ",
         "description1": "Oyun içi yönetici panelini kaybedeceğinizi unutmayın!",
         "description2": "Bu panele sunucu eklediğinizden emin olun ve kontrol edin.",
-        "acceptDescription0": "Bu düğmeye basarak, onay vermeyi kabul etmiş olursunuz.",
-        "acceptDescription1": "hesaba sunucu yöneticisi aracı erişimi.",
+        "acceptDescription0": "Bu düğmeye basarak, sunucu yönetici paneline,",
+        "acceptDescription1": "hesabınızı baglamış olursunuz.",
         "accept": "Operasyonu oluşturun",
         "server": "Sunucu ",
         "owner": "sahip",
@@ -225,7 +225,7 @@
         },
         "firestarterList": {
             "main": "Başlatıcılar",
-            "description0": "Sunucunuzun önceden bittiği zamanı ölçüyor ve başladığında sunucudaki tüm oyuncuları sayıyoruz,",
+            "description0": "Sunucunuzun başlatmak için yardım eden oyuncular burada görünmektedir,",
             "description1": "böylece sunucunuzu başlatmanıza kimin yardım ettiğini kontrol edebilirsiniz.",
             "table": {
                 "playerName": "Oyuncu ismi",
@@ -249,14 +249,14 @@
                 "vBan": "VBan",
                 "bfban": "BFBan"
             },
-            "reason": "sebebiyle",
-            "noReason": "sebebsiz"
+            "reason": "nedeni/nereye",
+            "noReason": "nedensiz"
          },
         "protection": {
             "main": "Sunucu Koruması",
             "title": "Otomatik Sunucu Koruması",
             "vBanDescription0": "Sunucularınızı hilecilere karşı korumak için geliştirilmiş yeni araçlarla tanışın.",
-            "vBanDescription1": "Sonsuz miktarda ban slotu ",
+            "vBanDescription1": "Sonsuz miktarda ban listesi ",
             "vBanDescription2": "ve senkronize ban listesi sağlayan ",
             "vBanDescription3": "tüm grup sunucularındaki oyuncuları ",
             "vBanDescription4": "otomatik olarak atar.",
@@ -264,9 +264,9 @@
             "vbanReasonDesc0": "Bu mesaj, V-Ban Global sistemi tarafından ",
             "vbanReasonDesc1": "otomatik olarak atılan kullanıcılara görünür.",
             "vBanMsg": "V-Ban mesajı",
-            "bfbanDescription": "Sunucuyu bilinen hilecilere karşı koruyun",
+            "bfbanDescription": "Sunucuyu bilinen hilecilere karşı bu site sayesinde koruyun.  ",
             "bfbanEnable": "BFBan Anti-Cheat'i aktive et",
-            "pingKickDescription": "Sürekli yüksek pingli oyuncuları otomatik olarak at",
+            "pingKickDescription": "Sürekli yüksek gecikme oyuncuları otomatik olarak at",
             "pingKickEnable": "Yüksek gecikme ile atılma aktive et",
             "pingKickAmount": "Yüksek gecikme değeri ",
             "pingKickMsg": "Otomatik gecikme mesajı",
@@ -326,7 +326,7 @@
         "account": "Hesap",
         "devOptions": "Geliştirici Ayarları",
         "createGroup": "Grup Oluştur",
-        "makeOperations": "Operasyon Yap",
+        "makeOperations": "Operasyon sunucusu oluştur",
         "logout": "Çıkış Yap",
         "help": "Yardım?"
     }
