@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { useModal, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, TopRow, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter } from "../components";
+import { useModal, Switch, BanList, Column, Card, Header, ServerRotation, ServerInfoHolder, TopRow, ButtonRow, Button, PageCard, Row, VipList, LogList, TextInput, PlayerInfo, FireStarter, Spectator } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -145,6 +145,10 @@ export function Server(props) {
             callback: () => setTabsListing("firestarter"),
         },
         {
+            name: t("server.spectatorList.main"),
+            callback: () => setTabsListing("spectator"),
+        },
+        {
             name: t("server.logs.main"),
             callback: () => setTabsListing("loglist"),
         },
@@ -169,6 +173,7 @@ export function Server(props) {
         banlist: <BanList sid={sid} />,
         viplist: <VipList sid={sid} />,
         firestarter: <FireStarter sid={sid} />,
+        spectator: <Spectator sid={sid} />,
         loglist: <LogList sid={sid} />,
         protection: (
             <>

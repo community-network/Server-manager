@@ -145,7 +145,7 @@ export function ChoosePageButtons(props) {
 
     const [active, setActive] = useState(0);
     const [pageCardRef, { width }] = useMeasure();
-    let maxWidth = props.maxWidth || 900
+    let maxWidth = props.maxWidth || 1050
 
     const [open, setOpen] = useState(false);
     let container = React.useRef();

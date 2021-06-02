@@ -329,6 +329,67 @@ function StarterRow(props) {
     );
 }
 
+export function Spectator(props) {
+    const sid = props.sid;
+    const { t } = useTranslation();
+    const { isError, data: spectatorList, error } = useQuery('serverSpectatorList' + sid, () => OperationsApi.getSpectatorList({ sid }));
+
+    const [searchWord, setSearchWord] = useState("");
+
+    if (!spectatorList) {
+        // TODO: add fake item list on loading
+        return t("loading");
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    spectatorList.data.sort((a, b) => b.amount - a.amount);
+
+    return (
+        <div>
+            <h5>
+                {t("server.spectatorList.description0")}<br />{t("server.spectatorList.description1")}<br />{t("server.spectatorList.description2")}
+            </h5>
+            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <th>{t("server.spectatorList.table.playerName")}</th>
+                        <th>{t("server.spectatorList.table.playerId")}</th>
+                        <th>{t("server.spectatorList.table.time")}</th>
+                    </thead>
+                    <tbody>
+                        {
+                            spectatorList.data.filter(p => p.name.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (player, i) => (<SpectatorRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function SpectatorRow(props) {
+    const player = props.player;
+    const { t } = useTranslation();
+
+    var datetime = new Date(player.timeStamp);
+    // Local time
+    datetime = `${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
+
+    return (    
+        <tr className={styles.BanRow}>
+            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
+            <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
+            <td>{datetime}</td>
+        </tr>
+    );
+}
+
 export function LogList(props) {
     
     const sid = props.sid;

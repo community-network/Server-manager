@@ -129,6 +129,12 @@ export class ApiProvider extends JsonClient {
             "serverid": sid
         });
     }
+    
+    async getSpectatorList({ sid }) {
+        return await this.getJsonMethod("spectators", {
+            "serverid": sid
+        });
+    }
 
     async getAutoBanList({ gid }) {
         return await this.getJsonMethod("autoban", {

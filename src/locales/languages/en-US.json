@@ -233,6 +233,17 @@
                 "amount": "Amount"
             }
         },
+        "spectatorList": {
+            "main": "Spectator list",
+            "description0": "We keep a list of who spectated the server within the last 24 hours,",
+            "description1": "because there exists a hack within Battlefield 1 that allows them to control players in the game itself...",
+            "description2": "This is one way to fight back against those hackers.",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "time": "Time"
+            }
+        },
         "logs": {
             "main": "Logs",
             "reasons": {
