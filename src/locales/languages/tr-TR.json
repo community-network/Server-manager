@@ -234,14 +234,14 @@
             }
         },
         "spectatorList": {
-            "main": "Spectator list",
-            "description0": "We keep a list of who spectated the server within the last 24 hours,",
-            "description1": "because there exists a hack within Battlefield 1 that allows them to control players in the game itself...",
-            "description2": "This is one way to fight back against those hackers.",
+            "main": "İzleyici listesi",
+            "description0": "Son 24 saat içinde sunucuya kimlerin izlediğinin bir listesini tutuyoruz,",
+            "description1": "Çünkü Battlefield 1'de, oyundaki oyuncuları kontrol etmelerini sağlayan bir hile var....",
+            "description2": "Bu, o hilecilere karşı savaşmanın bir yolu..",
             "table": {
-                "playerName": "Player name",
-                "playerId": "Player ID",
-                "time": "Time"
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID",
+                "time": "Zaman"
             }
         },
         "logs": {
