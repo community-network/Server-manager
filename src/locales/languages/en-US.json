@@ -246,7 +246,7 @@
         },
         "playerLogs": {
             "main": "Player logs",
-            "description0": "We keep a list of who joined the server within the last 24 hours,",
+            "description0": "We keep a list of who is in the server within the last 24 hours,",
             "description1": "because a group of hackers keeps crashing the servers.",
             "description2": "This is one way to find out when/who did it.",
             "search": "Search player in gathered list...",
