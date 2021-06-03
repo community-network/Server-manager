@@ -135,6 +135,14 @@ export class ApiProvider extends JsonClient {
             "serverid": sid
         });
     }
+    
+    async getPlayerLogList({ sid, date }) {
+        return await this.getJsonMethod("playerlog", {
+            "serverid": sid,
+            "date": date
+        });
+    }
+
 
     async getAutoBanList({ gid }) {
         return await this.getJsonMethod("autoban", {

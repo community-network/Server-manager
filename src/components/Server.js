@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Server.module.css";
 import { useQuery } from 'react-query';
+import buttonStyle from "./Buttons.module.css";
 import { Button, ButtonRow, PlayerDropdownButton, ButtonLink, TextInput } from "./Buttons";
 import { useModal } from "./Card";
 import { OperationsApi } from "../api";
@@ -377,15 +378,95 @@ function SpectatorRow(props) {
     const player = props.player;
     const { t } = useTranslation();
 
+    
     var datetime = new Date(player.timeStamp);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     // Local time
-    datetime = `${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
+    datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
     return (    
         <tr className={styles.BanRow}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
             <td>{datetime}</td>
+        </tr>
+    );
+}
+
+export function Playerlogs(props) {
+    const sid = props.sid;
+    const { t } = useTranslation();
+
+    const [date, setDate] = useState("-");
+    const [dateIndex, setDateIndex] = useState(0);
+    const [searchWord, setSearchWord] = useState("");
+
+    const { isError, data: playerLogList, error } = useQuery('serverPlayerLogList' + date + sid, () => OperationsApi.getPlayerLogList({ sid, date }));
+
+    if (!playerLogList) {
+        // TODO: add fake item list on loading
+        return t("loading");
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    playerLogList.data.sort((a, b) => b.amount - a.amount);
+
+    return (
+        <div>
+            <h5>
+                {t("server.playerLogs.description0")}<br />{t("server.playerLogs.description1")}<br />{t("server.playerLogs.description2")}
+            </h5>
+            <ButtonRow>
+                <Button name="<<" disabled={dateIndex==0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); setDate(playerLogList.intDates[dateIndex])} }} />
+                <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); setDate(playerLogList.intDates[dateIndex])}}>
+                    {playerLogList.dates.map((value, i) => {
+                        var datetime = new Date(value);
+                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+                        // Local time
+                        datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
+                    
+                        return <option value={i} key={i}>{datetime}</option>
+                    })}
+                </select>
+                <Button name=">>" disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); setDate(playerLogList.intDates[dateIndex]) } }} />
+            </ButtonRow>
+            <TextInput name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <th>{t("server.playerLogs.table.playerName")}</th>
+                        <th>{t("server.playerLogs.table.playerId")}</th>
+                        <th>{t("server.playerLogs.table.ping")}</th>
+                        <th>{t("server.playerLogs.table.role")}</th>
+                    </thead>
+                    <tbody>
+                        {
+                            playerLogList.data.filter(p => p.name.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (player, i) => (<PlayerlogsRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function PlayerlogsRow(props) {
+    const player = props.player;
+    const { t } = useTranslation();
+
+    return (    
+        <tr className={styles.BanRow}>
+            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
+            <td title={t("server.playerLogs.table.playerId")}>{player.playerId}</td>
+            <td>{player.ping}</td>
+            <td>{player.role}</td>
         </tr>
     );
 }
