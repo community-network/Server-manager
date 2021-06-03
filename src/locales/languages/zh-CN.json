@@ -234,14 +234,14 @@
             }
         },
         "spectatorList": {
-            "main": "Spectator list",
-            "description0": "We keep a list of who spectated the server within the last 24 hours,",
-            "description1": "because there exists a hack within Battlefield 1 that allows them to control players in the game itself...",
-            "description2": "This is one way to fight back against those hackers.",
+            "main": "观察者列表",
+            "description0": "我们将会保存该服务器24小时内的所有观察者ID,",
+            "description1": "这样做的目的是因为战地一有的外挂可以在观察模式操控玩家强制全图索敌...",
+            "description2": "这将是一种对抗该类型外挂的方法.",
             "table": {
-                "playerName": "Player name",
-                "playerId": "Player ID",
-                "time": "Time"
+                "playerName": "玩家名字",
+                "playerId": "玩家数字ID",
+                "time": "时间"
             }
         },
         "logs": {
