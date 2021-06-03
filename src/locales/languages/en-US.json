@@ -250,6 +250,7 @@
             "description1": "because a group of hackers keeps crashing the servers.",
             "description2": "This is one way to find out when/who did it.",
             "search": "Search player in gathered list...",
+            "export": "Export",
             "table": {
                 "playerName": "Player name",
                 "playerId": "Player ID",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Server.module.css";
 import { useQuery } from 'react-query';
 import buttonStyle from "./Buttons.module.css";
-import { Button, ButtonRow, PlayerDropdownButton, ButtonLink, TextInput } from "./Buttons";
+import { Button, ButtonRow, PlayerDropdownButton, ButtonUrl, TextInput } from "./Buttons";
 import { useModal } from "./Card";
 import { OperationsApi } from "../api";
 import '../locales/config';
@@ -434,6 +434,7 @@ export function Playerlogs(props) {
                     })}
                 </select>
                 <Button name=">>" disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); setDate(playerLogList.intDates[dateIndex]) } }} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${sid}&date=${date}`} name={t("server.playerLogs.export")} />
             </ButtonRow>
             <TextInput name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
