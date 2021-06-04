@@ -249,10 +249,10 @@
             "description0": "我们将会记录24小时以内游玩过该服务器的所有玩家,",
             "description1": "因为有那么一小撮人间之屑持续不断的炸服.",
             "description2": "这是我们屠杀孤儿院的方法.",
-            "description3": "Filter the list to only show when a specific player is in the returned list:",
+            "description3": "列表玩家筛选器可以筛选出某一特殊时期的玩家:",
             "search": "在总表中搜寻某玩家...",
-            "filterPlayer": "Filter dates on player",
-            "export": "导出",
+            "filterPlayer": "玩家筛选器",
+            "export": "导出EXCEL",
             "table": {
                 "playerName": "玩家名称",
                 "playerId": "玩家数字ID",
