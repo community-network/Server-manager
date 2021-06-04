@@ -261,9 +261,10 @@ export function BanList(props) {
 
 function BanRow(props) {
     const player = props.player;
+    const modal = useModal();
     const { t } = useTranslation();
     return (    
-        <tr className={styles.BanRow}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
             <td className={styles.BanDisplayName}>{player.displayName}</td>
             <td title={t("server.banList.table.playerId")}>{player.id}</td>
             <td>{player.reason}</td>
@@ -320,9 +321,10 @@ export function FireStarter(props) {
 
 function StarterRow(props) {
     const player = props.player;
+    const modal = useModal();
     const { t } = useTranslation();
     return (    
-        <tr className={styles.BanRow}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.playerName}</td>
             <td title={t("server.firestarterList.table.playerId")}>{player.playerId}</td>
             <td>{player.amount}</td>
@@ -376,6 +378,7 @@ export function Spectator(props) {
 
 function SpectatorRow(props) {
     const player = props.player;
+    const modal = useModal();
     const { t } = useTranslation();
 
     
@@ -386,7 +389,7 @@ function SpectatorRow(props) {
     datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
     return (    
-        <tr className={styles.BanRow}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
             <td>{datetime}</td>
@@ -482,11 +485,12 @@ function PlayerLogInfo(props) {
 }
 
 function PlayerlogsRow(props) {
+    const modal = useModal();
     const player = props.player;
     const { t } = useTranslation();
 
     return (    
-        <tr className={styles.BanRow}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.playerLogs.table.playerId")}>{player.playerId}</td>
             <td>{player.ping}</td>
@@ -692,9 +696,10 @@ export function VipList(props) {
 
 function VipRow(props) {
     const player = props.player;
+    const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow}>
+        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
