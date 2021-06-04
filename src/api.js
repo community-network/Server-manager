@@ -136,10 +136,11 @@ export class ApiProvider extends JsonClient {
         });
     }
     
-    async getPlayerLogList({ sid, date }) {
+    async getPlayerLogList({ sid, date, searchPlayer }) {
         return await this.getJsonMethod("playerlog", {
             "serverid": sid,
-            "date": date
+            "date": date,
+            "playername": searchPlayer
         });
     }
 

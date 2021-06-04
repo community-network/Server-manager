@@ -399,30 +399,52 @@ export function Playerlogs(props) {
     const { t } = useTranslation();
 
     const [date, setDate] = useState("-");
+    const [searchPlayer, setSearchPlayer] = useState("");
+    const [searchField, setSearchField] = useState("");
+
+    const { isError, data: data, error } = useQuery('serverPlayerLogList' + date + sid + searchPlayer, () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }));
+
+    return (
+        <div>
+            <h5>
+                {t("server.playerLogs.description0")}<br />{t("server.playerLogs.description1")}<br />{t("server.playerLogs.description2")}<br /><br />{t("server.playerLogs.description3")}
+            </h5>
+            <ButtonRow>
+                <TextInput id="textInput" name={t("server.playerLogs.filterPlayer")} callback={(v) => setSearchField(v.target.value)} />
+                <Button name="Search" disabled={searchField===""} callback={() => setSearchPlayer(searchField)} />
+                <Button name="Reset" disabled={searchPlayer===""} callback={() => {
+                    setSearchPlayer("");
+                    setSearchField("");
+                    document.getElementsByTagName('input')[0].value = "";
+                }} />
+            </ButtonRow>
+            <PlayerLogInfo data={data} setDate={setDate} sid={sid} date={date} error={error} isError={isError}/>
+        </div>
+    );
+}
+
+function PlayerLogInfo(props) {
+    const { t } = useTranslation();
+    const playerLogList = props.data
     const [dateIndex, setDateIndex] = useState(0);
     const [searchWord, setSearchWord] = useState("");
-
-    const { isError, data: playerLogList, error } = useQuery('serverPlayerLogList' + date + sid, () => OperationsApi.getPlayerLogList({ sid, date }));
+    
+    if (props.isError) {
+        return `Error, no info found for that playername`
+    }
 
     if (!playerLogList) {
         // TODO: add fake item list on loading
         return t("loading");
     }
 
-    if (isError) {
-        return `Error ${error.code}: {error.message}`
-    }
-
     playerLogList.data.sort((a, b) => b.amount - a.amount);
 
     return (
-        <div>
-            <h5>
-                {t("server.playerLogs.description0")}<br />{t("server.playerLogs.description1")}<br />{t("server.playerLogs.description2")}
-            </h5>
+        <>
             <ButtonRow>
-                <Button name="<<" disabled={dateIndex==0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); setDate(playerLogList.intDates[dateIndex])} }} />
-                <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); setDate(playerLogList.intDates[dateIndex])}}>
+                <Button name="<<" disabled={dateIndex==0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); props.setDate(playerLogList.intDates[dateIndex])} }} />
+                <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex])}}>
                     {playerLogList.dates.map((value, i) => {
                         var datetime = new Date(value);
                         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -433,10 +455,11 @@ export function Playerlogs(props) {
                         return <option value={i} key={i}>{datetime}</option>
                     })}
                 </select>
-                <Button name=">>" disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); setDate(playerLogList.intDates[dateIndex]) } }} />
-                <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${sid}&date=${date}`} name={t("server.playerLogs.export")} />
+                <Button name=">>" disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("server.playerLogs.export")} />
             </ButtonRow>
             <TextInput name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
+            
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
@@ -454,8 +477,8 @@ export function Playerlogs(props) {
                     </tbody>
                 </table>
             </div>
-        </div>
-    );
+        </>
+    )
 }
 
 function PlayerlogsRow(props) {
