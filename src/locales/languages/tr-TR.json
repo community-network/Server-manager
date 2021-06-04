@@ -222,7 +222,6 @@
                 "playerName": "Oyuncu ismi",
                 "playerId": "Oyuncu ID"
             }
-
         },
         "adminList": {
             "main": "Sunucu yöneticileri",
