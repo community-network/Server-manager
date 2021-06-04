@@ -244,6 +244,22 @@
                 "time": "Zaman"
             }
         },
+        "playerLogs": {
+            "main": "Oyuncu Kayıtları",
+            "description0": "Son 24 saat içinde sunucuda kimlerin bulunduğunun bir listesini tutuyoruz,",
+            "description1": "çünkü bir grup hileci sunucuları çökertmeye devam ediyor.",
+            "description2": "Bunu ne zaman/kimin yaptığını bulmanın bir yolu.",
+            "description3": "Listeyi yalnızca belirli bir oyuncu döndürülen listede olduğunda gösterecek şekilde filtreleyin:",
+            "search": "Toplanan listede oyuncu ara...",
+            "filterPlayer": "Oyuncudaki tarihleri ​​filtrele",
+            "export": "Dosyaya aktar",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID",
+                "ping": "Geçikme",
+                "role": "Rol"
+            }
+        },
         "logs": {
             "main": "Kayıtlar",
             "reasons": {
