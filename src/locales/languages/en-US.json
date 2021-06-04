@@ -6,6 +6,7 @@
     "loading": "Loading..",
     "denied": "Not allowed",
     "apply": "Apply",
+    "export": "Export",
     "cookie": {
         "invalid": "Error: The cookies you are using right now are invalid!",
         "remid": "REMID cookie",
@@ -221,7 +222,16 @@
                 "playerName": "Player name",
                 "playerId": "Player ID"
             }
-
+        },
+        "adminList": {
+            "main": "Server admins",
+            "description0": "List of admins on this server.",
+            "description1": "Used ",
+            "description2": "{{number}} slots out of 50",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID"
+            }
         },
         "firestarterList": {
             "main": "Firestarter list",
@@ -252,7 +262,6 @@
             "description3": "Filter the list to only show when a specific player is in the returned list:",
             "search": "Search player in gathered list...",
             "filterPlayer": "Filter dates on player",
-            "export": "Export",
             "table": {
                 "playerName": "Player name",
                 "playerId": "Player ID",

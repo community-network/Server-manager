@@ -6,6 +6,7 @@
     "loading": "载入中",
     "denied": "不被允许",
     "apply": "应用",
+    "export": "导出EXCEL",
     "cookie": {
         "invalid": "错误：你当前的cookie无效",
         "remid": "REMID cookie",
@@ -223,6 +224,16 @@
             }
 
         },
+        "adminList": {
+            "main": "Server admins",
+            "description0": "List of admins on this server.",
+            "description1": "已经使用了",
+            "description2": "50个当中的{{number}} ",
+            "table": {
+                "playerName": "玩家名称",
+                "playerId": "玩家数字ID"
+            }
+        },
         "firestarterList": {
             "main": "暖服统计",
             "description0": "我们可以统计每天开服之前的所有在场玩家,",
@@ -252,7 +263,6 @@
             "description3": "列表玩家筛选器可以筛选出某一特殊时期的玩家:",
             "search": "在总表中搜寻某玩家...",
             "filterPlayer": "玩家筛选器",
-            "export": "导出EXCEL",
             "table": {
                 "playerName": "玩家名称",
                 "playerId": "玩家数字ID",

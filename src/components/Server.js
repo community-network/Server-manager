@@ -235,7 +235,10 @@ export function BanList(props) {
                 {t("server.banList.description1")} <b>{t("server.banList.description2", {number: banList.data.length})}</b>.
                 {t("server.banList.description3")}<br />{t("server.banList.description4")}
             </h5>
-            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/infoexcel?type=bannedList&serverid=${props.sid}`} name={t("export")} />
+            </ButtonRow>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
@@ -459,7 +462,7 @@ function PlayerLogInfo(props) {
                     })}
                 </select>
                 <Button name=">>" disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
-                <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("server.playerLogs.export")} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("export")} />
             </ButtonRow>
             <TextInput name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
             
@@ -665,7 +668,10 @@ export function VipList(props) {
     return (
         <div>
             <div className={styles.VipHeader}>
-                <TextInput name={"Search.."} callback={(v) => setSearchWord(v.target.value)} />
+                <ButtonRow>
+                    <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                    <ButtonUrl href={`https://manager-api.gametools.network/api/infoexcel?type=vipList&serverid=${props.sid}`} name={t("export")} />
+                </ButtonRow>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h5 style={{ marginBottom: 0 }}>
                         {t("server.vipList.description0")}<br />
@@ -705,6 +711,75 @@ function VipRow(props) {
                 <span>{player.displayName}</span>
             </td>
             <td title={t("server.vipList.table.playerId")}>{player.id}</td>
+        </tr>
+    );
+}
+
+
+export function AdminList(props) {
+    const sid = props.sid;
+    const { t } = useTranslation();
+    const { isError, data: adminList, error } = useQuery('serverAdminList' + sid, () => OperationsApi.getAdminList({ sid }));
+
+    const [searchWord, setSearchWord] = useState("");
+
+
+    if (!adminList) {
+        // TODO: add fake item list on loading
+        return t("loading");
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+    
+
+    return (
+        <div>
+            <div className={styles.VipHeader}>
+                <ButtonRow>
+                    <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                    <ButtonUrl href={`https://manager-api.gametools.network/api/infoexcel?type=adminList&serverid=${props.sid}`} name={t("export")} />
+                </ButtonRow>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <h5 style={{ marginBottom: 0 }}>
+                        {t("server.adminList.description0")}<br />
+                        {t("server.adminList.description1")}<b>{t("server.adminList.description2", {number: adminList.data.length})}</b>.
+                    </h5>
+                </div>
+            </div>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <tr>
+                            <th>{t("server.adminList.table.playerName")}</th>
+                            <th>{t("server.adminList.table.playerId")}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            adminList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (player, i) => (<AdminRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function AdminRow(props) {
+    const player = props.player;
+    const modal = useModal();
+    const { t } = useTranslation();
+    return (
+        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
+            <td title={player.displayName} className={styles.VipName}>
+                <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
+                <span>{player.displayName}</span>
+            </td>
+            <td title={t("server.adminList.table.playerId")}>{player.id}</td>
         </tr>
     );
 }

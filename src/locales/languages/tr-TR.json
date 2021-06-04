@@ -6,6 +6,7 @@
     "loading": "Yükleniyor..",
     "denied": "İzin verilmedi",
     "apply": "Onayla",
+    "export": "Dosyaya aktar",
     "cookie": {
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
         "remid": "REMID tanımlama bilgisi",
@@ -223,6 +224,16 @@
             }
 
         },
+        "adminList": {
+            "main": "Server admins",
+            "description0": "List of admins on this server.",
+            "description1": "50'de ",
+            "description2": "{{number}} yuva kullanıldı",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID"
+            }
+        },
         "firestarterList": {
             "main": "Başlatıcılar",
             "description0": "Sunucunuzun başlatmak için yardım eden oyuncular burada görünmektedir,",
@@ -252,7 +263,6 @@
             "description3": "Listeyi yalnızca belirli bir oyuncu döndürülen listede olduğunda gösterecek şekilde filtreleyin:",
             "search": "Toplanan listede oyuncu ara...",
             "filterPlayer": "Oyuncudaki tarihleri ​​filtrele",
-            "export": "Dosyaya aktar",
             "table": {
                 "playerName": "Oyuncu ismi",
                 "playerId": "Oyuncu ID",

@@ -158,6 +158,13 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async getAdminList({ sid }) {
+        return await this.getJsonMethod("infolist", {
+            "type": "adminList",
+            "serverid": sid
+        });
+    }
+
     async getServerLogs({ sid }) {
         return await this.getJsonMethod("tailserverlog", {
             "serverid": sid
