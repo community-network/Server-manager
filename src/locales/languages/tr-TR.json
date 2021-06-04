@@ -225,8 +225,8 @@
 
         },
         "adminList": {
-            "main": "Server admins",
-            "description0": "List of admins on this server.",
+            "main": "Sunucu yöneticileri",
+            "description0": "Bu sunucudaki yöneticilerin listesi.",
             "description1": "50'de ",
             "description2": "{{number}} yuva kullanıldı",
             "table": {
