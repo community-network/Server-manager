@@ -45,6 +45,9 @@ export function CookieInfo() {
                         {t("cookieInfo.5")}
                     </h5>
                     <img style={{maxWidth: '20rem'}} src="/img/cookieInfo/3.png"/>
+                    <h5 style={{paddingTop: '1.5rem'}}>
+                        {t("cookieInfo.6")}<br />{t("cookieInfo.7")}
+                    </h5>
                 </Card>
             </Column>
         </Row>

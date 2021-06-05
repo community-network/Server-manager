@@ -387,8 +387,10 @@
         "0": "1. Open ",
         "1": " in incognito mode with Chrome or Edge.",
         "2": "2. Login with the account you want to use, don't forget to check \"Remember me\".",
-        "3": "3. after login, click on the lock:",
-        "4": "4. in this menu choose cookies:",
-        "5": "5. expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\""
+        "3": "3. After login, click on the lock:",
+        "4": "4. In this menu choose cookies:",
+        "5": "5. Expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\"",
+        "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
+        "7": "If you logout the cookies are no longer valid."
     }
 }
