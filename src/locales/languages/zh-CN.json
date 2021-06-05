@@ -354,6 +354,13 @@
             "tempbanDesc2": "目前还没被V-ban支持.",
             "tempbanAmount": "封禁时间",
             "confirm": "封禁！"
+        },
+        "vBanMenu": {
+            "playerNameDescription": "填充你想虚拟ban的玩家名字",
+            "playerName": "玩家名",
+            "reasonDescription": "写个vban该玩家的理由.",
+            "reason": "理由",
+            "confirm": "Vban了他!"
         }
     },
     "sidebar": {
