@@ -304,7 +304,7 @@ function VbanBanPlayer(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>{t("server.vBanMenu.main", {name: playerName})} </h2>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.vBanMenu.playerNameDescription")} </h2>
             <TextInput value={playerName} name={t("server.vBanMenu.playerName")} callback={(e) => setPlayerName(e.target.value)} />
             <h5 style={{maxWidth: "300px"}} >{t("server.vBanMenu.reasonDescription")}</h5>
             <TextInput value={reason} name={t("server.vBanMenu.reason")} callback={(e) => setReason(e.target.value)} />
