@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Group.module.css";
 import { useMeasure } from 'react-use';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { OperationsApi } from "../api";
-import { TextInput } from "./Buttons";
-import { Tag } from "./Card";
+import { TextInput, Button, ButtonRow } from "./Buttons";
+import { Tag, useModal } from "./Card";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -106,6 +106,7 @@ export function GameStatsAd(props) {
 
 export function VBanList(props) {
     const gid = props.gid;
+    const modal = useModal();
     const { isError, data: banList, error } = useQuery('globalBanList' + gid, () => OperationsApi.getAutoBanList({ gid }));
 
     const queryClient = useQueryClient();
@@ -155,7 +156,10 @@ export function VBanList(props) {
             <h5>
                 {t("group.vban.description0")} <b>{t("group.vban.description1", {number: banList.data.length})}</b>.
             </h5>
-            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <Button name="Add ban" callback={_ => modal.show(<VbanBanPlayer gid={gid}/>)} />
+            </ButtonRow>
             <div className={styles.BanListing}>
                 {
                     banList.data.filter(p => p.playerName.includes(searchWord)).map(
@@ -257,5 +261,62 @@ function LogRow(props) {
 function EmptyLogRow() {
     return (
         <div className={styles.logRow}></div>
+    );
+}
+
+
+function VbanBanPlayer(props) {
+    const modal = useModal();
+    var { gid } = props;
+    const { t } = useTranslation();
+
+    const history = useHistory();
+    const [playerName, setPlayerName] = useState("");
+    const [reason, setReason] = useState("");
+
+    var [banApplyStatus, setBanApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+
+    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+
+    const GlobalBanPlayer = useMutation(
+        v => OperationsApi.globalBanPlayer(v),
+        {
+            onMutate: async () => {
+                setBanApplyStatus(true)
+            },
+            onError: (error) => {
+                setBanApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setBanApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setBanApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    const isDisabled =
+        reason === "" ||
+        banApplyStatus !== null ||
+        userGettingError || !user || gid == null;
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.vBanMenu.main", {name: playerName})} </h2>
+            <TextInput value={playerName} name={t("server.vBanMenu.playerName")} callback={(e) => setPlayerName(e.target.value)} />
+            <h5 style={{maxWidth: "300px"}} >{t("server.vBanMenu.reasonDescription")}</h5>
+            <TextInput value={reason} name={t("server.vBanMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <ButtonRow>
+                <Button
+                    name={t("server.vBanMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => GlobalBanPlayer.mutate({ gid, reason, name: playerName, playerId: undefined })}
+                    status={banApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
     );
 }

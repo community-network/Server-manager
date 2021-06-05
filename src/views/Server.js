@@ -700,8 +700,6 @@ function ServerBanPlayer(props) {
             <Switch value={globalVsClassicBan} name={t("server.banMenu.vBanOption")} callback={ (v) => setGlobalVsClassicBan(v) } />
             <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}<br />{t("server.banMenu.tempbanDesc2")}</h5>
             <TextInput type={"text"} name="Ban time" defaultValue={0} callback={(e) => setBanTime(e.target.value)} disabled={globalVsClassicBan} />
-            <h5 style={{maxWidth: "300px"}} >If set, nickanme will be ignored to force ban by Player ID.</h5>
-            <TextInput type="number" name="Player ID" value={playerId} callback={(e) => setPid(e.target.value)} />
             <ButtonRow>
                 <Button
                     name={t("server.banMenu.confirm")}
