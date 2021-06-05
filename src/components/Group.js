@@ -153,7 +153,7 @@ export function VBanList(props) {
     return (
         <div>
             <h5>
-                {t("group.vban.description0")} <b>{t("group.vban.description1", {number: banList.data.length})}</b>. <Tag>{t("eBeta")}</Tag>
+                {t("group.vban.description0")} <b>{t("group.vban.description1", {number: banList.data.length})}</b>.
             </h5>
             <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
             <div className={styles.BanListing}>
