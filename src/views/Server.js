@@ -666,7 +666,7 @@ function ServerBanPlayer(props) {
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
-
+                modal.close();
             },
         }
     );
