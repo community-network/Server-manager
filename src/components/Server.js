@@ -106,7 +106,7 @@ export function ServerRotation(props) {
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
-                <img className={styles.serverImage} src={(game) ? game.url : "/no-server-image.png"} />
+                <img className={styles.serverImage} src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading") }</span>
                     <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", {inQue: game.inQue})}` : "-"}</SmallText>

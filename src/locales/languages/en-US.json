@@ -380,5 +380,15 @@
         "makeOperations": "Make Operations",
         "logout": "Logout",
         "help": "Need help?"
+    },
+    "cookieInfo": {
+        "link": "Click here for info on how to get the sid and remid",
+        "main": "How to get the SID and REMID cookies",
+        "0": "1. Open ",
+        "1": " in incognito mode with Chrome or Edge.",
+        "2": "2. Login with the account you want to use, don't forget to check \"Remember me\".",
+        "3": "3. after login, click on the lock:",
+        "4": "4. in this menu choose cookies:",
+        "5": "5. expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\""
     }
 }

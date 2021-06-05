@@ -97,7 +97,7 @@ export function GameStatsAd(props) {
     const { t } = useTranslation();
     return (
         <a target="_blank" rel="noopener noreferrer" className={styles.gameStatsAd} href="https://discord.com/oauth2/authorize?client_id=714524944783900794&scope=bot&permissions=83968">
-            <img src="./game-stats.png" />
+            <img src="/img/game-stats.png" />
             <span>{t("group.discord.gamestats")}</span>
         </a>
     );

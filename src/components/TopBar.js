@@ -38,7 +38,7 @@ export function TopBar(props) {
                     </svg>
                 </button>
                 <Link to="/" title="Main page" className={styles.mainPage}>
-                    <img src="/logo-release.png" className={styles.logo} />
+                    <img src="/img/logo-release.png" className={styles.logo} />
                 </Link>
                 <div className={styles.filler} ></div>
 

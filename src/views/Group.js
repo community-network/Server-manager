@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Switch, useModal, GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
+import { Switch, useModal, GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -926,6 +926,7 @@ export function AddGroup(props) {
                         {t("createGroup.cookieDescription1")}<br />
                         {t("createGroup.cookieDescription2")}<br />
                     </h5>
+                    <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>
@@ -1142,6 +1143,7 @@ export function MakeOps(props) {
                     <h5 style={{ marginTop: "8px" }}>
                         {t("operations.server")}<b>{t("operations.owner")}</b>{t("operations.cookies")}
                     </h5>
+                    <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>

@@ -15,7 +15,7 @@ function TopSidebar() {
     return (
         <div className={styles.TopSidebar}>
             <Link to="/" title={t("sidebar.main")}>
-                <img src="/release-logo.png" className={styles.Logo} />
+                <img src="/img/release-logo.png" className={styles.Logo} />
             </Link>
         </div>
     );
