@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { useModal, GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
+import { Switch, useModal, GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -131,6 +131,7 @@ export function Group(props) {
     const catSettings = {
         account: <GroupServerAccount gid={gid} user={user} group={group} />,
         discord: <GroupDiscordSettings gid={gid} user={user} group={group} />,
+        settings: <GroupSettings gid={gid} user={user} group={group} />,
         danger: <GroupDangerZone gid={gid} user={user} group={group} />,
     }
 
@@ -165,6 +166,10 @@ export function Group(props) {
         {
             name: t("group.discord.main"),
             callback: () => setSettingsListing("discord"),
+        },
+        {
+            name: t("group.settings.main"),
+            callback: () => setSettingsListing("settings"),
         },
         {
             name: t("group.danger.main"),
@@ -559,6 +564,88 @@ function GroupDiscordSettings(props) {
     );
 }
 
+
+function GroupSettings(props) {
+    var allowedTo = false;
+    if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+
+    const queryClient = useQueryClient();
+    const { t } = useTranslation();
+
+    const [groupState, setGroupState] = useState(null);
+    const [canApply, setCanApply] = useState(false);
+    const [applyStatus, setApplyStatus] = useState(null);
+
+    useEffect(() => {
+        
+        if (props.group) {
+            const { visableBans } = props.group;
+            const originalGroupState = { visableBans };
+            if (groupState === null) {
+                setGroupState(originalGroupState);
+            } else {
+                let newCanApply = false;
+                for (var i in originalGroupState) {
+                    newCanApply |= groupState[i] !== originalGroupState[i];
+                }
+                setCanApply(newCanApply);
+            }
+           
+        }
+        
+
+    }, [props.group, groupState]);
+
+    const changeGroupState = (v) => {
+        setGroupState(s => ({ ...s, ...v }));
+    }
+
+    const editGroupSettings = useMutation(
+        variables => OperationsApi.editGroup({value: variables, gid: props.gid}),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async () => {
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('groupId' + props.gid);
+            }
+        }
+    );
+
+    const getGroupValue = (key) => {
+        if (props.group && key in props.group) {
+            return props.group[key]
+        }
+        return "";
+    };
+
+    return (
+        <> 
+            <h5>
+                {t("group.settings.visableBansDesc")}
+            </h5>
+            <Switch checked={getGroupValue("visableBans")} name={t("group.settings.visableBans")} callback={(v) => changeGroupState({ visableBans: v })} />
+            {
+                (props.group && canApply) ? (
+                    <ButtonRow>
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editGroupSettings.mutate(
+                                groupState
+                            )
+                        } status={applyStatus} />
+                    </ButtonRow>
+                ) : ""
+            }
+        </>
+    );
+}
 
 function GroupDangerZone(props) {
 

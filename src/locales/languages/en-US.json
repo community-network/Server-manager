@@ -146,6 +146,11 @@
             "permDescription0": "Every person with that role id can use",
             "permDescription1": "discord commands to contol the server."
         },
+        "settings": {
+            "main": "Group settings",
+            "visableBansDesc": "Allow your servers bans to be visable when someone checks if a player is banned somewhere else already:",
+            "visableBans": "Enable \"!checkban\" visability"
+        },
         "danger": {
             "main": "Danger zone",
             "nameChange": "You can change the name of current Group.",
