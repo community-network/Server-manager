@@ -354,6 +354,13 @@
             "tempbanDesc2": "V-Ban tarafından şu anda desteklenmiyor.",
             "tempbanAmount": "Yasaklanma süresi",
             "confirm": "Yasakla!"
+        },
+        "vBanMenu": {
+            "playerNameDescription": "Yasaklamak istediğiniz oyuncunun adını girin",
+            "playerName": "Kullanıcı adı",
+            "reasonDescription": "Bu oyuncuyu vBan'a eklemek için bir neden girin.",
+            "reason": "sebep",
+            "confirm": "Yasakla!"
         }
     },
     "sidebar": {
