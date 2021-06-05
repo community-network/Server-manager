@@ -200,7 +200,7 @@ export function Group(props) {
             </Row>
             <Row>
                 <Column>
-                    <PageCard buttons={settingsCycle} maxWidth="500" >
+                    <PageCard buttons={settingsCycle} maxWidth="650" >
                         {catSettings[settingsListing]}
                     </PageCard>
                 </Column>
