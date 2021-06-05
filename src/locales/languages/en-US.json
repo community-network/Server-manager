@@ -12,7 +12,8 @@
         "remid": "REMID cookie",
         "sidDescription": "Session cookies can be found at ",
         "remidDescription": "Reminder session cookies can be found at ",
-        "sid": "SID cookie"
+        "sid": "SID cookie",
+        "locale": "Language tag"
     },
     "serverStatus": {
         "pending": "Pending status",
@@ -135,7 +136,9 @@
         "account": {
             "main": "Server account",
             "description0": "Account manager, that will administrate your servers.",
-            "description1": "These cookies can be found at "
+            "description1": "These cookies can be found at ",
+            "localeDescription0": "The language tag used for the cookie, the server info like mapname will be in that language.",
+            "localeDescription1": "Language tags can be found at "
         },
         "discord": {
             "main": "Discord integration",
