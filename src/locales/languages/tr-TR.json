@@ -12,7 +12,8 @@
         "remid": "REMID tanımlama bilgisi",
         "sidDescription": "Oturum çerezleri şu adreste bulunabilir ",
         "remidDescription": "Hatırlatma oturumu çerezleri şu adreste bulunabilir ",
-        "sid": "SID tanımlama bilgisi"
+        "sid": "SID tanımlama bilgisi",
+        "locale": "Dil etiketi"
     },
     "serverStatus": {
         "pending": "Bekleme durumu",
@@ -145,6 +146,13 @@
             "commandList": "Discord'da kullanabileceğiniz komutların bir listesi için \"!bfadmin \" komutunu kullanın.",
             "permDescription0": "Bu rol kimliğine sahip her kişi kullanabilir",
             "permDescription1": "sunucuyu kontrol etmek için discord komutları."
+        },
+        "settings": {
+            "main": "Grup ayarları",
+            "visableBansDesc": " bir oyuncunun başka bir yerde yasaklanıp yasaklanmadığını kontrol ettiğinde sunucu yasaklarınızın görünür olmasına izin verin:",
+            "visableBans": "\"!checkban\" görünürlüğünü etkinleştir",
+            "localeDescription0": "Çerez için kullanılan dil etiketi, harita adı, sunucu bilgileri o dilde olacaktır..",
+            "localeDescription1": "Dil etiketleri şurada bulunabilir: "
         },
         "danger": {
             "main": "Riskli bölge",

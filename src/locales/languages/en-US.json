@@ -136,9 +136,7 @@
         "account": {
             "main": "Server account",
             "description0": "Account manager, that will administrate your servers.",
-            "description1": "These cookies can be found at ",
-            "localeDescription0": "The language tag used for the cookie, the server info like mapname will be in that language.",
-            "localeDescription1": "Language tags can be found at "
+            "description1": "These cookies can be found at "
         },
         "discord": {
             "main": "Discord integration",
@@ -152,7 +150,9 @@
         "settings": {
             "main": "Group settings",
             "visableBansDesc": "Allow your servers bans to be visable when someone checks if a player is banned somewhere else already:",
-            "visableBans": "Enable \"!checkban\" visability"
+            "visableBans": "Enable \"!checkban\" visability",
+            "localeDescription0": "The language tag used for the cookie, the server info like mapname will be in that language.",
+            "localeDescription1": "Language tags can be found at "
         },
         "danger": {
             "main": "Danger zone",

@@ -579,8 +579,8 @@ function GroupSettings(props) {
     useEffect(() => {
         
         if (props.group) {
-            const { visableBans } = props.group;
-            const originalGroupState = { visableBans };
+            const { visableBans, cookieLocale } = props.group;
+            const originalGroupState = { visableBans, cookieLocale };
             if (groupState === null) {
                 setGroupState(originalGroupState);
             } else {
@@ -632,15 +632,15 @@ function GroupSettings(props) {
                 {t("group.settings.visableBansDesc")}
             </h5>
             <Switch checked={getGroupValue("visableBans")} name={t("group.settings.visableBans")} callback={(v) => changeGroupState({ visableBans: v })} />
-            {/* <h5 style={{ marginTop: "8px" }}>
-                {t("group.account.localeDescription0")}<br />{t("group.account.localeDescription1")}<a href="https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html" target="_blank" rel="noopener noreferrer">Oracle.com</a>
+            <h5 style={{ marginTop: "8px" }}>
+                {t("group.settings.localeDescription0")}<br />{t("group.settings.localeDescription1")}<a href="https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html" target="_blank" rel="noopener noreferrer">Oracle.com</a>
             </h5>
             <Row>
-                <TextInput type="text" disabled={!allowedTo} callback={(e) => setLocale(e.target.value)} defaultValue={locale} name={t("cookie.locale")} />
+                <TextInput type="text" disabled={!allowedTo} callback={(e) => changeGroupState({cookieLocale: e.target.value})} defaultValue={getGroupValue("cookieLocale")} name={t("cookie.locale")} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
                     {t("cookie.locale")}
                 </p>
-            </Row> */}
+            </Row>
             {
                 (props.group && canApply) ? (
                     <ButtonRow>
