@@ -392,7 +392,6 @@ function GroupServerAccount(props) {
 
     const [sid, setSid] = useState("");
     const [remid, setRemid] = useState("");
-    const [locale, setLocale] = useState("");
     const [applyStatus, setApplyStatus] = useState(null);
     const { t } = useTranslation();
 
@@ -402,8 +401,6 @@ function GroupServerAccount(props) {
                 setRemid(props.group.cookie.remid);
             if (sid !== props.group.cookie.sid)
                 setSid(props.group.cookie.sid);
-            if (locale !== props.group.cookie.locale)
-                setLocale(props.group.cookie.locale);
         } 
     }, [props.group]);
 
@@ -449,24 +446,15 @@ function GroupServerAccount(props) {
                     {t("cookie.sid")}
                 </p>
             </Row>
-            <h5 style={{ marginTop: "8px" }}>
-                {t("group.account.localeDescription0")}<br />{t("group.account.localeDescription1")}<a href="https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html" target="_blank" rel="noopener noreferrer">Oracle.com</a>
-            </h5>
-            <Row>
-                <TextInput type="text" disabled={!allowedTo} callback={(e) => setLocale(e.target.value)} defaultValue={locale} name={t("cookie.locale")} />
-                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    {t("cookie.locale")}
-                </p>
-            </Row>
             {
-                (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid || locale !== props.group.cookie.locale)) ? (
+                (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid)) ? (
                     <ButtonRow>
                         <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editCookies.mutate(
                                 {
                                     gid: props.gid,
                                     value: {
-                                        cookie: { sid, remid, locale }
+                                        cookie: { sid, remid }
                                     }
                                 }
                             )
@@ -644,6 +632,15 @@ function GroupSettings(props) {
                 {t("group.settings.visableBansDesc")}
             </h5>
             <Switch checked={getGroupValue("visableBans")} name={t("group.settings.visableBans")} callback={(v) => changeGroupState({ visableBans: v })} />
+            {/* <h5 style={{ marginTop: "8px" }}>
+                {t("group.account.localeDescription0")}<br />{t("group.account.localeDescription1")}<a href="https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html" target="_blank" rel="noopener noreferrer">Oracle.com</a>
+            </h5>
+            <Row>
+                <TextInput type="text" disabled={!allowedTo} callback={(e) => setLocale(e.target.value)} defaultValue={locale} name={t("cookie.locale")} />
+                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+                    {t("cookie.locale")}
+                </p>
+            </Row> */}
             {
                 (props.group && canApply) ? (
                     <ButtonRow>
