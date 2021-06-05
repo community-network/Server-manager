@@ -225,8 +225,8 @@
 
         },
         "adminList": {
-            "main": "Server admins",
-            "description0": "List of admins on this server.",
+            "main": "服务器管理员",
+            "description0": "该服务器管理员列表.",
             "description1": "已经使用了",
             "description2": "50个当中的{{number}} ",
             "table": {
