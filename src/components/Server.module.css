@@ -292,6 +292,11 @@ th {
     margin-right: 10px;
 }
 
+.uiIcion {
+    width: 18px;
+    height: 18px;
+}
+
 .logPlayer {
     background: var(--color-second);
     padding: 3px 10px;
