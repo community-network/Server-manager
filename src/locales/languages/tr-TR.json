@@ -310,6 +310,7 @@
             "vBanMsg": "V-Ban mesajı",
             "bfbanDescription": "Sunucuyu bilinen hilecilere karşı bu site sayesinde koruyun.  ",
             "bfbanEnable": "BFBan Anti-Cheat'i aktive et",
+            "bfBanMsg": "BfBan mesajı",
             "pingKickDescription": "Sürekli yüksek gecikme oyuncuları otomatik olarak at",
             "pingKickEnable": "Yüksek gecikme ile atılma aktive et",
             "pingKickAmount": "Yüksek gecikme değeri ",
