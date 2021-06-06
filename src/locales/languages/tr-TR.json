@@ -380,5 +380,17 @@
         "makeOperations": "Operasyon sunucusu oluştur",
         "logout": "Çıkış Yap",
         "help": "Yardım?"
+    },
+    "cookieInfo": {
+        "link": "Sid ve remidin nasıl alınacağı hakkında bilgi için buraya tıklayın",
+        "main": "SID ve REMID çerezleri nasıl alınır",
+        "0": "1. Tıkla ",
+        "1": " Chrome veya Edge ile gizli modda.",
+        "2": "2.Kullanmak istediğiniz hesapla giriş yapın, \"Beni hatırla\" seçeneğini işaretlemeyi unutmayın.",
+        "3": "3. Giriş yaptıktan sonra kilide tıklayın:",
+        "4": "4. Bu menüde çerezleri seçin:",
+        "5": "5. \"accounts.ea.com\"u genişletin ve çerezi \"İçerik\" altında görüntülemek için sid ve/veya remid'e tıklayın",
+        "6": "6. SID ve REMID çerezini aldıktan sonra oturumu kapatmayın, sadece tarayıcıyı kapatın.",
+        "7": "Oturumu kapatırsanız, çerezler artık geçerli değildir."
     }
 }

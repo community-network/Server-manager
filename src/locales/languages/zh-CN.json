@@ -12,7 +12,8 @@
         "remid": "REMID cookie",
         "sidDescription": "Session cookies可以在此处被找到 ",
         "remidDescription": "Reminder session cookies可以在此处被找到",
-        "sid": "SID cookie"
+        "sid": "SID cookie",
+        "locale": "语言标签"
     },
     "serverStatus": {
         "pending": "处理状态",
@@ -145,6 +146,13 @@
             "commandList": "使用\"!bfadmin\" 可以列出你可以使用的所有命令",
             "permDescription0": "每一个人都可以使用discord数字ID进行授权",
             "permDescription1": "Discord机器人命令可以进行控制服务器."
+        },
+        "settings": {
+            "main": "群组设置",
+            "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
+            "visableBans": "开启\"!checkban\" 公开",
+            "localeDescription0": "语言标签是写入cookie中的, 像地图名称等服务器信息会以该语言显示.",
+            "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 "
         },
         "danger": {
             "main": "高危区域",
@@ -372,5 +380,17 @@
         "makeOperations": "设置行动",
         "logout": "注销",
         "help": "需要帮助？"
+    },
+    "cookieInfo": {
+        "link": "点击这里查看如何获取SID和REMID cookies",
+        "main": "获取REMID和SID的方法",
+        "0": "1.打开 ",
+        "1": "在Chrome或Edge的匿名防追踪模式下",
+        "2": "2. 登录你想使用的Origin账号【严禁黑号后果自负】, 不要忘记勾选 \"记住我\".",
+        "3": "3. 在登录之后,点击地址栏的小锁:",
+        "4": "4. 在这个菜单选择cookies:",
+        "5": "5. 点击展开 \"accounts.ea.com\" 项, 并且分别点击sid和remid去查看这些cookie在 \"内容\"",
+        "6": "6. 在你得到SID和REMID cookie后不要点击Origin登出,直接关闭浏览器即可.",
+        "7": "如果你origin登出了,那么你刚才获取的cookie都会过期."
     }
 }
