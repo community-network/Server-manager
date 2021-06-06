@@ -321,8 +321,8 @@ function ServerAutomation(props) {
     useEffect(() => {
 
         if (props.server) {
-            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick } = props.server;
-            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick };
+            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage } = props.server;
+            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage };
             if (serverState === null) {
                 setServerState(originalServerState);
                 setKickOnPingDisabled(autoPingKick !== 0);
@@ -394,6 +394,12 @@ function ServerAutomation(props) {
             />
             <h5 style={{ marginTop: "30px" }}>{t("server.protection.bfbanDescription")}<i>bfban.com</i></h5>
             <Switch checked={getServerValue("autoBfbanKick")} name={t("server.protection.bfbanEnable")} callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
+            <TextInput
+                disabled={!allowedTo || (serverState && !serverState.autoBfbanKick)}
+                callback={(e) => changeSrerverState({ autoBfBanMessage: e.target.value })}
+                defaultValue={getServerValue("autoBfBanMessage")}
+                name={t("server.protection.bfBanMsg")}
+            />
             <h5 style={{ marginTop: "30px" }}>{t("server.protection.pingKickDescription")}</h5>
             <Switch checked={kickOnPingDisabled} name={t("server.protection.pingKickEnable")} callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
             <TextInput

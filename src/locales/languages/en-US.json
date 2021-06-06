@@ -310,6 +310,7 @@
             "vBanMsg": "V-Ban message",
             "bfbanDescription": "Protect server agains known cheaters in ",
             "bfbanEnable": "Enable BFBan Anti Cheat",
+            "bfBanMsg": "BfBan message",
             "pingKickDescription": "Auto kick players with constant high ping",
             "pingKickEnable": "Kick on high ping",
             "pingKickAmount": "High ping value",
