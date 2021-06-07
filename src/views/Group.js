@@ -1143,7 +1143,7 @@ export function MakeOps(props) {
                     <h5 style={{ marginTop: "8px" }}>
                         {t("operations.server")}<b>{t("operations.owner")}</b>{t("operations.cookies")}
                     </h5>
-                    <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+                    <ButtonRow><ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} /></ButtonRow>
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>

@@ -26,8 +26,11 @@
     text-decoration: none;
     outline: none;
     font-family: "Montserrat";
-    max-width: 300px;
+    max-width: 400px;
     justify-content: space-between;
+    text-decoration: none;
+    text-decoration-color: transparent;
+    box-sizing: border-box;
 }
 
 .PlayerButton {
@@ -90,7 +93,7 @@
 .TextInput {
     border: 1px solid var(--color-second);
     outline: none;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 10px 5px 10px 20px;
     height: 40px;
     background: var(--color-container-v2);
@@ -106,6 +109,7 @@
     display: flex;
     max-width: 400px;
     margin: 6px 0;
+    flex-grow: 2;
 }
 
 .SmallButton {

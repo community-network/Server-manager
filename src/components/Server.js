@@ -3,6 +3,7 @@ import styles from "./Server.module.css";
 import { useQuery } from 'react-query';
 import buttonStyle from "./Buttons.module.css";
 import { Button, ButtonRow, PlayerDropdownButton, ButtonUrl, TextInput } from "./Buttons";
+import { Row } from "./Flex";
 import { useModal } from "./Card";
 import { OperationsApi } from "../api";
 import '../locales/config';
@@ -415,15 +416,18 @@ export function Playerlogs(props) {
             <h5>
                 {t("server.playerLogs.description0")}<br />{t("server.playerLogs.description1")}<br />{t("server.playerLogs.description2")}<br /><br />{t("server.playerLogs.description3")}
             </h5>
-            <ButtonRow>
-                <TextInput id="textInput" name={t("server.playerLogs.filterPlayer")} callback={(v) => setSearchField(v.target.value)} />
-                <Button name="Search" disabled={searchField===""} callback={() => setSearchPlayer(searchField)} />
-                <Button name="Reset" disabled={searchPlayer===""} callback={() => {
-                    setSearchPlayer("");
-                    setSearchField("");
-                    document.getElementsByTagName('input')[0].value = "";
-                }} />
-            </ButtonRow>
+            <Row>
+                <TextInput id="textInput" name={t("server.playerLogs.filterPlayer")}  style={{ marginRight: "12px"}} callback={(v) => setSearchField(v.target.value)} />
+                <ButtonRow>
+                    <Button name="Search" disabled={searchField===""} callback={() => setSearchPlayer(searchField)} />
+                    <Button name="Reset" disabled={searchPlayer===""} callback={() => {
+                        setSearchPlayer("");
+                        setSearchField("");
+                        document.getElementsByTagName('input')[0].value = "";
+                    }} />
+                </ButtonRow>
+            </Row>
+            
             <PlayerLogInfo data={data} setDate={setDate} sid={sid} date={date} error={error} isError={isError}/>
         </div>
     );
@@ -446,25 +450,41 @@ function PlayerLogInfo(props) {
 
     playerLogList.data.sort((a, b) => b.amount - a.amount);
 
+    let arrowLeft = (
+        <svg className={styles.uiIcion} viewBox="0 0 24 24">
+            <path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+        </svg>
+    );
+
+    let arrowRight = (
+        <svg className={styles.uiIcion} viewBox="0 0 24 24">
+            <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+        </svg>
+    );
+
     return (
         <>
-            <ButtonRow>
-                <Button name="<<" disabled={dateIndex==0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); props.setDate(playerLogList.intDates[dateIndex])} }} />
-                <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex])}}>
-                    {playerLogList.dates.map((value, i) => {
-                        var datetime = new Date(value);
-                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            <Row>
+                <TextInput style={{ marginRight: "12px"}} name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
+                <ButtonRow>
+                    <Button name="Left" content={arrowLeft} disabled={dateIndex==0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); props.setDate(playerLogList.intDates[dateIndex])} }} />
+                    <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex])}}>
+                        {playerLogList.dates.map((value, i) => {
+                            var datetime = new Date(value);
+                            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-                        // Local time
-                        datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
-                    
-                        return <option value={i} key={i}>{datetime}</option>
-                    })}
-                </select>
-                <Button name=">>" disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
-                <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("export")} />
-            </ButtonRow>
-            <TextInput name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
+                            // Local time
+                            datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
+                        
+                            return <option value={i} key={i}>{datetime}</option>
+                        })}
+                    </select>
+                    <Button name="Right" content={arrowRight} disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
+                    <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("export")} />
+                </ButtonRow>
+            </Row>
+            
+            
             
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
