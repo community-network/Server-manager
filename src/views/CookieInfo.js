@@ -1,25 +1,11 @@
 import React from "react";
-import { useQuery } from 'react-query';
-import { Redirect } from 'react-router-dom';
-import { OperationsApi } from "../api";
-import { Column, Card, Header, ButtonLink, ButtonRow, GroupRow, Row } from "../components";
+import { Column, Card, Header, Row } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
 export function CookieInfo() {
     const { t } = useTranslation();
-    const { isLoading, isError, data } = useQuery('devGroups', () => OperationsApi.getDevGroups())
     
-    var groups = [];
-
-    if (!isLoading && !isError && data) {
-        data.data.map((g, i) => {
-            groups.push(<GroupRow key={i} group={g} />);
-        });
-    } else if (isError) {
-        return <Redirect to="/" />;
-    }
-
     return (
         <Row>
             <Column>

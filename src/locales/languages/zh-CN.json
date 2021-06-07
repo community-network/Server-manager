@@ -311,6 +311,7 @@
             "vBanMsg": "V-Ban信息",
             "bfbanDescription": "保护服务器远离BFBAN实锤外挂 ",
             "bfbanEnable": "开启BFBAN反作弊",
+            "bfBanMsg": "BFBAN信息",
             "pingKickDescription": "自动踢出指定高ping玩家",
             "pingKickEnable": "踢出高ping玩家",
             "pingKickAmount": "指定高ping数值",
