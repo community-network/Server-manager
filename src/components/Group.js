@@ -162,7 +162,7 @@ export function VBanList(props) {
             </ButtonRow>
             <div className={styles.BanListing}>
                 {
-                    banList.data.filter(p => p.playerName.includes(searchWord)).map(
+                    banList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
                         (player, i) => (<GlobalBanRow player={player} key={i} callback={() => unbanVGlobalBan.mutate({gid, name: player.playerName})}/>)
                     )
                 }
