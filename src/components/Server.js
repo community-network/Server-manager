@@ -302,7 +302,10 @@ export function FireStarter(props) {
             <h5>
                 {t("server.firestarterList.description0")}<br />{t("server.firestarterList.description1")}
             </h5>
-            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/firestartersexcel?serverid=${props.sid}`} name={t("export")} />
+            </ButtonRow>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
@@ -359,7 +362,10 @@ export function Spectator(props) {
             <h5>
                 {t("server.spectatorList.description0")}<br />{t("server.spectatorList.description1")}<br />{t("server.spectatorList.description2")}
             </h5>
-            <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/spectatorsexcel?serverid=${props.sid}`} name={t("export")} />
+            </ButtonRow>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
