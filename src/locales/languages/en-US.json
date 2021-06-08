@@ -152,7 +152,12 @@
             "visableBansDesc": "Allow your servers bans to be visable when someone checks if a player is banned somewhere else already:",
             "visableBans": "Enable \"!checkban\" visability",
             "localeDescription0": "The language tag used for the cookie, the server info like mapname will be in that language.",
-            "localeDescription1": "Language tags can be found at "
+            "localeDescription1": "Language tags can be found at ",
+            "tokenDescription0": "If you want to use the backend of the manager-api, generate a token here and save it somewhere.",
+            "tokenDescription1": "We only allow you to generate a new one, we cant give you the old token from the panel.",
+            "token": "Token",
+            "tokenGen": "Generate",
+            "tokenEnable": "Enable group token"
         },
         "danger": {
             "main": "Danger zone",
@@ -393,5 +398,13 @@
         "5": "5. Expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\"",
         "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
         "7": "If you logout the cookies are no longer valid."
+    },
+    "ApiInfo": {
+        "main": "Server Manager API",
+        "link": "Click here to get all the available requests for the API",
+        "examples": {
+            "python": "Python example code",
+            "rust": "Rust example code"
+        }
     }
 }

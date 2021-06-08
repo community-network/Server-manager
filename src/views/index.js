@@ -3,6 +3,7 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Account from "./Account";
+import { ApiInfo } from "./ApiInfo"
 import { Developer } from "./Developer";
 import { Server } from "./Server";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "./Group";
@@ -30,6 +31,7 @@ export default function Views(props) {
                         <Route exact path="/group/new/" component={AddGroup} />
                         <Route exact path="/group/:gid/" component={Group} />
                         <Route exact path="/cookieinfo/" component={CookieInfo} />
+                        <Route exact path="/apiinfo/" component={ApiInfo} />
 
                         <Route exact path="/group/:gid/add/server" component={AddGroupServer} />
                         <Route exact path="/group/:gid/add/admin/" component={AddGroupAdmin} />

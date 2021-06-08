@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as crypto from "crypto";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
@@ -572,6 +573,7 @@ function GroupSettings(props) {
     const queryClient = useQueryClient();
     const { t } = useTranslation();
 
+    const [tokenDisabled, setTokenDisabled] = useState(props.group.tokenUsed);
     const [groupState, setGroupState] = useState(null);
     const [canApply, setCanApply] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
@@ -579,15 +581,17 @@ function GroupSettings(props) {
     useEffect(() => {
         
         if (props.group) {
-            const { visableBans, cookieLocale } = props.group;
-            const originalGroupState = { visableBans, cookieLocale };
+            const { visableBans, cookieLocale, token } = props.group;
+            const originalGroupState = { visableBans, cookieLocale, token: props.group.tokenUsed?"-":"" };
             if (groupState === null) {
                 setGroupState(originalGroupState);
+                setTokenDisabled(token !== "");
             } else {
                 let newCanApply = false;
                 for (var i in originalGroupState) {
                     newCanApply |= groupState[i] !== originalGroupState[i];
                 }
+                if (groupState.token === "") setTokenDisabled(false);
                 setCanApply(newCanApply);
             }
            
@@ -641,6 +645,27 @@ function GroupSettings(props) {
                     {t("cookie.locale")}
                 </p>
             </Row>
+            <h5 style={{paddingTop: '1rem'}}>
+                {t("group.settings.tokenDescription0")}<br />{t("group.settings.tokenDescription1")}
+            </h5>
+            <Switch checked={tokenDisabled} name={t("group.settings.tokenEnable")} callback={(v) => {
+                let token = ""
+                setTokenDisabled(v); (!v)
+                ?token = ""
+                :token = crypto.randomBytes(20).toString('hex'); 
+                document.getElementsByTagName('input')[1].value = token;
+                changeGroupState({ token: token })}} />
+            <Row>
+                <TextInput type="text" disabled={!allowedTo || !tokenDisabled} callback={(e) => 
+                    changeGroupState({token: e.target.value})} defaultValue={getGroupValue("token")} 
+                    name={t("group.settings.token")}/>
+                <Button name={t("group.settings.tokenGen")} callback={_ => {
+                    const token = crypto.randomBytes(20).toString('hex')
+                    changeGroupState({token: token});
+                    document.getElementsByTagName('input')[1].value = token;
+                } }/>
+            </Row>
+            <ButtonRow><ButtonUrl href={`/apiinfo`} name={t("ApiInfo.link")} /></ButtonRow>
             {
                 (props.group && canApply) ? (
                     <ButtonRow>
