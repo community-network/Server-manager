@@ -44,7 +44,7 @@ export function ApiInfo() {
                             With token:
                         </h4>
                         <h5>
-                            add the token into the header
+                            add the token into the header (? means optional)
                         </h5>
                         <h5 style={{paddingTop: '.5rem'}}>
                             Get some basic lists about your server<br />
@@ -73,9 +73,31 @@ export function ApiInfo() {
                             body: playername, groupid, reason
                         </h5>
                         <h5 style={{paddingTop: '.5rem'}}>
-                            remnove a player to your vBan list<br />
+                            remove a player to your vBan list<br />
                             POST: https://manager-api.gametools.network/api/delautoban<br />
                             body: playername, groupid, reason
+                        </h5>
+                        <h5 style={{paddingTop: '2rem'}}>
+                            add people to vip or banlist:<br />
+                            POST: https://manager-api.gametools.network/api/changeserver<br />
+                            body: request, playername, serverid, groupid, reason?, bantime?, playerid?<br />
+                            options for request: addServerBan, removeServerBan, addServerVip and removeServerVip
+                        </h5>
+                        <h5 style={{paddingTop: '.5rem'}}>
+                            kick a player<br />
+                            POST: https://manager-api.gametools.network/api/changeplayer<br />
+                            body: request, playername, reason, serverid, groupid, playerid?<br />
+                            options for request: kickPlayer
+                        </h5>
+                        <h5 style={{paddingTop: '.5rem'}}>
+                            move a player<br />
+                            POST: https://manager-api.gametools.network/api/moveplayer<br />
+                            body: playername, serverid, groupid, teamid
+                        </h5>
+                        <h5 style={{paddingTop: '.5rem'}}>
+                            change the map<br />
+                            POST: https://manager-api.gametools.network/api/changelevel<br />
+                            body: serverid, mapnumber, groupid
                         </h5>
                     </Card>
                 </Column>
