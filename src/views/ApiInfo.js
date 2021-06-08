@@ -47,6 +47,10 @@ export function ApiInfo() {
                             add the token into the header (? means optional)
                         </h5>
                         <h5 style={{paddingTop: '.5rem'}}>
+                            Get info about your group, including servers<br />
+                            GET: https://homedev.gametools.network/api/getgroup?groupid=GROUPID<br />
+                        </h5>
+                        <h5 style={{paddingTop: '.5rem'}}>
                             Get some basic lists about your server<br />
                             GET: https://manager-api.gametools.network/api/infolist?type=TYPE&serverid=SERVERID&groupid=GROUPID<br />
                             options for type: bannedList, adminList and vipList
