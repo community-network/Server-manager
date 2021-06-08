@@ -652,7 +652,7 @@ function GroupSettings(props) {
                 let token = ""
                 setTokenDisabled(v); (!v)
                 ?token = ""
-                :token = cryptoRandomString({length: 20});
+                :token = cryptoRandomString({length: 40});
                 document.getElementsByTagName('input')[1].value = token;
                 changeGroupState({ token: token })}} />
             <Row>
@@ -660,7 +660,7 @@ function GroupSettings(props) {
                     changeGroupState({token: e.target.value})} defaultValue={getGroupValue("token")} 
                     name={t("group.settings.token")}/>
                 <Button name={t("group.settings.tokenGen")} callback={_ => {
-                    const token = cryptoRandomString({length: 20});
+                    const token = cryptoRandomString({length: 40});
                     changeGroupState({token: token});
                     document.getElementsByTagName('input')[1].value = token;
                 } }/>
