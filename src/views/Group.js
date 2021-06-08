@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as crypto from "crypto";
+import cryptoRandomString from 'crypto-random-string';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
@@ -652,7 +652,7 @@ function GroupSettings(props) {
                 let token = ""
                 setTokenDisabled(v); (!v)
                 ?token = ""
-                :token = crypto.randomBytes(20).toString('hex'); 
+                :token = cryptoRandomString({length: 20});
                 document.getElementsByTagName('input')[1].value = token;
                 changeGroupState({ token: token })}} />
             <Row>
@@ -660,7 +660,7 @@ function GroupSettings(props) {
                     changeGroupState({token: e.target.value})} defaultValue={getGroupValue("token")} 
                     name={t("group.settings.token")}/>
                 <Button name={t("group.settings.tokenGen")} callback={_ => {
-                    const token = crypto.randomBytes(20).toString('hex')
+                    const token = cryptoRandomString({length: 20});
                     changeGroupState({token: token});
                     document.getElementsByTagName('input')[1].value = token;
                 } }/>
