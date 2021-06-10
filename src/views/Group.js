@@ -573,7 +573,7 @@ function GroupSettings(props) {
     const queryClient = useQueryClient();
     const { t } = useTranslation();
 
-    const [tokenDisabled, setTokenDisabled] = useState(props.group.tokenUsed);
+    const [tokenDisabled, setTokenDisabled] = useState(props.group ? props.group.tokenUsed : false);
     const [groupState, setGroupState] = useState(null);
     const [canApply, setCanApply] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
