@@ -447,6 +447,9 @@ function GroupServerAccount(props) {
                     {t("cookie.sid")}
                 </p>
             </Row>
+            <ButtonRow>
+                <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+            </ButtonRow>
             {
                 (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid)) ? (
                     <ButtonRow>
