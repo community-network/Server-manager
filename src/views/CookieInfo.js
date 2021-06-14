@@ -1,10 +1,11 @@
 import React from "react";
-import { Column, Card, Header, Row } from "../components";
+import { Column, Card, Header, Row, ButtonUrl } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
 export function CookieInfo() {
     const { t } = useTranslation();
+    const getLanguage = () => window.localStorage.i18nextLng
     
     return (
         <Row>
@@ -13,6 +14,9 @@ export function CookieInfo() {
                     <h2>{t("cookieInfo.main")}</h2>
                 </Header>
                 <Card>
+                    {getLanguage() == "zh-CN" ? 
+                    <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.video")} /> : <></>
+                    }
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("cookieInfo.0")}<a href="https://www.origin.com/" target="_blank" rel="noopener noreferrer">Origin.com</a>{t("cookieInfo.1")}
                     </h5>
