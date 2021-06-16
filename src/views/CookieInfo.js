@@ -15,7 +15,7 @@ export function CookieInfo() {
                 </Header>
                 <Card>
                     {getLanguage() == "zh-CN" ? 
-                    <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.video")} /> : <></>
+                    <ButtonUrl href="https://youtu.be/Znd1YjmXqO8" name={t("cookieInfo.video")} /> : <></>
                     }
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("cookieInfo.0")}<a href="https://www.origin.com/" target="_blank" rel="noopener noreferrer">Origin.com</a>{t("cookieInfo.1")}
