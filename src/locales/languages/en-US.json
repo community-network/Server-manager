@@ -336,8 +336,13 @@
             "main": "Console"
         },
         "players": {
+            "failed": "Oops.. Player list failed!",
+            "noPlayers": "Noone joined this side yet!",
+            "noSpectators": "There are no spectators",
+            "full": "full",
             "teamOne": "Team 1",
-            "teamTwo": "Team 2"
+            "teamTwo": "Team 2",
+            "timeInfo": "For how long the player is in game"
         },
         "playerStats": {
             "main": "Game stats for {{player}}",

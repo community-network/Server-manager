@@ -97,86 +97,6 @@
     width: 100px;
 }
 
-.PlayerRow {
-    padding: 15px 20px;
-    border-radius: 10px;
-    color: var(--color-text-low);
-    background: var(--color-container);
-    border: 1px solid var(--color-second);
-    margin: 6px 0;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-}
-
-
-.PlayerName {
-    color: var(--color-text);
-    margin-right: 10px;
-    cursor: pointer;
-}
-.PlayerName:hover {
-    color: var(--color-text-high);
-}
-
-.PlayerIndex {
-    padding-right: 20px;
-}
-
-.PlayerPing {
-    display: flex;
-    color: var(--color-text);
-    align-items: center;
-    justify-content: flex-end;
-    font-size: 14px;
-    width: 45px;
-}
-
-.PlayerPing > svg {
-    width: 18px;
-    height: 18px;
-    margin-left: 5px;
-    align-self: center;
-}
-
-.PlayerLevel {
-    color: var(--color-text-high);
-    margin-right: 10px;
-    font-size: 12px;
-    width: 30px;
-    text-align: center;
-    border: 1px solid var(--color-text-low);
-    border-radius: 3px;
-}
-
-.PlayerNone {
-    flex-grow: 2;
-}
-
-.playerBackgroundInfo {
-    margin-right: 10px;
-}
-
-.PlayerButtons {
-    display: flex;
-    flex-direction: row;
-}
-
-
-.PlayerButton {
-    color: var(--color-text);
-    cursor: pointer;
-    margin-right: 15px;
-    padding: 5px 10px;
-    border: 1px solid var(--color-second-v2);
-    border-radius: 5px;
-    background: var(--color-container-v2);
-}
-
-.PlayerButton:hover {
-    background: var(--color-second);
-}
 
 
 
@@ -371,3 +291,5 @@ th {
 .statsBlock > h5 {
     margin: 0;
 }
+
+

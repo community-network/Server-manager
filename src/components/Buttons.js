@@ -143,7 +143,7 @@ export function PlayerDropdownButton(props) {
 
 export function ChoosePageButtons(props) {
 
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(props.activeButton || 0);
     const [pageCardRef, { width }] = useMeasure();
     let maxWidth = props.maxWidth || 1320
 

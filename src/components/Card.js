@@ -18,7 +18,7 @@ export function CardRow(props) {
 export function PageCard(props) {
     return (
         <div>
-            <ChoosePageButtons buttons={props.buttons} maxWidth={props.maxWidth} />
+            <ChoosePageButtons buttons={props.buttons} maxWidth={props.maxWidth} activeButton={props.activeButton} />
             <div className={styles.PageCard} style={props.style}>
                 {props.children}
              </div>

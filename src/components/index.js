@@ -9,5 +9,4 @@ export { UserRow, UserStRow, FakeUserStRow } from "./User";
 export { GroupRow, ServerRow, GameStatsAd, VBanList, GroupLogs } from "./Group";
 export { Status } from "./Status";
 export { MainPageComponent } from "./MainPage";
-export { ServerInfo, ServerRotation, ServerInfoHolder, PlayerInfo, BanList, VipList, AdminList, LogList, FireStarter, Spectator, Playerlogs } from "./Server";
 export { TopBar } from "./TopBar";

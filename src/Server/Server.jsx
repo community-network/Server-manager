@@ -1,45 +1,32 @@
 import React, { useState } from "react";
-import styles from "./Server.module.css";
 import { useQuery } from 'react-query';
-import buttonStyle from "./Buttons.module.css";
-import { Button, ButtonRow, PlayerDropdownButton, ButtonUrl, TextInput } from "./Buttons";
-import { Row } from "./Flex";
-import { useModal } from "./Card";
-import { OperationsApi } from "../api";
-import '../locales/config';
 import { useTranslation } from 'react-i18next';
-import { useMeasure } from 'react-use';
+
+
+import buttonStyle from "../components/Buttons.module.css";
+import { Button, ButtonRow, PlayerDropdownButton, ButtonUrl, TextInput } from "../components/Buttons";
+import { Row } from "../components/Flex";
+import { useModal } from "../components/Card";
+
+
+import { OperationsApi } from "../api";
+
+import '../locales/config';
+
+import styles from "./Styles.module.css";
+
+import { PlayerTimer } from "./PlayerList";
+
+
+import { PlayerStatsModal } from "./Modals";
+
+
 
 export function SmallText(props) {
     return (<span className={styles.SmallText}>{props.children}</span>);
 }
 
-function PlayerStatsModal(props) {
-    const player = props.player;
-    const { isError, data: stats, isLoading } = useQuery('playerStatsByEAID' + player, () => fetch("https://api.gametools.network/bf1/stats/?name="+player+"&lang=en-us&platform=pc&=").then(r=>r.json()));
-    const { t } = useTranslation();
-    
-    const statsBlock = (!isLoading && !isError) ? (
-        <div className={styles.statsBlock}>
-            <h5>{t("server.playerStats.skill")}{stats.skill}</h5>
-            <h5>{t("server.playerStats.rank")}{stats.rank}</h5>
-            <h5>{t("server.playerStats.killsPerMinute")}{stats.killsPerMinute}</h5>
-            <h5>{t("server.playerStats.winPercent")}{stats.winPercent}</h5>
-            <h5>{t("server.playerStats.accuracy")}{stats.Accuracy}</h5>
-            <h5>{t("server.playerStats.headshots")}{stats.headshots}</h5>
-            <h5>{t("server.playerStats.killDeath")}{stats.killDeath}</h5>
-            <h5>{t("server.playerStats.id")}{stats.id}</h5>
-            <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank">{t("server.playerStats.toStatsPage")}</a>
-        </div>
-    ) : t("server.playerStats.loading");
 
-    return (   
-        <>
-            <h2>{t("server.playerStats.main", {player: player})}</h2>
-            {statsBlock}
-        </>
-    );
-}
 
 export function EditableText(props) {
     return (<p>{props.children}</p>);
@@ -98,10 +85,9 @@ export function ServerRotation(props) {
             )
         }
     }
-    var update_timestamp = "";
+    var update_timestamp = new Date().getTime() * 1000;
     if (server) {
-        const timestamp = new Date(server.update_timestamp);
-        update_timestamp =  `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`;
+        update_timestamp = new Date(server.update_timestamp).getTime() * 1000;
     }
     var [rotationId, setRotationId] = useState(""); 
     return (
@@ -125,85 +111,14 @@ export function ServerRotation(props) {
             </ButtonRow>
             <div className={styles.serverStatusArray}>
                 <span>{server_status}</span>
-                <span className={styles.serverBadge}>{t("server.game.playerlistUpdate")} - {update_timestamp}</span>
+                <span className={styles.serverBadge}>{t("server.game.playerlistUpdate")} <PlayerTimer time={update_timestamp}/> ago</span>
             </div>
             
         </div>
     );
 }
 
-export function PlayerInfo(props) {
-    const { t } = useTranslation();
-    const modal = useModal();
-    const [playerListRef, { width }] = useMeasure();
-    var info = props.game.data[0].players[props.team].players;
 
-    var moveTeam = (props.team === "0") ? "1" : "2";
-
-    let getDropdownOptions = (player) => {
-        return [
-            { name: t("server.action.move"), callback: () => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam, playerId: player.playerId}) },
-            { name: t("server.action.kick"), callback: () => modal.show(<props.kickModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>) },
-            { name: t("server.action.ban"), callback: () => modal.show(<props.banModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>) },
-        ]
-    };
-
-    if (info.length > 0 && info[0] === undefined) return "";
-
-    return (
-        <div ref={playerListRef}>
-        {info.map((player, i) => 
-            <div className={styles.PlayerRow} key={i}>
-
-                <span className={styles.PlayerIndex}>
-                    {i + 1}
-                </span>
-                <span className={styles.PlayerLevel}>
-                    {
-                        (player.rank === null) ? "??" : player.rank
-                    }
-                </span>
-                <span className={styles.PlayerName} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
-                    {
-                        (player.platoon === "") ? "" : `[${player.platoon}] ` 
-                    }
-                    {
-                        player.name
-                    }
-                </span>
-                <span className={styles.PlayerNone} />
-
-
-                {width < 600 ? 
-                    <div>
-                        <PlayerDropdownButton options={getDropdownOptions(player)} name="☰"></PlayerDropdownButton>
-                    </div>:
-                <>
-                    <div className={styles.PlayerButtons}>
-                        <div className={styles.PlayerButton} onClick={_ => props.onMove.mutate({ sid: props.sid, name: player.name, team: moveTeam, playerId: player.playerId})}>
-                            {t("server.action.move")}
-                        </div>
-                        <div className={styles.PlayerButton} onClick={_ => modal.show(<props.kickModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
-                            {t("server.action.kick")}
-                        </div>
-                        <div className={styles.PlayerButton} onClick={_ => modal.show(<props.banModal sid={props.sid} eaid={player.name} playerId={player.playerId}/>)}>
-                            {t("server.action.ban")}
-                        </div>
-                    </div>
-
-                    <span className={styles.PlayerPing}>
-                        {player.ping}
-                        <svg viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M4,6V4H4.1C12.9,4 20,11.1 20,19.9V20H18V19.9C18,12.2 11.8,6 4,6M4,10V8A12,12 0 0,1 16,20H14A10,10 0 0,0 4,10M4,14V12A8,8 0 0,1 12,20H10A6,6 0 0,0 4,14M4,16A4,4 0 0,1 8,20H4V16Z" />
-                        </svg>
-                    </span>
-                </>
-                }
-                
-            </div>
-        )}
-    </div>
-    )}
 
 export function ServerInfoHolder(props) {
     return (
