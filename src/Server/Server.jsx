@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 
 import buttonStyle from "../components/Buttons.module.css";
-import { Button, ButtonRow, PlayerDropdownButton, ButtonUrl, TextInput } from "../components/Buttons";
+import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
 import { Row } from "../components/Flex";
 import { useModal } from "../components/Card";
 
@@ -184,7 +184,11 @@ function BanRow(props) {
     const { t } = useTranslation();
     return (    
         <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
-            <td className={styles.BanDisplayName}>{player.displayName}</td>
+            <td title={player.displayName} className={styles.VipName}>
+                <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
+                <span>{player.displayName}</span>
+            </td>
+            {/* <td className={styles.BanDisplayName}>{player.displayName}</td> */}
             <td title={t("server.banList.table.playerId")}>{player.id}</td>
             <td>{player.reason}</td>
             <td>{player.admin}</td>
@@ -330,7 +334,7 @@ export function Playerlogs(props) {
     const [searchPlayer, setSearchPlayer] = useState("");
     const [searchField, setSearchField] = useState("");
 
-    const { isError, data: data, error } = useQuery('serverPlayerLogList' + date + sid + searchPlayer, () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }));
+    const { isError, data, error } = useQuery('serverPlayerLogList' + date + sid + searchPlayer, () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }));
 
     return (
         <div>
@@ -388,7 +392,7 @@ function PlayerLogInfo(props) {
             <Row>
                 <TextInput style={{ marginRight: "12px"}} name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
                 <ButtonRow>
-                    <Button name="Left" content={arrowLeft} disabled={dateIndex==0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); props.setDate(playerLogList.intDates[dateIndex])} }} />
+                    <Button name="Left" content={arrowLeft} disabled={dateIndex === 0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); props.setDate(playerLogList.intDates[dateIndex])} }} />
                     <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex])}}>
                         {playerLogList.dates.map((value, i) => {
                             var datetime = new Date(value);
@@ -400,7 +404,7 @@ function PlayerLogInfo(props) {
                             return <option value={i} key={i}>{datetime}</option>
                         })}
                     </select>
-                    <Button name="Right" content={arrowRight} disabled={dateIndex==playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
+                    <Button name="Right" content={arrowRight} disabled={dateIndex === playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
                     <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("export")} />
                 </ButtonRow>
             </Row>

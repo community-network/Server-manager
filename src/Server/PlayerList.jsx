@@ -24,7 +24,7 @@ export function PlayerTimer(props) {
     let hours_playing = Math.floor(minutes_playing / 60);
 
     minutes_playing = `${minutes_playing - 60 * hours_playing}min`;
-    hours_playing = (hours_playing == 0) ? "" : `${hours_playing}h`;
+    hours_playing = (hours_playing === 0) ? "" : `${hours_playing}h`;
 
     return (
         <>
@@ -52,7 +52,7 @@ export function PlayerList(props) {
         if (!havePlayers) {
             return "";
         }
-        if (teams[teamId].players.length == maxTeamPlayers) {
+        if (teams[teamId].players.length === maxTeamPlayers) {
             return t("server.players.full");
         } else {
             return `${teams[teamId].players.length}/${maxTeamPlayers}`;
@@ -63,7 +63,7 @@ export function PlayerList(props) {
         if (!havePlayers) {
             return "";
         }
-        if (spectators.length == maxSpectator) {
+        if (spectators.length === maxSpectator) {
             return t("server.players.full");
         } else {
             return `${spectators.length}/${maxSpectator}`;
@@ -74,13 +74,13 @@ export function PlayerList(props) {
     let team1 = 
         (!haveGame) ? <LoadingListPlayerGroup amount={32} /> : 
         (!havePlayers) ? t("server.players.failed") : 
-        (teams[0].players.length == 0) ? t("server.players.noPlayers") : 
+        (teams[0].players.length === 0) ? t("server.players.noPlayers") : 
         <ListPlayerGroup players={teams[0].players} team="0" sid={sid} />;
 
     let team2 = 
         (!haveGame) ? <LoadingListPlayerGroup amount={32} /> : 
         (!havePlayers) ? t("server.players.failed") : 
-        (teams[1].players.length == 0) ? t("server.players.noPlayers") : 
+        (teams[1].players.length === 0) ? t("server.players.noPlayers") : 
         <ListPlayerGroup players={teams[1].players} team="1" sid={sid} />;
 
 
@@ -90,7 +90,7 @@ export function PlayerList(props) {
     let specs = 
         (!haveGame) ? <LoadingListPlayerGroup amount={4} /> : 
         (!havePlayers) ? t("server.players.failed") : 
-        (spectators.length == 0) ? t("server.players.noSpectators") : 
+        (spectators.length === 0) ? t("server.players.noSpectators") : 
         <ListPlayerGroup players={spectators} team={null} sid={sid} />;
 
     return (

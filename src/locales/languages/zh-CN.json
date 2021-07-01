@@ -332,8 +332,13 @@
             "main": "控制台"
         },
         "players": {
-            "teamOne": "队伍 1",
-            "teamTwo": "队伍 2"
+            "failed": "草，服务器玩家列表读取失败!",
+            "noPlayers": "还没有人加入这一边!",
+            "noSpectators": "目前还没有观察者",
+            "full": "满了",
+            "teamOne": "队伍1",
+            "teamTwo": "队伍2",
+            "timeInfo": "该玩家加入游戏的时间"
         },
         "playerStats": {
             "main": "玩家统计{{player}}",

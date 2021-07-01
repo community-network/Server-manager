@@ -93,7 +93,7 @@ export function ServerBanPlayer(props) {
         if(playerId !== props.playerId) {
             setPid(props.playerId);
         }
-    }, [props.playerId]);
+    }, [playerId, props.playerId]);
 
     const BanPlayer = useMutation(
         v => OperationsApi.banPlayer(v),
@@ -219,7 +219,7 @@ export function PlayerStatsModal(props) {
             <h5>{t("server.playerStats.headshots")}{stats.headshots}</h5>
             <h5>{t("server.playerStats.killDeath")}{stats.killDeath}</h5>
             <h5>{t("server.playerStats.id")}{stats.id}</h5>
-            <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank">{t("server.playerStats.toStatsPage")}</a>
+            <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank" rel="noreferrer">{t("server.playerStats.toStatsPage")}</a>
         </div>
     ) : t("server.playerStats.loading");
 
