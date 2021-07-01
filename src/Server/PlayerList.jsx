@@ -144,14 +144,14 @@ function ListPlayerGroup(props) {
    
     const [playerListRef, { width }] = useMeasure();
 
-    let { team, players } = props;
+    let { team, players, sid } = props;
 
     let moveTeam = !!team ? (team === "0") ? "1" : "2" : false;
 
     return (
         <div ref={playerListRef}>
             {players.map((player, i) => (
-                <Player player={player} key={i} i={i} moveTeam={moveTeam} width={width} />
+                <Player player={player} key={i} i={i} moveTeam={moveTeam} width={width} sid={sid} />
             ))}
         </div>
     )
