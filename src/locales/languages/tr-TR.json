@@ -331,8 +331,13 @@
             "main": "Konsol"
         },
         "players": {
+            "failed": "Hata.. Oyuncu listesi başarısız oldu!",
+            "noPlayers": "Bu tarafa henüz kimse katılmadı!",
+            "noSpectators": "seyirci yok",
+            "full": "Dolu",
             "teamOne": "Takım 1",
-            "teamTwo": "Takım 2"
+            "teamTwo": "Takım 2",
+            "timeInfo": "Oyuncunun oyunda ne kadar süre kaldığı"
         },
         "playerStats": {
             "main": "{{player}} 'nin Oyun İstatistikleri",
