@@ -33,11 +33,9 @@ export function PlayerTimer(props) {
     );
 }
 
-export function PlayerList(props) {
+export function PlayerList({ game, sid }) {
 
     const { t } = useTranslation();
-
-    let { game, sid } = props;
 
     let haveGame = !!game;
     let teams = haveGame ? game.data[0].players : false;
@@ -72,13 +70,13 @@ export function PlayerList(props) {
 
 
     let team1 = 
-        (!haveGame) ? <LoadingListPlayerGroup amount={32} /> : 
+        (!haveGame) ? <LoadingListPlayerGroup amount={16} /> : 
         (!havePlayers) ? t("server.players.failed") : 
         (teams[0].players.length === 0) ? t("server.players.noPlayers") : 
         <ListPlayerGroup players={teams[0].players} team="0" sid={sid} />;
 
     let team2 = 
-        (!haveGame) ? <LoadingListPlayerGroup amount={32} /> : 
+        (!haveGame) ? <LoadingListPlayerGroup amount={16} /> : 
         (!havePlayers) ? t("server.players.failed") : 
         (teams[1].players.length === 0) ? t("server.players.noPlayers") : 
         <ListPlayerGroup players={teams[1].players} team="1" sid={sid} />;
@@ -115,16 +113,15 @@ export function PlayerList(props) {
     )
 }
 
-function PlayerListColumn(props) {
+function PlayerListColumn({ children }) {
     return (
         <Column>
-            <Card>{props.children}</Card>
+            <Card>{children}</Card>
         </Column>
     )
 }
 
-function LoadingListPlayerGroup(props) {
-    let { amount } = props;
+function LoadingListPlayerGroup({ amount }) {
     return (
         <div>
             {Array.from({ length: amount }, (_, i) => i).map((_, i) => (
@@ -140,11 +137,9 @@ function LoadingPlayer() {
     );
 }
 
-function ListPlayerGroup(props) {
+function ListPlayerGroup({ team, players, sid }) {
    
     const [playerListRef, { width }] = useMeasure();
-
-    let { team, players, sid } = props;
 
     let moveTeam = !!team ? (team === "0") ? "1" : "2" : false;
 
@@ -157,13 +152,22 @@ function ListPlayerGroup(props) {
     )
 }
 
-
-export function Player(props) {
+/**
+ * PLayer row
+ * @param {Object} props 
+ * @param {Object} props.player - Player
+ * @param {Number} props.i - Index
+ * @param {String} props.sid - Server Id
+ * @param {String | Null} props.moveTeam - Tell which team to move player into
+ * @param {Number} props.width - Current Player group width
+ * 
+ * @returns Player
+ */
+export function Player({ player, i, sid, moveTeam, width }) {
 
     const modal = useModal();
 
-    let { player, i, sid, moveTeam, width } = props;
-
+    // Show player stats modal
     const showStats = _=> {
         return modal.show(
             <PlayerStatsModal player={player.name} />
@@ -206,14 +210,23 @@ export function Player(props) {
     );
 }
 
-function PlayerButtons(props) {
-
-    let { player, sid, moveTeam, width } = props;
+/**
+ * Component to show buttons in a Player list
+ * @param {Object} props 
+ * @param {Object} props.player - Player
+ * @param {String} props.sid - Server Id
+ * @param {String | Null} props.moveTeam - Tell which team to move player into
+ * @param {Number} props.width - Current Player group width
+ * 
+ * @returns Player Buttons React element
+ */
+function PlayerButtons({ player, sid, moveTeam, width }) {
 
     const { t } = useTranslation();
     const modal = useModal();
     const movePlayer = useMovePlayer();
 
+    // Show Ban player Modal
     const showBan = _=> {
         modal.show(
             <ServerBanPlayer 
@@ -224,6 +237,7 @@ function PlayerButtons(props) {
         );
     }
 
+    // Show Kick player modal
     const showKick = _=> {
         modal.show(
                 <ServerKickPlayer 
@@ -234,6 +248,7 @@ function PlayerButtons(props) {
         )
     }
 
+    // Try to move player
     const moveCallback = _=> {
         movePlayer.mutate({ 
             sid, 
@@ -243,23 +258,25 @@ function PlayerButtons(props) {
         })
     }
 
-
+    // Possible buttons
     let playerOptions = [
         { name: t("server.action.kick"), callback: showKick },
         { name: t("server.action.ban"),  callback: showBan  },
     ];
 
+    // If movable, add move button
     if (!!moveTeam) {
         playerOptions.push({ name: t("server.action.move"), callback: moveCallback });
     }
 
-
+    // If too small, show button listing instead
     if (width < 600) {
         return (
             <PlayerDropdownButton options={playerOptions} name="☰"></PlayerDropdownButton>
         )
     }
 
+    // Return Buttons in a row
     return (
         <div className={styles.PlayerButtons}>
             {playerOptions.map(({name, callback}, key) => (
@@ -271,18 +288,29 @@ function PlayerButtons(props) {
     )
 } 
 
-function PlayerButton(props) {
+/**
+ * Player Button styled component
+ * @param {Object} props
+ * @param {React.ReactChild} props.children
+ * @param {Function} props.onClick - callback
+ * @returns React element
+ */
+function PlayerButton({ children, onClick }) {
     return (
-        <button className={styles.PlayerButton} onClick={props.onClick}>
-            {props.children}
+        <button className={styles.PlayerButton} onClick={onClick}>
+            {children}
         </button>
     )
 }
 
-function PlayerPing(props) {
 
-    const { ping } = props;
-
+/**
+ * Display player ping as an element with icon
+ * @param {Object} props
+ * @param {String} props.ping - Player Ping
+ * @returns React element
+ */
+function PlayerPing({ ping }) {
     return (
         <span className={styles.PlayerPing}>
             {ping}
@@ -294,5 +322,4 @@ function PlayerPing(props) {
             </svg>
         </span>
     )
-
 }
