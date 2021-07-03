@@ -336,9 +336,22 @@
             "noPlayers": "还没有人加入这一边!",
             "noSpectators": "目前还没有观察者",
             "full": "满了",
-            "teamOne": "队伍1",
-            "teamTwo": "队伍2",
+            "0": "队伍1",
+            "1": "队伍2",
             "timeInfo": "该玩家加入游戏的时间"
+        },
+        "factions": {
+            "BFFactionId_FactionAHU": "奥匈帝国",
+            "BFFactionId_FactionGER": "德帝国",
+            "BFFactionId_FactionOTM": "奥斯曼土鸡",
+            "BFFactionId_FactionITA": "意大利王国",
+            "BFFactionId_FactionUK": "英国",
+            "BFFactionId_FactionUSA": "漂亮国",
+            "BFFactionId_FactionFRA": "法国",
+            "BFFactionId_FactionRUS": "俄帝国",
+            "BFFactionId_FactionBOL": "红军",
+            "BFFactionId_FactionWA": "白军",
+            "BFFactionId_FactionUKM": "皇家海军"
         },
         "playerStats": {
             "main": "玩家统计{{player}}",

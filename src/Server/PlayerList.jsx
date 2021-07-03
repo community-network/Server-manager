@@ -6,6 +6,7 @@ import { PlayerDropdownButton } from "../components/Buttons";
 import { useModal, Column, Card, TopRow } from "../components";
 
 import styles from "./PlayerList.module.css";
+import { factions } from "./Factions";
 
 import { ServerKickPlayer, ServerBanPlayer, PlayerStatsModal } from "./Modals";
 import { useMovePlayer } from "./Manager";
@@ -53,7 +54,7 @@ export function PlayerList({ game, sid }) {
         if (teams[teamId].players.length === maxTeamPlayers) {
             return t("server.players.full");
         } else {
-            return `${teams[teamId].players.length}/${maxTeamPlayers}`;
+            return t("server.players.main", {amount: teams[teamId].players.length, max: maxTeamPlayers});
         }   
     }
 
@@ -64,48 +65,74 @@ export function PlayerList({ game, sid }) {
         if (spectators.length === maxSpectator) {
             return t("server.players.full");
         } else {
-            return `${spectators.length}/${maxSpectator}`;
+            return t("server.players.main", {amount: spectators.length, max: maxSpectator});
         }   
     }
 
+    const getFaction = (teamid) => {
+        if (!havePlayers) {
+            return (
+                <span className={styles.Faction}>
+                    <div className={styles.LoadingFactionImage}  />
+                    {t(`server.players.${teamid}`)}
+                </span>
+            );
+        }
+        if (teams[teamid].faction in factions) {
+            let factionId = teams[teamid].faction;
+            return (
+                <span className={styles.Faction}>
+                    <img src={factions[factionId].image} alt={factions[factionId].name} className={styles.FactionImage}  />
+                    {t(`server.factions.${factionId}`)}
+                </span>
+            );
+        } else {
+            return t(`server.players.${teamid}`)
+        }
+    }
 
     let team1 = 
         (!haveGame) ? <LoadingListPlayerGroup amount={16} /> : 
-        (!havePlayers) ? t("server.players.failed") : 
-        (teams[0].players.length === 0) ? t("server.players.noPlayers") : 
+        (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> : 
+        (teams[0].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> : 
         <ListPlayerGroup players={teams[0].players} team="0" sid={sid} />;
 
     let team2 = 
         (!haveGame) ? <LoadingListPlayerGroup amount={16} /> : 
-        (!havePlayers) ? t("server.players.failed") : 
-        (teams[1].players.length === 0) ? t("server.players.noPlayers") : 
+        (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> : 
+        (teams[1].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> : 
         <ListPlayerGroup players={teams[1].players} team="1" sid={sid} />;
-
 
     // Message Cards here or smth
     // Instead of plain text
 
     let specs = 
         (!haveGame) ? <LoadingListPlayerGroup amount={4} /> : 
-        (!havePlayers) ? t("server.players.failed") : 
-        (spectators.length === 0) ? t("server.players.noSpectators") : 
+        (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> : 
+        (spectators.length === 0) ? <PlayerListMessage>{t("server.players.noSpectators")}</PlayerListMessage> : 
         <ListPlayerGroup players={spectators} team={null} sid={sid} />;
 
     return (
         <>
             <TopRow>
                 <PlayerListColumn>
-                    <h2>{t("server.players.teamOne")} <span className={styles.playerAmount}>{getPlayerAmountMsg(0)}</span></h2>
+                    <h2 className={styles.PlayerGroupName}>
+                        {getFaction(0)}
+                        <span className={styles.playerAmount}>{getPlayerAmountMsg(0)}</span>
+                    </h2>
                     {team1}
                 </PlayerListColumn>
                 <PlayerListColumn>
-                    <h2>{t("server.players.teamTwo")}  <span className={styles.playerAmount}>{getPlayerAmountMsg(1)}</span></h2>
+                    <h2 className={styles.PlayerGroupName}>
+                        {getFaction(1)}
+                        <span className={styles.playerAmount}>{getPlayerAmountMsg(1)}</span>
+                    </h2>
                     {team2}
                 </PlayerListColumn>
             </TopRow>
             <TopRow>
                 <PlayerListColumn>
-                    <h2>Spectators <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
+                    <h2 className={styles.PlayerGroupName}>Spectators <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
                     {specs}
                 </PlayerListColumn>
             </TopRow>
@@ -127,6 +154,14 @@ function LoadingListPlayerGroup({ amount }) {
             {Array.from({ length: amount }, (_, i) => i).map((_, i) => (
                 <LoadingPlayer key={i} />
             ))}
+        </div>
+    )
+}
+
+function PlayerListMessage({ children }) {
+    return (
+        <div className={styles.PlayerListMessage}>
+            {children}
         </div>
     )
 }

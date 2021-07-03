@@ -336,13 +336,27 @@
             "main": "Console"
         },
         "players": {
+            "main": "{{amount}} of {{max}} players",
             "failed": "Oops.. Player list failed!",
             "noPlayers": "Noone joined this side yet!",
             "noSpectators": "There are no spectators",
-            "full": "full",
-            "teamOne": "Team 1",
-            "teamTwo": "Team 2",
+            "full": "Team full",
+            "0": "Team 1",
+            "1": "Team 2",
             "timeInfo": "For how long the player is in game"
+        },
+        "factions": {
+            "BFFactionId_FactionAHU": "Austro-Hungarian Empire",
+            "BFFactionId_FactionGER": "German Empire",
+            "BFFactionId_FactionOTM": "Ottoman Empire",
+            "BFFactionId_FactionITA": "Kingdom of Italy",
+            "BFFactionId_FactionUK": "United Kingdom",
+            "BFFactionId_FactionUSA": "United States of America",
+            "BFFactionId_FactionFRA": "France",
+            "BFFactionId_FactionRUS": "Russian Empire",
+            "BFFactionId_FactionBOL": "Red Army",
+            "BFFactionId_FactionWA": "White Army",
+            "BFFactionId_FactionUKM": "Royal Marines"
         },
         "playerStats": {
             "main": "Game stats for {{player}}",

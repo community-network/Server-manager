@@ -335,8 +335,8 @@
             "noPlayers": "Bu tarafa henüz kimse katılmadı!",
             "noSpectators": "seyirci yok",
             "full": "Dolu",
-            "teamOne": "Takım 1",
-            "teamTwo": "Takım 2",
+            "0": "Takım 1",
+            "1": "Takım 2",
             "timeInfo": "Oyuncunun oyunda ne kadar süre kaldığı"
         },
         "playerStats": {

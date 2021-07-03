@@ -3,10 +3,12 @@
 }
 
 .playerAmount {
+    justify-content: flex-end;
+    margin-left: 10px;
     color: var(--color-text);
 }
 
-.PlayerRow, .PlayerRowLoading {
+.PlayerRow, .PlayerRowLoading, .PlayerListMessage {
     padding: 15px 20px;
     border-radius: 10px;
     color: var(--color-text-low);
@@ -101,6 +103,36 @@
 
 .PlayerButton:hover {
     background: var(--color-second);
+}
+
+.FactionImage, .LoadingFactionImage {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.LoadingFactionImage {
+    background: var(--color-container-v2);
+}
+
+.PlayerGroupName {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Faction {
+    display: flex;
+    align-self: center;
+    align-items: center;
+}
+
+.PlayerListMessage {
+    height: 50px;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 500;
 }
 
 
