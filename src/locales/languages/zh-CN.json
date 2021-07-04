@@ -59,6 +59,18 @@
                 "heading": "对你的服务器进行完全掌控",
                 "body": "管理员可以和游戏内一样的对服务器进行控制."
             }
+        },
+        "statistics": {
+            "main": "目前已经被全球 {{communities}} 个游戏社群使用，这其中涵盖了 {{servers}} 个服务器",
+            "weekly": {
+                "main": "本周统计:",
+                "bfbanKicks": "被bfban自动踢的没妈孤儿总数",
+                "globalbanKicks": "被群组虚拟vban踢掉的玩家总数",
+                "pingKicks": "因为高延迟被踢的玩家",
+                "movedPlayers": "被换边的玩家",
+                "kickedPlayers": "通过这个面板被踢的玩家",
+                "bannedPlayers": "通过这个面板被ban的玩家"
+            }
         }
     },
     "account": {
@@ -329,7 +341,9 @@
             "alias": "昵称"
         },
         "console": {
-            "main": "控制台"
+            "main": "控制台",
+            "logs": "显示操作日志",
+            "amount": "{{amount}} 个事件"
         },
         "players": {
             "failed": "草，服务器玩家列表读取失败!",
