@@ -132,7 +132,7 @@ export function PlayerList({ game, sid }) {
             </TopRow>
             <TopRow>
                 <PlayerListColumn>
-                    <h2 className={styles.PlayerGroupName}>Spectators <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
+                    <h2 className={styles.PlayerGroupName}>{t("server.players.spectators")} <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
                     {specs}
                 </PlayerListColumn>
             </TopRow>

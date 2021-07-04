@@ -343,6 +343,7 @@
             "full": "Team full",
             "0": "Team 1",
             "1": "Team 2",
+            "spectators": "Spectators",
             "timeInfo": "For how long the player is in game"
         },
         "factions": {
