@@ -1,4 +1,5 @@
-import React from "react";
+    import React from "react";
+import { useQuery } from 'react-query';
 import styles from "./MainPage.module.css";
 import { OperationsApi } from "../api";
 import '../locales/config';
@@ -22,6 +23,7 @@ function LoginButton() {
 
 export function MainPageComponent(props) {
     const { t } = useTranslation();
+    const { isError, data: stats, isLoading } = useQuery('managerStats', () => fetch("https://api.gametools.network/manager/info/").then(r=>r.json()));
     return (
         <div className={styles.MainPage}>
             <div className={styles.MainPageCard}>
@@ -29,7 +31,48 @@ export function MainPageComponent(props) {
                     <div className={styles.titleContent}>
                         <h1>{t("mainPage.main")}</h1>
                         <p>{t("mainPage.description")}</p>
+                        {
+                            (!isLoading && !isError) ? (
+                                <p style={{marginTop: "10px"}}>{t("mainPage.statistics.main", {communities: stats.amounts.communities, servers: stats.amounts.servers})}</p>
+                            ) : ""
+                        }
                         <LoginButton />
+                        {!isLoading && !isError ? (
+                            <>
+                                <table className={styles.Statistics}>
+                                    <tr>
+                                        <th className={styles.TableHeader} colspan="2">
+                                            {t("mainPage.statistics.weekly.main")}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>{stats.amounts.perWeek.bfbanKicks}</td>
+                                        <td>{t("mainPage.statistics.weekly.bfbanKicks")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{stats.amounts.perWeek.globalbanKicks}</td>
+                                        <td>{t("mainPage.statistics.weekly.globalbanKicks")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{stats.amounts.perWeek.pingKicks}</td>
+                                        <td>{t("mainPage.statistics.weekly.pingKicks")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{stats.amounts.perWeek.movedPlayers}</td>
+                                        <td>{t("mainPage.statistics.weekly.movedPlayers")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{stats.amounts.perWeek.kickedPlayers}</td>
+                                        <td>{t("mainPage.statistics.weekly.kickedPlayers")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{stats.amounts.perWeek.bannedPlayers}</td>
+                                        <td>{t("mainPage.statistics.weekly.bannedPlayers")}</td>
+                                    </tr>
+                                </table>
+                            </>
+                        ) : (<></>)
+                        }
                     </div>
                 </div>
                 <div className={styles.listing}>

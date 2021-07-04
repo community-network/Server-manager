@@ -62,3 +62,10 @@ p {
     color: var(--color-text);
     margin: 6px 0 18px 0;
 }
+
+table {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text);
+}

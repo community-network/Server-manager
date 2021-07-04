@@ -15,6 +15,7 @@ const LanguageSelector = () => {
             <option value="zh-CN">简体中文</option>
             <option value="tr-TR">Türkçe</option>
             <option value="el-GR">Ελληνικα</option>
+            <option value="nl-NL">Nederlands</option>
         </select>
     )
 }

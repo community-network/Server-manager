@@ -59,6 +59,18 @@
                 "heading": "Sunucularınız üzerinde tam kontrol",
                 "body": "Yöneticiler sunucuyu oyundaki ile aynı işlevlerle kontrol edebilir."
             }
+        },
+        "statistics": {
+            "main": "Toplam {{communities}} sunucuya sahip {{servers}} Topluluk tarafından kullanılmaktadır",
+            "weekly": {
+                "main": "Haftalık istatistikler:",
+                "bfbanKicks": "bfban tarafından tekmelenen oyuncular",
+                "globalbanKicks": "Global V-Ban listeleri aracılığıyla atılan oyuncular",
+                "pingKicks": "oyunculara ping için tekme attı",
+                "movedPlayers": "oyuncular diğer takıma geçti",
+                "kickedPlayers": "panel üzerinden atılan oyuncular",
+                "bannedPlayers": "panel üzerinden yasaklanan oyuncular"
+            }
         }
     },
     "account": {
@@ -328,7 +340,9 @@
             "alias": "Ön Ad"
         },
         "console": {
-            "main": "Konsol"
+            "main": "Konsol",
+            "logs": "Eylem günlükleri",
+            "amount": "Günlükte {{amount}} öğe"
         },
         "players": {
             "main": "{{amount}} / {{max}} oyuncu",

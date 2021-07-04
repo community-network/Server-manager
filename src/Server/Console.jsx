@@ -7,7 +7,7 @@ import '../locales/config';
 
 import { ServerKickPlayer, ServerBanPlayer, ServerMovePlayer } from "./Modals";
 import { useUnban, useRemoveVip, useAddVip, useMovePlayer } from "./Manager";
-
+import { LogList } from "./ActionLogs";
 
 /**
  * Console block to operate the server
@@ -96,7 +96,7 @@ export default function Console(props) {
 
     return (
         <Card>
-            <h2>{t("server.console.main")}</h2>
+            <h5>{t("server.console.main")}</h5>
             <Row>
                 <TextInput name={t("server.playerName")} callback={e => setPlayerName(e.target.value)} style={{
                     marginRight: 12,
@@ -110,6 +110,7 @@ export default function Console(props) {
                     <Button disabled={disabledButton || removeVipStatus.status || isOpsMode} name={removeVipStatus.name} callback={removeVipCallback}  />
                 </ButtonRow>
             </Row>
+            <LogList sid={sid} />
         </Card>
     );
 }

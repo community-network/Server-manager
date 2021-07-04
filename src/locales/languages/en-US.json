@@ -57,7 +57,19 @@
             },
             "5": {
                 "heading": "Full control over your servers",
-                "body": "Admins can controll server with same functions as in game."
+                "body": "Admins can control servers with same functions as in game."
+            }
+        },
+        "statistics": {
+            "main": "Used by {{communities}} Communities with a total of {{servers}} servers",
+            "weekly": {
+                "main": "Weekly statistics:",
+                "bfbanKicks": "players kicked by bfban",
+                "globalbanKicks": "players kicked via Global V-Ban lists",
+                "pingKicks": "players kicked for ping",
+                "movedPlayers": "players moved to the other team",
+                "kickedPlayers": "players kicked via the panel",
+                "bannedPlayers": "players banned via the panel"
             }
         }
     },
@@ -95,8 +107,8 @@
         "id": "Identity",
         "admins": {
             "main": "Admins",
-            "description0": "Admin role can manage servers. You need to have at least",
-            "description1": "Owner role to add new admins.",
+            "description0": "Admin role can manage servers.",
+            "description1": "You need to have at least Owner role to add new admins.",
             "add": "Add admin",
             "addNew": "Add new Admin",
             "removeSelected": "Remove Selected Admins",
@@ -106,8 +118,8 @@
         },
         "servers": {
             "main": "Servers",
-            "description0": "Servers instances added to current group. You need to have",
-            "description1": "Owner role in order to add new servers.",
+            "description0": "Server instances added to current group.",
+            "description1": "You need to have Owner role in order to add new servers.",
             "add": "Add Server"
         },
         "owners": {
@@ -140,7 +152,7 @@
         },
         "discord": {
             "main": "Discord integration",
-            "description0": "With our bot, you can allow admins to controll your servers",
+            "description0": "With our bot, you can allow admins to control your servers",
             "description1": "by using commands with ! prefix.",
             "gamestats": "Add Game Stats bot on your Discord server, in order to control BF1 servers with commands.",
             "commandList": "for a list of commands that you can use in Discord, use the \"!bfadmin\" command.",
@@ -313,7 +325,7 @@
             "vbanReasonDesc0": "This msg appear to users who got ",
             "vbanReasonDesc1": "auto-kicked by V-Ban Global system.",
             "vBanMsg": "V-Ban message",
-            "bfbanDescription": "Protect server agains known cheaters in ",
+            "bfbanDescription": "Protect server against known cheaters in ",
             "bfbanEnable": "Enable BFBan Anti Cheat",
             "bfBanMsg": "BfBan message",
             "pingKickDescription": "Auto kick players with constant high ping",
@@ -333,7 +345,9 @@
             "alias": "Alias"
         },
         "console": {
-            "main": "Console"
+            "main": "Console",
+            "logs": "Show action logs",
+            "amount": "{{amount}} items in log"
         },
         "players": {
             "main": "{{amount}} of {{max}} players",

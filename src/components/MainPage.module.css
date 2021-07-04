@@ -83,6 +83,23 @@
     background-color: #7C70FF;
 }
 
+.Statistics {
+    margin-top: 35px;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: left;
+    background-color: #1C1C26;
+}
+
+.Statistics td:first-child {
+    text-align: right;
+}
+
+.TableHeader {
+    padding: 0;
+    background-color: transparent;
+}
+
 @media (max-width: 1350px) {
     .titleContent {
         text-align: left;

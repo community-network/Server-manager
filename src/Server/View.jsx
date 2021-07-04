@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { OperationsApi } from "../api";
 
 
-import { ServerRotation, ServerInfoHolder, BanList, VipList, AdminList, LogList, FireStarter, Spectator, Playerlogs } from "./Server";
+import { ServerRotation, ServerInfoHolder, BanList, VipList, AdminList, FireStarter, Spectator, Playerlogs } from "./Server";
 
 import { Switch, Column, Header, ButtonRow, Button, PageCard, Row, TextInput } from "../components";
 
@@ -18,7 +18,7 @@ import { useServer, useGame } from "./Manager";
 import Console from "./Console";
 
 import { PlayerList } from "./PlayerList";
-
+import { LogList } from "./ActionLogs";
 
 /**
  * Server page
@@ -63,10 +63,10 @@ export function Server(props) {
             name: t("server.playerLogs.main"),
             callback: () => setTabsListing("playerlogs"),
         },
-        {
-            name: t("server.logs.main"),
-            callback: () => setTabsListing("loglist"),
-        },
+        // {
+        //     name: t("server.logs.main"),
+        //     callback: () => setTabsListing("loglist"),
+        // },
         {
             name: t("server.protection.main"),
             callback: () => setTabsListing("protection"),
@@ -90,7 +90,7 @@ export function Server(props) {
         firestarter: <FireStarter sid={sid} />,
         spectator:   <Spectator sid={sid} />,
         playerlogs:  <Playerlogs sid={sid} />,
-        loglist:     <LogList sid={sid} />,
+        // loglist:     <LogList sid={sid} />,
         protection:  <ServerAutomation server={server} sid={sid} />,
         settings:    <ServerSettings server={server} sid={sid} />,
     }

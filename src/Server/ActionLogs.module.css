@@ -1,0 +1,96 @@
+
+.logListing {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+}
+
+.logTitle {
+    display: flex;
+    align-items: center;
+}
+
+.logDensity {
+    font-size: 13px;
+    color: var(--color-text);
+    margin-left: 10px;
+}
+
+.logAdmin, .logPlayer {
+    margin-right: 10px;
+    color: var(--color-text-high);
+}
+.logAction, .logReason {
+    margin-right: 10px;
+    color: var(--color-text);
+}
+.logRow {
+    padding: 10px 20px;
+    margin: 5px 0;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--color-second);
+    background: var(--color-container-v2);
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+}
+
+.logReasonDetailed {
+    flex-grow: 2;
+    color: var(--color-text-high);
+}
+
+.logIcon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+
+.logPlayer {
+    background: var(--color-second);
+    padding: 3px 10px;
+    border-radius: 3px;
+    height: auto;
+    align-self: center;
+    cursor: pointer;
+}
+
+
+.showLogs {
+    padding: 6px 12px 6px 24px;
+    margin: 6px 0;
+    border: 1px solid var(--color-second);
+    background: var(--color-container-v2);
+    display: flex;
+    border-radius: 8px;
+    color: var(--color-text);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.ActionLogs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.MenuArrowIcon {
+    width: 18px;
+    align-self: center;
+    margin-left: 12px;
+}
+
+.logPlayer:hover {
+    background: var(--color-second-v2);
+}
+
+.showLogs:hover {
+    background: var(--color-second);
+    border: 1px solid var(--color-second-v2);
+}
