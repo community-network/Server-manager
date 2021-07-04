@@ -331,13 +331,28 @@
             "main": "Konsol"
         },
         "players": {
+            "main": "{{amount}} / {{max}} oyuncu",
             "failed": "Hata.. Oyuncu listesi başarısız oldu!",
             "noPlayers": "Bu tarafa henüz kimse katılmadı!",
             "noSpectators": "seyirci yok",
+            "spectators": "izleyici",
             "full": "Dolu",
             "0": "Takım 1",
             "1": "Takım 2",
             "timeInfo": "Oyuncunun oyunda ne kadar süre kaldığı"
+        },
+        "factions": {
+            "BFFactionId_FactionAHU": "Avusturya-Macaristan İmparatorluğu",
+            "BFFactionId_FactionGER": "Alman imparatorluğu",
+            "BFFactionId_FactionOTM": "Osmanlı imparatorluğu",
+            "BFFactionId_FactionITA": "İtalya Krallığı",
+            "BFFactionId_FactionUK":  "Birleşik Krallık",
+            "BFFactionId_FactionUSA": "Amerika Birleşik Devletleri",
+            "BFFactionId_FactionFRA": "Fransa",
+            "BFFactionId_FactionRUS": "Rus imparatorluğu",
+            "BFFactionId_FactionBOL": "Kızıl Ordu",
+            "BFFactionId_FactionWA": "Beyaz Ordu",
+            "BFFactionId_FactionUKM": "Kraliyet Deniz Piyadeleri"
         },
         "playerStats": {
             "main": "{{player}} 'nin Oyun İstatistikleri",
