@@ -33,11 +33,11 @@ export function MainPageComponent(props) {
                         <p>{t("mainPage.description")}</p>
                         {
                             (!isLoading && !isError) ? (
-                                <p style={{marginTop: "10px"}}>{t("mainPage.statistics.main", {communities: stats.amounts.communities, servers: stats.amounts.servers})}</p>
+                                <p>{t("mainPage.statistics.main", {communities: stats.amounts.communities, servers: stats.amounts.servers})}</p>
                             ) : ""
                         }
                         <LoginButton />
-                        {!isLoading && !isError ? (
+                        {/* {!isLoading && !isError ? (
                             <>
                                 <table className={styles.Statistics}>
                                     <tr>
@@ -72,7 +72,7 @@ export function MainPageComponent(props) {
                                 </table>
                             </>
                         ) : (<></>)
-                        }
+                        } */}
                     </div>
                 </div>
                 <div className={styles.listing}>
