@@ -57,6 +57,18 @@
                 "heading": "Πλήρης έλεγχος στους διακομιστές σας",
                 "body": "Οι διαχειριστές μπορούν να ελέγχουν το διακομιστή με τις ίδιες λειτουργίες όπως στο παιχνίδι."
             }
+        },
+        "statistics": {
+            "main": "Χρησιμοποιείται από {{communities}} Κοινότητες με συνολικά {{servers}} διακομιστές ",
+            "weekly": {
+                "main": "Εβδομαδιαία στατιστικά:",
+                "bfbanKicks": "παίκτες kicked από bfban",
+                "globalbanKicks": "παίκτες kicked μέσο Παγκόσμιες λίστες V-Ban (Global V-Ban lists)",
+                "pingKicks": "παίκτες kicked για ping",
+                "movedPlayers": "παίκτες που μεταφέρθηκαν σε διαφορετική ομάδα",
+                "kickedPlayers": "παίκτες kicked μέσο του panel",
+                "bannedPLayers": "παίκτες banned μέσο του panel"
+            }
         }
     },
     "account": {
@@ -319,11 +331,33 @@
             "alias": "Παρατσούκλι"
         },
         "console": {
-            "main": "Κονσόλα"
+            "main": "Κονσόλα",
+            "logs": "Εμφάνιση αρχείων καταγραφής ενεργειών",
+            "amount": "{{amount}} στοιχείων στο αρχείο καταγραφής"
         },
         "players": {
+            "main": "{{amount}} των {{max}} παικτών",
+            "failed": "Ουπς..Η λίστα παικτών απέτυχε!",
+            "noPlayers": " Κανείς δεν έγινε μέλος αυτής της πλευράς ακόμα!",
+            "noSpectators": "Δεν υπάρχουν θεατές",
+            "full ": "Ομάδα γεμάτη",
             "0": "Ομάδα 1",
-            "1": "Ομάδα 2"
+            "1": "Ομάδα 2",
+            "spectators": "Θεατές",
+            "timeInfo": "Για πόση ώρα ο παίκτης είναι μέσα"
+        },
+        "factions": {
+            "BFFactionId_FactionAHU": "Αυστρο-Ουγκρική Αυτοκρατορία",
+            "BFFactionId_FactionGER": "Γερμανική Αυτοκρατορία",
+            "BFFactionId_FactionOTM": " Οθωμανική Αυτοκρατορία",
+            "BFFactionId_FactionITA": "Βασίλειο της Ιταλίας",
+            "BFFactionId_FactionUK": "Ηνωμένο Βασίλειο",
+            "BFFactionId_FactionUSA": "Ηνωμένες Πολιτίες Αμερικής",
+            "BFFactionId_FactionFRA": "Γαλλία",
+            "BFFactionId_FactionRUS": "Ρωσική Αυτοκρατορία",
+            "BFFactionId_FactionBOL": "Κόκκινος Στρατός",
+            "BFFactionId_FactionWA": "Λευκός Στρατός",
+            "BFFactionId_FactionUKM": " Βασιλικοί Ναυτικοί "
         },
         "playerStats": {
             "main": "Στατιστικά παιχνιδιών για {{player}}",
