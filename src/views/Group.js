@@ -668,7 +668,7 @@ function GroupSettings(props) {
                     document.getElementsByTagName('input')[1].value = token;
                 } }/>
             </Row>
-            <ButtonRow><ButtonUrl href={`/apiinfo`} name={t("ApiInfo.link")} /></ButtonRow>
+            <ButtonRow><ButtonUrl href={`https://manager-api.gametools.network/docs/`} name={t("ApiInfo.link")} /></ButtonRow>
             {
                 (props.group && canApply) ? (
                     <ButtonRow>

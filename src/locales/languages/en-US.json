@@ -434,11 +434,6 @@
         "7": "If you logout the cookies are no longer valid."
     },
     "ApiInfo": {
-        "main": "Server Manager API",
-        "link": "Click here to get all the available requests for the API",
-        "examples": {
-            "python": "Python example code",
-            "rust": "Rust example code"
-        }
+        "link": "Click here to get all the available requests for the API"
     }
 }
