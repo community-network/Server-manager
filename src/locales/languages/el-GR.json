@@ -6,6 +6,7 @@
     "loading": "Φόρτωση..",
     "denied": "Δεν επιτρέπεται",
     "apply": "Εφάρμοσε",
+    "export": "Εξαγωγή",
     "cookie": {
         "invalid": "Σφάλμα: Τα coockies που χρησιμοποιείς δεν είναι έγκυρα!",
         "remid": "REMID cookie",
