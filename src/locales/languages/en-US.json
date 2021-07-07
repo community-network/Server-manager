@@ -275,7 +275,7 @@
             "table": {
                 "playerName": "Player name",
                 "playerId": "Player ID",
-                "timePlayed": "Time spend on the server"
+                "timePlayed": "Time spent on the server"
             }
         },
         "spectatorList": {
