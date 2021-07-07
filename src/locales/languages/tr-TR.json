@@ -263,6 +263,16 @@
                 "amount": "Miktar"
             }
         },
+        "playTimeList": {
+            "main": "Oyun zamanı",
+            "description0": "Her oyuncunun bu sunucuda ne kadar süredir bulunduğunun listesi, böylece oyuncuya oynadığınız için teşekkür etmek için özel bir şey verebilirsiniz.",
+            "description1": "Bu veriler haftalıktır ve \"saat:dakika\" olarak ölçülür.",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID",
+                "timePlayed": "Sunucuda harcanan zaman"
+            }
+        },
         "spectatorList": {
             "main": "İzleyici listesi",
             "description0": "Son 24 saat içinde sunucuya kimlerin izlediğinin bir listesini tutuyoruz,",
