@@ -268,6 +268,16 @@
                 "amount": "Amount"
             }
         },
+        "playTimeList": {
+            "main": "Playtime",
+            "description0": "List of how long each player has been on this server, so you could give something special to the player as thanks for playing.",
+            "description1": "This data is per week and measured as \"hours:minutes\"",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "timePlayed": "Time spend on the server"
+            }
+        },
         "spectatorList": {
             "main": "Spectator list",
             "description0": "We keep a list of who spectated the server within the last 24 hours,",

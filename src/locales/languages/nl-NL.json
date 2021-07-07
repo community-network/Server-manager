@@ -267,6 +267,16 @@
                 "amount": "Hoeveelheid"
             }
         },
+        "playTimeList": {
+            "main": "Speeltijd",
+            "description0": "Lijst met hoe lang iedere speler op uw server is geweest, zodat u hem wat speciaals kan geven voor dit.",
+            "description1": "Deze data is per week, en word neergezet als \"uren:minuten\"",
+            "table": {
+                "playerName": "Spelernaam",
+                "playerId": "Speler ID",
+                "amount": "Tijdsbesteding op de server"
+            }
+        },
         "spectatorList": {
             "main": "Spectator lijst",
             "description0": "Wij houden een lijst bij met wie in de laatste 24 uur de server is binnengekomen als toeschouwer",

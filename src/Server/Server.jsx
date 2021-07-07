@@ -258,6 +258,74 @@ function StarterRow(props) {
     );
 }
 
+export function PlayTime(props) {
+    const sid = props.sid;
+    const { t } = useTranslation();
+    const { isError, data: playTimeList, error } = useQuery('playTimeList' + sid, () => OperationsApi.getPlayTimeList({ sid }));
+
+    const [searchWord, setSearchWord] = useState("");
+
+    if (!playTimeList) {
+        // TODO: add fake item list on loading
+        return t("loading");
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    playTimeList.data.sort((a, b) => b.timePlayed - a.timePlayed);
+
+    return (
+        <div>
+            <h5>
+                {t("server.playTimeList.description0")}<br />{t("server.playTimeList.description1")}
+            </h5>
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <ButtonUrl href={`https://manager-api.gametools.network/api/playingscoreboardexcel?serverid=${props.sid}`} name={t("export")} />
+            </ButtonRow>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <th>{t("server.playTimeList.table.playerName")}</th>
+                        <th>{t("server.playTimeList.table.playerId")}</th>
+                        <th>{t("server.playTimeList.table.timePlayed")}</th>
+                    </thead>
+                    <tbody>
+                        {
+                            playTimeList.data.filter(p => p.name.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (player, i) => (<PlayTimeRow player={player} key={i} />)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function PlayTimeRow(props) {
+    const player = props.player;
+    const modal = useModal();
+    const { t } = useTranslation();
+
+    let hours = Math.floor(player.timePlayed / 3600);
+    let onlyMins = player.timePlayed %= 3600;
+    let minutes = Math.floor(onlyMins / 60);
+
+    // Local time
+    let datetime = `${hours}:${minutes}`;
+
+    return (    
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
+            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
+            <td title={t("server.playTimeList.table.playerId")}>{player.playerId}</td>
+            <td>{datetime}</td>
+        </tr>
+    );
+}
+
 export function Spectator(props) {
     const sid = props.sid;
     const { t } = useTranslation();

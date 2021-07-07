@@ -130,6 +130,12 @@ export class ApiProvider extends JsonClient {
         });
     }
     
+    async getPlayTimeList({ sid }) {
+        return await this.getJsonMethod("playingscoreboard", {
+            "serverid": sid
+        });
+    }
+    
     async getSpectatorList({ sid }) {
         return await this.getJsonMethod("spectators", {
             "serverid": sid
