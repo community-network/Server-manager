@@ -264,6 +264,16 @@
                 "amount": "总次数"
             }
         },
+        "playTimeList": {
+            "main": "游玩时间",
+            "description0": "玩家游玩该服务器的时间统计，可以看到谁是死忠粉.",
+            "description1": "这个数据是每周统计的\"hours:minutes\"",
+            "table": {
+                "playerName": "玩家名称",
+                "playerId": "玩家数字ID",
+                "timePlayed": "在这个服游玩时间"
+            }
+        },
         "spectatorList": {
             "main": "观察者列表",
             "description0": "我们将会保存该服务器24小时内的所有观察者ID,",
