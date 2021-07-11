@@ -49,7 +49,7 @@ i18n.use(initReactI18next).use(LanguageDetector).init({
         return format(value, mask, {locale: locales[lng]})
       }
       if (type === "change") {
-        return formatDistanceToNowStrict(value, mask, {locale: locales[lng]})
+        return formatDistanceToNowStrict(value, {locale: locales[lng]})
       }
       return value;
     }
