@@ -7,6 +7,10 @@
     "denied": "Not allowed",
     "apply": "Apply",
     "export": "Export",
+    "date": "{{date, date|eee, dd MMM yyyy}}",
+    "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
+    "shortDateTime": "{{date, date|PPpp}}",
+    "change": "{{change, change}}",
     "cookie": {
         "invalid": "Error: The cookies you are using right now are invalid!",
         "remid": "REMID cookie",

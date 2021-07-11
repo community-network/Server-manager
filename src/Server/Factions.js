@@ -55,6 +55,6 @@ export let factions = {
     "BFFactionId_FactionUKM": {
         "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Tunguska/103/37/FactionsColorUnitedKingdomLarge-672527a9.png",
         "key": "UK",
-        "name": "United Kingdom",
+        "name": "Royal Marines",
     },
 };

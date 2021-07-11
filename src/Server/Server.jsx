@@ -342,7 +342,7 @@ export function Spectator(props) {
         return `Error ${error.code}: {error.message}`
     }
 
-    spectatorList.data.sort((a, b) => b.amount - a.amount);
+    spectatorList.data.sort((a, b) => b.timeStamp - a.timeStamp);
 
     return (
         <div>
@@ -379,17 +379,18 @@ function SpectatorRow(props) {
     const { t } = useTranslation();
 
     
+    // var datetime = new Date(Date.parse(player.timeStamp));
     var datetime = new Date(player.timeStamp);
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    // const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     // Local time
-    datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
+    // datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
     return (    
         <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
-            <td>{datetime}</td>
+            <td>{t("dateTime", {date: datetime})}</td>
         </tr>
     );
 }
@@ -464,12 +465,7 @@ function PlayerLogInfo(props) {
                     <select className={buttonStyle.button} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex])}}>
                         {playerLogList.dates.map((value, i) => {
                             var datetime = new Date(value);
-                            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-                            // Local time
-                            datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
-                        
-                            return <option value={i} key={i}>{datetime}</option>
+                            return <option value={i} key={i}>{t("shortDateTime", {date: datetime})}</option>
                         })}
                     </select>
                     <Button name="Right" content={arrowRight} disabled={dateIndex === playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />

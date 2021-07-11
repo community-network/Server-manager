@@ -7,6 +7,10 @@
     "denied": "Δεν επιτρέπεται",
     "apply": "Εφάρμοσε",
     "export": "Εξαγωγή",
+    "date": "{{date, date|PP}}",
+    "dateTime": "{{date, date|PPpp}}",
+    "shortDateTime": "{{date, date|PPpp}}",
+    "change": "{{change, change}}",
     "cookie": {
         "invalid": "Σφάλμα: Τα coockies που χρησιμοποιείς δεν είναι έγκυρα!",
         "remid": "REMID cookie",

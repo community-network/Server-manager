@@ -7,6 +7,10 @@
     "denied": "İzin verilmedi",
     "apply": "Onayla",
     "export": "Dosyaya aktar",
+    "date": "{{date, date|PP}}",
+    "dateTime": "{{date, date|PPpp}}",
+    "shortDateTime": "{{date, date|PPpp}}",
+    "change": "{{change, change}}",
     "cookie": {
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
         "remid": "REMID tanımlama bilgisi",

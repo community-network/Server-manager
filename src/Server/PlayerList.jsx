@@ -14,22 +14,24 @@ import { useMovePlayer } from "./Manager";
 
 export function PlayerTimer(props) {
 
+    const { t } = useTranslation();
+    // const [now, setTime] = useState(new Date().getTime());
 
-    const [now, setTime] = useState(new Date().getTime());
+    // setTimeout(_=>setTime(new Date().getTime()), 30000);
+    var dateAdded = new Date(props.time / 1000);
 
-    setTimeout(_=>setTime(new Date().getTime()), 30000);
+    // let time_playing = Math.round(now / 1000 - (props.time / 1000000));
 
-    let time_playing = Math.round(now / 1000 - (props.time / 1000000));
+    // let minutes_playing = Math.floor(time_playing / 60);
+    // let hours_playing = Math.floor(minutes_playing / 60);
 
-    let minutes_playing = Math.floor(time_playing / 60);
-    let hours_playing = Math.floor(minutes_playing / 60);
-
-    minutes_playing = `${minutes_playing - 60 * hours_playing}min`;
-    hours_playing = (hours_playing === 0) ? "" : `${hours_playing}h`;
+    // minutes_playing = `${minutes_playing - 60 * hours_playing}min`;
+    // hours_playing = (hours_playing === 0) ? "" : `${hours_playing}h`;
 
     return (
         <>
-            {hours_playing} {minutes_playing}
+            {t("change", {change: dateAdded})}
+            {/* {hours_playing} {minutes_playing} */}
         </>
     );
 }

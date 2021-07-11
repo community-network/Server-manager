@@ -25,12 +25,12 @@ export function UserRow(props) {
     );
 }
 
+// https://date-fns.org/v2.22.1/docs/format
 export function UserStRow(props) {
     var user = props.user;
+    const { t } = useTranslation();
     var dateAdded = new Date(Date.parse(user.addedAt));
 
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var dateString = `${dateAdded.getDate()} ${months[dateAdded.getMonth()]} ${String(dateAdded.getHours()).padStart(2, '0')}:${String(dateAdded.getMinutes()).padStart(2, '0')}`;
     return (
         <SelectableRow callback={props.callback}>
             <div className={styles.DiscordName}>
@@ -40,7 +40,7 @@ export function UserStRow(props) {
                 {user.id}
             </div>
             <div className={styles.DateAdded}>
-                {dateString}
+                {t("date", {date: dateAdded})}
             </div>
         </SelectableRow>
     );

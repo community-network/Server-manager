@@ -7,6 +7,10 @@
     "denied": "不被允许",
     "apply": "应用",
     "export": "导出EXCEL",
+    "date": "{{date, date|PP}}",
+    "dateTime": "{{date, date|PPpp}}",
+    "shortDateTime": "{{date, date|PPpp}}",
+    "change": "{{change, change}}",
     "cookie": {
         "invalid": "错误：你当前的cookie无效",
         "remid": "REMID cookie",
