@@ -56,6 +56,9 @@ export default class JsonClient {
                         if ("error" in json) {
                             throw json.error;
                         }
+                        if (!result.ok) {
+                            throw json.error;
+                        }
                         if ("data" in json) {
                             if (json.data.length > 0) {
                                 if ("error" in json.data[0]) {
