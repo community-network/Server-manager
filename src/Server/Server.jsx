@@ -311,7 +311,7 @@ function PlayTimeRow(props) {
     const { t } = useTranslation();
 
     let hours = Math.floor(player.timePlayed / 3600);
-    let onlyMins = player.timePlayed %= 3600;
+    let onlyMins = player.timePlayed % 3600;
     let minutes = Math.floor(onlyMins / 60);
 
     // Local time
