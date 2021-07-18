@@ -9,7 +9,7 @@ import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, 
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
-import  { GroupRow, ServerRow, GameStatsAd, VBanList, GroupLogs } from "./Group";
+import  { GroupRow, ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
 
 const deleteIcon = (
     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
@@ -137,6 +137,7 @@ export function Group(props) {
         account: <GroupServerAccount gid={gid} user={user} group={group} />,
         discord: <GroupDiscordSettings gid={gid} user={user} group={group} />,
         settings: <GroupSettings gid={gid} user={user} group={group} />,
+        status: <GroupStatus gid={gid} user={user} group={group} />,
         danger: <GroupDangerZone gid={gid} user={user} group={group} />,
     }
 
@@ -175,6 +176,10 @@ export function Group(props) {
         {
             name: t("group.settings.main"),
             callback: () => setSettingsListing("settings"),
+        },
+        {
+            name: t("group.status.main"),
+            callback: () => setSettingsListing("status"),
         },
         {
             name: t("group.danger.main"),
@@ -709,6 +714,51 @@ function GroupSettings(props) {
                         } status={applyStatus} />
                     </ButtonRow>
                 ) : ""
+            }
+        </>
+    );
+}
+
+function GroupStatus(props) {
+    const { t } = useTranslation();
+    const { error, data: groupStats } = useQuery('groupStats' + props.group.id, () => OperationsApi.getStats(props.group.id), { staleTime: 30000 });
+
+    return (
+        <>
+            {
+                (props.group) ? (
+                    <>
+                        <h5 style={{ marginTop: "0px" }}>
+                            {t("group.status.worker.main")}
+                        </h5>
+                        <WorkerStatus worker={props.group.inWorker} lastUpdate={props.group.lastUpdate} />
+                        <br />
+                        <h5>
+                            {t("group.status.cookiecheck.main")}
+                        </h5>
+                        {props.group.lastCookieCheck !== null ? (
+                            <h5>{t("time", {date: new Date(props.group.lastCookieCheck)})}</h5>
+                        ) : (
+                            <h5>{t("group.status.cookiecheck.never")}</h5>
+                        )} 
+                    </>
+                ): ""
+            }
+            <h5 style={{ marginTop: "15px", marginBottom: "0px" }}>
+                {t("group.status.stats.main")}
+            </h5>
+            {
+                (groupStats) ? (
+                    <div style={{paddingLeft: "10px"}}>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.bfbanAmount", {amount: groupStats.bfbanAmount})}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.moveAmount", {amount: groupStats.moveAmount})}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.kickAmount", {amount: groupStats.kickAmount})}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.banAmount", {amount: groupStats.banAmount})}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.globalBanKickAmount", {amount: groupStats.globalBanKickAmount})}</h5>
+                    </div>
+                ) : (
+                    <>notFound</>
+                )
             }
         </>
     );

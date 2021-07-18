@@ -10,6 +10,7 @@
     "date": "{{date, date|eee, dd MMM yyyy}}",
     "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
     "shortDateTime": "{{date, date|PPpp}}",
+    "time": "{{date, date|p}}",
     "change": "{{change, change}}",
     "cookie": {
         "invalid": "Error: The cookies you are using right now are invalid!",
@@ -174,6 +175,26 @@
             "token": "Token",
             "tokenGen": "Generate",
             "tokenEnable": "Enable group token"
+        },
+        "status": {
+            "main": "Group status",
+            "worker": {
+                "main": "Info about this group's worker:",
+                "in": "Curently in worker for {{time}}",
+                "queue": "Waiting in queue"
+            },
+            "cookiecheck": {
+                "main": "Last check if the group's cookie is valid:",
+                "never": "Group has never been checked for cookie"
+            },
+            "stats": {
+                "main": "Statistics about the current group:",
+                "bfbanAmount": "{{amount}} players kicked via bfban.",
+                "moveAmount": "{{amount}} players moved this week.",
+                "kickAmount": "{{amount}} players kicked via the panel, discord bot or token.",
+                "banAmount": "{{amount}} players banned via the panel, discord bot or token.",
+                "globalBanKickAmount": "{{amount}} players kicked via vBan list of group."
+            }
         },
         "danger": {
             "main": "Danger zone",

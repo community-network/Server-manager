@@ -25,6 +25,23 @@ export function GroupRow(props) {
     );
 }
 
+export function WorkerStatus(props) {
+    const { t } = useTranslation();
+    var workerStatus = props.worker;
+    return (
+        <div style={{marginBottom: "1rem"}}>
+            {workerStatus ? (
+                <span className={styles.serverBadgeOk}>
+                    {t("group.status.worker.in", {time: t("change", {change: new Date(props.lastUpdate)})})} 
+                </span>
+            ) : ( 
+                <span className={styles.serverBadgePending}>
+                    {t("group.status.worker.queue")}
+                </span>
+            )}
+        </div>
+    )
+}
 
 export function ServerRow(props) {
     var server = props.server;

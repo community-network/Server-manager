@@ -315,7 +315,7 @@ function PlayTimeRow(props) {
     let minutes = Math.floor(onlyMins / 60);
 
     // Local time
-    let datetime = `${hours}:${minutes}`;
+    let datetime = `${hours}:${("0" + minutes).slice(-2)}`;
 
     return (    
         <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
