@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { Redirect, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, CardRow, UserRow, TopRow, Button, ButtonRow, ButtonUrl } from "../components";
+import { Column, Card, Header, CardRow, UserRow, TopRow, ButtonRow, ButtonUrl } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 import ChangeLanguage from '../locales/ChangeLanguage';
@@ -50,17 +50,17 @@ export default function Account() {
     
     const { t } = useTranslation();
     const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
-    var userLine = "";
 
-    if (!userError && !isLoading && user) {
+
+    if (!userError && !isLoading && !!user) {
         if (!user.auth.signedIn) {
-            return <Redirect to="/" />;
-        } else {
-            userLine = <UserRow discord={user.discord} />;
+           return null;
         }
-    } else if (userError && !isLoading) {
-        return <Redirect to="/" />;
+    } else if (userError || isLoading) {
+        return null;
     }
+
+    let userLine = <UserRow discord={user.discord} />;
 
     return (
         <TopRow>
@@ -73,7 +73,7 @@ export default function Account() {
                     {userLine}
                     <p></p>
                     <ButtonRow>
-                        <ButtonUrl name={t("sidebar.logout")} onClick={() => { logoutExecutor.mutate({}); }} name={t("sidebar.logout")} />
+                        <ButtonUrl name={t("sidebar.logout")} onClick={() => { logoutExecutor.mutate({}); }} />
                         <ButtonUrl href="https://discord.gametools.network/" name={t("sidebar.help")} />
                         <ChangeLanguage/>
                     </ButtonRow>

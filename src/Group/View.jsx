@@ -3,9 +3,13 @@ import cryptoRandomString from 'crypto-random-string';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Switch, useModal, GroupLogs, VBanList, GameStatsAd, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, ServerRow, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
+
+import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
+
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
+
+import  { GroupRow, ServerRow, GameStatsAd, VBanList, GroupLogs } from "./Group";
 
 const deleteIcon = (
     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
@@ -434,7 +438,7 @@ function GroupServerAccount(props) {
                     {t("cookie.invalid")}
                 </p>
             ) : ""}
-            
+            <AccountInfo {...props} />
             <Row>
                 <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
@@ -468,6 +472,14 @@ function GroupServerAccount(props) {
             }
         </>
     );
+}
+
+function AccountInfo({ group }) {
+    return (
+        <h5>
+             {(!group) ? "Updating account status.." : (!group.accountName) ? "We are pending status of this account" : group.accountName}
+        </h5>
+    )
 }
 
 function GroupDiscordSettings(props) {

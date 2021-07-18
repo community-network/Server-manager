@@ -96,7 +96,7 @@ export function Sidebar(props) {
             }
                 
         } else {
-            return <Redirect to="/" />;
+            //return <Redirect to="/" />;
         }
     }
 

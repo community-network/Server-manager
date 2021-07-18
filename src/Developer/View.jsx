@@ -2,9 +2,12 @@ import React from "react";
 import { useQuery } from 'react-query';
 import { Redirect } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ButtonLink, ButtonRow, GroupRow, Row } from "../components";
+import { Column, Card, Header, ButtonLink, ButtonRow, Row } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
+
+
+import { GroupRow } from "../Group/Group";
 
 export function Developer() {
     const { t } = useTranslation();
@@ -28,10 +31,12 @@ export function Developer() {
                 </Header>
                 <Card>
                     <h2>{t("dev.listGroups")}</h2>
-                    {groups}
+                    
                     <ButtonRow>
                         <ButtonLink name={t("dev.addGroup")} to="/group/new/" />
                     </ButtonRow>
+
+                    {groups}
                 </Card>
             </Column>
             <Column>

@@ -6,7 +6,6 @@ export { Column, Row, Grow, TopRow } from "./Flex";
 export { Card, CardRow, PageCard, Tag, ModalProvider, useModal } from "./Card";
 export { Header } from "./Header";
 export { UserRow, UserStRow, FakeUserStRow } from "./User";
-export { GroupRow, ServerRow, GameStatsAd, VBanList, GroupLogs } from "./Group";
 export { Status } from "./Status";
 export { MainPageComponent } from "./MainPage";
 export { TopBar } from "./TopBar";

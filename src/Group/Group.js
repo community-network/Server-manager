@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import styles from "./Group.module.css";
 import { useMeasure } from 'react-use';
 import { Link, useHistory } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { OperationsApi } from "../api";
-import { TextInput, Button, ButtonRow } from "./Buttons";
-import { Tag, useModal } from "./Card";
-import '../locales/config';
 import { useTranslation } from 'react-i18next';
+
+import { OperationsApi } from "../api";
+import '../locales/config';
+import styles from "./Group.module.css";
+
+import { TextInput, Button, ButtonRow } from "../components/Buttons";
+import { Tag, useModal } from "../components/Card";
 
 export function GroupRow(props) {
     const { t } = useTranslation();
@@ -22,6 +24,7 @@ export function GroupRow(props) {
         </Link>
     );
 }
+
 
 export function ServerRow(props) {
     var server = props.server;

@@ -83,6 +83,7 @@ export default class JsonClient {
         };
     }
     async getUserInfo() {
+        
         const defaultUser = {
             discord: {
             name: "",
@@ -97,10 +98,7 @@ export default class JsonClient {
                 signedIn: false
             }
         };
-        let response = await this.getJsonMethod("getinfo");
-        if (!response.hasOwnProperty("error")) {
-            return response;
-        }
-        return defaultUser;
+
+        return this.getJsonMethod("getinfo").then(r => r, e => defaultUser);
     }
 }
