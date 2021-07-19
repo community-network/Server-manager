@@ -721,7 +721,11 @@ function GroupSettings(props) {
 
 function GroupStatus(props) {
     const { t } = useTranslation();
-    const { error, data: groupStats } = useQuery('groupStats' + props.group.id, () => OperationsApi.getStats(props.group.id), { staleTime: 30000 });
+    let groupId = ""
+    if (props.group) {
+        groupId = props.group.id
+    }
+    const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: 30000 });
 
     return (
         <>
@@ -757,7 +761,7 @@ function GroupStatus(props) {
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.globalBanKickAmount", {amount: groupStats.globalBanKickAmount})}</h5>
                     </div>
                 ) : (
-                    <>notFound</>
+                    <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
                 )
             }
         </>
