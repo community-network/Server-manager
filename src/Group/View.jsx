@@ -754,6 +754,7 @@ function GroupStatus(props) {
             {
                 (groupStats) ? (
                     <div style={{paddingLeft: "10px"}}>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.autoKickPingAmount", {amount: groupStats.autoKickPingAmount})}</h5>
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.bfbanAmount", {amount: groupStats.bfbanAmount})}</h5>
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.moveAmount", {amount: groupStats.moveAmount})}</h5>
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.kickAmount", {amount: groupStats.kickAmount})}</h5>

@@ -189,6 +189,7 @@
             },
             "stats": {
                 "main": "Statistics about the current group within this week:",
+                "autoKickPingAmount": "{{amount}} players kicked for ping.",
                 "bfbanAmount": "{{amount}} players kicked via bfban.",
                 "moveAmount": "{{amount}} players moved via the panel, discord bot or token.",
                 "kickAmount": "{{amount}} players kicked via the panel, discord bot or token.",
