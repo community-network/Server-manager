@@ -170,6 +170,27 @@
             "localeDescription0": "Çerez için kullanılan dil etiketi, harita adı, sunucu bilgileri o dilde olacaktır..",
             "localeDescription1": "Dil etiketleri şurada bulunabilir: "
         },
+        "status": {
+            "main": "Grup durumu",
+            "worker": {
+                "main": "Bu grubun çalışanı hakkında bilgi:",
+                "in": "Bununla ilgili çalışmaya devam ediliyor {{time}}",
+                "queue": "Sırada bekleyen."
+            },
+            "cookiecheck": {
+                "main": "Grubun çerezinin geçerli olup olmadığını son kontrol:",
+                "never": "Grup çerez için hiç kontrol edilmedi"
+            },
+            "stats": {
+                "main": "Bu haftadaki mevcut grupla ilgili istatistikler:",
+                "autoKickPingAmount": "{{amount}} Oyuncuya ping için tekme atıldı ",
+                "bfbanAmount": "{{amount}} bfban üzerinden atılan oyuncular.",
+                "moveAmount": "{{amount}} oyuncular panel, discord botu veya jeton aracılığıyla taşındı.",
+                "kickAmount": "{{amount}} Panel, discord botu veya jeton aracılığıyla atılan oyuncular.",
+                "banAmount": "{{amount}} panel, discord botu veya jeton aracılığıyla yasaklanan oyuncular.",
+                "globalBanKickAmount": "{{amount}}vBan grup listesi üzerinden atılan oyuncular."
+            }
+        },
         "danger": {
             "main": "Riskli bölge",
             "nameChange": "Mevcut Grubun adını değiştirebilirsiniz.",
