@@ -188,9 +188,9 @@
                 "never": "Group has never been checked for cookie"
             },
             "stats": {
-                "main": "Statistics about the current group:",
+                "main": "Statistics about the current group within this week:",
                 "bfbanAmount": "{{amount}} players kicked via bfban.",
-                "moveAmount": "{{amount}} players moved this week.",
+                "moveAmount": "{{amount}} players moved via the panel, discord bot or token.",
                 "kickAmount": "{{amount}} players kicked via the panel, discord bot or token.",
                 "banAmount": "{{amount}} players banned via the panel, discord bot or token.",
                 "globalBanKickAmount": "{{amount}} players kicked via vBan list of group."
