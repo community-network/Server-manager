@@ -10,6 +10,7 @@ import styles from "./Group.module.css";
 
 import { TextInput, Button, ButtonRow } from "../components/Buttons";
 import { Tag, useModal } from "../components/Card";
+import { PlayerStatsModal } from "../Server/Modals";
 
 export function GroupRow(props) {
     const { t } = useTranslation();
@@ -193,10 +194,11 @@ export function VBanList(props) {
 
 
 function GlobalBanRow(props) {
+    const modal = useModal();
     const player = props.player;
     const { t } = useTranslation();
     return (
-        <div className={styles.BanRow}>
+        <div className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} />)}>
             <span className={styles.BanDisplayName}>{player.playerName}</span>
             <span className={styles.banReason}>{
                 ((player.reason === "") ? t("group.vban.noReason") : t("group.vban.reason"))
