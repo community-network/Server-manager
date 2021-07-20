@@ -163,6 +163,27 @@
             "permDescription0": "每一个人都可以使用discord数字ID进行授权",
             "permDescription1": "Discord机器人命令可以进行控制服务器."
         },
+        "status": {
+            "main": "群组状态",
+            "worker": {
+                "main": "关于这个组的线程:",
+                "in": "最近在群组线程的时间 {{time}}",
+                "queue": "等待队列中"
+            },
+            "cookiecheck": {
+                "main": "上次检查群组cookie是否有效:",
+                "never": "该群组还从没检查过cookie是否有效"
+            },
+            "stats": {
+                "main": "该群组这周的统计:",
+                "autoKickPingAmount": "{{amount}} 个玩家被ping设置踢了.",
+                "bfbanAmount": "{{amount}} 个挂壁被bfban踢了.",
+                "moveAmount": "{{amount}} 个玩家被面板或discord机器人或者token换边.",
+                "kickAmount": "{{amount}}个玩家被面板或discord机器人或者token踢了.",
+                "banAmount": "{{amount}} 个玩家被面板或discord机器人或者token ban了.",
+                "globalBanKickAmount": "{{amount}} 个玩家被vban列表踢了."
+            }
+        },
         "settings": {
             "main": "群组设置",
             "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
