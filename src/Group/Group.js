@@ -198,7 +198,7 @@ function GlobalBanRow(props) {
     const player = props.player;
     const { t } = useTranslation();
     return (
-        <div className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} />)}>
+        <div className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />)}>
             <span className={styles.BanDisplayName}>{player.playerName}</span>
             <span className={styles.banReason}>{
                 ((player.reason === "") ? t("group.vban.noReason") : t("group.vban.reason"))

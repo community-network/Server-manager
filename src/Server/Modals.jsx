@@ -206,7 +206,15 @@ export function ServerMovePlayer(props) {
 export function PlayerStatsModal(props) {
 
     const player = props.player;
-    const { isError, data: stats, isLoading } = useQuery(['playerStatsByEAID', player], () => fetch("https://api.gametools.network/bf1/stats/?name="+player+"&lang=en-us&platform=pc&=").then(r=>r.json()));
+    const playerId = props.id;
+    
+    let type = "playerid"
+    let check = playerId
+    if (playerId === undefined) {
+        type = "name"
+        check = player
+    }
+    const { isError, data: stats, isLoading } = useQuery(['playerStatsByEAID', player], () => fetch(`https://api.gametools.network/bf1/stats/?${type}=${check}&lang=en-us&platform=pc&=`).then(r=>r.json()));
     const { t } = useTranslation();
     
     const statsBlock = (!isLoading && !isError) ? (

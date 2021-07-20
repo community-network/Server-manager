@@ -93,7 +93,7 @@ export function ServerRotation(props) {
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
-                <img className={styles.serverImage} src={(game) ? game.url : "/img/no-server-image.png"} />
+                <img className={styles.serverImage} alt="Server map" src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading") }</span>
                     <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", {inQue: game.inQue})}` : "-"}</SmallText>
@@ -183,7 +183,7 @@ function BanRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -250,7 +250,7 @@ function StarterRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} />)}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} id={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.playerName}</td>
             <td title={t("server.firestarterList.table.playerId")}>{player.playerId}</td>
             <td>{player.amount}</td>
@@ -318,7 +318,7 @@ function PlayTimeRow(props) {
     let datetime = `${hours}:${("0" + minutes).slice(-2)}`;
 
     return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.playTimeList.table.playerId")}>{player.playerId}</td>
             <td>{datetime}</td>
@@ -387,7 +387,7 @@ function SpectatorRow(props) {
     // datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
     return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
             <td>{t("dateTime", {date: datetime})}</td>
@@ -502,7 +502,7 @@ function PlayerlogsRow(props) {
     const { t } = useTranslation();
 
     return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} />)}>
+        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
             <td title={t("server.playerLogs.table.playerId")}>{player.playerId}</td>
             <td>{player.ping}</td>
@@ -569,7 +569,7 @@ function VipRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
+        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -638,7 +638,7 @@ function AdminRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} />)}>
+        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
