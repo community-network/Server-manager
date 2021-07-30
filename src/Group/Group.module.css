@@ -55,9 +55,36 @@
     font-weight: 500;
 }
 
-.logAdmin, .logPlayer {
+.logTitle {
+    display: flex;
+    align-items: center;
+}
+
+.logDensity {
+    font-size: 13px;
+    color: var(--color-text);
+    margin-left: 10px;
+}
+.logIcon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.logAdmin, .logPlayer, .logServer {
     margin-right: 10px;
     color: var(--color-text-high);
+}
+.logPlayer {
+    background: var(--color-second);
+    padding: 3px 10px;
+    border-radius: 3px;
+    height: auto;
+    align-self: center;
+    cursor: pointer;
+}
+.logPlayer:hover {
+    background: var(--color-second-v2);
 }
 .logAction, .logReason {
     margin-right: 10px;
@@ -75,7 +102,12 @@
     flex-direction: row;
 }
 
-.logReason, .banReasonDetailed {
+.logReasonDetailed {
+    flex-grow: 2;
+    color: var(--color-text-high);
+}
+
+.groupLogReason, .banReasonDetailed {
     flex-grow: 2;
 }
 

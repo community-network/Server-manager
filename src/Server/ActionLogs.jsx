@@ -98,11 +98,6 @@ function LogRow(props) {
     })();
 
     var datetime = new Date(log.timeStamp);
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    // Local time
-    datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
-
     if (log.action === "autokick-ping") {
         return (
             <div className={styles.logRow}>
@@ -114,7 +109,7 @@ function LogRow(props) {
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logAction}>{log.reason}</span>
                 <span className={styles.logReasonDetailed}></span>
-                <span className={styles.logTime}>{datetime}</span>
+                <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
             </div>
         );
     }
@@ -130,7 +125,7 @@ function LogRow(props) {
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logReason}>with reason</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
-                <span className={styles.logTime}>{datetime}</span>
+                <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
             </div>
         );
     }
@@ -146,7 +141,7 @@ function LogRow(props) {
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
                 <span className={styles.logReason}>{t("server.logs.reason")}</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
-                <span className={styles.logTime}>{datetime}</span>
+                <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
             </div>
         );
     }
@@ -159,7 +154,7 @@ function LogRow(props) {
                 <span className={styles.logAdmin}>{log.adminName}</span>
                 <span className={styles.logAction}>{log.reason}</span>
                 <span className={styles.logReasonDetailed}></span>
-                <span className={styles.logTime}>{datetime}</span>
+                <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
             </div>
         );
     }
@@ -175,7 +170,7 @@ function LogRow(props) {
                 ((log.reason === "") ? t("server.logs.noReason") : t("server.logs.reason"))
             }</span>
             <span className={styles.logReasonDetailed}>{log.reason}</span>
-            <span className={styles.logTime}>{datetime}</span>
+            <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
         </div>
     );
 }
