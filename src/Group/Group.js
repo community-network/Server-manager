@@ -283,6 +283,7 @@ function LogRow(props) {
         return (
             <div className={styles.logRow}>
                 <span className={styles.logAdmin}>{log.adminName}</span>
+                <span className={styles.logAdmin}>{log.toPlayer}</span>
                 <span className={styles.groupLogReason}>{
                     log.reason
                 }</span>
