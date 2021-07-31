@@ -455,6 +455,18 @@
             "tempbanAmount": "Ban tijd",
             "confirm": "Ban!"
         },
+        "unbanMenu": {
+            "main": "U gaat {{name}} unbannen",
+            "reasonDescription": "Geef een reden om deze speler te unbannen.",
+            "reason": "Reden",
+            "confirm": "Unban!"
+        },
+        "unvipMenu": {
+            "main": "U gaat {{name}} uit vip halen",
+            "reasonDescription": "Geef een reden om deze speler uit vip te halen.",
+            "reason": "Reden",
+            "confirm": "Vip verwijderen!"
+        },
         "vBanMenu": {
             "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan V-Ban",
             "playerName": "gebruikersnaam",

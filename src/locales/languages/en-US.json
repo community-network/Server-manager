@@ -440,13 +440,13 @@
             "toStatsPage": "Full stats.."
         },
         "kickMenu": {
-            "main": "You are going to kick player {{name}}",
+            "main": "You are going to kick {{name}}",
             "reasonDescription": "This reason will be visibe to player! It is also limited in characters to 30, and allow only a few special symbols.",
             "reason": "Reason",
             "confirm": "Kick him!"
         },
         "banMenu": {
-            "main": "You are going to ban player {{name}}",
+            "main": "You are going to ban {{name}}",
             "reasonDescription": "Enter a reason to ban this player.",
             "reason": "Reason",
             "vBanOption": "Use Virtual Ban instead of classic ban list",
@@ -457,10 +457,16 @@
             "confirm": "Ban!"
         },
         "unbanMenu": {
-            "main": "You are going to unban player {{name}}",
+            "main": "You are going to unban {{name}}",
             "reasonDescription": "Enter a reason to unban this player.",
             "reason": "Reason",
             "confirm": "Unban!"
+        },
+        "unvipMenu": {
+            "main": "You are going to remove {{name}} from vip",
+            "reasonDescription": "Enter a reason to remove vip from this player.",
+            "reason": "Reason",
+            "confirm": "Remove vip!"
         },
         "vBanMenu": {
             "playerNameDescription": "Fill in the name of the player you want to ban",

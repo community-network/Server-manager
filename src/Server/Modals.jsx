@@ -321,3 +321,73 @@ export function ServerUnbanPlayer(props) {
         </>
     );
 }
+
+export function ServerUnvipPlayer(props) {
+
+    var { sid, eaid, playerId } = props;
+
+    const modal = useModal();
+    const { t } = useTranslation();
+    const [reason, setReason] = useState("");
+    const [banApplyStatus, setBanApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+    const { isError: userGettingError, data: user } = useUser();
+
+    const UnvipPlayer = useMutation(
+        v => OperationsApi.removeVip(v),
+        {
+            onMutate: async () => {
+                setBanApplyStatus(true)
+            },
+            onError: (error) => {
+                setBanApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setBanApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setBanApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    var gid = null;
+
+    if (user) {
+        user.permissions.isAdminOf.map(
+            group => {
+                for (let someSid of group.servers) {
+                    if (someSid === sid) {
+                        gid = group.id;
+                    }
+                }
+            }
+        )
+    }
+
+    const isDisabled =
+        reason === "" ||
+        banApplyStatus !== null ||
+        userGettingError || !user || gid == null;
+
+    const checkReason = (v) => (checkGameString(v)) ? setReason(v) : false;
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.unvipMenu.main", {name: props.eaid})} </h2>
+            <h5 style={{maxWidth: "300px"}} >{t("server.unvipMenu.reasonDescription")}</h5>
+            <TextInput value={reason} name={t("server.unvipMenu.reason")} callback={(e) => checkReason(e.target.value)} />
+            <ButtonRow>
+                <Button
+                    name={t("server.unvipMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => {
+                        UnvipPlayer.mutate({ sid, eaid, reason, name: props.eaid, playerId });
+                    }}
+                    status={banApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    );
+}

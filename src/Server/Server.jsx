@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import { ServerUnbanPlayer, } from "./Modals";
+import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
 
 import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
@@ -137,7 +137,7 @@ export function BanList(props) {
     const [sorting, setSorting] = useState("displayName");
 
     const modal = useModal();
-    const showBan = e => {
+    const showUnban = e => {
         let playerInfo = e.target.dataset
         modal.show(
             <ServerUnbanPlayer 
@@ -184,7 +184,7 @@ export function BanList(props) {
                     <tbody>
                         {
                             banList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<BanRow player={player} key={i} callback={showBan}/>)
+                                (player, i) => (<BanRow player={player} key={i} callback={showUnban}/>)
                             )
                         }
                     </tbody>
@@ -540,6 +540,17 @@ export function VipList(props) {
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("displayName");
 
+    const modal = useModal();
+    const showUnvip = e => {
+        let playerInfo = e.target.dataset
+        modal.show(
+            <ServerUnvipPlayer 
+                sid={sid} 
+                eaid={playerInfo.name} 
+                playerId={playerInfo.id}
+            />
+        );
+    }
 
     if (!vipList) {
         // TODO: add fake item list on loading
@@ -573,12 +584,13 @@ export function VipList(props) {
                         <tr>
                             <th onClick={_=>setSorting("displayName")}>{t("server.vipList.table.playerName")}</th>
                             <th onClick={_=>setSorting("id")}>{t("server.vipList.table.playerId")}</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             vipList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<VipRow player={player} key={i} />)
+                                (player, i) => (<VipRow player={player} key={i} callback={showUnvip}/>)
                             )
                         }
                     </tbody>
@@ -593,12 +605,15 @@ function VipRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
+        <tr className={styles.VipRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />):null}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
             </td>
             <td title={t("server.vipList.table.playerId")}>{player.id}</td>
+            <th className={styles.listButton} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
+                {t("server.action.removeVip")}
+            </th>
         </tr>
     );
 }
