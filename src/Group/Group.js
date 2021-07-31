@@ -267,27 +267,20 @@ function LogRow(props) {
                     return t("group.logs.reasons.addVban");
                 case "remove-autoban":
                     return t("group.logs.reasons.removeVban");
+                case "editGroup":
+                    return t("group.logs.reasons.editGroup");
+                case "addUser":
+                    return t("group.logs.reasons.addUser");
+                case "addOwner":
+                    return t("group.logs.reasons.addOwner");
+                case "addGroup":
+                    return t("group.logs.reasons.addGroup");
+                case "removeOwner":
+                    return t("group.logs.reasons.removeOwner");
+                case "removeUser":
+                    return t("group.logs.reasons.removeUser");
                 default:
                     return t("group.logs.reasons.magic");
-            }
-        })();
-
-        const actionIcon = (() => {
-            switch (log.action) {
-                case "editGroup":
-                    return "";
-                case "addUser":
-                    return "";
-                case "addOwner":
-                    return ""
-                case "addGroup":
-                    return "";
-                case "removeOwner":
-                    return "";
-                case "removeUser":
-                    return ""
-                default:
-                    return "";
             }
         })();
 

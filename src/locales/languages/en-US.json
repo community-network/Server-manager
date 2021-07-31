@@ -158,6 +158,12 @@
             "reasons": {
                 "addVban": "vBanned",
                 "removeVban": "removed from vBan",
+                "editGroup": "edited group",
+                "addUser": "added admin",
+                "addOwner": "added owner",
+                "addGroup": "added this group",
+                "removeOwner": "removed owner",
+                "removeUser": "removed admin",
                 "magic": "did magic to"
             }
         },

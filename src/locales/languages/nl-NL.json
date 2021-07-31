@@ -157,6 +157,12 @@
             "reasons": {
                 "addVban": "v-Banned",
                 "removeVban": "verwijderd van v-Ban",
+                "editGroup": "betwerkte de groep",
+                "addUser": "voegde toe als admin",
+                "addOwner": "voegde toe als owner",
+                "addGroup": "creerde deze groep",
+                "removeOwner": "verwijderde owner",
+                "removeUser": "verwijderde admin",
                 "magic": "Deed magie aan"
             }
         },
