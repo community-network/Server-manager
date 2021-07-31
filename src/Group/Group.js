@@ -11,6 +11,7 @@ import styles from "./Group.module.css";
 import { TextInput, Button, ButtonRow } from "../components/Buttons";
 import { Tag, useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
+import { DynamicSort } from "../components/Functions";
 
 export function GroupRow(props) {
     const { t } = useTranslation();
@@ -132,6 +133,7 @@ export function VBanList(props) {
 
     const queryClient = useQueryClient();
 
+    const [sorting, setSorting] = useState("-timeStamp");
     const [searchWord, setSearchWord] = useState("");
     const { t } = useTranslation();
 
@@ -166,6 +168,8 @@ export function VBanList(props) {
     if (!banList) {
         // TODO: add fake item list on loading
         return "Loading..";
+    } else {
+        banList.data = banList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
@@ -184,11 +188,11 @@ export function VBanList(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>{t("group.vban.table.playerName")}</th>
-                        <th>{t("group.vban.table.playerId")}</th>
-                        <th>{t("group.vban.table.reason")}</th>
-                        <th>{t("group.vban.table.admin")}</th>
-                        <th>{t("group.vban.table.timestamp")}</th>
+                        <th onClick={_=>setSorting("playerName")}>{t("group.vban.table.playerName")}</th>
+                        <th onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</th>
+                        <th onClick={_=>setSorting("reason")}>{t("group.vban.table.reason")}</th>
+                        <th onClick={_=>setSorting("admin")}>{t("group.vban.table.admin")}</th>
+                        <th onClick={_=>setSorting("-timeStamp")}>{t("group.vban.table.timestamp")}</th>
                         <th></th>
                     </thead>
                     <tbody>

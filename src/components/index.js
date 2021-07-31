@@ -9,3 +9,4 @@ export { UserRow, UserStRow, FakeUserStRow } from "./User";
 export { Status } from "./Status";
 export { MainPageComponent } from "./MainPage";
 export { TopBar } from "./TopBar";
+export { DynamicSort } from "./Functions";

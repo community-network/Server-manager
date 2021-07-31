@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
+import { DynamicSort } from "../components/Functions";
 import { Row } from "../components/Flex";
 import { useModal } from "../components/Card";
 
@@ -133,10 +134,13 @@ export function BanList(props) {
     const { isError, data: banList, error } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("displayName");
 
     if (!banList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        banList.data = banList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
@@ -157,12 +161,12 @@ export function BanList(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>{t("server.banList.table.playerName")}</th>
-                        <th>{t("server.banList.table.playerId")}</th>
-                        <th>{t("server.banList.table.reason")}</th>
-                        <th>{t("server.banList.table.admin")}</th>
-                        <th>{t("server.banList.table.until")}</th>
-                        <th>{t("server.banList.table.timestamp")}</th>
+                        <th onClick={_=>setSorting("displayName")}>{t("server.banList.table.playerName")}</th>
+                        <th onClick={_=>setSorting("id")}>{t("server.banList.table.playerId")}</th>
+                        <th onClick={_=>setSorting("-reason")}>{t("server.banList.table.reason")}</th>
+                        <th onClick={_=>setSorting("-admin")}>{t("server.banList.table.admin")}</th>
+                        <th onClick={_=>setSorting("-banned_until")}>{t("server.banList.table.until")}</th>
+                        <th onClick={_=>setSorting("-ban_timestamp")}>{t("server.banList.table.timestamp")}</th>
                     </thead>
                     <tbody>
                         {
@@ -203,17 +207,18 @@ export function FireStarter(props) {
     const { isError, data: starterList, error } = useQuery('serverStarterList' + sid, () => OperationsApi.getStarterList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("-amount");
 
     if (!starterList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        starterList.data = starterList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
         return `Error ${error.code}: {error.message}`
     }
-
-    starterList.data.sort((a, b) => b.amount - a.amount);
 
     return (
         <div>
@@ -227,9 +232,9 @@ export function FireStarter(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>{t("server.firestarterList.table.playerName")}</th>
-                        <th>{t("server.firestarterList.table.playerId")}</th>
-                        <th>{t("server.firestarterList.table.amount")}</th>
+                        <th onClick={_=>setSorting("playerName")}>{t("server.firestarterList.table.playerName")}</th>
+                        <th onClick={_=>setSorting("playerId")}>{t("server.firestarterList.table.playerId")}</th>
+                        <th onClick={_=>setSorting("-amount")}>{t("server.firestarterList.table.amount")}</th>
                     </thead>
                     <tbody>
                         {
@@ -331,17 +336,18 @@ export function Spectator(props) {
     const { isError, data: spectatorList, error } = useQuery('serverSpectatorList' + sid, () => OperationsApi.getSpectatorList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("name");
 
     if (!spectatorList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        spectatorList.data = spectatorList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
         return `Error ${error.code}: {error.message}`
     }
-
-    spectatorList.data.sort((a, b) => b.timeStamp - a.timeStamp);
 
     return (
         <div>
@@ -355,9 +361,9 @@ export function Spectator(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>{t("server.spectatorList.table.playerName")}</th>
-                        <th>{t("server.spectatorList.table.playerId")}</th>
-                        <th>{t("server.spectatorList.table.time")}</th>
+                        <th onClick={_=>setSorting("name")}>{t("server.spectatorList.table.playerName")}</th>
+                        <th onClick={_=>setSorting("playerId")}>{t("server.spectatorList.table.playerId")}</th>
+                        <th onClick={_=>setSorting("-timeStamp")}>{t("server.spectatorList.table.time")}</th>
                     </thead>
                     <tbody>
                         {
@@ -516,11 +522,14 @@ export function VipList(props) {
     const { isError, data: vipList, error } = useQuery('serverVipList' + sid, () => OperationsApi.getVipList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("displayName");
 
 
     if (!vipList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        vipList.data = vipList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
@@ -546,8 +555,8 @@ export function VipList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th>{t("server.vipList.table.playerName")}</th>
-                            <th>{t("server.vipList.table.playerId")}</th>
+                            <th onClick={_=>setSorting("displayName")}>{t("server.vipList.table.playerName")}</th>
+                            <th onClick={_=>setSorting("id")}>{t("server.vipList.table.playerId")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -585,11 +594,14 @@ export function AdminList(props) {
     const { isError, data: adminList, error } = useQuery('serverAdminList' + sid, () => OperationsApi.getAdminList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("displayName");
 
 
     if (!adminList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        adminList.data = adminList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
@@ -615,8 +627,8 @@ export function AdminList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th>{t("server.adminList.table.playerName")}</th>
-                            <th>{t("server.adminList.table.playerId")}</th>
+                            <th onClick={_=>setSorting("displayName")}>{t("server.adminList.table.playerName")}</th>
+                            <th onClick={_=>setSorting("id")}>{t("server.adminList.table.playerId")}</th>
                         </tr>
                     </thead>
                     <tbody>
