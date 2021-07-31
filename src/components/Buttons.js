@@ -140,6 +140,37 @@ export function PlayerDropdownButton(props) {
     );
 }
 
+export function ShowDropDown(props) {
+    const [open, setOpen] = useState(true);
+    let container = React.useRef();
+    console.log(container.current)
+    useEffect(() => {
+        let handleClickOutside = (event) => {
+            if (container.current && !container.current.contains(event.target)) {
+                setOpen(false)
+            }
+            if (container.current.nextSibling.contains(event.target)) {
+                setOpen(true)
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return function cleanup() {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    })
+
+    return (
+        <div className={styles.container} ref={container}>
+            {open && (<div style={{left: 0}} className={styles.dropdown}>
+                <ul className={styles.ul}>
+                    {
+                        props.options.map(option => <li style={{fontSize: "13px", fontWeight: 500}} className={styles.li} onClick={() => {setOpen(!open); return option.callback(option.name)}}>{option.name}</li>)
+                    }
+                </ul>
+            </div>)}
+        </div>
+    )
+}
 
 export function ChoosePageButtons(props) {
 
