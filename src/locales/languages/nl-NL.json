@@ -153,7 +153,12 @@
         },
         "logs": {
             "main": "Groepslogboek",
-            "description": "Groepslogboeken lijst"
+            "description": "Groepslogboeken lijst",
+            "reasons": {
+                "addVban": "v-Banned",
+                "removeVban": "verwijderd van v-Ban",
+                "magic": "Deed magie aan"
+            }
         },
         "account": {
             "main": "Server account",

@@ -154,7 +154,12 @@
         },
         "logs": {
             "main": "Group logs",
-            "description": "Group log list"
+            "description": "Group log list",
+            "reasons": {
+                "addVban": "vBanned",
+                "removeVban": "removed from vBan",
+                "magic": "did magic to"
+            }
         },
         "account": {
             "main": "Server account",

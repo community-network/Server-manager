@@ -123,7 +123,7 @@ function LogRow(props) {
                 <span className={styles.logAdmin}>{t("server.logs.types.vBan")}</span>
                 <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
                 <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
-                <span className={styles.logReason}>with reason</span>
+                <span className={styles.logReason}>{t("server.logs.reason")}</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
                 <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
             </div>
