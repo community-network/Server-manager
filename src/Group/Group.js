@@ -194,7 +194,7 @@ export function VBanList(props) {
                     <tbody>
                         {
                             banList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<GlobalBanRow player={player} key={i} callback={() => unbanVGlobalBan.mutate({gid, name: player.playerName})}/>)
+                                (player, i) => (<GlobalBanRow player={player} key={i} callback={() => unbanVGlobalBan.mutate({gid, name: player.playerName, id: player.id})}/>)
                             )
                         }
                     </tbody>

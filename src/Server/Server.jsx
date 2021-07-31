@@ -15,7 +15,6 @@ import '../locales/config';
 
 import styles from "./Styles.module.css";
 
-import { PlayerTimer } from "./PlayerList";
 
 
 import { PlayerStatsModal } from "./Modals";
@@ -85,9 +84,9 @@ export function ServerRotation(props) {
             )
         }
     }
-    var update_timestamp = new Date().getTime() * 1000;
+    var update_timestamp = new Date().getTime();
     if (server) {
-        update_timestamp = new Date(server.update_timestamp).getTime() * 1000;
+        update_timestamp = new Date(server.update_timestamp);
     }
     var [rotationId, setRotationId] = useState(""); 
     return (
@@ -111,7 +110,7 @@ export function ServerRotation(props) {
             </ButtonRow>
             <div className={styles.serverStatusArray}>
                 <span>{server_status}</span>
-                <span className={styles.serverBadge}>{t("server.game.playerlistUpdate")} <PlayerTimer time={update_timestamp}/> ago</span>
+                <span className={styles.serverBadge}>{t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
             </div>
             
         </div>
