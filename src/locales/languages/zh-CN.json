@@ -154,7 +154,18 @@
         },
         "logs": {
             "main": "群组日志",
-            "description": "群组日志列表"
+            "description": "群组日志列表",
+            "reasons": {
+                "addVban": "已经被vban",
+                "removeVban": "解除vban",
+                "editGroup": "编辑群组",
+                "addUser": "已经增加管理",
+                "addOwner": "已经增加所有者",
+                "addGroup": "已经增加这个群组",
+                "removeOwner": "已经删除所有者",
+                "removeUser": "已经删除管理",
+                "magic": "对他使用魔法"
+            }
         },
         "account": {
             "main": "服务器Origin管理账号",
