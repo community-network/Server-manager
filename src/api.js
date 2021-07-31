@@ -83,7 +83,16 @@ export class ApiProvider extends JsonClient {
         }); 
     }
 
-    async unbanPlayer({ name, reason, sid }) {
+    async unbanPlayer({ name, reason, sid, playerId }) {
+        if ((playerId !== undefined) && (playerId !== "")) {
+        return await this.postJsonMethod("changeserver", {
+            "request": "removeServerBan",
+            "playername": name,
+            "playerid": playerId,
+            "serverid": sid,
+            "reason": reason
+        });
+        }
         return await this.postJsonMethod("changeserver", {
             "request": "removeServerBan",
             "playername": name,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
-
+import { ServerUnbanPlayer, } from "./Modals";
 
 import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
@@ -136,6 +136,18 @@ export function BanList(props) {
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("displayName");
 
+    const modal = useModal();
+    const showBan = e => {
+        let playerInfo = e.target.dataset
+        modal.show(
+            <ServerUnbanPlayer 
+                sid={sid} 
+                eaid={playerInfo.name} 
+                playerId={playerInfo.id}
+            />
+        );
+    }
+
     if (!banList) {
         // TODO: add fake item list on loading
         return t("loading");
@@ -167,11 +179,12 @@ export function BanList(props) {
                         <th onClick={_=>setSorting("-admin")}>{t("server.banList.table.admin")}</th>
                         <th onClick={_=>setSorting("-banned_until")}>{t("server.banList.table.until")}</th>
                         <th onClick={_=>setSorting("-ban_timestamp")}>{t("server.banList.table.timestamp")}</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         {
                             banList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<BanRow player={player} key={i} />)
+                                (player, i) => (<BanRow player={player} key={i} callback={showBan}/>)
                             )
                         }
                     </tbody>
@@ -186,7 +199,7 @@ function BanRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
+        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />):null}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -197,6 +210,9 @@ function BanRow(props) {
             <td>{player.admin}</td>
             <td>{player.banned_until}</td>
             <td>{player.ban_timestamp}</td>
+            <th className={styles.listButton} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
+                {t("server.action.unban")}
+            </th>
         </tr>
     );
 }

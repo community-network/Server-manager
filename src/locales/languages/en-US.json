@@ -456,6 +456,12 @@
             "tempbanAmount": "Ban time",
             "confirm": "Ban!"
         },
+        "unbanMenu": {
+            "main": "You are going to unban player {{name}}",
+            "reasonDescription": "Enter a reason to unban this player.",
+            "reason": "Reason",
+            "confirm": "Unban!"
+        },
         "vBanMenu": {
             "playerNameDescription": "Fill in the name of the player you want to ban",
             "playerName": "username",

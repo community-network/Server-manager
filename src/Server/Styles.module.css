@@ -139,12 +139,18 @@
     border-radius: 8px 0 0 8px;
 }
 
-.BanRow > td:last-child, .VipRow > td:last-child {
+.BanRow > td:nth-last-child(2), .VipRow > td:last-child {
     border-radius: 0 8px 8px 0;
 }
 
 .BanDisplayName, VipName {
     font-weight: 500;
+}
+
+.listButton:hover {
+    border-radius: 8px;
+    background: var(--color-container-v2);
+    cursor: pointer;
 }
 
 .VipRowImg > img {
