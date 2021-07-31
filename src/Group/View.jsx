@@ -772,7 +772,10 @@ function GroupStatus(props) {
 function GroupDangerZone(props) {
 
     var allowedTo = false;
+    var canSetUpOps = false;
+
     if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+    if (props.group && props.user) canSetUpOps = props.group.makeOperations && props.group.isOwner;
 
     const queryClient = useQueryClient();
 
@@ -830,6 +833,7 @@ function GroupDangerZone(props) {
             <h5 style={{ marginTop: "8px" }}>{t("group.danger.deleteInfo0")}<br />{t("group.danger.deleteInfo1")}</h5>
             <ButtonRow>
                 <ButtonLink style={{ color: "#FF7575"}} name={t("group.danger.delete")} to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
+                <ButtonLink name={t("sidebar.makeOperations")} to={`/makeops/${props.gid}/`} disabled={!canSetUpOps} />
             </ButtonRow>
         </>
     );
@@ -1190,12 +1194,15 @@ export function EditGroup(props) {
 }
 
 export function MakeOps(props) {
-   
+
+    var gid = props.match.params.gid;
+
     const [addGroupState, changeState] = useState({
         variables: {
             server: "",
             remid: "",
             sid: "",
+            gid: gid,
         },
         canAdd: false
     });
