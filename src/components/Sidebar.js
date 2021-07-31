@@ -87,7 +87,6 @@ export function Sidebar(props) {
                 ABSwitch("", <PageLink key={0} to="/home/" name="Home page" />, "homePage"),
                 //<PageLink key={1} to="/account/" name="Account" />,
                 <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />,
-                <PageLink key={3} to="/makeops/" name={t("sidebar.makeOperations")} />,
             ];
             groupLinks = [];
             for (let i in user.permissions.isAdminOf) {

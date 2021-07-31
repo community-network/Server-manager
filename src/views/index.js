@@ -71,6 +71,8 @@ function Views() {
 
             <Route exact path="/account/" component={Account} />
 
+            <Route exact path="/makeops/:gid/" component={MakeOps} />
+
             <Route exact path="/server/:sid/" component={Server} />
             <Route exact path="/server/:sid/:tab/" component={Server} />
 
@@ -86,8 +88,6 @@ function Views() {
             <Route exact path="/group/:gid/delete" component={DeleteGroup} />
 
             <Route exact path="/dev/" component={Developer} />
-
-            <Route exact path="/makeops/" component={MakeOps} />
 
         </Switch>
     );
