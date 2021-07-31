@@ -143,7 +143,14 @@
             "description1": " {{Number}} Yuva kullanıldı",
             "reason": "",
             "noReason": "Sebeple",
-            "unban": "Yasağı kaldır"
+            "unban": "Yasağı kaldır",
+            "table": {
+                "playerName": "Oyuncu ismi",
+                "playerId": "Oyuncu ID",
+                "reason": "Nedeni",
+                "admin": "Yönetici",
+                "timestamp": "işlem zamanı"
+            }
         },
         "logs": {
             "main": "Grup kayıtları",

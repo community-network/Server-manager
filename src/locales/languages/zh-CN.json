@@ -143,7 +143,14 @@
             "description1": "已经使用了{{number}} 个栏位",
             "reason": "",
             "noReason": "理由",
-            "unban": "解ban"
+            "unban": "解ban",
+            "table": {
+                "playerName": "玩家名称",
+                "playerId": "玩家数字ID",
+                "reason": "理由",
+                "admin": "管理",
+                "timestamp": "时间标签"
+            }
         },
         "logs": {
             "main": "群组日志",

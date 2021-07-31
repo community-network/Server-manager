@@ -142,7 +142,14 @@
             "description1": "Χρησιμοποιημένες {{number}} θυρίδες",
             "reason": "",
             "noReason": "με λόγο",
-            "unban": "Unban"
+            "unban": "Unban",
+            "table": {
+                "playerName": "Όνομα παίκτη",
+                "playerId": "Ταυτότητα παίκτη",
+                "reason": "Αιτία",
+                "admin": "Διαχειριστής",
+                "timestamp": "Χρονική σήμανση"
+            }
         },
         "logs": {
             "main": "Αρχεία καταγραφής Ομάδως",

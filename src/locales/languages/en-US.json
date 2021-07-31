@@ -142,9 +142,15 @@
             "main": "Vban list",
             "description0": "List of banned players on this group.",
             "description1": "Used {{number}} slots",
-            "reason": "",
             "noReason": "with reason",
-            "unban": "Unban"
+            "unban": "Unban",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "reason": "Reason",
+                "admin": "Admin",
+                "timestamp": "Timestamp"
+            }
         },
         "logs": {
             "main": "Group logs",

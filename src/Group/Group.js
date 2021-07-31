@@ -181,12 +181,24 @@ export function VBanList(props) {
                 <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
                 <Button name="Add ban" callback={_ => modal.show(<VbanBanPlayer gid={gid}/>)} />
             </ButtonRow>
-            <div className={styles.BanListing}>
-                {
-                    banList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                        (player, i) => (<GlobalBanRow player={player} key={i} callback={() => unbanVGlobalBan.mutate({gid, name: player.playerName})}/>)
-                    )
-                }
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <th>{t("group.vban.table.playerName")}</th>
+                        <th>{t("group.vban.table.playerId")}</th>
+                        <th>{t("group.vban.table.reason")}</th>
+                        <th>{t("group.vban.table.admin")}</th>
+                        <th>{t("group.vban.table.timestamp")}</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {
+                            banList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (player, i) => (<GlobalBanRow player={player} key={i} callback={() => unbanVGlobalBan.mutate({gid, name: player.playerName})}/>)
+                            )
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     );
@@ -197,15 +209,16 @@ function GlobalBanRow(props) {
     const modal = useModal();
     const player = props.player;
     const { t } = useTranslation();
+    var datetime = new Date(player.timeStamp);
     return (
-        <div className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />)}>
-            <span className={styles.BanDisplayName}>{player.playerName}</span>
-            <span className={styles.banReason}>{
-                ((player.reason === "") ? t("group.vban.noReason") : t("group.vban.reason"))
-            }</span>
-            <span className={styles.banReasonDetailed}>{player.reason}</span>
-            <span className={styles.globalUnban} onClick={props.callback}>{t("group.vban.unban")}</span>
-        </div>
+        <tr className={styles.BanRow}>
+            <td className={styles.globalBanUser} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />)}>{player.playerName}</td>
+            <td>{player.id}</td>
+            <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
+            <td>{player.admin}</td>
+            <td>{t("dateTime", {date: datetime})}</td>
+            <td className={styles.globalUnban} onClick={props.callback}>{t("group.vban.unban")}</td>
+        </tr>
     );
 }
 

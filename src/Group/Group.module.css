@@ -90,7 +90,7 @@
     margin-right: 10px;
     color: var(--color-text);
 }
-.logRow, .BanRow {
+.logRow {
     padding: 10px 20px;
     margin: 10px 0;
     height: 40px;
@@ -107,22 +107,13 @@
     color: var(--color-text-high);
 }
 
-.groupLogReason, .banReasonDetailed {
+.groupLogReason {
     flex-grow: 2;
 }
 
-.BanDisplayName {
-    margin-right: 10px;
-    color: var(--color-text-high);
-}
-
-.banReason {
-    margin-right: 10px;
-    color: var(--color-text);
-}
-
-.globalUnban {
+.globalUnban:hover, .globalBanUser:hover {
     cursor: pointer;
+    background: var(--color-container-v2);
 }
 
 .serverBadgeErr, .serverBadgeOk, .serverBadgePending {
@@ -141,3 +132,23 @@
 .serverBadgeOk {
     color: #61d663;
 }
+
+.BanRow > td {
+    border: none;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: var(--color-text);
+}
+
+.BanRow > td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.BanRow > td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+/* .BanRow:hover > td {
+    background: var(--color-container-v2);
+    cursor: pointer;
+} */

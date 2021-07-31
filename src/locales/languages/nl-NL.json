@@ -142,7 +142,14 @@
             "description1": "{{number}} sloten gebruikt",
             "reason": "",
             "noReason": "met reden",
-            "unban": "Unban"
+            "unban": "Unban",
+            "table": {
+                "playerName": "Spelernaam",
+                "playerId": "Speler ID",
+                "reason": "Reden",
+                "admin": "Admin",
+                "timestamp": "Tijdstempel"
+            }
         },
         "logs": {
             "main": "Groepslogboek",
