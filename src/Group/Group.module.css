@@ -111,7 +111,7 @@
     flex-grow: 2;
 }
 
-.globalUnban:hover, .globalBanUser:hover {
+.BanRow:hover > td {
     cursor: pointer;
     background: var(--color-container-v2);
 }
@@ -144,11 +144,12 @@
     border-radius: 8px 0 0 8px;
 }
 
-.BanRow > td:last-child {
+.BanRow > td:nth-last-child(2) {
     border-radius: 0 8px 8px 0;
 }
 
-/* .BanRow:hover > td {
+.globalUnban:hover {
+    border-radius: 8px;
     background: var(--color-container-v2);
     cursor: pointer;
-} */
+}

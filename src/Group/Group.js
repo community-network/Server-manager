@@ -215,14 +215,18 @@ function GlobalBanRow(props) {
     const { t } = useTranslation();
     var datetime = new Date(player.timeStamp);
     return (
-        <tr className={styles.BanRow}>
-            <td className={styles.globalBanUser} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />)}>{player.playerName}</td>
-            <td>{player.id}</td>
-            <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
-            <td>{player.admin}</td>
-            <td>{t("dateTime", {date: datetime})}</td>
-            <td className={styles.globalUnban} onClick={props.callback}>{t("group.vban.unban")}</td>
-        </tr>
+        <>
+            <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />):null}>
+                <td>{player.playerName}</td>
+                <td>{player.id}</td>
+                <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
+                <td>{player.admin}</td>
+                <td>{t("dateTime", {date: datetime})}</td>
+                <th className={styles.globalUnban} onClick={props.callback}>
+                    {t("group.vban.unban")}
+                </th>
+            </tr>
+        </>
     );
 }
 
