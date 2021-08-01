@@ -136,7 +136,7 @@ export function GroupRow(props) {
                                 <span>{server?(server.isAdmin?t("serverStatus.running"):t("serverStatus.noAdmin")):t("serverStatus.noServer")}</span>
                             </td>
                             <td>
-                                <span>{server.lastUpdate!==undefined?t("dateTime", {date: new Date(server.lastUpdate)}):"-"}</span>
+                                <span>{server.lastUpdate!==undefined?t("dateTime", {date: new Date(server.lastUpdate * 1000)}):"-"}</span>
                             </td>
                             <td>
                                 <span>{t("dateTime", {date: new Date(server.createdAt)})}</span>
