@@ -47,7 +47,15 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async globalUnbanPlayer({ name, gid, id }) {
+    async globalUnbanPlayer({ name, gid, id, reason }) {
+        if ((reason !== undefined) && (reason !== "")) {
+            return await this.postJsonMethod("delautoban", {
+                "playerid": id,
+                "playername": name,
+                "groupid": gid,
+                "reason": reason
+            });
+        }
         return await this.postJsonMethod("delautoban", {
             "playerid": id,
             "playername": name,

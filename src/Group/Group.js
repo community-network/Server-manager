@@ -3,6 +3,7 @@ import { useMeasure } from 'react-use';
 import { Link, useHistory } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import { GroupGlobalUnbanPlayer } from "./Modals";
 
 import { OperationsApi } from "../api";
 import '../locales/config';
@@ -128,7 +129,6 @@ export function GameStatsAd(props) {
 
 export function VBanList(props) {
     const gid = props.gid;
-    const modal = useModal();
     const { isError, data: banList, error } = useQuery('globalBanList' + gid, () => OperationsApi.getAutoBanList({ gid }));
 
     const queryClient = useQueryClient();
@@ -137,33 +137,17 @@ export function VBanList(props) {
     const [searchWord, setSearchWord] = useState("");
     const { t } = useTranslation();
 
-    const unbanVGlobalBan = useMutation(
-        variables => OperationsApi.globalUnbanPlayer(variables),
-        {
-            // When mutate is called:
-            onMutate: async ({ gid, name }) => {
-                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalBanList' + gid)
-                // Snapshot the previous value
-                const previousBanList = queryClient.getQueryData('globalBanList' + gid)
-                // Optimistically update to the new value
-                queryClient.setQueryData('globalBanList' + gid, old => {
-                    old.data= old.data.filter(player => player.playerName !== name);
-                    return old;
-                })
-                // Return a context object with the snapshotted value
-                return { previousBanList, gid }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
-                queryClient.setQueryData('globalBanList' + context.gid, context.previousBanList)
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalBanList' + context.gid)
-            },
-        }
-    );
+    const modal = useModal();
+    const showGlobalUnban = e => {
+        let playerInfo = e.target.dataset
+        modal.show(
+            <GroupGlobalUnbanPlayer 
+                gid={gid} 
+                eaid={playerInfo.name} 
+                playerId={playerInfo.id}
+            />
+        );
+    }
 
     if (!banList) {
         // TODO: add fake item list on loading
@@ -198,7 +182,7 @@ export function VBanList(props) {
                     <tbody>
                         {
                             banList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<GlobalBanRow player={player} key={i} callback={() => unbanVGlobalBan.mutate({gid, name: player.playerName, id: player.id})}/>)
+                                (player, i) => (<GlobalBanRow player={player} key={i} callback={showGlobalUnban}/>)
                             )
                         }
                     </tbody>
@@ -215,18 +199,16 @@ function GlobalBanRow(props) {
     const { t } = useTranslation();
     var datetime = new Date(player.timeStamp);
     return (
-        <>
-            <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />):null}>
-                <td>{player.playerName}</td>
-                <td>{player.id}</td>
-                <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
-                <td>{player.admin}</td>
-                <td>{t("dateTime", {date: datetime})}</td>
-                <th className={styles.globalUnban} onClick={props.callback}>
-                    {t("group.vban.unban")}
-                </th>
-            </tr>
-        </>
+        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />):null}>
+            <td>{player.playerName}</td>
+            <td>{player.id}</td>
+            <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
+            <td>{player.admin}</td>
+            <td>{t("dateTime", {date: datetime})}</td>
+            <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
+                {t("group.vban.unban")}
+            </th>
+        </tr>
     );
 }
 

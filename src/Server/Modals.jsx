@@ -242,7 +242,7 @@ export function PlayerStatsModal(props) {
 /*
     Checks string to not have special characters and be les or 30 symbols in length
 */
-function checkGameString(v) {
+export function checkGameString(v) {
     // Not sure wich ones should work, this seems right, maybe some else
     const allowed_keys = "abcdefghijklmnopqrstuvwxyz0123456789_-.: &?!";
     for (let l of v) {

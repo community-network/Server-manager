@@ -188,7 +188,7 @@ export function Manager() {
                 <Card style={{ paddingTop: "5px" }}>
                     <ButtonRow>
                         <h2 style={{ marginTop: "8px", marginRight: "10px" }}>{t("man.listGroups")}</h2>
-                        <TextInput style={{}} name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                        <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
                     </ButtonRow>
                     {groups}
                 </Card>

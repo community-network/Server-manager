@@ -491,6 +491,12 @@
             "reason": "Reden",
             "confirm": "Unban!"
         },
+        "vUnbanMenu": {
+            "main": "U gaat {{name}} verwijderen van vBan",
+            "reasonDescription": "Geef een reden om deze speler te verwijderen.",
+            "reason": "Redem",
+            "confirm": "Ban!"
+        },
         "unvipMenu": {
             "main": "U gaat {{name}} uit vip halen",
             "reasonDescription": "Geef een reden om deze speler uit vip te halen.",

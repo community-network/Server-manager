@@ -492,6 +492,12 @@
             "reason": "Reason",
             "confirm": "Unban!"
         },
+        "vUnbanMenu": {
+            "main": "You are going to remove {{name}} from vban",
+            "reasonDescription": "Enter a reason to remove this player.",
+            "reason": "Reason",
+            "confirm": "Unban!"
+        },
         "unvipMenu": {
             "main": "You are going to remove {{name}} from vip",
             "reasonDescription": "Enter a reason to remove vip from this player.",
