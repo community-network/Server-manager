@@ -15,8 +15,10 @@
     align-items: center;
 }
 
-table {
+.ManagementTable {
     margin-left: 10px;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 .GroupName {
@@ -54,22 +56,22 @@ table {
     align-items: center;
 }
 
-th {
+.tableHeaders > th {
     padding-top: 20px;
     background: none;
     padding-bottom: 0;
 }
 
-td {
+.ManagementTable > tbody > td {
     color: #bbb;
 }
 
-h5 {
+.ManagementTitles {
     padding: 10px 20px;
     margin: 0;
     color: #fff;
 }
 
-thead > tr {
+.tableHeaders {
     border-bottom: 1px solid #aaa;
 }

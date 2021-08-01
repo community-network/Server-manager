@@ -76,9 +76,9 @@ export function GroupRow(props) {
                     {/* } */}
                 <span className={styles.manageDev}>{t("dateTime", {date: datetime})}</span>
             </div>
-            <table style={{ borderCollapse: "collapse", width: "100%" }}>
+            <table className={styles.ManagementTable}>
                 <thead>
-                    <tr>
+                    <tr className={styles.tableHeaders}>
                         <th>{t("man.worker.main")}</th>
                         <th>{t("man.worker.lastUpdate")}</th>
                     </tr>
@@ -94,9 +94,9 @@ export function GroupRow(props) {
                     </tr>
                 </tbody>
             </table>
-            <table style={{ borderCollapse: "collapse", width: "100%" }}>
+            <table className={styles.ManagementTable}>
                 <thead>
-                    <tr>
+                    <tr className={styles.tableHeaders}>
                         <th>{t("man.owners.main")}</th>
                         <th>{t("man.owners.createdAt")}</th>
                     </tr>
@@ -116,9 +116,9 @@ export function GroupRow(props) {
                     )}
                 </tbody>
             </table>
-            <table style={{ borderCollapse: "collapse", width: "100%" }}>
+            <table className={styles.ManagementTable}>
                 <thead>
-                    <tr>
+                    <tr className={styles.tableHeaders}>
                         <th>{t("man.servers.main")}</th>
                         <th>{t("man.servers.status")}</th>
                         <th>{t("man.servers.lastUpdate")}</th>
@@ -146,7 +146,7 @@ export function GroupRow(props) {
                 </tbody>
             </table>
             <br />
-            <h5>{t("man.settings.main")}</h5>
+            <h5 className={styles.ManagementTitles}>{t("man.settings.main")}</h5>
             <Switch checked={getGroupValue("makeOperations")} name={t("man.settings.makeOperations")} callback={(v) => changeGroupState({ makeOperations: v })} />
             {
                 (group && canApply) ? (
