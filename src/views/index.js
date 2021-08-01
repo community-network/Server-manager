@@ -4,6 +4,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useQuery } from 'react-query';
 import Account from "./Account";
 import { Developer } from "../Developer/View";
+import { Manager } from "../Manager/View";
 import { Server } from "../Server/View";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "../Group/View";
 import { PageContainer, PageColumn } from "../components";
@@ -88,6 +89,7 @@ function Views() {
             <Route exact path="/group/:gid/delete" component={DeleteGroup} />
 
             <Route exact path="/dev/" component={Developer} />
+            <Route exact path="/man/" component={Manager} />
 
         </Switch>
     );

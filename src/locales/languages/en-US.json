@@ -95,6 +95,28 @@
         "addGroup": "Add new Group",
         "manage": "Manage group"
     },
+    "man": {
+        "main": "Manager Options",
+        "listGroups": "List of Groups",
+        "worker": {
+            "main": "Worker account",
+            "lastUpdate": "Last update"
+        },
+        "owners": {
+            "main": "Owners",
+            "createdAt": "User created at"
+        },
+        "servers": {
+            "main": "Servers",
+            "status": "Server status",
+            "lastUpdate": "Last worker update",
+            "createdAt": "Server added at"  
+        },
+        "settings": {
+            "main": "Settings",
+            "makeOperations": "Enable make operations"
+        }
+    },
     "createGroup": {
         "main": "Create new Group",
         "description": "Create a new group to manage your community servers",
@@ -481,6 +503,7 @@
         "home": "Home page",
         "account": "Account",
         "devOptions": "Developer Options",
+        "manOptions": "Management Options",
         "createGroup": "Create Group",
         "makeOperations": "Make Operations",
         "logout": "Logout",

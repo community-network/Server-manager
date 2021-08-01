@@ -32,6 +32,7 @@ export default function Account() {
                             inGuild: false,
                             isAdmin: false,
                             isDeveloper: false,
+                            isManager: false,
                             isOwner: false,
                             signedIn: false
                         }

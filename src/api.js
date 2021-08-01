@@ -210,6 +210,14 @@ export class ApiProvider extends JsonClient {
         return devGroups;
     }
 
+    async getManGroups() {
+        var devGroups = await this.getJsonMethod("mangroups");
+        if ("error" in devGroups) {
+            throw Error("Error on server.");
+        }
+        return devGroups;
+    }
+
     async addGroup({ groupName, discordId, modRole, adminRole, sid, remid }) {
         return await this.postJsonMethod("addgroup", {
             "groupname": groupName,
@@ -337,6 +345,15 @@ export class ApiProvider extends JsonClient {
         }
     }
 
+    async manEditGroup({ gid, value }) {
+        var answer = await this.postJsonMethod("maneditgroup", {
+            "groupid": gid,
+            "values": value
+        });
+        if ("error" in answer) {
+            throw new Error(answer.error.message)
+        }
+    }
 
 }
 
