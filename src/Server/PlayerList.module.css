@@ -1,5 +1,5 @@
 .PlayerTimer {
-    width: 70px;
+    width: 90px;
 }
 
 .playerAmount {
@@ -9,7 +9,7 @@
 }
 
 .PlayerRow, .PlayerRowLoading, .PlayerListMessage {
-    padding: 15px 20px;
+    padding: 8px 20px;
     border-radius: 10px;
     color: var(--color-text-low);
     background: var(--color-container);
