@@ -92,7 +92,7 @@
 .PlayerButton {
     color: var(--color-text);
     cursor: pointer;
-    margin-right: 15px;
+    margin-right: 12px;
     padding: 5px 10px;
     border: 1px solid var(--color-second-v2);
     border-radius: 5px;
