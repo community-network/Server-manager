@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
+import { PageContext } from "./ServerGlobalContext";
 
 import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
@@ -90,6 +91,8 @@ export function ServerRotation(props) {
         update_timestamp = new Date(server.update_timestamp);
     }
     var [rotationId, setRotationId] = useState(""); 
+    const [playerListSort, setPlayerListSort] = useContext(PageContext);
+    
     return (
         <div className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
@@ -97,6 +100,7 @@ export function ServerRotation(props) {
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading") }</span>
                     <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", {inQue: game.inQue})}` : "-"}</SmallText>
+                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
                 </div>
             </div>
             <ButtonRow>
@@ -109,11 +113,16 @@ export function ServerRotation(props) {
                 </select>
                 {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
             </ButtonRow>
-            <div className={styles.serverStatusArray}>
-                <span>{server_status}</span>
-                <span className={styles.serverBadge}>{t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
-            </div>
-            
+            <ButtonRow>
+                <select className={styles.SwitchGame} value={playerListSort} onChange={e => setPlayerListSort(e.target.value)}>
+                    <option value="position">{t("server.players.sort.main")}</option>
+                    <option value="position">{t("server.players.sort.position")}</option>
+                    <option value="-ping">{t("server.players.sort.ping")}</option>
+                    <option value="name">{t("server.players.sort.name")}</option>
+                    <option value="-rank">{t("server.players.sort.rank")}</option>
+                    <option value="joinTime">{t("server.players.sort.joinTime")}</option>
+                </select>
+            </ButtonRow>
         </div>
     );
 }

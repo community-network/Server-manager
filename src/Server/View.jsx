@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
-
+import { PageContext } from "./ServerGlobalContext";
 
 import { OperationsApi } from "../api";
 
@@ -33,6 +33,7 @@ export function Server(props) {
     const { data: runningGame } = useGame(sid);
 
     var [tabsListing, setTabsListing] = useState("info");
+    const [playerListSort, setPlayerListSort] = useState("position");
 
     const serverTabs = [
         {
@@ -101,7 +102,7 @@ export function Server(props) {
     }
 
     return (
-        <>
+        <PageContext.Provider value={[playerListSort, setPlayerListSort]}>
             <Row>
                 <Column>
                     <Header>
@@ -122,7 +123,7 @@ export function Server(props) {
                 </Column>
             </Row>
             <PlayerList game={runningGame} sid={sid} /> 
-        </>
+        </PageContext.Provider>
     );
 
 }

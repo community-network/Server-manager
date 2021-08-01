@@ -93,6 +93,28 @@
         "addGroup": "Groep toevoegen",
         "manage": "Group beheren"
     },
+    "man": {
+        "main": "Management opties",
+        "listGroups": "Lijst van groepen",
+        "worker": {
+            "main": "Worker account",
+            "lastUpdate": "Laaste update"
+        },
+        "owners": {
+            "main": "Eigenaren",
+            "createdAt": "Gebruiker gemaakt op"
+        },
+        "servers": {
+            "main": "Servers",
+            "status": "Server status",
+            "lastUpdate": "Laatste update van de worker",
+            "createdAt": "Server toegevoegd op"  
+        },
+        "settings": {
+            "main": "Instellingen",
+            "makeOperations": "Operations optie aanzetten voor groep"
+        }
+    },
     "createGroup": {
         "main": "Nieuwe groep maken",
         "description": "Maak een nieuwe groep om uw communityservers te beheren",
@@ -410,7 +432,15 @@
             "0": "Team 1",
             "1": "Team 2",
             "spectators": "Toeschouwers",
-            "timeInfo": "Hoe lang de speler al in het spel is"
+            "timeInfo": "Hoe lang de speler al in het spel is",
+            "sort": {
+                "main": "Sorteer de spelerlijsten",
+                "position": "Positie op de server",
+                "ping": "ping",
+                "name": "Spelernaam",
+                "rank": "Rank",
+                "joinTime": "Join time"
+            }
         },
         "factions": {
             "BFFactionId_FactionAHU": "Austro-Hungarian Empire",
@@ -480,6 +510,7 @@
         "home": "Thuis",
         "account": "Account",
         "devOptions": "Developer opties",
+        "manOptions": "Management opties",
         "createGroup": "Groep maken",
         "makeOperations": "Maak de server Operations",
         "logout": "Uitloggen",

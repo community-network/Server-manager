@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useTranslation } from 'react-i18next';
 import { useMeasure } from 'react-use';
+import { PageContext } from "./ServerGlobalContext";
 
 import { PlayerDropdownButton } from "../components/Buttons";
+import { DynamicSort } from "../components/Functions";
 import { useModal, Column, Card, TopRow } from "../components";
 
 import styles from "./PlayerList.module.css";
@@ -152,9 +154,10 @@ function LoadingPlayer() {
 function ListPlayerGroup({ team, players, sid }) {
    
     const [playerListRef, { width }] = useMeasure();
+    const [playerListSort] = useContext(PageContext);
 
     let moveTeam = !!team ? (team === "0") ? "1" : "2" : false;
-
+    players = players.sort(DynamicSort(playerListSort));
     return (
         <div ref={playerListRef}>
             {players.map((player, i) => (

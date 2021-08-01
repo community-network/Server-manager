@@ -96,7 +96,7 @@
         "manage": "Manage group"
     },
     "man": {
-        "main": "Manager Options",
+        "main": "Management Options",
         "listGroups": "List of Groups",
         "worker": {
             "main": "Worker account",
@@ -433,7 +433,15 @@
             "0": "Team 1",
             "1": "Team 2",
             "spectators": "Spectators",
-            "timeInfo": "For how long the player is in game"
+            "timeInfo": "For how long the player is in game",
+            "sort": {
+                "main": "Sort the playerlists",
+                "position": "Position on server",
+                "ping": "ping",
+                "name": "Playername",
+                "rank": "Rank",
+                "joinTime": "Join time"
+            }
         },
         "factions": {
             "BFFactionId_FactionAHU": "Austro-Hungarian Empire",

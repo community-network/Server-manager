@@ -95,7 +95,7 @@ export function Sidebar(props) {
             if (user.auth.isDeveloper) {
                 devLink = <PageLink to="/dev/" name={t("sidebar.devOptions")} content={devOptionsContent} />;
             }
-            console.log(user.auth)
+            
             if (user.auth.isManager) {
                 manLink = <PageLink to="/man/" name={t("sidebar.manOptions")} content={manOptionsContent} />;
             }

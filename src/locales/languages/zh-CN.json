@@ -94,6 +94,28 @@
         "addGroup": "添加服务器群组",
         "manage": "管理服务器群组"
     },
+    "man": {
+        "main": "管理选项",
+        "listGroups": "群组列表",
+        "worker": {
+            "main": "线程账户",
+            "lastUpdate": "最后更新"
+        },
+        "owners": {
+            "main": "所有者",
+            "createdAt": "用户被创建于"
+        },
+        "servers": {
+            "main": "服务器",
+            "status": "服务器状态",
+            "lastUpdate": "线程最后更新",
+            "createdAt": "服务器被添加于"
+        },
+        "settings": {
+            "main": "设置",
+            "makeOperations": "开启设置行动"
+        }
+    },
     "createGroup": {
         "main": "创建新的群组",
         "description": "创建一个新的群组来管理你社区的所有服务器",
@@ -475,6 +497,7 @@
         "home": "首页",
         "account": "账户",
         "devOptions": "开发者选项",
+        "manOptions": "管理选项",
         "createGroup": "创建群组",
         "makeOperations": "设置行动",
         "logout": "注销",
