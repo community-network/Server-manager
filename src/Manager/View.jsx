@@ -89,7 +89,7 @@ export function GroupRow(props) {
                             <span>{group.cookieAcc}</span>
                         </td>
                         <td>
-                            <span>{t("dateTime", {date: new Date(group.lastUpdate)})}</span>
+                            <span>{group.lastUpdate!==undefined?t("dateTime", {date: new Date(group.lastUpdate)}):"-"}</span>
                         </td>
                     </tr>
                 </tbody>
@@ -136,7 +136,7 @@ export function GroupRow(props) {
                                 <span>{server?(server.isAdmin?t("serverStatus.running"):t("serverStatus.noAdmin")):t("serverStatus.noServer")}</span>
                             </td>
                             <td>
-                                <span>{t("dateTime", {date: new Date(server.lastUpdate)})}</span>
+                                <span>{server.lastUpdate!==undefined?t("dateTime", {date: new Date(server.lastUpdate)}):"-"}</span>
                             </td>
                             <td>
                                 <span>{t("dateTime", {date: new Date(server.createdAt)})}</span>
