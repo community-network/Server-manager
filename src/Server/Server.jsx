@@ -217,8 +217,8 @@ function BanRow(props) {
             <td title={t("server.banList.table.playerId")}>{player.id}</td>
             <td>{player.reason}</td>
             <td>{player.admin}</td>
-            <td>{player.banned_until}</td>
-            <td>{player.ban_timestamp}</td>
+            <td>{player.banned_until!==""?t("dateTime", {date: new Date(player.banned_until)}):""}</td>
+            <td>{player.ban_timestamp!==""?t("dateTime", {date: new Date(player.ban_timestamp)}):""}</td>
             <th className={styles.listButton} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
                 {t("server.action.unban")}
             </th>
