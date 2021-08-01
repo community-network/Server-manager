@@ -66,7 +66,6 @@ export function GroupRow(props) {
     };
     // const [groupListRef, { width }] = useMeasure(); 
     //  ref={groupListRef} 
-    var datetime = new Date(group.createdAt);
     return (
         <div className={styles.GroupRow}>
             <div className={styles.GroupHeader}>
@@ -74,7 +73,7 @@ export function GroupRow(props) {
 
                 {/* {width < 350? <span></span>: */}
                     {/* } */}
-                <span className={styles.manageDev}>{t("dateTime", {date: datetime})}</span>
+                <span className={styles.manageDev}>{group.createdAt!==undefined?t("dateTime", {date: new Date(group.createdAt)}):"-"}</span>
             </div>
             <table className={styles.ManagementTable}>
                 <thead>
@@ -110,7 +109,7 @@ export function GroupRow(props) {
                                 <span>{player.nickName}</span>
                             </td>
                             <td>
-                                <span>{t("dateTime", {date: new Date(player.createdAt)})}</span>
+                                <span>{player.createdAt!==undefined?t("dateTime", {date: new Date(player.createdAt)}):"-"}</span>
                             </td>
                         </tr>
                     )}
@@ -139,7 +138,7 @@ export function GroupRow(props) {
                                 <span>{server.lastUpdate!==undefined?t("dateTime", {date: new Date(server.lastUpdate * 1000)}):"-"}</span>
                             </td>
                             <td>
-                                <span>{t("dateTime", {date: new Date(server.createdAt)})}</span>
+                                <span>{server.createdAt!==undefined?t("dateTime", {date: new Date(server.createdAt)}):"-"}</span>
                             </td>
                         </tr>
                     )}
