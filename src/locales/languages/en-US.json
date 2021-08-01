@@ -436,7 +436,7 @@
             "timeInfo": "For how long the player is in game",
             "sort": {
                 "main": "Sort the playerlists",
-                "position": "Position on server",
+                "position": "Position on server (default)",
                 "ping": "ping",
                 "name": "Playername",
                 "rank": "Rank",

@@ -435,7 +435,7 @@
             "timeInfo": "Hoe lang de speler al in het spel is",
             "sort": {
                 "main": "Sorteer de spelerlijsten",
-                "position": "Positie op de server",
+                "position": "Positie op de server (standaard)",
                 "ping": "ping",
                 "name": "Spelernaam",
                 "rank": "Rank",
