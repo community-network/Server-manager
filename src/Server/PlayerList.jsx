@@ -212,17 +212,18 @@ export function Player({ player, i, sid, moveTeam, width }) {
                     player.name
                 }
             </span>
-
-            <span className={styles.PlayerTimer} title="" value="jointime">
-                {t("change", {change: dateAdded})}
-            </span>
+            {width > 400 ?
+                <span className={styles.PlayerTimer} title="" value="jointime">
+                    {t("change", {change: dateAdded})}
+                </span>
+            :<></>}
 
             <span className={styles.PlayerNone} />
 
             <PlayerButtons player={player} sid={sid} moveTeam={moveTeam} width={width} />
-
-            <PlayerPing ping={player.ping} />
-                
+            {width > 300 ?
+                <PlayerPing ping={player.ping} />
+            :<></>}
         </div>
     );
 }
