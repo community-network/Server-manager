@@ -94,6 +94,28 @@
         "addGroup": "Yeni Grup ekle",
         "manage": "Grubu yönet"
     },
+    "man": {
+        "main": "Yönetici Seçenekleri",
+        "listGroups": "Grup Listesi",
+        "worker": {
+            "main": "Aktif hesap",
+            "lastUpdate": "Son Güncelleme"
+        },
+        "owners": {
+            "main": "Sahip",
+            "createdAt": "Kullanıcı oluşturuldu"
+        },
+        "servers": {
+            "main": "Sunucular",
+            "status": "Sunucu durumu",
+            "lastUpdate": "Son aktif güncellemesi",
+            "createdAt": "Sunucu eklendi"
+        },
+        "settings": {
+            "main": "Ayarlar",
+            "makeOperations": "İşlemleri gerçekleştirmeyi etkinleştir"
+        }
+    },
     "createGroup": {
         "main": "Yeni Grup Oluştur",
         "description": "Topluluk sunucularınızı yönetmek için yeni bir grup oluşturun",
@@ -154,7 +176,18 @@
         },
         "logs": {
             "main": "Grup kayıtları",
-            "description": "Grup kayıt listesi"
+            "description": "Grup kayıt listesi",
+            "reasons": {
+                "addVban": "vBanned",
+                "removeVban": "vBan'den kaldırıldı",
+                "editGroup": "düzenlenmiş grup",
+                "addUser": "yönetici eklendi",
+                "addOwner": "sahip eklendi",
+                "addGroup": "bu grubu ekledi",
+                "removeOwner": "sahip kaldırıldı",
+                "removeUser": "yönetici kaldırıldı",
+                "magic": "sihir yaptı"
+            }
         },
         "account": {
             "main": "Sunucu hesabı",
@@ -395,7 +428,15 @@
             "full": "Dolu",
             "0": "Takım 1",
             "1": "Takım 2",
-            "timeInfo": "Oyuncunun oyunda ne kadar süre kaldığı"
+            "timeInfo": "Oyuncunun oyunda ne kadar süre kaldığı",
+            "sort": {
+                "main": "Oyuncu listelerini sıralayın",
+                "position": "sunucudaki konum(default)",
+                "ping": "Geçikme",
+                "name": "Oyuncu Id",
+                "rank": "Rütbe",
+                "joinTime": "Katılma zamanı"
+            }
         },
         "factions": {
             "BFFactionId_FactionAHU": "Avusturya-Macaristan İmparatorluğu",
@@ -440,6 +481,24 @@
             "tempbanAmount": "Yasaklanma süresi",
             "confirm": "Yasakla!"
         },
+        "unbanMenu": {
+            "main": "{{name}} Oyuncusunun yasağını kaldıracaksınız",
+            "reasonDescription": "Bu oyuncunun yasağını kaldırmak için bir neden girin.",
+            "reason": "Sebep",
+            "confirm": "Yasağı kaldır!"
+        },
+        "unvipMenu": {
+            "main": "{{name}} adlı kişiyi VIP'den kaldıracaksınız",
+            "reasonDescription": "Bu oyuncudan VIP'yi kaldırmak için bir neden girin.",
+            "reason": "Sebep",
+            "confirm": "Kaldır"
+        },
+        "vUnbanMenu": {
+            "main": "{{name}} vban'dan kaldıracaksınız",
+            "reasonDescription": "Bu oyucuyu kaldırmak için bir neden girin.",
+            "reason": "Neden",
+            "confirm": "Kaldır"
+        },
         "vBanMenu": {
             "playerNameDescription": "Yasaklamak istediğiniz oyuncunun adını girin",
             "playerName": "Kullanıcı adı",
@@ -453,6 +512,7 @@
         "home": "Ev",
         "account": "Hesap",
         "devOptions": "Geliştirici Ayarları",
+        "manOptions": "Yönetim Seçenekleri",
         "createGroup": "Grup Oluştur",
         "makeOperations": "Operasyon sunucusu oluştur",
         "logout": "Çıkış Yap",
