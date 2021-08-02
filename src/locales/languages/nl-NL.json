@@ -7,9 +7,10 @@
     "denied": "Niet toegestaan",
     "apply": "Toepassen",
     "export": "Exporteren",
-    "date": "{{date, date|EEEE dd MMM yyyy}}",
-    "dateTime": "{{date, date|EEEE, dd MMM yyyy - p}}",
+    "date": "{{date, date|eee, dd MMM yyyy}}",
+    "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
     "shortDateTime": "{{date, date|PPpp}}",
+    "time": "{{date, date|p}}",
     "change": "{{change, change}}",
     "cookie": {
         "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
@@ -436,7 +437,7 @@
             "sort": {
                 "main": "Sorteer de spelerlijsten",
                 "position": "Positie op de server (standaard)",
-                "ping": "ping",
+                "ping": "Ping",
                 "name": "Spelernaam",
                 "rank": "Rank",
                 "joinTime": "Join time"
@@ -535,11 +536,6 @@
         "7": "If you logout the cookies are no longer valid."
     },
     "ApiInfo": {
-        "main": "Server Manager API",
-        "link": "Klik hier voor een lijst met alle beschikbare aanvragen naar de API",
-        "examples": {
-            "python": "Python voorbeeldcode",
-            "rust": "Rust voorbeeldcode"
-        }
+        "link": "Klik hier voor een lijst met alle beschikbare aanvragen naar de API"
     }
 }

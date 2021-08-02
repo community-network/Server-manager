@@ -437,7 +437,7 @@
             "sort": {
                 "main": "Sort the playerlists",
                 "position": "Position on server (default)",
-                "ping": "ping",
+                "ping": "Ping",
                 "name": "Playername",
                 "rank": "Rank",
                 "joinTime": "Join time"
