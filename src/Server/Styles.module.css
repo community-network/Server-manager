@@ -52,7 +52,7 @@
 .ServerDescriptionRow {
     display: flex;
     flex-direction: row;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .SwitchGame {

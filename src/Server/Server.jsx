@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
 import { PageContext } from "./ServerGlobalContext";
+import { useMeasure } from 'react-use';
 
 import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
@@ -92,17 +93,28 @@ export function ServerRotation(props) {
     }
     var [rotationId, setRotationId] = useState(""); 
     const [playerListSort, setPlayerListSort] = useContext(PageContext);
-    
+    const [serverInfoRef, { width }] = useMeasure();
+
     return (
-        <div className={styles.ServerInfoColumn}>
+        <div ref={serverInfoRef} className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
                 <img className={styles.serverImage} alt="Server map" src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading") }</span>
                     <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", {inQue: game.inQue})}` : "-"}</SmallText>
-                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
+                    {width > 400 ?
+                        <>
+                            <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
+                        </>
+                    :<></>}
                 </div>
             </div>
+            {width <= 400 ?
+                <>
+                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
+                    <div style={{ padding: "5px" }} />
+                </>
+            :<div style={{ paddingTop: "5px" }} />}
             <ButtonRow>
                 <Button name={t("server.game.restart")} disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
                 <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
