@@ -428,7 +428,15 @@
             "0": "队伍1",
             "1": "队伍2",
             "spectators": "观众",
-            "timeInfo": "该玩家加入游戏的时间"
+            "timeInfo": "该玩家加入游戏的时间",
+            "sort": {
+                "main": "玩家列表分类",
+                "position": "服务器上的位置 (默认)",
+                "ping": "延迟",
+                "name": "玩家名称",
+                "rank": "等级",
+                "joinTime": "加入时间"
+            }
         },
         "factions": {
             "BFFactionId_FactionAHU": "奥匈帝国",
@@ -475,6 +483,12 @@
         "unbanMenu": {
             "main": "你正在解封{{name}}",
             "reasonDescription": "输入一个解封该玩家的理由.",
+            "reason": "理由",
+            "confirm": "解封!"
+        },
+        "vUnbanMenu": {
+            "main": "你正在把 {{name}} 从vban中删除",
+            "reasonDescription": "输入一个解除vban的原因.",
             "reason": "理由",
             "confirm": "解封!"
         },
