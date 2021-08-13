@@ -57,9 +57,9 @@
 }
 
 .tableHeaders > th {
+    padding: 0px;
     padding-top: 20px;
     background: none;
-    padding-bottom: 0;
 }
 
 .ManagementTable > tbody > td {

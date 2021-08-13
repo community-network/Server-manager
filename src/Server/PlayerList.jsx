@@ -20,7 +20,7 @@ export function PlayerList({ game, sid }) {
     let haveGame = !!game;
     let teams = haveGame ? game.data[0].players : false;
     let spectators = haveGame ? game.data[0].spectators : false;
-   
+
     let havePlayers = teams && !("error" in teams[0]) && (teams[0].players !== undefined || teams[1].players !== undefined);
 
     let maxTeamPlayers = haveGame ? game.data[0].info.maxPlayerAmount / 2 : "";
@@ -33,8 +33,8 @@ export function PlayerList({ game, sid }) {
         if (teams[teamId].players.length === maxTeamPlayers) {
             return t("server.players.full");
         } else {
-            return t("server.players.main", {amount: teams[teamId].players.length, max: maxTeamPlayers});
-        }   
+            return t("server.players.main", { amount: teams[teamId].players.length, max: maxTeamPlayers });
+        }
     }
 
     const getSectatorAmountMsg = () => {
@@ -44,15 +44,15 @@ export function PlayerList({ game, sid }) {
         if (spectators.length === maxSpectator) {
             return t("server.players.full");
         } else {
-            return t("server.players.main", {amount: spectators.length, max: maxSpectator});
-        }   
+            return t("server.players.main", { amount: spectators.length, max: maxSpectator });
+        }
     }
 
     const getFaction = (teamid) => {
         if (!havePlayers) {
             return (
                 <span className={styles.Faction}>
-                    <div className={styles.LoadingFactionImage}  />
+                    <div className={styles.LoadingFactionImage} />
                     {t(`server.players.${teamid}`)}
                 </span>
             );
@@ -61,7 +61,7 @@ export function PlayerList({ game, sid }) {
             let factionId = teams[teamid].faction;
             return (
                 <span className={styles.Faction}>
-                    <img src={factions[factionId].image} alt={factions[factionId].name} className={styles.FactionImage}  />
+                    <img src={factions[factionId].image} alt={factions[factionId].name} className={styles.FactionImage} />
                     {t(`server.factions.${factionId}`)}
                 </span>
             );
@@ -70,52 +70,82 @@ export function PlayerList({ game, sid }) {
         }
     }
 
-    let team1 = 
-        (!haveGame) ? <LoadingListPlayerGroup amount={16} /> : 
-        (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> : 
-        (teams[0].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> : 
-        <ListPlayerGroup players={teams[0].players} team="0" sid={sid} />;
+    let team1 =
+        (!haveGame) ? <LoadingListPlayerGroup amount={16} /> :
+            (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> :
+                (teams[0].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> :
+                    <ListPlayerGroup players={teams[0].players} team="0" sid={sid} />;
 
-    let team2 = 
-        (!haveGame) ? <LoadingListPlayerGroup amount={16} /> : 
-        (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> : 
-        (teams[1].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> : 
-        <ListPlayerGroup players={teams[1].players} team="1" sid={sid} />;
+    let team2 =
+        (!haveGame) ? <LoadingListPlayerGroup amount={16} /> :
+            (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> :
+                (teams[1].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> :
+                    <ListPlayerGroup players={teams[1].players} team="1" sid={sid} />;
 
     // Message Cards here or smth
     // Instead of plain text
 
-    let specs = 
-        (!haveGame) ? <LoadingListPlayerGroup amount={4} /> : 
-        (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> : 
-        (spectators.length === 0) ? <PlayerListMessage>{t("server.players.noSpectators")}</PlayerListMessage> : 
-        <ListPlayerGroup players={spectators} team={null} sid={sid} />;
+    let specs =
+        (!haveGame) ? <LoadingListPlayerGroup amount={4} /> :
+            (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> :
+                (spectators.length === 0) ? <PlayerListMessage>{t("server.players.noSpectators")}</PlayerListMessage> :
+                    <ListPlayerGroup players={spectators} team={null} sid={sid} />;
+
+    const [playerColumnRef, { width }] = useMeasure();
 
     return (
-        <>
-            <TopRow>
-                <PlayerListColumn>
-                    <h2 className={styles.PlayerGroupName}>
-                        {getFaction(0)}
-                        <span className={styles.playerAmount}>{getPlayerAmountMsg(0)}</span>
-                    </h2>
-                    {team1}
-                </PlayerListColumn>
-                <PlayerListColumn>
-                    <h2 className={styles.PlayerGroupName}>
-                        {getFaction(1)}
-                        <span className={styles.playerAmount}>{getPlayerAmountMsg(1)}</span>
-                    </h2>
-                    {team2}
-                </PlayerListColumn>
-            </TopRow>
-            <TopRow>
-                <PlayerListColumn>
-                    <h2 className={styles.PlayerGroupName}>{t("server.players.spectators")} <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
-                    {specs}
-                </PlayerListColumn>
-            </TopRow>
-        </>
+        <div ref={playerColumnRef}>
+            {width > 2000 ? (
+                <>
+                    <TopRow>
+                        <PlayerListColumn>
+                            <h2 className={styles.PlayerGroupName}>
+                                {getFaction(0)}
+                                <span className={styles.playerAmount}>{getPlayerAmountMsg(0)}</span>
+                            </h2>
+                            {team1}
+                        </PlayerListColumn>
+                        <PlayerListColumn>
+                            <h2 className={styles.PlayerGroupName}>
+                                {getFaction(1)}
+                                <span className={styles.playerAmount}>{getPlayerAmountMsg(1)}</span>
+                            </h2>
+                            {team2}
+                        </PlayerListColumn>
+                        <PlayerListColumn>
+                            <h2 className={styles.PlayerGroupName}>{t("server.players.spectators")} <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
+                            {specs}
+                        </PlayerListColumn>
+                    </TopRow>
+                </>
+
+            ) : (
+                <>
+                    <TopRow>
+                        <PlayerListColumn>
+                            <h2 className={styles.PlayerGroupName}>
+                                {getFaction(0)}
+                                <span className={styles.playerAmount}>{getPlayerAmountMsg(0)}</span>
+                            </h2>
+                            {team1}
+                        </PlayerListColumn>
+                        <PlayerListColumn>
+                            <h2 className={styles.PlayerGroupName}>
+                                {getFaction(1)}
+                                <span className={styles.playerAmount}>{getPlayerAmountMsg(1)}</span>
+                            </h2>
+                            {team2}
+                        </PlayerListColumn>
+                    </TopRow>
+                    <TopRow>
+                        <PlayerListColumn>
+                            <h2 className={styles.PlayerGroupName}>{t("server.players.spectators")} <span className={styles.playerAmount}>{getSectatorAmountMsg()}</span></h2>
+                            {specs}
+                        </PlayerListColumn>
+                    </TopRow>
+                </>
+            )}
+        </div>
     )
 }
 
@@ -152,7 +182,7 @@ function LoadingPlayer() {
 }
 
 function ListPlayerGroup({ team, players, sid }) {
-   
+
     const [playerListRef, { width }] = useMeasure();
     const [playerListSort] = useContext(PageContext);
 
@@ -185,7 +215,7 @@ export function Player({ player, i, sid, moveTeam, width }) {
     var dateAdded = new Date(player.joinTime / 1000);
 
     // Show player stats modal
-    const showStats = _=> {
+    const showStats = _ => {
         return modal.show(
             <PlayerStatsModal player={player.name} id={player.playerId} />
         )
@@ -206,7 +236,7 @@ export function Player({ player, i, sid, moveTeam, width }) {
 
             <span className={styles.PlayerName} onClick={showStats} value="nickname">
                 {
-                    (player.platoon === "") ? "" : `[${player.platoon}] ` 
+                    (player.platoon === "") ? "" : `[${player.platoon}] `
                 }
                 {
                     player.name
@@ -214,16 +244,16 @@ export function Player({ player, i, sid, moveTeam, width }) {
             </span>
             {width > 400 ?
                 <span className={styles.PlayerTimer} title="" value="jointime">
-                    {t("change", {change: dateAdded})}
+                    {t("change", { change: dateAdded })}
                 </span>
-            :<></>}
+                : <></>}
 
             <span className={styles.PlayerNone} />
 
             <PlayerButtons player={player} sid={sid} moveTeam={moveTeam} width={width} />
             {width > 300 ?
                 <PlayerPing ping={player.ping} />
-            :<></>}
+                : <></>}
         </div>
     );
 }
@@ -245,33 +275,33 @@ function PlayerButtons({ player, sid, moveTeam, width }) {
     const movePlayer = useMovePlayer();
 
     // Show Ban player Modal
-    const showBan = _=> {
+    const showBan = _ => {
         modal.show(
-            <ServerBanPlayer 
-                sid={sid} 
-                eaid={player.name} 
+            <ServerBanPlayer
+                sid={sid}
+                eaid={player.name}
                 playerId={player.playerId}
             />
         );
     }
 
     // Show Kick player modal
-    const showKick = _=> {
+    const showKick = _ => {
         modal.show(
-                <ServerKickPlayer 
-                sid={sid} 
-                eaid={player.name} 
+            <ServerKickPlayer
+                sid={sid}
+                eaid={player.name}
                 playerId={player.playerId}
             />
         )
     }
 
     // Try to move player
-    const moveCallback = _=> {
-        movePlayer.mutate({ 
-            sid, 
-            name: player.name, 
-            team: moveTeam, 
+    const moveCallback = _ => {
+        movePlayer.mutate({
+            sid,
+            name: player.name,
+            team: moveTeam,
             playerId: player.playerId
         })
     }
@@ -279,7 +309,7 @@ function PlayerButtons({ player, sid, moveTeam, width }) {
     // Possible buttons
     let playerOptions = [
         { name: t("server.action.kick"), callback: showKick },
-        { name: t("server.action.ban"),  callback: showBan  },
+        { name: t("server.action.ban"), callback: showBan },
     ];
 
     // If movable, add move button
@@ -297,14 +327,14 @@ function PlayerButtons({ player, sid, moveTeam, width }) {
     // Return Buttons in a row
     return (
         <div className={styles.PlayerButtons}>
-            {playerOptions.map(({name, callback}, key) => (
+            {playerOptions.map(({ name, callback }, key) => (
                 <PlayerButton onClick={callback} key={key}>
                     {name}
                 </PlayerButton>
             ))}
         </div>
     )
-} 
+}
 
 /**
  * Player Button styled component
@@ -333,9 +363,9 @@ function PlayerPing({ ping }) {
         <span className={styles.PlayerPing}>
             {ping}
             <svg viewBox="0 0 24 24">
-                <path 
-                    fill="currentColor" 
-                    d="M4,6V4H4.1C12.9,4 20,11.1 20,19.9V20H18V19.9C18,12.2 11.8,6 4,6M4,10V8A12,12 0 0,1 16,20H14A10,10 0 0,0 4,10M4,14V12A8,8 0 0,1 12,20H10A6,6 0 0,0 4,14M4,16A4,4 0 0,1 8,20H4V16Z" 
+                <path
+                    fill="currentColor"
+                    d="M4,6V4H4.1C12.9,4 20,11.1 20,19.9V20H18V19.9C18,12.2 11.8,6 4,6M4,10V8A12,12 0 0,1 16,20H14A10,10 0 0,0 4,10M4,14V12A8,8 0 0,1 12,20H10A6,6 0 0,0 4,14M4,16A4,4 0 0,1 8,20H4V16Z"
                 />
             </svg>
         </span>

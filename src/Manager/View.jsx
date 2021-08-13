@@ -120,6 +120,9 @@ export function GroupRow(props) {
                     <tr className={styles.tableHeaders}>
                         <th>{t("man.servers.main")}</th>
                         <th>{t("man.servers.status")}</th>
+                        <th>{t("man.servers.autoPingKick")}</th>
+                        <th>{t("man.servers.autoBanKick")}</th>
+                        <th>{t("man.servers.autoBfbanKick")}</th>
                         <th>{t("man.servers.lastUpdate")}</th>
                         <th>{t("man.servers.createdAt")}</th>
                     </tr>
@@ -133,6 +136,15 @@ export function GroupRow(props) {
                             </td>
                             <td>
                                 <span>{server?(server.isAdmin?t("serverStatus.running"):t("serverStatus.noAdmin")):t("serverStatus.noServer")}</span>
+                            </td>
+                            <td>
+                                <span>{server.autoPingKick !== 0 ? t("boolean.enabled"):t("boolean.disabled")}</span>
+                            </td>
+                            <td>
+                                <span>{server.autoBanKick? t("boolean.enabled"):t("boolean.disabled")}</span>
+                            </td>
+                            <td>
+                                <span>{server.autoBfbanKick? t("boolean.enabled"):t("boolean.disabled")}</span>
                             </td>
                             <td>
                                 <span>{server.lastUpdate!==undefined?t("dateTime", {date: new Date(server.lastUpdate * 1000)}):"-"}</span>

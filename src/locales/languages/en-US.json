@@ -12,6 +12,10 @@
     "shortDateTime": "{{date, date|PPpp}}",
     "time": "{{date, date|p}}",
     "change": "{{change, change}}",
+    "boolean": {
+        "enabled": "enabled",
+        "disabled": "disabled"
+    },
     "cookie": {
         "invalid": "Error: The cookies you are using right now are invalid!",
         "remid": "REMID cookie",
@@ -110,7 +114,10 @@
             "main": "Servers",
             "status": "Server status",
             "lastUpdate": "Last worker update",
-            "createdAt": "Server added at"  
+            "createdAt": "Server added at",
+            "autoPingKick": "Kick for ping",
+            "autoBanKick": "vBan kick",
+            "autoBfbanKick": "BfBan kick"
         },
         "settings": {
             "main": "Settings",
