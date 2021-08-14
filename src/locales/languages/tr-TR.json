@@ -11,6 +11,10 @@
     "dateTime": "{{date, date|PPpp}}",
     "shortDateTime": "{{date, date|PPpp}}",
     "change": "{{change, change}}",
+    "boolean": {
+        "enable": "Aktif",
+        "disable": "Pasif"
+    },
     "cookie": {
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
         "remid": "REMID tanımlama bilgisi",
@@ -109,7 +113,10 @@
             "main": "Sunucular",
             "status": "Sunucu durumu",
             "lastUpdate": "Son aktif güncellemesi",
-            "createdAt": "Sunucu eklendi"
+            "createdAt": "Sunucu eklendi",
+            "autoPingKick": "ping için atılma",
+            "autoBanKick": "vBan'dan atılma",
+            "autoBfbanKick": "BfBan'dan atılma"
         },
         "settings": {
             "main": "Ayarlar",
