@@ -109,7 +109,10 @@
             "main": "服务器",
             "status": "服务器状态",
             "lastUpdate": "线程最后更新",
-            "createdAt": "服务器被添加于"
+            "createdAt": "服务器被添加于",
+            "autoPingKick": "延迟踢出",
+            "autoBanKick": "vBan踢出",
+            "autoBfbanKick": "BfBan踢出"
         },
         "settings": {
             "main": "设置",
