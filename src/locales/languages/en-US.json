@@ -30,6 +30,12 @@
         "noAdmin": "No admin rights",
         "running": "Running"
     },
+    "serverBotStatus": {
+        "pending": "Pending status",
+        "noService": "No worker found",
+        "failed": "Worker failed",
+        "running": "Running with name \"{{worker}}\""
+    },
     "discord": {
         "id": "Discord Server ID",
         "idDescription": "Your Discord server ID",
@@ -424,7 +430,20 @@
             "nameDescription": "Change Server Name",
             "name": "Server Name",
             "aliasDescription": "Alias to use with a Discord bot. (Can be a server number, for example)",
-            "alias": "Alias"
+            "alias": "Alias",
+            "discordBot": {
+                "main": "Discord Battlefield-server status-bot",
+                "token": "Discord token",
+                "tokenDesc": "The Discord token it will use for the server status bot",
+                "channel": "Discord channel id",
+                "channelDesc": "The Discord channel id it will post the changes in playeramount to",
+                "minPlayerAmount": "min. amount to start a round",
+                "minPlayerAmountDesc": "Minimum amount of players to start a round in the server's current gamemode",
+                "prevReqCount": "prev. request to count",
+                "prevReqCountDesc": "How many request it needs to check between started and running, (default = 5, 5 * 2 == 10 minutes)",
+                "startedAmount": "enough to keep it running",
+                "startedAmountDesc": "How many players count as a running server"
+            }
         },
         "console": {
             "main": "Console",

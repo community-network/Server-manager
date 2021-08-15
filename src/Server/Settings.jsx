@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import styles from "./Styles.module.css";
 
 import { ButtonRow, Button, TextInput } from "../components";
 import { OperationsApi } from "../api";
@@ -22,8 +23,8 @@ export function ServerSettings(props) {
 
     useEffect(() => {
         if (props.server) {
-            const { serverName, serverAlias } = props.server;
-            const originalServerState = { serverName, serverAlias };
+            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount } = props.server;
+            const originalServerState = { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount };
             if (serverState === null) {
                 setServerState(originalServerState);
             } else {
@@ -68,6 +69,35 @@ export function ServerSettings(props) {
         return "";
     };
 
+    var server_status = (
+        <span style={{ marginLeft: "8px" }} className={styles.serverBadgePending}>
+            {t("serverBotStatus.pending")}
+        </span>
+    );
+
+    if (props.server) {
+        if (props.server.botInfo.state === "running") {
+            server_status = (
+                <span style={{ marginLeft: "8px" }} className={styles.serverBadgeOk}>
+                    <span className={styles.liveUpdate}></span>
+                    {t("serverBotStatus.running", {worker: props.server.botInfo.serviceName})}
+                </span>
+            )  
+        } else if (props.server.botInfo.state === "failed") {
+            server_status = (
+                <span style={{ marginLeft: "8px" }} className={styles.serverBadgeErr}>
+                    {t("serverBotStatus.failed")}
+                </span>
+            )
+        } else {
+            server_status = (
+                <span style={{ marginLeft: "8px" }} className={styles.serverBadgeErr}>
+                    {t("serverBotStatus.noService")}
+                </span>
+            )
+        }
+    }
+
     return (
         <>
             <h2 style={{ marginLeft: "20px" }}>{t("server.settings.title")}</h2>
@@ -88,6 +118,49 @@ export function ServerSettings(props) {
                 callback={(e) => changeSrerverState({ serverAlias: e.target.value })}
                 defaultValue={getServerValue("serverAlias")}
                 name={t("server.settings.alias")}
+            />
+
+
+            <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>
+
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.tokenDesc")}</h5>
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ discordBotToken: e.target.value })}
+                defaultValue={getServerValue("discordBotToken")}
+                name={t("server.settings.discordBot.token")}
+            />
+
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.channelDesc")}</h5>
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ discordBotChannel: e.target.value })}
+                defaultValue={getServerValue("discordBotChannel")}
+                name={t("server.settings.discordBot.channel")}
+            />
+            
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.minPlayerAmountDesc")}</h5>
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ discordBotMinPlayerAmount: e.target.value })}
+                defaultValue={getServerValue("discordBotMinPlayerAmount")}
+                name={t("server.settings.discordBot.minPlayerAmount")}
+            />
+
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.prevReqCountDesc")}</h5>
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ discordBotPrevReqCount: e.target.value })}
+                defaultValue={getServerValue("discordBotPrevReqCount")}
+                name={t("server.settings.discordBot.prevReqCount")}
+            />
+
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.startedAmountDesc")}</h5>
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => changeSrerverState({ discordBotStartedAmount: e.target.value })}
+                defaultValue={getServerValue("discordBotStartedAmount")}
+                name={t("server.settings.discordBot.startedAmount")}
             />
             {
                 (props.server && canApply) ? (

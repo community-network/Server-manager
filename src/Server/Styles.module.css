@@ -210,6 +210,16 @@ th {
     align-items: center;
 }
 
+.serverBot {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    margin-left: 20px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
 .serverBadge {
     color: var(--color-text);
 }
