@@ -434,7 +434,7 @@
             "discordBot": {
                 "main": "Discord Battlefield-server status-bot",
                 "token": "Discord token",
-                "tokenDesc": "The Discord token it will use for the server status bot",
+                "tokenDesc": "The Discord token it will use for the server status bot (a worker will automaticly be created after you fill in the discord token and press save)",
                 "channel": "Discord channel id",
                 "channelDesc": "The Discord channel id it will post the changes in playeramount to",
                 "minPlayerAmount": "min. amount to start a round",
