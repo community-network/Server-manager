@@ -353,6 +353,16 @@ export class ApiProvider extends JsonClient {
         }
     }
 
+
+    async restartWorker({ sid }) {
+        var answer = await this.postJsonMethod("restartworker", {
+            "serverid": sid
+        });
+        if ("error" in answer) {
+            throw new Error(answer.error.message)
+        }
+    }
+
     async manEditGroup({ gid, value }) {
         var answer = await this.postJsonMethod("maneditgroup", {
             "groupid": gid,

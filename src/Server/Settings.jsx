@@ -20,6 +20,9 @@ export function ServerSettings(props) {
     const [canApply, setCanApply] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+    
+    const [restartStatus, setRestartStatus] = useState(null);
+    const [restartErrorUpdating, setRestartError] = useState({ code: 0, message: "Unknown" });
 
     useEffect(() => {
         if (props.server) {
@@ -55,6 +58,26 @@ export function ServerSettings(props) {
                 setApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('server' + props.sid);
+            }
+        }
+    );
+
+    const restartWorker = useMutation(
+        _ => OperationsApi.restartWorker({ sid: props.sid }),
+        {
+            onMutate: async () => {
+                setRestartStatus(true);
+            },
+            onSuccess: async () => {
+                setRestartStatus(null);
+            },
+            onError: async (error) => {
+                setRestartStatus(false);
+                setRestartError(error);
+                setTimeout(_ => setRestartStatus(null), 2000);
             },
             onSettled: async () => {
                 queryClient.invalidateQueries('server' + props.sid);
@@ -120,7 +143,6 @@ export function ServerSettings(props) {
                 name={t("server.settings.alias")}
             />
 
-
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>
 
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.tokenDesc")}</h5>
@@ -162,6 +184,14 @@ export function ServerSettings(props) {
                 defaultValue={getServerValue("discordBotStartedAmount")}
                 name={t("server.settings.discordBot.startedAmount")}
             />
+
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.restartWorkerDesc")}</h5>
+            <ButtonRow>
+                <Button name={t("server.settings.discordBot.restartWorker")} disabled={props.server.botInfo.state === "noService"} callback={
+                    _ => restartWorker.mutate()
+                } status={restartStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (restartStatus === false) ? 1 : 0 }}>Error {restartErrorUpdating.code}: {restartErrorUpdating.message}</h5>
+            </ButtonRow>
             {
                 (props.server && canApply) ? (
                     <ButtonRow>

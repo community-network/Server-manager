@@ -434,7 +434,7 @@
             "discordBot": {
                 "main": "Discord Battlefield-server status-bot",
                 "token": "Discord token",
-                "tokenDesc": "The Discord token it will use for the server status bot (a worker will automaticly be created after you fill in the discord token and press save)",
+                "tokenDesc": "The Discord token it will use for the server status bot (a worker will automaticly be created after you fill in the discord token and press apply)",
                 "channel": "Discord channel id",
                 "channelDesc": "The Discord channel id it will post the changes in playeramount to",
                 "minPlayerAmount": "min. amount to start a round",
@@ -442,7 +442,9 @@
                 "prevReqCount": "prev. request to count",
                 "prevReqCountDesc": "How many request it needs to check between started and running, (default = 5, 5 * 2 == 10 minutes)",
                 "startedAmount": "enough to keep it running",
-                "startedAmountDesc": "How many players count as a running server"
+                "startedAmountDesc": "How many players count as a running server",
+                "restartWorker": "Restart",
+                "restartWorkerDesc": "Restart the serverstatus bot (does the same when you apply a change)"
             }
         },
         "console": {
