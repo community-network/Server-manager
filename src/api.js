@@ -274,6 +274,7 @@ export class ApiProvider extends JsonClient {
             "servername": name,
             "serveralias": alias,
             "groupid": gid,
+            "game": "bf1"
         });
     }
 
