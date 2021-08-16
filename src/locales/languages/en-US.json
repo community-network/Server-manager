@@ -12,9 +12,17 @@
     "shortDateTime": "{{date, date|PPpp}}",
     "time": "{{date, date|p}}",
     "change": "{{change, change}}",
+    "notApplicable": "N/A",
     "boolean": {
         "enabled": "enabled",
         "disabled": "disabled"
+    },
+    "games": {
+        "bf3": "Battlefield 3 (statusbot only)",
+        "bf4": "Battlefield 4 (statusbot only)",
+        "bfh": "Battlefield Hardline (statusbot only)",
+        "bf1": "Battlefield 1",
+        "bfv": "Battlefield 5 (statusbot only)"
     },
     "cookie": {
         "invalid": "Error: The cookies you are using right now are invalid!",
@@ -28,7 +36,8 @@
         "pending": "Pending status",
         "noServer": "Server not found",
         "noAdmin": "No admin rights",
-        "running": "Running"
+        "running": "Running",
+        "notSupported": "No status support"
     },
     "serverBotStatus": {
         "pending": "Pending status",
@@ -160,6 +169,7 @@
             "main": "Servers",
             "description0": "Server instances added to current group.",
             "description1": "You need to have Owner role in order to add new servers.",
+            "alias": "Alias: {{alias}}",
             "add": "Add Server"
         },
         "owners": {
@@ -443,6 +453,8 @@
                 "prevReqCountDesc": "How many request it needs to check between started and running, (default = 5, 5 * 2 == 10 minutes)",
                 "startedAmount": "enough to keep it running",
                 "startedAmountDesc": "How many players count as a running server",
+                "ownerId": "Playerid of the owner",
+                "ownerIdDesc": "In Battlefield 5 servers are free, because of that its really easy to copy someones server. fill the playerid of the serverowner in here to prevent that.",
                 "restartWorker": "Restart",
                 "restartWorkerDesc": "Restart the serverstatus bot (does the same when you apply a change)"
             }

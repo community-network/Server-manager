@@ -269,12 +269,12 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async addGroupServer({ gid, name, alias }) {
+    async addGroupServer({ gid, name, alias, game }) {
         return await this.postJsonMethod("addserver", {
             "servername": name,
             "serveralias": alias,
             "groupid": gid,
-            "game": "bf1"
+            "game": game
         });
     }
 

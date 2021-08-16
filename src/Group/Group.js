@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { GroupGlobalUnbanPlayer } from "./Modals";
+import { supportedGames } from "../Globals";
 
 import { OperationsApi } from "../api";
 import '../locales/config';
@@ -96,10 +97,24 @@ export function ServerRow(props) {
 
     return (
         <div className={styles.GroupRow}>
-            <Link className={styles.GroupName} to={"/server/" + server.id}>
-                {server.name}
-                {serverStatus}
-            </Link>
+            {supportedGames.includes(server.game)? (
+                <Link className={styles.GroupName}  to={"/server/" + server.id}>
+                    <img style={{maxHeight: '18px', marginRight: '15px'}} alt={server.game} src={`/img/gameIcons/${server.game}.png`}/>
+                    {server.name}
+                    {serverStatus}
+                </Link>
+            ) : (
+                <Link className={styles.GroupName}  to={"/statusserver/" + server.id}>
+                    <img style={{maxHeight: '18px', marginRight: '15px'}} alt={server.game} src={`/img/gameIcons/${server.game}.png`}/>
+                    {server.name}
+                    <span className={styles.serverBadgePending}>
+                        {t("serverStatus.notSupported")}
+                    </span>
+                </Link>
+            )}
+            <span style={{ marginRight: '15px' }}>
+                {t("group.servers.alias", {alias: server.serverAlias !== ""? server.serverAlias : t("notApplicable")})}
+            </span>
             {props.button}
         </div>
     );

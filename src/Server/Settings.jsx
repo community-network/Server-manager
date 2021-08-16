@@ -26,8 +26,8 @@ export function ServerSettings(props) {
 
     useEffect(() => {
         if (props.server) {
-            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount } = props.server;
-            const originalServerState = { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount };
+            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId } = props.server;
+            const originalServerState = { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId };
             if (serverState === null) {
                 setServerState(originalServerState);
             } else {
@@ -185,13 +185,29 @@ export function ServerSettings(props) {
                 name={t("server.settings.discordBot.startedAmount")}
             />
 
-            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.restartWorkerDesc")}</h5>
-            <ButtonRow>
-                <Button name={t("server.settings.discordBot.restartWorker")} disabled={props.server.botInfo.state === "noService"} callback={
-                    _ => restartWorker.mutate()
-                } status={restartStatus} />
-                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (restartStatus === false) ? 1 : 0 }}>Error {restartErrorUpdating.code}: {restartErrorUpdating.message}</h5>
-            </ButtonRow>
+            {props.server? (
+                <>
+                    {props.server.game === "bfv"? (
+                        <>
+                            <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.ownerIdDesc")}</h5>
+                            <TextInput
+                                disabled={!allowedTo}
+                                callback={(e) => changeSrerverState({ discordBotOwnerId: e.target.value })}
+                                defaultValue={getServerValue("discordBotOwnerId")}
+                                name={t("server.settings.discordBot.ownerId")}
+                            />
+                        </>
+                    ) : (<></>)}
+
+                    <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.restartWorkerDesc")}</h5>
+                    <ButtonRow>
+                        <Button name={t("server.settings.discordBot.restartWorker")} disabled={props.server.botInfo.state === "noService"} callback={
+                            _ => restartWorker.mutate()
+                        } status={restartStatus} />
+                        <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (restartStatus === false) ? 1 : 0 }}>Error {restartErrorUpdating.code}: {restartErrorUpdating.message}</h5>
+                    </ButtonRow>
+                </>
+            ) : (<></>)}
             {
                 (props.server && canApply) ? (
                     <ButtonRow>

@@ -6,6 +6,7 @@ import Account from "./Account";
 import { Developer } from "../Developer/View";
 import { Manager } from "../Manager/View";
 import { Server } from "../Server/View";
+import { StatusOnlyServer } from "../Server/StatusOnly";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "../Group/View";
 import { PageContainer, PageColumn } from "../components";
 import { CookieInfo } from "./CookieInfo";
@@ -76,6 +77,9 @@ function Views() {
 
             <Route exact path="/server/:sid/" component={Server} />
             <Route exact path="/server/:sid/:tab/" component={Server} />
+
+            <Route exact path="/statusserver/:sid/" component={StatusOnlyServer} />
+            <Route exact path="/statusserver/:sid/:tab/" component={StatusOnlyServer} />
 
             <Route exact path="/group/new/" component={AddGroup} />
             <Route exact path="/group/:gid/" component={Group} />

@@ -3,13 +3,16 @@ import cryptoRandomString from 'crypto-random-string';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
+import { statusOnlyGames } from "../Globals";
+
+import styles from "./Group.module.css";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
 
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
-import  { GroupRow, ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
+import  { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
 
 const deleteIcon = (
     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
@@ -1125,6 +1128,7 @@ export function DeleteGroup(props) {
 export function AddGroupServer(props) {
     var gid = props.match.params.gid;
 
+    const [game, setGame] = useState("bf1"); 
     var name = "", alias = "";
 
     const queryClient = useQueryClient();
@@ -1135,7 +1139,7 @@ export function AddGroupServer(props) {
         variables => OperationsApi.addGroupServer(variables),
         {
             // When mutate is called:
-            onMutate: async({ gid, name, alias }) => {
+            onMutate: async({ gid, name, alias, game }) => {
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
                 await queryClient.cancelQueries('groupId' + gid)
@@ -1148,7 +1152,8 @@ export function AddGroupServer(props) {
                     old.data[0].servers.push({
                         "addedAt": UTCNow,
                         "id": null,
-                        "name": name
+                        "name": name,
+                        "game": game
                     });
                     return old;
                 })
@@ -1179,7 +1184,16 @@ export function AddGroupServer(props) {
                     <TextInput name={t("group.serverAddMenu.name")} callback={(e) => { name = e.target.value }} />
                     <TextInput name={t("group.serverAddMenu.alias")} callback={(e) => { alias = e.target.value; }} />
                     <ButtonRow>
-                        <Button name={t("group.servers.add")} callback={() => { AddGroupServerExecute.mutate({ gid, alias, name }); history.push("/group/" + gid); }} />
+                        <select style={{ marginLeft: "5px" }} className={styles.SwitchTitle} value={game} onChange={e => setGame(e.target.value)}>
+                            {statusOnlyGames.map((key, index) => {
+                                return (
+                                    <option key={index} value={key}>{t(`games.${key}`)}</option>
+                                );
+                            })}
+                        </select>
+                    </ButtonRow>
+                    <ButtonRow>
+                        <Button name={t("group.servers.add")} callback={() => { AddGroupServerExecute.mutate({ gid, alias, name, game }); history.push("/group/" + gid); }} />
                     </ButtonRow>
                 </Card>
             </Column>

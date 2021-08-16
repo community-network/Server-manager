@@ -68,7 +68,7 @@ export function SmallButton(props) {
         );
     }
     return (
-        <div className={styles.SmallButton} onClick={_ => props.callback(props.vars)} title={props.name}>{props.content || props.name}</div>
+        <div className={styles.SmallButton} data-id={props.id} onClick={_ => props.callback(props.vars)} title={props.name}>{props.content || props.name}</div>
     );
 }
 
@@ -195,7 +195,7 @@ export function ChoosePageButtons(props) {
 
     return (
         <div className={styles.ChoosePageButtonHolder} ref={pageCardRef}>
-            {width < maxWidth ? 
+            {width < maxWidth && props.buttons.length !== 1 ? 
                 <>
                     <div 
                         className={styles.ChoosePageButtonActive}
