@@ -10,7 +10,20 @@
     "date": "{{date, date|PP}}",
     "dateTime": "{{date, date|PPpp}}",
     "shortDateTime": "{{date, date|PPpp}}",
+    "time": "{{date, date|p}}",
     "change": "{{change, change}}",
+    "notApplicable": "无",
+    "boolean": {
+        "enable": "开启",
+        "disable": "关闭"
+    },
+    "games": {
+        "bf3": "战地3 (只战绩机器人)",
+        "bf4": "战地 4 (只战绩机器人)",
+        "bfh": "战地 硬仗 (只战绩机器人)",
+        "bf1": "战地 1",
+        "bfv": "战地 5 (只战绩机器人)"
+    },
     "cookie": {
         "invalid": "错误：你当前的cookie无效",
         "remid": "REMID cookie",
@@ -23,7 +36,14 @@
         "pending": "处理状态",
         "noServer": "错误：服务器未找到",
         "noAdmin": "错误：当前账号没有该服务器管理权限",
-        "running": "运行中"
+        "running": "运行中",
+        "notSupported": "没有状态支持"
+    },
+    "serverBotStatus": {
+        "pending": "处理状态中",
+        "noService": "没有找到线程",
+        "failed": "线程运行失败",
+        "running": "正在以\"{{worker}}\"的名称运行"
     },
     "discord": {
         "id": "你的Discord Server ID",
@@ -416,7 +436,24 @@
             "nameDescription": "修改服务器名称",
             "name": "服务器名称",
             "aliasDescription": "在Discord频道机器人中显示的服务器昵称. (举个例子，可以是服务器编号)",
-            "alias": "昵称"
+            "alias": "昵称",
+            "discordBot": {
+                "main": "Discord 战地服务器状态 机器人",
+                "token": "Discord token",
+                "tokenDesc": "Discord的token将会被用作服务器状态机器人(当你填入token并且点击应用后，一个线程将会被自动创建)",
+                "channel": "Discord频道的id",
+                "channelDesc": "Discord频道的id将会发布玩家总数变化到",
+                "minPlayerAmount": "最小.开始一局游戏所需的最小玩家",
+                "minPlayerAmountDesc": "该服务器模式开始所需的最小玩家数量",
+                "prevReqCount": "前一个. 需要被计数",
+                "prevReqCountDesc": "在开局到正在运行，需要发送的请求数量, (默认 = 5, 5 * 2 == 10 分钟)",
+                "startedAmount": "足够让他运行的玩家数",
+                "startedAmountDesc": "作为一个正常运行的服务器所需玩家",
+                "ownerId": "所有者的游戏ID",
+                "ownerIdDesc": "在战地5中私服是免费的,所以山寨一个服务器是很简单的.在这里填写所有者游戏ID可以防止这件事.",
+                "restartWorker": "重启",
+                "restartWorkerDesc": "重启服务器状态机器人(当你改变设置时你也需要重启)"
+            }
         },
         "console": {
             "main": "控制台",
