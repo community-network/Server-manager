@@ -252,7 +252,12 @@
             "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
             "visableBans": "开启\"!checkban\" 公开",
             "localeDescription0": "语言标签是写入cookie中的, 像地图名称等服务器信息会以该语言显示.",
-            "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 "
+            "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 ",
+            "tokenDescription0": "如果你想使用服管面板的api，你需要生成一个token并把它保存在某个地方(推荐云笔记).",
+            "tokenDescription1": "我们只允许你生成一个新的，如果你丢失了旧token则不能从面板中找回.",
+            "token": "Token",
+            "tokenGen": "生成",
+            "tokenEnable": "启用群组token"
         },
         "danger": {
             "main": "高危区域",
