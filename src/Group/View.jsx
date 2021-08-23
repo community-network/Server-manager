@@ -731,7 +731,7 @@ function GroupStatus(props) {
         groupId = props.group.id
     }
     console.log(width)
-    const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: 60000 });
+    const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
 
     return (
         <div ref={statusRef}>
