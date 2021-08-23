@@ -9,12 +9,17 @@ Chart.register(zoomPlugin);
 
 export function MapInfo(props) {
     const { t } = useTranslation();
+
+    const mapAmounts = props.stats.maps.length;
+    const mapPrecentage = Object.values(props.stats.mapAmount).map((e) => {
+        return (e / mapAmounts * 100).toFixed(2);
+    })
     const data = {
         labels: Object.keys(props.stats.mapAmount),
         datasets: [
             {
                 label: t("group.status.stats.servers.map.info"),
-                data: Object.values(props.stats.mapAmount),
+                data: mapPrecentage,
                 backgroundColor: [
                     "#7fffd4",
                     "#458b74",
@@ -45,7 +50,7 @@ export function MapInfo(props) {
                     "#483d8b",
                     "#2f4f4f",
                 ],
-                borderWidth: 1
+                borderWidth: 1,
             },
         ],
     };
@@ -96,6 +101,10 @@ export function PlayerInfo(props) {
                     },
                 },
             },
+        },
+        interaction: {
+            intersect: false,
+            mode: 'index',
         },
         plugins: {
             zoom: {
