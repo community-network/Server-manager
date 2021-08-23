@@ -10,6 +10,7 @@
     "date": "{{date, date|eee, dd MMM yyyy}}",
     "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
     "shortDateTime": "{{date, date|PPpp}}",
+    "chartDateTime": "{{date, date|d-M, HH:mm}}",
     "time": "{{date, date|p}}",
     "change": "{{change, change}}",
     "notApplicable": "N/A",
@@ -256,7 +257,22 @@
                 "moveAmount": "{{amount}} players moved via the panel, discord bot or token.",
                 "kickAmount": "{{amount}} players kicked via the panel, discord bot or token.",
                 "banAmount": "{{amount}} players banned via the panel, discord bot or token.",
-                "globalBanKickAmount": "{{amount}} players kicked via vBan list of group."
+                "globalBanKickAmount": "{{amount}} players kicked via vBan list of group.",
+                "servers": {
+                    "main": "Statistics of each server:",
+                    "none": "No server info",
+                    "info": {
+                        "main": "Serverinfo over time",
+                        "players": "# of players",
+                        "vips": "# of vips",
+                        "admins": "# of admins",
+                        "bans": "# of bans"
+                    },
+                    "map": {
+                        "main": "Most popular map",
+                        "info": "% of maps"
+                    }
+                }
             }
         },
         "danger": {

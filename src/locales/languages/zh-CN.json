@@ -10,6 +10,7 @@
     "date": "{{date, date|PP}}",
     "dateTime": "{{date, date|PPpp}}",
     "shortDateTime": "{{date, date|PPpp}}",
+    "chartDateTime": "{{date, date|d-M, HH:mm}}",
     "time": "{{date, date|p}}",
     "change": "{{change, change}}",
     "notApplicable": "无",

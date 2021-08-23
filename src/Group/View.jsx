@@ -6,13 +6,13 @@ import { OperationsApi } from "../api";
 import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
+import { MapInfo, PlayerInfo } from "./Charts";
+import  { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
 
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
-
-import  { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
 
 const deleteIcon = (
     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
@@ -728,7 +728,7 @@ function GroupStatus(props) {
     if (props.group) {
         groupId = props.group.id
     }
-    const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: 30000 });
+    const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: 60000 });
 
     return (
         <>
@@ -763,6 +763,40 @@ function GroupStatus(props) {
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.kickAmount", {amount: groupStats.kickAmount})}</h5>
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.banAmount", {amount: groupStats.banAmount})}</h5>
                         <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.globalBanKickAmount", {amount: groupStats.globalBanKickAmount})}</h5>
+                    </div>
+                ) : (
+                    <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
+                )
+            }
+            
+            <h5 style={{ marginTop: "15px", marginBottom: "5px" }}>
+                {t("group.status.stats.servers.main")}
+            </h5>
+            {
+                (groupStats) ? (
+                    <div style={{paddingLeft: "10px"}}>
+                        {groupStats.servers.map((element, index) => {
+                            return (
+                                <>
+                                    {element.playerAmounts.length !== 0 ? (
+                                        <>
+                                            <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
+                                            <div style={{ display: "flex" }}>
+                                                <MapInfo key={index} stats={element} />
+                                                <PlayerInfo key={index} stats={element} />
+                                            </div>
+                                            <br />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
+                                            <h5 style={{ margin: "0px 25px" }}>{t("group.status.stats.servers.none")}</h5>
+                                            <br />
+                                        </>
+                                    )}
+                                </>
+                            );
+                        })}
                     </div>
                 ) : (
                     <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>

@@ -10,6 +10,7 @@
     "date": "{{date, date|PP}}",
     "dateTime": "{{date, date|PPpp}}",
     "shortDateTime": "{{date, date|PPpp}}",
+    "chartDateTime": "{{date, date|d-M, HH:mm}}",
     "change": "{{change, change}}",
     "cookie": {
         "invalid": "Σφάλμα: Τα coockies που χρησιμοποιείς δεν είναι έγκυρα!",
