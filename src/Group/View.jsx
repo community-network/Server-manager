@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useMeasure } from 'react-use';
 import cryptoRandomString from 'crypto-random-string';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -723,15 +724,17 @@ function GroupSettings(props) {
 }
 
 function GroupStatus(props) {
+    const [statusRef, { width }] = useMeasure();
     const { t } = useTranslation();
     let groupId = ""
     if (props.group) {
         groupId = props.group.id
     }
+    console.log(width)
     const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: 60000 });
 
     return (
-        <>
+        <div ref={statusRef}>
             {
                 (props.group) ? (
                     <>
@@ -739,7 +742,6 @@ function GroupStatus(props) {
                             {t("group.status.worker.main")}
                         </h5>
                         <WorkerStatus worker={props.group.inWorker} lastUpdate={props.group.lastUpdate} />
-                        <br />
                         <h5>
                             {t("group.status.cookiecheck.main")}
                         </h5>
@@ -781,10 +783,17 @@ function GroupStatus(props) {
                                     {element.playerAmounts.length !== 0 ? (
                                         <>
                                             <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
-                                            <div style={{ display: "flex" }}>
-                                                <MapInfo stats={element} />
-                                                <PlayerInfo stats={element} />
-                                            </div>
+                                            {width < 760 ? (
+                                                <>
+                                                    <MapInfo stats={element} />
+                                                    <PlayerInfo stats={element} />
+                                                </>
+                                            ) : (
+                                                <div style={{ display: "flex" }}>
+                                                    <MapInfo stats={element} />
+                                                    <PlayerInfo stats={element} />
+                                                </div>
+                                            )}
                                             <br />
                                         </>
                                     ) : (
@@ -802,7 +811,7 @@ function GroupStatus(props) {
                     <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
                 )
             }
-        </>
+        </div>
     );
 }
 
