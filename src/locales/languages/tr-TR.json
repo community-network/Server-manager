@@ -11,10 +11,19 @@
     "dateTime": "{{date, date|PPpp}}",
     "shortDateTime": "{{date, date|PPpp}}",
     "chartDateTime": "{{date, date|d-M, HH:mm}}",
+    "time": "{{date, date|p}}",
     "change": "{{change, change}}",
+    "notApplicable": "Yok",
     "boolean": {
         "enable": "Aktif",
         "disable": "Pasif"
+    },
+    "games": {
+        "bf3": "Battlefield 3 (sadece durum botu)",
+        "bf4": "Battlefield 4 (sadece durum botu)",
+        "bfh": "Battlefield Hardline (sadece durum botu)",
+        "bf1": "Battlefield 1",
+        "bfv": "Battlefield 5 (sadece durum botu)"
     },
     "cookie": {
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
@@ -28,7 +37,14 @@
         "pending": "Bekleme durumu",
         "noServer": "Sunucu bulunamadı",
         "noAdmin": "Yönetici hakları yok",
-        "running": "Çalışıyor"
+        "running": "Çalışıyor",
+        "notSupported": "Durum desteği yok"
+    },
+    "serverBotStatus": {
+        "pending": "Bekleme durumu",
+        "noService": "Çalışma bulunamadı",
+        "failed": "Çalışma başarısız oldu",
+        "running": "Adla çalıştırma \"{{worker}}\""
     },
     "discord": {
         "id": "Discord Sunucu ID",
@@ -236,7 +252,22 @@
                 "moveAmount": "{{amount}} oyuncular panel, discord botu veya jeton aracılığıyla taşındı.",
                 "kickAmount": "{{amount}} Panel, discord botu veya jeton aracılığıyla atılan oyuncular.",
                 "banAmount": "{{amount}} panel, discord botu veya jeton aracılığıyla yasaklanan oyuncular.",
-                "globalBanKickAmount": "{{amount}}vBan grup listesi üzerinden atılan oyuncular."
+                "globalBanKickAmount": "{{amount}}vBan grup listesi üzerinden atılan oyuncular.",
+                "servers": {
+                    "main": "Her sunucunun istatistikleri:",
+                    "none": "Sunucu bilgisi yok",
+                    "info": {
+                        "main": "Zamanla sunucu bilgisi",
+                        "players": "# Oyuncu",
+                        "vips": "# Vips",
+                        "admins": "# Yönetici",
+                        "bans": "# Yasaklı"
+                    },
+                    "map": {
+                        "main": "En popüler harita",
+                        "info": "% haritaların"
+                    }
+                }
             }
         },
         "danger": {
@@ -420,7 +451,24 @@
             "nameDescription": "Sunucu Adını Değiştir",
             "name": "Sunucu Adı",
             "aliasDescription": "Discord botu ile kullanmak için ön ad. (Örneğin, sunucu numarası olabilir.)",
-            "alias": "Ön Ad"
+            "alias": "Ön Ad",
+            "discordBot": {
+                "main": "Discord Battlefield-sunucu durumu-bot",
+                "token": "Anlaşmazlık belirteci",
+                "tokenDesc": "Sunucu durumu için kullanacağı Discord belirteci (siz discord belirtecini doldurup Uygula düğmesine bastıktan sonra bir çalışan otomatik olarak oluşturulur)",
+                "channel": "Discord kanal kimliği",
+                "channelDesc": "Oyuncu miktarındaki değişiklikleri yayınlayacağı Discord kanal kimliği",
+                "minPlayerAmount": "dk. bir tur başlatmak için gereken tutar",
+                "minPlayerAmountDesc": "Sunucunun geçerli oyun modunda bir tur başlatmak için minimum oyuncu sayısı",
+                "prevReqCount": "önceki yıl. sayım talebi",
+                "prevReqCountDesc": "Başlatılmış ve çalıştırılmış arasında kaç isteğin kontrol edilmesi gerekiyor, (varsayılan = 5, 5 * 2 = = 10 dakika)",
+                "startedAmount": "çalışmasını sağlamak için yeterli",
+                "startedAmountDesc": "Çalışan bir sunucu olarak kaç oyuncu sayılır",
+                "ownerId": "Sahibin oyuncu kimliği",
+                "ownerIdDesc": "Battlefield 5'te sunucular ücretsizdir,  birisinin sunucusunu kopyalamak gerçekten kolaydır. bunu önlemek için sunucu sahibinin playerıd'sini buraya doldurun.",
+                "restartWorker": "Yeniden başlat",
+                "restartWorkerDesc": "Sunucu durum botunu yeniden başlatın (bir değişiklik uyguladığınızda da aynısını yapar)"
+            }
         },
         "console": {
             "main": "Konsol",

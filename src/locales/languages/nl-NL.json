@@ -13,9 +13,17 @@
     "chartDateTime": "{{date, date|d-M, HH:mm}}",
     "time": "{{date, date|p}}",
     "change": "{{change, change}}",
+    "notApplicable": "N/A",
     "boolean": {
         "enabled": "geactiveerd",
         "disabled": "gedeactiveerd"
+    },
+    "games": {
+        "bf3": "Battlefield 3 (alleen statusbot)",
+        "bf4": "Battlefield 4 (alleen statusbot)",
+        "bfh": "Battlefield Hardline (alleen statusbot)",
+        "bf1": "Battlefield 1",
+        "bfv": "Battlefield 5 (alleen statusbot)"
     },
     "cookie": {
         "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
@@ -29,7 +37,14 @@
         "pending": "in behandeling",
         "noServer": "Server niet gevonden",
         "noAdmin": "Geen admin rechten",
-        "running": "Draaiend"
+        "running": "Draaiend",
+        "notSupported": "Geen status support"
+    },
+    "serverBotStatus": {
+        "pending": "in behandeling",
+        "noService": "Geen worker gevonden",
+        "failed": "Worker is gefaald",
+        "running": "Draaiend met \"{{worker}}\" als naam"
     },
     "discord": {
         "id": "Discord Server ID",
@@ -51,7 +66,8 @@
             },
             "1": {
                 "heading": "Ongelimiteerde globale V-Ban lijst",
-                "body": "Ban zo veel spelers als u wily op al uw servers met de virtuele ban lijst."            },
+                "body": "Ban zo veel spelers als u wily op al uw servers met de virtuele ban lijst."
+            },
             "2": {
                 "heading": "Kick spelers met hoge ping",
                 "body": "Kick automatisch spelers met een hoge ping van uw server gebaseerd op een door u ingestelde limiet"
@@ -440,7 +456,24 @@
             "nameDescription": "Verander servernaam",
             "name": "Servernaam",
             "aliasDescription": "Alias die moet gebruikt worden in de Discord bot. (kan ook een nummer zijn bijvoorbeeld)",
-            "alias": "Alias"
+            "alias": "Alias",
+            "discordBot": {
+                "main": "Discord Battlefield-server status-bot",
+                "token": "Discord token",
+                "tokenDesc": "De Discord token die hij zal gebruiken voor de server status bot (Een worker word vanzelf aangemaakt wanneer u het invult en op toepassen drukt)",
+                "channel": "Discord channel id",
+                "channelDesc": "De Discord channel id waar het veranderingen een spelerhoeveelheiden zal posten",
+                "minPlayerAmount": "min. hoeveelheid om een ronde te starten",
+                "minPlayerAmountDesc": "Minimum aantal spelers om een ronde te starten met de huidige gamemode",
+                "prevReqCount": "Vorige aantal aanvragen",
+                "prevReqCountDesc": "Hoeveel aanvragen hij moet checken tussen starten en draaiend, (standaard = 5, 5 * 2 == 10 minuten)",
+                "startedAmount": "Genoeg om het draaiend te houden",
+                "startedAmountDesc": "Hoeveel spelers telt als een draaiende server",
+                "ownerId": "Playerid van de eigenaar",
+                "ownerIdDesc": "In Battlefield 5 zijn de servers gratis, daardoor is het heel makkelijk om iemand anders zijn server na te maken. Vul het playerid in van de eigenaar om dit te voorkomen.",
+                "restartWorker": "Herstart",
+                "restartWorkerDesc": "Herstart de serverstatus bot (doet hetzelfde wanneer u op toepassen drukt)"
+            }
         },
         "console": {
             "main": "Console",
