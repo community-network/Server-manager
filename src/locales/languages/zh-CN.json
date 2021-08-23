@@ -245,7 +245,22 @@
                 "moveAmount": "{{amount}} 个玩家被面板或discord机器人或者token换边.",
                 "kickAmount": "{{amount}}个玩家被面板或discord机器人或者token踢了.",
                 "banAmount": "{{amount}} 个玩家被面板或discord机器人或者token ban了.",
-                "globalBanKickAmount": "{{amount}} 个玩家被vban列表踢了."
+                "globalBanKickAmount": "{{amount}} 个玩家被vban列表踢了.",
+                "servers": {
+                    "main": "每一个服务器的统计:",
+                    "none": "没有服务器信息",
+                    "info": {
+                        "main": "所有时间的服务器信息",
+                        "players": "# 玩家数量",
+                        "vips": "# VIP数量",
+                        "admins": "# 管理员数量",
+                        "bans": "# 被ban数量"
+                    },
+                    "map": {
+                        "main": "最受欢迎地图",
+                        "info": "% 地图数量"
+                    }
+                }
             }
         },
         "settings": {

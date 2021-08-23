@@ -777,13 +777,13 @@ function GroupStatus(props) {
                     <div style={{paddingLeft: "10px"}}>
                         {groupStats.servers.map((element, index) => {
                             return (
-                                <>
+                                <div key={index}>
                                     {element.playerAmounts.length !== 0 ? (
                                         <>
                                             <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
                                             <div style={{ display: "flex" }}>
-                                                <MapInfo key={index} stats={element} />
-                                                <PlayerInfo key={index} stats={element} />
+                                                <MapInfo stats={element} />
+                                                <PlayerInfo stats={element} />
                                             </div>
                                             <br />
                                         </>
@@ -794,7 +794,7 @@ function GroupStatus(props) {
                                             <br />
                                         </>
                                     )}
-                                </>
+                                </div>
                             );
                         })}
                     </div>
