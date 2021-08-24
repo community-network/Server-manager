@@ -591,6 +591,20 @@
         "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
         "7": "If you logout the cookies are no longer valid."
     },
+    "statusBotInfo": {
+        "link": "Click here for info on how to get discord token and invite the bot to your discord",
+        "main": "Discord bot and token",
+        "0": "Create a Discord bot:",
+        "1": "1. login to the Discord developer portal: ",
+        "2": "2. click on \"New Application\" on the top right, give the bot a name and press create.",
+        "3": "3. Click on \"Bot\" on the right and press \"Add Bot\".",
+        "4": "4. Copy the Discord token from there and paste it in the \"Discord token\" field within \"Server settings\" of the manager and press \"Apply\" on the bottom.",
+        "5": "Add the bot to your discord:",
+        "6": "5. On the newly created bot, on the \"General Information\" page, click on \"Copy\" under \"Application ID\"",
+        "7": "6. Copy this link: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, replace \"APPLICATION_ID\" with the Application Id got from step 5 and open the link in your browser.",
+        "8": "7. Select the server you want to invite the bot to and press Authorize.",
+        "9": "The bot doesnt need any special permissions to show status of the server, to send messages it needs the permission to send messages, embeds and images."
+    },
     "ApiInfo": {
         "link": "Click here to get all the available requests for the API"
     }

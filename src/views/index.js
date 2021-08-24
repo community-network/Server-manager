@@ -14,6 +14,7 @@ import { CookieInfo } from "./CookieInfo";
 import { OperationsApi } from "../api";
 import Main from "./Main";
 import { Sidebar, TopBar } from "../components";
+import { StatusBotInfo } from "./StatusBotInfo";
 
 export default function ViewHandler(props) {
 
@@ -84,6 +85,7 @@ function Views() {
             <Route exact path="/group/new/" component={AddGroup} />
             <Route exact path="/group/:gid/" component={Group} />
             <Route exact path="/cookieinfo/" component={CookieInfo} />
+            <Route exact path="/statusbotinfo/" component={StatusBotInfo} />
 
             <Route exact path="/group/:gid/add/server" component={AddGroupServer} />
             <Route exact path="/group/:gid/add/admin/" component={AddGroupAdmin} />

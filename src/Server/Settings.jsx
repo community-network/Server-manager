@@ -3,7 +3,7 @@ import { useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import styles from "./Styles.module.css";
 
-import { ButtonRow, Button, TextInput } from "../components";
+import { ButtonRow, Button, TextInput, ButtonUrl } from "../components";
 import { OperationsApi } from "../api";
 
 
@@ -144,14 +144,17 @@ export function ServerSettings(props) {
             />
 
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>
-
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.tokenDesc")}</h5>
-            <TextInput
-                disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ discordBotToken: e.target.value })}
-                defaultValue={getServerValue("discordBotToken")}
-                name={t("server.settings.discordBot.token")}
-            />
+            <ButtonRow>
+                <TextInput
+                    style={{ marginLeft: "6px" }}
+                    disabled={!allowedTo}
+                    callback={(e) => changeSrerverState({ discordBotToken: e.target.value })}
+                    defaultValue={getServerValue("discordBotToken")}
+                    name={t("server.settings.discordBot.token")}
+                />
+                <ButtonUrl href={`/cookieinfo`} name={t("statusBotInfo.link")} />
+            </ButtonRow>
 
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.channelDesc")}</h5>
             <TextInput
