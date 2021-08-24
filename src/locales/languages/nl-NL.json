@@ -591,6 +591,20 @@
         "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
         "7": "If you logout the cookies are no longer valid."
     },
+    "statusBotInfo": {
+        "link": "Klik hier voor informatie hoe u de discord token krijgt en de bot koppeld aan uw server",
+        "main": "Discord bot en token",
+        "0": "Creer een Discord bot:",
+        "1": "1. Login op de Discord developer portal: ",
+        "2": "2. Klik op \"New Application\" rechtsbovenin, geef de bot een naam en klik op \"create\".",
+        "3": "3. Klik op bot \"Bot\" aan de linkerkant en klik \"Add Bot\".",
+        "4": "4. Kopieer de Discord token en plak het in het \"Discord token\" veld in \"Server settings\" van de server manager en klik op \"Apply\" onderin.",
+        "5": "Voeg de Discord bot toe aan uw discord:",
+        "6": "5. Op de nieuwgemaakte bot, ga naar de \"General Information\" pagina, en klik op \"Copy\" onder \"Application ID\" in de developer portal",
+        "7": "6. Copy this link: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, replace \"APPLICATION_ID\" with the Application Id got from step 5 and open the link in your browser.",
+        "8": "7. Selecteer de server waaraan u hem wilt koppelen en klik Authorize.",
+        "9": "De bot heeft geen speciale permissies nodig om de status van de server te laten zien, om berichten te laten sturen moet hij permissies hebben om berichten te sturen, embeds te maken en om fotos te versturen."
+    },
     "ApiInfo": {
         "link": "Klik hier voor een lijst met alle beschikbare aanvragen naar de API"
     }

@@ -232,7 +232,12 @@
             "visableBansDesc": " bir oyuncunun başka bir yerde yasaklanıp yasaklanmadığını kontrol ettiğinde sunucu yasaklarınızın görünür olmasına izin verin:",
             "visableBans": "\"!checkban\" görünürlüğünü etkinleştir",
             "localeDescription0": "Çerez için kullanılan dil etiketi, harita adı, sunucu bilgileri o dilde olacaktır..",
-            "localeDescription1": "Dil etiketleri şurada bulunabilir: "
+            "localeDescription1": "Dil etiketleri şurada bulunabilir: ",
+            "tokenDescription0": "Yönetici-api'nin arka ucunu kullanmak istiyorsanız, burada bir jeton oluşturun ve bir yere kaydedin.",
+            "tokenDescription1": "Sadece yeni bir tane oluşturmanıza izin veriyoruz, size eski jetonu panelden veremiyoruz.",
+            "token": "Jeton",
+            "tokenGen": "Üret",
+            "tokenEnable": "Grup jetonunu etkinleştir"
         },
         "status": {
             "main": "Grup durumu",
@@ -585,5 +590,22 @@
         "5": "5. \"accounts.ea.com\"u genişletin ve çerezi \"İçerik\" altında görüntülemek için sid ve/veya remid'e tıklayın",
         "6": "6. SID ve REMID çerezini aldıktan sonra oturumu kapatmayın, sadece tarayıcıyı kapatın.",
         "7": "Oturumu kapatırsanız, çerezler artık geçerli değildir."
+    },
+    "statusBotInfo": {
+        "link": "Anlaşmazlık jetonunu nasıl alacağınız ve botu anlaşmazlığınıza nasıl davet edeceğiniz hakkında bilgi için buraya tıklayın",
+        "main": "Discord botu ve jetonu",
+        "0": "Bir Discord botu oluşturun:",
+        "1": "1. Discord geliştirici portalına giriş yapın: ",
+        "2": "2. sağ üstteki \"Yeni Uygulama\"ya tıklayın, bota bir isim verin ve oluştur'a basın.",
+        "3": "3. Sağdaki \"Bot\"a tıklayın ve \"Bot Ekle\"ye basın\".",
+        "4": "4. Discord jetonunu oradan kopyalayın ve yöneticinin \"Sunucu ayarları\" içindeki \"Discord jetonu\" alanına yapıştırın ve alttaki \"Uygula\" düğmesine basın.",
+        "5": "Botu discordunuza ekleyin:",
+        "6": "5. Yeni oluşturulan değil, \"Genel Bilgiler\" sayfasında, \"Uygulama Kimliği\" altında \"Kopyala\" yı tıklayın.\"",
+        "7": "6. Bu bağlantıyı kopyala: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, \"APPLICATION_ID\"yi 5. adımdan alınan Uygulama Kimliği ile değiştirin ve bağlantıyı tarayıcınızda açın.",
+        "8": "7. Botu davet etmek istediğiniz sunucuyu seçin ve Yetkilendir'e basın.",
+        "9": "Bot, sunucunun durumunu göstermek için herhangi bir özel izne ihtiyaç duymaz, mesaj göndermek için mesaj, gömme ve resim gönderme iznine ihtiyacı vardır."
+    },
+    "ApiInfo": {
+        "link": "API için mevcut tüm istekleri almak için burayı tıklayın"
     }
 }
