@@ -1,7 +1,7 @@
 export const statusOnlyGames = [
     "bf1",
     "bfv",
-    // "bf4"
+    "bf4"
 ]
 
 export const supportedGames = [
