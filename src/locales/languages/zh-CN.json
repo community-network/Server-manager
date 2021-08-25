@@ -590,5 +590,19 @@
         "5": "5. 点击展开 \"accounts.ea.com\" 项, 并且分别点击sid和remid去查看这些cookie在 \"内容\"",
         "6": "6. 在你得到SID和REMID cookie后不要点击Origin登出,直接关闭浏览器即可.",
         "7": "如果你origin登出了,那么你刚才获取的cookie都会过期."
+    },
+    "statusBotInfo": {
+        "link": "点击这里查看如何获取discord的token和如何邀请机器人进入你的频道",
+        "main": "Discord机器人和token",
+        "0": "创建一个discord机器人:",
+        "1": "1. 登陆discord开发者端口: ",
+        "2": "2. 在右侧点击点击 \"New Application\" 创建一个新的应用,输入机器人的名字并创建.",
+        "3": "3. 在右侧点击\"Bot\" 然后点击\"Add Bot\"新增博通.",
+        "4": "4. 从那里复制Discord token然后把他粘贴到，服管面板的\"Server settings\"服务器设置里的\"Discord token\"表格，然后点击底部的\"应用\".",
+        "5": "为你的频道新增机器人:",
+        "6": "5. 在刚刚新建的机器人那里, 在\"General Information\"通用信息页, 在\"Application ID\"下方 点击\"Copy\"复制",
+        "7": "6. 复制这个链接: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot 并且在浏览器中打开该链接, 用第5步获得的Application Id 应用ID覆盖\"APPLICATION_ID\"  .",
+        "8": "7. 选择你想邀请该机器人到哪一个频道，并且点击授权.",
+        "9": "这个机器人不需要其他额外的权限去显示游戏服务器信息,如果要发送消息和图片或者表情，那么它需要发送消息的权限."
     }
 }
