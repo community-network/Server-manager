@@ -8,7 +8,7 @@ import { OperationsApi } from "../api";
 
 import { ServerRotation, ServerInfoHolder, BanList, VipList, AdminList, FireStarter, Spectator, Playerlogs, PlayTime } from "./Server";
 
-import { Switch, Column, Header, ButtonRow, Button, PageCard, Row, TextInput } from "../components";
+import { Switch, Column, Header, ButtonRow, Button, PageCard, Row, TextInput, SlimHeader } from "../components";
 
 import '../locales/config';
 
@@ -103,13 +103,6 @@ export function Server(props) {
 
     return (
         <PageContext.Provider value={[playerListSort, setPlayerListSort]}>
-            <Row>
-                <Column>
-                    <Header>
-                        <h2>{t("server.main")}</h2>
-                    </Header>
-                </Column>
-            </Row>
             <Row>
                 <Column>
                     <PageCard buttons={serverTabs} >

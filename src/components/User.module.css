@@ -13,10 +13,11 @@
 
 .DiscordName {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     align-self: center;
-    color: var(--color-text-high);
+    color: var(--color-text);
     margin-right: 10px;
+    flex-grow: 2;
 }
 
 .DiscordNum {
@@ -38,24 +39,26 @@
 }
 
 .UserRowSt {
-    border: 1px solid var(--color-second);
     height: 40px;
     display: flex;
     flex-direction: row;
     padding: 10px 20px;
     border-radius: 10px;
-    background: var(--color-container-v2);
+    background: var(--color-container);
     margin: 6px 0;
     align-items: center;
 }
 
 .DiscordId {
     color: var(--color-text);
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 500;
     margin-right: 24px;
-    flex-grow: 2;
-
+    background: var(--color-container-v2);
+    padding: 3px 12px;
+    border-radius: 5px;
+    flex-shrink: 2;
+    text-overflow: ellipsis;
 }
 
 .DateAdded {
@@ -63,4 +66,11 @@
     font-size: 12px;
     font-weight: 500;
     align-self: center;
+    flex-shrink: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .DiscordId {
+        display: none;
+    }
 }

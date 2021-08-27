@@ -10,14 +10,13 @@
 .button {
     display: flex;
     align-items: center;
-    border: 1px solid var(--color-second);
     padding: 10px 20px;
     height: 40px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     color: #DBDBDB;
     font-size: 13px;
-    font-weight: 500;
-    background: var(--color-container-v2);
+    font-weight: 600;
+    background: var(--color-container);
     display: flex;
     flex-direction: row;
     flex-grow: 0;
@@ -31,6 +30,7 @@
     text-decoration: none;
     text-decoration-color: transparent;
     box-sizing: border-box;
+    border: none;
 }
 
 
@@ -92,7 +92,7 @@
     margin: 6px 2px;
     border-radius: 8px;
     z-index: 2000;
-    border: 1px solid var(--color-second);
+    border: none;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.38);
     background: var(--color-container-v2);
     overflow: hidden;
@@ -115,23 +115,23 @@
 }
 
 .button:hover {
-    background: #20202C;
+    background: var(--color-container-v2);
     cursor: pointer;
 }
 
 .button:disabled, a:disabled {
-    background: var(--color-second-v1);
+    background: var(--color-container);
     color: var(--color-text-low);
     cursor: not-allowed;
 }
 
 .TextInput {
-    border: 1px solid var(--color-second);
+    border: none;
     outline: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     padding: 10px 5px 10px 20px;
     height: 40px;
-    background: var(--color-container-v2);
+    background: var(--color-container);
     
     font-weight: 500;
     font-size: 13px;
@@ -163,8 +163,8 @@
 }
 
 .TextInput:focus {
-    border: 1px solid #2A2A37;
-    background: #20202C;
+    outline: 2px solid var(--color-purple);
+    background: var(--color-container-v2);
     color: var(--color-text-high);
 }
 
@@ -245,20 +245,18 @@
 .SwitchRow > span {
     margin-left: 10px;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-text);
 }
 
 .ChoosePageButton, .ChoosePageButtonActive {
-    border: 1px solid var(--color-second);
     padding: 0 20px;
-    height: 30px;
-    border-radius: 8px 8px 0 0;
+    height: 35px;
+    border-radius: var(--border-radius);
     align-items: center;
-    color: #DBDBDB;
+    color: var(--color-text-low);
     font-size: 13px;
-    font-weight: 500;
-    background: var(--color-container-v2);
+    font-weight: 600;
     display: flex;
     margin: 0 6px;
     flex-direction: row;
@@ -266,42 +264,45 @@
     font-family: "Montserrat";
     border-bottom-color: transparent;
     position: relative;
+    white-space:nowrap;
 }
 
 .ChoosePageButton:hover {
-    background: #262631;
+    color: var(--color-text);
     cursor: pointer;
 }
 
 .ChoosePageButtonActive {
     background: var(--color-container);
-    color: var(--color-text-low);
+    color: var(--color-text);
 }
 
 .ChoosePageButtonHolder {
     display: flex;
     flex-direction: row;
-    margin: 0 -6px !important;
+    margin: 18px -6px !important;
     align-items: center;
     z-index: 2;
     position: relative;
 }
 
 .selectableRow, .selectableRowSelected {
-    border: 1px solid var(--color-second);
     height: 40px;
     display: flex;
     flex-direction: row;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: 10px;
-    background: var(--color-container-v2);
-    margin: 6px 0;
+    margin: 4px 0;
     align-items: center;
     cursor: pointer;
 }
 
-.selectableRow:hover, .selectableRowSelected {
-    background: var(--color-second);
+.selectableRow:hover {
+    background: var(--color-container);
+}
+
+.selectableRowSelected {
+    background: var(--color-container-v2);
 }
 
 .iconSelect {
@@ -309,4 +310,9 @@
     height: 18px;
     margin-right: 10px;
     color: var(--color-text);
+    flex-shrink: 0;
+}
+
+.selectableRow:hover > .iconSelect, .selectableRowSelected > .iconSelect  {
+    color: var(--color-text-high);
 }

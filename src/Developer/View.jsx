@@ -27,14 +27,11 @@ export function Developer() {
     return (
         <Row>
             <Column>
-                <Header>
-                    <h2>{t("dev.main")}</h2>
-                </Header>
                 <Card style={{ paddingTop: "5px" }}>
-                    <ButtonRow>
-                        <h2 style={{ marginTop: "8px", marginRight: "10px" }}>{t("dev.listGroups")}</h2>
-                        <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
-                    </ButtonRow>
+                    <h2>{t("dev.main")}</h2>
+                    <h5>{t("dev.listGroups")}</h5>
+
+                    <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
                     
                     <ButtonRow>
                         <ButtonLink name={t("dev.addGroup")} to="/group/new/" />
@@ -42,9 +39,6 @@ export function Developer() {
 
                     {groups}
                 </Card>
-            </Column>
-            <Column>
-
             </Column>
         </Row>
     );

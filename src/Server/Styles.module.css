@@ -49,18 +49,31 @@
     padding-left: 30px;
 }
 
+
 .ServerDescriptionRow {
     display: flex;
     flex-direction: row;
     padding-bottom: 5px;
 }
 
+@media screen and (max-width: 600px) {
+    .GameInfo {
+        padding-left: 0;
+    }
+    .serverImage {
+        display: none;
+    }
+    .ServerName {
+        margin: 8px 0;
+    }
+}
+
 .SwitchGame {
     outline: none;
-    border: 1px solid var(--color-second);
+    border: none;
     height: 40px;
-    border-radius: 10px;
-    background: var(--color-container-v2);
+    border-radius: var(--border-radius);
+    background: var(--color-container);
     color: var(--color-text);
     margin: 0 10px;
     padding: 0 15px 0 15px;
@@ -73,10 +86,14 @@
     background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     background-repeat: no-repeat;
     background-position-x: 100%;
-    background-position-y: 7px;
+    background-position-y: 8px;
 }
 .SwitchGame > option {
     font-family: "Montserrat" !important;
+}
+
+.SwitchGame:hover {
+    background-color: var(--color-container-v2);
 }
 
 
@@ -103,8 +120,6 @@
 
     width: 100px;
 }
-
-
 
 
 .serverStatus, .serverStatusOk, .serverStatusErr {
@@ -188,7 +203,7 @@ th {
     padding: 10px 20px;
     font-weight: 500;
     color: var(--color-text-high);
-    background: var(--color-container);
+    background: var(--color-container-v4);
 }
 
 
@@ -200,11 +215,11 @@ th {
 
 .serverBadgeErr, .serverBadgeOk, .serverBadgePending, .serverBadge {
     /* padding: 5px 15px; */
-    margin-left: 3px;
     color: #4aaeff;
     /* border-radius: 6px; */
     /* background: var(--color-second); */
     font-size: 12px;
+    font-weight: 500;
     margin-right: 5px;
     display: flex;
     align-items: center;
@@ -222,6 +237,7 @@ th {
 
 .serverBadge {
     color: var(--color-text);
+    font-weight: 500;
 }
 .serverBadgeErr {
     color: #FF7575;

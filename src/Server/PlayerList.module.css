@@ -12,8 +12,6 @@
     padding: 8px 20px;
     border-radius: 10px;
     color: var(--color-text-low);
-    background: var(--color-container);
-    border: 1px solid var(--color-second);
     margin: 6px 0;
     text-decoration: none;
     display: flex;
@@ -21,8 +19,12 @@
     font-size: 14px;
 }
 
+.PlayerRow:hover {
+    background: var(--color-container);
+}
+
 .PlayerRowLoading {
-    height: 61px;
+    height: 45px;
 }
 
 .LoadingText {
@@ -40,6 +42,7 @@
     color: var(--color-text);
     margin-right: 10px;
     cursor: pointer;
+    font-weight: 500;
 }
 .PlayerName:hover {
     color: var(--color-text-high);
@@ -55,6 +58,7 @@
     align-items: center;
     justify-content: flex-end;
     font-size: 14px;
+    font-weight: 500;
     width: 45px;
 }
 
@@ -93,16 +97,17 @@
     color: var(--color-text);
     cursor: pointer;
     margin-right: 12px;
-    padding: 5px 10px;
-    border: 1px solid var(--color-second-v2);
-    border-radius: 5px;
+    padding: 5px 12px;
+    border-radius: 8px;
     background: var(--color-container-v2);
+    border: none;
     font-family: inherit;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .PlayerButton:hover {
-    background: var(--color-second);
+    background: var(--color-container-v3);
 }
 
 .FactionImage, .LoadingFactionImage {
