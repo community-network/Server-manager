@@ -604,5 +604,8 @@
         "7": "6. 复制这个链接: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot 并且在浏览器中打开该链接, 用第5步获得的Application Id 应用ID覆盖\"APPLICATION_ID\"  .",
         "8": "7. 选择你想邀请该机器人到哪一个频道，并且点击授权.",
         "9": "这个机器人不需要其他额外的权限去显示游戏服务器信息,如果要发送消息和图片或者表情，那么它需要发送消息的权限."
+    },
+    "ApiInfo": {
+        "link": "点击这里获取API所有可行的请求"
     }
 }
