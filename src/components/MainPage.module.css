@@ -3,7 +3,7 @@
     width: 100%;
     margin: 80px;
     max-width: 1500px;
-    background-color: #181820;
+    background-color: var(--color-container);
     flex-direction: row;
     flex-grow: 2;
     border-radius: 20px;
@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .titleBlock {
     padding: 60px 80px;
     display: flex;
@@ -32,7 +33,7 @@
     height: 635px;
     border-radius: 20px;
     flex-direction: column;
-    background-color: #1C1C26;
+    background-color: var(--color-container-v2);
     flex-grow: 2;
 }
 
@@ -42,14 +43,14 @@
 }
 
 .ListItem {
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 .titleContent {
     display: flex;
     text-align: right;
     flex-direction: column;
-    max-width: 340px;
+    max-width: 400px;
 }
 
 .titleContent > h1 {
@@ -59,6 +60,7 @@
 
 .titleContent > p {
     line-height: 1.7;
+    margin: 8px 0 24px 0;
 }
 
 .LoginButton {
@@ -66,7 +68,7 @@
     min-width: 180px;
     border-radius: 8px;
     height: 40px;
-    background-color: #6D61F2;
+    background-color: var(--color-purple);
     flex-grow: 1;
     flex-shrink: 2;
     padding: 0 40px;
@@ -80,7 +82,7 @@
 }
 
 .LoginButton:hover {
-    background-color: #7C70FF;
+    background-color:  var(--color-purple-low);
 }
 
 .Statistics {
