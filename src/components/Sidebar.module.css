@@ -2,7 +2,7 @@
 .PageLink, .PageButton {
     display: flex;
     flex-direction: row;
-    padding: 6px 24px;
+    padding: 4px 24px;
     text-decoration: none;
     align-content: center;
 }
@@ -23,15 +23,10 @@
 
 
 .PageLink > a:hover {
-    background-color: var(--color-second-v1);
+    background-color: var(--color-container);
 }
-
-.PageButton > span:hover {
-    color: var( --color-text-high);
-}
-
 .PageLink > .PageLinkActive, .PageLink > .PageLinkActive:hover {
-    background: var( --color-second);
+    background: var( --color-container-v2);
     color: var(--color-text-high);
 }
 
@@ -40,18 +35,29 @@
     display: flex;
     height: 100vh;
     flex-direction: column;
-    background: var( --color-container);
     transition: all 0.1s ease-out;
     z-index: 100;
     padding-top: 70px;
     box-sizing: border-box;
     position: relative;
     flex-shrink: 0;
+    background: var( --color-container-v4);
 }
 
 .HiddenSidebar {
     margin-left: -340px;
 }
+
+@media screen and (max-width: 900px) {
+    .Sidebar, .HiddenSidebar {
+        position: fixed;
+        width: 100%;
+    }
+    .HiddenSidebar {
+        margin-left: -100%;
+    }
+}
+
 
 .Logo {
     height: 80px;

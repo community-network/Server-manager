@@ -2,12 +2,11 @@
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    padding: 24px 30px;
+    padding: 12px 18px;
     min-width: 300px;
-    border-radius: 8px;
-    background-color: var(--color-container);
-    border: 1px solid var(--color-second);
-    margin: 0 0 24px 0;
+    margin: 12px 0 24px 0;
+    background: var(--color-container-v4);
+    border-radius: var(--border-radius);
 }
 
 .CardRow {
@@ -19,12 +18,11 @@
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    padding: 24px 30px;
+    padding: 12px 18px;
     min-width: 300px;
-    border-radius: 0 8px 8px 8px;
-    background: var(--color-container);
-    border: 1px solid var(--color-second);
-    margin: -1px 0 24px 0;
+    margin: 0 0 24px 0;
+    background: var(--color-container-v4);
+    border-radius: var(--border-radius);
 }
 
 .Tag {
@@ -59,10 +57,13 @@
     max-width: 350px;
    
     padding: 24px;
-    border-radius: 8px;
-    background-color: var(--color-container);
-    border: 1px solid var(--color-second);
+    border-radius: var(--border-radius);
+    background-color: var(--color-container-v4);
     z-index: 5;
+}
+
+.modalContent > h2 {
+    margin: 0 0 8px 0;
 }
 
 .modalBackground {

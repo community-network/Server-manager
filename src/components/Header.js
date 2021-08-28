@@ -9,3 +9,11 @@ export function Header(props) {
         </div>
     );
 }
+
+export function SlimHeader(props) {
+    return (
+        <div className={styles.SlimHeader}>
+            {props.children}
+        </div>
+    );
+}

@@ -106,7 +106,7 @@ export default function Console(props) {
 
     return (
         <Card>
-            <h5>{t("server.console.main")}</h5>
+            <h2>{t("server.console.main")}</h2>
             <Row>
                 {suggestions.length !== 0 && suggestions[0].name !== playerName ? <ShowDropDown options={suggestions}/> : <></>}
                 <TextInput name={t("server.playerName")} id="inputElement" callback={e => setPlayerName(e.target.value)} value={playerName} style={{

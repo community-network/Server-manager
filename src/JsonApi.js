@@ -2,11 +2,12 @@
 const MODE = "prod";
 
 const endPoints = {
-    dev: "https://homedev.gametools.network/api/",
-    prod: "https://manager-api.gametools.network/api/"
+    local: "https://localhost:80/api/",
+    dev:   "https://homedev.gametools.network/api/",
+    prod:  "https://manager-api.gametools.network/api/"
 }
 
-export default class JsonClient {
+export default class JsonClient {   
     constructor() {
         this.isWorking = true;
         this.user = this.getUserInfo();

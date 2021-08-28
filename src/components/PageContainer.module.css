@@ -16,8 +16,9 @@
 }
 
 
-@media all and (max-width: 600px) {
+@media screen and (max-width: 600px) {
     .PageContainer {
-        padding: 0 6px;
+        padding: 0;
+        padding-top: 60px;
     }
 }

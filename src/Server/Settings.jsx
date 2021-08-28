@@ -45,6 +45,34 @@ export function ServerSettings(props) {
         setServerState(s => ({ ...s, ...v }));
     }
 
+    const removeServer = useMutation(
+        variables => OperationsApi.removeServer(variables),
+        {
+            // When mutate is called:
+            onMutate: async ({ gid, sid }) => {
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('groupId' + gid)
+                // Snapshot the previous value
+                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                // Optimistically update to the new value
+                queryClient.setQueryData('groupId' + gid, old => {
+                    old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousGroup, gid }
+            },
+            // If the mutation fails, use the context returned from onMutate to roll back
+            onError: (err, newTodo, context) => {
+                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('groupId' + context.gid)
+            },
+        }
+    );
+
     const editServerSettings = useMutation(
         variables => OperationsApi.editServer({ value: variables, sid: props.sid }),
         {
@@ -142,6 +170,10 @@ export function ServerSettings(props) {
                 defaultValue={getServerValue("serverAlias")}
                 name={t("server.settings.alias")}
             />
+
+            <ButtonRow>
+                <Button style={{ color: "#FF7575"}} callback={removeServer.mutate} name="Delete Server" />
+            </ButtonRow>
 
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.tokenDesc")}</h5>

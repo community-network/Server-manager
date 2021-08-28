@@ -1,31 +1,27 @@
 .GroupRow {
     padding: 0 20px;
-    height: 40px;
-    justify-content: center;
+    height: 44px;
     align-items: center;
-    border: 1px solid var(--color-second);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     color: var(--color-text-low);
-    background: var(--color-container-v2);
     margin: 6px 0;
     text-decoration: none;
     display: flex;
     font-weight: 500;
     font-size: 14px;
-}
 
-.GroupName {
     flex-grow: 2;
-    color: var(--color-text-high);
-    font-weight: 500;
+    color: var(--color-text);
+    font-weight: 600;
     font-size: 14px;
     text-decoration: none;
-    
     display: flex;
+    white-space:nowrap;
+    width: 100%;
 }
 
 .GroupRow:hover {
-    background: var(--color-second-v2);
+    background: var(--color-container);
 }
 
 .gameStatsAd {
@@ -33,17 +29,16 @@
     flex-direction: row;
     margin: 6px 0;
     align-items: center;
-    border: 1px solid var(--color-second);
     padding: 0 20px;
     height: 50px;
-    border-radius: 8px;
-    background: var(--color-container-v2);
+    border-radius: var(--border-radius);
+    background: var(--color-container);
     color: var(--color-text);
     text-decoration: none;
 }
 
 .gameStatsAd:hover {
-    background: var(--color-second-v1);
+    background: var(--color-container-v2);
 }
 
 .gameStatsAd img {
@@ -77,8 +72,16 @@
     margin-right: 10px;
     color: var(--color-text-high);
 }
+
+.logServer {
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .logPlayer {
-    background: var(--color-second);
+    background: var(--color-container-v2);
     padding: 3px 10px;
     border-radius: 3px;
     height: auto;
@@ -86,7 +89,7 @@
     cursor: pointer;
 }
 .logPlayer:hover {
-    background: var(--color-second-v2);
+    background: var(--color-container-v3);
 }
 .logAction, .logReason {
     margin-right: 10px;
@@ -97,8 +100,7 @@
     margin: 10px 0;
     height: 40px;
     border-radius: 8px;
-    border: 1px solid var(--color-second);
-    background: var(--color-container-v2);
+    background: var(--color-container);
     font-size: 13px;
     display: flex;
     flex-direction: row;
@@ -124,7 +126,7 @@
     margin-left: 15px;
     margin-top: -1px;
     border-radius: 3px;
-    background: var(--color-second);
+    background: var(--color-container-v2);
     font-size: 12px;
 }
 
@@ -159,10 +161,9 @@
 
 .SwitchTitle {
     outline: none;
-    border: 1px solid var(--color-second);
     height: 40px;
     border-radius: 10px;
-    background: var(--color-container-v2);
+    background: var(--color-container);
     color: var(--color-text);
     margin: 0 10px;
     padding: 0 15px 0 15px;
@@ -176,9 +177,13 @@
     background-repeat: no-repeat;
     background-position-x: 100%;
     background-position-y: 7px;
+    border: none;
 }
 .SwitchTitle > option {
     font-family: "Montserrat" !important;
+}
+.SwitchTitle:hover {
+    background-color: var(--color-container-v2);
 }
 
 .SmallSwitch {
@@ -201,6 +206,25 @@
     background-position-x: 100%;
     background-position-y: 7px;
 }
-.SwitchTitle > option {
+.SmallSwitch > option {
     font-family: "Montserrat" !important;
+}
+
+.ServerNameText {
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
+}
+
+.ServerAliasName {
+    margin-left: 15px;
+}
+
+.GrowNone {
+    flex-grow: 2;
+}
+
+.GroupName {
+    flex-grow: 2;
 }

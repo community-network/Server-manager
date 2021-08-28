@@ -1,15 +1,23 @@
 
 :root {
-    --color-base: #0E0E14;
-    --color-container: #181820;
-    --color-container-v2: #1C1C26;
-    --color-second: #21212B;
+    --color-base: #181a20;
+    --color-container: #1f222a;
+    --color-container-v2: #262a34;
+    --color-container-v3: #4f5360;
+    --color-container-v4: #1c1e25;
+
+    --color-second: var(--color-container-v3);
     --color-second-v1: #1F1F28;
     --color-second-v2: #262631;
-    --color-text: #d8d8d8;
-    --color-text-low: #929292;
+
+    --color-text: #d0d0d0;
+    --color-text-low: #656a7b;
     --color-text-high: #ffffff;
-    --color-purple: #696ff2;
+
+    --color-purple: #246bfe;
+    --color-purple-low: #3878FE;
+
+    --border-radius: 12px;
 }
 
 body {
@@ -29,6 +37,7 @@ body {
     display: flex;
     flex-direction: row;
     height: 100vh;
+    overflow: hidden;
 }
 
 
@@ -39,28 +48,29 @@ body {
 a {
     font-weight: 600;
     font-size: 14px;
+    color: var(--text-color);
 }
 
 h2 {
     font-size: 14px;
-    font-weight: 500;
-    margin: 0 0 8px 0;
+    font-weight: 600;
+    margin: 8px 24px 12px 18px;
 }
 
 h5 {
-    font-size: 14px;
-    font-weight: 500;
-    margin: 0 20px 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 24px 8px 18px;
     color: var(--color-text);
     line-height: 1.5em;
 }
 
 p {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.5;
     color: var(--color-text);
-    margin: 6px 0 18px 0;
+    margin: 0 24px 8px 18px;
 }
 
 table {
@@ -68,4 +78,9 @@ table {
     font-weight: 500;
     line-height: 1.5;
     color: var(--color-text);
+}
+
+b {
+    font-weight: 600;
+    color: var(--color-text-high);
 }

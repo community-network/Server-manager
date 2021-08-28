@@ -62,33 +62,7 @@ export function Group(props) {
         }
     );
 
-    const removeServer = useMutation(
-        variables => OperationsApi.removeServer(variables),
-        {
-            // When mutate is called:
-            onMutate: async ({ gid, sid }) => {
-                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
-                // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
-                // Optimistically update to the new value
-                queryClient.setQueryData('groupId' + gid, old => {
-                    old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
-                    return old;
-                })
-                // Return a context object with the snapshotted value
-                return { previousGroup, gid }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
-            },
-        }
-    );
+    
 
 
 
@@ -131,7 +105,7 @@ export function Group(props) {
     const catListing = {
         owners: <GroupOwners group={group} user={user} gid={gid} onDelete={removeOwner} />,
         admins: <GroupAdmins group={group} user={user} gid={gid} onDelete={removeAdmin} />,
-        servers: <GroupServers group={group} user={user} gid={gid} onDelete={removeServer} />,
+        servers: <GroupServers group={group} user={user} gid={gid} />,
         vbanlist: <VBanList user={user} gid={gid} />,
         grouplogs: <GroupLogs gid={gid} />,
     }
@@ -199,22 +173,15 @@ export function Group(props) {
         <>
             <Row>
                 <Column>
-                    <Header>
-                        <h2>{t("group.main")}</h2>
-                    </Header>
-                </Column>
-            </Row>
-            <Row>
-                <Column>
                     <Card>
                         <h2>{t("group.name")} - {(group) ? group.groupName : t("pending")}</h2>
-                        <p style={{ marginBottom: 0 }}>{t("group.id")} {gid}</p>
+                        <p>{t("group.id")} {gid}</p>
                     </Card>
                 </Column>
             </Row>
             <Row>
                 <Column>
-                    <PageCard buttons={settingsCycle} maxWidth="650" >
+                    <PageCard buttons={settingsCycle} maxWidth="750" >
                         {catSettings[settingsListing]}
                     </PageCard>
                 </Column>
@@ -262,6 +229,7 @@ function GroupAdmins(props) {
     }
 
     return <>
+        <h2>{t("group.admins.main")}</h2>
         <h5>{t("group.admins.description0")}<br />{t("group.admins.description1")}</h5>
         {
             (isSelected) ? (<h5><b>{t("group.admins.selected", {number: selected.length})}</b></h5>) : (<h5>{t("group.admins.select")}</h5>)
@@ -305,19 +273,12 @@ function GroupServers(props) {
     const { t } = useTranslation();
 
     return <>
+        <h2>{t("group.servers.main")}</h2>
         <h5>{t("group.servers.description0")}<br />{t("group.servers.description1")}</h5>
         {
             (props.group) ? (
                 props.group.servers.map((server, i) => (
-                    <ServerRow server={server} key={i} button={
-                        <SmallButton
-                            name="Delete"
-                            content={deleteIcon}
-                            disabled={!hasRights}
-                            vars={{ gid: props.gid, sid: server.id }}
-                            callback={props.onDelete.mutate}
-                        />
-                    } />
+                    <ServerRow server={server} key={i} />
                 ))
             ) : (
                 fakeListing.map((_, i) => <FakeUserStRow key={i} />)
@@ -364,6 +325,7 @@ function GroupOwners(props) {
     }
 
     return <>
+        <h2>{t("group.owners.main")}</h2>
         <h5>{t("group.owners.description0")}<br />{t("group.owners.description1")}</h5>
         {
             (isSelected) ? (<h5><b>{t("group.owners.selected", {number: selected.length})}</b></h5>) : (<h5>{t("group.owners.select")}</h5>)
@@ -1070,11 +1032,8 @@ export function AddGroup(props) {
     return (
         <Row>
             <Column>
-                <Header>
-                    <h2>{t("createGroup.main")}</h2>
-                    
-                </Header>
                 <Card>
+                    <h2>{t("createGroup.main")}</h2>
                     <h5>{t("createGroup.description")}</h5>
                     <TextInput name={t("group.name")} callback={(e) => { checkInputVariables({ groupName: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
@@ -1218,11 +1177,8 @@ export function AddGroupServer(props) {
     return (
         <Row>
             <Column>
-                <Header>
-                    <h2>{t("group.serverAddMenu.main")}</h2>
-                </Header>
                 <Card>
-                    <h2>{t("group.serverAddMenu.description")}</h2>
+                    <h2>{t("group.serverAddMenu.main")}</h2>
                     <TextInput name={t("group.serverAddMenu.name")} callback={(e) => { name = e.target.value }} />
                     <TextInput name={t("group.serverAddMenu.alias")} callback={(e) => { alias = e.target.value; }} />
                     <ButtonRow>
@@ -1306,10 +1262,8 @@ export function MakeOps(props) {
     return (
         <Row>
             <Column>
-                <Header>
-                    <h2>{t("operations.main")}</h2>
-                </Header>
                 <Card>
+                    <h2>{t("operations.main")}</h2>
                     <h5>
                         {t("operations.description0")}<br />
                         {t("operations.description1")}<br /> 

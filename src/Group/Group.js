@@ -24,7 +24,7 @@ export function GroupRow(props) {
         <Link ref={groupListRef} className={styles.GroupRow} to={"/group/" + group.id}>
             <span className={styles.GroupName}>{group.groupName}</span>
             {width < 350? <span></span>:
-                <span className={styles.manageDev}>{t("dev.manage")}</span>}
+            <span className={styles.manageDev}>{t("dev.manage")}</span>}
         </Link>
     );
 }
@@ -66,7 +66,7 @@ export function ServerRow(props) {
         );
     }
 
-    const serverStatus = (() => {
+    var serverStatus = (() => {
         switch (server.status) {
             case "noServer":
                 return (
@@ -95,28 +95,21 @@ export function ServerRow(props) {
         }
     })();
 
+
+    const directTo = supportedGames.includes(server.game) ? "/server/" + server.id : "/statusserver/" + server.id;
+    serverStatus = supportedGames.includes(server.game) ? serverStatus : (<span className={styles.serverBadgePending}>{t("serverStatus.notSupported")}</span>);
+
+
     return (
-        <div className={styles.GroupRow}>
-            {supportedGames.includes(server.game)? (
-                <Link className={styles.GroupName}  to={"/server/" + server.id}>
-                    <img style={{maxHeight: '18px', marginRight: '15px'}} alt={server.game} src={`/img/gameIcons/${server.game}.png`}/>
-                    {server.name}
-                    {serverStatus}
-                </Link>
-            ) : (
-                <Link className={styles.GroupName}  to={"/statusserver/" + server.id}>
-                    <img style={{maxHeight: '18px', marginRight: '15px'}} alt={server.game} src={`/img/gameIcons/${server.game}.png`}/>
-                    {server.name}
-                    <span className={styles.serverBadgePending}>
-                        {t("serverStatus.notSupported")}
-                    </span>
-                </Link>
-            )}
-            <span style={{ marginRight: '15px' }}>
+        <Link className={styles.GroupRow} to={directTo}>
+            <img style={{maxHeight: '18px', marginRight: '15px'}} alt={server.game} src={`/img/gameIcons/${server.game}.png`}/>
+            <span className={styles.ServerNameText}>{server.name}</span>
+            {serverStatus}
+            <span className={styles.GrowNone}></span>
+            <span className={styles.ServerAliasName}>
                 {t("group.servers.alias", {alias: server.serverAlias !== ""? server.serverAlias : t("notApplicable")})}
             </span>
-            {props.button}
-        </div>
+        </Link>
     );
 }
 
@@ -177,6 +170,7 @@ export function VBanList(props) {
 
     return (
         <div>
+            <h2>{t("group.vban.main")}</h2>
             <h5>
                 {t("group.vban.description0")} <b>{t("group.vban.description1", {number: banList.data.length})}</b>.
             </h5>
@@ -244,6 +238,7 @@ export function GroupLogs(props) {
 
     return (
         <div>
+            <h2>{t("group.logs.main")}</h2>
             <h5>{t("group.logs.description")}</h5>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 {

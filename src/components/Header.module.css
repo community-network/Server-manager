@@ -1,7 +1,20 @@
 .Header {
     display: flex;
     flex-direction: row;
-    height: 80px;
+    height: 60px;
     align-items: center;
     padding: 0 30px;
+}
+
+.SlimHeader {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    margin-bottom: 20px;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.SlimHeader h2 {
+    margin: 0;
 }
