@@ -7,7 +7,7 @@ import { OperationsApi } from "../api";
 import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
-import { MapInfo, PlayerInfo } from "./Charts";
+import { StatsPieChart, PlayerInfo } from "./Charts";
 import  { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
@@ -784,12 +784,12 @@ function GroupStatus(props) {
                                             <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
                                             {width < 760 ? (
                                                 <>
-                                                    <MapInfo stats={element} />
+                                                    <StatsPieChart stats={element} />
                                                     <PlayerInfo stats={element} />
                                                 </>
                                             ) : (
                                                 <div style={{ display: "flex" }}>
-                                                    <MapInfo stats={element} />
+                                                    <StatsPieChart stats={element} />
                                                     <PlayerInfo stats={element} />
                                                 </div>
                                             )}

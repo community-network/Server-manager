@@ -268,8 +268,16 @@
                         "admins": "# of admins",
                         "bans": "# of bans"
                     },
-                    "map": {
+                    "maps": {
                         "main": "Meest populare map",
+                        "info": "% of maps"
+                    },
+                    "modes": {
+                        "main": "Meest populare gamemode",
+                        "info": "% of gamemodes"
+                    },
+                    "worstMaps": {
+                        "main": "Map met de minst aantal spelers",
                         "info": "% of maps"
                     }
                 }

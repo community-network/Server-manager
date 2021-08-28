@@ -256,9 +256,9 @@
                         "admins": "# 管理员数量",
                         "bans": "# 被ban数量"
                     },
-                    "map": {
-                        "main": "最受欢迎地图",
-                        "info": "% 地图数量"
+                    "maps": {
+                        "main": "Most popular map",
+                        "info": "% of maps"
                     }
                 }
             }

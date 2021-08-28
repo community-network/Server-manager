@@ -3,23 +3,22 @@ import { Pie, Line, Chart } from 'react-chartjs-2';
 import "chartjs-adapter-date-fns";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { useTranslation } from 'react-i18next';
-import { Button } from "../components";
+import { Button, ButtonRow } from "../components";
+
+import styles from "./Group.module.css";
 
 Chart.register(zoomPlugin);
 
-export function MapInfo(props) {
+export function StatsPieChart(props) {
     const { t } = useTranslation();
 
-    const mapAmounts = props.stats.maps.length;
-    const mapPrecentage = Object.values(props.stats.mapAmount).map((e) => {
-        return (e / mapAmounts * 100).toFixed(2);
-    })
+    var [chartValues, setChartValues] = React.useState("mapAmount"); 
     const data = {
-        labels: Object.keys(props.stats.mapAmount),
+        labels: Object.keys(props.stats[chartValues]),
         datasets: [
             {
                 label: t("group.status.stats.servers.map.info"),
-                data: mapPrecentage,
+                data: Object.values(props.stats[chartValues]),
                 backgroundColor: [
                     "#7fffd4",
                     "#458b74",
@@ -63,8 +62,15 @@ export function MapInfo(props) {
     }
 
     return (
-        <div style={{ display: "block" }}>
-            <h5 style={{ textAlign: "center" }}>{t("group.status.stats.servers.map.main")}</h5>
+        <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+            {/* <h5 style={{ textAlign: "center" }}>{t("group.status.stats.servers.map.main")}</h5> */}
+            <ButtonRow style={{ marginLeft: "auto" }}>
+                <select className={styles.SmallSwitch} value={chartValues} onChange={e => setChartValues(e.target.value)}>
+                    <option value="mapAmount">{t("group.status.stats.servers.maps.main")}</option>
+                    <option value="modeAmount">{t("group.status.stats.servers.modes.main")}</option>
+                    <option value="worstMap">{t("group.status.stats.servers.worstMaps.main")}</option>
+                </select>
+            </ButtonRow>
             <Pie
                 options={options}
                 style={{ maxHeight: "250px", maxWidth: "250px", marginLeft: "20px" }}
