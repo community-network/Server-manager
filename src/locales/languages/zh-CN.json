@@ -257,8 +257,16 @@
                         "bans": "# 被ban数量"
                     },
                     "maps": {
-                        "main": "Most popular map",
-                        "info": "% of maps"
+                        "main": "最受欢迎地图",
+                        "info": "% 地图数量"
+                    },
+                    "modes": {
+                        "main": "最受欢迎的游戏模式",
+                        "info": "游戏模式百分比"
+                    },
+                    "worstMaps": {
+                        "main": "最少用量玩家的地图",
+                        "info": "地图百分比"
                     }
                 }
             }
