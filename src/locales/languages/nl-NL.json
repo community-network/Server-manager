@@ -259,7 +259,7 @@
                 "banAmount": "{{amount}} spelers verbannen van team via het panel, discord bot of token.",
                 "globalBanKickAmount": "{{amount}} spelers gekickt via de vBan lijst van deze groep.",
                 "servers": {
-                    "main": "Statistieken van elke server:",
+                    "main": "Statistieken van server:",
                     "none": "Geen informatie over deze server",
                     "info": {
                         "main": "Serverinfo over tijd",

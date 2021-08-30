@@ -259,7 +259,7 @@
                 "banAmount": "{{amount}} players banned via the panel, discord bot or token.",
                 "globalBanKickAmount": "{{amount}} players kicked via vBan list of group.",
                 "servers": {
-                    "main": "Statistics of each server:",
+                    "main": "Statistics of server:",
                     "none": "No server info",
                     "info": {
                         "main": "Serverinfo over time",

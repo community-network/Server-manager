@@ -259,7 +259,7 @@
                 "banAmount": "{{amount}} panel, discord botu veya jeton aracılığıyla yasaklanan oyuncular.",
                 "globalBanKickAmount": "{{amount}}vBan grup listesi üzerinden atılan oyuncular.",
                 "servers": {
-                    "main": "Her sunucunun istatistikleri:",
+                    "main": "Sunucu istatistikleri:",
                     "none": "Sunucu bilgisi yok",
                     "info": {
                         "main": "Zamanla sunucu bilgisi",
@@ -268,9 +268,17 @@
                         "admins": "# Yönetici",
                         "bans": "# Yasaklı"
                     },
-                    "map": {
+                    "maps": {
                         "main": "En popüler harita",
-                        "info": "% haritaların"
+                        "info": "Haritaların % "
+                    },
+                    "modes": {
+                        "main": "En popüler oyun modu",
+                        "info": "Oyun modu  %"
+                    },
+                    "worstMaps": {
+                        "main": "En az oyuncuya sahip harita",
+                        "info": "Haritaların %"
                     }
                 }
             }

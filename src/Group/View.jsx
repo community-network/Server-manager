@@ -688,12 +688,16 @@ function GroupSettings(props) {
 function GroupStatus(props) {
     const [statusRef, { width }] = useMeasure();
     const { t } = useTranslation();
+    const [serverNum, setServerNum] = useState(0);
     let groupId = ""
+    let serverId = ""
     if (props.group) {
         groupId = props.group.id
+        serverId = props.group.servers[serverNum].id
     }
     const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
-
+    const { serverError, data: serverStats } = useQuery('serverStats' + serverId, () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
+    
     return (
         <div ref={statusRef}>
             {
@@ -735,38 +739,39 @@ function GroupStatus(props) {
             <h5 style={{ marginTop: "15px", marginBottom: "5px" }}>
                 {t("group.status.stats.servers.main")}
             </h5>
+            <ButtonRow>
+                <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={serverNum} onChange={e => setServerNum(e.target.value)}>
+                    {props.group.servers.map((element, index) => {
+                        return (
+                            <option value={index}>{element.name}</option>
+                        )
+                    })}
+                </select>
+            </ButtonRow>
             {
-                (groupStats) ? (
+                (serverStats) ? (
                     <div style={{paddingLeft: "10px"}}>
-                        {groupStats.servers.map((element, index) => {
-                            return (
-                                <div key={index}>
-                                    {element.playerAmounts.length !== 0 ? (
-                                        <>
-                                            <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
-                                            {width < 760 ? (
-                                                <>
-                                                    <StatsPieChart stats={element} />
-                                                    <PlayerInfo stats={element} />
-                                                </>
-                                            ) : (
-                                                <div style={{ display: "flex" }}>
-                                                    <StatsPieChart stats={element} />
-                                                    <PlayerInfo stats={element} />
-                                                </div>
-                                            )}
-                                            <br />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <h5 style={{ marginBottom: "5px" }}>{element.serverName}</h5>
-                                            <h5 style={{ margin: "0px 25px" }}>{t("group.status.stats.servers.none")}</h5>
-                                            <br />
-                                        </>
-                                    )}
-                                </div>
-                            );
-                        })}
+                        {serverStats.data.playerAmounts.length !== 0 ? (
+                            <>
+                                {width < 760 ? (
+                                    <>
+                                        <StatsPieChart stats={serverStats.data} />
+                                        <PlayerInfo stats={serverStats.data} />
+                                    </>
+                                ) : (
+                                    <div style={{ display: "flex" }}>
+                                        <StatsPieChart stats={serverStats.data} />
+                                        <PlayerInfo stats={serverStats.data} />
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <h5 style={{ marginBottom: "5px" }}>{serverStats.serverName}</h5>
+                                <h5 style={{ margin: "0px 25px" }}>{t("group.status.stats.servers.none")}</h5>
+                                <br />
+                            </>
+                        )}
                     </div>
                 ) : (
                     <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>

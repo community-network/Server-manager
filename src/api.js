@@ -261,6 +261,10 @@ export class ApiProvider extends JsonClient {
         return await this.getJsonMethod("stats", { "groupid": gid });
     }
 
+    async getServerStats(sid) {
+        return await this.getJsonMethod("serverstats", { "serverid": sid });
+    }
+
     async addGroupOwner({ gid, uid, nickname }) {
         return await this.postJsonMethod("addowner", {
             "userid": uid, // discord userid
