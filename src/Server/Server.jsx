@@ -315,8 +315,6 @@ export function PlayTime(props) {
         return `Error ${error.code}: {error.message}`
     }
 
-    playTimeList.data.sort((a, b) => b.timePlayed - a.timePlayed);
-
     return (
         <div>
             <h5>
