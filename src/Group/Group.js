@@ -139,9 +139,7 @@ export function VBanList(props) {
     const gid = props.gid;
     const { isError, data: banList, error } = useQuery('globalBanList' + gid, () => OperationsApi.getAutoBanList({ gid }));
 
-    const queryClient = useQueryClient();
-
-    const [sorting, setSorting] = useState("-timeStamp");
+    const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
     const { t } = useTranslation();
 
@@ -185,7 +183,7 @@ export function VBanList(props) {
                         <th onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</th>
                         <th onClick={_=>setSorting("reason")}>{t("group.vban.table.reason")}</th>
                         <th onClick={_=>setSorting("admin")}>{t("group.vban.table.admin")}</th>
-                        <th onClick={_=>setSorting("-timeStamp")}>{t("group.vban.table.timestamp")}</th>
+                        <th onClick={_=>setSorting("-unixTimeStamp")}>{t("group.vban.table.timestamp")}</th>
                         <th></th>
                     </thead>
                     <tbody>

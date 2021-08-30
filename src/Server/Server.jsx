@@ -198,8 +198,8 @@ export function BanList(props) {
                         <th onClick={_=>setSorting("id")}>{t("server.banList.table.playerId")}</th>
                         <th onClick={_=>setSorting("-reason")}>{t("server.banList.table.reason")}</th>
                         <th onClick={_=>setSorting("-admin")}>{t("server.banList.table.admin")}</th>
-                        <th onClick={_=>setSorting("-banned_until")}>{t("server.banList.table.until")}</th>
-                        <th onClick={_=>setSorting("-ban_timestamp")}>{t("server.banList.table.timestamp")}</th>
+                        <th onClick={_=>setSorting("-unixBanTimeStamp")}>{t("server.banList.table.until")}</th>
+                        <th onClick={_=>setSorting("-unixBanUntilTimeStamp")}>{t("server.banList.table.timestamp")}</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -398,7 +398,7 @@ export function Spectator(props) {
                     <thead style={{ position: "sticky", top: "0" }}>
                         <th onClick={_=>setSorting("name")}>{t("server.spectatorList.table.playerName")}</th>
                         <th onClick={_=>setSorting("playerId")}>{t("server.spectatorList.table.playerId")}</th>
-                        <th onClick={_=>setSorting("-timeStamp")}>{t("server.spectatorList.table.time")}</th>
+                        <th onClick={_=>setSorting("-unixTimeStamp")}>{t("server.spectatorList.table.time")}</th>
                     </thead>
                     <tbody>
                         {
