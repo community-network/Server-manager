@@ -247,7 +247,7 @@
                 "banAmount": "{{amount}} 个玩家被面板或discord机器人或者token ban了.",
                 "globalBanKickAmount": "{{amount}} 个玩家被vban列表踢了.",
                 "servers": {
-                    "main": "每一个服务器的统计:",
+                    "main": "服务器统计:",
                     "none": "没有服务器信息",
                     "info": {
                         "main": "所有时间的服务器信息",
