@@ -2,10 +2,12 @@
 const MODE = "prod";
 
 const endPoints = {
-    local: "https://localhost:80/api/",
+    local: "https://localhost:5051/api/",
     dev:   "https://homedev.gametools.network/api/",
     prod:  "https://manager-api.gametools.network/api/"
 }
+
+export const endPointName = endPoints[MODE].replace("https://", "").replace("/api/", "");
 
 export default class JsonClient {   
     constructor() {

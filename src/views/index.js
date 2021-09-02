@@ -10,6 +10,7 @@ import { StatusOnlyServer } from "../Server/StatusOnly";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "../Group/View";
 import { PageContainer, PageColumn } from "../components";
 import { CookieInfo } from "./CookieInfo";
+import { WebSocketTest } from "./WebSocketTest";
 
 import { OperationsApi } from "../api";
 import Main from "./Main";
@@ -71,7 +72,7 @@ function Views() {
     return (
 
         <Switch>
-
+            <Route exact path="/websocket/:sid/" component={WebSocketTest} />
             <Route exact path="/account/" component={Account} />
 
             <Route exact path="/makeops/:gid/" component={MakeOps} />
