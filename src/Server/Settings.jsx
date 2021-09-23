@@ -9,6 +9,7 @@ import { OperationsApi } from "../api";
 
 
 export function ServerSettings(props) {
+    console.log(props)
 
     var allowedTo = false;
     if (props.server) allowedTo = true;
@@ -49,26 +50,28 @@ export function ServerSettings(props) {
         variables => OperationsApi.removeServer(variables),
         {
             // When mutate is called:
-            onMutate: async ({ gid, sid }) => {
+            onMutate: async ({ sid }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries('groupId' + sid)
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData('groupId' + sid)
                 // Optimistically update to the new value
-                queryClient.setQueryData('groupId' + gid, old => {
-                    old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
+                queryClient.setQueryData('groupId', sid, old => {
+                    if (old) {
+                        old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
+                    }
                     return old;
                 })
                 // Return a context object with the snapshotted value
-                return { previousGroup, gid }
+                return { previousGroup, sid }
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData('groupId' + context.sid, context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries('groupId' + context.sid)
             },
         }
     );
@@ -172,7 +175,7 @@ export function ServerSettings(props) {
             />
 
             <ButtonRow>
-                <Button style={{ color: "#FF7575"}} callback={removeServer.mutate} name="Delete Server" />
+                <Button style={{ color: "#FF7575"}} callback={() => {removeServer.mutate({ sid: props.sid })}} name="Delete Server" />
             </ButtonRow>
 
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>

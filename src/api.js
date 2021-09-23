@@ -326,10 +326,9 @@ export class ApiProvider extends JsonClient {
         }
     }
 
-    async removeServer({ gid, sid }) {
+    async removeServer({ sid }) {
         return await this.postJsonMethod("delserver", {
             "serverid": sid,
-            "groupid": gid,
         });
     }
 
