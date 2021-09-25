@@ -290,6 +290,7 @@
             "deleteInfo0": "Once you delete a group, it will remove all the servers,",
             "deleteInfo1": "server account and users used in it.",
             "check": "Are you sure you want to delete this group?",
+            "checkWithName": "Are you sure you want to delete {{name}}?",
             "confirm": "Yes, delete",
             "back": "Oh, no!"
         },
@@ -579,6 +580,7 @@
             "main": "Danger zone",
             "delete": "Delete Server",
             "check": "Are you sure you want to delete this server?",
+            "checkWithName": "Are you sure you want to delete {{name}}?",
             "confirm": "Yes, delete",
             "back": "Oh, no!"
         }

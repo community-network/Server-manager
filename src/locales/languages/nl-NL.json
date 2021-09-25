@@ -290,6 +290,7 @@
             "deleteInfo0": "Als u een groep verwijderd, zal het alle servers",
             "deleteInfo1": "serveraccount en gebruikers verwijderen.",
             "check": "Weet u het zeker dat u deze groep wil verwijderen?",
+            "checkWithName": "Weet u het zeker dat u {{name}} wilt verwijderen?",
             "confirm": "Ja, Verwijderen",
             "back": "oh, nope!"
         },
@@ -579,6 +580,7 @@
             "main": "Gevaarlijke zone",
             "delete": "Server verwijderen",
             "check": "Weet u het zeker dat u deze server wil verwijderen?",
+            "checkWithName": "Weet u het zeker dat u {{name}} wilt verwijderen?",
             "confirm": "Ja, Verwijderen",
             "back": "oh, nope!"
         }

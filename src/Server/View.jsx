@@ -126,6 +126,7 @@ export function Server(props) {
 export function DeleteServer(props) {
 
     var thisSid = props.match.params.sid;
+    const { data: server } = useServer(thisSid);
 
     const queryClient = useQueryClient();
     const history = useHistory();
@@ -170,7 +171,11 @@ export function DeleteServer(props) {
                 </Header>
                 <Card>
                     <h2>{t("server.danger.main")}</h2>
-                    <p>{t("server.danger.check")}</p>
+                    {server !== undefined ? (
+                        <p>{t("server.danger.checkWithName", {name: server.serverName})}</p>
+                    ) : (
+                        <p>{t("server.danger.check")}</p>
+                    )}
                     <ButtonRow>
                         <ButtonLink name={t("server.danger.back")} to={"/server/" + thisSid} />
                         <Button name={t("server.danger.confirm")} callback={() => { RemoveServerExecute.mutate({ sid: thisSid }); }} />

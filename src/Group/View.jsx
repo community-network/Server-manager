@@ -1059,6 +1059,8 @@ export function AddGroup(props) {
 export function DeleteGroup(props) {
 
     var thisGid = props.match.params.gid;
+    const { error: groupError, data: groups } = useQuery('groupId' + thisGid, () => OperationsApi.getGroup(thisGid), { staleTime: 30000 });
+    var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const queryClient = useQueryClient();
     const history = useHistory();
@@ -1102,7 +1104,11 @@ export function DeleteGroup(props) {
                 </Header>
                 <Card>
                     <h2>{t("group.danger.main")}</h2>
-                    <p>{t("group.danger.check")}</p>
+                    {group? (
+                        <p>{t("group.danger.checkWithName", {name: group.groupName})}</p>
+                    ) : (
+                        <p>{t("group.danger.check")}</p>
+                    )}
                     <ButtonRow>
                         <ButtonLink name={t("group.danger.back")} to={"/group/" + thisGid} />
                         <Button name={t("group.danger.confirm")} callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history.push("/account/"); }} />
