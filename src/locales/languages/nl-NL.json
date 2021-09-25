@@ -574,6 +574,13 @@
             "reasonDescription": "Vul een reden om deze speler toe te voegen.",
             "reason": "Redem",
             "confirm": "Ban!"
+        },
+        "danger": {
+            "main": "Gevaarlijke zone",
+            "delete": "Server verwijderen",
+            "check": "Weet u het zeker dat u deze server wil verwijderen?",
+            "confirm": "Ja, Verwijderen",
+            "back": "oh, nope!"
         }
     },
     "sidebar": {

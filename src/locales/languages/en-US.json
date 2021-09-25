@@ -574,6 +574,13 @@
             "reasonDescription": "Enter a reason to vBan this player.",
             "reason": "Reason",
             "confirm": "Ban!"
+        },
+        "danger": {
+            "main": "Danger zone",
+            "delete": "Delete Server",
+            "check": "Are you sure you want to delete this server?",
+            "confirm": "Yes, delete",
+            "back": "Oh, no!"
         }
     },
     "sidebar": {
