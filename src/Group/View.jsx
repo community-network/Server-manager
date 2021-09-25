@@ -567,8 +567,8 @@ function GroupSettings(props) {
     useEffect(() => {
         
         if (props.group) {
-            const { visableBans, cookieLocale, webhookUrl, token } = props.group;
-            const originalGroupState = { visableBans, cookieLocale, webhookUrl, token: props.group.tokenUsed?"-":"" };
+            const { visableBans, cookieLocale, token } = props.group;
+            const originalGroupState = { visableBans, cookieLocale, token: props.group.tokenUsed?"-":"" };
             if (groupState === null) {
                 setGroupState(originalGroupState);
                 setTokenDisabled(token !== "");
@@ -652,24 +652,6 @@ function GroupSettings(props) {
                 } }/>
             </Row>
             <ButtonRow><ButtonUrl href={`https://manager-api.gametools.network/docs/`} name={t("ApiInfo.link")} /></ButtonRow>
-            <h5 style={{paddingTop: '1rem'}}>want to have the logs when they come in? fill in a url where it needs to send posts request to.</h5>
-            <Row>
-                <TextInput type="text" disabled={!allowedTo} callback={(e) => {
-                    let url;
-                    
-                    if (e.target.value !== "") {
-                        try { // check if valid url
-                            url = new URL(e.target.value);
-                        } catch (_) {
-                            return;  
-                        }
-                    } else { // allow reset to nothing
-                        url = ""
-                    }
-
-                    changeGroupState({webhookUrl: url})}
-                } defaultValue={getGroupValue("webhookUrl")} name={t("webhookUrl")} />
-            </Row>
             {
                 (props.group && canApply) ? (
                     <ButtonRow>
