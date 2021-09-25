@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import Account from "./Account";
 import { Developer } from "../Developer/View";
 import { Manager } from "../Manager/View";
-import { Server } from "../Server/View";
+import { Server, DeleteServer } from "../Server/View";
 import { StatusOnlyServer } from "../Server/StatusOnly";
 import { Group, AddGroupOwner, EditGroup, AddGroupAdmin, AddGroup, DeleteGroup, AddGroupServer, MakeOps } from "../Group/View";
 import { PageContainer, PageColumn } from "../components";
@@ -78,6 +78,7 @@ function Views() {
             <Route exact path="/makeops/:gid/" component={MakeOps} />
 
             <Route exact path="/server/:sid/" component={Server} />
+            <Route exact path="/server/:sid/delete" component={DeleteServer} />
             <Route exact path="/server/:sid/:tab/" component={Server} />
 
             <Route exact path="/statusserver/:sid/" component={StatusOnlyServer} />

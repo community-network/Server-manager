@@ -5,10 +5,10 @@ import { PageContext } from "./ServerGlobalContext";
 
 import { OperationsApi } from "../api";
 
-
+import { useHistory } from 'react-router-dom';
 import { ServerRotation, ServerInfoHolder, BanList, VipList, AdminList, FireStarter, Spectator, Playerlogs, PlayTime } from "./Server";
 
-import { Switch, Column, Header, ButtonRow, Button, PageCard, Row, TextInput, SlimHeader } from "../components";
+import { Switch, Column, Header, ButtonRow, ButtonLink, Button, PageCard, Row, TextInput, Card } from "../components";
 
 import '../locales/config';
 
@@ -122,6 +122,64 @@ export function Server(props) {
 }
 
 
+
+export function DeleteServer(props) {
+
+    var thisSid = props.match.params.sid;
+
+    const queryClient = useQueryClient();
+    const history = useHistory();
+    const { t } = useTranslation();
+
+    const RemoveServerExecute = useMutation(
+        variables => OperationsApi.removeServer(variables),
+        {
+            // When mutate is called:
+            onMutate: async ({ sid }) => {
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('groupId' + sid)
+                // Snapshot the previous value
+                const previousGroup = queryClient.getQueryData('groupId' + sid)
+                // Optimistically update to the new value
+                queryClient.setQueryData('groupId', sid, old => {
+                    if (old) {
+                        old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
+                    }
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousGroup, sid }
+            },
+            // If the mutation fails, use the context returned from onMutate to roll back
+            onError: (err, newTodo, context) => {
+                queryClient.setQueryData('groupId' + context.sid, context.previousGroup)
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('groupId' + context.sid)
+                history.push(`/group/${data.groupId}`); 
+            },
+        }
+    );
+
+    return (
+        <Row>
+            <Column>
+                <Header>
+                    <h2>{t("server.danger.delete")}</h2>
+                </Header>
+                <Card>
+                    <h2>{t("server.danger.main")}</h2>
+                    <p>{t("server.danger.check")}</p>
+                    <ButtonRow>
+                        <ButtonLink name={t("server.danger.back")} to={"/server/" + thisSid} />
+                        <Button name={t("server.danger.confirm")} callback={() => { RemoveServerExecute.mutate({ sid: thisSid }); }} />
+                    </ButtonRow>
+                </Card>
+            </Column>
+        </Row>
+    );
+}
 
 
 function ServerAutomation(props) {

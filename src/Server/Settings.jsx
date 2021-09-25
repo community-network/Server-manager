@@ -3,7 +3,7 @@ import { useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import styles from "./Styles.module.css";
 
-import { ButtonRow, Button, TextInput, ButtonUrl } from "../components";
+import { ButtonRow, Button, TextInput, ButtonUrl, ButtonLink } from "../components";
 import { OperationsApi } from "../api";
 
 
@@ -175,7 +175,7 @@ export function ServerSettings(props) {
             />
 
             <ButtonRow>
-                <Button style={{ color: "#FF7575"}} callback={() => {removeServer.mutate({ sid: props.sid })}} name="Delete Server" />
+                <ButtonLink style={{ color: "#FF7575"}} name={t("server.danger.delete")} to={`/server/${props.sid}/delete/`} disabled={!allowedTo} />
             </ButtonRow>
 
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>

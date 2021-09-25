@@ -1105,7 +1105,7 @@ export function DeleteGroup(props) {
                     <p>{t("group.danger.check")}</p>
                     <ButtonRow>
                         <ButtonLink name={t("group.danger.back")} to={"/group/" + thisGid} />
-                        <Button name={t("group.danger.confirm")} callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history.push("/dev/"); }} />
+                        <Button name={t("group.danger.confirm")} callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history.push("/account/"); }} />
                     </ButtonRow>
                 </Card>
             </Column>
