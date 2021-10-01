@@ -573,6 +573,14 @@
             "reasonDescription": "写个vban该玩家的理由.",
             "reason": "理由",
             "confirm": "Vban了他!"
+        },
+        "danger": {
+            "main": "危险区域",
+            "delete": "删除服务器",
+            "check": "你确定删除这服务器?",
+            "checkWithName": "你确定删除 {{name}}?",
+            "confirm": "是的",
+            "back": "不删!"
         }
     },
     "sidebar": {
