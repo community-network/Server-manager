@@ -675,7 +675,9 @@ function GroupStatus(props) {
     let serverId = ""
     if (props.group) {
         groupId = props.group.id
-        serverId = props.group.servers[serverNum].id
+        if (props.group.servers.length !== 0) {
+            serverId = props.group.servers[serverNum].id
+        }
     }
     const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
     const { serverError, data: serverStats } = useQuery('serverStats' + serverId, () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
