@@ -137,7 +137,8 @@
         },
         "settings": {
             "main": "Settings",
-            "makeOperations": "Enable make operations"
+            "makeOperations": "Enable make operations",
+            "seedServers": "Enable seeding bots"
         }
     },
     "createGroup": {
@@ -165,6 +166,23 @@
             "remove": "Remove admins",
             "select": "Select admins to remove them.",
             "selected": "You selected {{number}} admins."
+        },
+        "seeding": {
+            "main": "Seed servers",
+            "status": "Status: ",
+            "description0": "Seed your battlefield 1 servers.",
+            "description1": "You need to have at least Owner role to seed servers.",
+            "seedServer": "Seeding {{serverName}}",
+            "leaveServer": "Not in any server",
+            "shutdownPC": "Turned all PC's off with shutdown option enabled",
+            "joinSelected": "Join selected server",
+            "confirmInfo": "Are you sure you want to {{option}}?",
+            "confirm": "Confirm!",
+            "leave": "Leave current server",
+            "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
+            "list": "Current seeders",
+            "true": "in the game",
+            "false": "not in the game"
         },
         "servers": {
             "main": "Servers",

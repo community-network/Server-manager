@@ -8,7 +8,7 @@ import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
-import  { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus } from "./Group";
+import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, EmptyRow, SeederRow } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
 
@@ -62,7 +62,7 @@ export function Group(props) {
         }
     );
 
-    
+
 
 
 
@@ -108,6 +108,7 @@ export function Group(props) {
         servers: <GroupServers group={group} user={user} gid={gid} />,
         vbanlist: <VBanList user={user} gid={gid} />,
         grouplogs: <GroupLogs gid={gid} />,
+        seeding: <Seeding group={group} user={user} gid={gid} />,
     }
 
 
@@ -119,7 +120,7 @@ export function Group(props) {
         danger: <GroupDangerZone gid={gid} user={user} group={group} />,
     }
 
-    const pageCycle = [
+    let pageCycle = [
         {
             name: t("group.servers.main"),
             callback: () => setListing("servers"),
@@ -139,8 +140,15 @@ export function Group(props) {
         {
             name: t("group.logs.main"),
             callback: () => setListing("grouplogs"),
-        }
+        },
     ]
+
+    if (group && group.special) {
+        pageCycle.push({
+            name: t("group.seeding.main"),
+            callback: () => setListing("seeding"),
+        })
+    }
 
     const settingsCycle = [
         {
@@ -188,10 +196,10 @@ export function Group(props) {
             </Row>
             <Row>
                 <Column>
-                    <PageCard buttons={pageCycle} maxWidth="560" >
+                    <PageCard buttons={pageCycle} maxWidth="750" >
                         {catListing[listing]}
                     </PageCard>
-                 </Column>
+                </Column>
             </Row>
         </>
     );
@@ -232,7 +240,7 @@ function GroupAdmins(props) {
         <h2>{t("group.admins.main")}</h2>
         <h5>{t("group.admins.description0")}<br />{t("group.admins.description1")}</h5>
         {
-            (isSelected) ? (<h5><b>{t("group.admins.selected", {number: selected.length})}</b></h5>) : (<h5>{t("group.admins.select")}</h5>)
+            (isSelected) ? (<h5><b>{t("group.admins.selected", { number: selected.length })}</b></h5>) : (<h5>{t("group.admins.select")}</h5>)
         }
         <ButtonRow>
             {
@@ -296,6 +304,99 @@ function GroupServers(props) {
     </>;
 }
 
+function Seeding(props) {
+
+    const modal = useModal();
+
+    var hasRights = false;
+    const [selected, setSelected] = useState();
+    const { t } = useTranslation();
+
+    if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+    const { data: seedingInfo } = useQuery('seeding' + props.gid, () => OperationsApi.getSeeding(props.gid), { staleTime: 30000 });
+    const { data: seeders } = useQuery('seeders' + props.gid, () => OperationsApi.getSeeders(props.gid), { staleTime: 30000 });
+    const queryClient = useQueryClient();
+
+    const fakeListing = [1, 1, 1];
+
+    let serverList;
+    if (props.group) {
+        serverList = [...props.group.servers];
+        serverList.sort((a, b) => b.name - a.name);
+        serverList = serverList.filter(a => a.game === "bf1");
+    }
+
+    const isSelected = selected !== undefined;
+
+    const changeSelected = (i) => {
+        setSelected(i)
+        setSelected(b => (i !== selected) ? i : undefined)
+    }
+
+    const joinServer = () => {
+        const server = props.group.servers[selected]
+        OperationsApi.setSeeding({ serverName: server.name, serverId: server.id, action: "joinServer", groupId: props.gid })
+        setSelected(undefined);
+        setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, 300);
+    }
+
+    return <>
+        <h2>{t("group.seeding.main")}</h2>
+        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}</h5>
+        {
+            (seedingInfo) ? (
+                (seedingInfo.action === "joinServer") ? (
+                    <h5>{t("group.seeding.status")}<b>{t("group.seeding.seedServer", { "serverName": seedingInfo.serverName })}</b></h5>
+                ) : (
+                    <h5>{t("group.seeding.status")}<b>{t(`group.seeding.${seedingInfo.action}`)}</b></h5>
+                )
+            ) : (<></>)
+        }
+        <ButtonRow>
+            {
+                (hasRights && isSelected) ? (
+                    <Button name={t("group.seeding.joinSelected")} callback={joinServer} />
+                ) : (
+                    <Button disabled={true} name={t("group.seeding.joinSelected")} />
+                )
+            }
+            {
+                (hasRights) ? (
+                    <Button name={t("group.seeding.leave")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"leave"} option={"leaveServer"} callback={modal.close} />)} />
+                ) : (
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.leave")} />
+                )
+            }
+            {
+                (hasRights) ? (
+                    <Button name={t("group.seeding.shutdownWindows")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"shutdownWindows"} option={"shutdownPC"} callback={modal.close} />)} />
+                ) : (
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.shutdownWindows")} />
+                )
+            }
+        </ButtonRow>
+        {
+            (props.group) ? (
+                serverList.map((server, i) => (
+                    <SeederStRow user={server} selected={selected === i} callback={() => changeSelected(i)} key={server.id || i} />
+                ))
+            ) : (
+                fakeListing.map((_, i) => <FakeUserStRow key={i} />)
+            )
+        }
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list")}</h2>
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+            {
+                (seeders) ? seeders.seeders.map(
+                    (seeder, i) => (<SeederRow seeder={seeder} key={i} />)
+                ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
+                    (_, i) => (<EmptyRow key={i} />)
+                )
+            }
+        </div>
+    </>;
+}
+
 function GroupOwners(props) {
 
     const modal = useModal();
@@ -328,7 +429,7 @@ function GroupOwners(props) {
         <h2>{t("group.owners.main")}</h2>
         <h5>{t("group.owners.description0")}<br />{t("group.owners.description1")}</h5>
         {
-            (isSelected) ? (<h5><b>{t("group.owners.selected", {number: selected.length})}</b></h5>) : (<h5>{t("group.owners.select")}</h5>)
+            (isSelected) ? (<h5><b>{t("group.owners.selected", { number: selected.length })}</b></h5>) : (<h5>{t("group.owners.select")}</h5>)
         }
         <ButtonRow>
             {
@@ -355,7 +456,7 @@ function GroupOwners(props) {
                 fakeListing.map((_, i) => <FakeUserStRow key={i} />)
             )
         }
-        
+
     </>;
 }
 
@@ -377,7 +478,7 @@ function GroupServerAccount(props) {
                 setRemid(props.group.cookie.remid);
             if (sid !== props.group.cookie.sid)
                 setSid(props.group.cookie.sid);
-        } 
+        }
     }, [props.group]);
 
     const editCookies = useMutation(
@@ -439,7 +540,7 @@ function GroupServerAccount(props) {
                             )
                         } status={applyStatus} />
                     </ButtonRow>
-                ): ""
+                ) : ""
             }
         </>
     );
@@ -448,7 +549,7 @@ function GroupServerAccount(props) {
 function AccountInfo({ group }) {
     return (
         <h5>
-             {(!group) ? "Updating account status.." : (!group.accountName) ? "We are pending status of this account" : group.accountName}
+            {(!group) ? "Updating account status.." : (!group.accountName) ? "We are pending status of this account" : group.accountName}
         </h5>
     )
 }
@@ -500,7 +601,7 @@ function GroupDiscordSettings(props) {
     );
 
     return (
-        <> 
+        <>
             <GameStatsAd />
             <h5 style={{ marginTop: "8px" }}>
                 {t("group.discord.description0")}<br />{t("group.discord.description1")}
@@ -518,7 +619,7 @@ function GroupDiscordSettings(props) {
                 {t("group.discord.permDescription0")}<br />{t("group.discord.permDescription1")}
             </h5>
             <Row>
-                <TextInput disabled={!allowedTo} callback={(e) => setAdminId(e.target.value)} defaultValue={adminId} name={t("discord.adminId")}  />
+                <TextInput disabled={!allowedTo} callback={(e) => setAdminId(e.target.value)} defaultValue={adminId} name={t("discord.adminId")} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
                     {t("discord.adminIdDescription")}
                 </p>
@@ -565,10 +666,10 @@ function GroupSettings(props) {
     const [applyStatus, setApplyStatus] = useState(null);
 
     useEffect(() => {
-        
+
         if (props.group) {
             const { visableBans, cookieLocale, token } = props.group;
-            const originalGroupState = { visableBans, cookieLocale, token: props.group.tokenUsed?"-":"" };
+            const originalGroupState = { visableBans, cookieLocale, token: props.group.tokenUsed ? "-" : "" };
             if (groupState === null) {
                 setGroupState(originalGroupState);
                 setTokenDisabled(token !== "");
@@ -580,9 +681,9 @@ function GroupSettings(props) {
                 if (groupState.token === "") setTokenDisabled(false);
                 setCanApply(newCanApply);
             }
-           
+
         }
-        
+
 
     }, [props.group, groupState]);
 
@@ -591,7 +692,7 @@ function GroupSettings(props) {
     }
 
     const editGroupSettings = useMutation(
-        variables => OperationsApi.editGroup({value: variables, gid: props.gid}),
+        variables => OperationsApi.editGroup({ value: variables, gid: props.gid }),
         {
             onMutate: async () => {
                 setApplyStatus(true);
@@ -617,7 +718,7 @@ function GroupSettings(props) {
     };
 
     return (
-        <> 
+        <>
             <h5>
                 {t("group.settings.visableBansDesc")}
             </h5>
@@ -626,30 +727,31 @@ function GroupSettings(props) {
                 {t("group.settings.localeDescription0")}<br />{t("group.settings.localeDescription1")}<a href="https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html" target="_blank" rel="noopener noreferrer">Oracle.com</a>
             </h5>
             <Row>
-                <TextInput type="text" disabled={!allowedTo} callback={(e) => changeGroupState({cookieLocale: e.target.value})} defaultValue={getGroupValue("cookieLocale")} name={t("cookie.locale")} />
+                <TextInput type="text" disabled={!allowedTo} callback={(e) => changeGroupState({ cookieLocale: e.target.value })} defaultValue={getGroupValue("cookieLocale")} name={t("cookie.locale")} />
                 <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
                     {t("cookie.locale")}
                 </p>
             </Row>
-            <h5 style={{paddingTop: '1rem'}}>
+            <h5 style={{ paddingTop: '1rem' }}>
                 {t("group.settings.tokenDescription0")}<br />{t("group.settings.tokenDescription1")}
             </h5>
             <Switch checked={tokenDisabled} name={t("group.settings.tokenEnable")} callback={(v) => {
                 let token = ""
                 setTokenDisabled(v); (!v)
-                ?token = ""
-                :token = cryptoRandomString({length: 40});
+                    ? token = ""
+                    : token = cryptoRandomString({ length: 40 });
                 document.getElementsByTagName('input')[1].value = token;
-                changeGroupState({ token: token })}} />
+                changeGroupState({ token: token })
+            }} />
             <Row>
-                <TextInput type="text" disabled={!allowedTo || !tokenDisabled} callback={(e) => 
-                    changeGroupState({token: e.target.value})} defaultValue={getGroupValue("token")} 
-                    name={t("group.settings.token")}/>
+                <TextInput type="text" disabled={!allowedTo || !tokenDisabled} callback={(e) =>
+                    changeGroupState({ token: e.target.value })} defaultValue={getGroupValue("token")}
+                    name={t("group.settings.token")} />
                 <Button name={t("group.settings.tokenGen")} callback={_ => {
-                    const token = cryptoRandomString({length: 40});
-                    changeGroupState({token: token});
+                    const token = cryptoRandomString({ length: 40 });
+                    changeGroupState({ token: token });
                     document.getElementsByTagName('input')[1].value = token;
-                } }/>
+                }} />
             </Row>
             <ButtonRow><ButtonUrl href={`https://manager-api.gametools.network/docs/`} name={t("ApiInfo.link")} /></ButtonRow>
             {
@@ -681,7 +783,7 @@ function GroupStatus(props) {
     }
     const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
     const { serverError, data: serverStats } = useQuery('serverStats' + serverId, () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
-    
+
     return (
         <div ref={statusRef}>
             {
@@ -695,31 +797,31 @@ function GroupStatus(props) {
                             {t("group.status.cookiecheck.main")}
                         </h5>
                         {props.group.lastCookieCheck !== null ? (
-                            <h5>{t("time", {date: new Date(props.group.lastCookieCheck)})}</h5>
+                            <h5>{t("time", { date: new Date(props.group.lastCookieCheck) })}</h5>
                         ) : (
                             <h5>{t("group.status.cookiecheck.never")}</h5>
-                        )} 
+                        )}
                     </>
-                ): ""
+                ) : ""
             }
             <h5 style={{ marginTop: "15px", marginBottom: "0px" }}>
                 {t("group.status.stats.main")}
             </h5>
             {
                 (groupStats) ? (
-                    <div style={{paddingLeft: "10px"}}>
-                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.autoKickPingAmount", {amount: groupStats.autoKickPingAmount})}</h5>
-                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.bfbanAmount", {amount: groupStats.bfbanAmount})}</h5>
-                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.moveAmount", {amount: groupStats.moveAmount})}</h5>
-                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.kickAmount", {amount: groupStats.kickAmount})}</h5>
-                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.banAmount", {amount: groupStats.banAmount})}</h5>
-                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.globalBanKickAmount", {amount: groupStats.globalBanKickAmount})}</h5>
+                    <div style={{ paddingLeft: "10px" }}>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.autoKickPingAmount", { amount: groupStats.autoKickPingAmount })}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.bfbanAmount", { amount: groupStats.bfbanAmount })}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.moveAmount", { amount: groupStats.moveAmount })}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.kickAmount", { amount: groupStats.kickAmount })}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.banAmount", { amount: groupStats.banAmount })}</h5>
+                        <h5 style={{ margin: "3px 20px" }}>{t("group.status.stats.globalBanKickAmount", { amount: groupStats.globalBanKickAmount })}</h5>
                     </div>
                 ) : (
                     <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
                 )
             }
-            
+
             <h5 style={{ marginTop: "15px", marginBottom: "5px" }}>
                 {t("group.status.stats.servers.main")}
             </h5>
@@ -734,7 +836,7 @@ function GroupStatus(props) {
             </ButtonRow>
             {
                 (serverStats) ? (
-                    <div style={{paddingLeft: "10px"}}>
+                    <div style={{ paddingLeft: "10px" }}>
                         {serverStats.data.playerAmounts.length !== 0 ? (
                             <>
                                 {width < 760 ? (
@@ -782,7 +884,7 @@ function GroupDangerZone(props) {
     useEffect(() => {
 
         if (props.group && groupName !== props.group.groupName) {
-            setGroupName(props.group.groupName);    
+            setGroupName(props.group.groupName);
         }
 
     }, [props.group]);
@@ -828,7 +930,7 @@ function GroupDangerZone(props) {
             }
             <h5 style={{ marginTop: "8px" }}>{t("group.danger.deleteInfo0")}<br />{t("group.danger.deleteInfo1")}</h5>
             <ButtonRow>
-                <ButtonLink style={{ color: "#FF7575"}} name={t("group.danger.delete")} to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
+                <ButtonLink style={{ color: "#FF7575" }} name={t("group.danger.delete")} to={`/group/${props.gid}/delete/`} disabled={!allowedTo} />
                 <ButtonLink name={t("sidebar.makeOperations")} to={`/makeops/${props.gid}/`} disabled={!canSetUpOps} />
             </ButtonRow>
         </>
@@ -857,7 +959,7 @@ export function AddGroupOwner(props) {
                 const previousGroup = queryClient.getQueryData('groupId' + gid)
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
-                
+
                 queryClient.setQueryData('groupId' + gid, old => {
                     old.data[0].owners.push({ id: uid, name: nickname, addedAt: UTCNow });
                     old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
@@ -883,10 +985,10 @@ export function AddGroupOwner(props) {
         <>
 
             <h2>{t("group.owners.addNew")}</h2>
-            <TextInput name={t("group.addMenu.nickname")} callback={(e)=>setNickname(e.target.value)}/>
-            <TextInput name={t("group.addMenu.id")} callback={(e) => setUid(e.target.value) }/>
+            <TextInput name={t("group.addMenu.nickname")} callback={(e) => setNickname(e.target.value)} />
+            <TextInput name={t("group.addMenu.id")} callback={(e) => setUid(e.target.value)} />
             <ButtonRow>
-                <Button name={t("group.owners.add")} callback={() => { AddGroupOwnerExecute.mutate({ gid, uid, nickname }); props.callback();  }} />
+                <Button name={t("group.owners.add")} callback={() => { AddGroupOwnerExecute.mutate({ gid, uid, nickname }); props.callback(); }} />
             </ButtonRow>
 
         </>
@@ -948,8 +1050,8 @@ export function AddGroupAdmin(props) {
     return (
         <>
             <h2>{t("group.admins.addNew")}</h2>
-            <TextInput name={t("group.addMenu.nickname")} callback={(e) => updateState({nickname: e.target.value}) } />
-            <TextInput name={t("group.addMenu.id")} callback={(e) => updateState({uid: e.target.value}) } />
+            <TextInput name={t("group.addMenu.nickname")} callback={(e) => updateState({ nickname: e.target.value })} />
+            <TextInput name={t("group.addMenu.id")} callback={(e) => updateState({ uid: e.target.value })} />
             <ButtonRow>
                 <Button name={t("group.admins.add")} disabled={!addAdminState.canAdd} callback={() => { AddGroupAdminExecute.mutate({ gid, uid: addAdminState.uid, nickname: addAdminState.nickname }); props.callback(); }} />
             </ButtonRow>
@@ -1046,7 +1148,7 @@ export function AddGroup(props) {
                     </h5>
                     <TextInput name={t("cookie.remid")} autocomplete="new-password" autocomplete="off" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
-                    {t("createGroup.acceptDescription0")}<br />{t("createGroup.acceptDescription1")}
+                        {t("createGroup.acceptDescription0")}<br />{t("createGroup.acceptDescription1")}
                     </h5>
                     <ButtonRow>
                         <Button name={t("createGroup.accept")} disabled={!addGroupState.canAdd || applyStatus !== null} status={applyStatus} callback={() => AddNewGroupExecute.mutate(addGroupState.variables)} />
@@ -1106,8 +1208,8 @@ export function DeleteGroup(props) {
                 </Header>
                 <Card>
                     <h2>{t("group.danger.main")}</h2>
-                    {group? (
-                        <p>{t("group.danger.checkWithName", {name: group.groupName})}</p>
+                    {group ? (
+                        <p>{t("group.danger.checkWithName", { name: group.groupName })}</p>
                     ) : (
                         <p>{t("group.danger.check")}</p>
                     )}
@@ -1124,7 +1226,7 @@ export function DeleteGroup(props) {
 export function AddGroupServer(props) {
     var gid = props.match.params.gid;
 
-    const [game, setGame] = useState("bf1"); 
+    const [game, setGame] = useState("bf1");
     var name = "", alias = "";
 
     const queryClient = useQueryClient();
@@ -1135,7 +1237,7 @@ export function AddGroupServer(props) {
         variables => OperationsApi.addGroupServer(variables),
         {
             // When mutate is called:
-            onMutate: async({ gid, name, alias, game }) => {
+            onMutate: async ({ gid, name, alias, game }) => {
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
                 await queryClient.cancelQueries('groupId' + gid)
@@ -1261,7 +1363,7 @@ export function MakeOps(props) {
                     <h2>{t("operations.main")}</h2>
                     <h5>
                         {t("operations.description0")}<br />
-                        {t("operations.description1")}<br /> 
+                        {t("operations.description1")}<br />
                         {t("operations.description2")}
                     </h5>
                     <TextInput name="Server name" callback={(e) => { checkInputVariables({ server: e.target.value }) }} />
@@ -1288,4 +1390,31 @@ export function MakeOps(props) {
             </Column>
         </Row>
     );
+}
+
+export function LeaveServer(props) {
+    const { t } = useTranslation();
+
+    const queryClient = useQueryClient();
+
+
+    const AddGroupAdminExecute = useMutation(
+        variables => OperationsApi.setSeeding(variables),
+        {
+            onSettled: () => {
+                queryClient.invalidateQueries('seeding' + props.gid)
+            },
+        }
+    );
+
+    return (
+        <>
+            <h2>{t("group.seeding.main")}</h2>
+            <h2>{t("group.seeding.confirmInfo", { option: t(`group.seeding.${props.textItem}`) })}</h2>
+            <ButtonRow>
+                <Button name={t(`group.seeding.confirm`)} callback={() => { AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: props.option, groupId: props.gid }); props.callback(); }} />
+            </ButtonRow>
+        </>
+    );
+
 }

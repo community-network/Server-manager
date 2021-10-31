@@ -20,8 +20,8 @@ export function GroupRow(props) {
     React.useEffect(() => {
         
         if (group) {
-            const { makeOperations } = group;
-            const originalGroupState = { makeOperations };
+            const { makeOperations, seedServers } = group;
+            const originalGroupState = { makeOperations, seedServers };
             if (groupState === null) {
                 setGroupState(originalGroupState);
             } else {
@@ -159,6 +159,7 @@ export function GroupRow(props) {
             <br />
             <h5 className={styles.ManagementTitles}>{t("man.settings.main")}</h5>
             <Switch checked={getGroupValue("makeOperations")} name={t("man.settings.makeOperations")} callback={(v) => changeGroupState({ makeOperations: v })} />
+            <Switch checked={getGroupValue("seedServers")} name={t("man.settings.seedServers")} callback={(v) => changeGroupState({ seedServers: v })} />
             {
                 (group && canApply) ? (
                     <ButtonRow>

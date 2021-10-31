@@ -376,6 +376,23 @@ export class ApiProvider extends JsonClient {
             throw new Error(answer.error.message)
         }
     }
+    
+    async getSeeding(gid) {
+        return await this.getJsonMethod("getseeder", { "groupid": gid });
+    }
+
+    async getSeeders(gid) {
+        return await this.getJsonMethod("seeders", { "groupid": gid });
+    }
+
+    async setSeeding({ serverName, serverId, action, groupId }) {
+        return await this.postJsonMethod("seeder", {
+            "servername": serverName,
+            "serverid": serverId,
+            "action": action,
+            "groupid": groupId
+        });
+    }
 
 }
 

@@ -68,7 +68,7 @@
     margin-right: 10px;
 }
 
-.logAdmin, .logPlayer, .logServer {
+.logAdmin, .logPlayer, .logServer, .logSeeder {
     margin-right: 10px;
     color: var(--color-text-high);
 }
@@ -104,6 +104,11 @@
     font-size: 13px;
     display: flex;
     flex-direction: row;
+}
+.seedingRow {
+    margin-right: 10px;
+    color: var(--color-text-high);
+    flex-grow: 2;
 }
 
 .logReasonDetailed {
@@ -226,5 +231,47 @@
 }
 
 .GroupName {
+    flex-grow: 2;
+}
+
+
+
+.selectableRow, .selectableRowSelected {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 4px 0;
+    align-items: center;
+    cursor: pointer;
+}
+
+.selectableRow:hover {
+    background: var(--color-container);
+}
+
+.selectableRowSelected {
+    background: var(--color-container-v2);
+}
+
+.iconSelect {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    color: var(--color-text);
+    flex-shrink: 0;
+}
+
+.selectableRow:hover > .iconSelect, .selectableRowSelected > .iconSelect  {
+    color: var(--color-text-high);
+}
+
+.DiscordName {
+    font-size: 14px;
+    font-weight: 500;
+    align-self: center;
+    color: var(--color-text);
+    margin-right: 10px;
     flex-grow: 2;
 }

@@ -10,7 +10,7 @@ import { OperationsApi } from "../api";
 import '../locales/config';
 import styles from "./Group.module.css";
 
-import { TextInput, Button, ButtonRow } from "../components/Buttons";
+import { TextInput, Button, ButtonRow, IconSelected, IconNotSelected } from "../components/Buttons";
 import { Tag, useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
 import { DynamicSort } from "../components/Functions";
@@ -243,7 +243,7 @@ export function GroupLogs(props) {
                     (logList) ? logList.logs.map(
                         (log, i) => (<LogRow log={log} key={i} />)
                     ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
-                        (_, i) => (<EmptyLogRow key={i} />)
+                        (_, i) => (<EmptyRow key={i} />)
                     )
             }
             </div>
@@ -397,7 +397,7 @@ function LogRow(props) {
     }
 }
 
-function EmptyLogRow() {
+export function EmptyRow() {
     return (
         <div className={styles.logRow}></div>
     );
@@ -457,5 +457,50 @@ function VbanBanPlayer(props) {
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
+    );
+}
+
+function SelectableRow(props) {
+    return (
+        <div className={(props.selected) ? styles.selectableRowSelected : styles.selectableRow} onClick={() => props.callback()}>
+            {
+                (props.selected) ? <IconSelected /> : <IconNotSelected />
+            }
+            {props.children}
+        </div>
+    );
+}
+
+export function SeederStRow(props) {
+    var user = props.user;
+    const { t } = useTranslation();
+    var dateAdded = new Date(Date.parse(user.addedAt));
+
+    return (
+        <SelectableRow callback={props.callback} selected={props.selected}>
+            <div className={styles.DiscordName}>
+                {user.name}
+            </div>
+        </SelectableRow>
+    );
+}
+
+
+export function SeederRow(props) {
+    const { t } = useTranslation();
+    const seeder = props.seeder;
+    var datetime = new Date(seeder.timeStamp);
+
+    return (
+        <div className={styles.logRow}>
+            <span className={styles.seedingRow}>{seeder.seederName} - {
+                (seeder.isRunning)? (
+                    <>{t("group.seeding.true")}</>
+                ) : (
+                    <>{t("group.seeding.false")}</>
+                )
+            }</span>
+            <span className={styles.logTime}>{t("dateTime", {date: datetime})}</span>
+        </div>
     );
 }
