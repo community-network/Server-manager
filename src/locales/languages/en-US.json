@@ -184,7 +184,7 @@
             "true": "in the game",
             "false": "not in the game",
             "custom": "Custom server",
-            "schedule": "Schedule seeding starttime",
+            "schedule": "Schedule seeding starttime (UTC timezone)",
             "undoSchedule": "remove seeding from schedule",
             "scheduled": "Scheduled on {{startTime}} for {{serverName}}",
             "unscheduled": "No auto-seed scheduled."
