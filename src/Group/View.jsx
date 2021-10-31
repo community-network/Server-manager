@@ -8,7 +8,7 @@ import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
-import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, EmptyRow, SeederRow } from "./Group";
+import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
 
@@ -310,6 +310,7 @@ function Seeding(props) {
 
     var hasRights = false;
     const [selected, setSelected] = useState();
+    const [customServerName, setCustomServerName] = useState("");
     const { t } = useTranslation();
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
@@ -328,16 +329,31 @@ function Seeding(props) {
 
     const isSelected = selected !== undefined;
 
-    const changeSelected = (i) => {
-        setSelected(i)
-        setSelected(b => (i !== selected) ? i : undefined)
+    const changeSelected = (i, e) => {
+        if (i === 90) {
+            if (e) {
+                setCustomServerName(e.target.value);
+            }
+            setSelected(i);
+        } else {
+            setSelected(b => (i !== selected) ? i : undefined);
+        }
     }
 
     const joinServer = () => {
-        const server = props.group.servers[selected]
+        let server;
+        if (selected === 90) {
+            server = {name: customServerName, id: ""}
+        } else {
+            server = props.group.servers[selected];
+        }
         OperationsApi.setSeeding({ serverName: server.name, serverId: server.id, action: "joinServer", groupId: props.gid })
         setSelected(undefined);
-        setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, 300);
+        let timeout = 300;
+        if (selected === 90) {
+            timeout = 1000;
+        } 
+        setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, timeout);
     }
 
     return <>
@@ -378,12 +394,13 @@ function Seeding(props) {
         {
             (props.group) ? (
                 serverList.map((server, i) => (
-                    <SeederStRow user={server} selected={selected === i} callback={() => changeSelected(i)} key={server.id || i} />
+                    <SeederStRow user={server} selected={selected === i} callback={() => changeSelected(i, undefined)} key={server.id || i} />
                 ))
             ) : (
                 fakeListing.map((_, i) => <FakeUserStRow key={i} />)
             )
         }
+        <SeederStCustom selected={selected === 90} callback={(e) => changeSelected(90, e)} key={90} />
         <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list")}</h2>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {

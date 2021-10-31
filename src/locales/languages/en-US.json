@@ -182,7 +182,8 @@
             "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
             "list": "Current seeders",
             "true": "in the game",
-            "false": "not in the game"
+            "false": "not in the game",
+            "custom": "Custom server"
         },
         "servers": {
             "main": "Servers",

@@ -473,8 +473,6 @@ function SelectableRow(props) {
 
 export function SeederStRow(props) {
     var user = props.user;
-    const { t } = useTranslation();
-    var dateAdded = new Date(Date.parse(user.addedAt));
 
     return (
         <SelectableRow callback={props.callback} selected={props.selected}>
@@ -485,6 +483,15 @@ export function SeederStRow(props) {
     );
 }
 
+export function SeederStCustom(props) {
+    const { t } = useTranslation();
+
+    return (
+        <SelectableRow callback={props.callback} selected={props.selected}>
+            <TextInput style={{height: "32px"}} name={t("group.seeding.custom")} callback={(e) => props.callback(e)} />
+        </SelectableRow>
+    );
+}// callback={(e) => setReason(e.target.value)}
 
 export function SeederRow(props) {
     const { t } = useTranslation();
