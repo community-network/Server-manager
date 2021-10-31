@@ -305,12 +305,14 @@ function GroupServers(props) {
 }
 
 function Seeding(props) {
-
     const modal = useModal();
 
     var hasRights = false;
     const [selected, setSelected] = useState();
     const [customServerName, setCustomServerName] = useState("");
+    
+    const [hour, setHour] = useState(7);
+    const [minute, setMinute] = useState(0);
     const { t } = useTranslation();
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
@@ -343,7 +345,7 @@ function Seeding(props) {
     const joinServer = () => {
         let server;
         if (selected === 90) {
-            server = {name: customServerName, id: ""}
+            server = { name: customServerName, id: "" }
         } else {
             server = props.group.servers[selected];
         }
@@ -352,8 +354,20 @@ function Seeding(props) {
         let timeout = 300;
         if (selected === 90) {
             timeout = 1000;
-        } 
+        }
         setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, timeout);
+    }
+
+    const scheduleSeed = () => {
+        let server;
+        if (selected === 90) {
+            server = { name: customServerName, id: "" }
+        } else {
+            server = props.group.servers[selected];
+        }
+        OperationsApi.scheduleSeeding({ timeStamp: `${hour}:${minute}0`, serverName: server.name, groupId: props.gid })
+        setSelected(undefined);
+        setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, 1000);
     }
 
     return <>
@@ -368,6 +382,42 @@ function Seeding(props) {
                 )
             ) : (<></>)
         }
+        {
+            (seedingInfo) ? (
+                (seedingInfo.startServer !== null) ? (
+                    <h5><b>{t("group.seeding.scheduled", { "serverName": seedingInfo.startServer, "startTime": seedingInfo.startTime })}</b></h5>
+                ) : (
+                    <h5>{t("group.seeding.unscheduled")}</h5>
+                )
+            ) : (<></>)
+        }
+        <ButtonRow>
+            <select className={styles.SwitchGame} value={hour} onChange={e => setHour(e.target.value)}>
+                {[...Array(24)].map((_, i) => {
+                    return (
+                        <option value={i}>{i}</option>
+                    )
+                })}
+            </select>
+            <select className={styles.SwitchGame} value={minute} onChange={e => setMinute(e.target.value)}>
+                <option value="0">0</option>
+                <option value="3">30</option>
+            </select>
+            {
+                (hasRights && isSelected) ? (
+                    <Button name={t("group.seeding.schedule")} callback={scheduleSeed} />
+                ) : (
+                    <Button disabled={true} name={t("group.seeding.schedule")} />
+                )
+            }
+            {
+                (hasRights && seedingInfo && seedingInfo.startTime !== null) ? (
+                    <Button name={t("group.seeding.undoSchedule")} callback={() => modal.show(<UnscheduleSeed gid={props.group.id} callback={modal.close} />)} />
+                ) : (
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.undoSchedule")} />
+                )
+            }
+        </ButtonRow>
         <ButtonRow>
             {
                 (hasRights && isSelected) ? (
@@ -1411,9 +1461,7 @@ export function MakeOps(props) {
 
 export function LeaveServer(props) {
     const { t } = useTranslation();
-
     const queryClient = useQueryClient();
-
 
     const AddGroupAdminExecute = useMutation(
         variables => OperationsApi.setSeeding(variables),
@@ -1433,5 +1481,27 @@ export function LeaveServer(props) {
             </ButtonRow>
         </>
     );
+}
 
+export function UnscheduleSeed(props) {
+    const { t } = useTranslation();
+    const queryClient = useQueryClient();
+
+    const AddGroupAdminExecute = useMutation(
+        variables => OperationsApi.undoScheduleSeeding(variables),
+        {
+            onSettled: () => {
+                queryClient.invalidateQueries('seeding' + props.gid)
+            },
+        }
+    );
+    return (
+        <>
+            <h2>{t("group.seeding.main")}</h2>
+            <h2>{t("group.seeding.confirmInfo", { option: t("group.seeding.undoSchedule") })}</h2>
+            <ButtonRow>
+                <Button name={t(`group.seeding.confirm`)} callback={() => { AddGroupAdminExecute.mutate({ groupId: props.gid }); props.callback(); }} />
+            </ButtonRow>
+        </>
+    );
 }

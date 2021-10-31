@@ -394,6 +394,19 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async scheduleSeeding({timeStamp, serverName, groupId}) {
+        return await this.postJsonMethod("seederschedule", {
+            "timestamp": timeStamp,
+            "servername": serverName,
+            "groupid": groupId
+        });
+    }
+
+    async undoScheduleSeeding({groupId}) {
+        return await this.postJsonMethod("undoseederschedule", {
+            "groupid": groupId
+        });
+    }
 }
 
 export const OperationsApi = new ApiProvider();
