@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMeasure } from 'react-use';
 import { Link, useHistory } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { GroupGlobalUnbanPlayer } from "./Modals";
 import { supportedGames } from "../Globals";
