@@ -10,7 +10,7 @@ import styles from "./View.module.css";
 export function GroupRow(props) {
     const { t } = useTranslation();
     var group = props.group;
-    
+
     const queryClient = useQueryClient();
     const [groupState, setGroupState] = React.useState(null);
     const [canApply, setCanApply] = React.useState(false);
@@ -18,7 +18,7 @@ export function GroupRow(props) {
     const [errorUpdating, setError] = React.useState({ code: 0, message: "Unknown" });
 
     React.useEffect(() => {
-        
+
         if (group) {
             const { makeOperations, seedServers } = group;
             const originalGroupState = { makeOperations, seedServers };
@@ -72,8 +72,8 @@ export function GroupRow(props) {
                 <span className={styles.GroupName}>{group.groupName}</span>
 
                 {/* {width < 350? <span></span>: */}
-                    {/* } */}
-                <span className={styles.manageDev}>{group.createdAt!==undefined?t("dateTime", {date: new Date(group.createdAt)}):"-"}</span>
+                {/* } */}
+                <span className={styles.manageDev}>{group.createdAt !== undefined ? t("dateTime", { date: new Date(group.createdAt) }) : "-"}</span>
             </div>
             <table className={styles.ManagementTable}>
                 <thead>
@@ -88,7 +88,7 @@ export function GroupRow(props) {
                             <span>{group.cookieAcc}</span>
                         </td>
                         <td>
-                            <span>{group.lastUpdate!==undefined?t("dateTime", {date: new Date(group.lastUpdate)}):"-"}</span>
+                            <span>{group.lastUpdate !== undefined ? t("dateTime", { date: new Date(group.lastUpdate) }) : "-"}</span>
                         </td>
                     </tr>
                 </tbody>
@@ -101,18 +101,24 @@ export function GroupRow(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {group.owners.map(
-                        (player, i) => 
-                        <tr className={styles.BanRow}>
-                            <td title={player.displayName} className={styles.row}>
-                                <div className={styles.AvatarImg}><img src={player.avatar} alt="" /></div>
-                                <span>{player.nickName}</span>
-                            </td>
-                            <td>
-                                <span>{player.createdAt!==undefined?t("dateTime", {date: new Date(player.createdAt)}):"-"}</span>
-                            </td>
-                        </tr>
-                    )}
+                    {
+                        (group && group.owners) ? (
+                            group.owners.map(
+                                (player, i) =>
+                                    <tr className={styles.BanRow}>
+                                        <td title={player.displayName} className={styles.row}>
+                                            <div className={styles.AvatarImg}><img src={player.avatar} alt="" /></div>
+                                            <span>{player.nickName}</span>
+                                        </td>
+                                        <td>
+                                            <span>{player.createdAt !== undefined ? t("dateTime", { date: new Date(player.createdAt) }) : "-"}</span>
+                                        </td>
+                                    </tr>
+                            )
+                        ) : (
+                            <></>
+                        )
+                    }
                 </tbody>
             </table>
             <table className={styles.ManagementTable}>
@@ -128,32 +134,37 @@ export function GroupRow(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {group.servers.map(
-                        (server, i) => 
-                        <tr className={styles.BanRow}>
-                            <td>
-                                <span>{server.serverName}</span>
-                            </td>
-                            <td>
-                                <span>{server?(server.isAdmin?t("serverStatus.running"):t("serverStatus.noAdmin")):t("serverStatus.noServer")}</span>
-                            </td>
-                            <td>
-                                <span>{server.autoPingKick !== 0 ? t("boolean.enabled"):t("boolean.disabled")}</span>
-                            </td>
-                            <td>
-                                <span>{server.autoBanKick? t("boolean.enabled"):t("boolean.disabled")}</span>
-                            </td>
-                            <td>
-                                <span>{server.autoBfbanKick? t("boolean.enabled"):t("boolean.disabled")}</span>
-                            </td>
-                            <td>
-                                <span>{server.lastUpdate!==undefined?t("dateTime", {date: new Date(server.lastUpdate * 1000)}):"-"}</span>
-                            </td>
-                            <td>
-                                <span>{server.createdAt!==undefined?t("dateTime", {date: new Date(server.createdAt)}):"-"}</span>
-                            </td>
-                        </tr>
-                    )}
+                    {
+                        (group && group.servers) ? (
+                            group.servers.map(
+                                (server, i) =>
+                                    <tr className={styles.BanRow}>
+                                        <td>
+                                            <span>{server.serverName}</span>
+                                        </td>
+                                        <td>
+                                            <span>{server ? (server.isAdmin ? t("serverStatus.running") : t("serverStatus.noAdmin")) : t("serverStatus.noServer")}</span>
+                                        </td>
+                                        <td>
+                                            <span>{server.autoPingKick !== 0 ? t("boolean.enabled") : t("boolean.disabled")}</span>
+                                        </td>
+                                        <td>
+                                            <span>{server.autoBanKick ? t("boolean.enabled") : t("boolean.disabled")}</span>
+                                        </td>
+                                        <td>
+                                            <span>{server.autoBfbanKick ? t("boolean.enabled") : t("boolean.disabled")}</span>
+                                        </td>
+                                        <td>
+                                            <span>{server.lastUpdate !== undefined ? t("dateTime", { date: new Date(server.lastUpdate * 1000) }) : "-"}</span>
+                                        </td>
+                                        <td>
+                                            <span>{server.createdAt !== undefined ? t("dateTime", { date: new Date(server.createdAt) }) : "-"}</span>
+                                        </td>
+                                    </tr>
+                            )) : (
+                            <></>
+                        )
+                    }
                 </tbody>
             </table>
             <br />
@@ -180,7 +191,7 @@ export function Manager() {
     const { t } = useTranslation();
     const [searchWord, setSearchWord] = React.useState("");
     const { isLoading, isError, data } = useQuery('devGroups', () => OperationsApi.getManGroups())
-    
+
     var groups = [];
 
     if (!isLoading && !isError && data) {
