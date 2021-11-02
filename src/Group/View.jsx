@@ -313,6 +313,7 @@ function Seeding(props) {
     
     const [hour, setHour] = useState(7);
     const [minute, setMinute] = useState(0);
+    const [rejoin, setRejoin] = useState(undefined);
     const { t } = useTranslation();
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
@@ -328,6 +329,14 @@ function Seeding(props) {
         serverList.sort((a, b) => b.name - a.name);
         serverList = serverList.filter(a => a.game === "bf1");
     }
+
+    useEffect(() => {
+        if (seedingInfo) {
+            if (rejoin === undefined) {
+                setRejoin(seedingInfo.rejoin);
+            }
+        }
+    }, [rejoin, seedingInfo]);
 
     const isSelected = selected !== undefined;
 
@@ -349,7 +358,7 @@ function Seeding(props) {
         } else {
             server = props.group.servers[selected];
         }
-        OperationsApi.setSeeding({ serverName: server.name, serverId: server.id, action: "joinServer", groupId: props.gid })
+        OperationsApi.setSeeding({ serverName: server.name, serverId: server.id, action: "joinServer", groupId: props.gid, rejoin: rejoin })
         setSelected(undefined);
         let timeout = 300;
         if (selected === 90) {
@@ -419,6 +428,10 @@ function Seeding(props) {
             }
         </ButtonRow>
         <ButtonRow>
+            <select className={styles.SwitchGame} value={rejoin} onChange={e => setRejoin(e.target.value === 'true')}>
+                <option value="true">auto-rejoin</option>
+                <option value="false">no auto-rejoin</option>
+            </select>
             {
                 (hasRights && isSelected) ? (
                     <Button name={t("group.seeding.joinSelected")} callback={joinServer} />
@@ -428,14 +441,14 @@ function Seeding(props) {
             }
             {
                 (hasRights) ? (
-                    <Button name={t("group.seeding.leave")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"leave"} option={"leaveServer"} callback={modal.close} />)} />
+                    <Button name={t("group.seeding.leave")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"leave"} option={"leaveServer"} callback={modal.close} rejoin={rejoin} />)} />
                 ) : (
                     <Button disabled={true} name={t("denied")} content={t("group.seeding.leave")} />
                 )
             }
             {
                 (hasRights) ? (
-                    <Button name={t("group.seeding.shutdownWindows")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"shutdownWindows"} option={"shutdownPC"} callback={modal.close} />)} />
+                    <Button name={t("group.seeding.shutdownWindows")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"shutdownWindows"} option={"shutdownPC"} callback={modal.close} rejoin={rejoin} />)} />
                 ) : (
                     <Button disabled={true} name={t("denied")} content={t("group.seeding.shutdownWindows")} />
                 )
@@ -1477,7 +1490,7 @@ export function LeaveServer(props) {
             <h2>{t("group.seeding.main")}</h2>
             <h2>{t("group.seeding.confirmInfo", { option: t(`group.seeding.${props.textItem}`) })}</h2>
             <ButtonRow>
-                <Button name={t(`group.seeding.confirm`)} callback={() => { AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: props.option, groupId: props.gid }); props.callback(); }} />
+                <Button name={t(`group.seeding.confirm`)} callback={() => { AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: props.option, groupId: props.gid, rejoin: props.rejoin }); props.callback(); }} />
             </ButtonRow>
         </>
     );

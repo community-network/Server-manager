@@ -385,12 +385,13 @@ export class ApiProvider extends JsonClient {
         return await this.getJsonMethod("seeders", { "groupid": gid });
     }
 
-    async setSeeding({ serverName, serverId, action, groupId }) {
+    async setSeeding({ serverName, serverId, action, groupId, rejoin }) {
         return await this.postJsonMethod("seeder", {
             "servername": serverName,
             "serverid": serverId,
             "action": action,
-            "groupid": groupId
+            "groupid": groupId,
+            "rejoin": rejoin
         });
     }
 
