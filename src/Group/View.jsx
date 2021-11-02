@@ -451,7 +451,7 @@ function Seeding(props) {
             )
         }
         <SeederStCustom selected={selected === 90} callback={(e) => changeSelected(90, e)} key={90} />
-        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list", {"seeders": seeders.seeders.length})}</h2>
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list", {"seeders":  (seeders) ? seeders.seeders.length : 0})}</h2>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
                 (seeders) ? seeders.seeders.map(
