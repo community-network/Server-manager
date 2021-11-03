@@ -180,7 +180,7 @@
             "confirm": "Confirm!",
             "leave": "Leave current server",
             "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
-            "list": "Currently {{seeders}} seeders online",
+            "list": "Currently {{seeders}} seeders online with {{ingame}} in the game",
             "true": "in the game",
             "false": "not in the game",
             "custom": "Custom server",

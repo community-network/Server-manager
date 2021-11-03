@@ -323,6 +323,11 @@ function Seeding(props) {
 
     const fakeListing = [1, 1, 1];
 
+    let ingameAmount = 0;
+    if (seeders) {
+        ingameAmount = seeders.seeders.filter((seeder) => seeder.isRunning).length
+    }
+
     let serverList;
     if (props.group) {
         serverList = [...props.group.servers];
@@ -464,7 +469,7 @@ function Seeding(props) {
             )
         }
         <SeederStCustom selected={selected === 90} callback={(e) => changeSelected(90, e)} key={90} />
-        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list", {"seeders":  (seeders) ? seeders.seeders.length : 0})}</h2>
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list", {"seeders":  (seeders) ? seeders.seeders.length : 0, "ingame": ingameAmount})}</h2>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
                 (seeders) ? seeders.seeders.map(
