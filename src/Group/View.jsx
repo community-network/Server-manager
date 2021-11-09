@@ -310,6 +310,7 @@ function Seeding(props) {
     var hasRights = false;
     const [selected, setSelected] = useState();
     const [customServerName, setCustomServerName] = useState("");
+    const [broadcast, setBroadcast] = useState("");
     
     const [hour, setHour] = useState(7);
     const [minute, setMinute] = useState(0);
@@ -363,7 +364,7 @@ function Seeding(props) {
         } else {
             server = props.group.servers[selected];
         }
-        OperationsApi.setSeeding({ serverName: server.name, serverId: server.id, action: "joinServer", groupId: props.gid, rejoin: rejoin })
+        OperationsApi.setSeeding({ serverName: server.name, serverId: server.id, action: "joinServer", groupId: props.gid, rejoin: rejoin, message: "" })
         setSelected(undefined);
         let timeout = 300;
         if (selected === 90) {
@@ -390,18 +391,22 @@ function Seeding(props) {
         {
             (seedingInfo) ? (
                 (seedingInfo.action === "joinServer") ? (
-                    <h5>{t("group.seeding.status")}<b>{t("group.seeding.seedServer", { "serverName": seedingInfo.serverName })}</b></h5>
+                    <h5>{t("group.seeding.status.main")}<b>{t("group.seeding.status.seedServer", { "serverName": seedingInfo.serverName })}</b></h5>
                 ) : (
-                    <h5>{t("group.seeding.status")}<b>{t(`group.seeding.${seedingInfo.action}`)}</b></h5>
+                    (seedingInfo.action === "broadcastMessage") ? (
+                        <h5>{t("group.seeding.status.main")}<b>{t("group.seeding.status.broadcastMessage", { "message": seedingInfo.gameId })}</b></h5>
+                    ) : (
+                        <h5>{t("group.seeding.status.main")}<b>{t(`group.seeding.status.${seedingInfo.action}`)}</b></h5>
+                    )
                 )
             ) : (<></>)
         }
         {
             (seedingInfo) ? (
                 (seedingInfo.startServer !== null) ? (
-                    <h5><b>{t("group.seeding.scheduled", { "serverName": seedingInfo.startServer, "startTime": seedingInfo.startTime })}</b></h5>
+                    <h5><b>{t("group.seeding.scheduled.true", { "serverName": seedingInfo.startServer, "startTime": seedingInfo.startTime })}</b></h5>
                 ) : (
-                    <h5>{t("group.seeding.unscheduled")}</h5>
+                    <h5>{t("group.seeding.scheduled.false")}</h5>
                 )
             ) : (<></>)
         }
@@ -419,16 +424,16 @@ function Seeding(props) {
             </select>
             {
                 (hasRights && isSelected) ? (
-                    <Button name={t("group.seeding.schedule")} callback={scheduleSeed} />
+                    <Button name={t("group.seeding.actions.schedule")} callback={scheduleSeed} />
                 ) : (
-                    <Button disabled={true} name={t("group.seeding.schedule")} />
+                    <Button disabled={true} name={t("group.seeding.actions.schedule")} />
                 )
             }
             {
                 (hasRights && seedingInfo && seedingInfo.startTime !== null) ? (
-                    <Button name={t("group.seeding.undoSchedule")} callback={() => modal.show(<UnscheduleSeed gid={props.group.id} callback={modal.close} />)} />
+                    <Button name={t("group.seeding.actions.undoSchedule")} callback={() => modal.show(<UnscheduleSeed gid={props.group.id} callback={modal.close} />)} />
                 ) : (
-                    <Button disabled={true} name={t("denied")} content={t("group.seeding.undoSchedule")} />
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.actions.undoSchedule")} />
                 )
             }
         </ButtonRow>
@@ -439,23 +444,23 @@ function Seeding(props) {
             </select>
             {
                 (hasRights && isSelected) ? (
-                    <Button name={t("group.seeding.joinSelected")} callback={joinServer} />
+                    <Button name={t("group.seeding.actions.joinSelected")} callback={joinServer} />
                 ) : (
-                    <Button disabled={true} name={t("group.seeding.joinSelected")} />
+                    <Button disabled={true} name={t("group.seeding.actions.joinSelected")} />
                 )
             }
             {
                 (hasRights) ? (
-                    <Button name={t("group.seeding.leave")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"leave"} option={"leaveServer"} callback={modal.close} rejoin={rejoin} />)} />
+                    <Button name={t("group.seeding.actions.leave")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"leave"} option={"leaveServer"} callback={modal.close} rejoin={rejoin} />)} />
                 ) : (
-                    <Button disabled={true} name={t("denied")} content={t("group.seeding.leave")} />
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.actions.leave")} />
                 )
             }
             {
                 (hasRights) ? (
-                    <Button name={t("group.seeding.shutdownWindows")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"shutdownWindows"} option={"shutdownPC"} callback={modal.close} rejoin={rejoin} />)} />
+                    <Button name={t("group.seeding.actions.shutdownWindows")} callback={() => modal.show(<LeaveServer gid={props.group.id} textItem={"shutdownWindows"} option={"shutdownPC"} callback={modal.close} rejoin={rejoin} />)} />
                 ) : (
-                    <Button disabled={true} name={t("denied")} content={t("group.seeding.shutdownWindows")} />
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.actions.shutdownWindows")} />
                 )
             }
         </ButtonRow>
@@ -469,7 +474,18 @@ function Seeding(props) {
             )
         }
         <SeederStCustom selected={selected === 90} callback={(e) => changeSelected(90, e)} key={90} />
-        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.list", {"seeders":  (seeders) ? seeders.seeders.length : 0, "ingame": ingameAmount})}</h2>
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.broadcast.main")}</h2>
+        <Row>
+            <TextInput callback={(e) => setBroadcast(e.target.value)} defaultValue={broadcast} name={t("group.seeding.broadcast.message")} />
+            {
+                (hasRights && broadcast !== "") ? (
+                    <Button name={t("group.seeding.broadcast.sendMessage")} callback={() => modal.show(<SeederBroadcast gid={props.group.id} message={broadcast} callback={modal.close} rejoin={rejoin} />)} />
+                ) : (
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.broadcast.sendMessage")} />
+                )
+            }
+        </Row>
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.seeders.main", {"seeders":  (seeders) ? seeders.seeders.length : 0, "ingame": ingameAmount})}</h2>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
                 (seeders) ? seeders.seeders.map(
@@ -1493,9 +1509,40 @@ export function LeaveServer(props) {
     return (
         <>
             <h2>{t("group.seeding.main")}</h2>
-            <h2>{t("group.seeding.confirmInfo", { option: t(`group.seeding.${props.textItem}`) })}</h2>
+            <h2>{t("group.seeding.popup.confirmInfo", { option: t(`group.seeding.actions.${props.textItem}`) })}</h2>
             <ButtonRow>
-                <Button name={t(`group.seeding.confirm`)} callback={() => { AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: props.option, groupId: props.gid, rejoin: props.rejoin }); props.callback(); }} />
+                <Button name={t(`group.seeding.popup.confirm`)} callback={() => {
+                    AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: props.option, groupId: props.gid, rejoin: props.rejoin, message: "" });
+                    props.callback();
+                }} />
+            </ButtonRow>
+        </>
+    );
+}
+
+
+export function SeederBroadcast(props) {
+    const { t } = useTranslation();
+    const queryClient = useQueryClient();
+
+    const AddGroupAdminExecute = useMutation(
+        variables => OperationsApi.setSeeding(variables),
+        {
+            onSettled: () => {
+                queryClient.invalidateQueries('seeding' + props.gid)
+            },
+        }
+    );
+
+    return (
+        <>
+            <h2>{t("group.seeding.main")}</h2>
+            <h2>{t("group.seeding.popup.broadcastInfo", { message: props.message })}</h2>
+            <ButtonRow>
+                <Button name={t(`group.seeding.popup.confirm`)} callback={() => { 
+                    AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: "broadcastMessage", groupId: props.gid, rejoin: props.rejoin, message: props.message }); 
+                    props.callback(); 
+                }} />
             </ButtonRow>
         </>
     );

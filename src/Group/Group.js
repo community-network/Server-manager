@@ -502,9 +502,9 @@ export function SeederRow(props) {
         <div className={styles.logRow}>
             <span className={styles.seedingRow}>{seeder.seederName} {
                 (seeder.isRunning)? (
-                    <span className={styles.serverBadgeOk}>{t("group.seeding.true")}</span>
+                    <span className={styles.serverBadgeOk}>{t("group.seeding.seeders.true")}</span>
                 ) : (
-                    <span className={styles.serverBadgePending}>{t("group.seeding.false")}</span>
+                    <span className={styles.serverBadgePending}>{t("group.seeding.seeders.false")}</span>
                 )
             }</span>
             <span className={styles.logTime}>{t("dateTime", {date: datetime})}</span>

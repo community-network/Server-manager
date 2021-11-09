@@ -169,25 +169,42 @@
         },
         "seeding": {
             "main": "Seed servers",
-            "status": "Status: ",
             "description0": "Seed your battlefield 1 servers.",
             "description1": "You need to have at least Owner role to seed servers.",
-            "seedServer": "Seeding {{serverName}}",
-            "leaveServer": "Not in any server",
-            "shutdownPC": "Turned all PC's off with shutdown option enabled",
-            "joinSelected": "Join selected server",
-            "confirmInfo": "Are you sure you want to {{option}}?",
-            "confirm": "Confirm!",
-            "leave": "Leave current server",
-            "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
-            "list": "Currently {{seeders}} seeders online with {{ingame}} in the game",
-            "true": "in the game",
-            "false": "not in the game",
             "custom": "Custom server",
-            "schedule": "Schedule seeding starttime (UTC timezone)",
-            "undoSchedule": "remove seeding from schedule",
-            "scheduled": "Scheduled on {{startTime}} for {{serverName}}",
-            "unscheduled": "No auto-seed scheduled."
+            "broadcast": {
+                "main": "Broadcast a message to all servers",
+                "message": "message",
+                "sendMessage": "Send"
+            },
+            "scheduled": {
+                "true": "Scheduled on {{startTime}} for {{serverName}}",
+                "false": "No auto-seed scheduled."
+            },
+            "popup": {
+                "confirmInfo": "Are you sure you want to {{option}}?",
+                "broadcastInfo": "Are you sure you want to broadcast \"{{message}}\"?",
+                "confirm": "Confirm!"
+            },
+            "actions": {
+                "joinSelected": "Join selected server",
+                "leave": "Leave current server",
+                "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
+                "schedule": "Schedule seeding starttime (UTC timezone)",
+                "undoSchedule": "remove seeding from schedule"
+            },
+            "status": {
+                "main": "Status: ",
+                "seedServer": "Seeding {{serverName}}",
+                "leaveServer": "Not in any server",
+                "shutdownPC": "Turned all PC's off with shutdown option enabled",
+                "broadcastMessage": "Broadcasted \"{{message}}\" to all servers"
+            },
+            "seeders": {
+                "main": "Currently {{seeders}} seeders online with {{ingame}} in the game",
+                "true": "in the game",
+                "false": "not in the game"
+            }
         },
         "servers": {
             "main": "Servers",
