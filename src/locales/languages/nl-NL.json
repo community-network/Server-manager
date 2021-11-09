@@ -166,6 +166,49 @@
             "select": "Selecteer beheerders om ze te verwijderen.",
             "selected": "Je hebt {{number}} beheerders geselecteerd."
         },
+        "seeding": {
+            "main": "Seed servers",
+            "description0": "Seed uw battlefield 1 servers.",
+            "description1": "Je moet minimaal eigenaar zijn van de groep om de servers te seeden",
+            "custom": "Zelf invoeren",
+            "broadcast": {
+                "main": "Stuur een bericht naar al uw servers",
+                "message": "bericht",
+                "sendMessage": "Verzenden"
+            },
+            "scheduled": {
+                "true": "Start om {{startTime}} voor {{serverName}}",
+                "false": "Tijd voor auto-seed niet geplanned."
+            },
+            "auto-rejoin": {
+                "true": "auto-herjoin",
+                "false": "geen auto-herjoin" 
+            },
+            "popup": {
+                "confirmInfo": "Weet u zeker dat u \"{{option}}\" wilt uitvoeren?",
+                "broadcastInfo": "Weet u zeker dat u \"{{message}}\" wilt sturen naar alle servers?",
+                "confirm": "Uitvoeren!"
+            },
+            "actions": {
+                "joinSelected": "Betreed de geselecteerde server",
+                "leave": "Verlaat huidige server",
+                "shutdownWindows": "Zet de PC's uit (Als afsluitoptie aan staat)",
+                "schedule": "Begin met seeden op deze tijd (UTC tijdzone)",
+                "undoSchedule": "verwijder seeden van de planning"
+            },
+            "status": {
+                "main": "Status: ",
+                "seedServer": "{{serverName}} aan het seeden",
+                "leaveServer": "Niet in een server",
+                "shutdownPC": "Alle PC's met de afsluitoptie aan zijn uitgeschakeld",
+                "broadcastMessage": "\"{{message}}\" verzonden naar alle servers"
+            },
+            "seeders": {
+                "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
+                "true": "in het spel",
+                "false": "niet in het spel"
+            }
+        },
         "servers": {
             "main": "Servers",
             "description0": "Serverinstanties toegevoegd aan huidige groep.",

@@ -439,8 +439,8 @@ function Seeding(props) {
         </ButtonRow>
         <ButtonRow>
             <select className={styles.SwitchGame} value={rejoin} onChange={e => setRejoin(e.target.value === 'true')}>
-                <option value="true">auto-rejoin</option>
-                <option value="false">no auto-rejoin</option>
+                <option value="true">{t("group.seeding.auto-rejoin.true")}</option>
+                <option value="false">{t("group.seeding.auto-rejoin.false")}</option>
             </select>
             {
                 (hasRights && isSelected) ? (

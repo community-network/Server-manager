@@ -181,6 +181,10 @@
                 "true": "Scheduled on {{startTime}} for {{serverName}}",
                 "false": "No auto-seed scheduled."
             },
+            "auto-rejoin": {
+                "true": "auto-rejoin",
+                "false": "no auto-rejoin" 
+            },
             "popup": {
                 "confirmInfo": "Are you sure you want to {{option}}?",
                 "broadcastInfo": "Are you sure you want to broadcast \"{{message}}\"?",
