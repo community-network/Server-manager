@@ -166,6 +166,49 @@
             "select": "Kaldırılacak yöneticileri seçin.",
             "selected": "{{Number}} kullanıcı seçtiniz."
         },
+        "Sunucu başlatma": {
+            "main": "Sunucu başlatma",
+            "description0": "Battlefield 1 sunucularınızı Başlatın.",
+            "description1": "Sunucu başlatma için en az Sahip rolüne sahip olmanız gerekir.",
+            "costum": "Özel sunucu",
+            "broadcast": {
+                "main": "Tüm sunuculara bir mesaj yayınla",
+                "mesaj": "mesaj",
+                "sendMessage": "Gönder"
+            },
+            "scheduled": {
+                "true": "{{serverName}} için {{startTime}} tarihinde planlandı",
+                "false": "Otomatik başlatma programlanmadı."
+            },
+             "auto-rejoin": {
+                "true": "otomatik yeniden birleştirme",
+                "false": "otomatik yeniden katılma yok"
+            },
+            "popup": {
+                "confirmInfo": "{{option}} yapmak istediğinizden emin misiniz?",
+                "broadcastInfo": "\"{{message}}\" yayını yapmak istediğinizden emin misiniz?",
+                "confirm": "Onayla!"
+            },
+            "actions": {
+                "joinSelected": "Seçilen sunucuya katıl",
+                "leave": "Mevcut sunucudan ayrıl",
+                "shutdownWindows": "Kapatma PC'leri (kapatma seçeneği aktifken)",
+                "schedule": "Sunucu başlatma ​​zamanını programlayın (UTC saat dilimi)",
+                "undoSchedule": "Sunucu başlatma programdan kaldır"
+            },
+            "status": {
+                "main": "Durum: ",
+                "seedServer": "{{serverName}} Sunucu başlatılıyor",
+                "leaveServer": "Hiçbir sunucuda değil",
+                "shutdownPC": "Kapatma seçeneği etkinken tüm bilgisayarları kapattı",
+                "broadcastMessage": "\"{{message}}\" tüm sunuculara yayınlandı"
+            },
+            "seeders": {
+                "main": "Şu anda oyunda {{ingame}} ile çevrimiçi {{seeders}} başlatma makinesi",
+                "true": "oyunda",
+                "false": "oyunda değil"
+            }
+        },
         "servers": {
             "main": "Sunucular",
             "description0": "Aşagıda yer alan sunuculara yeni sunucu eklebilir",
