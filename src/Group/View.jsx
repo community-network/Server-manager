@@ -137,11 +137,14 @@ export function Group(props) {
             name: t("group.vban.main"),
             callback: () => setListing("vbanlist"),
         },
-        {
-            name: t("group.logs.main"),
-            callback: () => setListing("grouplogs"),
-        },
     ]
+
+    if (group && group.isOnwer) {
+        pageCycle.push({
+                name: t("group.logs.main"),
+                callback: () => setListing("grouplogs"),
+            })
+    }
 
     if (group && group.special) {
         pageCycle.push({

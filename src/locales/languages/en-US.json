@@ -104,7 +104,7 @@
         "loggedIn": "Logged in",
         "permissions": {
             "main": "Permissions",
-            "admin": "Administrator",
+            "admin": "Server administrator",
             "server": "Server owner",
             "system": "System administrator"
         }
