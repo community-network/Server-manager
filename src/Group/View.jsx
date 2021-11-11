@@ -139,7 +139,7 @@ export function Group(props) {
         },
     ]
 
-    if (group && group.isOnwer) {
+    if (group && group.isOwner) {
         pageCycle.push({
                 name: t("group.logs.main"),
                 callback: () => setListing("grouplogs"),
