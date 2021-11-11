@@ -188,7 +188,7 @@ export function ServerSettings(props) {
                     defaultValue={getServerValue("discordBotToken")}
                     name={t("server.settings.discordBot.token")}
                 />
-                <ButtonUrl href={`/cookieinfo`} name={t("statusBotInfo.link")} />
+                <ButtonUrl href={`/statusbotinfo`} name={t("statusBotInfo.link")} />
             </ButtonRow>
 
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.channelDesc")}</h5>
