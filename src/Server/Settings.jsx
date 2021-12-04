@@ -9,7 +9,7 @@ import { OperationsApi } from "../api";
 
 
 export function ServerSettings(props) {
-    console.log(props)
+    const ownerIdGames = ["bfv", "bf2042"]
 
     var allowedTo = false;
     if (props.server) allowedTo = true;
@@ -225,7 +225,7 @@ export function ServerSettings(props) {
 
             {props.server? (
                 <>
-                    {props.server.game === "bfv"? (
+                    {ownerIdGames.includes(props.server.game)? (
                         <>
                             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.ownerIdDesc")}</h5>
                             <TextInput

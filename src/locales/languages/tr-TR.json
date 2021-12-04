@@ -23,7 +23,8 @@
         "bf4": "Battlefield 4 (sadece durum botu)",
         "bfh": "Battlefield Hardline (sadece durum botu)",
         "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (sadece durum botu)"
+        "bfv": "Battlefield 5 (sadece durum botu)",
+        "bf2042": "Battlefield 2042 (sadece durum botu)"
     },
     "cookie": {
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
@@ -521,7 +522,7 @@
                 "startedAmount": "çalışmasını sağlamak için yeterli",
                 "startedAmountDesc": "Çalışan bir sunucu olarak kaç oyuncu sayılır",
                 "ownerId": "Sahibin oyuncu kimliği",
-                "ownerIdDesc": "Battlefield 5'te sunucular ücretsizdir,  birisinin sunucusunu kopyalamak gerçekten kolaydır. bunu önlemek için sunucu sahibinin playerıd'sini buraya doldurun.",
+                "ownerIdDesc": "Battlefield 5 + Battlefield 2042'te sunucular ücretsizdir,  birisinin sunucusunu kopyalamak gerçekten kolaydır. bunu önlemek için sunucu sahibinin playerıd'sini buraya doldurun.",
                 "restartWorker": "Yeniden başlat",
                 "restartWorkerDesc": "Sunucu durum botunu yeniden başlatın (bir değişiklik uyguladığınızda da aynısını yapar)"
             }

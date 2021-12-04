@@ -23,7 +23,8 @@
         "bf4": "Battlefield 4 (statusbot only)",
         "bfh": "Battlefield Hardline (statusbot only)",
         "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (statusbot only)"
+        "bfv": "Battlefield 5 (statusbot only)",
+        "bf2042": "Battlefield 2042 (statusbot only)"
     },
     "cookie": {
         "invalid": "Error: The cookies you are using right now are invalid!",
@@ -523,7 +524,7 @@
                 "startedAmount": "enough to keep it running",
                 "startedAmountDesc": "How many players count as a running server",
                 "ownerId": "Playerid of the owner",
-                "ownerIdDesc": "In Battlefield 5 servers are free, because of that its really easy to copy someones server. fill the playerid of the serverowner in here to prevent that.",
+                "ownerIdDesc": "In Battlefield 5 and Battlefield 2042 servers are free, because of that its really easy to copy someones server. fill the playerid of the serverowner in here to prevent that.",
                 "restartWorker": "Restart",
                 "restartWorkerDesc": "Restart the serverstatus bot (does the same when you apply a change)"
             }

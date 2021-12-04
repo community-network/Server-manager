@@ -23,7 +23,8 @@
         "bf4": "Battlefield 4 (alleen statusbot)",
         "bfh": "Battlefield Hardline (alleen statusbot)",
         "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (alleen statusbot)"
+        "bfv": "Battlefield 5 (alleen statusbot)",
+        "bf2042": "Battlefield 2042 (alleen statusbot)"
     },
     "cookie": {
         "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
@@ -522,7 +523,7 @@
                 "startedAmount": "Genoeg om het draaiend te houden",
                 "startedAmountDesc": "Hoeveel spelers telt als een draaiende server",
                 "ownerId": "Playerid van de eigenaar",
-                "ownerIdDesc": "In Battlefield 5 zijn de servers gratis, daardoor is het heel makkelijk om iemand anders zijn server na te maken. Vul het playerid in van de eigenaar om dit te voorkomen.",
+                "ownerIdDesc": "In Battlefield 5 en Battlefield 2042 zijn de servers gratis, daardoor is het heel makkelijk om iemand anders zijn server na te maken. Vul het playerid in van de eigenaar om dit te voorkomen.",
                 "restartWorker": "Herstart",
                 "restartWorkerDesc": "Herstart de serverstatus bot (doet hetzelfde wanneer u op toepassen drukt)"
             }
