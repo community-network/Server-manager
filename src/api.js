@@ -396,6 +396,20 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async addKeepAlive({ serverId, hostname }) {
+        return await this.postJsonMethod("addkeepalive", {
+            "serverid": serverId,
+            "hostname": hostname
+        });
+    }
+    
+    async delKeepAlive({ serverId, hostname }) {
+        return await this.postJsonMethod("delkeepalive", {
+            "serverid": serverId,
+            "hostname": hostname
+        });
+    }
+
     async scheduleSeeding({timeStamp, serverName, groupId}) {
         return await this.postJsonMethod("seederschedule", {
             "timestamp": timeStamp,

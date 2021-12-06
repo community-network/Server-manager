@@ -209,6 +209,14 @@
                 "main": "Currently {{seeders}} seeders online with {{ingame}} in the game",
                 "true": "in the game",
                 "false": "not in the game"
+            },
+            "keepalive": {
+                "main": "Connect hostname to server for keeping them alive",
+                "add": "Add hostname",
+                "remove": "Remove hostname",
+                "hostname": "Which hostname do you want to add to selected server?",
+                "sethostname": "Hostname",
+                "currentHostname": "remove '{{ hostname }}' from the selected server?"
             }
         },
         "servers": {

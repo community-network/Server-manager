@@ -208,6 +208,14 @@
                 "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
                 "true": "in het spel",
                 "false": "niet in het spel"
+            },
+            "keepalive": {
+                "main": "Verbind hostname aan een server om servers overeind te houden",
+                "add": "Hostname toevoegen",
+                "remove": "Hostname verwijden",
+                "hostname": "Welke hostname wil je koppelen aan de geselecteerde server?",
+                "sethostname": "Hostname",
+                "currentHostname": "'{{ hostname }}' verwijderen van de geselecteerde server?"
             }
         },
         "servers": {

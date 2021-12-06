@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMeasure } from 'react-use';
 import { Link, useHistory } from "react-router-dom";
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { GroupGlobalUnbanPlayer } from "./Modals";
 import { supportedGames } from "../Globals";
@@ -509,5 +509,48 @@ export function SeederRow(props) {
             }</span>
             <span className={styles.logTime}>{t("dateTime", {date: datetime})}</span>
         </div>
+    );
+}
+
+export function KeepAliveRow(props) {
+    const { t } = useTranslation();
+    const seeder = props.seeder;
+    const modal = useModal();
+
+    return (
+        <div className={styles.keepAlive}>
+            <span className={styles.keepAliveRow}>
+                {seeder}
+            </span>
+            <span onClick={() => modal.show(<DelKeepAlive gid={props.gid} sid={props.sid} hostname={seeder} callback={modal.close} />)} className={styles.keepAliveRemove}>{t("group.seeding.keepalive.remove")}</span>
+        </div>
+    );
+}
+
+
+export function DelKeepAlive(props) {
+    const { t } = useTranslation();
+    const queryClient = useQueryClient();
+
+    const AddGroupAdminExecute = useMutation(
+        variables => OperationsApi.delKeepAlive(variables),
+        {
+            onSettled: () => {
+                queryClient.invalidateQueries('seeding' + props.gid)
+            },
+        }
+    );
+
+    return (
+        <>
+            <h2>{t("group.seeding.keepalive.remove")}</h2>
+            <h2>{t("group.seeding.keepalive.currentHostname", {"hostname": props.hostname})}</h2>
+            <ButtonRow>
+                <Button name={t(`group.seeding.popup.confirm`)} callback={() => {
+                    AddGroupAdminExecute.mutate({ serverId: props.sid, hostname: props.hostname });
+                    props.callback();
+                }} />
+            </ButtonRow>
+        </>
     );
 }

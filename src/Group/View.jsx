@@ -8,7 +8,7 @@ import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
-import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow } from "./Group";
+import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow, KeepAliveRow } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
 
@@ -141,9 +141,9 @@ export function Group(props) {
 
     if (group && group.isOwner) {
         pageCycle.push({
-                name: t("group.logs.main"),
-                callback: () => setListing("grouplogs"),
-            })
+            name: t("group.logs.main"),
+            callback: () => setListing("grouplogs"),
+        })
     }
 
     if (group && group.special) {
@@ -314,7 +314,8 @@ function Seeding(props) {
     const [selected, setSelected] = useState();
     const [customServerName, setCustomServerName] = useState("");
     const [broadcast, setBroadcast] = useState("");
-    
+    const [keepAliveSelect, setKeepAliveSelect] = useState();
+
     const [hour, setHour] = useState(7);
     const [minute, setMinute] = useState(0);
     const [rejoin, setRejoin] = useState(undefined);
@@ -343,6 +344,9 @@ function Seeding(props) {
         if (seedingInfo) {
             if (rejoin === undefined) {
                 setRejoin(seedingInfo.rejoin);
+            }
+            if (keepAliveSelect === undefined && serverList) {
+                setKeepAliveSelect(serverList[0].id)
             }
         }
     }, [rejoin, seedingInfo]);
@@ -488,11 +492,47 @@ function Seeding(props) {
                 )
             }
         </Row>
-        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.seeders.main", {"seeders":  (seeders) ? seeders.seeders.length : 0, "ingame": ingameAmount})}</h2>
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.seeders.main", { "seeders": (seeders) ? seeders.seeders.length : 0, "ingame": ingameAmount })}</h2>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
                 (seeders) ? seeders.seeders.map(
                     (seeder, i) => (<SeederRow seeder={seeder} key={i} />)
+                ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
+                    (_, i) => (<EmptyRow key={i} />)
+                )
+            }
+        </div>
+        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.keepalive.main")}</h2>
+        <ButtonRow>
+            <select className={styles.SwitchGame} value={keepAliveSelect} onChange={e => setKeepAliveSelect(e.target.value)}>
+                {
+                    (props.group) ? (
+                        serverList.map((server, i) => (
+                            <option value={server.id}>{server.name}</option>
+                        ))
+                    ) : (
+                        <></>
+                    )
+                }
+            </select>
+            {
+                (hasRights && broadcast !== undefined) ? (
+                    <Button name={t("group.seeding.keepalive.add")} callback={() => modal.show(<AddKeepAlive gid={props.gid} sid={keepAliveSelect} callback={modal.close} />)} />
+                ) : (
+                    <Button disabled={true} name={t("denied")} content={t("group.seeding.keepalive.add")} />
+                )
+            }
+        </ButtonRow>
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+            {
+                (seedingInfo) ? Object.keys(seedingInfo.keepAliveSeeders).map(
+                    (seeder, i) => (
+                        (seedingInfo.keepAliveSeeders[seeder].serverId === keepAliveSelect) ? (
+                            <KeepAliveRow sid={keepAliveSelect} gid={props.gid} seeder={seeder} key={i} />
+                        ) : (
+                            <></>
+                        )
+                    )
                 ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
                     (_, i) => (<EmptyRow key={i} />)
                 )
@@ -1523,6 +1563,35 @@ export function LeaveServer(props) {
     );
 }
 
+export function AddKeepAlive(props) {
+    const { t } = useTranslation();
+    const queryClient = useQueryClient();
+    const [hostname, setHostname] = useState("");
+
+    const AddGroupAdminExecute = useMutation(
+        variables => OperationsApi.addKeepAlive(variables),
+        {
+            onSettled: () => {
+                queryClient.invalidateQueries('seeding' + props.gid)
+            },
+        }
+    );
+
+    return (
+        <>
+            <h2>{t("group.seeding.keepalive.add")}</h2>
+            <h2>{t("group.seeding.keepalive.hostname")}</h2>
+            <TextInput style={{ height: "32px" }} name={t("group.seeding.keepalive.sethostname")} callback={(e) => setHostname(e.target.value)} />
+            <ButtonRow>
+                <Button name={t(`group.seeding.popup.confirm`)} callback={() => {
+                    AddGroupAdminExecute.mutate({ serverId: props.sid, hostname: hostname });
+                    props.callback();
+                }} />
+            </ButtonRow>
+        </>
+    );
+}
+
 
 export function SeederBroadcast(props) {
     const { t } = useTranslation();
@@ -1542,9 +1611,9 @@ export function SeederBroadcast(props) {
             <h2>{t("group.seeding.main")}</h2>
             <h2>{t("group.seeding.popup.broadcastInfo", { message: props.message })}</h2>
             <ButtonRow>
-                <Button name={t(`group.seeding.popup.confirm`)} callback={() => { 
-                    AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: "broadcastMessage", groupId: props.gid, rejoin: props.rejoin, message: props.message }); 
-                    props.callback(); 
+                <Button name={t(`group.seeding.popup.confirm`)} callback={() => {
+                    AddGroupAdminExecute.mutate({ serverName: "", serverId: "0", action: "broadcastMessage", groupId: props.gid, rejoin: props.rejoin, message: props.message });
+                    props.callback();
                 }} />
             </ButtonRow>
         </>

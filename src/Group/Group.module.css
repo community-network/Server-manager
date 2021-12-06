@@ -164,6 +164,31 @@
     cursor: pointer;
 }
 
+.keepAlive {
+    margin: 10px 0;
+    height: 40px;
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+}
+.keepAliveRow {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: var(--color-container);
+    color: var(--color-text-high);
+    flex-grow: 2;
+}
+.keepAliveRemove {
+    border-radius: 8px;
+    padding: 10px 20px;
+    background: var(--color-container);
+}
+.keepAliveRemove:hover {
+    background: var(--color-container-v2);
+    cursor: pointer;
+}
+
 .SwitchTitle {
     outline: none;
     height: 40px;
