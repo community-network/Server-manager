@@ -525,13 +525,9 @@ function Seeding(props) {
         </ButtonRow>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
-                (seedingInfo) ? Object.keys(seedingInfo.keepAliveSeeders).map(
+                (seedingInfo && seedingInfo.hostnameUsage[keepAliveSelect] !== undefined) ? seedingInfo.hostnameUsage[keepAliveSelect].map(
                     (seeder, i) => (
-                        (seedingInfo.keepAliveSeeders[seeder].serverId === keepAliveSelect) ? (
-                            <KeepAliveRow sid={keepAliveSelect} gid={props.gid} seeder={seeder} key={i} />
-                        ) : (
-                            <></>
-                        )
+                        <KeepAliveRow sid={keepAliveSelect} gid={props.gid} seeder={seeder} key={i} />
                     )
                 ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
                     (_, i) => (<EmptyRow key={i} />)
