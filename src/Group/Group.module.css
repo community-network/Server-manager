@@ -3,19 +3,13 @@
     height: 44px;
     align-items: center;
     border-radius: var(--border-radius);
-    color: var(--color-text-low);
     margin: 6px 0;
     text-decoration: none;
     display: flex;
-    font-weight: 500;
     font-size: 14px;
-
     flex-grow: 2;
     color: var(--color-text);
     font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    display: flex;
     white-space:nowrap;
     width: 100%;
 }
@@ -125,22 +119,47 @@
     background: var(--color-container-v2);
 }
 
-.serverBadgeErr, .serverBadgeOk, .serverBadgePending {
-    padding: 3px 10px;
+.serverBadgeErr, .serverBadgeOk, .serverBadgePending, .serverBadgeEmpty {
+    display: flex;
+    padding: 4px 10px;
     color: #4aaeff;
     margin-left: 15px;
     margin-top: -1px;
-    border-radius: 3px;
+    border-radius: 5px;
     background: var(--color-container-v2);
     font-size: 12px;
+    align-items: center;
+}
+
+.serverBadgeEmpty, .serverBadgeOk {
+    color: var(--color-text);
 }
 
 .serverBadgeErr {
     color: #FF7575;
 }
 
-.serverBadgeOk {
+
+.shieldOk {
     color: #61d663;
+    height: 14px;
+    margin-right: 10px;
+}
+
+.shieldErr {
+    color: #FF7575;
+    height: 14px;
+    margin-right: 10px;
+}
+
+.shieldNone {
+    color: var(--color-text);
+    height: 14px;
+    margin-right: 10px;
+}
+
+.serverBadgeOk > span {
+    margin-left: 5px;
 }
 
 .BanRow > td {
@@ -245,10 +264,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: auto;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--color-text);
 }
 
 .ServerAliasName {
     margin-left: 15px;
+    background: var(--color-container-v2);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 12px;
 }
 
 .GrowNone {
@@ -259,6 +285,10 @@
     flex-grow: 2;
 }
 
+/* .ShownGame {
+    padding: 15px;
+    font-size: 13px;
+} */
 
 
 .selectableRow, .selectableRowSelected {

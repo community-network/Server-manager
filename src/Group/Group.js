@@ -89,7 +89,8 @@ export function ServerRow(props) {
             default:
                 return (
                     <span className={styles.serverBadgeOk}>
-                        {t("serverStatus.running")}
+                        {t("serverStatus.running")} 
+                        <span>{server.serverPlayers.playerAmount}/{server.serverPlayers.maxPlayerAmount}</span>
                     </span>
                 )    
         }
@@ -97,12 +98,30 @@ export function ServerRow(props) {
 
 
     const directTo = supportedGames.includes(server.game) ? "/server/" + server.id : "/statusserver/" + server.id;
-    serverStatus = supportedGames.includes(server.game) ? serverStatus : (<span className={styles.serverBadgePending}>{t("serverStatus.notSupported")}</span>);
+    serverStatus = supportedGames.includes(server.game) ? serverStatus : (<span className={styles.serverBadgeEmpty}>{t("serverStatus.notSupported")}</span>);
+    
 
+    let noPlayers = server.serverPlayers.playerAmount === 0 && server.serverPlayers.maxPlayerAmount !== 0;
+
+    serverStatus = !noPlayers ? serverStatus : null;
+
+
+    let status = (() => {
+        switch (server.status) {
+            case "noServer":
+                return noPlayers ? "none" : "err"
+            case "noAdmin":
+                return noPlayers ? "none" : "err"
+            case "pending":
+                return "none"
+            default:
+                return noPlayers ? "none" : "ok"
+        }
+    })();
 
     return (
         <Link className={styles.GroupRow} to={directTo}>
-            <img style={{maxHeight: '18px', marginRight: '15px'}} alt={server.game} src={`/img/gameIcons/${server.game}.png`}/>
+            <Shield status={status} />
             <span className={styles.ServerNameText}>{server.name}</span>
             {serverStatus}
             <span className={styles.GrowNone}></span>
@@ -111,6 +130,14 @@ export function ServerRow(props) {
             </span>
         </Link>
     );
+}
+
+function Shield({ status }) {
+    return (
+        <svg viewBox="0 0 24 24" className={(status === "ok") ? styles.shieldOk : (status === "none") ? styles.shieldNone : styles.shieldErr}>
+            <path fill="currentColor" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z" />
+        </svg>
+    )
 }
 
 export function GroupAdminAccount(props) {

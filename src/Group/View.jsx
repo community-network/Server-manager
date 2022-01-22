@@ -273,6 +273,60 @@ function GroupAdmins(props) {
     </>;
 }
 
+function ServerLists({ servers }) {
+    const { t } = useTranslation();
+
+    let bf1Servers = servers.filter(s => s.game === "bf1")
+    let bf1Rows = bf1Servers.map((server, i) => (
+        <ServerRow server={server} key={i} />
+    ));
+
+    let bf5Servers = servers.filter(s => s.game === "bfv")
+    let bf5Rows = bf5Servers.map((server, i) => (
+        <ServerRow server={server} key={i} />
+    ));
+
+    let bf2042Servers = servers.filter(s => s.game === "bf2042")
+    let bf2042Rows = bf2042Servers.map((server, i) => (
+        <ServerRow server={server} key={i} />
+    ));
+
+    let bf4Servers = servers.filter(s => s.game === "bf4")
+    let bf4Rows = bf4Servers.map((server, i) => (
+        <ServerRow server={server} key={i} />
+    ));
+
+    /* <img style={{maxHeight: '14px', marginRight: '15px'}} alt={t("games.bfv")} src={`/img/gameIcons/bfv.png`}/> */
+
+    return (
+        <>
+            {bf1Rows.length === 0 ? null :
+                (<h2 className={styles.ShownGame}>
+                    {t("games.bf1")}
+                </h2>)
+            }
+            {bf1Rows}
+            {bf5Rows.length === 0 ? null :
+                (<h2 className={styles.ShownGame}>
+                    {t("games.bfv")}
+                </h2>)
+            }
+            {bf5Rows}
+            {bf2042Rows.length === 0 ? null :
+                (<h2 className={styles.ShownGame}>
+                    {t("games.bf2042")}
+                </h2>)
+            }
+            {bf2042Rows}
+            {bf4Rows.length === 0 ? null :
+                (<h2 className={styles.ShownGame}>
+                    {t("games.bf4")}
+                </h2>)
+            }
+            {bf4Rows}
+        </>
+    )
+}
 
 function GroupServers(props) {
 
@@ -288,9 +342,7 @@ function GroupServers(props) {
         <h5>{t("group.servers.description0")}<br />{t("group.servers.description1")}</h5>
         {
             (props.group) ? (
-                props.group.servers.map((server, i) => (
-                    <ServerRow server={server} key={i} />
-                ))
+                <ServerLists servers={props.group.servers} />
             ) : (
                 fakeListing.map((_, i) => <FakeUserStRow key={i} />)
             )
