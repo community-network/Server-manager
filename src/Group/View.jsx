@@ -11,7 +11,7 @@ import { StatsPieChart, PlayerInfo } from "./Charts";
 import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow, KeepAliveRow } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
-
+import { ChangeAccountModal } from "./Modals";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -184,14 +184,6 @@ export function Group(props) {
         <>
             <Row>
                 <Column>
-                    <Card>
-                        <h2>{t("group.name")} - {(group) ? group.groupName : t("pending")}</h2>
-                        <p>{t("group.id")} {gid}</p>
-                    </Card>
-                </Column>
-            </Row>
-            <Row>
-                <Column>
                     <PageCard buttons={settingsCycle} maxWidth="750" >
                         {catSettings[settingsListing]}
                     </PageCard>
@@ -328,13 +320,22 @@ function ServerLists({ servers }) {
     )
 }
 
+function ServerListsLoading() {
+    const fakeListing = [1, 1, 1];
+
+    return (
+        <>
+            {fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
+        </>
+    )
+}
+
 function GroupServers(props) {
 
     var hasRights = false;
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
-    const fakeListing = [1, 1, 1];
     const { t } = useTranslation();
 
     return <>
@@ -344,7 +345,7 @@ function GroupServers(props) {
             (props.group) ? (
                 <ServerLists servers={props.group.servers} />
             ) : (
-                fakeListing.map((_, i) => <FakeUserStRow key={i} />)
+                <ServerListsLoading />
             )
         }
         <ButtonRow>
@@ -654,97 +655,82 @@ function GroupOwners(props) {
 
 
 function GroupServerAccount(props) {
-    var allowedTo = false;
-    if (props.group && props.user) allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
 
-    const queryClient = useQueryClient();
 
-    const [sid, setSid] = useState("");
-    const [remid, setRemid] = useState("");
-    const [applyStatus, setApplyStatus] = useState(null);
+    // const queryClient = useQueryClient();
+
+    // const [sid, setSid] = useState("");
+    // const [remid, setRemid] = useState("");
+    // const [applyStatus, setApplyStatus] = useState(null);
     const { t } = useTranslation();
+    
 
-    useEffect(() => {
-        if (props.group) {
-            if (remid !== props.group.cookie.remid)
-                setRemid(props.group.cookie.remid);
-            if (sid !== props.group.cookie.sid)
-                setSid(props.group.cookie.sid);
-        }
-    }, [props.group]);
+    // useEffect(() => {
+    //     if (props.group) {
+    //         if (remid !== props.group.cookie.remid)
+    //             setRemid(props.group.cookie.remid);
+    //         if (sid !== props.group.cookie.sid)
+    //             setSid(props.group.cookie.sid);
+    //     }
+    // }, [props.group]);
 
-    const editCookies = useMutation(
-        variables => OperationsApi.editGroup(variables),
-        {
-            onMutate: async () => {
-                setApplyStatus(true);
-            },
-            onSuccess: async () => {
-                setApplyStatus(null);
-            },
-            onError: async () => {
-                setApplyStatus(false);
-                setTimeout(_ => setApplyStatus(null), 2000);
-            },
-            onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + props.gid);
-            }
-        }
-    );
+    // const editCookies = useMutation(
+    //     variables => OperationsApi.editGroup(variables),
+    //     {
+    //         onMutate: async () => {
+    //             setApplyStatus(true);
+    //         },
+    //         onSuccess: async () => {
+    //             setApplyStatus(null);
+    //         },
+    //         onError: async () => {
+    //             setApplyStatus(false);
+    //             setTimeout(_ => setApplyStatus(null), 2000);
+    //         },
+    //         onSettled: async () => {
+    //             queryClient.invalidateQueries('groupId' + props.gid);
+    //         }
+    //     }
+    // );
 
     return (
         <>
-            <h5 style={{ marginTop: "0px" }}>
-                {t("group.account.description0")}<br />{t("group.account.description1")}<i>accounts.ea.com</i>
+            <h2>
+                {t("group.name")} - {(!!props.group) ? props.group.groupName : t("pending")}
+            </h2>
+            <h5>
+                {t("group.id")}<span className={styles.GroupIdentity}>{props.gid}</span>
             </h5>
-            {(props.group && !props.group.validCookie) ? (
-                <p style={{ marginTop: "0px", border: "1px solid var(--color-second)", padding: "10px 22px", borderRadius: "8px", color: "#FF7575", background: "var(--color-container-v2)" }}>
-                    {t("cookie.invalid")}
-                </p>
-            ) : ""}
             <AccountInfo {...props} />
-            <Row>
-                <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
-                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    {t("cookie.remid")}
-                </p>
-            </Row>
-            <Row>
-                <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
-                <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
-                    {t("cookie.sid")}
-                </p>
-            </Row>
-            <ButtonRow>
-                <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
-            </ButtonRow>
-            {
-                (props.group && (sid !== props.group.cookie.sid || remid !== props.group.cookie.remid)) ? (
-                    <ButtonRow>
-                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
-                            _ => editCookies.mutate(
-                                {
-                                    gid: props.gid,
-                                    value: {
-                                        cookie: { sid, remid }
-                                    }
-                                }
-                            )
-                        } status={applyStatus} />
-                    </ButtonRow>
-                ) : ""
-            }
         </>
     );
 }
 
-function AccountInfo({ group }) {
+function AccountInfo({ group, gid, user }) {
+    const { t } = useTranslation();
+    const modal = useModal();
+
     return (
-        <h5>
-            {(!group) ? "Updating account status.." : (!group.accountName) ? "We are pending status of this account" : group.accountName}
-        </h5>
+        <div className={styles.AccountInfo} onClick={_ => modal.show(<ChangeAccountModal gid={gid} group={group} user={user} callback={modal.close} />)}>
+            {(!!group && !group.validCookie) ? (
+                <h2 style={{ color: "#FF7575" }}>
+                    {t("cookie.invalid")}
+                </h2>
+            ) : <h2>
+                {(!group) ? "Updating account status.." : (!group.accountName) ? "We are pending status of this account" : group.accountName}
+            </h2>}
+            <h5 style={{ marginTop: "0px" }}>
+                {t("createGroup.cookieDescription2")}
+            </h5>
+            <h5 style={{ marginTop: "0px" }}>
+                {t("group.account.description0")}<br />{t("group.account.description1")}<i>accounts.ea.com</i>
+            </h5>
+        </div>
+
     )
 }
+
+
 
 function GroupDiscordSettings(props) {
     var allowedTo = false;

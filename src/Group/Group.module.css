@@ -285,10 +285,35 @@
     flex-grow: 2;
 }
 
+.AccountInfo {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-container);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 5px 15px;
+    width: auto;
+    max-width: 600px;
+    cursor: pointer;
+}
+
+.AccountInfo:hover {
+    background: var(--color-container-v2);
+}
+
 /* .ShownGame {
     padding: 15px;
     font-size: 13px;
 } */
+
+.GroupIdentity {
+    margin-left: 10px;
+    background: var(--color-container-v2);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: var(--color-text);
+}
 
 
 .selectableRow, .selectableRowSelected {

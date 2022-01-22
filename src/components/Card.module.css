@@ -54,7 +54,7 @@
     display: flex;
     flex-shrink: 0;
     flex-direction: column;
-    max-width: 350px;
+    max-width: 450px;
    
     padding: 24px;
     border-radius: var(--border-radius);
