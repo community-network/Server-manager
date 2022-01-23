@@ -455,8 +455,8 @@ function Seeding(props) {
 
     return <>
         <h2>{t("group.seeding.main")}</h2>
-        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}<br />
-        <a alt="" href="https://github.com/community-network/bf1-seeder" rel="noreferrer" target="_blank">Download an App</a>
+        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}<br />{t("group.seeding.description2")}<br />
+        <a alt="" href="https://github.com/community-network/bf1-seeder" rel="noreferrer" target="_blank">{t("group.seeding.app")}</a>
         </h5>
         {
             (seedingInfo) ? (

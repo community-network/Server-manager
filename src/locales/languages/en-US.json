@@ -170,8 +170,10 @@
         },
         "seeding": {
             "main": "Seed servers",
+            "app": "Download the seeding app",
             "description0": "Seed your battlefield 1 servers.",
-            "description1": "You need to have at least Owner role to seed servers.",
+            "description1": "You need at least Owner role to access the seeding panel,",
+            "description2": "You have to run the application from the link below this message on every pc that you want to have help with seeding",
             "custom": "Custom server",
             "broadcast": {
                 "main": "Broadcast a message to all servers",

@@ -170,7 +170,8 @@
         "seeding": {
             "main": "Seed servers",
             "description0": "Seed uw battlefield 1 servers.",
-            "description1": "Je moet minimaal eigenaar zijn van de groep om de servers te seeden",
+            "description1": "Je moet minimaal eigenaar zijn van de groep om dit paneel te kunnen bedienen",
+            "description2": "Je moet de applicatie van de link hieronder draaien op elke pc die u wilt helpt met seeden",
             "custom": "Zelf invoeren",
             "broadcast": {
                 "main": "Stuur een bericht naar al uw servers",
