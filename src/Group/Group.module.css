@@ -99,10 +99,20 @@
     display: flex;
     flex-direction: row;
 }
+
+.logTimeSeed {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
+    flex-grow: 2;
+    text-align: end;
+}
+
 .seedingRow {
     margin-right: 10px;
     color: var(--color-text-high);
-    flex-grow: 2;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .logReasonDetailed {
@@ -313,6 +323,13 @@
     border-radius: 5px;
     font-size: 13px;
     color: var(--color-text);
+}
+
+.SeedRow {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 20px;
+    border-radius: 10px;
 }
 
 

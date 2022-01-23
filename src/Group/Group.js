@@ -526,15 +526,16 @@ export function SeederRow(props) {
     var datetime = new Date(seeder.timeStamp);
 
     return (
-        <div className={styles.logRow}>
-            <span className={styles.seedingRow}>{seeder.seederName} {
+        <div className={styles.SeedRow}>
+            <span className={styles.seedingRow}>{seeder.seederName}</span>
+            {
                 (seeder.isRunning)? (
                     <span className={styles.serverBadgeOk}>{t("group.seeding.seeders.true")}</span>
                 ) : (
                     <span className={styles.serverBadgePending}>{t("group.seeding.seeders.false")}</span>
                 )
-            }</span>
-            <span className={styles.logTime}>{t("dateTime", {date: datetime})}</span>
+            }
+            <span className={styles.logTimeSeed}>{t("dateTime", {date: datetime})}</span>
         </div>
     );
 }

@@ -148,7 +148,15 @@ export function Group(props) {
 
     if (group && group.special) {
         pageCycle.push({
-            name: t("group.seeding.main"),
+            name: (
+                <>
+                    {t("group.seeding.main")}
+                    <svg style={{marginLeft: "10px", height: "16px", color: "var(--color-text)"}} viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M7,11H1V13H7V11M9.17,7.76L7.05,5.64L5.64,7.05L7.76,9.17L9.17,7.76M13,1H11V7H13V1M18.36,7.05L16.95,5.64L14.83,7.76L16.24,9.17L18.36,7.05M17,11V13H23V11H17M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M14.83,16.24L16.95,18.36L18.36,16.95L16.24,14.83L14.83,16.24M5.64,16.95L7.05,18.36L9.17,16.24L7.76,14.83L5.64,16.95M11,23H13V17H11V23Z" />
+                    </svg>
+                    {/* <span style={{marginLeft: "10px", fontSize: "12px", fontWeight: "500", background: "var(--color-purple)", color: "var(--color-text-high)", padding: "2px 6px", borderRadius: "5px" }}>New!</span> */}
+                </>
+            ),
             callback: () => setListing("seeding"),
         })
     }
@@ -447,7 +455,9 @@ function Seeding(props) {
 
     return <>
         <h2>{t("group.seeding.main")}</h2>
-        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}</h5>
+        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}<br />
+        <a alt="" href="https://github.com/community-network/bf1-seeder" rel="noreferrer" target="_blank">Download an App</a>
+        </h5>
         {
             (seedingInfo) ? (
                 (seedingInfo.action === "joinServer") ? (
@@ -461,6 +471,7 @@ function Seeding(props) {
                 )
             ) : (<></>)
         }
+        
         {
             (seedingInfo) ? (
                 (seedingInfo.startServer !== null) ? (
@@ -555,8 +566,8 @@ function Seeding(props) {
                 )
             }
         </div>
-        <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.keepalive.main")}</h2>
-        <ButtonRow>
+        {/* <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.keepalive.main")}</h2> */}
+        {/* <ButtonRow>
             <select className={styles.SwitchGame} value={keepAliveSelect} onChange={e => setKeepAliveSelect(e.target.value)}>
                 {
                     (props.group) ? (
@@ -575,8 +586,8 @@ function Seeding(props) {
                     <Button disabled={true} name={t("denied")} content={t("group.seeding.keepalive.add")} />
                 )
             }
-        </ButtonRow>
-        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+        </ButtonRow> */}
+        {/* <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
                 (seedingInfo && seedingInfo.hostnameUsage[keepAliveSelect] !== undefined) ? seedingInfo.hostnameUsage[keepAliveSelect].map(
                     (seeder, i) => (
@@ -586,7 +597,7 @@ function Seeding(props) {
                     (_, i) => (<EmptyRow key={i} />)
                 )
             }
-        </div>
+        </div> */}
     </>;
 }
 
