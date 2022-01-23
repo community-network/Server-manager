@@ -77,6 +77,7 @@ export default function Account() {
                         <ButtonUrl name={t("sidebar.logout")} onClick={() => { logoutExecutor.mutate({}); }} />
                         <ButtonUrl href="https://discord.gametools.network/" name={t("sidebar.help")} />
                         <ChangeLanguage/>
+                        <ButtonUrl href="https://github.com/sponsors/community-network" name={t("sidebar.sponsor")} />
                     </ButtonRow>
                 </Card>
             </Column>

@@ -649,7 +649,8 @@
         "createGroup": "Create Group",
         "makeOperations": "Make Operations",
         "logout": "Logout",
-        "help": "Need help?"
+        "help": "Need help?",
+        "sponsor": "Sponsor"
     },
     "cookieInfo": {
         "link": "Click here for info on how to get the sid and remid",
