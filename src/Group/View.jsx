@@ -375,7 +375,6 @@ function Seeding(props) {
     const [selected, setSelected] = useState();
     const [customServerName, setCustomServerName] = useState("");
     const [broadcast, setBroadcast] = useState("");
-    const [keepAliveSelect, setKeepAliveSelect] = useState();
 
     const [hour, setHour] = useState(7);
     const [minute, setMinute] = useState(0);
@@ -405,9 +404,6 @@ function Seeding(props) {
         if (seedingInfo) {
             if (rejoin === undefined) {
                 setRejoin(seedingInfo.rejoin);
-            }
-            if (keepAliveSelect === undefined && serverList) {
-                setKeepAliveSelect(serverList[0].id)
             }
         }
     }, [rejoin, seedingInfo]);
@@ -566,38 +562,6 @@ function Seeding(props) {
                 )
             }
         </div>
-        {/* <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.keepalive.main")}</h2> */}
-        {/* <ButtonRow>
-            <select className={styles.SwitchGame} value={keepAliveSelect} onChange={e => setKeepAliveSelect(e.target.value)}>
-                {
-                    (props.group) ? (
-                        serverList.map((server, i) => (
-                            <option value={server.id}>{server.name}</option>
-                        ))
-                    ) : (
-                        <></>
-                    )
-                }
-            </select>
-            {
-                (hasRights && broadcast !== undefined) ? (
-                    <Button name={t("group.seeding.keepalive.add")} callback={() => modal.show(<AddKeepAlive gid={props.gid} sid={keepAliveSelect} callback={modal.close} />)} />
-                ) : (
-                    <Button disabled={true} name={t("denied")} content={t("group.seeding.keepalive.add")} />
-                )
-            }
-        </ButtonRow> */}
-        {/* <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-            {
-                (seedingInfo && seedingInfo.hostnameUsage[keepAliveSelect] !== undefined) ? seedingInfo.hostnameUsage[keepAliveSelect].map(
-                    (seeder, i) => (
-                        <KeepAliveRow sid={keepAliveSelect} gid={props.gid} seeder={seeder} key={i} />
-                    )
-                ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
-                    (_, i) => (<EmptyRow key={i} />)
-                )
-            }
-        </div> */}
     </>;
 }
 
