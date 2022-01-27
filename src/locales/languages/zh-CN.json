@@ -167,6 +167,59 @@
             "select": "选择管理去删除.",
             "selected": "你选择了{{number}} 几个管理."
         },
+        "seeding": {
+            "main": "暖服",
+            "app": "下载暖服程序",
+            "description0": "暖你的战地1服务器",
+            "description1": "你最少需要一个所有者角色去访问暖服面板,",
+            "description2": "你必须从以下连接访问暖服工具来使你想暖的服暖起来",
+            "custom": "自定义服务器",
+            "broadcast": {
+                "main": "对所有服务器发起广播",
+                "message": "消息",
+                "sendMessage": "发送"
+            },
+            "scheduled": {
+                "true": "开始暖服的时间 {{startTime}} 要暖的服务器名 {{serverName}}",
+                "false": "不要自动暖服."
+            },
+            "auto-rejoin": {
+                "true": "自动重加入",
+                "false": "不要自动重加入" 
+            },
+            "popup": {
+                "confirmInfo": "你确定要 {{option}}?",
+                "broadcastInfo": "你确定要广播\"{{message}}\"?",
+                "confirm": "确定!"
+            },
+            "actions": {
+                "joinSelected": "加入所选服务器",
+                "leave": "离开最近的服务器",
+                "shutdownWindows": "关闭电脑 (with shutdown option enabled)",
+                "schedule": "计划开始暖服时间(UTC timezone)",
+                "undoSchedule": "从计划里删除暖服"
+            },
+            "status": {
+                "main": "状态: ",
+                "seedServer": "暖服中{{serverName}}",
+                "leaveServer": "不在任何服务器",
+                "shutdownPC": "关闭所有电脑并且开启关机选项",
+                "broadcastMessage": "广播 \"{{message}}\" 到所有服务器"
+            },
+            "seeders": {
+                "main": "最近的 {{seeders}} 该暖服者在线 正在游玩 {{ingame}} ",
+                "true": "在游戏中",
+                "false": "不在游戏中"
+            },
+            "keepalive": {
+                "main": "连接到该服务器的主机名来使其始终在线",
+                "add": "增加一个主机名",
+                "remove": "删除一个主机名",
+                "hostname": "你想增加哪一个主机名到被选中的服务器",
+                "sethostname": "主机名",
+                "currentHostname": "从被选中的服务器中删除 '{{ hostname }}'?"
+            }
+        },
         "servers": {
             "main": "服务器",
             "description0": "服务器实例将被增加到该实例. ",
@@ -593,7 +646,8 @@
         "createGroup": "创建群组",
         "makeOperations": "设置行动",
         "logout": "注销",
-        "help": "需要帮助？"
+        "help": "需要帮助？",
+        "sponsor": "赞助者"
     },
     "cookieInfo": {
         "link": "点击这里查看如何获取SID和REMID cookies",
