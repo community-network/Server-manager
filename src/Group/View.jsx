@@ -709,7 +709,7 @@ function AccountInfo({ group, gid, user, cookie }) {
     return (
         <>
             <div className={styles.AccountInfo} onClick={_ => modal.show(<ChangeAccountModal gid={gid} group={group} cookie={cookie} user={user} callback={modal.close} />)}>
-                {(!!group && !group.validCookie) ? (
+                {(!!group && !cookie.validCookie) ? (
                     <h2 style={{ color: "#FF7575" }}>
                         {t("cookie.invalid")}
                     </h2>
