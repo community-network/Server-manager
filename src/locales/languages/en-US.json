@@ -27,12 +27,27 @@
         "bf2042": "Battlefield 2042 (statusbot only)"
     },
     "cookie": {
+        "add": "Add server account",
+        "setDefaultCookie": "Set as default",
         "invalid": "Error: The cookies you are using right now are invalid!",
         "remid": "REMID cookie",
         "sidDescription": "Session cookies can be found at ",
         "remidDescription": "Reminder session cookies can be found at ",
         "sid": "SID cookie",
-        "locale": "Language tag"
+        "locale": "Language tag",
+        "delete": "Delete server account",
+        "status": {
+            "loading": "Updating account status..",
+            "pending": "We have a pending status for this account"
+        },
+        "accountType": {
+            "default": "Default account",
+            "extra": "Extra account"
+        },
+        "removeMenu": {
+            "main": "Are you sure you want to remove \"{{name}}\" service account?",
+            "confirm": "Remove account"
+        }
     },
     "serverStatus": {
         "pending": "Pending status",
@@ -148,7 +163,7 @@
         "discordDescription": "Optionaly, you can add your discord server, to integrate server tools",
         "cookieDescription0": "Every group need to be assigned special account with certain requirments:",
         "cookieDescription1": "It should be a BF1 server moderator (owner access not required)",
-        "cookieDescription2": "This account shouldn't be used anywhere else, otherwise it will lead in errors",
+        "cookieDescription2": "If this account is used for BF1, it shouldn't be used anywhere else. otherwise it will lead in errors",
         "acceptDescription0": "By pressing this button, you agree to give",
         "acceptDescription1": "server manager tool access to the account.",
         "accept": "Create group"
@@ -210,7 +225,8 @@
             "seeders": {
                 "main": "Currently {{seeders}} seeders online with {{ingame}} in the game",
                 "true": "in the game",
-                "false": "not in the game"
+                "false": "not in the game",
+                "defaultDescription": "following global-seeding system"
             },
             "keepalive": {
                 "main": "Connect hostname to server for keeping them alive",

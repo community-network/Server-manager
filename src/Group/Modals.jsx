@@ -4,13 +4,110 @@ import { useTranslation } from 'react-i18next';
 import { checkGameString } from "../Server/Modals";
 
 import { OperationsApi } from "../api";
-import { useModal, ButtonRow, Button, TextInput, Row, ButtonUrl } from "../components";
+import { Switch, useModal, ButtonRow, Button, TextInput, Row, ButtonUrl, ButtonLink } from "../components";
 import '../locales/config';
 
 import { useUser } from "../Server/Manager";
 
 
-export function ChangeAccountModal({ group, gid, user, callback }) {
+export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
+    
+    var allowedTo = false;
+    if (group && user) allowedTo = group.isOwner || user.auth.isDeveloper;
+
+    const showDeleteAccount = e => {
+        modal.show(
+            <GroupRemoveAccount 
+                gid={gid} 
+                cookie={cookie} 
+                group={group}
+            />
+        );
+    }
+
+    const modal = useModal();
+    const { t } = useTranslation();
+    const queryClient = useQueryClient();
+
+    const [sid, setSid] = useState("");
+    const [remid, setRemid] = useState("");
+    const [defaultCookie, setDefaultCookie] = useState(false);
+    const [applyStatus, setApplyStatus] = useState(null);
+    const currentDefault = group.defaultCookie === cookie.id;
+
+    useEffect(() => {
+        if (cookie) {
+            if (remid !== cookie.remid)
+                setRemid(cookie.remid);
+            if (sid !== cookie.sid)
+                setSid(cookie.sid);
+            if (defaultCookie !== currentDefault)
+                setDefaultCookie(currentDefault)
+        }
+    }, [cookie, currentDefault, defaultCookie, remid, sid]);
+
+    const editCookies = useMutation(
+        variables => OperationsApi.editCookie(variables),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async () => {
+                setApplyStatus(false);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('groupId' + gid);
+                callback();
+            }
+        }
+    );
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>
+                {t("group.account.main")}: {cookie.username}
+            </h2>
+            <h5>
+                {t("cookie.remid")}
+            </h5>
+            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
+            <h5>
+                {t("cookie.sid")}
+            </h5>
+            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
+
+            <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
+            <ButtonRow>
+                <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+            </ButtonRow>
+            <ButtonRow>
+            {
+                (group && (sid !== cookie.sid || remid !== cookie.remid || defaultCookie !== currentDefault)) ? (
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editCookies.mutate(
+                                {
+                                    gid: gid,
+                                    sid: sid,
+                                    remid: remid,
+                                    id: cookie.id,
+                                    defaultCookie: defaultCookie
+                                }
+                            )
+                        } status={applyStatus} />
+                ) : ""
+            }
+            <Button style={{ color: "#FF7575"}} name={t("cookie.delete")} callback={showDeleteAccount} disabled={!allowedTo || currentDefault} />
+            </ButtonRow>
+        </>
+    )
+}
+
+
+export function AddAccountModal({ group, gid, user, callback }) {
     
     var allowedTo = false;
     if (group && user) allowedTo = group.isOwner || user.auth.isDeveloper;
@@ -21,19 +118,11 @@ export function ChangeAccountModal({ group, gid, user, callback }) {
 
     const [sid, setSid] = useState("");
     const [remid, setRemid] = useState("");
+    const [defaultCookie, setDefaultCookie] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
 
-    useEffect(() => {
-        if (group) {
-            if (remid !== group.cookie.remid)
-                setRemid(group.cookie.remid);
-            if (sid !== group.cookie.sid)
-                setSid(group.cookie.sid);
-        }
-    }, [group]);
-
-    const editCookies = useMutation(
-        variables => OperationsApi.editGroup(variables),
+    const addCookies = useMutation(
+        variables => OperationsApi.addCookie(variables),
         {
             onMutate: async () => {
                 setApplyStatus(true);
@@ -66,26 +155,26 @@ export function ChangeAccountModal({ group, gid, user, callback }) {
             </h5>
             <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
 
-
+            <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
             <ButtonRow>
                 <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
             </ButtonRow>
+            <ButtonRow>
             {
-                (group && (sid !== group.cookie.sid || remid !== group.cookie.remid)) ? (
-                    <ButtonRow>
-                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
-                            _ => editCookies.mutate(
+                (group && (sid !== "" && remid !== "")) ? (
+                        <Button name={t("cookie.add")} disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => addCookies.mutate(
                                 {
                                     gid: gid,
-                                    value: {
-                                        cookie: { sid, remid }
-                                    }
+                                    sid: sid,
+                                    remid: remid,
+                                    defaultCookie: defaultCookie
                                 }
                             )
                         } status={applyStatus} />
-                    </ButtonRow>
                 ) : ""
             }
+            </ButtonRow>
         </>
     )
 }
@@ -154,6 +243,69 @@ export function GroupGlobalUnbanPlayer(props) {
                     }}
                     status={banApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    );
+}
+
+export function GroupRemoveAccount(props) {
+
+    var { gid, cookie, group } = props;
+
+    const modal = useModal();
+    const { t } = useTranslation();
+    const [removeApplyStatus, setRemoveApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+    const { isError: userGettingError, data: user } = useUser();
+
+    const RemoveAccount = useMutation(
+        v => OperationsApi.removeCookie(v),
+        {
+            onMutate: async () => {
+                setRemoveApplyStatus(true)
+            },
+            onError: (error) => {
+                setRemoveApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setRemoveApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setRemoveApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    var perm = null;
+
+    if (user) {
+        user.permissions.isAdminOf.map(
+            group => {
+                if (gid === group.id) {
+                    perm = gid
+                }
+            }
+        )
+    }
+    
+
+    const isDisabled =
+        removeApplyStatus !== null ||
+        userGettingError || !user || perm == null;
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("cookie.removeMenu.main", {name: cookie.username})} </h2>
+            <ButtonRow>
+                <Button
+                    name={t("cookie.removeMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => {
+                        RemoveAccount.mutate({ gid, id: cookie.id });
+                    }}
+                    status={removeApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (removeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
     );

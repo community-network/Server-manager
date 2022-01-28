@@ -302,8 +302,9 @@
     border-radius: 15px;
     padding: 10px;
     margin: 5px 15px;
-    width: auto;
-    max-width: 600px;
+    margin-right: 0px;
+    width: 600px;
+    /* max-width: 600px; */
     cursor: pointer;
 }
 

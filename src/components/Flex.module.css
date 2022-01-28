@@ -13,6 +13,12 @@
     align-items: center;
 }
 
+.scrollRow {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
 .topRow {
     display: flex;
     flex-direction: row;

@@ -10,8 +10,8 @@ import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
 import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow, KeepAliveRow } from "./Group";
 
-import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, SmallButton, PageCard, ButtonUrl } from "../components";
-import { ChangeAccountModal } from "./Modals";
+import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, ScrollRow, PageCard, ButtonUrl } from "../components";
+import { ChangeAccountModal, AddAccountModal } from "./Modals";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -61,6 +61,7 @@ export function Group(props) {
             },
         }
     );
+
 
 
 
@@ -136,7 +137,7 @@ export function Group(props) {
         {
             name: t("group.vban.main"),
             callback: () => setListing("vbanlist"),
-        },
+        }
     ]
 
     if (group && group.isOwner) {
@@ -144,17 +145,13 @@ export function Group(props) {
             name: t("group.logs.main"),
             callback: () => setListing("grouplogs"),
         })
-    }
-
-    if (group && group.special) {
         pageCycle.push({
             name: (
                 <>
                     {t("group.seeding.main")}
-                    <svg style={{marginLeft: "10px", height: "16px", color: "var(--color-text)"}} viewBox="0 0 24 24">
+                    <svg style={{ marginLeft: "10px", height: "16px", color: "var(--color-text)" }} viewBox="0 0 24 24">
                         <path fill="currentColor" d="M7,11H1V13H7V11M9.17,7.76L7.05,5.64L5.64,7.05L7.76,9.17L9.17,7.76M13,1H11V7H13V1M18.36,7.05L16.95,5.64L14.83,7.76L16.24,9.17L18.36,7.05M17,11V13H23V11H17M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M14.83,16.24L16.95,18.36L18.36,16.95L16.24,14.83L14.83,16.24M5.64,16.95L7.05,18.36L9.17,16.24L7.76,14.83L5.64,16.95M11,23H13V17H11V23Z" />
                     </svg>
-                    {/* <span style={{marginLeft: "10px", fontSize: "12px", fontWeight: "500", background: "var(--color-purple)", color: "var(--color-text-high)", padding: "2px 6px", borderRadius: "5px" }}>New!</span> */}
                 </>
             ),
             callback: () => setListing("seeding"),
@@ -207,9 +204,7 @@ export function Group(props) {
         </>
     );
 
-
 }
-
 function GroupAdmins(props) {
 
     const modal = useModal();
@@ -452,7 +447,7 @@ function Seeding(props) {
     return <>
         <h2>{t("group.seeding.main")}</h2>
         <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}<br />{t("group.seeding.description2")}<br />
-        <a alt="" href="https://github.com/community-network/bf1-seeder" rel="noreferrer" target="_blank">{t("group.seeding.app")}</a>
+            <a alt="" href="https://github.com/community-network/bf1-seeder" rel="noreferrer" target="_blank">{t("group.seeding.app")}</a>
         </h5>
         {
             (seedingInfo) ? (
@@ -467,7 +462,7 @@ function Seeding(props) {
                 )
             ) : (<></>)
         }
-        
+
         {
             (seedingInfo) ? (
                 (seedingInfo.startServer !== null) ? (
@@ -555,8 +550,8 @@ function Seeding(props) {
         <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>{t("group.seeding.seeders.main", { "seeders": (seeders) ? seeders.seeders.length : 0, "ingame": ingameAmount })}</h2>
         <div style={{ maxHeight: "400px", overflowY: "auto" }}>
             {
-                (seeders) ? seeders.seeders.map(
-                    (seeder, i) => (<SeederRow seeder={seeder} key={i} />)
+                (seeders && seedingInfo && props.group) ? seeders.seeders.map(
+                    (seeder, i) => (<SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />)
                 ) : Array.from({ length: 8 }, (_, id) => ({ id })).map(
                     (_, i) => (<EmptyRow key={i} />)
                 )
@@ -632,13 +627,17 @@ function GroupOwners(props) {
 function GroupServerAccount(props) {
 
 
+    var hasRights = false;
+
+    if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
     // const queryClient = useQueryClient();
 
     // const [sid, setSid] = useState("");
     // const [remid, setRemid] = useState("");
     // const [applyStatus, setApplyStatus] = useState(null);
     const { t } = useTranslation();
-    
+    const modal = useModal();
+
 
     // useEffect(() => {
     //     if (props.group) {
@@ -676,31 +675,55 @@ function GroupServerAccount(props) {
             <h5>
                 {t("group.id")}<span className={styles.GroupIdentity}>{props.gid}</span>
             </h5>
-            <AccountInfo {...props} />
+
+            <h2>Accounts used for group</h2>
+            <h5 style={{ marginTop: "0px" }}>
+                {t("createGroup.cookieDescription2")}
+            </h5>
+            {(props.group) ? (
+                <ScrollRow>
+                    {props.group.cookies.map((cookie, index) => {
+                        return <div key={index}><AccountInfo {...props} cookie={cookie} /></div>
+                    })}
+                </ScrollRow>
+            ) : (
+                <></>
+            )}
+
+            <ButtonRow>
+                {
+                    (hasRights) ? (
+                        <Button name={t("cookie.add")} callback={_ => modal.show(<AddAccountModal gid={props.gid} group={props.group} user={props.user} callback={modal.close} />)} />
+                    ) : (
+                        <Button disabled={true} name={t("denied")} content={t("cookie.add")} />
+                    )
+                }
+            </ButtonRow>
         </>
     );
 }
 
-function AccountInfo({ group, gid, user }) {
+function AccountInfo({ group, gid, user, cookie }) {
     const { t } = useTranslation();
     const modal = useModal();
-
     return (
-        <div className={styles.AccountInfo} onClick={_ => modal.show(<ChangeAccountModal gid={gid} group={group} user={user} callback={modal.close} />)}>
-            {(!!group && !group.validCookie) ? (
-                <h2 style={{ color: "#FF7575" }}>
-                    {t("cookie.invalid")}
-                </h2>
-            ) : <h2>
-                {(!group) ? "Updating account status.." : (!group.accountName) ? "We are pending status of this account" : group.accountName}
-            </h2>}
-            <h5 style={{ marginTop: "0px" }}>
-                {t("createGroup.cookieDescription2")}
-            </h5>
-            <h5 style={{ marginTop: "0px" }}>
-                {t("group.account.description0")}<br />{t("group.account.description1")}<i>accounts.ea.com</i>
-            </h5>
-        </div>
+        <>
+            <div className={styles.AccountInfo} onClick={_ => modal.show(<ChangeAccountModal gid={gid} group={group} cookie={cookie} user={user} callback={modal.close} />)}>
+                {(!!group && !group.validCookie) ? (
+                    <h2 style={{ color: "#FF7575" }}>
+                        {t("cookie.invalid")}
+                    </h2>
+                ) : <h2>
+                    {(!group) ? t("cookie.status.loading") : (!cookie.username) ? t("cookie.status.pending") : cookie.username}
+                </h2>}
+                <h5 style={{ marginTop: "0px" }}>
+                    {t("group.account.description0")}<br />{t("group.account.description1")}<i>accounts.ea.com</i>
+                </h5>
+                <h5 style={{ marginTop: "0px" }}>
+                    {(group && group.defaultCookie === cookie.id) ? t("cookie.accountType.default") : t("cookie.accountType.extra")}
+                </h5>
+            </div>
+        </>
 
     )
 }

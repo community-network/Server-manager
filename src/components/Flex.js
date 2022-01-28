@@ -15,6 +15,12 @@ export function Row(props) {
     );
 }
 
+export function ScrollRow(props) {
+    return (
+        <div className={styles.scrollRow}>{props.children}</div>
+    );
+}
+
 export function TopRow(props) {
     return (
         <div className={styles.topRow}>{props.children}</div>

@@ -524,13 +524,17 @@ export function SeederRow(props) {
     const { t } = useTranslation();
     const seeder = props.seeder;
     var datetime = new Date(seeder.timeStamp);
-
+    
     return (
         <div className={styles.SeedRow}>
             <span className={styles.seedingRow}>{seeder.seederName}</span>
             {
                 (seeder.isRunning)? (
-                    <span className={styles.serverBadgeOk}>{t("group.seeding.seeders.true")}</span>
+                    (props.seedingInfo.keepAliveSeeders && props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined)? (
+                        <span className={styles.serverBadgeOk}>{t("group.seeding.seeders.true")} - {t("group.seeding.status.seedServer", { "serverName": props.seedingInfo.keepAliveSeeders[seeder.seederName].serverName })}</span>
+                    ) : (
+                        <span className={styles.serverBadgeOk}>{t("group.seeding.seeders.true")} - {t("group.seeding.seeders.defaultDescription")}</span>
+                    )
                 ) : (
                     <span className={styles.serverBadgePending}>{t("group.seeding.seeders.false")}</span>
                 )

@@ -208,7 +208,8 @@
             "seeders": {
                 "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
                 "true": "in het spel",
-                "false": "niet in het spel"
+                "false": "niet in het spel",
+                "defaultDescription": "globale seeders aan het volgen"
             },
             "keepalive": {
                 "main": "Verbind hostname aan een server om servers overeind te houden",

@@ -243,6 +243,32 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async addCookie({ gid, sid, remid, defaultCookie }) {
+        return await this.postJsonMethod("addcookie", {
+            "sid": sid,
+            "remid": remid,
+            "groupid": gid,
+            "defaultcookie": defaultCookie
+        })
+    }
+
+    async editCookie({ gid, sid, remid, id, defaultCookie }) {
+        return await this.postJsonMethod("editcookie", {
+            "cookieid": id,
+            "sid": sid,
+            "remid": remid,
+            "groupid": gid,
+            defaultcookie: defaultCookie
+        });
+    }
+
+    async removeCookie({ gid, id }) {
+        return await this.postJsonMethod("delcookie", {
+            "cookieid": id,
+            "groupid": gid
+        })
+    }
+
     async editGroup({ gid, type, value }) {
         var answer = await this.postJsonMethod("editgroup", {
             "groupid": gid,
