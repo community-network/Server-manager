@@ -137,15 +137,8 @@ export function Group(props) {
         {
             name: t("group.vban.main"),
             callback: () => setListing("vbanlist"),
-        }
-    ]
-
-    if (group && group.isOwner) {
-        pageCycle.push({
-            name: t("group.logs.main"),
-            callback: () => setListing("grouplogs"),
-        })
-        pageCycle.push({
+        },
+        {
             name: (
                 <>
                     {t("group.seeding.main")}
@@ -155,6 +148,13 @@ export function Group(props) {
                 </>
             ),
             callback: () => setListing("seeding"),
+        }
+    ]
+
+    if (group && group.isOwner) {
+        pageCycle.push({
+            name: t("group.logs.main"),
+            callback: () => setListing("grouplogs"),
         })
     }
 
@@ -446,7 +446,7 @@ function Seeding(props) {
 
     return <>
         <h2>{t("group.seeding.main")}</h2>
-        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description1")}<br />{t("group.seeding.description2")}<br />
+        <h5>{t("group.seeding.description0")}<br />{t("group.seeding.description2")}<br />
             <a alt="" href="https://github.com/community-network/bf1-seeder" rel="noreferrer" target="_blank">{t("group.seeding.app")}</a>
         </h5>
         {
