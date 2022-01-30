@@ -84,12 +84,22 @@ export function GroupRow(props) {
                 </thead>
                 <tbody>
                     <tr className={styles.BanRow}>
-                        <td>
-                            <span>{group.cookieAcc}</span>
-                        </td>
-                        <td>
-                            <span>{group.lastUpdate !== undefined ? t("dateTime", { date: new Date(group.lastUpdate) }) : "-"}</span>
-                        </td>
+                        {
+                            (group && group.cookieInfo) ? (
+                                group.cookieInfo.map(
+                                    (account, i) =>
+                                        <>
+                                            <td>
+                                                <span>{account.cookieAcc}</span>
+                                            </td>
+                                            <td>
+                                                <span>{account.lastUpdate !== undefined ? t("dateTime", { date: new Date(account.lastUpdate) }) : "-"}</span>
+                                            </td>
+                                        </>
+                                )
+                            ) : (<></>)
+                        }
+
                     </tr>
                 </tbody>
             </table>
