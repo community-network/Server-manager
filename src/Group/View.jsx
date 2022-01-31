@@ -376,7 +376,7 @@ function Seeding(props) {
     const [rejoin, setRejoin] = useState(undefined);
     const { t } = useTranslation();
 
-    if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+    if (props.group && props.user) hasRights = props.group.isOwner || props.group.isAdmin || props.user.auth.isDeveloper;
     const { data: seedingInfo } = useQuery('seeding' + props.gid, () => OperationsApi.getSeeding(props.gid), { staleTime: 30000 });
     const { data: seeders } = useQuery('seeders' + props.gid, () => OperationsApi.getSeeders(props.gid), { staleTime: 30000 });
     const queryClient = useQueryClient();
