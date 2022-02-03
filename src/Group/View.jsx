@@ -1535,6 +1535,12 @@ export function MakeOps(props) {
         changeState(newGroupState);
     };
 
+    if (group) {
+        if (addGroupState.variables.server === "" && group.servers[0] !== undefined) {
+            checkInputVariables({ server: group.servers[0].id })
+        }
+    }
+
     return (
         <Row>
             <Column>
