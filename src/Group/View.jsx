@@ -476,7 +476,7 @@ function Seeding(props) {
             <select className={styles.SwitchGame} value={hour} onChange={e => setHour(e.target.value)}>
                 {[...Array(24)].map((_, i) => {
                     return (
-                        <option value={i}>{i}</option>
+                        <option key={i} value={i}>{i}</option>
                     )
                 })}
             </select>
@@ -1482,6 +1482,9 @@ export function MakeOps(props) {
 
     var gid = props.match.params.gid;
 
+    const { error: groupError, data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
+
     const [addGroupState, changeState] = useState({
         variables: {
             server: "",
@@ -1542,7 +1545,22 @@ export function MakeOps(props) {
                         {t("operations.description1")}<br />
                         {t("operations.description2")}
                     </h5>
-                    <TextInput name="Server name" callback={(e) => { checkInputVariables({ server: e.target.value }) }} />
+                    {group ? (
+                        <ButtonRow>
+                            <select className={styles.SwitchGame} onChange={e => checkInputVariables({ server: e.target.value })}>
+                                {group.servers.map((server, index) => {
+                                    if (server.game === "bf1") {
+                                        return (
+                                            <option key={index} value={server.id}>{server.name}</option>
+                                        )
+                                    } 
+                                    return ""
+                                })}
+                            </select>
+                        </ButtonRow>
+                    ) : <></>}
+
+                    {/* <TextInput name="Server name" callback={(e) => { checkInputVariables({ server: e.target.value }) }} /> */}
                     <h5 style={{ marginTop: "8px" }}>
                         {t("operations.server")}<b>{t("operations.owner")}</b>{t("operations.cookies")}
                     </h5>

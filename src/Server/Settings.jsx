@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import styles from "./Styles.module.css";
 
@@ -11,24 +11,28 @@ import { OperationsApi } from "../api";
 export function ServerSettings(props) {
     const ownerIdGames = ["bfv", "bf2042"]
 
+    const sid = props.sid;
+    const { t } = useTranslation();
+    const { error: cookieError, data: cookieInfo } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
+    var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
+
     var allowedTo = false;
     if (props.server) allowedTo = true;
 
     const queryClient = useQueryClient();
-    const { t } = useTranslation();
 
     const [serverState, setServerState] = useState(null);
     const [canApply, setCanApply] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
-    
+
     const [restartStatus, setRestartStatus] = useState(null);
     const [restartErrorUpdating, setRestartError] = useState({ code: 0, message: "Unknown" });
 
     useEffect(() => {
         if (props.server) {
-            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId } = props.server;
-            const originalServerState = { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId };
+            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId, cookie } = props.server;
+            const originalServerState = { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId, cookie };
             if (serverState === null) {
                 setServerState(originalServerState);
             } else {
@@ -42,7 +46,7 @@ export function ServerSettings(props) {
         }
     }, [props.server, serverState]);
 
-    const changeSrerverState = (v) => {
+    const changeServerState = (v) => {
         setServerState(s => ({ ...s, ...v }));
     }
 
@@ -134,9 +138,9 @@ export function ServerSettings(props) {
             server_status = (
                 <span style={{ marginLeft: "8px" }} className={styles.serverBadgeOk}>
                     <span className={styles.liveUpdate}></span>
-                    {t("serverBotStatus.running", {worker: props.server.botInfo.serviceName})}
+                    {t("serverBotStatus.running", { worker: props.server.botInfo.serviceName })}
                 </span>
-            )  
+            )
         } else if (props.server.botInfo.state === "failed") {
             server_status = (
                 <span style={{ marginLeft: "8px" }} className={styles.serverBadgeErr}>
@@ -160,7 +164,7 @@ export function ServerSettings(props) {
 
             <TextInput
                 disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ serverName: e.target.value })}
+                callback={(e) => changeServerState({ serverName: e.target.value })}
                 defaultValue={getServerValue("serverName")}
                 name={t("server.settings.name")}
             />
@@ -169,13 +173,20 @@ export function ServerSettings(props) {
 
             <TextInput
                 disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ serverAlias: e.target.value })}
+                callback={(e) => changeServerState({ serverAlias: e.target.value })}
                 defaultValue={getServerValue("serverAlias")}
                 name={t("server.settings.alias")}
             />
 
+            <h5 style={{ marginTop: "8px" }}>{t("server.settings.cookie")}</h5>
+
             <ButtonRow>
-                <ButtonLink style={{ color: "#FF7575"}} name={t("server.danger.delete")} to={`/server/${props.sid}/delete/`} disabled={!allowedTo} />
+                {cookies ?
+                    <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => changeServerState({ cookie: e.target.value })}>
+                        <option value="">{t("cookie.accountType.default")}</option>
+                        {cookies.map((key, index) => <option key={index} selected={getServerValue("cookie") === key.id} value={key.id}>{key.name}</option>)}
+                    </select>
+                    : ""}
             </ButtonRow>
 
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>
@@ -184,7 +195,7 @@ export function ServerSettings(props) {
                 <TextInput
                     style={{ marginLeft: "6px" }}
                     disabled={!allowedTo}
-                    callback={(e) => changeSrerverState({ discordBotToken: e.target.value })}
+                    callback={(e) => changeServerState({ discordBotToken: e.target.value })}
                     defaultValue={getServerValue("discordBotToken")}
                     name={t("server.settings.discordBot.token")}
                 />
@@ -194,15 +205,15 @@ export function ServerSettings(props) {
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.channelDesc")}</h5>
             <TextInput
                 disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ discordBotChannel: e.target.value })}
+                callback={(e) => changeServerState({ discordBotChannel: e.target.value })}
                 defaultValue={getServerValue("discordBotChannel")}
                 name={t("server.settings.discordBot.channel")}
             />
-            
+
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.minPlayerAmountDesc")}</h5>
             <TextInput
                 disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ discordBotMinPlayerAmount: e.target.value })}
+                callback={(e) => changeServerState({ discordBotMinPlayerAmount: e.target.value })}
                 defaultValue={getServerValue("discordBotMinPlayerAmount")}
                 name={t("server.settings.discordBot.minPlayerAmount")}
             />
@@ -210,7 +221,7 @@ export function ServerSettings(props) {
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.prevReqCountDesc")}</h5>
             <TextInput
                 disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ discordBotPrevReqCount: e.target.value })}
+                callback={(e) => changeServerState({ discordBotPrevReqCount: e.target.value })}
                 defaultValue={getServerValue("discordBotPrevReqCount")}
                 name={t("server.settings.discordBot.prevReqCount")}
             />
@@ -218,19 +229,19 @@ export function ServerSettings(props) {
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.startedAmountDesc")}</h5>
             <TextInput
                 disabled={!allowedTo}
-                callback={(e) => changeSrerverState({ discordBotStartedAmount: e.target.value })}
+                callback={(e) => changeServerState({ discordBotStartedAmount: e.target.value })}
                 defaultValue={getServerValue("discordBotStartedAmount")}
                 name={t("server.settings.discordBot.startedAmount")}
             />
 
-            {props.server? (
+            {props.server ? (
                 <>
-                    {ownerIdGames.includes(props.server.game)? (
+                    {ownerIdGames.includes(props.server.game) ? (
                         <>
                             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.ownerIdDesc")}</h5>
                             <TextInput
                                 disabled={!allowedTo}
-                                callback={(e) => changeSrerverState({ discordBotOwnerId: e.target.value })}
+                                callback={(e) => changeServerState({ discordBotOwnerId: e.target.value })}
                                 defaultValue={getServerValue("discordBotOwnerId")}
                                 name={t("server.settings.discordBot.ownerId")}
                             />
@@ -246,18 +257,20 @@ export function ServerSettings(props) {
                     </ButtonRow>
                 </>
             ) : (<></>)}
-            {
-                (props.server && canApply) ? (
-                    <ButtonRow>
+            <ButtonRow>
+                <ButtonLink style={{ color: "#FF7575" }} name={t("server.danger.delete")} to={`/server/${props.sid}/delete/`} disabled={!allowedTo} />
+                {
+                    (props.server && canApply) ? (
                         <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editServerSettings.mutate(
                                 serverState
                             )
                         } status={applyStatus} />
-                        <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
-                    </ButtonRow>
-                ) : ""
-            }
+                    ) : ""
+                }
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+
         </>
     );
 }

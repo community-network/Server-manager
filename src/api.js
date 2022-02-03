@@ -191,6 +191,12 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async getCookieList({ sid }) {
+        return await this.getJsonMethod("cookielist", {
+            "serverid": sid
+        });
+    }
+
     async getAdminList({ sid }) {
         return await this.getJsonMethod("infolist", {
             "type": "adminList",
@@ -332,7 +338,7 @@ export class ApiProvider extends JsonClient {
 
     async setupOps({ server, sid, remid }) {
         return await this.postJsonMethod("makeoperations", {
-            "servername": server,
+            "serverid": server,
             "sid": sid,
             "remid": remid,
         });

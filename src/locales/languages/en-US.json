@@ -537,6 +537,7 @@
             "name": "Server Name",
             "aliasDescription": "Alias to use with a Discord bot. (Can be a server number, for example)",
             "alias": "Alias",
+            "cookie": "Set the account used to get info and do changes to the server",
             "discordBot": {
                 "main": "Discord Battlefield-server status-bot",
                 "token": "Discord token",

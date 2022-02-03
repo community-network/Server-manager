@@ -520,6 +520,7 @@
             "name": "Servernaam",
             "aliasDescription": "Alias die moet gebruikt worden in de Discord bot. (kan ook een nummer zijn bijvoorbeeld)",
             "alias": "Alias",
+            "cookie": "Stel het account in dat word gebruikt voor gegevens op te halen / bewerken van de server",
             "discordBot": {
                 "main": "Discord Battlefield-server status-bot",
                 "token": "Discord token",
