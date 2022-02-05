@@ -20,6 +20,7 @@ export function PlayerList({ game, sid }) {
     let haveGame = !!game;
     let teams = haveGame ? game.data[0].players : false;
     let spectators = haveGame ? game.data[0].spectators : false;
+    let gameName = haveGame ? game.data[0].game : false;
 
     let havePlayers = teams && !("error" in teams[0]) && (teams[0].players !== undefined || teams[1].players !== undefined);
 
@@ -74,13 +75,13 @@ export function PlayerList({ game, sid }) {
         (!haveGame) ? <LoadingListPlayerGroup amount={16} /> :
             (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> :
                 (teams[0].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> :
-                    <ListPlayerGroup players={teams[0].players} team="0" sid={sid} />;
+                    <ListPlayerGroup gameName={gameName} players={teams[0].players} team="0" sid={sid} />;
 
     let team2 =
         (!haveGame) ? <LoadingListPlayerGroup amount={16} /> :
             (!havePlayers) ? <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage> :
                 (teams[1].players.length === 0) ? <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage> :
-                    <ListPlayerGroup players={teams[1].players} team="1" sid={sid} />;
+                    <ListPlayerGroup gameName={gameName} players={teams[1].players} team="1" sid={sid} />;
 
     // Message Cards here or smth
     // Instead of plain text
@@ -181,7 +182,7 @@ function LoadingPlayer() {
     );
 }
 
-function ListPlayerGroup({ team, players, sid }) {
+function ListPlayerGroup({ team, players, sid, gameName }) {
 
     const [playerListRef, { width }] = useMeasure();
     const [playerListSort] = useContext(PageContext);
@@ -191,7 +192,7 @@ function ListPlayerGroup({ team, players, sid }) {
     return (
         <div ref={playerListRef}>
             {players.map((player, i) => (
-                <Player player={player} key={i} i={i} moveTeam={moveTeam} width={width} sid={sid} />
+                <Player gameName={gameName} player={player} key={i} i={i} moveTeam={moveTeam} width={width} sid={sid} />
             ))}
         </div>
     )
@@ -208,7 +209,7 @@ function ListPlayerGroup({ team, players, sid }) {
  * 
  * @returns Player
  */
-export function Player({ player, i, sid, moveTeam, width }) {
+export function Player({ player, i, sid, moveTeam, width, gameName }) {
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -250,7 +251,7 @@ export function Player({ player, i, sid, moveTeam, width }) {
 
             <span className={styles.PlayerNone} />
 
-            <PlayerButtons player={player} sid={sid} moveTeam={moveTeam} width={width} />
+            <PlayerButtons gameName={gameName} player={player} sid={sid} moveTeam={moveTeam} width={width} />
             {width > 300 ?
                 <PlayerPing ping={player.ping} />
                 : <></>}
@@ -268,7 +269,7 @@ export function Player({ player, i, sid, moveTeam, width }) {
  * 
  * @returns Player Buttons React element
  */
-function PlayerButtons({ player, sid, moveTeam, width }) {
+function PlayerButtons({ player, sid, moveTeam, width, gameName }) {
 
     const { t } = useTranslation();
     const modal = useModal();
@@ -279,8 +280,7 @@ function PlayerButtons({ player, sid, moveTeam, width }) {
         modal.show(
             <ServerBanPlayer
                 sid={sid}
-                eaid={player.name}
-                playerId={player.playerId}
+                playerInfo={player}
             />
         );
     }
@@ -306,16 +306,23 @@ function PlayerButtons({ player, sid, moveTeam, width }) {
         })
     }
 
-    // Possible buttons
     let playerOptions = [
-        { name: t("server.action.kick"), callback: showKick },
         { name: t("server.action.ban"), callback: showBan },
     ];
 
-    // If movable, add move button
-    if (!!moveTeam) {
-        playerOptions.push({ name: t("server.action.move"), callback: moveCallback });
+    if (gameName === "bf1") {
+        // Possible buttons
+        playerOptions = [
+            { name: t("server.action.kick"), callback: showKick },
+            { name: t("server.action.ban"), callback: showBan },
+        ];
+
+        // If movable, add move button
+        if (!!moveTeam) {
+            playerOptions.push({ name: t("server.action.move"), callback: moveCallback });
+        }
     }
+
 
     // If too small, show button listing instead
     if (width < 600) {

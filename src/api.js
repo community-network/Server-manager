@@ -71,7 +71,7 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async banPlayer({ name, reason, time, sid, playerId }) {
+    async banPlayer({ name, reason, time, sid, playerId, oid, platformId }) {
         if ((playerId !== undefined) && (playerId !== "")) {
             return await this.postJsonMethod("changeserver", {
                 "request": "addServerBan",
@@ -79,6 +79,8 @@ export class ApiProvider extends JsonClient {
                 "playerid": playerId,
                 "serverid": sid,
                 "bantime": time.toString(),
+                "oid": oid,
+                "platformid": platformId,
                 "reason": reason
             });
         }
@@ -91,13 +93,15 @@ export class ApiProvider extends JsonClient {
         }); 
     }
 
-    async unbanPlayer({ name, reason, sid, playerId }) {
+    async unbanPlayer({ name, reason, sid, playerId, oid, platformId }) {
         if ((playerId !== undefined) && (playerId !== "")) {
             return await this.postJsonMethod("changeserver", {
                 "request": "removeServerBan",
                 "playername": name,
                 "playerid": playerId,
                 "serverid": sid,
+                "oid": oid,
+                "platformid": platformId,
                 "reason": reason
             });
         }

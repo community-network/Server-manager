@@ -77,7 +77,11 @@ export function ServerKickPlayer(props) {
 
 export function ServerBanPlayer(props) {
 
-    var { sid, eaid } = props;
+    var { sid, playerInfo } = props;
+    
+    const name = playerInfo.name;
+    const oid = playerInfo.oid;
+    const platform = playerInfo.platform
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -90,10 +94,10 @@ export function ServerBanPlayer(props) {
     const { isError: userGettingError, data: user } = useUser();
 
     useEffect(() => {
-        if(playerId !== props.playerId) {
-            setPid(props.playerId);
+        if(playerId !== playerInfo.playerId) {
+            setPid(playerInfo.playerId);
         }
-    }, [playerId, props.playerId]);
+    }, [playerId, playerInfo.playerId]);
 
     const BanPlayer = useMutation(
         v => OperationsApi.banPlayer(v),
@@ -155,7 +159,7 @@ export function ServerBanPlayer(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>{t("server.banMenu.main", {name: props.eaid})} </h2>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.banMenu.main", {name})} </h2>
             <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.reasonDescription")}</h5>
             <TextInput value={reason} name={t("server.banMenu.reason")} callback={(e) => checkReason(e.target.value)} />
             <Switch value={globalVsClassicBan} name={t("server.banMenu.vBanOption")} callback={ (v) => setGlobalVsClassicBan(v) } />
@@ -168,9 +172,9 @@ export function ServerBanPlayer(props) {
                     disabled={isDisabled}
                     callback={() => {
                         if (globalVsClassicBan) {
-                            GlobalBanPlayer.mutate({ gid, reason, name: props.eaid, playerId });
+                            GlobalBanPlayer.mutate({ gid, reason, name, playerId });
                         } else {
-                            BanPlayer.mutate({ sid, eaid, reason, name: props.eaid, time: banTime, playerId });
+                            BanPlayer.mutate({ sid, reason, name, time: banTime, playerId, oid, platform });
                         }
                     }}
                     status={banApplyStatus} />
@@ -254,7 +258,11 @@ export function checkGameString(v) {
 
 export function ServerUnbanPlayer(props) {
 
-    var { sid, eaid, playerId } = props;
+    var { sid, playerInfo } = props;
+    const name = playerInfo.name;
+    const playerId = playerInfo.playerId;
+    const oid = playerInfo.oid;
+    const platform = playerInfo.platform;
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -304,7 +312,7 @@ export function ServerUnbanPlayer(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>{t("server.unbanMenu.main", {name: props.eaid})} </h2>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.unbanMenu.main", {name})} </h2>
             <h5 style={{maxWidth: "300px"}} >{t("server.unbanMenu.reasonDescription")}</h5>
             <TextInput value={reason} name={t("server.unbanMenu.reason")} callback={(e) => checkReason(e.target.value)} />
             <ButtonRow>
@@ -313,7 +321,7 @@ export function ServerUnbanPlayer(props) {
                     style={{ maxWidth: "144px" }}
                     disabled={isDisabled}
                     callback={() => {
-                        UnbanPlayer.mutate({ sid, eaid, reason, name: props.eaid, playerId });
+                        UnbanPlayer.mutate({ sid, reason, name, playerId, oid, platform });
                     }}
                     status={banApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>

@@ -35,7 +35,7 @@ export function Server(props) {
     var [tabsListing, setTabsListing] = useState("info");
     const [playerListSort, setPlayerListSort] = useState("position");
 
-    const serverTabs = [
+    let serverTabs = [
         {
             name: t("server.game.main"),
             callback: () => setTabsListing("info"),
@@ -45,42 +45,44 @@ export function Server(props) {
             callback: () => setTabsListing("banlist"),
         },
         {
-            name: t("server.vipList.main"),
-            callback: () => setTabsListing("viplist"),
-        },
-        {
-            name: t("server.adminList.main"),
-            callback: () => setTabsListing("adminlist"),
-        },
-        {
-            name: t("server.firestarterList.main"),
-            callback: () => setTabsListing("firestarter"),
-        },
-        {
-            name: t("server.playTimeList.main"),
-            callback: () => setTabsListing("playtime"),
-        },
-        {
-            name: t("server.spectatorList.main"),
-            callback: () => setTabsListing("spectator"),
-        },
-        {
-            name: t("server.playerLogs.main"),
-            callback: () => setTabsListing("playerlogs"),
-        },
-        // {
-        //     name: t("server.logs.main"),
-        //     callback: () => setTabsListing("loglist"),
-        // },
-        {
-            name: t("server.protection.main"),
-            callback: () => setTabsListing("protection"),
-        },
-        {
             name: t("server.settings.main"),
             callback: () => setTabsListing("settings"),
         }
     ];
+
+    if (server && server.game === "bf1") {
+        const extra = [
+            {
+                name: t("server.vipList.main"),
+                callback: () => setTabsListing("viplist"),
+            },
+            {
+                name: t("server.adminList.main"),
+                callback: () => setTabsListing("adminlist"),
+            },
+            {
+                name: t("server.firestarterList.main"),
+                callback: () => setTabsListing("firestarter"),
+            },
+            {
+                name: t("server.playTimeList.main"),
+                callback: () => setTabsListing("playtime"),
+            },
+            {
+                name: t("server.spectatorList.main"),
+                callback: () => setTabsListing("spectator"),
+            },
+            {
+                name: t("server.playerLogs.main"),
+                callback: () => setTabsListing("playerlogs"),
+            },
+            {
+                name: t("server.protection.main"),
+                callback: () => setTabsListing("protection"),
+            },
+        ]
+        serverTabs = serverTabs.concat(extra);
+    }
 
 
     const catTabs = {
@@ -96,7 +98,6 @@ export function Server(props) {
         playtime:    <PlayTime sid={sid} />,
         spectator:   <Spectator sid={sid} />,
         playerlogs:  <Playerlogs sid={sid} />,
-        // loglist:     <LogList sid={sid} />,
         protection:  <ServerAutomation server={server} sid={sid} />,
         settings:    <ServerSettings server={server} sid={sid} />,
     }

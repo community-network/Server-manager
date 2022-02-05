@@ -63,7 +63,7 @@ export function ServerRotation(props) {
             {t("serverStatus.pending")}
         </span>
     );
-    
+
     if (server) {
         if (server.isAdmin) {
             server_status = (
@@ -71,7 +71,7 @@ export function ServerRotation(props) {
                     <span className={styles.liveUpdate}></span>
                     {t("serverStatus.running")}
                 </span>
-            )  
+            )
         } else {
             server_status = (
                 <span className={styles.serverBadgeErr}>
@@ -91,7 +91,7 @@ export function ServerRotation(props) {
     if (server) {
         update_timestamp = new Date(server.update_timestamp);
     }
-    var [rotationId, setRotationId] = useState(""); 
+    var [rotationId, setRotationId] = useState("");
     const [playerListSort, setPlayerListSort] = useContext(PageContext);
     const [serverInfoRef, { width }] = useMeasure();
 
@@ -100,41 +100,45 @@ export function ServerRotation(props) {
             <div className={styles.ServerDescriptionRow}>
                 <img className={styles.serverImage} alt="Server map" src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
-                    <span className={styles.ServerName}>{(game) ? game.prefix : t("loading") }</span>
-                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", {inQue: game.inQue})}` : "-"}</SmallText>
+                    <span className={styles.ServerName}>{(game) ? game.prefix : t("loading")}</span>
+                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
                     {width > 400 ?
                         <>
-                            <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
+                            <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} ago</span>
                         </>
-                    :<></>}
+                        : <></>}
                 </div>
             </div>
             {width <= 400 ?
                 <>
-                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", {change: update_timestamp})} ago</span>
+                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} ago</span>
                     <div style={{ padding: "5px" }} />
                 </>
-            :<div style={{ paddingTop: "5px" }} />}
-            <ButtonRow>
-                <Button name={t("server.game.restart")} disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
-                <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
-                    <option value="">{t("server.game.mapSwitch")}</option>
-                    {(game) ? game.rotation.map((value, i) =>
-                        <option value={value.index} key={i}>{value.mapname} - {value.mode}</option>
-                    ) : ""}
-                </select>
-                {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
-            </ButtonRow>
-            <ButtonRow>
-                <select className={styles.SwitchGame} value={playerListSort} onChange={e => setPlayerListSort(e.target.value)}>
-                    <option value="position">{t("server.players.sort.main")}</option>
-                    <option value="position">{t("server.players.sort.position")}</option>
-                    <option value="-ping">{t("server.players.sort.ping")}</option>
-                    <option value="name">{t("server.players.sort.name")}</option>
-                    <option value="-rank">{t("server.players.sort.rank")}</option>
-                    <option value="joinTime">{t("server.players.sort.joinTime")}</option>
-                </select>
-            </ButtonRow>
+                : <div style={{ paddingTop: "5px" }} />}
+            {server && server.game === "bf1" ? (
+                <>
+                    <ButtonRow>
+                        <Button name={t("server.game.restart")} disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
+                        <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
+                            <option value="">{t("server.game.mapSwitch")}</option>
+                            {(game) ? game.rotation.map((value, i) =>
+                                <option value={value.index} key={i}>{value.mapname} - {value.mode}</option>
+                            ) : ""}
+                        </select>
+                        {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
+                    </ButtonRow>
+                    <ButtonRow>
+                        <select className={styles.SwitchGame} value={playerListSort} onChange={e => setPlayerListSort(e.target.value)}>
+                            <option value="position">{t("server.players.sort.main")}</option>
+                            <option value="position">{t("server.players.sort.position")}</option>
+                            <option value="-ping">{t("server.players.sort.ping")}</option>
+                            <option value="name">{t("server.players.sort.name")}</option>
+                            <option value="-rank">{t("server.players.sort.rank")}</option>
+                            <option value="joinTime">{t("server.players.sort.joinTime")}</option>
+                        </select>
+                    </ButtonRow>
+                </>
+            ) : (<></>)}
         </div>
     );
 }
@@ -161,10 +165,9 @@ export function BanList(props) {
     const showUnban = e => {
         let playerInfo = e.target.dataset
         modal.show(
-            <ServerUnbanPlayer 
-                sid={sid} 
-                eaid={playerInfo.name} 
-                playerId={playerInfo.id}
+            <ServerUnbanPlayer
+                sid={sid}
+                playerInfo={playerInfo}
             />
         );
     }
@@ -184,7 +187,7 @@ export function BanList(props) {
         <div>
             <h5>
                 {t("server.banList.description0")}<br />
-                {t("server.banList.description1")} <b>{t("server.banList.description2", {number: banList.data.length})}</b>.
+                {t("server.banList.description1")} <b>{t("server.banList.description2", { number: banList.data.length })}</b>.
                 {t("server.banList.description3")}<br />{t("server.banList.description4")}
             </h5>
             <ButtonRow>
@@ -194,18 +197,18 @@ export function BanList(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_=>setSorting("displayName")}>{t("server.banList.table.playerName")}</th>
-                        <th onClick={_=>setSorting("id")}>{t("server.banList.table.playerId")}</th>
-                        <th onClick={_=>setSorting("-reason")}>{t("server.banList.table.reason")}</th>
-                        <th onClick={_=>setSorting("-admin")}>{t("server.banList.table.admin")}</th>
-                        <th onClick={_=>setSorting("-unixBanTimeStamp")}>{t("server.banList.table.until")}</th>
-                        <th onClick={_=>setSorting("-unixBanUntilTimeStamp")}>{t("server.banList.table.timestamp")}</th>
+                        <th onClick={_ => setSorting("displayName")}>{t("server.banList.table.playerName")}</th>
+                        <th onClick={_ => setSorting("id")}>{t("server.banList.table.playerId")}</th>
+                        <th onClick={_ => setSorting("-reason")}>{t("server.banList.table.reason")}</th>
+                        <th onClick={_ => setSorting("-admin")}>{t("server.banList.table.admin")}</th>
+                        <th onClick={_ => setSorting("-unixBanTimeStamp")}>{t("server.banList.table.until")}</th>
+                        <th onClick={_ => setSorting("-unixBanUntilTimeStamp")}>{t("server.banList.table.timestamp")}</th>
                         <th></th>
                     </thead>
                     <tbody>
                         {
                             banList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<BanRow player={player} key={i} callback={showUnban}/>)
+                                (player, i) => (<BanRow player={player} key={i} callback={showUnban} />)
                             )
                         }
                     </tbody>
@@ -219,8 +222,8 @@ function BanRow(props) {
     const player = props.player;
     const modal = useModal();
     const { t } = useTranslation();
-    return (    
-        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />):null}>
+    return (
+        <tr className={styles.BanRow} onClick={e => e.target.tagName === "TD" ? modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />) : null}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -229,9 +232,9 @@ function BanRow(props) {
             <td title={t("server.banList.table.playerId")}>{player.id}</td>
             <td>{player.reason}</td>
             <td>{player.admin}</td>
-            <td>{player.banned_until!==""?t("dateTime", {date: new Date(player.banned_until)}):""}</td>
-            <td>{player.ban_timestamp!==""?t("dateTime", {date: new Date(player.ban_timestamp)}):""}</td>
-            <th className={styles.listButton} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
+            <td>{player.banned_until !== "" ? t("dateTime", { date: new Date(player.banned_until) }) : ""}</td>
+            <td>{player.ban_timestamp !== "" ? t("dateTime", { date: new Date(player.ban_timestamp) }) : ""}</td>
+            <th className={styles.listButton} data-oid={player.oid} data-platform={player.platform} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
                 {t("server.action.unban")}
             </th>
         </tr>
@@ -269,9 +272,9 @@ export function FireStarter(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_=>setSorting("playerName")}>{t("server.firestarterList.table.playerName")}</th>
-                        <th onClick={_=>setSorting("playerId")}>{t("server.firestarterList.table.playerId")}</th>
-                        <th onClick={_=>setSorting("-amount")}>{t("server.firestarterList.table.amount")}</th>
+                        <th onClick={_ => setSorting("playerName")}>{t("server.firestarterList.table.playerName")}</th>
+                        <th onClick={_ => setSorting("playerId")}>{t("server.firestarterList.table.playerId")}</th>
+                        <th onClick={_ => setSorting("-amount")}>{t("server.firestarterList.table.amount")}</th>
                     </thead>
                     <tbody>
                         {
@@ -290,9 +293,9 @@ function StarterRow(props) {
     const player = props.player;
     const modal = useModal();
     const { t } = useTranslation();
-    return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.playerName} id={player.playerId} />)}>
-            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.playerName}</td>
+    return (
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.playerName} id={player.playerId} />)}>
+            <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.playerName}</td>
             <td title={t("server.firestarterList.table.playerId")}>{player.playerId}</td>
             <td>{player.amount}</td>
         </tr>
@@ -356,9 +359,9 @@ function PlayTimeRow(props) {
     // Local time
     let datetime = `${hours}:${("0" + minutes).slice(-2)}`;
 
-    return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
-            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
+    return (
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
+            <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.name}</td>
             <td title={t("server.playTimeList.table.playerId")}>{player.playerId}</td>
             <td>{datetime}</td>
         </tr>
@@ -396,9 +399,9 @@ export function Spectator(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_=>setSorting("name")}>{t("server.spectatorList.table.playerName")}</th>
-                        <th onClick={_=>setSorting("playerId")}>{t("server.spectatorList.table.playerId")}</th>
-                        <th onClick={_=>setSorting("-unixTimeStamp")}>{t("server.spectatorList.table.time")}</th>
+                        <th onClick={_ => setSorting("name")}>{t("server.spectatorList.table.playerName")}</th>
+                        <th onClick={_ => setSorting("playerId")}>{t("server.spectatorList.table.playerId")}</th>
+                        <th onClick={_ => setSorting("-unixTimeStamp")}>{t("server.spectatorList.table.time")}</th>
                     </thead>
                     <tbody>
                         {
@@ -418,7 +421,7 @@ function SpectatorRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
 
-    
+
     // var datetime = new Date(Date.parse(player.timeStamp));
     var datetime = new Date(player.timeStamp);
     // const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -426,11 +429,11 @@ function SpectatorRow(props) {
     // Local time
     // datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
-    return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
-            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
+    return (
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
+            <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.name}</td>
             <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
-            <td>{t("dateTime", {date: datetime})}</td>
+            <td>{t("dateTime", { date: datetime })}</td>
         </tr>
     );
 }
@@ -451,18 +454,18 @@ export function Playerlogs(props) {
                 {t("server.playerLogs.description0")}<br />{t("server.playerLogs.description1")}<br />{t("server.playerLogs.description2")}<br /><br />{t("server.playerLogs.description3")}
             </h5>
             <Row>
-                <TextInput id="textInput" name={t("server.playerLogs.filterPlayer")}  style={{ marginRight: "12px"}} callback={(v) => setSearchField(v.target.value)} />
+                <TextInput id="textInput" name={t("server.playerLogs.filterPlayer")} style={{ marginRight: "12px" }} callback={(v) => setSearchField(v.target.value)} />
                 <ButtonRow>
-                    <Button name="Search" disabled={searchField===""} callback={() => setSearchPlayer(searchField)} />
-                    <Button name="Reset" disabled={searchPlayer===""} callback={() => {
+                    <Button name="Search" disabled={searchField === ""} callback={() => setSearchPlayer(searchField)} />
+                    <Button name="Reset" disabled={searchPlayer === ""} callback={() => {
                         setSearchPlayer("");
                         setSearchField("");
                         document.getElementsByTagName('input')[0].value = "";
                     }} />
                 </ButtonRow>
             </Row>
-            
-            <PlayerLogInfo data={data} setDate={setDate} sid={sid} date={date} error={error} isError={isError}/>
+
+            <PlayerLogInfo data={data} setDate={setDate} sid={sid} date={date} error={error} isError={isError} />
         </div>
     );
 }
@@ -472,7 +475,7 @@ function PlayerLogInfo(props) {
     const playerLogList = props.data
     const [dateIndex, setDateIndex] = useState(0);
     const [searchWord, setSearchWord] = useState("");
-    
+
     if (props.isError) {
         return `Error, no info found for that playername`
     }
@@ -499,22 +502,22 @@ function PlayerLogInfo(props) {
     return (
         <>
             <Row>
-                <TextInput style={{ marginRight: "12px"}} name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
+                <TextInput style={{ marginRight: "12px" }} name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
                 <ButtonRow>
-                    <Button name="Left" content={arrowLeft} disabled={dateIndex === 0} callback={_ => { if (dateIndex!==0) {setDateIndex(dateIndex-1); props.setDate(playerLogList.intDates[dateIndex])} }} />
-                    <select className={buttonStyle.dropdownButton} value={dateIndex} onChange={event => {setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex])}}>
+                    <Button name="Left" content={arrowLeft} disabled={dateIndex === 0} callback={_ => { if (dateIndex !== 0) { setDateIndex(dateIndex - 1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
+                    <select className={buttonStyle.dropdownButton} value={dateIndex} onChange={event => { setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex]) }}>
                         {playerLogList.dates.map((value, i) => {
                             var datetime = new Date(value);
-                            return <option value={i} key={i}>{t("shortDateTime", {date: datetime})}</option>
+                            return <option value={i} key={i}>{t("shortDateTime", { date: datetime })}</option>
                         })}
                     </select>
-                    <Button name="Right" content={arrowRight} disabled={dateIndex === playerLogList.intDates.length} callback={_ => { if (dateIndex!==playerLogList.intDates.length) { setDateIndex(dateIndex+1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
+                    <Button name="Right" content={arrowRight} disabled={dateIndex === playerLogList.intDates.length} callback={_ => { if (dateIndex !== playerLogList.intDates.length) { setDateIndex(dateIndex + 1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
                     <ButtonUrl href={`https://manager-api.gametools.network/api/playerloglistexcel?serverid=${props.sid}&date=${props.date}`} name={t("export")} />
                 </ButtonRow>
             </Row>
-            
-            
-            
+
+
+
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
@@ -541,9 +544,9 @@ function PlayerlogsRow(props) {
     const player = props.player;
     const { t } = useTranslation();
 
-    return (    
-        <tr className={styles.BanRow} onClick={_=>modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
-            <td className={styles.BanDisplayName}>{player.platoon !== ""? `[${player.platoon}] `: null}{player.name}</td>
+    return (
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
+            <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.name}</td>
             <td title={t("server.playerLogs.table.playerId")}>{player.playerId}</td>
             <td>{player.ping}</td>
             <td>{player.role}</td>
@@ -563,9 +566,9 @@ export function VipList(props) {
     const showUnvip = e => {
         let playerInfo = e.target.dataset
         modal.show(
-            <ServerUnvipPlayer 
-                sid={sid} 
-                eaid={playerInfo.name} 
+            <ServerUnvipPlayer
+                sid={sid}
+                eaid={playerInfo.name}
                 playerId={playerInfo.id}
             />
         );
@@ -581,7 +584,7 @@ export function VipList(props) {
     if (isError) {
         return `Error ${error.code}: {error.message}`
     }
-    
+
 
     return (
         <div>
@@ -593,7 +596,7 @@ export function VipList(props) {
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h5 style={{ marginBottom: 0 }}>
                         {t("server.vipList.description0")}<br />
-                        {t("server.vipList.description1")}<b>{t("server.vipList.description2", {number: vipList.data.length})}</b>.
+                        {t("server.vipList.description1")}<b>{t("server.vipList.description2", { number: vipList.data.length })}</b>.
                     </h5>
                 </div>
             </div>
@@ -601,15 +604,15 @@ export function VipList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th onClick={_=>setSorting("displayName")}>{t("server.vipList.table.playerName")}</th>
-                            <th onClick={_=>setSorting("id")}>{t("server.vipList.table.playerId")}</th>
+                            <th onClick={_ => setSorting("displayName")}>{t("server.vipList.table.playerName")}</th>
+                            <th onClick={_ => setSorting("id")}>{t("server.vipList.table.playerId")}</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             vipList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<VipRow player={player} key={i} callback={showUnvip}/>)
+                                (player, i) => (<VipRow player={player} key={i} callback={showUnvip} />)
                             )
                         }
                     </tbody>
@@ -624,7 +627,7 @@ function VipRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />):null}>
+        <tr className={styles.VipRow} onClick={e => e.target.tagName === "TD" ? modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />) : null}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -657,7 +660,7 @@ export function AdminList(props) {
     if (isError) {
         return `Error ${error.code}: {error.message}`
     }
-    
+
 
     return (
         <div>
@@ -669,7 +672,7 @@ export function AdminList(props) {
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h5 style={{ marginBottom: 0 }}>
                         {t("server.adminList.description0")}<br />
-                        {t("server.adminList.description1")}<b>{t("server.adminList.description2", {number: adminList.data.length})}</b>.
+                        {t("server.adminList.description1")}<b>{t("server.adminList.description2", { number: adminList.data.length })}</b>.
                     </h5>
                 </div>
             </div>
@@ -677,8 +680,8 @@ export function AdminList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th onClick={_=>setSorting("displayName")}>{t("server.adminList.table.playerName")}</th>
-                            <th onClick={_=>setSorting("id")}>{t("server.adminList.table.playerId")}</th>
+                            <th onClick={_ => setSorting("displayName")}>{t("server.adminList.table.playerName")}</th>
+                            <th onClick={_ => setSorting("id")}>{t("server.adminList.table.playerId")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -699,7 +702,7 @@ function AdminRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={_=>modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
+        <tr className={styles.VipRow} onClick={_ => modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
