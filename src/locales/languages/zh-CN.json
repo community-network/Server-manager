@@ -520,6 +520,7 @@
             "name": "服务器名称",
             "aliasDescription": "在Discord频道机器人中显示的服务器昵称. (举个例子，可以是服务器编号)",
             "alias": "昵称",
+            "cookie": "设置用于得到服务器信息与修改的账号",
             "discordBot": {
                 "main": "Discord 战地服务器状态 机器人",
                 "token": "Discord token",
