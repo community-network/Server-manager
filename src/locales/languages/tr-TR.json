@@ -27,6 +27,7 @@
         "bf2042": "Battlefield 2042 (Erken erişim)"
     },
     "cookie": {
+        "check": "Geçerli olup olmadığını kontrol etmek için çerezin desteklediği bir oyun seçin",
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
         "remid": "REMID tanımlama bilgisi",
         "sidDescription": "Oturum çerezleri şu adreste bulunabilir ",
@@ -167,47 +168,57 @@
             "select": "Kaldırılacak yöneticileri seçin.",
             "selected": "{{Number}} kullanıcı seçtiniz."
         },
-        "Sunucu başlatma": {
-            "main": "Sunucu başlatma",
-            "description0": "Battlefield 1 sunucularınızı Başlatın.",
-            "description1": "Sunucu başlatma için en az Sahip rolüne sahip olmanız gerekir.",
-            "costum": "Özel sunucu",
+        "seeding": {
+            "main": "Başlatılan sunucular",
+            "app": "Başlatma uygulamasını indirin",
+            "description0": "Battlefield 1 sunucularınızı başlatın.",
+            "description1": "Bu panele erişmek için en az sunucu Sahibi rolüne ihtiyacınız var,",
+            "description2": "Başlatma konusunda yardım almak istediğiniz her bilgisayarda bu mesajın altındaki linkten uygulamayı çalıştırmanız gerekmektedir.",
+            "custom": "Özel sunucu",
             "broadcast": {
-                "main": "Tüm sunuculara bir mesaj yayınla",
-                "mesaj": "mesaj",
+                "main": "Tüm sunuculara bir mesaj yayınlayın",
+                "message": "Mesaj",
                 "sendMessage": "Gönder"
             },
             "scheduled": {
                 "true": "{{serverName}} için {{startTime}} tarihinde planlandı",
-                "false": "Otomatik başlatma programlanmadı."
+                "false": "Otomatik Başlatma programlanmadı."
             },
-             "auto-rejoin": {
-                "true": "otomatik yeniden birleştirme",
-                "false": "otomatik yeniden katılma yok"
+            "auto-rejoin": {
+                "true": "otomatik yeniden katılma",
+                "false": "otomatik yeniden katılma yok" 
             },
             "popup": {
                 "confirmInfo": "{{option}} yapmak istediğinizden emin misiniz?",
-                "broadcastInfo": "\"{{message}}\" yayını yapmak istediğinizden emin misiniz?",
+                "broadcastInfo": "\"{{message}} yayını yapmak istediğinizden emin misiniz?",
                 "confirm": "Onayla!"
             },
             "actions": {
                 "joinSelected": "Seçilen sunucuya katıl",
                 "leave": "Mevcut sunucudan ayrıl",
-                "shutdownWindows": "Kapatma PC'leri (kapatma seçeneği aktifken)",
-                "schedule": "Sunucu başlatma ​​zamanını programlayın (UTC saat dilimi)",
-                "undoSchedule": "Sunucu başlatma programdan kaldır"
+                "shutdownWindows": "PC'leri Kapatma  (kapatma seçeneği etkinken)",
+                "schedule": "Başlatma başlangıç ​​zamanını programlayın (UTC saat dilimi)",
+                "undoSchedule": "Başlatmayı programdan kaldır"
             },
             "status": {
                 "main": "Durum: ",
-                "seedServer": "{{serverName}} Sunucu başlatılıyor",
+                "seedServer": "{{serverName}} Başlatılıyor",
                 "leaveServer": "Hiçbir sunucuda değil",
                 "shutdownPC": "Kapatma seçeneği etkinken tüm bilgisayarları kapattı",
-                "broadcastMessage": "\"{{message}}\" tüm sunuculara yayınlandı"
+                "broadcastMessage": "Tüm sunuculara \"{{message}}\" yayınla"
             },
             "seeders": {
-                "main": "Şu anda oyunda {{ingame}} ile çevrimiçi {{seeders}} başlatma makinesi",
+                "main": "Şu anda oyunda {{ingame}} ile çevrimiçi {{seeders}} başlatıcı",
                 "true": "oyunda",
                 "false": "oyunda değil"
+            },
+            "keepalive": {
+                "main": "Onları canlı tutmak için ana bilgisayar adını sunucuya bağlayın",
+                "add": "Ana bilgisayar ekle",
+                "remove": "Ana bilgisayar kaldır",
+                "hostname": "Seçilen sunucuya hangi ana bilgisayar adını eklemek istiyorsunuz?",
+                "sethostname": "ana bilgisayar ",
+                "currentHostname": "'{{ hostname }}' seçili sunucudan kaldırılsın mı?"
             }
         },
         "servers": {
@@ -509,6 +520,7 @@
             "name": "Sunucu Adı",
             "aliasDescription": "Discord botu ile kullanmak için ön ad. (Örneğin, sunucu numarası olabilir.)",
             "alias": "Ön Ad",
+            "cookie": "Bilgi almak ve sunucuda değişiklik yapmak için kullanılan hesabı ayarlayın",
             "discordBot": {
                 "main": "Discord Battlefield-sunucu durumu-bot",
                 "token": "Anlaşmazlık belirteci",
@@ -629,7 +641,8 @@
         "createGroup": "Grup Oluştur",
         "makeOperations": "Operasyon sunucusu oluştur",
         "logout": "Çıkış Yap",
-        "help": "Yardım?"
+        "help": "Yardım?",
+        "sponsor": "Sponsor"
     },
     "cookieInfo": {
         "link": "Sid ve remidin nasıl alınacağı hakkında bilgi için buraya tıklayın",
