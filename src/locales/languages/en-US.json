@@ -27,6 +27,7 @@
         "bf2042": "Battlefield 2042 (Early beta)"
     },
     "cookie": {
+        "check": "Select a game the cookie supports to check if valid",
         "add": "Add server account",
         "setDefaultCookie": "Set as default",
         "invalid": "Error: The cookies you are using right now are invalid!",

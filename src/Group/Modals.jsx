@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { checkGameString } from "../Server/Modals";
+import { supportedGames } from "../Globals";
 
+import styles from "./Group.module.css";
 import { OperationsApi } from "../api";
-import { Switch, useModal, ButtonRow, Button, TextInput, Row, ButtonUrl, ButtonLink } from "../components";
+import { Switch, useModal, ButtonRow, Button, TextInput, ButtonUrl } from "../components";
 import '../locales/config';
 
 import { useUser } from "../Server/Manager";
 
 
 export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
-    
+
     var allowedTo = false;
     if (group && user) allowedTo = group.isOwner || user.auth.isDeveloper;
 
     const showDeleteAccount = e => {
         modal.show(
-            <GroupRemoveAccount 
-                gid={gid} 
-                cookie={cookie} 
+            <GroupRemoveAccount
+                gid={gid}
+                cookie={cookie}
                 group={group}
             />
         );
@@ -33,6 +35,7 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
     const [remid, setRemid] = useState("");
     const [defaultCookie, setDefaultCookie] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
+    const [supportedGame, setSupportedGame] = useState("bf1");
     const currentDefault = group.defaultCookie === cookie.id;
 
     useEffect(() => {
@@ -44,7 +47,7 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
             if (defaultCookie !== currentDefault)
                 setDefaultCookie(currentDefault)
         }
-    }, [cookie, currentDefault, defaultCookie, remid, sid]);
+    }, [cookie]);
 
     const editCookies = useMutation(
         variables => OperationsApi.editCookie(variables),
@@ -79,14 +82,25 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
                 {t("cookie.sid")}
             </h5>
             <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
-
+            <h5>
+                {t("cookie.check")}
+            </h5>
+            <ButtonRow>
+                <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={supportedGame} onChange={(e) => setSupportedGame(e.target.value)}>
+                    {supportedGames.map((element, index) => {
+                        return (
+                            <option key={index} value={element}>{t(`games.${element}`)}</option>
+                        )
+                    })}
+                </select>
+            </ButtonRow>
             <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
             <ButtonRow>
                 <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
             </ButtonRow>
             <ButtonRow>
-            {
-                (group && (sid !== cookie.sid || remid !== cookie.remid || defaultCookie !== currentDefault)) ? (
+                {
+                    (group && (sid !== cookie.sid || remid !== cookie.remid || defaultCookie !== currentDefault)) ? (
                         <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => editCookies.mutate(
                                 {
@@ -94,13 +108,14 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
                                     sid: sid,
                                     remid: remid,
                                     id: cookie.id,
-                                    defaultCookie: defaultCookie
+                                    defaultCookie: defaultCookie,
+                                    supportedGame: supportedGame
                                 }
                             )
                         } status={applyStatus} />
-                ) : ""
-            }
-            <Button style={{ color: "#FF7575"}} name={t("cookie.delete")} callback={showDeleteAccount} disabled={!allowedTo || currentDefault} />
+                    ) : ""
+                }
+                <Button style={{ color: "#FF7575" }} name={t("cookie.delete")} callback={showDeleteAccount} disabled={!allowedTo || currentDefault} />
             </ButtonRow>
         </>
     )
@@ -108,11 +123,10 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
 
 
 export function AddAccountModal({ group, gid, user, callback }) {
-    
+
     var allowedTo = false;
     if (group && user) allowedTo = group.isOwner || user.auth.isDeveloper;
 
-    const modal = useModal();
     const { t } = useTranslation();
     const queryClient = useQueryClient();
 
@@ -120,6 +134,8 @@ export function AddAccountModal({ group, gid, user, callback }) {
     const [remid, setRemid] = useState("");
     const [defaultCookie, setDefaultCookie] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
+    const [supportedGame, setSupportedGame] = useState("bf1");
+
 
     const addCookies = useMutation(
         variables => OperationsApi.addCookie(variables),
@@ -154,26 +170,38 @@ export function AddAccountModal({ group, gid, user, callback }) {
                 {t("cookie.sid")}
             </h5>
             <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
-
+            <h5>
+                {t("cookie.check")}
+            </h5>
+            <ButtonRow>
+                <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={supportedGame} onChange={(e) => setSupportedGame(e.target.value)}>
+                    {supportedGames.map((element, index) => {
+                        return (
+                            <option key={index} value={element}>{t(`games.${element}`)}</option>
+                        )
+                    })}
+                </select>
+            </ButtonRow>
             <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
             <ButtonRow>
                 <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
             </ButtonRow>
             <ButtonRow>
-            {
-                (group && (sid !== "" && remid !== "")) ? (
+                {
+                    (group && (sid !== "" && remid !== "")) ? (
                         <Button name={t("cookie.add")} disabled={!allowedTo || applyStatus !== null} callback={
                             _ => addCookies.mutate(
                                 {
                                     gid: gid,
                                     sid: sid,
                                     remid: remid,
-                                    defaultCookie: defaultCookie
+                                    defaultCookie: defaultCookie,
+                                    supportedGame: supportedGame
                                 }
                             )
                         } status={applyStatus} />
-                ) : ""
-            }
+                    ) : ""
+                }
             </ButtonRow>
         </>
     )
@@ -219,7 +247,7 @@ export function GroupGlobalUnbanPlayer(props) {
             }
         )
     }
-    
+
 
     const isDisabled =
         reason === "" ||
@@ -230,8 +258,8 @@ export function GroupGlobalUnbanPlayer(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>{t("server.vUnbanMenu.main", {name: props.eaid})} </h2>
-            <h5 style={{maxWidth: "300px"}} >{t("server.vUnbanMenu.reasonDescription")}</h5>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.vUnbanMenu.main", { name: props.eaid })} </h2>
+            <h5 style={{ maxWidth: "300px" }} >{t("server.vUnbanMenu.reasonDescription")}</h5>
             <TextInput value={reason} name={t("server.vUnbanMenu.reason")} callback={(e) => checkReason(e.target.value)} />
             <ButtonRow>
                 <Button
@@ -287,7 +315,7 @@ export function GroupRemoveAccount(props) {
             }
         )
     }
-    
+
 
     const isDisabled =
         removeApplyStatus !== null ||
@@ -295,7 +323,7 @@ export function GroupRemoveAccount(props) {
 
     return (
         <>
-            <h2 style={{ marginLeft: "20px" }}>{t("cookie.removeMenu.main", {name: cookie.username})} </h2>
+            <h2 style={{ marginLeft: "20px" }}>{t("cookie.removeMenu.main", { name: cookie.username })} </h2>
             <ButtonRow>
                 <Button
                     name={t("cookie.removeMenu.confirm")}

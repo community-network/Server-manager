@@ -50,7 +50,7 @@ export function Server(props) {
         }
     ];
 
-    if (server && server.game === "bf1") {
+    if (runningGame && runningGame.data.length > 0 && runningGame.data[0].game === "bf1") {
         const extra = [
             {
                 name: t("server.vipList.main"),

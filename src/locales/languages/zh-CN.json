@@ -27,6 +27,7 @@
         "bf2042": "战地 2042 (早期测试)"
     },
     "cookie": {
+        "check": "选择一个游戏，cookie支持检查它是否有效",
         "invalid": "错误：你当前的cookie无效",
         "remid": "REMID cookie",
         "sidDescription": "Session cookies可以在此处被找到 ",

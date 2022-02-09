@@ -236,7 +236,7 @@ export class ApiProvider extends JsonClient {
         return devGroups;
     }
 
-    async addGroup({ groupName, discordId, modRole, adminRole, sid, remid }) {
+    async addGroup({ groupName, discordId, modRole, adminRole, sid, remid, supportedGame }) {
         return await this.postJsonMethod("addgroup", {
             "groupname": groupName,
             "adminroleid": adminRole,
@@ -244,6 +244,7 @@ export class ApiProvider extends JsonClient {
             "modroleid": modRole,
             "remid": remid,
             "sid": sid,
+            "supportedgame": supportedGame,
         });
     }
 
@@ -253,22 +254,24 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async addCookie({ gid, sid, remid, defaultCookie }) {
+    async addCookie({ gid, sid, remid, defaultCookie, supportedGame }) {
         return await this.postJsonMethod("addcookie", {
             "sid": sid,
             "remid": remid,
             "groupid": gid,
-            "defaultcookie": defaultCookie
+            "defaultcookie": defaultCookie,
+            "supportedgame": supportedGame
         })
     }
 
-    async editCookie({ gid, sid, remid, id, defaultCookie }) {
+    async editCookie({ gid, sid, remid, id, defaultCookie, supportedGame }) {
         return await this.postJsonMethod("editcookie", {
             "cookieid": id,
             "sid": sid,
             "remid": remid,
             "groupid": gid,
-            defaultcookie: defaultCookie
+            "defaultcookie": defaultCookie,
+            "supportedgame": supportedGame
         });
     }
 

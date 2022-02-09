@@ -4,11 +4,11 @@ import cryptoRandomString from 'crypto-random-string';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { Redirect, useHistory } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { statusOnlyGames } from "../Globals";
+import { statusOnlyGames, supportedGames } from "../Globals";
 
 import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
-import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow, KeepAliveRow } from "./Group";
+import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, ScrollRow, PageCard, ButtonUrl } from "../components";
 import { ChangeAccountModal, AddAccountModal } from "./Modals";
@@ -41,8 +41,6 @@ export function Group(props) {
                 await queryClient.cancelQueries('groupId' + gid)
                 // Snapshot the previous value
                 const previousGroup = queryClient.getQueryData('groupId' + gid)
-                // Optimistically update to the new value
-                const UTCNow = new Date(Date.now()).toUTCString();
 
                 queryClient.setQueryData('groupId' + gid, old => {
                     old.data[0].admins = old.data[0].admins.filter(admin => admin.id !== uid);
@@ -76,8 +74,6 @@ export function Group(props) {
                 await queryClient.cancelQueries('groupId' + gid)
                 // Snapshot the previous value
                 const previousGroup = queryClient.getQueryData('groupId' + gid)
-                // Optimistically update to the new value
-                const UTCNow = new Date(Date.now()).toUTCString();
 
                 queryClient.setQueryData('groupId' + gid, old => {
                     old.data[0].owners = old.data[0].owners.filter(admin => admin.id !== uid);
@@ -401,7 +397,7 @@ function Seeding(props) {
                 setRejoin(seedingInfo.rejoin);
             }
         }
-    }, [rejoin, seedingInfo]);
+    }, [seedingInfo]);
 
     const isSelected = selected !== undefined;
 
@@ -630,42 +626,9 @@ function GroupServerAccount(props) {
     var hasRights = false;
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.user.auth.isDeveloper;
-    // const queryClient = useQueryClient();
 
-    // const [sid, setSid] = useState("");
-    // const [remid, setRemid] = useState("");
-    // const [applyStatus, setApplyStatus] = useState(null);
     const { t } = useTranslation();
     const modal = useModal();
-
-
-    // useEffect(() => {
-    //     if (props.group) {
-    //         if (remid !== props.group.cookie.remid)
-    //             setRemid(props.group.cookie.remid);
-    //         if (sid !== props.group.cookie.sid)
-    //             setSid(props.group.cookie.sid);
-    //     }
-    // }, [props.group]);
-
-    // const editCookies = useMutation(
-    //     variables => OperationsApi.editGroup(variables),
-    //     {
-    //         onMutate: async () => {
-    //             setApplyStatus(true);
-    //         },
-    //         onSuccess: async () => {
-    //             setApplyStatus(null);
-    //         },
-    //         onError: async () => {
-    //             setApplyStatus(false);
-    //             setTimeout(_ => setApplyStatus(null), 2000);
-    //         },
-    //         onSettled: async () => {
-    //             queryClient.invalidateQueries('groupId' + props.gid);
-    //         }
-    //     }
-    // );
 
     return (
         <>
@@ -861,7 +824,7 @@ function GroupSettings(props) {
         }
 
 
-    }, [props.group, groupState]);
+    }, [props.group]);
 
     const changeGroupState = (v) => {
         setGroupState(s => ({ ...s, ...v }));
@@ -957,8 +920,8 @@ function GroupStatus(props) {
             serverId = props.group.servers[serverNum].id
         }
     }
-    const { error, data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
-    const { serverError, data: serverStats } = useQuery('serverStats' + serverId, () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
+    const { data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
+    const { data: serverStats } = useQuery('serverStats' + serverId, () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
 
     return (
         <div ref={statusRef}>
@@ -1155,8 +1118,6 @@ export function AddGroupOwner(props) {
         }
     );
 
-    const history = useHistory();
-
     return (
         <>
 
@@ -1221,8 +1182,6 @@ export function AddGroupAdmin(props) {
         changeState(newState);
     }
 
-    const history = useHistory();
-
     return (
         <>
             <h2>{t("group.admins.addNew")}</h2>
@@ -1247,6 +1206,7 @@ export function AddGroup(props) {
             modRole: "",
             remid: "",
             sid: "",
+            supportedGame: "bf1",
         },
         roleDisplay: false,
         canAdd: false
@@ -1324,6 +1284,18 @@ export function AddGroup(props) {
                     </h5>
                     <TextInput name={t("cookie.remid")} autocomplete="new-password" autocomplete="off" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
+                        {t("cookie.check")}
+                    </h5>
+                    <ButtonRow>
+                        <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={addGroupState.variables.supportedGame} onChange={(e) => { checkInputVariables({ supportedGame: e.target.value }) }}>
+                            {supportedGames.map((element, index) => {
+                                return (
+                                    <option key={index} value={element}>{t(`games.${element}`)}</option>
+                                )
+                            })}
+                        </select>
+                    </ButtonRow>
+                    <h5 style={{ marginTop: "8px" }}>
                         {t("createGroup.acceptDescription0")}<br />{t("createGroup.acceptDescription1")}
                     </h5>
                     <ButtonRow>
@@ -1339,7 +1311,7 @@ export function AddGroup(props) {
 export function DeleteGroup(props) {
 
     var thisGid = props.match.params.gid;
-    const { error: groupError, data: groups } = useQuery('groupId' + thisGid, () => OperationsApi.getGroup(thisGid), { staleTime: 30000 });
+    const { data: groups } = useQuery('groupId' + thisGid, () => OperationsApi.getGroup(thisGid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const queryClient = useQueryClient();
@@ -1482,7 +1454,7 @@ export function MakeOps(props) {
 
     var gid = props.match.params.gid;
 
-    const { error: groupError, data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    const { data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const [addGroupState, changeState] = useState({
@@ -1497,8 +1469,6 @@ export function MakeOps(props) {
 
     const [applyStatus, setApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
-    const queryClient = useQueryClient();
-    const history = useHistory();
     const { t } = useTranslation();
 
     const SetupOperations = useMutation(
