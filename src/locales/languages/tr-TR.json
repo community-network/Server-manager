@@ -28,12 +28,27 @@
     },
     "cookie": {
         "check": "Geçerli olup olmadığını kontrol etmek için çerezin desteklediği bir oyun seçin",
+        "add": "Sunucu hesabı ekle",
+        "setDefaultCookie": "Varsayılan olarak ayarla",
         "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
         "remid": "REMID tanımlama bilgisi",
         "sidDescription": "Oturum çerezleri şu adreste bulunabilir ",
         "remidDescription": "Hatırlatma oturumu çerezleri şu adreste bulunabilir ",
         "sid": "SID tanımlama bilgisi",
-        "locale": "Dil etiketi"
+        "locale": "Dil etiketi",
+        "delete": "Sunucu hesabı sil",
+        "status": {
+            "loading": "Hesap durumu güncelleniyor..",
+            "pending": "Bu hesap için bekleyen bir durum var"
+        },
+        "accountType": {
+            "default": "Varsayılan hesap",
+            "extra": "Ekstra hesap"
+        },
+        "removeMenu": {
+            "main": "\"{{name}}\" hizmet hesabını kaldırmak istediğinizden emin misiniz?",
+            "confirm": "Hesabı kaldır"
+        } 
     },
     "serverStatus": {
         "pending": "Bekleme durumu",
