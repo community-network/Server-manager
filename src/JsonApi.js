@@ -1,5 +1,5 @@
 
-const MODE = "prod";
+const MODE = process.env.MODE || "local";
 
 const endPoints = {
     local: "https://localhost:5051/api/",
