@@ -399,6 +399,7 @@
     "server": {
         "main": "Sunucu paneli",
         "playerName": "Oyuncu ismi",
+        "ago": "önce",
         "action": {
             "kick": "AT",
             "move": "Taşı",
