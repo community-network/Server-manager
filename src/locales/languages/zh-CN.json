@@ -28,13 +28,15 @@
     },
     "gamemodes": {
         "FRONTLINES": "前线",
-        "DOMINATION": "控制",
+        "DOMINATION": "抢攻",
         "SHOCK OPERATIONS": "突破行动",
-        "RUSH": "冲突",
-        "CONQUEST": "小型征服",
+        "RUSH": "突袭",
+        "CONQUEST": "征服",
         "WAR PIGEONS": "战争信鸽",
         "OPERATIONS": "行动",
-        "TEAM DEATHMATCH": "团队死斗"
+        "TEAM DEATHMATCH": "团队死斗",
+        "SUPPLY DROP": "空降补给",
+        "AIR ASSAULT": "空中突袭"
     },
     "cookie": {
         "check": "选择一个游戏，cookie支持检查它是否有效",
