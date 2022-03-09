@@ -26,6 +26,16 @@
         "bfv": "战地 5 (只战绩机器人)",
         "bf2042": "战地 2042 (早期测试)"
     },
+    "gamemodes": {
+        "FRONTLINES": "前线",
+        "DOMINATION": "控制",
+        "SHOCK OPERATIONS": "突破行动",
+        "RUSH": "冲突",
+        "CONQUEST": "小型征服",
+        "WAR PIGEONS": "战争信鸽",
+        "OPERATIONS": "行动",
+        "TEAM DEATHMATCH": "团队死斗"
+    },
     "cookie": {
         "check": "选择一个游戏，cookie支持检查它是否有效",
         "invalid": "错误：你当前的cookie无效",

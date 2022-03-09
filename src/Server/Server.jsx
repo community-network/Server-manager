@@ -101,7 +101,7 @@ export function ServerRotation(props) {
                 <img className={styles.serverImage} alt="Server map" src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading")}</span>
-                    <SmallText>{(game) ? `${game.map} - ${game.mode} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
+                    <SmallText>{(game) ? `${game.map} - ${t(`gamemodes.${game.mode}`)} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
                     {width > 400 ?
                         <>
                             <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} ago</span>
@@ -122,7 +122,7 @@ export function ServerRotation(props) {
                         <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
                             <option value="">{t("server.game.mapSwitch")}</option>
                             {(game) ? game.rotation.map((value, i) =>
-                                <option value={value.index} key={i}>{value.mapname} - {value.mode}</option>
+                                <option value={value.index} key={i}>{value.mapname} - {t(`gamemodes.${value.mode}`)}</option>
                             ) : ""}
                         </select>
                         {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}

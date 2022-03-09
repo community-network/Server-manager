@@ -26,6 +26,16 @@
         "bfv": "Battlefield 5 (statusbot only)",
         "bf2042": "Battlefield 2042 (Early beta)"
     },
+    "gamemodes": {
+        "FRONTLINES": "Frontlines",
+        "DOMINATION": "Domination",
+        "SHOCK OPERATIONS": "Shock operations",
+        "RUSH": "Rush",
+        "CONQUEST": "Conquest",
+        "WAR PIGEONS": "War pigeons",
+        "OPERATIONS": "Operations",
+        "TEAM DEATHMATCH": "Team deathmatch"
+    },
     "cookie": {
         "check": "Select a game the cookie supports to check if valid",
         "add": "Add server account",

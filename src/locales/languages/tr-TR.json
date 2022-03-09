@@ -26,6 +26,16 @@
         "bfv": "Battlefield 5 (sadece durum botu)",
         "bf2042": "Battlefield 2042 (Erken erişim)"
     },
+    "gamemodes": {
+        "FRONTLINES": "Cephe hattı",
+        "DOMINATION": "Üstünlük",
+        "SHOCK OPERATIONS": "Şok operasyon",
+        "RUSH": "Akın",
+        "CONQUEST": "Fetih",
+        "WAR PIGEONS": "Savaş güvencini",
+        "OPERATIONS": "Operasyon",
+        "TEAM DEATHMATCH": "Ölüm karşılaşması"
+    },
     "cookie": {
         "check": "Geçerli olup olmadığını kontrol etmek için çerezin desteklediği bir oyun seçin",
         "add": "Sunucu hesabı ekle",

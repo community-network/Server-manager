@@ -26,6 +26,16 @@
         "bfv": "Battlefield 5 (alleen statusbot)",
         "bf2042": "Battlefield 2042 (vroege beta)"
     },
+    "gamemodes": {
+        "FRONTLINES": "Frontlines",
+        "DOMINATION": "Domination",
+        "SHOCK OPERATIONS": "Shock operations",
+        "RUSH": "Rush",
+        "CONQUEST": "Conquest",
+        "WAR PIGEONS": "War pigeons",
+        "OPERATIONS": "Operations",
+        "TEAM DEATHMATCH": "Team deathmatch"
+    },
     "cookie": {
         "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
         "remid": "REMID cookie",
