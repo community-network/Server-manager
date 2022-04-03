@@ -559,6 +559,25 @@ export function KeepAliveRow(props) {
     );
 }
 
+export function ServerAliasRow(props) {
+    const serveralias = props.servername;
+    const serverId = props.serverId
+    const currentServer = props.serveraliasinfo[serveralias]
+
+    if (currentServer !== undefined) {
+        return (
+            <div className={styles.SeedRow}>
+                <span className={styles.seedingRow}>{serverId}</span>
+                <a style={{ textDecoration: "initial" }} href={`https://gametools.network/servers/bf1/name/${encodeURIComponent(serveralias)}/pc`} target="_blank" rel="noreferrer">
+                    <span className={styles.serverBadgeOk}>{serveralias}</span>
+                </a>
+                <span style={{marginLeft: "20px"}} className={styles.seedingRow}>{currentServer.joined}/{currentServer.joined + currentServer.other} Seeders</span>
+            </div>
+        );
+    } 
+    return <></>;
+}
+
 
 export function DelKeepAlive(props) {
     const { t } = useTranslation();

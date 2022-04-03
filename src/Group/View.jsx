@@ -8,7 +8,7 @@ import { statusOnlyGames, supportedGames } from "../Globals";
 
 import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
-import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow } from "./Group";
+import { ServerRow, GameStatsAd, VBanList, GroupLogs, WorkerStatus, SeederStRow, SeederStCustom, EmptyRow, SeederRow, ServerAliasRow } from "./Group";
 
 import { Switch, useModal, Column, Card, Header, ButtonLink, ButtonRow, Button, UserStRow, Row, FakeUserStRow, TextInput, ScrollRow, PageCard, ButtonUrl } from "../components";
 import { ChangeAccountModal, AddAccountModal } from "./Modals";
@@ -366,6 +366,7 @@ function Seeding(props) {
     const [selected, setSelected] = useState();
     const [customServerName, setCustomServerName] = useState("");
     const [broadcast, setBroadcast] = useState("");
+    const [serverAliases, setServerAliases] = useState({});
 
     const [hour, setHour] = useState(7);
     const [minute, setMinute] = useState(0);
@@ -375,8 +376,8 @@ function Seeding(props) {
     if (props.group && props.user) hasRights = props.group.isOwner || props.group.isAdmin || props.user.auth.isDeveloper;
     const { data: seedingInfo } = useQuery('seeding' + props.gid, () => OperationsApi.getSeeding(props.gid), { staleTime: 30000 });
     const { data: seeders } = useQuery('seeders' + props.gid, () => OperationsApi.getSeeders(props.gid), { staleTime: 30000 });
+    const { data: serverAliasNames } = useQuery('serveraliasname' + props.gid, () => OperationsApi.getServerAliases(props.gid), { staleTime: 30000 });
     const queryClient = useQueryClient();
-
     const fakeListing = [1, 1, 1];
 
     let ingameAmount = 0;
@@ -396,8 +397,28 @@ function Seeding(props) {
             if (rejoin === undefined) {
                 setRejoin(seedingInfo.rejoin);
             }
+
+            if (serverAliasNames && seeders) {
+                let seederlist = {}
+
+                seeders.seeders.map((value, i) => (
+                    seederlist[value.seederName] = value.isRunning
+                ))
+
+                let serverAlias = {};
+                Object.entries(serverAliasNames).map(([key, value], i) => serverAlias[value] = {joined: 0, other: 0})
+                Object.entries(seedingInfo.keepAliveSeeders).map(([key, value], i) => (
+                    seederlist[key] ? (
+                        serverAlias[value.serverName].joined += 1
+                    ) : (
+                        serverAlias[value.serverName].other += 1
+                    )
+                ))
+
+                setServerAliases(serverAlias)
+            }
         }
-    }, [seedingInfo]);
+    }, [seedingInfo, serverAliasNames]);
 
     const isSelected = selected !== undefined;
 
@@ -553,6 +574,22 @@ function Seeding(props) {
                 )
             }
         </div>
+        {
+            (serverAliasNames) ? (
+                <>
+                    <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>Keepalive server list</h2>
+                    <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+                        {
+                            Object.entries(serverAliasNames).map(([key, value], i) => (
+                                (key !== "groupId") ? (
+                                    <ServerAliasRow servername={value} serverId={key} key={i} serveraliasinfo={serverAliases} />
+                                ) : (<div key={i}></div>)
+                            ))
+                        }
+                    </div>
+                </>
+            ) : (<></>)
+        }
     </>;
 }
 
