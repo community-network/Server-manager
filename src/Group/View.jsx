@@ -367,6 +367,7 @@ function Seeding(props) {
     const [customServerName, setCustomServerName] = useState("");
     const [broadcast, setBroadcast] = useState("");
     const [serverAliases, setServerAliases] = useState({});
+    const [notJoining, setNotJoining] = useState("");
 
     const [hour, setHour] = useState(7);
     const [minute, setMinute] = useState(0);
@@ -399,7 +400,8 @@ function Seeding(props) {
             }
 
             if (serverAliasNames && seeders) {
-                let seederlist = {}
+                let seederlist = {};
+                let playerNotJoining = "";
 
                 seeders.seeders.map((value, i) => (
                     seederlist[value.seederName] = value.isRunning
@@ -411,10 +413,12 @@ function Seeding(props) {
                     seederlist[key] ? (
                         serverAlias[value.serverName].joined += 1
                     ) : (
-                        serverAlias[value.serverName].other += 1
+                        serverAlias[value.serverName].other += 1,
+                        playerNotJoining += `${key}, `
                     )
                 ))
 
+                setNotJoining(playerNotJoining)
                 setServerAliases(serverAlias)
             }
         }
@@ -587,6 +591,7 @@ function Seeding(props) {
                             ))
                         }
                     </div>
+                    <h5 style={{ marginBottom: "4px", marginTop: "16px" }}>Failed to multialive:<br />{notJoining}</h5>
                 </>
             ) : (<></>)
         }
