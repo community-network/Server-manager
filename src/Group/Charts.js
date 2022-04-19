@@ -1,5 +1,13 @@
 import React from 'react';
-import { Pie, Line, Chart } from 'react-chartjs-2';
+import { Pie, Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    ArcElement,
+    LinearScale,
+    TimeScale,
+    PointElement,
+    LineElement,
+  } from "chart.js";
 import "chartjs-adapter-date-fns";
 import zoomPlugin from "chartjs-plugin-zoom";
 import { useTranslation } from 'react-i18next';
@@ -7,7 +15,12 @@ import { Button, ButtonRow } from "../components";
 
 import styles from "./Group.module.css";
 
-Chart.register(zoomPlugin);
+ChartJS.register(zoomPlugin);
+ChartJS.register(ArcElement);
+ChartJS.register(TimeScale);
+ChartJS.register(LinearScale);
+ChartJS.register(PointElement);
+ChartJS.register(LineElement);
 
 export function StatsPieChart(props) {
     const { t } = useTranslation();
