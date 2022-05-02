@@ -11,9 +11,10 @@ import '../locales/config';
 import styles from "./Group.module.css";
 
 import { TextInput, Button, ButtonRow, IconSelected, IconNotSelected } from "../components/Buttons";
-import { Tag, useModal } from "../components/Card";
+import { useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
 import { DynamicSort } from "../components/Functions";
+import { ClickableHead } from "../components/Table";
 
 export function GroupRow(props) {
     const { t } = useTranslation();
@@ -206,11 +207,11 @@ export function VBanList(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_=>setSorting("playerName")}>{t("group.vban.table.playerName")}</th>
-                        <th onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</th>
-                        <th onClick={_=>setSorting("reason")}>{t("group.vban.table.reason")}</th>
-                        <th onClick={_=>setSorting("admin")}>{t("group.vban.table.admin")}</th>
-                        <th onClick={_=>setSorting("-unixTimeStamp")}>{t("group.vban.table.timestamp")}</th>
+                        <ClickableHead current={sorting==="playerName"} onClick={_=>setSorting("playerName")}>{t("group.vban.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="reason"} onClick={_=>setSorting("reason")}>{t("group.vban.table.reason")}</ClickableHead>
+                        <ClickableHead current={sorting==="admin"} onClick={_=>setSorting("admin")}>{t("group.vban.table.admin")}</ClickableHead>
+                        <ClickableHead current={sorting==="-unixTimeStamp"} onClick={_=>setSorting("-unixTimeStamp")}>{t("group.vban.table.timestamp")}</ClickableHead>
                         <th></th>
                     </thead>
                     <tbody>

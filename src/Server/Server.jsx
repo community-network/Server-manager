@@ -10,6 +10,7 @@ import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
 import { DynamicSort } from "../components/Functions";
 import { Row } from "../components/Flex";
 import { useModal } from "../components/Card";
+import { ClickableHead } from "../components/Table";
 
 
 import { OperationsApi } from "../api";
@@ -197,12 +198,12 @@ export function BanList(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_ => setSorting("displayName")}>{t("server.banList.table.playerName")}</th>
-                        <th onClick={_ => setSorting("id")}>{t("server.banList.table.playerId")}</th>
-                        <th onClick={_ => setSorting("-reason")}>{t("server.banList.table.reason")}</th>
-                        <th onClick={_ => setSorting("-admin")}>{t("server.banList.table.admin")}</th>
-                        <th onClick={_ => setSorting("-unixBanTimeStamp")}>{t("server.banList.table.until")}</th>
-                        <th onClick={_ => setSorting("-unixBanUntilTimeStamp")}>{t("server.banList.table.timestamp")}</th>
+                        <ClickableHead current={sorting==="displayName"} onClick={_ => setSorting("displayName")}>{t("server.banList.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="id"} onClick={_ => setSorting("id")}>{t("server.banList.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="-reason"} onClick={_ => setSorting("-reason")}>{t("server.banList.table.reason")}</ClickableHead>
+                        <ClickableHead current={sorting==="-admin"} onClick={_ => setSorting("-admin")}>{t("server.banList.table.admin")}</ClickableHead>
+                        <ClickableHead current={sorting==="-unixBanTimeStamp"} onClick={_ => setSorting("-unixBanTimeStamp")}>{t("server.banList.table.until")}</ClickableHead>
+                        <ClickableHead current={sorting==="-unixBanUntilTimeStamp"} onClick={_ => setSorting("-unixBanUntilTimeStamp")}>{t("server.banList.table.timestamp")}</ClickableHead>
                         <th></th>
                     </thead>
                     <tbody>
@@ -272,9 +273,9 @@ export function FireStarter(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_ => setSorting("playerName")}>{t("server.firestarterList.table.playerName")}</th>
-                        <th onClick={_ => setSorting("playerId")}>{t("server.firestarterList.table.playerId")}</th>
-                        <th onClick={_ => setSorting("-amount")}>{t("server.firestarterList.table.amount")}</th>
+                        <ClickableHead current={sorting==="playerName"} onClick={_ => setSorting("playerName")}>{t("server.firestarterList.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="playerId"} onClick={_ => setSorting("playerId")}>{t("server.firestarterList.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="-amount"} onClick={_ => setSorting("-amount")}>{t("server.firestarterList.table.amount")}</ClickableHead>
                     </thead>
                     <tbody>
                         {
@@ -308,10 +309,13 @@ export function PlayTime(props) {
     const { isError, data: playTimeList, error } = useQuery('playTimeList' + sid, () => OperationsApi.getPlayTimeList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("-timePlayed");
 
     if (!playTimeList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        playTimeList.data = playTimeList.data.sort(DynamicSort(sorting));
     }
 
     if (isError) {
@@ -330,9 +334,9 @@ export function PlayTime(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>{t("server.playTimeList.table.playerName")}</th>
-                        <th>{t("server.playTimeList.table.playerId")}</th>
-                        <th>{t("server.playTimeList.table.timePlayed")}</th>
+                        <ClickableHead current={sorting==="name"} onClick={_ => setSorting("name")}>{t("server.playTimeList.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="playerId"} onClick={_ => setSorting("playerId")}>{t("server.playTimeList.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="-timePlayed"} onClick={_ => setSorting("-timePlayed")}>{t("server.playTimeList.table.timePlayed")}</ClickableHead>
                     </thead>
                     <tbody>
                         {
@@ -399,9 +403,9 @@ export function Spectator(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th onClick={_ => setSorting("name")}>{t("server.spectatorList.table.playerName")}</th>
-                        <th onClick={_ => setSorting("playerId")}>{t("server.spectatorList.table.playerId")}</th>
-                        <th onClick={_ => setSorting("-unixTimeStamp")}>{t("server.spectatorList.table.time")}</th>
+                        <ClickableHead current={sorting==="name"} onClick={_ => setSorting("name")}>{t("server.spectatorList.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="playerId"} onClick={_ => setSorting("playerId")}>{t("server.spectatorList.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="-unixTimeStamp"} onClick={_ => setSorting("-unixTimeStamp")}>{t("server.spectatorList.table.time")}</ClickableHead>
                     </thead>
                     <tbody>
                         {
@@ -475,6 +479,7 @@ function PlayerLogInfo(props) {
     const playerLogList = props.data
     const [dateIndex, setDateIndex] = useState(0);
     const [searchWord, setSearchWord] = useState("");
+    const [sorting, setSorting] = useState("name");
 
     if (props.isError) {
         return `Error, no info found for that playername`
@@ -483,9 +488,9 @@ function PlayerLogInfo(props) {
     if (!playerLogList) {
         // TODO: add fake item list on loading
         return t("loading");
+    } else {
+        playerLogList.data = playerLogList.data.sort(DynamicSort(sorting));
     }
-
-    playerLogList.data.sort((a, b) => b.amount - a.amount);
 
     let arrowLeft = (
         <svg className={styles.uiIcion} viewBox="0 0 24 24">
@@ -521,10 +526,10 @@ function PlayerLogInfo(props) {
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
-                        <th>{t("server.playerLogs.table.playerName")}</th>
-                        <th>{t("server.playerLogs.table.playerId")}</th>
-                        <th>{t("server.playerLogs.table.ping")}</th>
-                        <th>{t("server.playerLogs.table.role")}</th>
+                        <ClickableHead current={sorting==="name"} onClick={_ => setSorting("name")}>{t("server.playerLogs.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="playerId"} onClick={_ => setSorting("playerId")}>{t("server.playerLogs.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="-ping"} onClick={_ => setSorting("-ping")}>{t("server.playerLogs.table.ping")}</ClickableHead>
+                        <ClickableHead current={sorting==="role"} onClick={_ => setSorting("role")}>{t("server.playerLogs.table.role")}</ClickableHead>
                     </thead>
                     <tbody>
                         {
@@ -604,8 +609,8 @@ export function VipList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th onClick={_ => setSorting("displayName")}>{t("server.vipList.table.playerName")}</th>
-                            <th onClick={_ => setSorting("id")}>{t("server.vipList.table.playerId")}</th>
+                            <ClickableHead current={sorting==="displayName"} onClick={_ => setSorting("displayName")}>{t("server.vipList.table.playerName")}</ClickableHead>
+                            <ClickableHead current={sorting==="id"} onClick={_ => setSorting("id")}>{t("server.vipList.table.playerId")}</ClickableHead>
                             <th></th>
                         </tr>
                     </thead>
@@ -680,8 +685,8 @@ export function AdminList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <tr>
-                            <th onClick={_ => setSorting("displayName")}>{t("server.adminList.table.playerName")}</th>
-                            <th onClick={_ => setSorting("id")}>{t("server.adminList.table.playerId")}</th>
+                            <ClickableHead current={sorting==="displayName"} onClick={_ => setSorting("displayName")}>{t("server.adminList.table.playerName")}</ClickableHead>
+                            <ClickableHead current={sorting==="id"} onClick={_ => setSorting("id")}>{t("server.adminList.table.playerId")}</ClickableHead>
                         </tr>
                     </thead>
                     <tbody>
