@@ -5,8 +5,139 @@ import styles from "./Styles.module.css";
 
 import { ButtonRow, Button, TextInput, ButtonUrl, ButtonLink } from "../components";
 import { OperationsApi } from "../api";
+import { bf1Maps, bf1Modes } from "../Globals";
+import { set } from "date-fns/esm";
 
+export function IngameSettings(props) {
+    var allowedTo = false;
+    if (props.server) allowedTo = true;
+    const queryClient = useQueryClient();
+    const [canApply, setCanApply] = useState(false);
+    const [maps, setMaps] = useState([]);
+    const [originalMaps, setOriginalMaps] = useState([]);
+    const [cookie, setCookie] = useState("")
+    const [cookieSid, setCookieSid] = useState("")
+    const [cookieRemid, setCookieRemid] = useState("")
+    const [applyStatus, setApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
+    const sid = props.sid;
+    const { t } = useTranslation();
+    const { error: cookieError, data: cookieInfo } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
+    var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
+
+    const editOwnerSettings = useMutation(
+        variables => OperationsApi.editOwnerSever(variables),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async (error) => {
+                setApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('servers' + props.sid);
+            }
+        }
+    );
+
+    // set initial
+    useEffect(() => {
+        if (props.game) {
+            setMaps(JSON.parse(JSON.stringify(props.game.data[0].info.rotation)));
+            setOriginalMaps(props.game.data[0].info.rotation.slice());
+        }
+    }, []);
+    // set if cookies available
+    useEffect(() => {
+        if (cookies) {
+            setCookie(cookies[0].id)
+        }
+    }, [cookies])
+    // check if allowed to apply
+    useEffect(() => {
+        let newCanApply = false;
+        for (var i in originalMaps) {
+            newCanApply |= JSON.stringify(maps[i]) !== JSON.stringify(originalMaps[i]);
+        }
+        for (var i in maps) {
+            newCanApply |= JSON.stringify(maps[i]) !== JSON.stringify(originalMaps[i]);
+        }
+        setCanApply(newCanApply);
+    }, [maps, originalMaps]);
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.ingameSettings.main")}</h2>
+            <h5 style={{ marginTop: "8px" }}>{t("server.ingameSettings.rotation")}</h5>
+            {maps.map((element, index) => {
+                        return (
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                alignContent: "center",
+                                flexWrap: "wrap"
+                            }}>
+                                <select style={{ marginLeft: "0" }} onChange={e => {const current = [...maps]; current[index].mapname = e.target.value; setMaps(current)}} className={styles.SwitchGame}>
+                                    {bf1Maps.map((name, index) => <option key={index} selected={element.mapname === name} value={name}>{name}</option>)}
+                                </select>
+                        
+                                <select style={{ marginLeft: "0" }} onChange={e => {const current = [...maps]; current[index].mode = e.target.value; setMaps(current)}} className={styles.SwitchGame}>
+                                    {bf1Modes.map((name, index) => <option key={index} selected={element.mode === name} value={name}>{name}</option>)}
+                                </select>
+                        
+                                <Button style={{ marginLeft: "0" }} name={t("server.ingameSettings.removeMap")} callback={_ => {const current = [...maps]; current.splice(index, 1); setMaps(current)}} />
+                            </div>
+                        )
+                    })
+            }
+            <ButtonRow>
+                <Button style={{ marginLeft: "0" }} name={t("server.ingameSettings.addMap")} callback={_ => setMaps(maps => [...maps, {mapname: bf1Maps[0], mode: bf1Modes[0]}])} />
+            </ButtonRow>
+
+            <h5 style={{ marginTop: "8px" }}>{t("server.ingameSettings.cookie")}</h5>
+            <ButtonRow>
+                {cookies ?
+                    <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => setCookie(e.target.value)}>
+                        <option value="">{t("cookie.accountType.default")}</option>
+                        {cookies.map((key, index) => <option key={index} selected={cookie === key.id} value={key.id}>{key.name}</option>)}
+                    </select>
+                    : ""}
+            </ButtonRow>
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => setCookieSid(e.target.value)}
+                defaultValue={cookieSid}
+                name={t("cookie.sid")}
+            />
+            <TextInput
+                disabled={!allowedTo}
+                callback={(e) => setCookieRemid(e.target.value)}
+                defaultValue={cookieRemid}
+                name={t("cookie.remid")}
+            />
+
+            <ButtonRow>
+                {
+                    (props.server && canApply) ? (
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editOwnerSettings.mutate(
+                                {sid: cookieSid, remid: cookieRemid, cookieid: cookie, serverid: sid, maps: maps}
+                            )
+                        } status={applyStatus} />
+                    ) : ""
+                }
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    )
+}
 
 export function ServerSettings(props) {
     const ownerIdGames = ["bfv", "bf2042"]

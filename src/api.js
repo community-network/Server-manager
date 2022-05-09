@@ -396,6 +396,30 @@ export class ApiProvider extends JsonClient {
         }
     }
 
+    async editOwnerSever({sid, remid, cookieid, serverid, maps}) {
+        console.log(maps);
+        if (sid === "" || remid === "") {
+            sid = undefined;
+            remid = undefined;
+        } else {
+            cookieid = undefined;
+        }
+        const sendMaps = []
+        maps.forEach(element => {
+            sendMaps.push({"gameMode": element.mode, "mapName": element.mapname})
+        });
+        var answer = await this.postJsonMethod("changeownerserver", {
+            "sid": sid,
+            "remid": remid,
+            "cookieid": cookieid,
+            "serverid": serverid,
+            "maps": sendMaps
+        });
+        if ("error" in answer) {
+            throw new Error(answer.error.message)
+        }
+    }
+
 
     async restartWorker({ sid }) {
         var answer = await this.postJsonMethod("restartworker", {

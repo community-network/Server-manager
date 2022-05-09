@@ -445,6 +445,13 @@
             "addVip": "Add vip",
             "removeVip": "Remove vip"
         },
+        "ingameSettings": {
+            "main": "Ingame settings",
+            "rotation": "Change the server rotation",
+            "addMap": "Add another map",
+            "removeMap": "Remove",
+            "cookie": "Cookie used to make the server changes, both cookies set in manager and sid/remid are possible:"
+        },
         "game": {
             "main": "Current game",
             "info": "[{{inQue}}] players",

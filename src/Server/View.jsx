@@ -12,7 +12,7 @@ import { Switch, Column, Header, ButtonRow, ButtonLink, Button, PageCard, Row, T
 
 import '../locales/config';
 
-import { ServerSettings } from "./Settings";
+import { ServerSettings, IngameSettings } from "./Settings";
 import { useServer, useGame } from "./Manager";
 
 import Console from "./Console";
@@ -53,6 +53,10 @@ export function Server(props) {
     if (runningGame && runningGame.data.length > 0 && runningGame.data[0].game === "bf1") {
         const extra = [
             {
+                name: t("server.ingameSettings.main"),
+                callback: () => setTabsListing("ingameSettings"),
+            },
+            {
                 name: t("server.vipList.main"),
                 callback: () => setTabsListing("viplist"),
             },
@@ -91,15 +95,16 @@ export function Server(props) {
                 <ServerRotation game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} />
             </ServerInfoHolder>
         ),
-        banlist:     <BanList sid={sid} />,
-        viplist:     <VipList sid={sid} />,
-        adminlist:   <AdminList sid={sid} />,
-        firestarter: <FireStarter sid={sid} />,
-        playtime:    <PlayTime sid={sid} />,
-        spectator:   <Spectator sid={sid} />,
-        playerlogs:  <Playerlogs sid={sid} />,
-        protection:  <ServerAutomation server={server} sid={sid} />,
-        settings:    <ServerSettings server={server} sid={sid} />,
+        banlist:        <BanList sid={sid} />,
+        viplist:        <VipList sid={sid} />,
+        adminlist:      <AdminList sid={sid} />,
+        firestarter:    <FireStarter sid={sid} />,
+        playtime:       <PlayTime sid={sid} />,
+        spectator:      <Spectator sid={sid} />,
+        playerlogs:     <Playerlogs sid={sid} />,
+        protection:     <ServerAutomation server={server} sid={sid} />,
+        settings:       <ServerSettings server={server} sid={sid} />,
+        ingameSettings: <IngameSettings server={server} game={runningGame} sid={sid} />
     }
 
     return (
