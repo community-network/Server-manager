@@ -7,6 +7,7 @@ import {
     TimeScale,
     PointElement,
     LineElement,
+    Tooltip,
   } from "chart.js";
 import "chartjs-adapter-date-fns";
 import zoomPlugin from "chartjs-plugin-zoom";
@@ -15,12 +16,15 @@ import { Button, ButtonRow } from "../components";
 
 import styles from "./Group.module.css";
 
-ChartJS.register(zoomPlugin);
-ChartJS.register(ArcElement);
-ChartJS.register(TimeScale);
-ChartJS.register(LinearScale);
-ChartJS.register(PointElement);
-ChartJS.register(LineElement);
+ChartJS.register(
+    zoomPlugin, 
+    ArcElement, 
+    TimeScale, 
+    LinearScale, 
+    PointElement, 
+    LineElement, 
+    Tooltip
+);
 
 export function StatsPieChart(props) {
     const { t } = useTranslation();
