@@ -3,7 +3,7 @@ import { useMeasure } from 'react-use';
 import { Link, useHistory } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import { GroupGlobalUnbanPlayer } from "./Modals";
+import { GroupGlobalUnbanPlayer, GroupRemoveExclusionPlayer } from "./Modals";
 import { supportedGames } from "../Globals";
 
 import { OperationsApi } from "../api";
@@ -202,7 +202,7 @@ export function VBanList(props) {
             </h5>
             <ButtonRow>
                 <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
-                <Button name="Add ban" callback={_ => modal.show(<VbanBanPlayer gid={gid}/>)} />
+                <Button name={t("group.vban.add")} callback={_ => modal.show(<VbanBanPlayer gid={gid}/>)} />
             </ButtonRow>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -602,6 +602,147 @@ export function DelKeepAlive(props) {
                     AddGroupAdminExecute.mutate({ serverId: props.sid, hostname: props.hostname });
                     props.callback();
                 }} />
+            </ButtonRow>
+        </>
+    );
+}
+
+
+export function ExclusionList(props) {
+    const gid = props.gid;
+    const { isError, data: excludeList, error } = useQuery('globalExclusionList' + gid, () => OperationsApi.getExcludedPlayers({ gid }));
+
+    const [sorting, setSorting] = useState("-unixTimeStamp");
+    const [searchWord, setSearchWord] = useState("");
+    const { t } = useTranslation();
+
+    const modal = useModal();
+    const showRemoveExclusion = e => {
+        let playerInfo = e.target.dataset
+        modal.show(
+            <GroupRemoveExclusionPlayer 
+                gid={gid} 
+                eaid={playerInfo.name} 
+                playerId={playerInfo.id}
+            />
+        );
+    }
+
+    if (!excludeList) {
+        // TODO: add fake item list on loading
+        return "Loading..";
+    } else {
+        excludeList.data = excludeList.data.sort(DynamicSort(sorting));
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    return (
+        <div>
+            <h2>{t("group.exclusions.main")}</h2>
+            <h5>
+                {t("group.exclusions.description0")} <b>{t("group.exclusions.description1", {number: excludeList.data.length})}</b>.
+            </h5>
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <Button name={t("group.exclusions.add")} callback={_ => modal.show(<ExclusionPlayer gid={gid}/>)} />
+            </ButtonRow>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <thead style={{ position: "sticky", top: "0" }}>
+                        <ClickableHead current={sorting==="playerName"} onClick={_=>setSorting("playerName")}>{t("group.exclusions.table.playerName")}</ClickableHead>
+                        <ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.exclusions.table.playerId")}</ClickableHead>
+                        <ClickableHead current={sorting==="reason"} onClick={_=>setSorting("reason")}>{t("group.exclusions.table.reason")}</ClickableHead>
+                        <ClickableHead current={sorting==="admin"} onClick={_=>setSorting("admin")}>{t("group.exclusions.table.admin")}</ClickableHead>
+                        <ClickableHead current={sorting==="-unixTimeStamp"} onClick={_=>setSorting("-unixTimeStamp")}>{t("group.exclusions.table.timestamp")}</ClickableHead>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {
+                            excludeList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (player, i) => (<ExclusionListRow player={player} key={i} callback={showRemoveExclusion}/>)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+
+function ExclusionListRow(props) {
+    const modal = useModal();
+    const player = props.player;
+    const { t } = useTranslation();
+    return (
+        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />):null}>
+            <td>{player.playerName}</td>
+            <td>{player.id}</td>
+            <td>{((player.reason === "") ? t("group.exclusions.noReason") : player.reason)}</td>
+            <td>{player.admin}</td>
+            <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
+            <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
+                {t("group.exclusions.remove")}
+            </th>
+        </tr>
+    );
+}
+
+
+function ExclusionPlayer(props) {
+    const modal = useModal();
+    var { gid } = props;
+    const { t } = useTranslation();
+
+    const history = useHistory();
+    const [playerName, setPlayerName] = useState("");
+    const [reason, setReason] = useState("");
+
+    var [excludeApplyStatus, setExcludeApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+
+    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+
+    const GlobalExcludePlayer = useMutation(
+        v => OperationsApi.globalExcludePlayer(v),
+        {
+            onMutate: async () => {
+                setExcludeApplyStatus(true)
+            },
+            onError: (error) => {
+                setExcludeApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setExcludeApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setExcludeApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    const isDisabled =
+        reason === "" ||
+        excludeApplyStatus !== null ||
+        userGettingError || !user || gid == null;
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.exclusionsMenu.playerNameDescription")} </h2>
+            <TextInput value={playerName} name={t("server.exclusionsMenu.playerName")} callback={(e) => setPlayerName(e.target.value)} />
+            <h5 style={{maxWidth: "300px"}} >{t("server.exclusionsMenu.reasonDescription")}</h5>
+            <TextInput value={reason} name={t("server.exclusionsMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <ButtonRow>
+                <Button
+                    name={t("server.exclusionsMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => GlobalExcludePlayer.mutate({ gid, reason, name: playerName, playerId: undefined })}
+                    status={excludeApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (excludeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
     );

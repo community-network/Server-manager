@@ -64,6 +64,40 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+
+    async globalExcludePlayer({ name, reason, gid, playerId}) {
+        if ((playerId !== undefined) && (playerId !== "")) {
+            return await this.postJsonMethod("addexcludedplayer", {
+                "playername": name,
+                "playerid": playerId,
+                "groupid": gid,
+                "reason": reason
+            });
+        }
+        return await this.postJsonMethod("addexcludedplayer", {
+            "playername": name,
+            "groupid": gid,
+            "reason": reason
+        });
+    }
+
+    async globalRemoveExcludePlayer({ name, gid, id, reason }) {
+        if ((reason !== undefined) && (reason !== "")) {
+            return await this.postJsonMethod("delexcludedplayer", {
+                "playerid": id,
+                "playername": name,
+                "groupid": gid,
+                "reason": reason
+            });
+        }
+        return await this.postJsonMethod("delexcludedplayer", {
+            "playerid": id,
+            "playername": name,
+            "groupid": gid,
+            "reason": ""
+        });
+    }
+
     async changeRotation({ sid, map }) {
         return await this.postJsonMethod("changelevel", {
             "mapnumber": map,
@@ -184,6 +218,12 @@ export class ApiProvider extends JsonClient {
 
     async getAutoBanList({ gid }) {
         return await this.getJsonMethod("autoban", {
+            "groupid": gid
+        });
+    }
+
+    async getExcludedPlayers({ gid }) {
+        return await this.getJsonMethod("excludedplayers", {
             "groupid": gid
         });
     }

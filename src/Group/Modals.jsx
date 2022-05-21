@@ -338,3 +338,72 @@ export function GroupRemoveAccount(props) {
         </>
     );
 }
+
+export function GroupRemoveExclusionPlayer(props) {
+
+    var { gid, eaid, playerId } = props;
+
+    const modal = useModal();
+    const { t } = useTranslation();
+    const [reason, setReason] = useState("");
+    const [excludeApplyStatus, setExcludeApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+    const { isError: userGettingError, data: user } = useUser();
+
+    const RemoveExcludedPlayer = useMutation(
+        v => OperationsApi.globalRemoveExcludePlayer(v),
+        {
+            onMutate: async () => {
+                setExcludeApplyStatus(true)
+            },
+            onError: (error) => {
+                setExcludeApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setExcludeApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setExcludeApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    var perm = null;
+
+    if (user) {
+        user.permissions.isAdminOf.map(
+            group => {
+                if (gid === group.id) {
+                    perm = gid
+                }
+            }
+        )
+    }
+
+
+    const isDisabled =
+        reason === "" ||
+        excludeApplyStatus !== null ||
+        userGettingError || !user || perm == null;
+
+    const checkReason = (v) => (checkGameString(v)) ? setReason(v) : false;
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.removeExclusionsMenu.main", { name: props.eaid })} </h2>
+            <h5 style={{ maxWidth: "300px" }} >{t("server.removeExclusionsMenu.reasonDescription")}</h5>
+            <TextInput value={reason} name={t("server.removeExclusionsMenu.reason")} callback={(e) => checkReason(e.target.value)} />
+            <ButtonRow>
+                <Button
+                    name={t("server.removeExclusionsMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => {
+                        RemoveExcludedPlayer.mutate({ gid, eaid, reason, name: props.eaid, playerId });
+                    }}
+                    status={excludeApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (excludeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    );
+}

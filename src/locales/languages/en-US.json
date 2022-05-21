@@ -305,7 +305,23 @@
             "description0": "List of banned players on this group.",
             "description1": "Used {{number}} slots",
             "noReason": "with reason",
+            "add": "Add ban",
             "unban": "Unban",
+            "table": {
+                "playerName": "Player name",
+                "playerId": "Player ID",
+                "reason": "Reason",
+                "admin": "Admin",
+                "timestamp": "Timestamp"
+            }
+        },
+        "exclusions": {
+            "main": "Exclusions list",
+            "description0": "List of players excluded from autokick (ping and bfban).",
+            "description1": "Used {{number}} slots",
+            "noReason": "with reason",
+            "add": "Add exclusion",
+            "remove": "Remove exclusion",
             "table": {
                 "playerName": "Player name",
                 "playerId": "Player ID",
@@ -688,6 +704,12 @@
             "reason": "Reason",
             "confirm": "Unban!"
         },
+        "removeExclusionsMenu": {
+            "main": "You are going to remove {{name}} from exclusions",
+            "reasonDescription": "Enter a reason to remove the exclusion from this player for autokick (ping and bfban).",
+            "reason": "Reason",
+            "confirm": "Remove"
+        },
         "unvipMenu": {
             "main": "You are going to remove {{name}} from vip",
             "reasonDescription": "Enter a reason to remove vip from this player.",
@@ -700,6 +722,13 @@
             "reasonDescription": "Enter a reason to vBan this player.",
             "reason": "Reason",
             "confirm": "Ban!"
+        },
+        "exclusionsMenu": {
+            "playerNameDescription": "Fill in the name of the player you want to add to exclusions",
+            "playerName": "username",
+            "reasonDescription": "Enter a reason to exclude this player from autokick (ping and bfban).",
+            "reason": "Reason",
+            "confirm": "Add"
         },
         "danger": {
             "main": "Danger zone",
