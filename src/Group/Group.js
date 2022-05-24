@@ -10,7 +10,7 @@ import { OperationsApi } from "../api";
 import '../locales/config';
 import styles from "./Group.module.css";
 
-import { TextInput, Button, ButtonRow, IconSelected, IconNotSelected } from "../components/Buttons";
+import { TextInput, Button, ButtonRow, ButtonUrl, IconSelected, IconNotSelected } from "../components/Buttons";
 import { useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
 import { DynamicSort } from "../components/Functions";
@@ -203,6 +203,7 @@ export function VBanList(props) {
             <ButtonRow>
                 <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
                 <Button name={t("group.vban.add")} callback={_ => modal.show(<VbanBanPlayer gid={gid}/>)} />
+                <ButtonUrl style={{marginLeft: 0}} href={`https://manager-api.gametools.network/api/autobanexcel?groupid=${gid}`} name={t("export")} />
             </ButtonRow>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -648,6 +649,7 @@ export function ExclusionList(props) {
             <ButtonRow>
                 <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
                 <Button name={t("group.exclusions.add")} callback={_ => modal.show(<ExclusionPlayer gid={gid}/>)} />
+                <ButtonUrl style={{marginLeft: 0}} href={`https://manager-api.gametools.network/api/excludedplayersexcel?groupid=${gid}`} name={t("export")} />
             </ButtonRow>
             <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
