@@ -128,6 +128,7 @@ export default function Console(props) {
                             <Button disabled={disabledButton || removeVipStatus.status || isOpsMode} name={removeVipStatus.name} callback={removeVipCallback} />
                         </>
                     ) : <>
+                        <Button disabled={disabledButton} name={t("server.action.kick")} callback={showServerKickPlayer} />
                         <Button disabled={disabledButton} name={t("server.action.ban")} callback={showBanPlayer} />
                         <Button disabled={disabledButton || unbanStatus.status} name={unbanStatus.name} callback={unbanPlayerCallback} />
                     </>}

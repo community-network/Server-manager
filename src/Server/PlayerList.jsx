@@ -307,16 +307,11 @@ function PlayerButtons({ player, sid, moveTeam, width, gameName }) {
     }
 
     let playerOptions = [
+        { name: t("server.action.kick"), callback: showKick },
         { name: t("server.action.ban"), callback: showBan },
     ];
 
     if (gameName === "bf1") {
-        // Possible buttons
-        playerOptions = [
-            { name: t("server.action.kick"), callback: showKick },
-            { name: t("server.action.ban"), callback: showBan },
-        ];
-
         // If movable, add move button
         if (!!moveTeam) {
             playerOptions.push({ name: t("server.action.move"), callback: moveCallback });
