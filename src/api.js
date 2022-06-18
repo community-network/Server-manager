@@ -13,12 +13,13 @@ export class ApiProvider extends JsonClient {
         return user;
     }
 
-    async kickPlayer({ sid, playername, reason, playerId }) {
+    async kickPlayer({ sid, playername, reason, playerId, userId }) {
         if ((playerId !== undefined) && (playerId !== "")) {
             return await this.postJsonMethod("changeplayer", {
                 "request": "kickPlayer",
                 "playername": playername,
                 "playerid": playerId,
+                "userid": userId,
                 "serverid": sid,
                 "reason": reason
             });

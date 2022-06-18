@@ -292,6 +292,7 @@ function PlayerButtons({ player, sid, moveTeam, width, gameName }) {
                 sid={sid}
                 eaid={player.name}
                 playerId={player.playerId}
+                userId={player.userId}
             />
         )
     }

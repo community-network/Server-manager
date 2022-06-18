@@ -66,7 +66,7 @@ export function ServerKickPlayer(props) {
             <h5 style={{maxWidth: "400px", margin: "6px 0"}}>{t("server.kickMenu.reasonDescription")}</h5>
             <TextInput name={t("server.kickMenu.reason")} value={reason} callback={(e) => checkReason(e.target.value)} />
             <ButtonRow>
-                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId }); history.push(`/server/${props.sid}/`); }} />
+                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId, userId: props.userId }); history.push(`/server/${props.sid}/`); }} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
