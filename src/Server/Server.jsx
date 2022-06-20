@@ -567,6 +567,14 @@ export function VipList(props) {
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("displayName");
 
+    var server = null;
+    if (props.game && props.game.data && props.game.data.length > 0) {
+        server = props.game.data[0];
+    }
+    var isOpsMode = (server.info.mode.toLowerCase() === "operations");
+
+    console.log(isOpsMode)
+
     const modal = useModal();
     const showUnvip = e => {
         let playerInfo = e.target.dataset
@@ -617,7 +625,7 @@ export function VipList(props) {
                     <tbody>
                         {
                             vipList.data.filter(p => p.displayName.toLowerCase().includes(searchWord.toLowerCase())).map(
-                                (player, i) => (<VipRow player={player} key={i} callback={showUnvip} />)
+                                (player, i) => (<VipRow player={player} key={i} callback={showUnvip} isOpsMode={isOpsMode} />)
                             )
                         }
                     </tbody>
@@ -638,9 +646,13 @@ function VipRow(props) {
                 <span>{player.displayName}</span>
             </td>
             <td title={t("server.vipList.table.playerId")}>{player.id}</td>
-            <th className={styles.listButton} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
-                {t("server.action.removeVip")}
-            </th>
+            {!props.isOpsMode ?
+                <th className={styles.listButton} data-name={player.displayName} data-id={player.id} onClick={props.callback}>
+                    {t("server.action.removeVip")}
+                </th>
+            : 
+                <></>
+            }
         </tr>
     );
 }

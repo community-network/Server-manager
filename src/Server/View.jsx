@@ -96,7 +96,7 @@ export function Server(props) {
             </ServerInfoHolder>
         ),
         banlist:        <BanList sid={sid} />,
-        viplist:        <VipList sid={sid} />,
+        viplist:        <VipList sid={sid} game={runningGame} />,
         adminlist:      <AdminList sid={sid} />,
         firestarter:    <FireStarter sid={sid} />,
         playtime:       <PlayTime sid={sid} />,
