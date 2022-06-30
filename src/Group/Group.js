@@ -240,7 +240,7 @@ function GlobalBanRow(props) {
             <td>{player.id}</td>
             <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
             <td>{player.admin}</td>
-            <td>{player.bannedUntil}</td>
+            <td>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("dateTime", {date: new Date(player.bannedUntil)}):"-"}</td>
             <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
             <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
                 {t("group.vban.unban")}
@@ -691,7 +691,7 @@ function ExclusionListRow(props) {
             <td>{player.id}</td>
             <td>{((player.reason === "") ? t("group.exclusions.noReason") : player.reason)}</td>
             <td>{player.admin}</td>
-            <td>{player.bannedUntil}</td>
+            <td>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("dateTime", {date: new Date(player.bannedUntil)}):"-"}</td>
             <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
             <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
                 {t("group.exclusions.remove")}
