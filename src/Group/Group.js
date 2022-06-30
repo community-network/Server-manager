@@ -212,6 +212,7 @@ export function VBanList(props) {
                         <ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</ClickableHead>
                         <ClickableHead current={sorting==="reason"} onClick={_=>setSorting("reason")}>{t("group.vban.table.reason")}</ClickableHead>
                         <ClickableHead current={sorting==="admin"} onClick={_=>setSorting("admin")}>{t("group.vban.table.admin")}</ClickableHead>
+                        <ClickableHead current={sorting==="bannedUntil"} onClick={_=>setSorting("bannedUntil")}>{t("group.vban.table.bannedUntil")}</ClickableHead>
                         <ClickableHead current={sorting==="-unixTimeStamp"} onClick={_=>setSorting("-unixTimeStamp")}>{t("group.vban.table.timestamp")}</ClickableHead>
                         <th></th>
                     </thead>
@@ -239,6 +240,7 @@ function GlobalBanRow(props) {
             <td>{player.id}</td>
             <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
             <td>{player.admin}</td>
+            <td>{player.bannedUntil}</td>
             <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
             <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
                 {t("group.vban.unban")}
@@ -441,6 +443,7 @@ function VbanBanPlayer(props) {
     const history = useHistory();
     const [playerName, setPlayerName] = useState("");
     const [reason, setReason] = useState("");
+    const [banTime, setBanTime] = useState(0);
 
     var [banApplyStatus, setBanApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
@@ -476,12 +479,14 @@ function VbanBanPlayer(props) {
             <TextInput value={playerName} name={t("server.vBanMenu.playerName")} callback={(e) => setPlayerName(e.target.value)} />
             <h5 style={{maxWidth: "300px"}} >{t("server.vBanMenu.reasonDescription")}</h5>
             <TextInput value={reason} name={t("server.vBanMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}</h5>
+            <TextInput type={"text"} name={t("server.banMenu.tempbanAmount")} defaultValue={0} callback={(e) => setBanTime(e.target.value)} />
             <ButtonRow>
                 <Button
                     name={t("server.vBanMenu.confirm")}
                     style={{ maxWidth: "144px" }}
                     disabled={isDisabled}
-                    callback={() => GlobalBanPlayer.mutate({ gid, reason, name: playerName, playerId: undefined })}
+                    callback={() => GlobalBanPlayer.mutate({ gid, reason, name: playerName, playerId: undefined, banTime })}
                     status={banApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
@@ -658,6 +663,7 @@ export function ExclusionList(props) {
                         <ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.exclusions.table.playerId")}</ClickableHead>
                         <ClickableHead current={sorting==="reason"} onClick={_=>setSorting("reason")}>{t("group.exclusions.table.reason")}</ClickableHead>
                         <ClickableHead current={sorting==="admin"} onClick={_=>setSorting("admin")}>{t("group.exclusions.table.admin")}</ClickableHead>
+                        <ClickableHead current={sorting==="bannedUntil"} onClick={_=>setSorting("bannedUntil")}>{t("group.exclusions.table.bannedUntil")}</ClickableHead>
                         <ClickableHead current={sorting==="-unixTimeStamp"} onClick={_=>setSorting("-unixTimeStamp")}>{t("group.exclusions.table.timestamp")}</ClickableHead>
                         <th></th>
                     </thead>
@@ -685,6 +691,7 @@ function ExclusionListRow(props) {
             <td>{player.id}</td>
             <td>{((player.reason === "") ? t("group.exclusions.noReason") : player.reason)}</td>
             <td>{player.admin}</td>
+            <td>{player.bannedUntil}</td>
             <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
             <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
                 {t("group.exclusions.remove")}
@@ -702,6 +709,7 @@ function ExclusionPlayer(props) {
     const history = useHistory();
     const [playerName, setPlayerName] = useState("");
     const [reason, setReason] = useState("");
+    const [excludeTime, setExcludeTime] = useState(0);
 
     var [excludeApplyStatus, setExcludeApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
@@ -737,12 +745,14 @@ function ExclusionPlayer(props) {
             <TextInput value={playerName} name={t("server.exclusionsMenu.playerName")} callback={(e) => setPlayerName(e.target.value)} />
             <h5 style={{maxWidth: "300px"}} >{t("server.exclusionsMenu.reasonDescription")}</h5>
             <TextInput value={reason} name={t("server.exclusionsMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <h5 style={{maxWidth: "300px"}} >{t("server.exclusionsMenu.excludeDesc0")}<br />{t("server.exclusionsMenu.excludeDesc1")}</h5>
+            <TextInput type={"text"} name={t("server.exclusionsMenu.excludeAmount")} defaultValue={0} callback={(e) => setExcludeTime(e.target.value)} />
             <ButtonRow>
                 <Button
                     name={t("server.exclusionsMenu.confirm")}
                     style={{ maxWidth: "144px" }}
                     disabled={isDisabled}
-                    callback={() => GlobalExcludePlayer.mutate({ gid, reason, name: playerName, playerId: undefined })}
+                    callback={() => GlobalExcludePlayer.mutate({ gid, reason, name: playerName, playerId: undefined, excludeTime })}
                     status={excludeApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (excludeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>

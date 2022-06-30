@@ -312,7 +312,8 @@
                 "playerId": "Player ID",
                 "reason": "Reason",
                 "admin": "Admin",
-                "timestamp": "Timestamp"
+                "timestamp": "Timestamp",
+                "bannedUntil": "Until"
             }
         },
         "exclusions": {
@@ -327,7 +328,8 @@
                 "playerId": "Player ID",
                 "reason": "Reason",
                 "admin": "Admin",
-                "timestamp": "Timestamp"
+                "timestamp": "Timestamp",
+                "bannedUntil": "Until"
             }
         },
         "logs": {
@@ -728,6 +730,9 @@
             "playerName": "username",
             "reasonDescription": "Enter a reason to exclude this player from autokick (ping and bfban).",
             "reason": "Reason",
+            "excludeDesc0": "If you want to temporary exclude him, specify time in",
+            "excludeDesc1": "hours below, or leave it 0 to exclude him permanently.",
+            "excludeAmount": "Exclude time",
             "confirm": "Add"
         },
         "danger": {

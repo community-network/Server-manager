@@ -32,19 +32,21 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async globalBanPlayer({ name, reason, gid, playerId}) {
+    async globalBanPlayer({ name, reason, gid, playerId, banTime }) {
         if ((playerId !== undefined) && (playerId !== "")) {
             return await this.postJsonMethod("addautoban", {
                 "playername": name,
                 "playerid": playerId,
                 "groupid": gid,
-                "reason": reason
+                "reason": reason,
+                "time": banTime
             });
         }
         return await this.postJsonMethod("addautoban", {
             "playername": name,
             "groupid": gid,
-            "reason": reason
+            "reason": reason,
+            "time": banTime
         });
     }
 
@@ -66,19 +68,21 @@ export class ApiProvider extends JsonClient {
     }
 
 
-    async globalExcludePlayer({ name, reason, gid, playerId}) {
+    async globalExcludePlayer({ name, reason, gid, playerId, excludeTime}) {
         if ((playerId !== undefined) && (playerId !== "")) {
             return await this.postJsonMethod("addexcludedplayer", {
                 "playername": name,
                 "playerid": playerId,
                 "groupid": gid,
-                "reason": reason
+                "reason": reason,
+                "time": excludeTime
             });
         }
         return await this.postJsonMethod("addexcludedplayer", {
             "playername": name,
             "groupid": gid,
-            "reason": reason
+            "reason": reason,
+            "time": excludeTime
         });
     }
 
