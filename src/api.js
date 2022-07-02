@@ -86,6 +86,13 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async addReason({ gid, reason }) {
+        return await this.postJsonMethod("addreason", {
+            "groupid": gid,
+            "reason": reason
+        });
+    }
+
     async globalRemoveExcludePlayer({ name, gid, id, reason }) {
         if ((reason !== undefined) && (reason !== "")) {
             return await this.postJsonMethod("delexcludedplayer", {
@@ -100,6 +107,13 @@ export class ApiProvider extends JsonClient {
             "playername": name,
             "groupid": gid,
             "reason": ""
+        });
+    }
+
+    async delReason({ gid, reasonId }) {
+        return await this.postJsonMethod("delreason", {
+            "groupid": gid,
+            "reasonid": reasonId
         });
     }
 
@@ -230,6 +244,13 @@ export class ApiProvider extends JsonClient {
     async getExcludedPlayers({ gid }) {
         return await this.getJsonMethod("excludedplayers", {
             "groupid": gid
+        });
+    }
+
+    async getReasonList({ gid, sid }) {
+        return await this.getJsonMethod("reasonlist", {
+            "groupid": gid,
+            "serverid": sid
         });
     }
 

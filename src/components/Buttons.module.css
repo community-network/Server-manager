@@ -98,6 +98,20 @@
     overflow: hidden;
 }
 
+.buttonDropdown {
+    position: absolute;
+    top: 41px;
+    right: -55px;
+    width: 200px;
+    margin: 6px 2px;
+    border-radius: 8px;
+    z-index: 2000;
+    border: none;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.38);
+    background: var(--color-container-v2);
+    overflow: hidden;
+}
+
 .ul {
     list-style: none;
     padding: 0;

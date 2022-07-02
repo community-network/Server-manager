@@ -332,6 +332,16 @@
                 "bannedUntil": "Until"
             }
         },
+        "reasonList": {
+            "main": "Predefined reasons",
+            "description0": "Set a predefined list of reasons you can select from when trying to kick/ban/vban a player",
+            "noReason": "Reason to add",
+            "add": "Add reason",
+            "remove": "Remove reason",
+            "table": {
+                "reason": "Reason"
+            }
+        },
         "logs": {
             "main": "Group logs",
             "description": "Group log list",
@@ -712,6 +722,10 @@
             "reason": "Reason",
             "confirm": "Remove"
         },
+        "removeReasonMenu": {
+            "main": "Are you sure?",
+            "confirm": "Remove"
+        },
         "unvipMenu": {
             "main": "You are going to remove {{name}} from vip",
             "reasonDescription": "Enter a reason to remove vip from this player.",
@@ -733,6 +747,12 @@
             "excludeDesc0": "If you want to temporary exclude him, specify time in",
             "excludeDesc1": "hours below, or leave it 0 to exclude him permanently.",
             "excludeAmount": "Exclude time",
+            "confirm": "Add"
+        },
+        "reasonMenu": {
+            "reasonDescription": "Add a predefined reason",
+            "reason": "Reason",
+            "select": "Select",
             "confirm": "Add"
         },
         "danger": {

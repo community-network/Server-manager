@@ -3,14 +3,14 @@ import { useMeasure } from 'react-use';
 import { Link, useHistory } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import { GroupGlobalUnbanPlayer, GroupRemoveExclusionPlayer } from "./Modals";
+import { GroupGlobalUnbanPlayer, GroupRemoveExclusionPlayer, GroupRemoveReason } from "./Modals";
 import { supportedGames } from "../Globals";
 
 import { OperationsApi } from "../api";
 import '../locales/config';
 import styles from "./Group.module.css";
 
-import { TextInput, Button, ButtonRow, ButtonUrl, IconSelected, IconNotSelected } from "../components/Buttons";
+import { TextInput, Button, ButtonRow, ButtonUrl, IconSelected, IconNotSelected, ReasonDropdownButton } from "../components/Buttons";
 import { useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
 import { DynamicSort } from "../components/Functions";
@@ -478,7 +478,10 @@ function VbanBanPlayer(props) {
             <h2 style={{ marginLeft: "20px" }}>{t("server.vBanMenu.playerNameDescription")} </h2>
             <TextInput value={playerName} name={t("server.vBanMenu.playerName")} callback={(e) => setPlayerName(e.target.value)} />
             <h5 style={{maxWidth: "300px"}} >{t("server.vBanMenu.reasonDescription")}</h5>
-            <TextInput value={reason} name={t("server.vBanMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <ButtonRow>
+                <TextInput value={reason} name={t("server.vBanMenu.reason")} callback={(e) => setReason(e.target.value)} />
+                <ReasonDropdownButton gid={gid} name={t("server.reasonMenu.select")} callback={(v) => setReason(v)} style={{ maxWidth: "144px" }} />
+            </ButtonRow>
             <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}</h5>
             <TextInput type={"text"} name={t("server.banMenu.tempbanAmount")} defaultValue={0} callback={(e) => setBanTime(e.target.value)} />
             <ButtonRow>
@@ -755,6 +758,130 @@ function ExclusionPlayer(props) {
                     callback={() => GlobalExcludePlayer.mutate({ gid, reason, name: playerName, playerId: undefined, excludeTime })}
                     status={excludeApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (excludeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    );
+}
+
+
+export function ReasonList(props) {
+    const gid = props.gid;
+    const { isError, data: reasonList, error } = useQuery('globalReasonList' + gid, () => OperationsApi.getReasonList({ gid, sid: undefined }));
+
+    const [searchWord, setSearchWord] = useState("");
+    const { t } = useTranslation();
+
+    const modal = useModal();
+    const showRemoveReason = e => {
+        let reason = e.target.dataset
+        modal.show(
+            <GroupRemoveReason 
+                gid={gid} 
+                reasonId={reason.id}
+            />
+        );
+    }
+
+    if (!reasonList) {
+        // TODO: add fake item list on loading
+        return "Loading..";
+    } else {
+        reasonList.data = reasonList.data.sort(DynamicSort("item"));
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    return (
+        <div>
+            <h2>{t("group.reasonList.main")}</h2>
+            <h5>
+                {t("group.reasonList.description0")}
+            </h5>
+            <ButtonRow>
+                <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <Button name={t("group.reasonList.add")} callback={_ => modal.show(<ReasonListPlayer gid={gid}/>)} />
+                <ButtonUrl style={{marginLeft: 0}} href={`https://manager-api.gametools.network/api/reasonlistexcel?groupid=${gid}`} name={t("export")} />
+            </ButtonRow>
+            <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                    <tbody>
+                        {
+                            reasonList.data.filter(p => p.item.toLowerCase().includes(searchWord.toLowerCase())).map(
+                                (reason, i) => (<ReasonListRow reason={reason} key={i} callback={showRemoveReason}/>)
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+
+function ReasonListRow(props) {
+    const reason = props.reason;
+    const { t } = useTranslation();
+    return (
+        <tr className={styles.BanRow}>
+            <td>{reason.item}</td>
+            <th className={styles.globalUnban} data-id={reason.id} onClick={props.callback}>
+                {t("group.reasonList.remove")}
+            </th>
+        </tr>
+    );
+}
+
+
+function ReasonListPlayer(props) {
+    const modal = useModal();
+    var { gid } = props;
+    const { t } = useTranslation();
+
+    const history = useHistory();
+    const [reason, setReason] = useState("");
+
+    var [reasonApplyStatus, setReasonApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+
+    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+
+    const GlobalAddReason = useMutation(
+        v => OperationsApi.addReason(v),
+        {
+            onMutate: async () => {
+                setReasonApplyStatus(true)
+            },
+            onError: (error) => {
+                setReasonApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setReasonApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setReasonApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    const isDisabled =
+        reason === "" ||
+        reasonApplyStatus !== null ||
+        userGettingError || !user || gid == null;
+
+    return (
+        <>
+            <h5 style={{maxWidth: "300px"}} >{t("server.reasonMenu.reasonDescription")}</h5>
+            <TextInput value={reason} name={t("server.reasonMenu.reason")} callback={(e) => setReason(e.target.value)} />
+            <ButtonRow>
+                <Button
+                    name={t("server.reasonMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => GlobalAddReason.mutate({ gid, reason })}
+                    status={reasonApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (reasonApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
     );

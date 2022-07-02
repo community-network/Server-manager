@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { OperationsApi } from "../api";
-import { useModal, Switch, ButtonRow, Button, TextInput } from "../components";
+import { useModal, Switch, ButtonRow, Button, TextInput, ReasonDropdownButton } from "../components";
 import '../locales/config';
 
 import { useUser } from "./Manager";
@@ -64,7 +64,10 @@ export function ServerKickPlayer(props) {
         <>
             <h2>{t("server.kickMenu.main", {name: props.eaid})}</h2>
             <h5 style={{maxWidth: "400px", margin: "6px 0"}}>{t("server.kickMenu.reasonDescription")}</h5>
-            <TextInput name={t("server.kickMenu.reason")} value={reason} callback={(e) => checkReason(e.target.value)} />
+            <ButtonRow>
+                <TextInput name={t("server.kickMenu.reason")} value={reason} callback={(e) => checkReason(e.target.value)} />
+                <ReasonDropdownButton sid={sid} name={t("server.reasonMenu.select")} callback={(v) => checkReason(v)} style={{ maxWidth: "144px" }} />
+            </ButtonRow>
             <ButtonRow>
                 <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId, userId: props.userId }); history.push(`/server/${props.sid}/`); }} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
@@ -161,7 +164,10 @@ export function ServerBanPlayer(props) {
         <>
             <h2 style={{ marginLeft: "20px" }}>{t("server.banMenu.main", {name})} </h2>
             <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.reasonDescription")}</h5>
-            <TextInput value={reason} name={t("server.banMenu.reason")} callback={(e) => checkReason(e.target.value)} />
+            <ButtonRow>
+                <TextInput value={reason} name={t("server.banMenu.reason")} callback={(e) => checkReason(e.target.value)} />
+                <ReasonDropdownButton sid={sid} name={t("server.reasonMenu.select")} callback={(v) => checkReason(v)} style={{ maxWidth: "144px" }} />
+            </ButtonRow>
             <Switch value={globalVsClassicBan} name={t("server.banMenu.vBanOption")} callback={ (v) => setGlobalVsClassicBan(v) } />
             <h5 style={{maxWidth: "300px"}} >{t("server.banMenu.tempbanDesc0")}<br />{t("server.banMenu.tempbanDesc1")}</h5>
             <TextInput type={"text"} name={t("server.banMenu.tempbanAmount")} defaultValue={0} callback={(e) => setBanTime(e.target.value)} />
@@ -314,7 +320,10 @@ export function ServerUnbanPlayer(props) {
         <>
             <h2 style={{ marginLeft: "20px" }}>{t("server.unbanMenu.main", {name})} </h2>
             <h5 style={{maxWidth: "300px"}} >{t("server.unbanMenu.reasonDescription")}</h5>
-            <TextInput value={reason} name={t("server.unbanMenu.reason")} callback={(e) => checkReason(e.target.value)} />
+            <ButtonRow>
+                <TextInput value={reason} name={t("server.unbanMenu.reason")} callback={(e) => checkReason(e.target.value)} />
+                <ReasonDropdownButton sid={sid} name={t("server.reasonMenu.select")} callback={(v) => checkReason(v)} style={{ maxWidth: "144px" }} />
+            </ButtonRow>
             <ButtonRow>
                 <Button
                     name={t("server.unbanMenu.confirm")}

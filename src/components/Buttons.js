@@ -6,6 +6,9 @@ import styles from "./Buttons.module.css";
 import { Status } from "./Status";
 import { useMeasure } from 'react-use';
 
+import { useQuery } from 'react-query';
+import { OperationsApi } from "../api";
+
 
 export function Button(props) {
     var style = props.style || {};
@@ -279,6 +282,43 @@ export function SelectableRow(props) {
                 (selected) ? <IconSelected /> : <IconNotSelected />
             }
             {props.children}
+        </div>
+    );
+}
+
+export function ReasonDropdownButton(props) {
+    const [open, setOpen] = useState(false);
+    const { isError, data: reasonList, error } = useQuery('globalReasonList' + props.gid + props.sid, () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }));
+    const options = [];
+    if (reasonList) {
+        reasonList.data.forEach(element => {
+            options.push(element.item)
+        });
+    }
+    let container = React.useRef();
+
+    useEffect(() => {
+        let handleClickOutside = (event) => {
+            if (container.current && !container.current.contains(event.target)) {
+                setOpen(false)
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return function cleanup() {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    })
+
+    return (
+        <div className={styles.container} ref={container}>
+            <button type="button" className={styles.button} onClick={() => setOpen(!open)}>{props.name}</button>
+            {open && (<div className={styles.buttonDropdown}>
+                <ul className={styles.ul}>
+                    {
+                        options.map(option => <li className={styles.li} onClick={() => {setOpen(!open); return props.callback(option)}}>{option}</li>)
+                    }
+                </ul>
+            </div>)}
         </div>
     );
 }

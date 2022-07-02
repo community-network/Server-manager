@@ -407,3 +407,66 @@ export function GroupRemoveExclusionPlayer(props) {
         </>
     );
 }
+
+export function GroupRemoveReason(props) {
+
+    var { gid, reasonId } = props;
+
+    const modal = useModal();
+    const { t } = useTranslation();
+    const [reasonApplyStatus, setReasonApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+    const { isError: userGettingError, data: user } = useUser();
+
+    const RemoveReason = useMutation(
+        v => OperationsApi.delReason(v),
+        {
+            onMutate: async () => {
+                setReasonApplyStatus(true)
+            },
+            onError: (error) => {
+                setReasonApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setReasonApplyStatus(null), 3000);
+            },
+            onSuccess: () => {
+                setReasonApplyStatus(null);
+                modal.close();
+            },
+        }
+    );
+
+    var perm = null;
+
+    if (user) {
+        user.permissions.isAdminOf.map(
+            group => {
+                if (gid === group.id) {
+                    perm = gid
+                }
+            }
+        )
+    }
+
+
+    const isDisabled =
+        reasonApplyStatus !== null ||
+        userGettingError || !user || perm == null;
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>{t("server.removeReasonMenu.main", { name: props.eaid })} </h2>
+            <ButtonRow>
+                <Button
+                    name={t("server.removeReasonMenu.confirm")}
+                    style={{ maxWidth: "144px" }}
+                    disabled={isDisabled}
+                    callback={() => {
+                        RemoveReason.mutate({ gid, reasonId });
+                    }}
+                    status={reasonApplyStatus} />
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (reasonApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    );
+}
