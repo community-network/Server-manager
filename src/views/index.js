@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useQuery } from 'react-query';
 import Account from "./Account";
@@ -41,9 +41,10 @@ export function PageLayout(props) {
 
 export default function ViewHandler(props) {
     const { isError, isLoading, data: user } = useCorruentUserHook();
+    var history = useNavigate();
 
     const location = useLocation();
-    let redirector = (isError || (!isLoading  && !user.auth.signedIn && location.pathname !== "/")) ? <Navigate to="/" /> : null;
+    let redirector = (isError || (!isLoading  && !user.auth.signedIn && location.pathname !== "/")) ? history("/") : null;
     return (
         <Routes>
             {redirector}
