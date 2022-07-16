@@ -9,7 +9,7 @@ import { bf1Maps, bf1Modes } from "../Globals";
 
 export function IngameSettings(props) {
     var allowedTo = false;
-    if (props.server) allowedTo = true;
+    if (props.server && props.server.editPerms) allowedTo = true;
     const queryClient = useQueryClient();
     const [canApply, setCanApply] = useState(false);
     const [maps, setMaps] = useState([]);
@@ -83,28 +83,28 @@ export function IngameSettings(props) {
                                 alignContent: "center",
                                 flexWrap: "wrap"
                             }}>
-                                <select style={{ marginLeft: "0" }} onChange={e => {const current = [...maps]; current[index].mapname = e.target.value; setMaps(current)}} className={styles.SwitchGame}>
+                                <select disabled={!allowedTo} style={{ marginLeft: "0" }} onChange={e => {const current = [...maps]; current[index].mapname = e.target.value; setMaps(current)}} className={styles.SwitchGame}>
                                     {bf1Maps.map((name, index) => <option key={index} selected={element.mapname === name} value={name}>{name}</option>)}
                                 </select>
                         
-                                <select style={{ marginLeft: "0" }} onChange={e => {const current = [...maps]; current[index].mode = e.target.value; setMaps(current)}} className={styles.SwitchGame}>
+                                <select disabled={!allowedTo} style={{ marginLeft: "0" }} onChange={e => {const current = [...maps]; current[index].mode = e.target.value; setMaps(current)}} className={styles.SwitchGame}>
                                     {bf1Modes.map((name, index) => <option key={index} selected={element.mode === name} value={name}>{name}</option>)}
                                 </select>
                         
-                                <Button style={{ marginLeft: "0" }} name={t("server.ingameSettings.removeMap")} callback={_ => {const current = [...maps]; current.splice(index, 1); setMaps(current)}} />
+                                <Button disabled={!allowedTo} style={{ marginLeft: "0" }} name={t("server.ingameSettings.removeMap")} callback={_ => {const current = [...maps]; current.splice(index, 1); setMaps(current)}} />
                             </div>
                         )
                     })
             }
             <ButtonRow>
-                <Button style={{ marginLeft: "0" }} name={t("server.ingameSettings.addMap")} callback={_ => setMaps(maps => [...maps, {mapname: bf1Maps[0], mode: bf1Modes[0]}])} />
+                <Button disabled={!allowedTo} style={{ marginLeft: "0" }} name={t("server.ingameSettings.addMap")} callback={_ => setMaps(maps => [...maps, {mapname: bf1Maps[0], mode: bf1Modes[0]}])} />
             </ButtonRow>
 
             <h5 style={{ marginTop: "8px" }}>{t("server.ingameSettings.cookie")}</h5>
             {(!isError) ? (
                 <ButtonRow>
                     {cookies ?
-                        <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => setCookie(e.target.value)}>
+                        <select disabled={!allowedTo} style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => setCookie(e.target.value)}>
                             <option value="">{t("cookie.accountType.default")}</option>
                             {cookies.map((key, index) => <option key={index} selected={cookie === key.id} value={key.id}>{key.name}</option>)}
                             <option value="add">{t("cookie.accountType.add")}</option>
@@ -145,13 +145,13 @@ export function IngameSettings(props) {
 export function ServerSettings(props) {
     const ownerIdGames = ["bfv", "bf2042"]
 
-    const sid = props.sid;
+    const { sid, server } = props;
     const { t } = useTranslation();
     const { isError, data: cookieInfo, error } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
     var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
 
     var allowedTo = false;
-    if (props.server) allowedTo = true;
+    if (server && server.editPerms) allowedTo = true;
 
     const queryClient = useQueryClient();
 
@@ -164,8 +164,8 @@ export function ServerSettings(props) {
     const [restartErrorUpdating, setRestartError] = useState({ code: 0, message: "Unknown" });
 
     useEffect(() => {
-        if (props.server) {
-            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId, cookie } = props.server;
+        if (server) {
+            const { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId, cookie } = server;
             const originalServerState = { serverName, serverAlias, discordBotToken, discordBotMinPlayerAmount, discordBotPrevReqCount, discordBotStartedAmount, discordBotOwnerId, cookie };
             if (serverState === null) {
                 setServerState(originalServerState);
@@ -178,7 +178,7 @@ export function ServerSettings(props) {
             }
 
         }
-    }, [props.server, serverState]);
+    }, [server, serverState]);
 
     const changeServerState = (v) => {
         setServerState(s => ({ ...s, ...v }));
@@ -357,7 +357,7 @@ export function ServerSettings(props) {
 
                     <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.restartWorkerDesc")}</h5>
                     <ButtonRow>
-                        <Button name={t("server.settings.discordBot.restartWorker")} disabled={props.server.botInfo.state === "noService"} callback={
+                        <Button name={t("server.settings.discordBot.restartWorker")} disabled={!allowedTo || props.server.botInfo.state === "noService"} callback={
                             _ => restartWorker.mutate()
                         } status={restartStatus} />
                         <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (restartStatus === false) ? 1 : 0 }}>Error {restartErrorUpdating.code}: {restartErrorUpdating.message}</h5>

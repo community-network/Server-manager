@@ -320,7 +320,7 @@ function PlayerButtons({ player, sid, moveTeam, width, gameName }) {
     if (gameName !== "bfv") {
         playerOptions.push({ name: t("server.action.ban"), callback: showBan })
     }
-
+    
     if (gameName === "bf1") {
         // If movable, add move button
         if (!!moveTeam) {

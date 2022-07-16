@@ -220,9 +220,10 @@ export function DeleteServer(props) {
 
 
 function ServerAutomation(props) {
+    const { server } = props;
 
     var allowedTo = false;
-    if (props.server) allowedTo = true;
+    if (server && server.editPerms) allowedTo = true;
 
     const queryClient = useQueryClient();
     const { t } = useTranslation();
@@ -234,8 +235,8 @@ function ServerAutomation(props) {
 
     useEffect(() => {
 
-        if (props.server) {
-            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage } = props.server;
+        if (server) {
+            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage } = server;
             const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage };
             if (serverState === null) {
                 setServerState(originalServerState);
@@ -252,7 +253,7 @@ function ServerAutomation(props) {
         }
         
 
-    }, [props.server, serverState]);
+    }, [server, serverState]);
 
     const changeSrerverState = (v) => {
         setServerState(s => ({ ...s, ...v }));
@@ -278,8 +279,8 @@ function ServerAutomation(props) {
     );
 
     const getServerValue = (key) => {
-        if (props.server && key in props.server) {
-            return props.server[key]
+        if (server && key in server) {
+            return server[key]
         }
         return "";
     };
