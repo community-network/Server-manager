@@ -286,7 +286,7 @@ export function ServerSettings(props) {
             {(!isError) ? (
                 <ButtonRow>
                     {cookies ?
-                        <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => changeServerState({ cookie: e.target.value })}>
+                        <select disabled={!allowedTo} style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => changeServerState({ cookie: e.target.value })}>
                             <option value="">{t("cookie.accountType.default")}</option>
                             {cookies.map((key, index) => <option key={index} selected={getServerValue("cookie") === key.id} value={key.id}>{key.name}</option>)}
                         </select>
