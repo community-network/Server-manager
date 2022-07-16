@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useHistory} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Column, Card, Header, CardRow, UserRow, TopRow, ButtonRow, ButtonUrl } from "../components";
 import '../locales/config';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import ChangeLanguage from '../locales/ChangeLanguage';
 
 export default function Account() {
-    var history = useHistory();
+    var history = useNavigate();
     const queryClient = useQueryClient();
 
     const logoutExecutor = useMutation(
@@ -38,7 +38,7 @@ export default function Account() {
                         }
                     };
                 });
-                history.push('/');
+                history('/');
                 // Return a context object with the snapshotted value
                 return { prevUser }
             },

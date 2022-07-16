@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { PageContext } from "./ServerGlobalContext";
+import { useParams } from 'react-router-dom';
 
 import { Column, Header, PageCard, Row } from "../components";
 
@@ -13,7 +14,8 @@ import { useServer } from "./Manager";
  * Server page
  */
 export function StatusOnlyServer(props) {
-    let { sid } = props.match.params;
+    let params = useParams();
+    let { sid } = params;
 
     const { t } = useTranslation();
 

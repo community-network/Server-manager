@@ -19,21 +19,21 @@ export function StatusBotInfo() {
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.1")}<a href="https://discord.com/developers/applications" target="_blank" rel="noopener noreferrer">discord.com/developers/applications</a>
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/1.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/1.png"/>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.2")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/2.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/2.png"/>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.3")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/3.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/3.png"/>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.4")}
                     </h5>
                     <div style={{ display: "flex" }}>
-                        <img style={{maxWidth: '20rem', marginRight: "1rem"}} src="/img/statusBotInfo/4.png"/>
-                        <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/5.png"/>
+                        <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem', marginRight: "1rem"}} src="/img/statusBotInfo/4.png"/>
+                        <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/5.png"/>
                     </div>
                     <h4 style={{ margin: 0, marginTop: "1.5rem" }}>
                         {t("statusBotInfo.5")}
@@ -41,15 +41,15 @@ export function StatusBotInfo() {
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.6")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/6.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/6.png"/>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.7")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/7.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/7.png"/>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.8")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/statusBotInfo/8.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/statusBotInfo/8.png"/>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("statusBotInfo.9")}
                     </h5>

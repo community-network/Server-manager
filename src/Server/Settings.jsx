@@ -6,7 +6,6 @@ import styles from "./Styles.module.css";
 import { ButtonRow, Button, TextInput, ButtonUrl, ButtonLink } from "../components";
 import { OperationsApi } from "../api";
 import { bf1Maps, bf1Modes } from "../Globals";
-import { set } from "date-fns/esm";
 
 export function IngameSettings(props) {
     var allowedTo = false;
@@ -23,7 +22,7 @@ export function IngameSettings(props) {
 
     const sid = props.sid;
     const { t } = useTranslation();
-    const { error: cookieError, data: cookieInfo } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
+    const { isError, data: cookieInfo, error } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
     var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
 
     const editOwnerSettings = useMutation(
@@ -65,8 +64,8 @@ export function IngameSettings(props) {
         for (var i in originalMaps) {
             newCanApply |= JSON.stringify(maps[i]) !== JSON.stringify(originalMaps[i]);
         }
-        for (var i in maps) {
-            newCanApply |= JSON.stringify(maps[i]) !== JSON.stringify(originalMaps[i]);
+        for (var m in maps) {
+            newCanApply |= JSON.stringify(maps[i]) !== JSON.stringify(originalMaps[m]);
         }
         setCanApply(newCanApply);
     }, [maps, originalMaps]);
@@ -102,27 +101,31 @@ export function IngameSettings(props) {
             </ButtonRow>
 
             <h5 style={{ marginTop: "8px" }}>{t("server.ingameSettings.cookie")}</h5>
-            <ButtonRow>
-                {cookies ?
-                    <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => setCookie(e.target.value)}>
-                        <option value="">{t("cookie.accountType.default")}</option>
-                        {cookies.map((key, index) => <option key={index} selected={cookie === key.id} value={key.id}>{key.name}</option>)}
-                    </select>
-                    : ""}
-            </ButtonRow>
-            <TextInput
-                disabled={!allowedTo}
-                callback={(e) => setCookieSid(e.target.value)}
-                defaultValue={cookieSid}
-                name={t("cookie.sid")}
-            />
-            <TextInput
-                disabled={!allowedTo}
-                callback={(e) => setCookieRemid(e.target.value)}
-                defaultValue={cookieRemid}
-                name={t("cookie.remid")}
-            />
-
+            {(!isError) ? (
+                <ButtonRow>
+                    {cookies ?
+                        <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => setCookie(e.target.value)}>
+                            <option value="">{t("cookie.accountType.default")}</option>
+                            {cookies.map((key, index) => <option key={index} selected={cookie === key.id} value={key.id}>{key.name}</option>)}
+                            <option value="add">{t("cookie.accountType.add")}</option>
+                        </select>
+                        : ""}
+                </ButtonRow>
+            ) : (
+                <>{`Error ${error.code}: {error.message}`}</>
+            )}
+            {(cookie === "add") ? (
+                <>
+                    <h5 style={{ marginTop: "8px" }}>
+                        {t("cookie.sidDescription")}<i>accounts.ea.com</i>
+                    </h5>
+                    <TextInput disabled={!allowedTo} name={t("cookie.sid")} autocomplete="off" callback={(e) => { setCookieSid(e.target.value) }} />
+                    <h5 style={{ marginTop: "8px" }}>
+                        {t("cookie.remidDescription")}<i>accounts.ea.com</i>
+                    </h5>
+                    <TextInput disabled={!allowedTo} name={t("cookie.remid")} autocomplete="off" callback={(e) => { setCookieRemid(e.target.value) }} />
+                </>
+            ) : <></>}
             <ButtonRow>
                 {
                     (props.server && canApply) ? (
@@ -144,7 +147,7 @@ export function ServerSettings(props) {
 
     const sid = props.sid;
     const { t } = useTranslation();
-    const { error: cookieError, data: cookieInfo } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
+    const { isError, data: cookieInfo, error } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
     var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
 
     var allowedTo = false;
@@ -180,36 +183,6 @@ export function ServerSettings(props) {
     const changeServerState = (v) => {
         setServerState(s => ({ ...s, ...v }));
     }
-
-    const removeServer = useMutation(
-        variables => OperationsApi.removeServer(variables),
-        {
-            // When mutate is called:
-            onMutate: async ({ sid }) => {
-                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + sid)
-                // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + sid)
-                // Optimistically update to the new value
-                queryClient.setQueryData('groupId', sid, old => {
-                    if (old) {
-                        old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
-                    }
-                    return old;
-                })
-                // Return a context object with the snapshotted value
-                return { previousGroup, sid }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.sid, context.previousGroup)
-            },
-            // Always refetch after error or success:
-            onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.sid)
-            },
-        }
-    );
 
     const editServerSettings = useMutation(
         variables => OperationsApi.editServer({ value: variables, sid: props.sid }),
@@ -310,15 +283,18 @@ export function ServerSettings(props) {
             />
 
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.cookie")}</h5>
-
-            <ButtonRow>
-                {cookies ?
-                    <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => changeServerState({ cookie: e.target.value })}>
-                        <option value="">{t("cookie.accountType.default")}</option>
-                        {cookies.map((key, index) => <option key={index} selected={getServerValue("cookie") === key.id} value={key.id}>{key.name}</option>)}
-                    </select>
-                    : ""}
-            </ButtonRow>
+            {(!isError) ? (
+                <ButtonRow>
+                    {cookies ?
+                        <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => changeServerState({ cookie: e.target.value })}>
+                            <option value="">{t("cookie.accountType.default")}</option>
+                            {cookies.map((key, index) => <option key={index} selected={getServerValue("cookie") === key.id} value={key.id}>{key.name}</option>)}
+                        </select>
+                        : ""}
+                </ButtonRow>
+            ) : (
+                <>{`Error ${error.code}: {error.message}`}</>
+            )}
 
             <span className={styles.serverBot}>{t("server.settings.discordBot.main")} {server_status} </span>
             <h5 style={{ marginTop: "8px" }}>{t("server.settings.discordBot.tokenDesc")}</h5>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useQuery } from 'react-query';
 import Account from "./Account";
@@ -17,35 +17,39 @@ import Main from "./Main";
 import { Sidebar, TopBar } from "../components";
 import { StatusBotInfo } from "./StatusBotInfo";
 
-export default function ViewHandler(props) {
-
+export function PageLayout(props) {
     let defaultSidebarVisible = localStorage.getItem('isSideBarVisible');
     defaultSidebarVisible = (!!defaultSidebarVisible) ? (defaultSidebarVisible === "1") ? true: false : true;
 
     const [sidebarVisible, hideSidebar] = useState(defaultSidebarVisible);
-    const { isError, isLoading, data: user } = useCorruentUserHook();
-    const location = useLocation();
 
     const setHideSidebar = () => {
         let isVisible = !sidebarVisible;
         localStorage.setItem('isSideBarVisible', isVisible ? "1" : "0");
         hideSidebar(isVisible);
     };
-
-    let redirector = (isError || (!isLoading  && !user.auth.signedIn && location.pathname !== "/")) ? <Redirect to="/" /> : null;
-
     return (
-        <Switch>
+        <>
+            <TopBar hideSidebar={setHideSidebar}/>
+            <div style={{display: "flex", flexDirection: "row"}}>
+                <Sidebar visible={sidebarVisible} />
+                <AnimatedViews />
+            </div>
+        </>
+    )
+}
+
+export default function ViewHandler(props) {
+    const { isError, isLoading, data: user } = useCorruentUserHook();
+
+    const location = useLocation();
+    let redirector = (isError || (!isLoading  && !user.auth.signedIn && location.pathname !== "/")) ? <Navigate to="/" /> : null;
+    return (
+        <Routes>
             {redirector}
-            <Route exact path="/" component={Main} />
-            <Route>
-                <TopBar hideSidebar={setHideSidebar}/>
-                <div style={{display: "flex", flexDirection: "row"}}>
-                    <Sidebar visible={sidebarVisible} />
-                    <AnimatedViews location={location} />
-                </div>
-            </Route>
-        </Switch>
+            <Route exact path="/" element={<Main/>} />
+            <Route path="/*" element={<PageLayout/>} />
+        </Routes>
     );
 }
 
@@ -53,53 +57,44 @@ function useCorruentUserHook() {
     return useQuery('user', () => OperationsApi.user, { retry: 0, })
 }
 
-function AnimatedViews({ location }) {
+function AnimatedViews(props) {
+    const location = useLocation();
 
     return (
         <TransitionGroup component={PageContainer}>
             <CSSTransition key={location.key} classNames="fade" timeout={200}>
                 <PageColumn>
-                    <Views />
+                    <Routes>
+                        <Route exact path="/websocket/:sid/" element={<WebSocketTest/>} />
+                        <Route exact path="/account/" element={<Account/>} />
+
+                        <Route exact path="/makeops/:gid/" element={<MakeOps/>} />
+
+                        <Route exact path="/server/:sid/" element={<Server/>} />
+                        <Route exact path="/server/:sid/delete" element={<DeleteServer/>} />
+                        <Route exact path="/server/:sid/:tab/" element={<Server/>} />
+
+                        <Route exact path="/statusserver/:sid/" element={<StatusOnlyServer/>} />
+                        <Route exact path="/statusserver/:sid/:tab/" element={<StatusOnlyServer/>} />
+
+                        <Route exact path="/group/new/" element={<AddGroup/>} />
+                        <Route exact path="/group/:gid/" element={<Group/>} />
+                        <Route exact path="/cookieinfo/" element={<CookieInfo/>} />
+                        <Route exact path="/statusbotinfo/" element={<StatusBotInfo/>} />
+        
+                        <Route exact path="/group/:gid/add/server" element={<AddGroupServer/>} />
+                        <Route exact path="/group/:gid/add/admin/" element={<AddGroupAdmin/>} />
+                        <Route exact path="/group/:gid/add/owner/" element={<AddGroupOwner/>} />
+
+                        <Route exact path="/group/:gid/edit/" element={<EditGroup/>} />
+                        <Route exact path="/group/:gid/delete" element={<DeleteGroup/>} />
+
+                        <Route exact path="/dev/" element={<Developer/>} />
+                        <Route exact path="/man/" element={<Manager/>} />
+                    </Routes>
                 </PageColumn>
             </CSSTransition>
         </TransitionGroup>
     );
     
-}
-
-function Views() {
-
-    return (
-
-        <Switch>
-            <Route exact path="/websocket/:sid/" component={WebSocketTest} />
-            <Route exact path="/account/" component={Account} />
-
-            <Route exact path="/makeops/:gid/" component={MakeOps} />
-
-            <Route exact path="/server/:sid/" component={Server} />
-            <Route exact path="/server/:sid/delete" component={DeleteServer} />
-            <Route exact path="/server/:sid/:tab/" component={Server} />
-
-            <Route exact path="/statusserver/:sid/" component={StatusOnlyServer} />
-            <Route exact path="/statusserver/:sid/:tab/" component={StatusOnlyServer} />
-
-            <Route exact path="/group/new/" component={AddGroup} />
-            <Route exact path="/group/:gid/" component={Group} />
-            <Route exact path="/cookieinfo/" component={CookieInfo} />
-            <Route exact path="/statusbotinfo/" component={StatusBotInfo} />
-
-            <Route exact path="/group/:gid/add/server" component={AddGroupServer} />
-            <Route exact path="/group/:gid/add/admin/" component={AddGroupAdmin} />
-            <Route exact path="/group/:gid/add/owner/" component={AddGroupOwner} />
-
-            <Route exact path="/group/:gid/edit/" component={EditGroup} />
-            <Route exact path="/group/:gid/delete" component={DeleteGroup} />
-
-            <Route exact path="/dev/" component={Developer} />
-            <Route exact path="/man/" component={Manager} />
-
-        </Switch>
-    );
-
 }

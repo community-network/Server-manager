@@ -5,7 +5,7 @@ import { PageContext } from "./ServerGlobalContext";
 
 import { OperationsApi } from "../api";
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ServerRotation, ServerInfoHolder, BanList, VipList, AdminList, FireStarter, Spectator, Playerlogs, PlayTime } from "./Server";
 
 import { Switch, Column, Header, ButtonRow, ButtonLink, Button, PageCard, Row, TextInput, Card } from "../components";
@@ -14,18 +14,17 @@ import '../locales/config';
 
 import { ServerSettings, IngameSettings } from "./Settings";
 import { useServer, useGame } from "./Manager";
+import { useParams } from 'react-router-dom';
 
 import Console from "./Console";
-
 import { PlayerList } from "./PlayerList";
-import { LogList } from "./ActionLogs";
 
 /**
  * Server page
  */
 export function Server(props) {
-
-    let { sid } = props.match.params;
+    let params = useParams();
+    let { sid } = params;
 
     const { t } = useTranslation();
 
@@ -41,20 +40,20 @@ export function Server(props) {
             callback: () => setTabsListing("info"),
         },
         {
-            name: t("server.banList.main"),
-            callback: () => setTabsListing("banlist"),
-        },
-        {
             name: t("server.settings.main"),
             callback: () => setTabsListing("settings"),
         }
     ];
 
-    if (runningGame && runningGame.data.length > 0 && runningGame.data[0].game === "bf1") {
+    if (server && server.game === "bf1") {
         const extra = [
             {
                 name: t("server.ingameSettings.main"),
                 callback: () => setTabsListing("ingameSettings"),
+            },
+            {
+                name: t("server.banList.main"),
+                callback: () => setTabsListing("banlist"),
             },
             {
                 name: t("server.vipList.main"),
@@ -88,11 +87,47 @@ export function Server(props) {
         serverTabs = serverTabs.concat(extra);
     }
 
+    if (server && server.game === "bf2042") {
+        const extra = [
+            {
+                name: t("server.banList.main"),
+                callback: () => setTabsListing("banlist"),
+            }
+        ]
+        serverTabs = serverTabs.concat(extra);
+    }
+    
+    if (server && server.game === "bfv") {
+        const extra = [
+            {
+                name: t("server.firestarterList.main"),
+                callback: () => setTabsListing("firestarter"),
+            },
+            {
+                name: t("server.playTimeList.main"),
+                callback: () => setTabsListing("playtime"),
+            },
+            {
+                name: t("server.spectatorList.main"),
+                callback: () => setTabsListing("spectator"),
+            },
+            {
+                name: t("server.playerLogs.main"),
+                callback: () => setTabsListing("playerlogs"),
+            },
+            {
+                name: t("server.protection.main"),
+                callback: () => setTabsListing("protection"),
+            },
+        ]
+        serverTabs = serverTabs.concat(extra);
+    }
+
 
     const catTabs = {
         info: (
             <ServerInfoHolder>
-                <ServerRotation game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} />
+                <ServerRotation server={server} game={runningGame} rotate={id => OperationsApi.changeRotation({ sid, map: id })} />
             </ServerInfoHolder>
         ),
         banlist:        <BanList sid={sid} />,
@@ -118,10 +153,10 @@ export function Server(props) {
             </Row>
             <Row>
                 <Column>
-                    <Console game={runningGame} sid={sid} />
+                    <Console game={runningGame} server={server} sid={sid} />
                 </Column>
             </Row>
-            <PlayerList game={runningGame} sid={sid} /> 
+            <PlayerList game={runningGame} server={server} sid={sid} /> 
         </PageContext.Provider>
     );
 
@@ -130,41 +165,32 @@ export function Server(props) {
 
 
 export function DeleteServer(props) {
+    let params = useParams();
+    let thisSid = params.sid;
 
-    var thisSid = props.match.params.sid;
     const { data: server } = useServer(thisSid);
 
     const queryClient = useQueryClient();
-    const history = useHistory();
+    const history = useNavigate();
     const { t } = useTranslation();
 
     const RemoveServerExecute = useMutation(
         variables => OperationsApi.removeServer(variables),
         {
-            // When mutate is called:
-            onMutate: async ({ sid }) => {
-                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + sid)
-                // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + sid)
-                // Optimistically update to the new value
-                queryClient.setQueryData('groupId', sid, old => {
+            onSuccess: async (variables) => {
+                await queryClient.cancelQueries('groupId' + variables.groupId)
+
+                queryClient.setQueryData('groupId', variables.groupId, old => {
                     if (old) {
-                        old.data[0].servers = old.data[0].servers.filter(server => server.id !== sid);
+                        old.data[0].servers = old.data[0].servers.filter(server => server.id !== variables.groupId);
                     }
                     return old;
                 })
-                // Return a context object with the snapshotted value
-                return { previousGroup, sid }
-            },
-            // If the mutation fails, use the context returned from onMutate to roll back
-            onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.sid, context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.sid)
-                history.push(`/group/${data.groupId}`); 
+                queryClient.invalidateQueries('groupId' + data.groupId)
+                history(`/group/${data.groupId}`); 
             },
         }
     );

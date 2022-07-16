@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { checkGameString } from "../Server/Modals";
-import { supportedGames } from "../Globals";
 
-import styles from "./Group.module.css";
 import { OperationsApi } from "../api";
 import { Switch, useModal, ButtonRow, Button, TextInput, ButtonUrl } from "../components";
 import '../locales/config';
@@ -22,7 +20,6 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
             <GroupRemoveAccount
                 gid={gid}
                 cookie={cookie}
-                group={group}
             />
         );
     }
@@ -35,7 +32,6 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
     const [remid, setRemid] = useState("");
     const [defaultCookie, setDefaultCookie] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
-    const [supportedGame, setSupportedGame] = useState("bf1");
     const currentDefault = group.defaultCookie === cookie.id;
 
     useEffect(() => {
@@ -69,76 +65,8 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
         }
     );
 
-    return (
-        <>
-            <h2 style={{ marginLeft: "20px" }}>
-                {t("group.account.main")}: {cookie.username}
-            </h2>
-            <h5>
-                {t("cookie.remid")}
-            </h5>
-            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
-            <h5>
-                {t("cookie.sid")}
-            </h5>
-            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
-            <h5>
-                {t("cookie.check")}
-            </h5>
-            <ButtonRow>
-                <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={supportedGame} onChange={(e) => setSupportedGame(e.target.value)}>
-                    {supportedGames.map((element, index) => {
-                        return (
-                            <option key={index} value={element}>{t(`games.${element}`)}</option>
-                        )
-                    })}
-                </select>
-            </ButtonRow>
-            <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
-            <ButtonRow>
-                <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
-            </ButtonRow>
-            <ButtonRow>
-                {
-                    (group && (sid !== cookie.sid || remid !== cookie.remid || defaultCookie !== currentDefault)) ? (
-                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
-                            _ => editCookies.mutate(
-                                {
-                                    gid: gid,
-                                    sid: sid,
-                                    remid: remid,
-                                    id: cookie.id,
-                                    defaultCookie: defaultCookie,
-                                    supportedGame: supportedGame
-                                }
-                            )
-                        } status={applyStatus} />
-                    ) : ""
-                }
-                <Button style={{ color: "#FF7575" }} name={t("cookie.delete")} callback={showDeleteAccount} disabled={!allowedTo || currentDefault} />
-            </ButtonRow>
-        </>
-    )
-}
-
-
-export function AddAccountModal({ group, gid, user, callback }) {
-
-    var allowedTo = false;
-    if (group && user) allowedTo = group.isOwner || user.auth.isDeveloper;
-
-    const { t } = useTranslation();
-    const queryClient = useQueryClient();
-
-    const [sid, setSid] = useState("");
-    const [remid, setRemid] = useState("");
-    const [defaultCookie, setDefaultCookie] = useState(false);
-    const [applyStatus, setApplyStatus] = useState(null);
-    const [supportedGame, setSupportedGame] = useState("bf1");
-
-
-    const addCookies = useMutation(
-        variables => OperationsApi.addCookie(variables),
+    const updateGamesAccount = useMutation(
+        variables => OperationsApi.updateCookieGames(variables),
         {
             onMutate: async () => {
                 setApplyStatus(true);
@@ -160,43 +88,40 @@ export function AddAccountModal({ group, gid, user, callback }) {
     return (
         <>
             <h2 style={{ marginLeft: "20px" }}>
-                {t("group.account.main")}
+                {t("group.account.main")}: {cookie.username}
             </h2>
-            <h5>
-                {t("cookie.remid")}
-            </h5>
-            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
             <h5>
                 {t("cookie.sid")}
             </h5>
             <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
             <h5>
-                {t("cookie.check")}
+                {t("cookie.remid")}
             </h5>
-            <ButtonRow>
-                <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={supportedGame} onChange={(e) => setSupportedGame(e.target.value)}>
-                    {supportedGames.map((element, index) => {
-                        return (
-                            <option key={index} value={element}>{t(`games.${element}`)}</option>
-                        )
-                    })}
-                </select>
-            </ButtonRow>
+            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
             <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
             <ButtonRow>
                 <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
             </ButtonRow>
             <ButtonRow>
+                <Button style={{ color: "#FF7575" }} name={t("cookie.delete")} callback={showDeleteAccount} disabled={!allowedTo || currentDefault} />
+                <Button name={t("cookie.supportedGames.update")} disabled={!allowedTo || applyStatus !== null} callback={
+                    _ => updateGamesAccount.mutate(
+                        {
+                            gid: gid,
+                            id: cookie.id
+                        }
+                    )
+                } status={applyStatus} />
                 {
-                    (group && (sid !== "" && remid !== "")) ? (
-                        <Button name={t("cookie.add")} disabled={!allowedTo || applyStatus !== null} callback={
-                            _ => addCookies.mutate(
+                    (group && (sid !== cookie.sid || remid !== cookie.remid || defaultCookie !== currentDefault)) ? (
+                        <Button name={t("apply")} disabled={!allowedTo || applyStatus !== null} callback={
+                            _ => editCookies.mutate(
                                 {
                                     gid: gid,
                                     sid: sid,
                                     remid: remid,
-                                    defaultCookie: defaultCookie,
-                                    supportedGame: supportedGame
+                                    id: cookie.id,
+                                    defaultCookie: defaultCookie
                                 }
                             )
                         } status={applyStatus} />
@@ -207,9 +132,86 @@ export function AddAccountModal({ group, gid, user, callback }) {
     )
 }
 
+
+export function AddAccountModal({ group, gid, user, callback }) {
+
+    var allowedTo = false;
+    if (group && user) allowedTo = group.isOwner || user.auth.isDeveloper;
+
+    const { t } = useTranslation();
+    const queryClient = useQueryClient();
+
+    const [sid, setSid] = useState("");
+    const [remid, setRemid] = useState("");
+    const [removeApplyStatus, setRemoveApplyStatus] = useState(null);
+    const [defaultCookie, setDefaultCookie] = useState(false);
+    const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
+
+
+    const addCookies = useMutation(
+        variables => OperationsApi.addCookie(variables),
+        {
+            onMutate: async () => {
+                setRemoveApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setRemoveApplyStatus(null);
+                callback();
+            },
+            onError: async (err) => {
+                setRemoveApplyStatus(false);
+                setError(err);
+                setTimeout(_ => setRemoveApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+                queryClient.invalidateQueries('groupId' + gid);
+            }
+        }
+    );
+
+    return (
+        <>
+            <h2 style={{ marginLeft: "20px" }}>
+                {t("group.account.main")}
+            </h2>
+            <h5>
+                {t("cookie.sid")}
+            </h5>
+            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setSid(e.target.value)} defaultValue={sid} name={"Sid"} />
+            <h5>
+                {t("cookie.remid")}
+            </h5>
+            <TextInput type="password" autocomplete="new-password" disabled={!allowedTo} callback={(e) => setRemid(e.target.value)} defaultValue={remid} name={"Remid"} />
+            <Switch checked={defaultCookie} name={t("cookie.setDefaultCookie")} callback={(v) => setDefaultCookie(v)} />
+            <ButtonRow>
+                <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+            </ButtonRow>
+            <ButtonRow>
+                {
+                    (group && (sid !== "" && remid !== "")) ? (
+                        <Button name={t("cookie.add")} disabled={!allowedTo || removeApplyStatus !== null} callback={
+                            _ => addCookies.mutate(
+                                {
+                                    gid: gid,
+                                    sid: sid,
+                                    remid: remid,
+                                    defaultCookie: defaultCookie
+                                }
+                            )
+                        } status={removeApplyStatus} />
+                    ) : ""
+                }
+                <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (removeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
+            </ButtonRow>
+        </>
+    )
+}
+
 export function GroupGlobalUnbanPlayer(props) {
 
     var { gid, eaid, playerId } = props;
+
+    const queryClient = useQueryClient();
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -221,17 +223,34 @@ export function GroupGlobalUnbanPlayer(props) {
     const UnbanPlayer = useMutation(
         v => OperationsApi.globalUnbanPlayer(v),
         {
-            onMutate: async () => {
+            onMutate: async ({ gid, eaid, reason, name, playerId }) => {
                 setBanApplyStatus(true)
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('globalBanList' + gid)
+                // Snapshot the previous value
+                const perviousBanlist = queryClient.getQueryData('globalBanList' + gid)
+
+                queryClient.setQueryData('globalBanList' + gid, old => {
+                    old.data = old.data.filter(user => user.playername !== name);
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { perviousBanlist, gid }
             },
-            onError: (error) => {
+            onError: (err, newTodo, context) => {
                 setBanApplyStatus(false);
-                setError(error);
+                setError(err);
                 setTimeout(_ => setBanApplyStatus(null), 3000);
+                queryClient.setQueryData('globalBanList' + context.gid, context.perviousBanlist)
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('globalBanList' + context.gid)
             },
         }
     );
@@ -239,7 +258,7 @@ export function GroupGlobalUnbanPlayer(props) {
     var perm = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 if (gid === group.id) {
                     perm = gid
@@ -277,8 +296,9 @@ export function GroupGlobalUnbanPlayer(props) {
 }
 
 export function GroupRemoveAccount(props) {
+    const { gid, cookie } = props;
 
-    var { gid, cookie, group } = props;
+    const queryClient = useQueryClient();
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -289,17 +309,33 @@ export function GroupRemoveAccount(props) {
     const RemoveAccount = useMutation(
         v => OperationsApi.removeCookie(v),
         {
-            onMutate: async () => {
+            onMutate: async ({gid, id}) => {
                 setRemoveApplyStatus(true)
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('groupId' + gid)
+                // Snapshot the previous value
+                const previousGroup = queryClient.getQueryData('groupId' + gid)
+
+                queryClient.setQueryData('groupId' + gid, old => {
+                    old.data[0].cookies = old.data[0].cookies.filter(item => item.id !== id);
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousGroup, gid }
             },
-            onError: (error) => {
+            onError: (err, newTodo, context) => {
                 setRemoveApplyStatus(false);
-                setError(error);
+                setError(err);
                 setTimeout(_ => setRemoveApplyStatus(null), 3000);
+                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
             },
             onSuccess: () => {
                 setRemoveApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('groupId' + context.gid)
             },
         }
     );
@@ -307,7 +343,7 @@ export function GroupRemoveAccount(props) {
     var perm = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 if (gid === group.id) {
                     perm = gid
@@ -340,8 +376,9 @@ export function GroupRemoveAccount(props) {
 }
 
 export function GroupRemoveExclusionPlayer(props) {
+    const { gid, eaid, playerId } = props;
 
-    var { gid, eaid, playerId } = props;
+    const queryClient = useQueryClient();
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -353,17 +390,34 @@ export function GroupRemoveExclusionPlayer(props) {
     const RemoveExcludedPlayer = useMutation(
         v => OperationsApi.globalRemoveExcludePlayer(v),
         {
-            onMutate: async () => {
+            onMutate: async ({ gid, eaid, reason, name, playerId }) => {
                 setExcludeApplyStatus(true)
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('globalExclusionList' + gid)
+                // Snapshot the previous value
+                const previousExcludedlist = queryClient.getQueryData('globalExclusionList' + gid)
+
+                queryClient.setQueryData('globalExclusionList' + gid, old => {
+                    old.data = old.data.filter(user => user.playername !== name);
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousExcludedlist, gid }
             },
-            onError: (error) => {
+            onError: (err, newTodo, context) => {
                 setExcludeApplyStatus(false);
-                setError(error);
+                setError(err);
                 setTimeout(_ => setExcludeApplyStatus(null), 3000);
+                queryClient.setQueryData('globalExclusionList' + context.gid, context.previousExcludedlist)
             },
             onSuccess: () => {
                 setExcludeApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('globalExclusionList' + context.gid)
             },
         }
     );
@@ -371,7 +425,7 @@ export function GroupRemoveExclusionPlayer(props) {
     var perm = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 if (gid === group.id) {
                     perm = gid
@@ -409,8 +463,9 @@ export function GroupRemoveExclusionPlayer(props) {
 }
 
 export function GroupRemoveReason(props) {
+    const { gid, reasonId } = props;
 
-    var { gid, reasonId } = props;
+    const queryClient = useQueryClient();
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -421,17 +476,34 @@ export function GroupRemoveReason(props) {
     const RemoveReason = useMutation(
         v => OperationsApi.delReason(v),
         {
-            onMutate: async () => {
+            onMutate: async ({ gid, reasonId }) => {
                 setReasonApplyStatus(true)
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('globalReasonList' + gid)
+                // Snapshot the previous value
+                const previousReasonlist = queryClient.getQueryData('globalReasonList' + gid)
+
+                queryClient.setQueryData('globalReasonList' + gid, old => {
+                    old.data = old.data.filter(item => item.id !== reasonId);
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousReasonlist, gid }
             },
-            onError: (error) => {
+            onError: (err, newTodo, context) => {
                 setReasonApplyStatus(false);
-                setError(error);
+                setError(err);
                 setTimeout(_ => setReasonApplyStatus(null), 3000);
+                queryClient.setQueryData('globalReasonList' + context.gid, context.previousReasonlist)
             },
             onSuccess: () => {
                 setReasonApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('globalReasonList' + context.gid)
             },
         }
     );
@@ -439,7 +511,7 @@ export function GroupRemoveReason(props) {
     var perm = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 if (gid === group.id) {
                     perm = gid

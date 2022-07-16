@@ -23,7 +23,7 @@
         "bf4": "Battlefield 4 (statusbot only)",
         "bfh": "Battlefield Hardline (statusbot only)",
         "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (statusbot only)",
+        "bfv": "Battlefield 5 (Early beta)",
         "bf2042": "Battlefield 2042 (Early beta)"
     },
     "gamemodes": {
@@ -34,7 +34,8 @@
         "CONQUEST": "Conquest",
         "WAR PIGEONS": "War pigeons",
         "OPERATIONS": "Operations",
-        "TEAM DEATHMATCH": "Team deathmatch"
+        "TEAM DEATHMATCH": "Team deathmatch",
+        "BREAKTHROUGH": "Breakthrough"
     },
     "maps": {
         "Amiens" : "Amiens",
@@ -68,7 +69,29 @@
         "River Somme" : "River Somme",
         "London Calling: Raiders" : "London Calling: Raiders",
         "London Calling: Scourge" : "London Calling: Scourge",
-        "Razor's Edge" : "Razor's Edge"
+        "Razor's Edge" : "Razor's Edge",
+
+        "Aerodrome": "Aerodrome",
+        "Al Marj Encampment": "Al Marj Encampment",
+        "Al Sundan": "Al Sundan",
+        "Arras": "Arras",
+        "Devastation": "Devastation",
+        "Fjell 652": "Fjell 652",
+        "Halvøy": "Halvøy",
+        "Hamada": "Hamada",
+        "Iwo Jima": "Iwo Jima",
+        "Lofoten Islands": "Lofoten Islands",
+        "Marita": "Marita",
+        "Mercury": "Mercury",
+        "Narvik": "Narvik",
+        "Operation Underground": "Operation Underground",
+        "Pacific Storm": "Pacific Storm",
+        "Panzerstorm": "Panzerstorm",
+        "Provence": "Provence",
+        "Rotterdam": "Rotterdam",
+        "Solomon Islands": "Solomon Islands",
+        "Twisted Steel": "Twisted Steel",
+        "Wake Island": "Wake Island"
     },
     "cookie": {
         "check": "Select a game the cookie supports to check if valid",
@@ -86,12 +109,17 @@
             "pending": "We have a pending status for this account"
         },
         "accountType": {
+            "add": "Add new cookie",
             "default": "Default account",
             "extra": "Extra account"
         },
         "removeMenu": {
             "main": "Are you sure you want to remove \"{{name}}\" service account?",
             "confirm": "Remove account"
+        },
+        "supportedGames": {
+            "main": "Games on account:",
+            "update": "Update game list"
         }
     },
     "serverStatus": {
@@ -485,7 +513,10 @@
             "info": "[{{inQue}}] players",
             "restart": "Restart",
             "mapSwitch": "Switch game..",
-            "playerlistUpdate": "Last update"
+            "startServer": "Start server",
+            "playerlistUpdate": "Last update",
+            "bfvPlaygroundSelect": "Select config",
+            "serverRegionSelect": "Select region"
         },
         "banList": {
             "main": "Ban list",
@@ -804,5 +835,11 @@
     },
     "ApiInfo": {
         "link": "Click here to get all the available requests for the API"
+    },
+    "imageAlts": {
+        "main": "Logo manager",
+        "gamestats": "Gamestats logo",
+        "userAvatar": "User avatar",
+        "tutorial": "Visual aid"
     }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQueryClient, useMutation, useQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { OperationsApi } from "../api";
@@ -14,7 +14,7 @@ import styles from "./Styles.module.css";
 
 export function ServerKickPlayer(props) {
 
-    var { sid, eaid } = props;
+    const { sid, eaid } = props;
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -22,7 +22,7 @@ export function ServerKickPlayer(props) {
     const [kickApplyStatus, setKickApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
     const queryClient = useQueryClient();
-    const history = useHistory();
+    const history = useNavigate();
 
     const KickPlayer = useMutation(
         v => OperationsApi.kickPlayer(v),
@@ -69,7 +69,7 @@ export function ServerKickPlayer(props) {
                 <ReasonDropdownButton sid={sid} name={t("server.reasonMenu.select")} callback={(v) => checkReason(v)} style={{ maxWidth: "144px" }} />
             </ButtonRow>
             <ButtonRow>
-                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId, userId: props.userId }); history.push(`/server/${props.sid}/`); }} />
+                <Button status={kickApplyStatus} name={t("server.kickMenu.confirm")} disabled={reason === ""} callback={() => { KickPlayer.mutate({ sid, eaid, reason, playername: props.eaid, playerId: props.playerId, userId: props.userId }); history(`/server/${props.sid}/`); }} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (kickApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
             </ButtonRow>
         </>
@@ -80,11 +80,8 @@ export function ServerKickPlayer(props) {
 
 export function ServerBanPlayer(props) {
 
-    var { sid, playerInfo } = props;
-    
-    const name = playerInfo.name;
-    const oid = playerInfo.oid;
-    const platform = playerInfo.platform
+    const { sid, playerInfo } = props;
+    const { name, oid, platform } = playerInfo;
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -141,7 +138,7 @@ export function ServerBanPlayer(props) {
     var gid = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 for (let someSid of group.servers) {
                     if (someSid === sid) {
@@ -214,9 +211,7 @@ export function ServerMovePlayer(props) {
 }
 
 export function PlayerStatsModal(props) {
-
-    const player = props.player;
-    const playerId = props.id;
+    const { player, playerId } = props;
     
     let type = "playerid"
     let check = playerId
@@ -263,12 +258,8 @@ export function checkGameString(v) {
 
 
 export function ServerUnbanPlayer(props) {
-
-    var { sid, playerInfo } = props;
-    const name = playerInfo.name;
-    const playerId = playerInfo.playerId;
-    const oid = playerInfo.oid;
-    const platform = playerInfo.platform;
+    const { sid, playerInfo } = props;
+    const { name, playerId, oid, platform } = playerInfo;
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -298,7 +289,7 @@ export function ServerUnbanPlayer(props) {
     var gid = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 for (let someSid of group.servers) {
                     if (someSid === sid) {
@@ -340,8 +331,7 @@ export function ServerUnbanPlayer(props) {
 }
 
 export function ServerUnvipPlayer(props) {
-
-    var { sid, eaid, playerId } = props;
+    const { sid, eaid, playerId } = props;
 
     const modal = useModal();
     const { t } = useTranslation();
@@ -371,7 +361,7 @@ export function ServerUnvipPlayer(props) {
     var gid = null;
 
     if (user) {
-        user.permissions.isAdminOf.map(
+        user.permissions.isAdminOf.forEach(
             group => {
                 for (let someSid of group.servers) {
                     if (someSid === sid) {

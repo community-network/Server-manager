@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from 'react-query';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { Column, Card, Header, ButtonLink, ButtonRow, Row, TextInput } from "../components";
+import { Column, Card, ButtonLink, ButtonRow, Row, TextInput } from "../components";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
@@ -17,11 +17,11 @@ export function Developer() {
     var groups = [];
 
     if (!isLoading && !isError && data) {
-        data.data.filter(p => p.groupName.toLowerCase().includes(searchWord.toLowerCase())).map((g, i) => {
+        data.data.filter(p => p.groupName.toLowerCase().includes(searchWord.toLowerCase())).forEach((g, i) => {
             groups.push(<GroupRow key={i} group={g} />);
         });
     } else if (isError) {
-        return <Redirect to="/" />;
+        return <Navigate to="/" />;
     }
 
     return (

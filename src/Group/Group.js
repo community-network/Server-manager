@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useMeasure } from 'react-use';
-import { Link, useHistory } from "react-router-dom";
+import { useMeasure,  } from 'react-use';
+import { Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { GroupGlobalUnbanPlayer, GroupRemoveExclusionPlayer, GroupRemoveReason } from "./Modals";
@@ -141,22 +141,11 @@ function Shield({ status }) {
     )
 }
 
-export function GroupAdminAccount(props) {
-
-    var { remid, sid } = props.cookie;
-
-    return (
-        <div className={styles.AdminAccount}>
-        </div>
-    );
-
-}
-
 export function GameStatsAd(props) {
     const { t } = useTranslation();
     return (
         <a target="_blank" rel="noopener noreferrer" className={styles.gameStatsAd} href="https://discord.com/oauth2/authorize?client_id=714524944783900794&scope=bot&permissions=83968">
-            <img src="/img/game-stats.png" />
+            <img alt={t("imageAlts.gamestats")} src="/img/game-stats.png" />
             <span>{t("group.discord.gamestats")}</span>
         </a>
     );
@@ -440,7 +429,8 @@ function VbanBanPlayer(props) {
     var { gid } = props;
     const { t } = useTranslation();
 
-    const history = useHistory();
+    const queryClient = useQueryClient();
+
     const [playerName, setPlayerName] = useState("");
     const [reason, setReason] = useState("");
     const [banTime, setBanTime] = useState(0);
@@ -453,17 +443,36 @@ function VbanBanPlayer(props) {
     const GlobalBanPlayer = useMutation(
         v => OperationsApi.globalBanPlayer(v),
         {
-            onMutate: async () => {
+            onMutate: async ({gid, reason, name, playerId, banTime}) => {
                 setBanApplyStatus(true)
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('globalBanList' + gid)
+                // Snapshot the previous value
+                const perviousBanlist = queryClient.getQueryData('globalBanList' + gid)
+                // Optimistically update to the new value
+                const UTCNow = new Date(Date.now()).toUTCString();
+
+                queryClient.setQueryData('globalBanList' + gid, old => {
+                    old.data.push({ id: playerId, playerName: name, reason: reason, timeStamp: UTCNow, bannedUntil: null, admin: user.discord.name });
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { perviousBanlist, gid }
             },
-            onError: (error) => {
+            onError: (error, newTodo, context) => {
                 setBanApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setBanApplyStatus(null), 3000);
+                queryClient.setQueryData('globalBanList' + context.gid, context.perviousBanlist)
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('globalBanList' + context.gid)
             },
         }
     );
@@ -709,7 +718,8 @@ function ExclusionPlayer(props) {
     var { gid } = props;
     const { t } = useTranslation();
 
-    const history = useHistory();
+    const queryClient = useQueryClient();
+
     const [playerName, setPlayerName] = useState("");
     const [reason, setReason] = useState("");
     const [excludeTime, setExcludeTime] = useState(0);
@@ -722,17 +732,36 @@ function ExclusionPlayer(props) {
     const GlobalExcludePlayer = useMutation(
         v => OperationsApi.globalExcludePlayer(v),
         {
-            onMutate: async () => {
+            onMutate: async ({gid, reason, name, playerId, excludeTime}) => {
                 setExcludeApplyStatus(true)
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('globalExclusionList' + gid)
+                // Snapshot the previous value
+                const perviousExclusionlist = queryClient.getQueryData('globalExclusionList' + gid)
+                // Optimistically update to the new value
+                const UTCNow = new Date(Date.now()).toUTCString();
+
+                queryClient.setQueryData('globalExclusionList' + gid, old => {
+                    old.data.push({ id: playerId, playerName: name, reason: reason, timeStamp: UTCNow, bannedUntil: null, admin: user.discord.name });
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { perviousExclusionlist, gid }
             },
-            onError: (error) => {
+            onError: (error, newTodo, context) => {
                 setExcludeApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setExcludeApplyStatus(null), 3000);
+                queryClient.setQueryData('globalExclusionList' + context.gid, context.perviousExclusionlist)
             },
             onSuccess: () => {
                 setExcludeApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('globalExclusionList' + context.gid)
             },
         }
     );
@@ -839,7 +868,8 @@ function ReasonListPlayer(props) {
     var { gid } = props;
     const { t } = useTranslation();
 
-    const history = useHistory();
+    const queryClient = useQueryClient();
+
     const [reason, setReason] = useState("");
 
     var [reasonApplyStatus, setReasonApplyStatus] = useState(null);
@@ -850,17 +880,34 @@ function ReasonListPlayer(props) {
     const GlobalAddReason = useMutation(
         v => OperationsApi.addReason(v),
         {
-            onMutate: async () => {
+            onMutate: async ({ gid, reason }) => {
                 setReasonApplyStatus(true)
+
+                // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+                await queryClient.cancelQueries('globalReasonList' + gid)
+                // Snapshot the previous value
+                const previousReasonlist = queryClient.getQueryData('globalReasonList' + gid)
+
+                queryClient.setQueryData('globalReasonList' + gid, old => {
+                    old.data.push({ item: reason });
+                    return old;
+                })
+                // Return a context object with the snapshotted value
+                return { previousReasonlist, gid }
             },
-            onError: (error) => {
+            onError: (err, newTodo, context) => {
                 setReasonApplyStatus(false);
-                setError(error);
+                setError(err);
                 setTimeout(_ => setReasonApplyStatus(null), 3000);
+                queryClient.setQueryData('globalReasonList' + context.gid, context.previousReasonlist)
             },
             onSuccess: () => {
                 setReasonApplyStatus(null);
                 modal.close();
+            },
+            // Always refetch after error or success:
+            onSettled: (data, error, variables, context) => {
+                queryClient.invalidateQueries('globalReasonList' + context.gid)
             },
         }
     );

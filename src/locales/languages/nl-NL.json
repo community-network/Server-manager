@@ -23,7 +23,7 @@
         "bf4": "Battlefield 4 (alleen statusbot)",
         "bfh": "Battlefield Hardline (alleen statusbot)",
         "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (alleen statusbot)",
+        "bfv": "Battlefield 5 (vroege beta)",
         "bf2042": "Battlefield 2042 (vroege beta)"
     },
     "gamemodes": {
@@ -34,7 +34,8 @@
         "CONQUEST": "Conquest",
         "WAR PIGEONS": "War pigeons",
         "OPERATIONS": "Operations",
-        "TEAM DEATHMATCH": "Team deathmatch"
+        "TEAM DEATHMATCH": "Team deathmatch",
+        "BREAKTHROUGH": "Breakthrough"
     },
     "maps": {
         "Amiens" : "Amiens",
@@ -68,7 +69,29 @@
         "River Somme" : "River Somme",
         "London Calling: Raiders" : "London Calling: Raiders",
         "London Calling: Scourge" : "London Calling: Scourge",
-        "Razor's Edge" : "Razor's Edge"
+        "Razor's Edge" : "Razor's Edge",
+
+        "Aerodrome": "Aerodrome",
+        "Al Marj Encampment": "Al Marj Encampment",
+        "Al Sundan": "Al Sundan",
+        "Arras": "Arras",
+        "Devastation": "Devastation",
+        "Fjell 652": "Fjell 652",
+        "Halvøy": "Halvøy",
+        "Hamada": "Hamada",
+        "Iwo Jima": "Iwo Jima",
+        "Lofoten Islands": "Lofoten Islands",
+        "Marita": "Marita",
+        "Mercury": "Mercury",
+        "Narvik": "Narvik",
+        "Operation Underground": "Operation Underground",
+        "Pacific Storm": "Pacific Storm",
+        "Panzerstorm": "Panzerstorm",
+        "Provence": "Provence",
+        "Rotterdam": "Rotterdam",
+        "Solomon Islands": "Solomon Islands",
+        "Twisted Steel": "Twisted Steel",
+        "Wake Island": "Wake Island"
     },
     "cookie": {
         "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",

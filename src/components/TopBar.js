@@ -1,13 +1,10 @@
 import React from "react";
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { NavLink, Link, useHistory } from 'react-router-dom';
-import ABSwitch, { getChannel } from "../testing/ABtesting";
+import { useQuery } from 'react-query'
+import { Link } from 'react-router-dom';
 import styles from "./TopBar.module.css";
 import { useTranslation } from 'react-i18next';
 
 import { OperationsApi } from "../api";
-
-import { APP_VERSION } from "../App";
 
 export function TopBar(props) {
     const { t } = useTranslation();
@@ -19,7 +16,7 @@ export function TopBar(props) {
         accountPage = (
             <Link to="/account/" title={user.discord.name} className={styles.accountPage}>
                 {/*<span>{user.discord.name}</span>*/}
-                <img src={user.discord.avatar} className={styles.Avatar} />
+                <img alt={t("imageAlts.userAvatar")} src={user.discord.avatar} className={styles.Avatar} />
                 <span className={styles.accountText}>{t("account.main")}</span>
             </Link>
         );
@@ -38,7 +35,7 @@ export function TopBar(props) {
                     </svg>
                 </button>
                 <Link to="/" title="Main page" className={styles.mainPage}>
-                    <img src="/img/logo-release.png" className={styles.logo} />
+                    <img alt={t("imageAlts.main")} src="/img/logo-release.png" className={styles.logo} />
                 </Link>
                 <div className={styles.filler} ></div>
 

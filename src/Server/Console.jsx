@@ -28,10 +28,12 @@ export default function Console(props) {
 
     let sid = props.sid;
     let game = props.game;
+    let server = props.server;
 
     let haveGame = !!game;
+    let haveServer = !!server;
 
-    let gameName = haveGame ? game.data[0].game : false;
+    let gameName = haveServer ? server.game : false;
 
     let teams = haveGame ? game.data[0].players : null;
     let havePlayers = teams && !("error" in teams[0]) && (teams[0].players !== undefined || teams[1].players !== undefined);
@@ -129,8 +131,12 @@ export default function Console(props) {
                         </>
                     ) : <>
                         <Button disabled={disabledButton} name={t("server.action.kick")} callback={showServerKickPlayer} />
-                        <Button disabled={disabledButton} name={t("server.action.ban")} callback={showBanPlayer} />
-                        <Button disabled={disabledButton || unbanStatus.status} name={unbanStatus.name} callback={unbanPlayerCallback} />
+                        {gameName && gameName === "bf2042" ? (
+                            <>
+                                <Button disabled={disabledButton} name={t("server.action.ban")} callback={showBanPlayer} />
+                                <Button disabled={disabledButton || unbanStatus.status} name={unbanStatus.name} callback={unbanPlayerCallback} />
+                            </>
+                        ) : <></>}
                     </>}
                 </ButtonRow>
             </Row>

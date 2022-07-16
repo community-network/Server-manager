@@ -1,4 +1,4 @@
-export let factions = {
+export let bf1Factions = {
     "BFFactionId_FactionAHU": {
         "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Tunguska/30/21/FactionsColorAustroHungarianEmpireLarge-e2ebe691.png",
         "key": "AHU",
@@ -56,5 +56,28 @@ export let factions = {
         "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Tunguska/103/37/FactionsColorUnitedKingdomLarge-672527a9.png",
         "key": "UK",
         "name": "Royal Marines",
+    },
+};
+
+export const bfvFactions = {
+    "BFFactionId_FactionGER": {
+        "key": "GER",
+        "name": "German Empire",
+        "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Casablanca/10/112/FactionGERMono_Bitmap-f670b3f7.png"
+    },
+    "BFFactionId_FactionUK": {
+        "key": "UK",
+        "name": "British Empire",
+        "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Casablanca/8/119/FactionUKMono_Bitmap-f8893fc1.png"
+    },
+    "BFFactionId_FactionUSA_Pacific": {
+        "key": "USA",
+        "name": "UNITED STATES OF AMERICA",
+        "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Casablanca/80/53/FactionUSMono_Bitmap-5035fa18.png"
+    },
+    "BFFactionId_FactionJPN": {
+        "key": "JPN",
+        "name": "Empire of Japan",
+        "image": "https://eaassets-a.akamaihd.net/battlelog/battlebinary/gamedata/Casablanca/38/94/FactionJPNMono_Bitmap-da5effe8.png"
     },
 };

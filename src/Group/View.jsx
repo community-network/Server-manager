@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useMeasure } from 'react-use';
 import cryptoRandomString from 'crypto-random-string';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { OperationsApi } from "../api";
-import { statusOnlyGames, supportedGames } from "../Globals";
+import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
 import { StatsPieChart, PlayerInfo } from "./Charts";
@@ -15,16 +15,16 @@ import { ChangeAccountModal, AddAccountModal } from "./Modals";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 
-const deleteIcon = (
-    <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
-        <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-    </svg>
-);
-
+// unused
+// const deleteIcon = (
+//     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
+//         <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+//     </svg>
+// );
 
 export function Group(props) {
-
-    var gid = props.match.params.gid;
+    let params = useParams();
+    let { gid } = params;
 
     const queryClient = useQueryClient();
 
@@ -188,7 +188,7 @@ export function Group(props) {
     ];
 
     if (groupError || userError || (groups && groups.data && groups.data.length === 0)) {
-        return <Redirect to="/" />;
+        return <Navigate to="/" />;
     }
 
     return (
@@ -724,15 +724,26 @@ function AccountInfo({ group, gid, user, cookie }) {
     return (
         <>
             <div className={styles.AccountInfo} onClick={_ => modal.show(<ChangeAccountModal gid={gid} group={group} cookie={cookie} user={user} callback={modal.close} />)}>
-                {(!!group && !cookie.validCookie) ? (
-                    <h2 style={{ color: "#FF7575" }}>
-                        {t("cookie.invalid")}
-                    </h2>
-                ) : <h2>
+                <h2>
                     {(!group) ? t("cookie.status.loading") : (!cookie.username) ? t("cookie.status.pending") : cookie.username}
-                </h2>}
+                    {(group && !cookie.validCookie) ? (
+                        <span style={{ color: "#FF7575" }}>
+                            {" - "}{t("cookie.invalid")}
+                        </span>
+                    ):<></>}
+                </h2>
                 <h5 style={{ marginTop: "0px" }}>
                     {t("group.account.description0")}<br />{t("group.account.description1")}<i>accounts.ea.com</i>
+                </h5>
+                <h5 style={{ marginTop: "0px" }}>
+                    {t("cookie.supportedGames.main")}
+                    {cookie.supportedGames.sort().map((supportedGame, i) => {
+                        if (cookie.supportedGames.length-1 !== i) {
+                            return ` ${t(`games.${supportedGame}`)},`;
+                        } else {
+                            return ` ${t(`games.${supportedGame}`)}`;
+                        }
+                    })}
                 </h5>
                 <h5 style={{ marginTop: "0px" }}>
                     {(group && group.defaultCookie === cookie.id) ? t("cookie.accountType.default") : t("cookie.accountType.extra")}
@@ -1131,8 +1142,7 @@ function GroupDangerZone(props) {
 export function AddGroupOwner(props) {
     var gid = props.gid;
 
-    const [nickname, setNickname] = useState("");
-    const [uid, setUid] = useState("");
+    const [addAdminState, changeState] = useState({ uid: "", nickname: "", canAdd: false });
     const { t } = useTranslation();
 
     const queryClient = useQueryClient();
@@ -1170,16 +1180,23 @@ export function AddGroupOwner(props) {
         }
     );
 
+    const updateState = (values) => {
+        var newState = {
+            ...addAdminState,
+            ...values
+        };
+        newState.canAdd = newState.uid !== "" && newState.nickname !== "";
+        changeState(newState);
+    }
+
     return (
         <>
-
             <h2>{t("group.owners.addNew")}</h2>
-            <TextInput name={t("group.addMenu.nickname")} callback={(e) => setNickname(e.target.value)} />
-            <TextInput name={t("group.addMenu.id")} callback={(e) => setUid(e.target.value)} />
+            <TextInput name={t("group.addMenu.nickname")} callback={(e) => updateState({ nickname: e.target.value })} />
+            <TextInput name={t("group.addMenu.id")} callback={(e) => updateState({ uid: e.target.value })} />
             <ButtonRow>
-                <Button name={t("group.owners.add")} callback={() => { AddGroupOwnerExecute.mutate({ gid, uid, nickname }); props.callback(); }} />
+                <Button name={t("group.owners.add")} disabled={!addAdminState.canAdd} callback={() => { AddGroupOwnerExecute.mutate({ gid, uid: addAdminState.uid, nickname: addAdminState.nickname }); props.callback(); }} />
             </ButtonRow>
-
         </>
     );
 
@@ -1230,7 +1247,7 @@ export function AddGroupAdmin(props) {
             ...addAdminState,
             ...values
         };
-        newState.canAdd = newState.uid !== "";
+        newState.canAdd = newState.uid !== "" && newState.nickname !== "";
         changeState(newState);
     }
 
@@ -1258,7 +1275,6 @@ export function AddGroup(props) {
             modRole: "",
             remid: "",
             sid: "",
-            supportedGame: "bf1",
         },
         roleDisplay: false,
         canAdd: false
@@ -1268,19 +1284,29 @@ export function AddGroup(props) {
     const [applyStatus, setApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
     const queryClient = useQueryClient();
-    const history = useHistory();
+    const history = useNavigate();
 
     const AddNewGroupExecute = useMutation(
         variables => OperationsApi.addGroup(variables),
         {
             onMutate: async (variables) => {
                 setApplyStatus(true);
-                await queryClient.cancelQueries('devGroups');
+                await queryClient.cancelQueries('user');
+
+
                 return {}
             },
-            onSuccess: async () => {
+            onSuccess: async (variables) => {
                 setApplyStatus(null);
-                history.push("/");
+
+                queryClient.setQueryData('user', old => {
+                    if (old) {
+                        old.permissions.isAdminOf.push({groupName: addGroupState.variables.groupName, id: variables.id});
+                    }
+                    return old;
+                })
+
+                history(`/group/${variables.id}`);
             },
             onError: async (error) => {
                 setError(error);
@@ -1288,7 +1314,7 @@ export function AddGroup(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.refetchQueries('devGroups');
+                queryClient.invalidateQueries('user');
             }
         }
     );
@@ -1330,23 +1356,11 @@ export function AddGroup(props) {
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.sidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name={t("cookie.sid")} autocomplete="new-password" autocomplete="off" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
+                    <TextInput name={t("cookie.sid")} autocomplete="off" callback={(e) => { checkInputVariables({ sid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("cookie.remidDescription")}<i>accounts.ea.com</i>
                     </h5>
-                    <TextInput name={t("cookie.remid")} autocomplete="new-password" autocomplete="off" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
-                    <h5 style={{ marginTop: "8px" }}>
-                        {t("cookie.check")}
-                    </h5>
-                    <ButtonRow>
-                        <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={addGroupState.variables.supportedGame} onChange={(e) => { checkInputVariables({ supportedGame: e.target.value }) }}>
-                            {supportedGames.map((element, index) => {
-                                return (
-                                    <option key={index} value={element}>{t(`games.${element}`)}</option>
-                                )
-                            })}
-                        </select>
-                    </ButtonRow>
+                    <TextInput name={t("cookie.remid")} autocomplete="off" callback={(e) => { checkInputVariables({ remid: e.target.value }) }} />
                     <h5 style={{ marginTop: "8px" }}>
                         {t("createGroup.acceptDescription0")}<br />{t("createGroup.acceptDescription1")}
                     </h5>
@@ -1361,13 +1375,14 @@ export function AddGroup(props) {
 }
 
 export function DeleteGroup(props) {
+    let params = useParams();
+    let thisGid = params.gid;
 
-    var thisGid = props.match.params.gid;
     const { data: groups } = useQuery('groupId' + thisGid, () => OperationsApi.getGroup(thisGid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const queryClient = useQueryClient();
-    const history = useHistory();
+    const history = useNavigate();
     const { t } = useTranslation();
 
     const DeleteGroupExecute = useMutation(
@@ -1376,13 +1391,13 @@ export function DeleteGroup(props) {
             // When mutate is called:
             onMutate: async ({ gid }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('devGroups')
+                await queryClient.cancelQueries('user')
                 // Snapshot the previous value
-                const previousGroups = queryClient.getQueryData('devGroups')
+                const previousGroups = queryClient.getQueryData('user')
                 // Optimistically update to the new value
-                queryClient.setQueryData('devGroups', old => {
+                queryClient.setQueryData('user', old => {
                     if (old) {
-                        old.data = old.data.filter(group => group.id !== gid);
+                        old.permissions.isAdminOf = old.permissions.isAdminOf.filter(group => group.id !== gid);
                     }
                     return old;
                 })
@@ -1391,11 +1406,11 @@ export function DeleteGroup(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('devGroups', context.previousGroups)
+                queryClient.setQueryData('user', context.previousGroups)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('devGroups')
+                queryClient.invalidateQueries('user')
             },
         }
     );
@@ -1415,7 +1430,7 @@ export function DeleteGroup(props) {
                     )}
                     <ButtonRow>
                         <ButtonLink name={t("group.danger.back")} to={"/group/" + thisGid} />
-                        <Button name={t("group.danger.confirm")} callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history.push("/account/"); }} />
+                        <Button name={t("group.danger.confirm")} callback={() => { DeleteGroupExecute.mutate({ gid: thisGid }); history("/account/"); }} />
                     </ButtonRow>
                 </Card>
             </Column>
@@ -1424,14 +1439,21 @@ export function DeleteGroup(props) {
 }
 
 export function AddGroupServer(props) {
-    var gid = props.match.params.gid;
+    let params = useParams();
+    let { gid } = params;
 
     const [game, setGame] = useState("bf1");
-    var name = "", alias = "";
+    const [cookieId, setCookieId] = useState("");
+    const [sid, setSid] = useState("");
+    const [remid, setRemid] = useState("");
+    const [name, setName] = useState("");
+    const [alias, setAlias] = useState("");
 
     const queryClient = useQueryClient();
     const { t } = useTranslation();
 
+    const { isError, data: groups, error } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const AddGroupServerExecute = useMutation(
         variables => OperationsApi.addGroupServer(variables),
@@ -1469,15 +1491,18 @@ export function AddGroupServer(props) {
         }
     );
 
-    const history = useHistory();
+    const isDisabled = 
+        name === "" ||
+        (cookieId === "add" && (sid === "" || remid === ""));
+    const history = useNavigate();
 
     return (
         <Row>
             <Column>
                 <Card>
                     <h2>{t("group.serverAddMenu.main")}</h2>
-                    <TextInput name={t("group.serverAddMenu.name")} callback={(e) => { name = e.target.value }} />
-                    <TextInput name={t("group.serverAddMenu.alias")} callback={(e) => { alias = e.target.value; }} />
+                    <TextInput name={t("group.serverAddMenu.name")} callback={(e) => { setName(e.target.value) }} />
+                    <TextInput name={t("group.serverAddMenu.alias")} callback={(e) => { setAlias(e.target.value) }} />
                     <ButtonRow>
                         <select style={{ marginLeft: "5px" }} className={styles.SwitchTitle} value={game} onChange={e => setGame(e.target.value)}>
                             {statusOnlyGames.map((key, index) => {
@@ -1486,9 +1511,34 @@ export function AddGroupServer(props) {
                                 );
                             })}
                         </select>
+                    {(!isError) ? (
+                        <>
+                            {group ?
+                                <select style={{ marginLeft: "6px" }} className={styles.SwitchGame} onChange={e => setCookieId(e.target.value)}>
+                                    <option value="">{t("cookie.accountType.default")}</option>
+                                    {group.cookies.map((key, index) => <option key={index} selected={cookieId === key.id} value={key.id}>{key.username}</option>)}
+                                    <option value="add">{t("cookie.accountType.add")}</option>
+                                </select>
+                                : ""}
+                        </>
+                    ) : (
+                        <>{`Error ${error.code}: {error.message}`}</>
+                    )}
                     </ButtonRow>
+                    {(cookieId === "add") ? (
+                        <>
+                            <h5 style={{ marginTop: "8px" }}>
+                                {t("cookie.sidDescription")}<i>accounts.ea.com</i>
+                            </h5>
+                            <TextInput name={t("cookie.sid")} autocomplete="off" callback={(e) => { setSid(e.target.value) }} />
+                            <h5 style={{ marginTop: "8px" }}>
+                                {t("cookie.remidDescription")}<i>accounts.ea.com</i>
+                            </h5>
+                            <TextInput name={t("cookie.remid")} autocomplete="off" callback={(e) => { setRemid(e.target.value) }} />
+                        </>
+                    ) : <></>}
                     <ButtonRow>
-                        <Button name={t("group.servers.add")} callback={() => { AddGroupServerExecute.mutate({ gid, alias, name, game }); history.push("/group/" + gid); }} />
+                        <Button disabled={isDisabled} name={t("group.servers.add")} callback={() => { AddGroupServerExecute.mutate({ gid, alias, name, game, cookieId, sid, remid }); history("/group/" + gid); }} />
                     </ButtonRow>
                 </Card>
             </Column>
@@ -1503,8 +1553,8 @@ export function EditGroup(props) {
 }
 
 export function MakeOps(props) {
-
-    var gid = props.match.params.gid;
+    let params = useParams();
+    let { gid } = params;
 
     const { data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;

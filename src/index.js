@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { createRoot } from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import App from './App';
 
@@ -9,18 +8,14 @@ import App from './App';
 const queryClient = new QueryClient();
 
 // Browser rendering
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use 
 
-ReactDOM.render(
-
+root.render(
     <React.StrictMode> 
         <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
+            <App />
         </QueryClientProvider>
-    </React.StrictMode>,
-
-    document.getElementById('root')
-
+    </React.StrictMode>
 );
 

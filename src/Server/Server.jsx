@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
 import { PageContext } from "./ServerGlobalContext";
@@ -14,7 +14,7 @@ import { ClickableHead } from "../components/Table";
 
 
 import { OperationsApi } from "../api";
-
+import { bfvServerRegions } from "../Globals";
 import '../locales/config';
 
 import styles from "./Styles.module.css";
@@ -29,29 +29,8 @@ export function SmallText(props) {
     return (<span className={styles.SmallText}>{props.children}</span>);
 }
 
-
-
-export function EditableText(props) {
-    return (<p>{props.children}</p>);
-}
-
-export function SettingsRow(props) {
-    return <div className={styles.SettingsRow}>{props.children}</div>;
-}
-
-export function SmallIntInput(props) {
-    return <input type="text" className={styles.SmallInput} defaultValue={props.value} />;
-}
-
-export function ServerInfo(props) {
-    var server = props.server;
-    return (
-        <>
-        </>
-    );
-}
-
 export function ServerRotation(props) {
+    const dbServer = props.server;
     const { t } = useTranslation();
     var server = null, game = null;
     if (props.game && props.game.data && props.game.data.length > 0) {
@@ -116,7 +95,7 @@ export function ServerRotation(props) {
                     <div style={{ padding: "5px" }} />
                 </>
                 : <div style={{ paddingTop: "5px" }} />}
-            {server && server.game === "bf1" ? (
+            {dbServer && dbServer.game === "bf1" ? (
                 <>
                     <ButtonRow>
                         <Button name={t("server.game.restart")} disabled={!game} callback={_ => props.rotate((game) ? game.rotationId : null)} />
@@ -128,22 +107,95 @@ export function ServerRotation(props) {
                         </select>
                         {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
                     </ButtonRow>
-                    <ButtonRow>
-                        <select className={styles.SwitchGame} value={playerListSort} onChange={e => setPlayerListSort(e.target.value)}>
-                            <option value="position">{t("server.players.sort.main")}</option>
-                            <option value="position">{t("server.players.sort.position")}</option>
-                            <option value="-ping">{t("server.players.sort.ping")}</option>
-                            <option value="name">{t("server.players.sort.name")}</option>
-                            <option value="-rank">{t("server.players.sort.rank")}</option>
-                            <option value="joinTime">{t("server.players.sort.joinTime")}</option>
-                        </select>
-                    </ButtonRow>
                 </>
             ) : (<></>)}
+            {dbServer && dbServer.game === "bfv" ? (
+                <BfvServerManagement sid={dbServer.id} serverName={dbServer.serverName} />
+            ):<></>}
+            <ButtonRow>
+                <select className={styles.SwitchGame} value={playerListSort} onChange={e => setPlayerListSort(e.target.value)}>
+                    <option value="position">{t("server.players.sort.main")}</option>
+                    <option value="position">{t("server.players.sort.position")}</option>
+                    <option value="-ping">{t("server.players.sort.ping")}</option>
+                    <option value="name">{t("server.players.sort.name")}</option>
+                    <option value="-rank">{t("server.players.sort.rank")}</option>
+                    <option value="joinTime">{t("server.players.sort.joinTime")}</option>
+                </select>
+            </ButtonRow>
         </div>
     );
 }
 
+
+function BfvServerManagement(props) {
+    const { sid , serverName } = props;
+    const [playgroundId, setPlaygroundId] = useState("");
+    const [checksum, setChecksum] = useState("");
+    const [serverRegion, setServerRegion] = useState("");
+    const [applyStatus, setApplyStatus] = useState(null);
+    const [errorUpdating, setError] = useState("Unknown");
+    const { t } = useTranslation();
+
+    const bfvCreateServer = useMutation(
+        _ => OperationsApi.bfvCreateServer({ sid, playgroundId, checksum, serverRegion }),
+        {
+            onMutate: async () => {
+                setApplyStatus(true);
+            },
+            onSuccess: async () => {
+                setApplyStatus(null);
+            },
+            onError: async (error) => {
+                setApplyStatus(false);
+                setError(error);
+                setTimeout(_ => setApplyStatus(null), 2000);
+            },
+            onSettled: async () => {
+            }
+        }
+    );
+
+    const { isError, data: playgroundList, error } = useQuery('bfvplaygrounds' + sid, () => OperationsApi.getBfvPlaygrounds({ sid }));
+    if (!playgroundList) {
+        // TODO: add fake item list on loading
+        return t("loading");
+    }
+
+    if (isError) {
+        return `Error ${error.code}: {error.message}`
+    }
+
+    const isDisabled = 
+        checksum === "" ||
+        playgroundId === "" ||
+        serverRegion === "";
+
+    return (
+        <ButtonRow>
+            <select className={styles.SwitchGame} value={playgroundId} onChange={e => {
+                    playgroundList.playgrounds.forEach(element => {
+                        if (element.playgroundId === e.target.value) {
+                            setChecksum(element.checksum)
+                        }
+                    });
+                    setPlaygroundId(e.target.value)
+                }}>
+                <option value="">{t("server.game.bfvPlaygroundSelect")}</option>
+                {playgroundList.playgrounds.map((value, i) =>
+                    <option value={value.playgroundId} disabled={!value.serverdesc.serverName.includes(serverName)} key={i}>{value.configName}</option>
+                )}
+            </select>
+            <select className={styles.SwitchGame} value={serverRegion} onChange={e => setServerRegion(e.target.value)}>
+                <option value="">{t("server.game.serverRegionSelect")}</option>
+                {Object.keys(bfvServerRegions).map((value, i) =>
+                    <option value={bfvServerRegions[value]} key={i}>{value}</option>
+                )}
+            </select>
+            <Button name={t("server.game.startServer")} disabled={isDisabled} callback={_ => { bfvCreateServer.mutate({ sid, playgroundId, checksum, serverRegion }) }} status={applyStatus} />
+            <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (applyStatus === false) ? 1 : 0 }}>{errorUpdating}</h5>
+        </ButtonRow>
+    )
+}
 
 
 export function ServerInfoHolder(props) {

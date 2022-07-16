@@ -7,7 +7,7 @@ import translationCH from './languages/zh-CN.json';
 import translationNL from './languages/nl-NL.json';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from "i18next-browser-languagedetector";
-import { formatDistanceToNowStrict, format, formatDuration } from 'date-fns';
+import { formatDistanceToNowStrict, format } from 'date-fns';
 import { enUS, tr, el, zhCN, nl } from 'date-fns/locale';
 
 const locales = { "en-US": enUS, "tr-TR": tr, "el-GR": el, "zh-CN": zhCN, "nl-NL": nl }

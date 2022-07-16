@@ -14,7 +14,7 @@ export function CookieInfo() {
                     <h2>{t("cookieInfo.main")}</h2>
                 </Header>
                 <Card>
-                    {getLanguage() == "zh-CN" ? 
+                    {getLanguage() === "zh-CN" ? 
                     <ButtonUrl href="https://youtu.be/Znd1YjmXqO8" name={t("cookieInfo.video")} /> : <></>
                     }
                     <h5 style={{paddingTop: '.5rem'}}>
@@ -26,15 +26,15 @@ export function CookieInfo() {
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("cookieInfo.3")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/cookieInfo/1.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/cookieInfo/1.png"/>
                     <h5 style={{paddingTop: '1.5rem'}}>
                         {t("cookieInfo.4")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/cookieInfo/2.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/cookieInfo/2.png"/>
                     <h5 style={{paddingTop: '1.5rem'}}>
                         {t("cookieInfo.5")}
                     </h5>
-                    <img style={{maxWidth: '20rem'}} src="/img/cookieInfo/3.png"/>
+                    <img alt={t("imageAlts.tutorial")} style={{maxWidth: '20rem'}} src="/img/cookieInfo/3.png"/>
                     <h5 style={{paddingTop: '1.5rem'}}>
                         {t("cookieInfo.6")}<br />{t("cookieInfo.7")}
                     </h5>

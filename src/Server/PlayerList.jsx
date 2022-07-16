@@ -8,19 +8,25 @@ import { DynamicSort } from "../components/Functions";
 import { useModal, Column, Card, TopRow } from "../components";
 
 import styles from "./PlayerList.module.css";
-import { factions } from "./Factions";
+import { bf1Factions, bfvFactions } from "./Factions";
 
 import { ServerKickPlayer, ServerBanPlayer, PlayerStatsModal } from "./Modals";
 import { useMovePlayer } from "./Manager";
 
-export function PlayerList({ game, sid }) {
+export function PlayerList({ game, server, sid }) {
 
     const { t } = useTranslation();
 
     let haveGame = !!game;
+    let haveServer = !!server;
     let teams = haveGame ? game.data[0].players : false;
     let spectators = haveGame ? game.data[0].spectators : false;
-    let gameName = haveGame ? game.data[0].game : false;
+    let gameName = haveServer ? server.game : false;
+
+    let factions = bf1Factions;
+    if (gameName === "bfv") {
+        factions = bfvFactions;
+    }
 
     let havePlayers = teams && !("error" in teams[0]) && (teams[0].players !== undefined || teams[1].players !== undefined);
 
@@ -308,9 +314,12 @@ function PlayerButtons({ player, sid, moveTeam, width, gameName }) {
     }
 
     let playerOptions = [
-        { name: t("server.action.kick"), callback: showKick },
-        { name: t("server.action.ban"), callback: showBan },
+        { name: t("server.action.kick"), callback: showKick }
     ];
+
+    if (gameName !== "bfv") {
+        playerOptions.push({ name: t("server.action.ban"), callback: showBan })
+    }
 
     if (gameName === "bf1") {
         // If movable, add move button

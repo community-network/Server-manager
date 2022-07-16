@@ -1,39 +1,19 @@
 import React from "react";
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { NavLink, Link, useHistory, Redirect } from 'react-router-dom';
-import ABSwitch, { getChannel } from "../testing/ABtesting";
+import { useQuery } from 'react-query'
+import { NavLink } from 'react-router-dom';
+import ABSwitch from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
 import '../locales/config';
 import { useTranslation } from 'react-i18next';
 import { OperationsApi } from "../api";
 
-import { APP_VERSION } from "../App";
-
-
-function TopSidebar() {
-    const { t } = useTranslation();
-    return (
-        <div className={styles.TopSidebar}>
-            <Link to="/" title={t("sidebar.main")}>
-                <img src="/img/release-logo.png" className={styles.Logo} />
-            </Link>
-        </div>
-    );
-}
-
 function PageLink(props) {
     return (
         <div className={styles.PageLink}>
-            <NavLink to={props.to} activeClassName={styles.PageLinkActive} title={props.name}>{props.content || props.name}</NavLink>
+            <NavLink to={props.to}  className={({ isActive }) =>
+              isActive ? styles.PageLinkActive : undefined
+            } title={props.name}>{props.content || props.name}</NavLink>
         </div>
-    );
-}
-
-function PageButton(props) {
-    return (
-        <a className={styles.PageButton} target="_blank" rel="noopener noreferrer" href={props.href} title={props.name}>
-            <span onClick={props.onClick}>{props.name}</span>
-        </a>
     );
 }
 

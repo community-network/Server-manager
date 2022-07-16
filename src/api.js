@@ -208,6 +208,12 @@ export class ApiProvider extends JsonClient {
         });
     }
 
+    async getBfvPlaygrounds({ sid }) {
+        return await this.getJsonMethod("bfvplaygrounds", {
+            "serverid": sid
+        });
+    }
+
     async getStarterList({ sid }) {
         return await this.getJsonMethod("firestarters", {
             "serverid": sid
@@ -302,7 +308,7 @@ export class ApiProvider extends JsonClient {
         return devGroups;
     }
 
-    async addGroup({ groupName, discordId, modRole, adminRole, sid, remid, supportedGame }) {
+    async addGroup({ groupName, discordId, modRole, adminRole, sid, remid }) {
         return await this.postJsonMethod("addgroup", {
             "groupname": groupName,
             "adminroleid": adminRole,
@@ -310,7 +316,6 @@ export class ApiProvider extends JsonClient {
             "modroleid": modRole,
             "remid": remid,
             "sid": sid,
-            "supportedgame": supportedGame,
         });
     }
 
@@ -320,24 +325,38 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async addCookie({ gid, sid, remid, defaultCookie, supportedGame }) {
+    async addCookie({ gid, sid, remid, defaultCookie }) {
         return await this.postJsonMethod("addcookie", {
             "sid": sid,
             "remid": remid,
             "groupid": gid,
-            "defaultcookie": defaultCookie,
-            "supportedgame": supportedGame
+            "defaultcookie": defaultCookie
         })
     }
 
-    async editCookie({ gid, sid, remid, id, defaultCookie, supportedGame }) {
+    async editCookie({ gid, sid, remid, id, defaultCookie }) {
         return await this.postJsonMethod("editcookie", {
             "cookieid": id,
             "sid": sid,
             "remid": remid,
             "groupid": gid,
-            "defaultcookie": defaultCookie,
-            "supportedgame": supportedGame
+            "defaultcookie": defaultCookie
+        });
+    }
+
+    async updateCookieGames({ gid, id }) {
+        return await this.postJsonMethod("updatecookiegames", {
+            "cookieid": id,
+            "groupid": gid
+        });
+    }
+
+    async bfvCreateServer({ sid, playgroundId, checksum, serverRegion }) {
+        return await this.postJsonMethod("bfvcreateserver", {
+            "serverid": sid,
+            "playgroundid": playgroundId,
+            "checksum": checksum,
+            "serverregion": serverRegion
         });
     }
 
@@ -378,12 +397,15 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async addGroupServer({ gid, name, alias, game }) {
+    async addGroupServer({ gid, name, alias, game, cookieId, sid, remid }) {
         return await this.postJsonMethod("addserver", {
             "servername": name,
             "serveralias": alias,
             "groupid": gid,
-            "game": game
+            "game": game,
+            "cookieid": cookieId,
+            "sid": sid,
+            "remid": remid
         });
     }
 

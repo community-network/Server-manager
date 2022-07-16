@@ -2,11 +2,11 @@ import React from "react";
 import { endPointName } from "../JsonApi";
 import { Row } from "../components";
 import '../locales/config';
-import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 export function WebSocketTest(props) {
-    let { sid } = props.match.params;
-    const { t } = useTranslation();
+    let params = useParams();
+    let { sid } = params;
     var ws = new WebSocket('wss://' + endPointName + '/ws/joins?serverid=' + sid);
     ws.onmessage = function (event) {
         console.log(event.data);

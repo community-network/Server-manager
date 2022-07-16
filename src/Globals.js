@@ -1,13 +1,15 @@
 export const statusOnlyGames = [
     "bf1",
     "bfv",
-    "bf4",
-]
+    "bf2042",
+    "bf4"
+];
 
 export const supportedGames = [
     "bf1",
+    "bfv",
     "bf2042"
-]
+];
 
 export const bf1Maps = [
     "Sinai Desert",
@@ -39,9 +41,30 @@ export const bf1Maps = [
     "Cape Helles",
     "Zeebrugge",
     "Argonne Forest"
-]
+];
 
 export const bf1Modes = [
     "CONQUEST",
     "FRONTLINES"
-]
+];
+
+export const bfvServerRegions = {
+    "AWS India": "aws-bom",
+    "AWS Brazil": "aws-brz",
+    "AWS Paris France": "aws-cdg",
+    "AWS Columbus USA": "aws-cmh",
+    "AWS Dublin": "aws-dub",
+    "AWS Germany": "aws-fra",
+    "AWS Hong Kong": "aws-hkg",
+    "AWS Virginia": "aws-iad",
+    "AWS South korea": "aws-icn",
+    "AWS United Kingdom": "aws-lhr",
+    "AWS Tokyo": "aws-nrt",
+    "AWS Portland USA": "aws-pdx",
+    "AWS Singapore": "aws-sin",
+    "AWS San Jose USA": "aws-sjc",
+    "AWS Australia": "aws-syd",
+    "M3D Dubai": "m3d-dxb",
+    "M3D Hong Kong": "m3d-hkg",
+    "M3D South Africa": "m3d-jnb"
+};
