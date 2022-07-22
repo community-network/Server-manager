@@ -1,5 +1,5 @@
 
-const MODE = "local";
+const MODE = "prod";
 
 const endPoints = {
     local: "https://localhost:5051/api/",
