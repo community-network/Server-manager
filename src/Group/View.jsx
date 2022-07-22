@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMeasure } from 'react-use';
 import cryptoRandomString from 'crypto-random-string';
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { statusOnlyGames } from "../Globals";
@@ -28,8 +28,8 @@ export function Group(props) {
 
     const queryClient = useQueryClient();
 
-    const { error: groupError, data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
-    const { error: userError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { error: groupError, data: groups } = useQuery(['groupId' + gid], () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    const { error: userError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
 
     const removeAdmin = useMutation(
@@ -385,9 +385,9 @@ function Seeding(props) {
     const { t } = useTranslation();
 
     if (props.group && props.user) hasRights = props.group.isOwner || props.group.isAdmin || props.user.auth.isDeveloper;
-    const { data: seedingInfo } = useQuery('seeding' + props.gid, () => OperationsApi.getSeeding(props.gid), { staleTime: 30000 });
-    const { data: seeders } = useQuery('seeders' + props.gid, () => OperationsApi.getSeeders(props.gid), { staleTime: 30000 });
-    const { data: serverAliasNames } = useQuery('serveraliasname' + props.gid, () => OperationsApi.getServerAliases(props.gid), { staleTime: 30000 });
+    const { data: seedingInfo } = useQuery(['seeding' + props.gid], () => OperationsApi.getSeeding(props.gid), { staleTime: 30000 });
+    const { data: seeders } = useQuery(['seeders' + props.gid], () => OperationsApi.getSeeders(props.gid), { staleTime: 30000 });
+    const { data: serverAliasNames } = useQuery(['serveraliasname' + props.gid], () => OperationsApi.getServerAliases(props.gid), { staleTime: 30000 });
     const queryClient = useQueryClient();
     const fakeListing = [1, 1, 1];
 
@@ -983,8 +983,8 @@ function GroupStatus(props) {
             serverId = props.group.servers[serverNum].id
         }
     }
-    const { data: groupStats } = useQuery('groupStats' + groupId, () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
-    const { data: serverStats } = useQuery('serverStats' + serverId, () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
+    const { data: groupStats } = useQuery(['groupStats' + groupId], () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
+    const { data: serverStats } = useQuery(['serverStats' + serverId], () => OperationsApi.getServerStats(serverId), { staleTime: Infinity, refetchOnWindowFocus: false });
 
     return (
         <div ref={statusRef}>
@@ -1378,7 +1378,7 @@ export function DeleteGroup(props) {
     let params = useParams();
     let thisGid = params.gid;
 
-    const { data: groups } = useQuery('groupId' + thisGid, () => OperationsApi.getGroup(thisGid), { staleTime: 30000 });
+    const { data: groups } = useQuery(['groupId' + thisGid], () => OperationsApi.getGroup(thisGid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const queryClient = useQueryClient();
@@ -1452,7 +1452,7 @@ export function AddGroupServer(props) {
     const queryClient = useQueryClient();
     const { t } = useTranslation();
 
-    const { isError, data: groups, error } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    const { isError, data: groups, error } = useQuery(['groupId' + gid], () => OperationsApi.getGroup(gid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const AddGroupServerExecute = useMutation(
@@ -1556,7 +1556,7 @@ export function MakeOps(props) {
     let params = useParams();
     let { gid } = params;
 
-    const { data: groups } = useQuery('groupId' + gid, () => OperationsApi.getGroup(gid), { staleTime: 30000 });
+    const { data: groups } = useQuery(['groupId' + gid], () => OperationsApi.getGroup(gid), { staleTime: 30000 });
     var group = (groups && groups.data && groups.data.length > 0) ? groups.data[0] : null;
 
     const [addGroupState, changeState] = useState({

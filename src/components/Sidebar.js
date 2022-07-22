@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from 'react-query'
+import { useQuery } from "@tanstack/react-query";
 import { NavLink } from 'react-router-dom';
 import ABSwitch from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
@@ -39,7 +39,7 @@ function SettingsIcon() {
 
 export function Sidebar(props) {
 
-    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user, {
+    const { error: userError, data: user, isLoading } = useQuery(['user'], () => OperationsApi.user, {
 
         retry: 0,
      

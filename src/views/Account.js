@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate} from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Column, Card, Header, CardRow, UserRow, TopRow, ButtonRow, ButtonUrl } from "../components";
@@ -50,7 +50,7 @@ export default function Account() {
     );
     
     const { t } = useTranslation();
-    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
+    const { error: userError, data: user, isLoading } = useQuery(['user'], () => OperationsApi.user);
 
 
     if (!userError && !isLoading && !!user) {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMeasure,  } from 'react-use';
 import { Link } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import { GroupGlobalUnbanPlayer, GroupRemoveExclusionPlayer, GroupRemoveReason } from "./Modals";
 import { supportedGames } from "../Globals";
@@ -154,7 +154,7 @@ export function GameStatsAd(props) {
 
 export function VBanList(props) {
     const gid = props.gid;
-    const { isError, data: banList, error } = useQuery('globalBanList' + gid, () => OperationsApi.getAutoBanList({ gid }));
+    const { isError, data: banList, error } = useQuery(['globalBanList' + gid], () => OperationsApi.getAutoBanList({ gid }));
 
     const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
@@ -240,7 +240,7 @@ function GlobalBanRow(props) {
 
 export function GroupLogs(props) {
     const gid = props.gid;
-    const { isError, data: logList, error } = useQuery('groupogList' + gid, () => OperationsApi.getGroupLogs({ gid }));
+    const { isError, data: logList, error } = useQuery(['groupogList' + gid], () => OperationsApi.getGroupLogs({ gid }));
     const { t } = useTranslation();
 
     if (isError) {
@@ -438,7 +438,7 @@ function VbanBanPlayer(props) {
     var [banApplyStatus, setBanApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { isError: userGettingError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
     const GlobalBanPlayer = useMutation(
         v => OperationsApi.globalBanPlayer(v),
@@ -628,7 +628,7 @@ export function DelKeepAlive(props) {
 
 export function ExclusionList(props) {
     const gid = props.gid;
-    const { isError, data: excludeList, error } = useQuery('globalExclusionList' + gid, () => OperationsApi.getExcludedPlayers({ gid }));
+    const { isError, data: excludeList, error } = useQuery(['globalExclusionList' + gid], () => OperationsApi.getExcludedPlayers({ gid }));
 
     const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
@@ -727,7 +727,7 @@ function ExclusionPlayer(props) {
     var [excludeApplyStatus, setExcludeApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { isError: userGettingError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
     const GlobalExcludePlayer = useMutation(
         v => OperationsApi.globalExcludePlayer(v),
@@ -795,7 +795,7 @@ function ExclusionPlayer(props) {
 
 export function ReasonList(props) {
     const gid = props.gid;
-    const { isError, data: reasonList, error } = useQuery('globalReasonList' + gid, () => OperationsApi.getReasonList({ gid, sid: undefined }));
+    const { isError, data: reasonList, error } = useQuery(['globalReasonList' + gid], () => OperationsApi.getReasonList({ gid, sid: undefined }));
 
     const [searchWord, setSearchWord] = useState("");
     const { t } = useTranslation();
@@ -875,7 +875,7 @@ function ReasonListPlayer(props) {
     var [reasonApplyStatus, setReasonApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { isError: userGettingError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
     const GlobalAddReason = useMutation(
         v => OperationsApi.addReason(v),

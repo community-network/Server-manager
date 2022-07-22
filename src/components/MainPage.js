@@ -1,5 +1,5 @@
-    import React from "react";
-import { useQuery } from 'react-query';
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import styles from "./MainPage.module.css";
 import { OperationsApi } from "../api";
 import '../locales/config';
@@ -23,7 +23,7 @@ function LoginButton() {
 
 export function MainPageComponent(props) {
     const { t } = useTranslation();
-    const { isError, data: stats, isLoading } = useQuery('managerStats', () => fetch("https://api.gametools.network/manager/info/").then(r=>r.json()));
+    const { isError, data: stats, isLoading } = useQuery(['managerStats'], () => fetch("https://api.gametools.network/manager/info/").then(r=>r.json()));
     return (
         <div className={styles.MainPage}>
             <div className={styles.MainPageCard}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQueryClient, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import { PageContext } from "./ServerGlobalContext";
 

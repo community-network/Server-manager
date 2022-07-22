@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { Navigate } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Switch, Column, Card, Header, Row, ButtonRow, Button, TextInput } from "../components";
@@ -199,7 +199,7 @@ export function GroupRow(props) {
 export function Manager() {
     const { t } = useTranslation();
     const [searchWord, setSearchWord] = React.useState("");
-    const { isLoading, isError, data } = useQuery('devGroups', () => OperationsApi.getManGroups())
+    const { isLoading, isError, data } = useQuery(['devGroups'], () => OperationsApi.getManGroups())
 
     var groups = [];
 

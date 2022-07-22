@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
 import { PageContext } from "./ServerGlobalContext";
@@ -155,7 +155,7 @@ function BfvServerManagement(props) {
         }
     );
 
-    const { isError, data: playgroundList, error } = useQuery('bfvplaygrounds' + sid, () => OperationsApi.getBfvPlaygrounds({ sid }));
+    const { isError, data: playgroundList, error } = useQuery(['bfvplaygrounds' + sid], () => OperationsApi.getBfvPlaygrounds({ sid }));
     if (!playgroundList) {
         // TODO: add fake item list on loading
         return t("loading");
@@ -209,7 +209,7 @@ export function ServerInfoHolder(props) {
 export function BanList(props) {
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: banList, error } = useQuery('serverBanList' + sid, () => OperationsApi.getBanList({ sid }));
+    const { isError, data: banList, error } = useQuery(['serverBanList' + sid], () => OperationsApi.getBanList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("displayName");
@@ -297,7 +297,7 @@ function BanRow(props) {
 export function FireStarter(props) {
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: starterList, error } = useQuery('serverStarterList' + sid, () => OperationsApi.getStarterList({ sid }));
+    const { isError, data: starterList, error } = useQuery(['serverStarterList' + sid], () => OperationsApi.getStarterList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("-amount");
@@ -358,7 +358,7 @@ function StarterRow(props) {
 export function PlayTime(props) {
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: playTimeList, error } = useQuery('playTimeList' + sid, () => OperationsApi.getPlayTimeList({ sid }));
+    const { isError, data: playTimeList, error } = useQuery(['playTimeList' + sid], () => OperationsApi.getPlayTimeList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("-timePlayed");
@@ -427,7 +427,7 @@ function PlayTimeRow(props) {
 export function Spectator(props) {
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: spectatorList, error } = useQuery('serverSpectatorList' + sid, () => OperationsApi.getSpectatorList({ sid }));
+    const { isError, data: spectatorList, error } = useQuery(['serverSpectatorList' + sid], () => OperationsApi.getSpectatorList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("name");
@@ -502,7 +502,7 @@ export function Playerlogs(props) {
     const [searchPlayer, setSearchPlayer] = useState("");
     const [searchField, setSearchField] = useState("");
 
-    const { isError, data, error } = useQuery('serverPlayerLogList' + date + sid + searchPlayer, () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }));
+    const { isError, data, error } = useQuery(['serverPlayerLogList' + date + sid + searchPlayer], () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }));
 
     return (
         <div>
@@ -614,7 +614,7 @@ function PlayerlogsRow(props) {
 export function VipList(props) {
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: vipList, error } = useQuery('serverVipList' + sid, () => OperationsApi.getVipList({ sid }));
+    const { isError, data: vipList, error } = useQuery(['serverVipList' + sid], () => OperationsApi.getVipList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("displayName");
@@ -713,7 +713,7 @@ function VipRow(props) {
 export function AdminList(props) {
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: adminList, error } = useQuery('serverAdminList' + sid, () => OperationsApi.getAdminList({ sid }));
+    const { isError, data: adminList, error } = useQuery(['serverAdminList' + sid], () => OperationsApi.getAdminList({ sid }));
 
     const [searchWord, setSearchWord] = useState("");
     const [sorting, setSorting] = useState("displayName");

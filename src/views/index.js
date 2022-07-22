@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import Account from "./Account";
 import { Developer } from "../Developer/View";
 import { Manager } from "../Manager/View";
@@ -55,7 +55,7 @@ export default function ViewHandler(props) {
 }
 
 function useCorruentUserHook() {
-    return useQuery('user', () => OperationsApi.user, { retry: 0, })
+    return useQuery(['user'], () => OperationsApi.user, { retry: 0, })
 }
 
 function AnimatedViews(props) {

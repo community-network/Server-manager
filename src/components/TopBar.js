@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from 'react-query'
+import { useQuery } from "@tanstack/react-query";
 import { Link } from 'react-router-dom';
 import styles from "./TopBar.module.css";
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import { OperationsApi } from "../api";
 export function TopBar(props) {
     const { t } = useTranslation();
 
-    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
+    const { error: userError, data: user, isLoading } = useQuery(['user'], () => OperationsApi.user);
     var accountPage = "";
     
     if (!userError && !isLoading && user && user.auth.signedIn) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import { checkGameString } from "../Server/Modals";
 

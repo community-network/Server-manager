@@ -6,7 +6,7 @@ import styles from "./Buttons.module.css";
 import { Status } from "./Status";
 import { useMeasure } from 'react-use';
 
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import { OperationsApi } from "../api";
 
 
@@ -288,7 +288,7 @@ export function SelectableRow(props) {
 
 export function ReasonDropdownButton(props) {
     const [open, setOpen] = useState(false);
-    const { isError, data: reasonList, error } = useQuery('globalReasonList' + props.gid + props.sid, () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }));
+    const { isError, data: reasonList, error } = useQuery(['globalReasonList' + props.gid + props.sid], () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }));
     const options = [];
     if (reasonList) {
         reasonList.data.forEach(element => {

@@ -1,5 +1,5 @@
 
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { OperationsApi } from "../api";
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
  */
  export function useUser(sid) {
     return useQuery(
-        'user', 
+        ['user'], 
         () => OperationsApi.user
     )
 }
@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
  */
 export function useServer(sid) {
     return useQuery(
-        'server' + sid, 
+        ['server' + sid], 
         () => OperationsApi.getServer(sid)
     );
 }
@@ -31,7 +31,7 @@ export function useServer(sid) {
  */
 export function useGame(sid) {
     return useQuery(
-        'serverGame' + sid, 
+        ['serverGame' + sid], 
         () => OperationsApi.getServerGame(sid)
     );
 }
