@@ -224,7 +224,7 @@ export function Player({ player, i, sid, moveTeam, width, gameName }) {
     // Show player stats modal
     const showStats = _ => {
         return modal.show(
-            <PlayerStatsModal player={player.name} id={player.playerId} />
+            <PlayerStatsModal player={player.name} playerId={player.playerId} />
         )
     }
 

@@ -276,7 +276,7 @@ function BanRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.BanRow} onClick={e => e.target.tagName === "TD" ? modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />) : null}>
+        <tr className={styles.BanRow} onClick={e => e.target.tagName === "TD" ? modal.show(<PlayerStatsModal player={player.displayName} playerId={player.id} />) : null}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -347,7 +347,7 @@ function StarterRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.playerName} id={player.playerId} />)}>
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.playerName} playerId={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.playerName}</td>
             <td title={t("server.firestarterList.table.playerId")}>{player.playerId}</td>
             <td>{player.amount}</td>
@@ -416,7 +416,7 @@ function PlayTimeRow(props) {
     let datetime = `${hours}:${("0" + minutes).slice(-2)}`;
 
     return (
-        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} playerId={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.name}</td>
             <td title={t("server.playTimeList.table.playerId")}>{player.playerId}</td>
             <td>{datetime}</td>
@@ -486,7 +486,7 @@ function SpectatorRow(props) {
     // datetime = `${datetime.getUTCDate()} ${months[datetime.getMonth()]} ${datetime.getFullYear()} ${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
     return (
-        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} playerId={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.name}</td>
             <td title={t("server.spectatorList.table.playerId")}>{player.playerId}</td>
             <td>{t("dateTime", { date: datetime })}</td>
@@ -602,7 +602,7 @@ function PlayerlogsRow(props) {
     const { t } = useTranslation();
 
     return (
-        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} id={player.playerId} />)}>
+        <tr className={styles.BanRow} onClick={_ => modal.show(<PlayerStatsModal player={player.name} playerId={player.playerId} />)}>
             <td className={styles.BanDisplayName}>{player.platoon !== "" ? `[${player.platoon}] ` : null}{player.name}</td>
             <td title={t("server.playerLogs.table.playerId")}>{player.playerId}</td>
             <td>{player.ping}</td>
@@ -692,7 +692,7 @@ function VipRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={e => e.target.tagName === "TD" ? modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />) : null}>
+        <tr className={styles.VipRow} onClick={e => e.target.tagName === "TD" ? modal.show(<PlayerStatsModal player={player.displayName} playerId={player.id} />) : null}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>
@@ -771,7 +771,7 @@ function AdminRow(props) {
     const modal = useModal();
     const { t } = useTranslation();
     return (
-        <tr className={styles.VipRow} onClick={_ => modal.show(<PlayerStatsModal player={player.displayName} id={player.id} />)}>
+        <tr className={styles.VipRow} onClick={_ => modal.show(<PlayerStatsModal player={player.displayName} playerId={player.id} />)}>
             <td title={player.displayName} className={styles.VipName}>
                 <div className={styles.VipRowImg}><img src={player.avatar} alt="" /></div>
                 <span>{player.displayName}</span>

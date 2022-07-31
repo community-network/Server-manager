@@ -655,6 +655,7 @@
             "headshots": "Headshots: ",
             "killDeath": "KD: ",
             "id": "ID: ",
+            "currentName": "Huidige naam: ",
             "toStatsPage": "Volledige stats.."
         },
         "kickMenu": {

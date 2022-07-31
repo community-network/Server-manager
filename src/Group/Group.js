@@ -224,7 +224,7 @@ function GlobalBanRow(props) {
     const player = props.player;
     const { t } = useTranslation();
     return (
-        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />):null}>
+        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} playerId={player.id} />):null}>
             <td>{player.playerName}</td>
             <td>{player.id}</td>
             <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
@@ -343,7 +343,7 @@ function LogRow(props) {
                     </svg>
                     <span className={styles.logAdmin}>{t("server.logs.types.pingChecker")}</span>
                     <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
-                    <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
+                    <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} playerId={log.toPlayerId} />)}>{log.toPlayer}</span>
                     <span className={styles.logAction}>{log.reason}</span>
                     <span className={styles.logReasonDetailed}></span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
@@ -360,7 +360,7 @@ function LogRow(props) {
                     </svg>
                     <span className={styles.logAdmin}>{t("server.logs.types.vBan")}</span>
                     <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
-                    <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
+                    <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} playerId={log.toPlayerId} />)}>{log.toPlayer}</span>
                     <span className={styles.logReason}>{t("server.logs.reason")}</span>
                     <span className={styles.logReasonDetailed}>{log.reason}</span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
@@ -377,7 +377,7 @@ function LogRow(props) {
                     </svg>
                     <span className={styles.logAdmin}>{t("server.logs.types.bfban")}</span>
                     <span className={styles.logAction}>{t("server.logs.reasons.kickPlayer")}</span>
-                    <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
+                    <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} playerId={log.toPlayerId} />)}>{log.toPlayer}</span>
                     <span className={styles.logReason}>{t("server.logs.reason")}</span>
                     <span className={styles.logReasonDetailed}>{log.reason}</span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
@@ -406,7 +406,7 @@ function LogRow(props) {
                 </svg>
                 <span className={styles.logAdmin}>{log.adminName}</span>
                 <span className={styles.logAction}>{action}</span>
-                <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} />)}>{log.toPlayer}</span>
+                <span className={styles.logPlayer} onClick={_=>modal.show(<PlayerStatsModal player={log.toPlayer} playerId={log.toPlayerId} />)}>{log.toPlayer}</span>
                 <span className={styles.logReason}>{
                     ((log.reason === "") ? t("server.logs.noReason") : t("server.logs.reason"))
                 }</span>
@@ -698,7 +698,7 @@ function ExclusionListRow(props) {
     const player = props.player;
     const { t } = useTranslation();
     return (
-        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} id={player.id} />):null}>
+        <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} playerId={player.id} />):null}>
             <td>{player.playerName}</td>
             <td>{player.id}</td>
             <td>{((player.reason === "") ? t("group.exclusions.noReason") : player.reason)}</td>

@@ -232,6 +232,7 @@ export function PlayerStatsModal(props) {
             <h5>{t("server.playerStats.headshots")}{stats.headshots}</h5>
             <h5>{t("server.playerStats.killDeath")}{stats.killDeath}</h5>
             <h5>{t("server.playerStats.id")}{stats.id}</h5>
+            <h5>{t("server.playerStats.currentName")}{stats.userName}</h5>
             <a href={"https://gametools.network/stats/pc/playerid/"+stats.id+"?name="+player} target="_blank" rel="noreferrer">{t("server.playerStats.toStatsPage")}</a>
         </div>
     ) : t("server.playerStats.loading");
