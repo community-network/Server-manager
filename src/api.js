@@ -50,17 +50,17 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async globalUnbanPlayer({ name, gid, id, reason }) {
+    async globalUnbanPlayer({ name, gid, playerId, reason }) {
         if ((reason !== undefined) && (reason !== "")) {
             return await this.postJsonMethod("delautoban", {
-                "playerid": id,
+                "playerid": playerId,
                 "playername": name,
                 "groupid": gid,
                 "reason": reason
             });
         }
         return await this.postJsonMethod("delautoban", {
-            "playerid": id,
+            "playerid": playerId,
             "playername": name,
             "groupid": gid,
             "reason": ""
@@ -93,17 +93,17 @@ export class ApiProvider extends JsonClient {
         });
     }
 
-    async globalRemoveExcludePlayer({ name, gid, id, reason }) {
+    async globalRemoveExcludePlayer({ name, gid, playerId, reason }) {
         if ((reason !== undefined) && (reason !== "")) {
             return await this.postJsonMethod("delexcludedplayer", {
-                "playerid": id,
+                "playerid": playerId,
                 "playername": name,
                 "groupid": gid,
                 "reason": reason
             });
         }
         return await this.postJsonMethod("delexcludedplayer", {
-            "playerid": id,
+            "playerid": playerId,
             "playername": name,
             "groupid": gid,
             "reason": ""
