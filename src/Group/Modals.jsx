@@ -453,7 +453,7 @@ export function GroupRemoveExclusionPlayer(props) {
                     style={{ maxWidth: "144px" }}
                     disabled={isDisabled}
                     callback={() => {
-                        RemoveExcludedPlayer.mutate({ gid, eaid, reason, name: props.eaid, playerId });
+                        RemoveExcludedPlayer.mutate({ gid, eaid, reason, name: props.eaid, id: playerId });
                     }}
                     status={excludeApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (excludeApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
