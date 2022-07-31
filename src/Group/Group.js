@@ -158,6 +158,7 @@ export function VBanList(props) {
 
     const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
+    const [searchItem, setSearchItem] = useState("playerName");
     const { t } = useTranslation();
 
     const modal = useModal();
@@ -191,6 +192,12 @@ export function VBanList(props) {
             </h5>
             <ButtonRow>
                 <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <select className={styles.SwitchGame} value={searchItem} onChange={e => setSearchItem(e.target.value)}>
+                    <option value="playerName">{t("group.vban.table.playerName")}</option>
+                    <option value="id">{t("group.vban.table.playerId")}</option>
+                    <option value="reason">{t("group.vban.table.reason")}</option>
+                    <option value="admin">{t("group.vban.table.admin")}</option>
+                </select>
                 <Button name={t("group.vban.add")} callback={_ => modal.show(<VbanBanPlayer gid={gid}/>)} />
                 <ButtonUrl style={{marginLeft: 0}} href={`https://manager-api.gametools.network/api/autobanexcel?groupid=${gid}`} name={t("export")} />
             </ButtonRow>
@@ -207,7 +214,7 @@ export function VBanList(props) {
                     </thead>
                     <tbody>
                         {
-                            banList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
+                            banList.data.filter(p => p[searchItem].toLowerCase().includes(searchWord.toLowerCase())).map(
                                 (player, i) => (<GlobalBanRow player={player} key={i} callback={showGlobalUnban}/>)
                             )
                         }
@@ -632,6 +639,7 @@ export function ExclusionList(props) {
 
     const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
+    const [searchItem, setSearchItem] = useState("playerName");
     const { t } = useTranslation();
 
     const modal = useModal();
@@ -665,6 +673,12 @@ export function ExclusionList(props) {
             </h5>
             <ButtonRow>
                 <TextInput name={t("search")} callback={(v) => setSearchWord(v.target.value)} />
+                <select className={styles.SwitchGame} value={searchItem} onChange={e => setSearchItem(e.target.value)}>
+                    <option value="playerName">{t("group.vban.table.playerName")}</option>
+                    <option value="id">{t("group.vban.table.playerId")}</option>
+                    <option value="reason">{t("group.vban.table.reason")}</option>
+                    <option value="admin">{t("group.vban.table.admin")}</option>
+                </select>
                 <Button name={t("group.exclusions.add")} callback={_ => modal.show(<ExclusionPlayer gid={gid}/>)} />
                 <ButtonUrl style={{marginLeft: 0}} href={`https://manager-api.gametools.network/api/excludedplayersexcel?groupid=${gid}`} name={t("export")} />
             </ButtonRow>
@@ -681,7 +695,7 @@ export function ExclusionList(props) {
                     </thead>
                     <tbody>
                         {
-                            excludeList.data.filter(p => p.playerName.toLowerCase().includes(searchWord.toLowerCase())).map(
+                            excludeList.data.filter(p => p[searchItem].toLowerCase().includes(searchWord.toLowerCase())).map(
                                 (player, i) => (<ExclusionListRow player={player} key={i} callback={showRemoveExclusion}/>)
                             )
                         }
