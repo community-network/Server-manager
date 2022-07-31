@@ -647,6 +647,7 @@
             "headshots": "Kafadan Vurma Oranı: ",
             "killDeath": "KD: ",
             "id": "ID: ",
+            "currentName": "aktif hesap: ",
             "toStatsPage": "Tüm İstatistikler.."
         },
         "kickMenu": {
