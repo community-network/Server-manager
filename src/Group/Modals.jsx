@@ -286,7 +286,7 @@ export function GroupGlobalUnbanPlayer(props) {
                     style={{ maxWidth: "144px" }}
                     disabled={isDisabled}
                     callback={() => {
-                        UnbanPlayer.mutate({ gid, eaid, reason, name: props.eaid, playerId });
+                        UnbanPlayer.mutate({ gid, eaid, reason, name: props.eaid, id: playerId });
                     }}
                     status={banApplyStatus} />
                 <h5 style={{ marginBottom: 0, alignSelf: "center", opacity: (banApplyStatus === false) ? 1 : 0 }}>Error {errorUpdating.code}: {errorUpdating.message}</h5>
