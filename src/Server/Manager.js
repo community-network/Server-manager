@@ -109,7 +109,7 @@ export function useRemoveVip() {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
                 //await queryClient.cancelQueries('serverGame' + sid)
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('serverGame' + sid)
+                const previousGroup = queryClient.getQueryData(['serverGame' + sid])
                 // Optimistically update to the new value
                 // queryClient.setQueryData('serverGame' + sid, old => {
                 //     if (team === "1") {

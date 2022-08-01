@@ -17,11 +17,11 @@ export default function Account() {
             // When mutate is called:
             onMutate: async (v) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('user');
+                await queryClient.cancelQueries(['user']);
                 // Snapshot the previous value
-                const prevUser = queryClient.getQueryData('user');
+                const prevUser = queryClient.getQueryData(['user']);
                 // Optimistically update to the new value
-                queryClient.setQueryData('user', old => {
+                queryClient.setQueryData(['user'], old => {
                     return {
                         discord: {
                             name: "",
@@ -44,7 +44,7 @@ export default function Account() {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('user')
+                queryClient.invalidateQueries(['user'])
             },
         }
     );

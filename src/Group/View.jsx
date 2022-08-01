@@ -38,11 +38,11 @@ export function Group(props) {
             // When mutate is called:
             onMutate: async ({ gid, uid }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries(['groupId' + gid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData(['groupId' + gid])
 
-                queryClient.setQueryData('groupId' + gid, old => {
+                queryClient.setQueryData(['groupId' + gid], old => {
                     old.data[0].admins = old.data[0].admins.filter(admin => admin.id !== uid);
                     return old;
                 })
@@ -51,11 +51,11 @@ export function Group(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData(['groupId' + context.gid], context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries(['groupId' + context.gid])
             },
         }
     );
@@ -71,11 +71,11 @@ export function Group(props) {
             // When mutate is called:
             onMutate: async ({ gid, uid }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries(['groupId' + gid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData(['groupId' + gid])
 
-                queryClient.setQueryData('groupId' + gid, old => {
+                queryClient.setQueryData(['groupId' + gid], old => {
                     old.data[0].owners = old.data[0].owners.filter(admin => admin.id !== uid);
                     return old;
                 })
@@ -84,11 +84,11 @@ export function Group(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData(['groupId' + context.gid], context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries(['groupId' + context.gid])
             },
         }
     );
@@ -460,7 +460,7 @@ function Seeding(props) {
         if (selected === 90) {
             timeout = 1000;
         }
-        setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, timeout);
+        setTimeout(() => { queryClient.invalidateQueries(['seeding' + props.gid]) }, timeout);
     }
 
     const scheduleSeed = () => {
@@ -472,7 +472,7 @@ function Seeding(props) {
         }
         OperationsApi.scheduleSeeding({ timeStamp: `${hour}:${minute}0`, serverName: server.name, groupId: props.gid })
         setSelected(undefined);
-        setTimeout(() => { queryClient.invalidateQueries('seeding' + props.gid) }, 1000);
+        setTimeout(() => { queryClient.invalidateQueries(['seeding' + props.gid]) }, 1000);
     }
 
     return <>
@@ -797,7 +797,7 @@ function GroupDiscordSettings(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + props.gid);
+                queryClient.invalidateQueries(['groupId' + props.gid]);
             }
         }
     );
@@ -887,7 +887,7 @@ function GroupSettings(props) {
         }
 
 
-    }, [props.group]);
+    }, [props.group, groupState]);
 
     const changeGroupState = (v) => {
         setGroupState(s => ({ ...s, ...v }));
@@ -907,7 +907,7 @@ function GroupSettings(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + props.gid);
+                queryClient.invalidateQueries(['groupId' + props.gid]);
             }
         }
     );
@@ -1105,7 +1105,7 @@ function GroupDangerZone(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + props.gid);
+                queryClient.invalidateQueries(['groupId' + props.gid]);
             }
         }
     );
@@ -1155,13 +1155,13 @@ export function AddGroupOwner(props) {
             onMutate: async ({ gid, uid, nickname }) => {
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries(['groupId' + gid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData(['groupId' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('groupId' + gid, old => {
+                queryClient.setQueryData(['groupId' + gid], old => {
                     old.data[0].owners.push({ id: uid, name: nickname, addedAt: UTCNow });
                     old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
                     return old;
@@ -1171,11 +1171,11 @@ export function AddGroupOwner(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData(['groupId' + context.gid], context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries(['groupId' + context.gid])
             },
         }
     );
@@ -1218,13 +1218,13 @@ export function AddGroupAdmin(props) {
             onMutate: async ({ gid, uid, nickname }) => {
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries(['groupId' + gid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData(['groupId' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('groupId' + gid, old => {
+                queryClient.setQueryData(['groupId' + gid], old => {
                     old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
                     return old;
                 })
@@ -1233,11 +1233,11 @@ export function AddGroupAdmin(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData(['groupId' + context.gid], context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries(['groupId' + context.gid])
             },
         }
     );
@@ -1291,7 +1291,7 @@ export function AddGroup(props) {
         {
             onMutate: async (variables) => {
                 setApplyStatus(true);
-                await queryClient.cancelQueries('user');
+                await queryClient.cancelQueries(['user']);
 
 
                 return {}
@@ -1299,7 +1299,7 @@ export function AddGroup(props) {
             onSuccess: async (variables) => {
                 setApplyStatus(null);
 
-                queryClient.setQueryData('user', old => {
+                queryClient.setQueryData(['user'], old => {
                     if (old) {
                         old.permissions.isAdminOf.push({groupName: addGroupState.variables.groupName, id: variables.id});
                     }
@@ -1314,7 +1314,7 @@ export function AddGroup(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('user');
+                queryClient.invalidateQueries(['user']);
             }
         }
     );
@@ -1391,11 +1391,11 @@ export function DeleteGroup(props) {
             // When mutate is called:
             onMutate: async ({ gid }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('user')
+                await queryClient.cancelQueries(['user'])
                 // Snapshot the previous value
-                const previousGroups = queryClient.getQueryData('user')
+                const previousGroups = queryClient.getQueryData(['user'])
                 // Optimistically update to the new value
-                queryClient.setQueryData('user', old => {
+                queryClient.setQueryData(['user'], old => {
                     if (old) {
                         old.permissions.isAdminOf = old.permissions.isAdminOf.filter(group => group.id !== gid);
                     }
@@ -1406,11 +1406,11 @@ export function DeleteGroup(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('user', context.previousGroups)
+                queryClient.setQueryData(['user'], context.previousGroups)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('user')
+                queryClient.invalidateQueries(['user'])
             },
         }
     );
@@ -1462,13 +1462,13 @@ export function AddGroupServer(props) {
             onMutate: async ({ gid, name, alias, game }) => {
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries(['groupId' + gid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData(['groupId' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('groupId' + gid, old => {
+                queryClient.setQueryData(['groupId' + gid], old => {
                     old.data[0].servers.push({
                         "addedAt": UTCNow,
                         "id": null,
@@ -1482,11 +1482,11 @@ export function AddGroupServer(props) {
             },
             // If the mutation fails, use the context returned from onMutate to roll back
             onError: (err, newTodo, context) => {
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData(['groupId' + context.gid], context.previousGroup)
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries(['groupId' + context.gid])
             },
         }
     );
@@ -1672,7 +1672,7 @@ export function LeaveServer(props) {
         variables => OperationsApi.setSeeding(variables),
         {
             onSettled: () => {
-                queryClient.invalidateQueries('seeding' + props.gid)
+                queryClient.invalidateQueries(['seeding' + props.gid])
             },
         }
     );
@@ -1700,7 +1700,7 @@ export function AddKeepAlive(props) {
         variables => OperationsApi.addKeepAlive(variables),
         {
             onSettled: () => {
-                queryClient.invalidateQueries('seeding' + props.gid)
+                queryClient.invalidateQueries(['seeding' + props.gid])
             },
         }
     );
@@ -1729,7 +1729,7 @@ export function SeederBroadcast(props) {
         variables => OperationsApi.setSeeding(variables),
         {
             onSettled: () => {
-                queryClient.invalidateQueries('seeding' + props.gid)
+                queryClient.invalidateQueries(['seeding' + props.gid])
             },
         }
     );
@@ -1756,7 +1756,7 @@ export function UnscheduleSeed(props) {
         variables => OperationsApi.undoScheduleSeeding(variables),
         {
             onSettled: () => {
-                queryClient.invalidateQueries('seeding' + props.gid)
+                queryClient.invalidateQueries(['seeding' + props.gid])
             },
         }
     );

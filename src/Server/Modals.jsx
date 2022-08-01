@@ -30,11 +30,11 @@ export function ServerKickPlayer(props) {
             // When mutate is called:
             onMutate: async ({ sid, eaid, reason }) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('serverGame' + sid)
+                await queryClient.cancelQueries(['serverGame' + sid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('serverGame' + sid)
+                const previousGroup = queryClient.getQueryData(['serverGame' + sid])
                 // Optimistically update to the new value
-                queryClient.setQueryData('serverGame' + sid, old => {
+                queryClient.setQueryData(['serverGame' + sid], old => {
                     old.data[0].players[0].players = old.data[0].players[0].players.filter(e => e.name !== eaid);
                     old.data[0].players[1].players = old.data[0].players[1].players.filter(e => e.name !== eaid);
                     return old;
@@ -52,7 +52,7 @@ export function ServerKickPlayer(props) {
                 setKickApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setKickApplyStatus(null), 3000);
-                queryClient.setQueryData('serverGame' + context.sid, context.previousGroup)
+                queryClient.setQueryData(['serverGame' + context.sid], context.previousGroup)
             },
         }
     );

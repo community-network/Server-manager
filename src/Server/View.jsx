@@ -178,9 +178,9 @@ export function DeleteServer(props) {
         variables => OperationsApi.removeServer(variables),
         {
             onSuccess: async (variables) => {
-                await queryClient.cancelQueries('groupId' + variables.groupId)
+                await queryClient.cancelQueries(['groupId' + variables.groupId])
 
-                queryClient.setQueryData('groupId', variables.groupId, old => {
+                queryClient.setQueryData(['groupId', variables.groupId], old => {
                     if (old) {
                         old.data[0].servers = old.data[0].servers.filter(server => server.id !== variables.groupId);
                     }
@@ -189,7 +189,7 @@ export function DeleteServer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + data.groupId)
+                queryClient.invalidateQueries(['groupId' + data.groupId])
                 history(`/group/${data.groupId}`); 
             },
         }
@@ -273,7 +273,7 @@ function ServerAutomation(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('server' + props.sid);
+                queryClient.invalidateQueries(['server' + props.sid]);
             }
         }
     );

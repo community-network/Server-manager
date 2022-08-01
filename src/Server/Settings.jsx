@@ -40,7 +40,7 @@ export function IngameSettings(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('servers' + props.sid);
+                queryClient.invalidateQueries(['servers' + props.sid]);
             }
         }
     );
@@ -199,7 +199,7 @@ export function ServerSettings(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('server' + props.sid);
+                queryClient.invalidateQueries(['server' + props.sid]);
             }
         }
     );
@@ -219,7 +219,7 @@ export function ServerSettings(props) {
                 setTimeout(_ => setRestartStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('server' + props.sid);
+                queryClient.invalidateQueries(['server' + props.sid]);
             }
         }
     );

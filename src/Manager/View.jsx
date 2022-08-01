@@ -49,7 +49,7 @@ export function GroupRow(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('server' + group.id);
+                queryClient.invalidateQueries(['server' + group.id]);
             }
         }
     );

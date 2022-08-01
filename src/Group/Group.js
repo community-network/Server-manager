@@ -447,13 +447,13 @@ function VbanBanPlayer(props) {
                 setBanApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalBanList' + gid)
+                await queryClient.cancelQueries(['globalBanList' + gid])
                 // Snapshot the previous value
-                const perviousBanlist = queryClient.getQueryData('globalBanList' + gid)
+                const perviousBanlist = queryClient.getQueryData(['globalBanList' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('globalBanList' + gid, old => {
+                queryClient.setQueryData(['globalBanList' + gid], old => {
                     old.data.push({ id: playerId, playerName: name, reason: reason, timeStamp: UTCNow, bannedUntil: null, admin: user.discord.name });
                     return old;
                 })
@@ -464,7 +464,7 @@ function VbanBanPlayer(props) {
                 setBanApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setBanApplyStatus(null), 3000);
-                queryClient.setQueryData('globalBanList' + context.gid, context.perviousBanlist)
+                queryClient.setQueryData(['globalBanList' + context.gid], context.perviousBanlist)
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
@@ -472,7 +472,7 @@ function VbanBanPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalBanList' + context.gid)
+                queryClient.invalidateQueries(['globalBanList' + context.gid])
             },
         }
     );
@@ -606,7 +606,7 @@ export function DelKeepAlive(props) {
         variables => OperationsApi.delKeepAlive(variables),
         {
             onSettled: () => {
-                queryClient.invalidateQueries('seeding' + props.gid)
+                queryClient.invalidateQueries(['seeding' + props.gid])
             },
         }
     );
@@ -736,13 +736,13 @@ function ExclusionPlayer(props) {
                 setExcludeApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalExclusionList' + gid)
+                await queryClient.cancelQueries(['globalExclusionList' + gid])
                 // Snapshot the previous value
-                const perviousExclusionlist = queryClient.getQueryData('globalExclusionList' + gid)
+                const perviousExclusionlist = queryClient.getQueryData(['globalExclusionList' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('globalExclusionList' + gid, old => {
+                queryClient.setQueryData(['globalExclusionList' + gid], old => {
                     old.data.push({ id: playerId, playerName: name, reason: reason, timeStamp: UTCNow, bannedUntil: null, admin: user.discord.name });
                     return old;
                 })
@@ -753,7 +753,7 @@ function ExclusionPlayer(props) {
                 setExcludeApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setExcludeApplyStatus(null), 3000);
-                queryClient.setQueryData('globalExclusionList' + context.gid, context.perviousExclusionlist)
+                queryClient.setQueryData(['globalExclusionList' + context.gid], context.perviousExclusionlist)
             },
             onSuccess: () => {
                 setExcludeApplyStatus(null);
@@ -761,7 +761,7 @@ function ExclusionPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalExclusionList' + context.gid)
+                queryClient.invalidateQueries(['globalExclusionList' + context.gid])
             },
         }
     );
@@ -884,11 +884,11 @@ function ReasonListPlayer(props) {
                 setReasonApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalReasonList' + gid)
+                await queryClient.cancelQueries(['globalReasonList' + gid])
                 // Snapshot the previous value
-                const previousReasonlist = queryClient.getQueryData('globalReasonList' + gid)
+                const previousReasonlist = queryClient.getQueryData(['globalReasonList' + gid])
 
-                queryClient.setQueryData('globalReasonList' + gid, old => {
+                queryClient.setQueryData(['globalReasonList' + gid], old => {
                     old.data.push({ item: reason });
                     return old;
                 })
@@ -899,7 +899,7 @@ function ReasonListPlayer(props) {
                 setReasonApplyStatus(false);
                 setError(err);
                 setTimeout(_ => setReasonApplyStatus(null), 3000);
-                queryClient.setQueryData('globalReasonList' + context.gid, context.previousReasonlist)
+                queryClient.setQueryData(['globalReasonList' + context.gid], context.previousReasonlist)
             },
             onSuccess: () => {
                 setReasonApplyStatus(null);
@@ -907,7 +907,7 @@ function ReasonListPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalReasonList' + context.gid)
+                queryClient.invalidateQueries(['globalReasonList' + context.gid])
             },
         }
     );
