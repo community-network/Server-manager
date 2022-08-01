@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMeasure,  } from 'react-use';
 import { Link } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import { GroupGlobalUnbanPlayer, GroupRemoveExclusionPlayer, GroupRemoveReason } from "./Modals";
 import { supportedGames } from "../Globals";
@@ -154,7 +154,7 @@ export function GameStatsAd(props) {
 
 export function VBanList(props) {
     const gid = props.gid;
-    const { isError, data: banList, error } = useQuery('globalBanList' + gid, () => OperationsApi.getAutoBanList({ gid }));
+    const { isError, data: banList, error } = useQuery(['globalBanList' + gid], () => OperationsApi.getAutoBanList({ gid }));
 
     const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
@@ -247,7 +247,7 @@ function GlobalBanRow(props) {
 
 export function GroupLogs(props) {
     const gid = props.gid;
-    const { isError, data: logList, error } = useQuery('groupogList' + gid, () => OperationsApi.getGroupLogs({ gid }));
+    const { isError, data: logList, error } = useQuery(['groupogList' + gid], () => OperationsApi.getGroupLogs({ gid }));
     const { t } = useTranslation();
 
     if (isError) {
@@ -445,7 +445,7 @@ function VbanBanPlayer(props) {
     var [banApplyStatus, setBanApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { isError: userGettingError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
     const GlobalBanPlayer = useMutation(
         v => OperationsApi.globalBanPlayer(v),
@@ -454,13 +454,13 @@ function VbanBanPlayer(props) {
                 setBanApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalBanList' + gid)
+                await queryClient.cancelQueries(['globalBanList' + gid])
                 // Snapshot the previous value
-                const perviousBanlist = queryClient.getQueryData('globalBanList' + gid)
+                const perviousBanlist = queryClient.getQueryData(['globalBanList' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('globalBanList' + gid, old => {
+                queryClient.setQueryData(['globalBanList' + gid], old => {
                     old.data.push({ id: playerId, playerName: name, reason: reason, timeStamp: UTCNow, bannedUntil: null, admin: user.discord.name });
                     return old;
                 })
@@ -471,7 +471,7 @@ function VbanBanPlayer(props) {
                 setBanApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setBanApplyStatus(null), 3000);
-                queryClient.setQueryData('globalBanList' + context.gid, context.perviousBanlist)
+                queryClient.setQueryData(['globalBanList' + context.gid], context.perviousBanlist)
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
@@ -479,7 +479,7 @@ function VbanBanPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalBanList' + context.gid)
+                queryClient.invalidateQueries(['globalBanList' + context.gid])
             },
         }
     );
@@ -613,7 +613,7 @@ export function DelKeepAlive(props) {
         variables => OperationsApi.delKeepAlive(variables),
         {
             onSettled: () => {
-                queryClient.invalidateQueries('seeding' + props.gid)
+                queryClient.invalidateQueries(['seeding' + props.gid])
             },
         }
     );
@@ -635,7 +635,7 @@ export function DelKeepAlive(props) {
 
 export function ExclusionList(props) {
     const gid = props.gid;
-    const { isError, data: excludeList, error } = useQuery('globalExclusionList' + gid, () => OperationsApi.getExcludedPlayers({ gid }));
+    const { isError, data: excludeList, error } = useQuery(['globalExclusionList' + gid], () => OperationsApi.getExcludedPlayers({ gid }));
 
     const [sorting, setSorting] = useState("-unixTimeStamp");
     const [searchWord, setSearchWord] = useState("");
@@ -741,7 +741,7 @@ function ExclusionPlayer(props) {
     var [excludeApplyStatus, setExcludeApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { isError: userGettingError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
     const GlobalExcludePlayer = useMutation(
         v => OperationsApi.globalExcludePlayer(v),
@@ -750,13 +750,13 @@ function ExclusionPlayer(props) {
                 setExcludeApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalExclusionList' + gid)
+                await queryClient.cancelQueries(['globalExclusionList' + gid])
                 // Snapshot the previous value
-                const perviousExclusionlist = queryClient.getQueryData('globalExclusionList' + gid)
+                const perviousExclusionlist = queryClient.getQueryData(['globalExclusionList' + gid])
                 // Optimistically update to the new value
                 const UTCNow = new Date(Date.now()).toUTCString();
 
-                queryClient.setQueryData('globalExclusionList' + gid, old => {
+                queryClient.setQueryData(['globalExclusionList' + gid], old => {
                     old.data.push({ id: playerId, playerName: name, reason: reason, timeStamp: UTCNow, bannedUntil: null, admin: user.discord.name });
                     return old;
                 })
@@ -767,7 +767,7 @@ function ExclusionPlayer(props) {
                 setExcludeApplyStatus(false);
                 setError(error);
                 setTimeout(_ => setExcludeApplyStatus(null), 3000);
-                queryClient.setQueryData('globalExclusionList' + context.gid, context.perviousExclusionlist)
+                queryClient.setQueryData(['globalExclusionList' + context.gid], context.perviousExclusionlist)
             },
             onSuccess: () => {
                 setExcludeApplyStatus(null);
@@ -775,7 +775,7 @@ function ExclusionPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalExclusionList' + context.gid)
+                queryClient.invalidateQueries(['globalExclusionList' + context.gid])
             },
         }
     );
@@ -809,7 +809,7 @@ function ExclusionPlayer(props) {
 
 export function ReasonList(props) {
     const gid = props.gid;
-    const { isError, data: reasonList, error } = useQuery('globalReasonList' + gid, () => OperationsApi.getReasonList({ gid, sid: undefined }));
+    const { isError, data: reasonList, error } = useQuery(['globalReasonList' + gid], () => OperationsApi.getReasonList({ gid, sid: undefined }));
 
     const [searchWord, setSearchWord] = useState("");
     const { t } = useTranslation();
@@ -889,7 +889,7 @@ function ReasonListPlayer(props) {
     var [reasonApplyStatus, setReasonApplyStatus] = useState(null);
     const [errorUpdating, setError] = useState({ code: 0, message: "Unknown" });
 
-    const { isError: userGettingError, data: user } = useQuery('user', () => OperationsApi.user);
+    const { isError: userGettingError, data: user } = useQuery(['user'], () => OperationsApi.user);
 
     const GlobalAddReason = useMutation(
         v => OperationsApi.addReason(v),
@@ -898,11 +898,11 @@ function ReasonListPlayer(props) {
                 setReasonApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalReasonList' + gid)
+                await queryClient.cancelQueries(['globalReasonList' + gid])
                 // Snapshot the previous value
-                const previousReasonlist = queryClient.getQueryData('globalReasonList' + gid)
+                const previousReasonlist = queryClient.getQueryData(['globalReasonList' + gid])
 
-                queryClient.setQueryData('globalReasonList' + gid, old => {
+                queryClient.setQueryData(['globalReasonList' + gid], old => {
                     old.data.push({ item: reason });
                     return old;
                 })
@@ -913,7 +913,7 @@ function ReasonListPlayer(props) {
                 setReasonApplyStatus(false);
                 setError(err);
                 setTimeout(_ => setReasonApplyStatus(null), 3000);
-                queryClient.setQueryData('globalReasonList' + context.gid, context.previousReasonlist)
+                queryClient.setQueryData(['globalReasonList' + context.gid], context.previousReasonlist)
             },
             onSuccess: () => {
                 setReasonApplyStatus(null);
@@ -921,7 +921,7 @@ function ReasonListPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalReasonList' + context.gid)
+                queryClient.invalidateQueries(['globalReasonList' + context.gid])
             },
         }
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import { Navigate } from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Column, Card, ButtonLink, ButtonRow, Row, TextInput } from "../components";
@@ -12,7 +12,7 @@ import { GroupRow } from "../Group/Group";
 export function Developer() {
     const { t } = useTranslation();
     const [searchWord, setSearchWord] = React.useState("");
-    const { isLoading, isError, data } = useQuery('devGroups', () => OperationsApi.getDevGroups())
+    const { isLoading, isError, data } = useQuery(['devGroups'], () => OperationsApi.getDevGroups())
     
     var groups = [];
 

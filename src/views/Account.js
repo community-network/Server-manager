@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate} from 'react-router-dom';
 import { OperationsApi } from "../api";
 import { Column, Card, Header, CardRow, UserRow, TopRow, ButtonRow, ButtonUrl } from "../components";
@@ -17,11 +17,11 @@ export default function Account() {
             // When mutate is called:
             onMutate: async (v) => {
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('user');
+                await queryClient.cancelQueries(['user']);
                 // Snapshot the previous value
-                const prevUser = queryClient.getQueryData('user');
+                const prevUser = queryClient.getQueryData(['user']);
                 // Optimistically update to the new value
-                queryClient.setQueryData('user', old => {
+                queryClient.setQueryData(['user'], old => {
                     return {
                         discord: {
                             name: "",
@@ -44,13 +44,13 @@ export default function Account() {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('user')
+                queryClient.invalidateQueries(['user'])
             },
         }
     );
     
     const { t } = useTranslation();
-    const { error: userError, data: user, isLoading } = useQuery('user', () => OperationsApi.user);
+    const { error: userError, data: user, isLoading } = useQuery(['user'], () => OperationsApi.user);
 
 
     if (!userError && !isLoading && !!user) {

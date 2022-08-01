@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 
 import { useModal } from "../components/Card";
@@ -18,7 +18,7 @@ export function LogList(props) {
     const { t } = useTranslation();
     
     const sid = props.sid;
-    const { isError, data: logList, error } = useQuery('serverLogList' + sid, () => OperationsApi.getServerLogs({ sid }));
+    const { isError, data: logList, error } = useQuery(['serverLogList' + sid], () => OperationsApi.getServerLogs({ sid }));
     const [isShown, setIsShown] = useState(false);
     const showActionLogs = _=> {
         setIsShown(!isShown);

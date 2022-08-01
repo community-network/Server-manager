@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import styles from "./Styles.module.css";
 
@@ -22,7 +22,7 @@ export function IngameSettings(props) {
 
     const sid = props.sid;
     const { t } = useTranslation();
-    const { isError, data: cookieInfo, error } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
+    const { isError, data: cookieInfo, error } = useQuery(['cookieInfo' + sid], () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
     var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
 
     const editOwnerSettings = useMutation(
@@ -40,7 +40,7 @@ export function IngameSettings(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('servers' + props.sid);
+                queryClient.invalidateQueries(['servers' + props.sid]);
             }
         }
     );
@@ -147,7 +147,7 @@ export function ServerSettings(props) {
 
     const { sid, server } = props;
     const { t } = useTranslation();
-    const { isError, data: cookieInfo, error } = useQuery('cookieInfo' + sid, () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
+    const { isError, data: cookieInfo, error } = useQuery(['cookieInfo' + sid], () => OperationsApi.getCookieList({ sid }), { staleTime: 30000 });
     var cookies = (cookieInfo && cookieInfo.data && cookieInfo.data.length > 0) ? cookieInfo.data : null;
 
     var allowedTo = false;
@@ -199,7 +199,7 @@ export function ServerSettings(props) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('server' + props.sid);
+                queryClient.invalidateQueries(['server' + props.sid]);
             }
         }
     );
@@ -219,7 +219,7 @@ export function ServerSettings(props) {
                 setTimeout(_ => setRestartStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('server' + props.sid);
+                queryClient.invalidateQueries(['server' + props.sid]);
             }
         }
     );

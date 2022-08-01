@@ -6,7 +6,7 @@ import styles from "./Buttons.module.css";
 import { Status } from "./Status";
 import { useMeasure } from 'react-use';
 
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import { OperationsApi } from "../api";
 
 
@@ -146,7 +146,6 @@ export function PlayerDropdownButton(props) {
 export function ShowDropDown(props) {
     const [open, setOpen] = useState(true);
     let container = React.useRef();
-    console.log(container.current)
     useEffect(() => {
         let handleClickOutside = (event) => {
             if (container.current && !container.current.contains(event.target)) {
@@ -272,7 +271,6 @@ export function IconNotSelected(props) {
 export function SelectableRow(props) {
     const [selected, setSelcted] = React.useState(false);
     const select = (p) => {
-        console.log(p);
         setSelcted(p);
         props.callback(p);
     }
@@ -288,7 +286,7 @@ export function SelectableRow(props) {
 
 export function ReasonDropdownButton(props) {
     const [open, setOpen] = useState(false);
-    const { isError, data: reasonList, error } = useQuery('globalReasonList' + props.gid + props.sid, () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }));
+    const { isError, data: reasonList, error } = useQuery(['globalReasonList' + props.gid + props.sid], () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }));
     const options = [];
     if (reasonList) {
         reasonList.data.forEach(element => {

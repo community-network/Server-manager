@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
 import { checkGameString } from "../Server/Modals";
 
@@ -59,7 +59,7 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + gid);
+                queryClient.invalidateQueries(['groupId' + gid]);
                 callback();
             }
         }
@@ -79,7 +79,7 @@ export function ChangeAccountModal({ group, gid, cookie, user, callback }) {
                 setTimeout(_ => setApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + gid);
+                queryClient.invalidateQueries(['groupId' + gid]);
                 callback();
             }
         }
@@ -164,7 +164,7 @@ export function AddAccountModal({ group, gid, user, callback }) {
                 setTimeout(_ => setRemoveApplyStatus(null), 2000);
             },
             onSettled: async () => {
-                queryClient.invalidateQueries('groupId' + gid);
+                queryClient.invalidateQueries(['groupId' + gid]);
             }
         }
     );
@@ -227,11 +227,11 @@ export function GroupGlobalUnbanPlayer(props) {
                 setBanApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalBanList' + gid)
+                await queryClient.cancelQueries(['globalBanList' + gid])
                 // Snapshot the previous value
-                const perviousBanlist = queryClient.getQueryData('globalBanList' + gid)
+                const perviousBanlist = queryClient.getQueryData(['globalBanList' + gid])
 
-                queryClient.setQueryData('globalBanList' + gid, old => {
+                queryClient.setQueryData(['globalBanList' + gid], old => {
                     old.data = old.data.filter(user => user.playername !== name);
                     return old;
                 })
@@ -242,7 +242,7 @@ export function GroupGlobalUnbanPlayer(props) {
                 setBanApplyStatus(false);
                 setError(err);
                 setTimeout(_ => setBanApplyStatus(null), 3000);
-                queryClient.setQueryData('globalBanList' + context.gid, context.perviousBanlist)
+                queryClient.setQueryData(['globalBanList' + context.gid], context.perviousBanlist)
             },
             onSuccess: () => {
                 setBanApplyStatus(null);
@@ -250,7 +250,7 @@ export function GroupGlobalUnbanPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalBanList' + context.gid)
+                queryClient.invalidateQueries(['globalBanList' + context.gid])
             },
         }
     );
@@ -312,11 +312,11 @@ export function GroupRemoveAccount(props) {
             onMutate: async ({gid, id}) => {
                 setRemoveApplyStatus(true)
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('groupId' + gid)
+                await queryClient.cancelQueries(['groupId' + gid])
                 // Snapshot the previous value
-                const previousGroup = queryClient.getQueryData('groupId' + gid)
+                const previousGroup = queryClient.getQueryData(['groupId' + gid])
 
-                queryClient.setQueryData('groupId' + gid, old => {
+                queryClient.setQueryData(['groupId' + gid], old => {
                     old.data[0].cookies = old.data[0].cookies.filter(item => item.id !== id);
                     return old;
                 })
@@ -327,7 +327,7 @@ export function GroupRemoveAccount(props) {
                 setRemoveApplyStatus(false);
                 setError(err);
                 setTimeout(_ => setRemoveApplyStatus(null), 3000);
-                queryClient.setQueryData('groupId' + context.gid, context.previousGroup)
+                queryClient.setQueryData(['groupId' + context.gid], context.previousGroup)
             },
             onSuccess: () => {
                 setRemoveApplyStatus(null);
@@ -335,7 +335,7 @@ export function GroupRemoveAccount(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('groupId' + context.gid)
+                queryClient.invalidateQueries(['groupId' + context.gid])
             },
         }
     );
@@ -394,11 +394,11 @@ export function GroupRemoveExclusionPlayer(props) {
                 setExcludeApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalExclusionList' + gid)
+                await queryClient.cancelQueries(['globalExclusionList' + gid])
                 // Snapshot the previous value
-                const previousExcludedlist = queryClient.getQueryData('globalExclusionList' + gid)
+                const previousExcludedlist = queryClient.getQueryData(['globalExclusionList' + gid])
 
-                queryClient.setQueryData('globalExclusionList' + gid, old => {
+                queryClient.setQueryData(['globalExclusionList' + gid], old => {
                     old.data = old.data.filter(user => user.playername !== name);
                     return old;
                 })
@@ -409,7 +409,7 @@ export function GroupRemoveExclusionPlayer(props) {
                 setExcludeApplyStatus(false);
                 setError(err);
                 setTimeout(_ => setExcludeApplyStatus(null), 3000);
-                queryClient.setQueryData('globalExclusionList' + context.gid, context.previousExcludedlist)
+                queryClient.setQueryData(['globalExclusionList' + context.gid], context.previousExcludedlist)
             },
             onSuccess: () => {
                 setExcludeApplyStatus(null);
@@ -417,7 +417,7 @@ export function GroupRemoveExclusionPlayer(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalExclusionList' + context.gid)
+                queryClient.invalidateQueries(['globalExclusionList' + context.gid])
             },
         }
     );
@@ -480,11 +480,11 @@ export function GroupRemoveReason(props) {
                 setReasonApplyStatus(true)
 
                 // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-                await queryClient.cancelQueries('globalReasonList' + gid)
+                await queryClient.cancelQueries(['globalReasonList' + gid])
                 // Snapshot the previous value
-                const previousReasonlist = queryClient.getQueryData('globalReasonList' + gid)
+                const previousReasonlist = queryClient.getQueryData(['globalReasonList' + gid])
 
-                queryClient.setQueryData('globalReasonList' + gid, old => {
+                queryClient.setQueryData(['globalReasonList' + gid], old => {
                     old.data = old.data.filter(item => item.id !== reasonId);
                     return old;
                 })
@@ -495,7 +495,7 @@ export function GroupRemoveReason(props) {
                 setReasonApplyStatus(false);
                 setError(err);
                 setTimeout(_ => setReasonApplyStatus(null), 3000);
-                queryClient.setQueryData('globalReasonList' + context.gid, context.previousReasonlist)
+                queryClient.setQueryData(['globalReasonList' + context.gid], context.previousReasonlist)
             },
             onSuccess: () => {
                 setReasonApplyStatus(null);
@@ -503,7 +503,7 @@ export function GroupRemoveReason(props) {
             },
             // Always refetch after error or success:
             onSettled: (data, error, variables, context) => {
-                queryClient.invalidateQueries('globalReasonList' + context.gid)
+                queryClient.invalidateQueries(['globalReasonList' + context.gid])
             },
         }
     );
