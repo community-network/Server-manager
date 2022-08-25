@@ -634,7 +634,9 @@
             "BFFactionId_FactionRUS": "Rus imparatorluğu",
             "BFFactionId_FactionBOL": "Kızıl Ordu",
             "BFFactionId_FactionWA": "Beyaz Ordu",
-            "BFFactionId_FactionUKM": "Kraliyet Deniz Piyadeleri"
+            "BFFactionId_FactionUKM": "Kraliyet Deniz Piyadeleri",
+            "BFFactionId_FactionUSA_Pacific": "Amerika Birleşik devletleri",
+            "BFFactionId_FactionJPN": "Japon İmparatorluğu"
         },
         "playerStats": {
             "main": "{{player}} 'nin Oyun İstatistikleri",
