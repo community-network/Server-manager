@@ -621,7 +621,9 @@
             "BFFactionId_FactionRUS": "俄帝国",
             "BFFactionId_FactionBOL": "红军",
             "BFFactionId_FactionWA": "白军",
-            "BFFactionId_FactionUKM": "皇家海军"
+            "BFFactionId_FactionUKM": "皇家海军",
+            "BFFactionId_FactionUSA_Pacific": "美利坚合众国",
+            "BFFactionId_FactionJPN": "日本帝国"
         },
         "playerStats": {
             "main": "玩家统计{{player}}",
