@@ -642,7 +642,9 @@
             "BFFactionId_FactionRUS": "Russian Empire",
             "BFFactionId_FactionBOL": "Red Army",
             "BFFactionId_FactionWA": "White Army",
-            "BFFactionId_FactionUKM": "Royal Marines"
+            "BFFactionId_FactionUKM": "Royal Marines",
+            "BFFactionId_FactionUSA_Pacific": "United States of America",
+            "BFFactionId_FactionJPN": "Empire of Japan"
         },
         "playerStats": {
             "main": "Statistieken van {{player}}",
