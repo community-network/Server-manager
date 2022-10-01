@@ -265,7 +265,7 @@ function GroupAdmins(props) {
             }
         </ButtonRow>
         {
-            (props.group) ? (
+            (groupUsers) ? (
                 adminList.map((admin, i) => (
                     <UserStRow user={admin} callback={(v) => changeSelected(v, admin.id)} key={admin.id || i} />
                 ))
