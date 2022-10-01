@@ -381,6 +381,10 @@ export class ApiProvider extends JsonClient {
         return await this.getJsonMethod("groups", { "groupid": gid });
     }
 
+    async getUsers(gid) {
+        return await this.getJsonMethod("users", { "groupid": gid });
+    }
+
     async getStats(gid) {
         return await this.getJsonMethod("stats", { "groupid": gid });
     }

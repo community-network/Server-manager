@@ -213,6 +213,8 @@ export function Group(props) {
 }
 function GroupAdmins(props) {
 
+    const { data: groupUsers } = useQuery(['groupUsers' + props.group.id], () => OperationsApi.getUsers(props.group.id), { staleTime: Infinity, refetchOnWindowFocus: false });
+
     const modal = useModal();
 
     var hasRights = false;
@@ -224,8 +226,8 @@ function GroupAdmins(props) {
     const fakeListing = [1, 1, 1];
 
     let adminList;
-    if (props.group) {
-        adminList = [...props.group.admins];
+    if (groupUsers) {
+        adminList = [...groupUsers.data[0].admins];
         adminList.sort((a, b) => Date.parse(b.addedAt) - Date.parse(a.addedAt));
     }
 
@@ -610,6 +612,8 @@ function Seeding(props) {
 
 function GroupOwners(props) {
 
+    const { data: groupUsers } = useQuery(['groupUsers' + props.group.id], () => OperationsApi.getUsers(props.group.id), { staleTime: Infinity, refetchOnWindowFocus: false });
+
     const modal = useModal();
     const [selected, setSelected] = useState([]);
     const { t } = useTranslation();
@@ -620,8 +624,8 @@ function GroupOwners(props) {
     const fakeListing = [1, 1, 1];
 
     let ownerList;
-    if (props.group) {
-        ownerList = [...props.group.owners];
+    if (groupUsers) {
+        ownerList = [...groupUsers.data[0].owners];
         ownerList.sort((a, b) => Date.parse(b.addedAt) - Date.parse(a.addedAt));
     }
 
