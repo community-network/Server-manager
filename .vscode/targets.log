@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Oct  1 22:34:58 2022
+# Make data base, printed on Sun Oct  2 21:19:47 2022
 
 # Variables
 
@@ -53,7 +51,7 @@ XDG_DATA_DIRS = /home/zjobse/.local/share/flatpak/exports/share:/var/lib/flatpak
 # environment
 VSCODE_CODE_CACHE_PATH = /home/zjobse/.config/Code/CachedData/74b1f979648cc44d385a2286793c226e611f59e7
 # environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session1
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session2
 # environment
 LANG = C
 # environment
@@ -91,7 +89,7 @@ MAKEFILE_LIST := makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 13828
+VSCODE_PID = 3817
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
@@ -99,7 +97,7 @@ XDG_SESSION_TYPE = x11
 # environment
 FREETYPE_PROPERTIES = truetype:interpreter-version=38
 # environment
-SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1635,unix/Jobse-PC:/tmp/.ICE-unix/1635
+SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1615,unix/Jobse-PC:/tmp/.ICE-unix/1615
 # automatic
 *F = $(notdir $*)
 # environment
@@ -137,7 +135,7 @@ MOTD_SHOWN = pam
 # environment
 LC_TIME = nl_NL.UTF-8
 # environment
-INVOCATION_ID = d44d9b750f7649dea26e3c55aaf5cb14
+INVOCATION_ID = 576af28ef4ef451a8923869972e14e8c
 # environment
 LC_TELEPHONE = nl_NL.UTF-8
 # automatic
@@ -167,7 +165,7 @@ XDG_VTNR = 1
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 1672
+SYSTEMD_EXEC_PID = 1653
 # environment
 DISPLAY = :0
 # environment
@@ -179,7 +177,7 @@ MAKE_VERSION := 4.3
 # environment
 KDE_SESSION_UID = 1000
 # environment
-MANAGERPID = 1580
+MANAGERPID = 1560
 # environment
 LC_MEASUREMENT = nl_NL.UTF-8
 # environment
@@ -189,7 +187,7 @@ LC_PAPER = nl_NL.UTF-8
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:34227
+JOURNAL_STREAM = 8:35000
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -237,9 +235,9 @@ LC_IDENTIFICATION = nl_NL.UTF-8
 
 # Directories
 
-# . (device 2065, inode 22024042): 14 files, no impossibilities.
+# . (device 2065, inode 22024042): 15 files, no impossibilities.
 
-# 14 files, no impossibilities in 1 directories.
+# 15 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -280,7 +278,6 @@ test:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'makefile', line 14):
 	npm run test
 
@@ -288,6 +285,9 @@ test:
 makefile:
 #  Implicit rule search has been done.
 #  Last modified 2022-08-24 12:42:54.347882049
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  File has been updated.
 #  Successfully updated.
 
@@ -299,12 +299,12 @@ makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 188 B / avg = 8 B
-# current buf: size = 8162 B / used = 188 B / count = 22 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 23 / storage = 199 B / avg = 8 B
+# current buf: size = 8162 B / used = 199 B / count = 23 / avg = 8 B
 
-# strcache performance: lookups = 29 / hit rate = 24%
+# strcache performance: lookups = 30 / hit rate = 23%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=0/29=0%
-# Finished Make data base on Sat Oct  1 22:34:58 2022
+# Load=23/8192=0%, Rehash=0, Collisions=0/30=0%
+# Finished Make data base on Sun Oct  2 21:19:47 2022
 
  
