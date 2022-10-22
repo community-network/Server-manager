@@ -92,6 +92,26 @@ export function Server(props) {
             {
                 name: t("server.banList.main"),
                 callback: () => setTabsListing("banlist"),
+            },
+            {
+                name: t("server.firestarterList.main"),
+                callback: () => setTabsListing("firestarter"),
+            },
+            {
+                name: t("server.playTimeList.main"),
+                callback: () => setTabsListing("playtime"),
+            },
+            {
+                name: t("server.spectatorList.main"),
+                callback: () => setTabsListing("spectator"),
+            },
+            {
+                name: t("server.playerLogs.main"),
+                callback: () => setTabsListing("playerlogs"),
+            },
+            {
+                name: t("server.protection.main"),
+                callback: () => setTabsListing("protection"),
             }
         ]
         serverTabs = serverTabs.concat(extra);
