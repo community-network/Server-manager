@@ -68,8 +68,10 @@ export function ServerRotation(props) {
         }
     }
     var update_timestamp = new Date().getTime();
+    var worker_timestamp = new Date().getTime();
     if (server) {
         update_timestamp = new Date(server.update_timestamp);
+        worker_timestamp = new Date(server.worker_timestamp);
     }
     var [rotationId, setRotationId] = useState("");
     const [playerListSort, setPlayerListSort] = useContext(PageContext);
@@ -84,14 +86,14 @@ export function ServerRotation(props) {
                     <SmallText>{(game) ? `${game.map} - ${t(`gamemodes.${game.mode}`)} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
                     {width > 400 ?
                         <>
-                            <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")}</span>
+                            <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")} - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
                         </>
                         : <></>}
                 </div>
             </div>
             {width <= 400 ?
                 <>
-                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")}</span>
+                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")} - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
                     <div style={{ padding: "5px" }} />
                 </>
                 : <div style={{ paddingTop: "5px" }} />}
