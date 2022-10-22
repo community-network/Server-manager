@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Oct  2 21:19:47 2022
+# Make data base, printed on Sat Oct 22 10:05:55 2022
 
 # Variables
 
@@ -23,7 +25,7 @@ LC_NAME = nl_NL.UTF-8
 # environment
 LC_NUMERIC = nl_NL.UTF-8
 # environment
-VSCODE_CWD = /data/code/typescript
+VSCODE_CWD = /home/zjobse
 # environment
 LC_ADDRESS = nl_NL.UTF-8
 # default
@@ -49,9 +51,9 @@ XDG_DATA_DIRS = /home/zjobse/.local/share/flatpak/exports/share:/var/lib/flatpak
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/zjobse/.config/Code/CachedData/74b1f979648cc44d385a2286793c226e611f59e7
+VSCODE_CODE_CACHE_PATH = /home/zjobse/.config/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
 # environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session2
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session1
 # environment
 LANG = C
 # environment
@@ -89,7 +91,7 @@ MAKEFILE_LIST := makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 3817
+VSCODE_PID = 391049
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
@@ -97,7 +99,7 @@ XDG_SESSION_TYPE = x11
 # environment
 FREETYPE_PROPERTIES = truetype:interpreter-version=38
 # environment
-SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1615,unix/Jobse-PC:/tmp/.ICE-unix/1615
+SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1682,unix/Jobse-PC:/tmp/.ICE-unix/1682
 # automatic
 *F = $(notdir $*)
 # environment
@@ -135,7 +137,7 @@ MOTD_SHOWN = pam
 # environment
 LC_TIME = nl_NL.UTF-8
 # environment
-INVOCATION_ID = 576af28ef4ef451a8923869972e14e8c
+INVOCATION_ID = 85cf1716ca2c4e6096c416e5cdd42b4b
 # environment
 LC_TELEPHONE = nl_NL.UTF-8
 # automatic
@@ -165,7 +167,7 @@ XDG_VTNR = 1
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 1653
+SYSTEMD_EXEC_PID = 1730
 # environment
 DISPLAY = :0
 # environment
@@ -177,9 +179,11 @@ MAKE_VERSION := 4.3
 # environment
 KDE_SESSION_UID = 1000
 # environment
-MANAGERPID = 1560
+MANAGERPID = 1592
 # environment
 LC_MEASUREMENT = nl_NL.UTF-8
+# environment
+DEBUGINFOD_URLS = https://debuginfod.archlinux.org
 # environment
 _ = /usr/bin/make
 # environment
@@ -187,7 +191,7 @@ LC_PAPER = nl_NL.UTF-8
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:35000
+JOURNAL_STREAM = 8:37081
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -199,7 +203,7 @@ HOME = /home/zjobse
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-2cc8dc8d-1.71.2-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-2cc8dc8d-1.72.2-main.sock
 # environment
 XDG_SESSION_ID = 2
 # environment
@@ -227,7 +231,7 @@ DOTNET_ROOT = /usr/share/dotnet
 # environment
 LC_IDENTIFICATION = nl_NL.UTF-8
 # variable set hash-table stats:
-# Load=108/1024=11%, Rehash=0, Collisions=4/138=3%
+# Load=109/1024=11%, Rehash=0, Collisions=5/139=4%
 
 # Pattern-specific Variable Values
 
@@ -284,10 +288,8 @@ test:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 12:42:54.347882049
  
-make: *** No rule to make target 'all'.  Stop.
-
+#  Last modified 2022-08-24 12:42:54.347882049
 #  File has been updated.
 #  Successfully updated.
 
@@ -305,6 +307,6 @@ make: *** No rule to make target 'all'.  Stop.
 # strcache performance: lookups = 30 / hit rate = 23%
 # hash-table stats:
 # Load=23/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Sun Oct  2 21:19:47 2022
+# Finished Make data base on Sat Oct 22 10:05:55 2022
 
  
