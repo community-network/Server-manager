@@ -184,7 +184,7 @@ function BfvServerManagement(props) {
                 }}>
                 <option value="">{t("server.game.bfvPlaygroundSelect")}</option>
                 {playgroundList.playgrounds.map((value, i) =>
-                    <option value={value.playgroundId} disabled={!value.serverdesc.serverName.includes(serverName)} key={i}>{value.configName}</option>
+                    <option value={value.playgroundId} key={i}>{`${value.configName} -> ${value.serverdesc.serverName}`}</option>
                 )}
             </select>
             <select className={styles.SwitchGame} value={serverRegion} onChange={e => setServerRegion(e.target.value)}>
