@@ -104,7 +104,7 @@ export function ServerRotation(props) {
                         <select className={styles.SwitchGame} value={rotationId} onChange={e => setRotationId(e.target.value)}>
                             <option value="">{t("server.game.mapSwitch")}</option>
                             {(game) ? game.rotation.map((value, i) =>
-                                <option value={value.index} key={i}>{t(`maps.${value.mapname}`)} - {t(`gamemodes.${value.mode}`)}</option>
+                                <option value={value.index} key={i}>{t(`maps.${value.mapname}`)} - {t(`gamemodes.${value.mode.toUpperCase()}`)}</option>
                             ) : ""}
                         </select>
                         {(rotationId !== "") ? <Button name={t("apply")} disabled={!game} callback={_ => { props.rotate((game) ? rotationId : null); setRotationId(""); }} /> : ""}
