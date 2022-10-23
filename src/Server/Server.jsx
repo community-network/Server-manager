@@ -164,7 +164,7 @@ function BfvServerManagement(props) {
     }
 
     if (isError) {
-        return `Error ${error.code}: {error.message}`
+        return `Error ${error.code}: ${error.message}`
     }
 
     const isDisabled = 

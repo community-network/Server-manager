@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Oct 22 12:41:49 2022
+# Make data base, printed on Sat Oct 22 14:12:32 2022
 
 # Variables
 
@@ -91,7 +91,7 @@ MAKEFILE_LIST := makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 3410
+VSCODE_PID = 2707
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
@@ -99,7 +99,7 @@ XDG_SESSION_TYPE = x11
 # environment
 FREETYPE_PROPERTIES = truetype:interpreter-version=38
 # environment
-SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1627,unix/Jobse-PC:/tmp/.ICE-unix/1627
+SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1374,unix/Jobse-PC:/tmp/.ICE-unix/1374
 # automatic
 *F = $(notdir $*)
 # environment
@@ -137,7 +137,7 @@ MOTD_SHOWN = pam
 # environment
 LC_TIME = nl_NL.UTF-8
 # environment
-INVOCATION_ID = af98ded361f24f98ba24d38e718de15f
+INVOCATION_ID = 585628e5370b4677bbb2c9475623ae97
 # environment
 LC_TELEPHONE = nl_NL.UTF-8
 # automatic
@@ -167,7 +167,7 @@ XDG_VTNR = 1
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 1719
+SYSTEMD_EXEC_PID = 1402
 # environment
 DISPLAY = :0
 # environment
@@ -179,7 +179,7 @@ MAKE_VERSION := 4.3
 # environment
 KDE_SESSION_UID = 1000
 # environment
-MANAGERPID = 1273
+MANAGERPID = 1234
 # environment
 LC_MEASUREMENT = nl_NL.UTF-8
 # environment
@@ -191,7 +191,7 @@ LC_PAPER = nl_NL.UTF-8
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:30031
+JOURNAL_STREAM = 8:26195
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -280,6 +280,7 @@ build:
 
 test:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 14):
@@ -288,7 +289,6 @@ test:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-08-24 12:42:54.347882049
 #  File has been updated.
 #  Successfully updated.
@@ -307,6 +307,6 @@ makefile:
 # strcache performance: lookups = 30 / hit rate = 23%
 # hash-table stats:
 # Load=23/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Sat Oct 22 12:41:49 2022
+# Finished Make data base on Sat Oct 22 14:12:32 2022
 
  
