@@ -83,7 +83,7 @@ export function ServerRotation(props) {
                 <img className={styles.serverImage} alt="Server map" src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading")}</span>
-                    <SmallText>{(game) ? `${game.map} - ${t(`gamemodes.${game.mode}`)} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
+                    <SmallText>{(game) ? `${game.map.toUpperCase()} - ${t(`gamemodes.${game.mode.toUpperCase()}`)} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
                     {width > 400 ?
                         <>
                             <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")} - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
