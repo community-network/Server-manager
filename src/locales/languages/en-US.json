@@ -35,7 +35,8 @@
         "WAR PIGEONS": "War pigeons",
         "OPERATIONS": "Operations",
         "TEAM DEATHMATCH": "Team deathmatch",
-        "BREAKTHROUGH": "Breakthrough"
+        "BREAKTHROUGH": "Breakthrough",
+        "CUSTOM": "Custom"
     },
     "maps": {
         "Amiens" : "Amiens",
