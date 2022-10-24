@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMeasure,  } from 'react-use';
+import { useMeasure } from 'react-use';
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useTranslation } from 'react-i18next';
@@ -205,7 +205,7 @@ export function VBanList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <ClickableHead current={sorting==="playerName"} onClick={_=>setSorting("playerName")}>{t("group.vban.table.playerName")}</ClickableHead>
-                        <ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</ClickableHead>
+                        <div className={styles.ListPlayerId}><ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.vban.table.playerId")}</ClickableHead></div>
                         <ClickableHead current={sorting==="reason"} onClick={_=>setSorting("reason")}>{t("group.vban.table.reason")}</ClickableHead>
                         <ClickableHead current={sorting==="admin"} onClick={_=>setSorting("admin")}>{t("group.vban.table.admin")}</ClickableHead>
                         <ClickableHead current={sorting==="bannedUntil"} onClick={_=>setSorting("bannedUntil")}>{t("group.vban.table.bannedUntil")}</ClickableHead>
@@ -233,11 +233,17 @@ function GlobalBanRow(props) {
     return (
         <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} playerId={player.id} />):null}>
             <td>{player.playerName}</td>
-            <td>{player.id}</td>
+            <td className={styles.ListPlayerId}>{player.id}</td>
             <td>{((player.reason === "") ? t("group.vban.noReason") : player.reason)}</td>
             <td>{player.admin}</td>
-            <td>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("dateTime", {date: new Date(player.bannedUntil)}):"-"}</td>
-            <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
+            <td>
+                <div className={styles.ListFullDate}>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("dateTime", {date: new Date(player.bannedUntil)}):"-"}</div>
+                <div className={styles.ListHalfDate}>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("date", {date: new Date(player.bannedUntil)}):"-"}</div>
+            </td>
+            <td>
+                <div className={styles.ListFullDate}>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</div>
+                <div className={styles.ListHalfDate}>{player.timeStamp!==undefined?t("date", {date: new Date(player.timeStamp)}):"-"}</div>
+            </td>
             <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
                 {t("group.vban.unban")}
             </th>
@@ -311,13 +317,14 @@ function LogRow(props) {
         return (
             <div className={styles.logRow}>
                 <span className={styles.logAdmin}>{log.adminName}</span>
-                <span className={styles.logAdmin}>{action}</span>
+                <span className={styles.logAction}>{action}</span>
                 <span className={styles.logAdmin}>{log.toPlayer}</span>
                 <span className={styles.logReason}>{t("server.logs.reason")}</span>
                 <span className={styles.groupLogReason}>{
                     log.reason
                 }</span>
-                <span className={styles.logTime}>{t("dateTime", {date: datetime})}</span>
+                <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
+                <span className={styles.logShortTime}>{t("time", {date: datetime})}</span>
             </div>
         );
     } else {
@@ -354,6 +361,7 @@ function LogRow(props) {
                     <span className={styles.logAction}>{log.reason}</span>
                     <span className={styles.logReasonDetailed}></span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
+                    <span className={styles.logShortTime}>{t("time", {date: datetime})}</span>
                 </div>
             );
         }
@@ -371,6 +379,7 @@ function LogRow(props) {
                     <span className={styles.logReason}>{t("server.logs.reason")}</span>
                     <span className={styles.logReasonDetailed}>{log.reason}</span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
+                    <span className={styles.logShortTime}>{t("time", {date: datetime})}</span>
                 </div>
             );
         }
@@ -388,6 +397,7 @@ function LogRow(props) {
                     <span className={styles.logReason}>{t("server.logs.reason")}</span>
                     <span className={styles.logReasonDetailed}>{log.reason}</span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
+                    <span className={styles.logShortTime}>{t("time", {date: datetime})}</span>
                 </div>
             );
         }
@@ -402,6 +412,7 @@ function LogRow(props) {
                     <span className={styles.logAction}>{log.reason}</span>
                     <span className={styles.logReasonDetailed}></span>
                     <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
+                    <span className={styles.logShortTime}>{t("time", {date: datetime})}</span>
                 </div>
             );
         }
@@ -419,6 +430,7 @@ function LogRow(props) {
                 }</span>
                 <span className={styles.logReasonDetailed}>{log.reason}</span>
                 <span className={styles.logTime}>{t("shortDateTime", {date: datetime})}</span>
+                    <span className={styles.logShortTime}>{t("time", {date: datetime})}</span>
             </div>
         );
     }
@@ -686,7 +698,7 @@ export function ExclusionList(props) {
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead style={{ position: "sticky", top: "0" }}>
                         <ClickableHead current={sorting==="playerName"} onClick={_=>setSorting("playerName")}>{t("group.exclusions.table.playerName")}</ClickableHead>
-                        <ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.exclusions.table.playerId")}</ClickableHead>
+                        <div className={styles.ListPlayerId}><ClickableHead current={sorting==="id"} onClick={_=>setSorting("id")}>{t("group.exclusions.table.playerId")}</ClickableHead></div>
                         <ClickableHead current={sorting==="reason"} onClick={_=>setSorting("reason")}>{t("group.exclusions.table.reason")}</ClickableHead>
                         <ClickableHead current={sorting==="admin"} onClick={_=>setSorting("admin")}>{t("group.exclusions.table.admin")}</ClickableHead>
                         <ClickableHead current={sorting==="bannedUntil"} onClick={_=>setSorting("bannedUntil")}>{t("group.exclusions.table.bannedUntil")}</ClickableHead>
@@ -714,11 +726,17 @@ function ExclusionListRow(props) {
     return (
         <tr className={styles.BanRow} onClick={e=>e.target.tagName==="TD"?modal.show(<PlayerStatsModal player={player.playerName} playerId={player.id} />):null}>
             <td>{player.playerName}</td>
-            <td>{player.id}</td>
+            <td className={styles.ListPlayerId}>{player.id}</td>
             <td>{((player.reason === "") ? t("group.exclusions.noReason") : player.reason)}</td>
             <td>{player.admin}</td>
-            <td>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("dateTime", {date: new Date(player.bannedUntil)}):"-"}</td>
-            <td>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</td>
+            <td>
+                <div className={styles.ListFullDate}>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("dateTime", {date: new Date(player.bannedUntil)}):"-"}</div>
+                <div className={styles.ListHalfDate}>{player.bannedUntil!==null&&player.bannedUntil!==undefined?t("date", {date: new Date(player.bannedUntil)}):"-"}</div>
+            </td>
+            <td>
+                <div className={styles.ListFullDate}>{player.timeStamp!==undefined?t("dateTime", {date: new Date(player.timeStamp)}):"-"}</div>
+                <div className={styles.ListHalfDate}>{player.timeStamp!==undefined?t("date", {date: new Date(player.timeStamp)}):"-"}</div>
+            </td>
             <th className={styles.globalUnban} data-name={player.playerName} data-id={player.id} onClick={props.callback}>
                 {t("group.exclusions.remove")}
             </th>

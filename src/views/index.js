@@ -22,6 +22,14 @@ export function PageLayout(props) {
     defaultSidebarVisible = (!!defaultSidebarVisible) ? (defaultSidebarVisible === "1") ? true: false : true;
 
     const [sidebarVisible, hideSidebar] = useState(defaultSidebarVisible);
+    const { innerWidth: width, innerHeight: height } = window;
+
+    const mobileHideSidebar = () => {
+        console.log("callback")
+        if (width < 900) {
+            setHideSidebar();
+        }
+    }
 
     const setHideSidebar = () => {
         let isVisible = !sidebarVisible;
@@ -32,7 +40,7 @@ export function PageLayout(props) {
         <>
             <TopBar hideSidebar={setHideSidebar}/>
             <div style={{display: "flex", flexDirection: "row"}}>
-                <Sidebar visible={sidebarVisible} />
+                <Sidebar callback={mobileHideSidebar} visible={sidebarVisible} />
                 <AnimatedViews />
             </div>
         </>

@@ -402,3 +402,68 @@
 .SwitchGame:hover {
     background-color: var(--color-container-v2);
 }
+
+.ListHalfDate {
+    display: none;
+}
+
+@media screen and (max-width: 1440px) {
+    .ListFullDate {
+        display: none;
+    }
+    .ListHalfDate {
+        display: initial;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .ListPlayerId {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .logReason {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .logServer {
+        display: none;
+    }
+}
+
+.logShortTime {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .logTime {
+        display: none;
+    }
+    .logShortTime {
+        display: initial;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .ServerAliasName {
+        display: none;
+    }
+    .logAction {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .serverBadgeOk {
+        display: none;
+    }
+    .GroupId {
+        display: none;
+    }
+    .groupLogReason, .logReasonDetailed {
+        display: none;
+    }
+}

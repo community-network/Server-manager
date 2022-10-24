@@ -78,22 +78,22 @@ export function ServerRotation(props) {
     const [serverInfoRef, { width }] = useMeasure();
 
     return (
-        <div ref={serverInfoRef} className={styles.ServerInfoColumn}>
+        <div ref={serverInfoRef} style={{width: "100%"}} className={styles.ServerInfoColumn}>
             <div className={styles.ServerDescriptionRow}>
                 <img className={styles.serverImage} alt="Server map" src={(game) ? game.url : "/img/no-server-image.png"} />
                 <div className={styles.GameInfo}>
                     <span className={styles.ServerName}>{(game) ? game.prefix : t("loading")}</span>
                     <SmallText>{(game) ? `${game.map.toUpperCase()} - ${t(`gamemodes.${game.mode.toUpperCase()}`)} - ${game.serverInfo} ${t("server.game.info", { inQue: game.inQue })}` : "-"}</SmallText>
-                    {width > 400 ?
+                    {width > 610 ?
                         <>
                             <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")} - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
                         </>
                         : <></>}
                 </div>
             </div>
-            {width <= 400 ?
+            {width <= 610 ?
                 <>
-                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")} - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
+                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")}<br/> - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
                     <div style={{ padding: "5px" }} />
                 </>
                 : <div style={{ paddingTop: "5px" }} />}

@@ -1,213 +1,201 @@
-make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
 
 # GNU Make 4.3
-# Built for x86_64-pc-linux-gnu
+# Built for Windows32
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Oct 22 14:12:32 2022
+# Make data base, printed on Mon Oct 24 19:16:42 2022
 
 # Variables
 
 # environment
-GDK_BACKEND = x11
+SYSTEMDRIVE = C:
 # environment
 LC_ALL = C
 # environment
-NO_AT_BRIDGE = 1
+USERPROFILE = C:\Users\zefan
 # environment
-GTK_RC_FILES = /etc/gtk/gtkrc:/home/zjobse/.gtkrc:/home/zjobse/.config/gtkrc
+LOCALAPPDATA = C:\Users\zefan\AppData\Local
 # environment
-LC_NAME = nl_NL.UTF-8
+NDI_RUNTIME_DIR_V2 = C:\Program Files\NDI\NDI 5 Tools\Runtime
 # environment
-LC_NUMERIC = nl_NL.UTF-8
+VSCODE_CWD = C:\code\typescript\Server-manager
 # environment
-VSCODE_CWD = /home/zjobse
+CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
-LC_ADDRESS = nl_NL.UTF-8
+SYSTEMROOT = C:\WINDOWS
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+PSMODULEPATH = C:\Program Files (x86)\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules;
 # default
-MAKE_COMMAND := make
-# environment
-GTK3_MODULES = xapp-gtk3-module
+MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # automatic
-@D = $(patsubst %/,%,$(dir $@))
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_21624_BQILVWNMIELSASQB
+# environment
+ONEDRIVECOMMERCIAL = C:\Users\zefan\OneDrive - Christengemeente Tholen
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
-# environment
-PWD = /data/code/typescript/Server-manager
 # automatic
-%D = $(patsubst %/,%,$(dir $%))
-# environment
-MAIL = /var/spool/mail/zjobse
-# environment
-XDG_DATA_DIRS = /home/zjobse/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
 # automatic
-^D = $(patsubst %/,%,$(dir $^))
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/zjobse/.config/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
-# environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session1
+VSCODE_CODE_CACHE_PATH = C:\Users\zefan\AppData\Roaming\Code\CachedData\d045a5eda657f4d7b676dedbfa7aab8207f8a075
 # environment
 LANG = C
-# environment
-XAUTHORITY = /home/zjobse/.Xauthority
 # default
 .LOADED := 
+# environment
+TMP = C:\Users\zefan\AppData\Local\Temp
 # default
-.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+.INCLUDE_DIRS = .
+# environment
+PROCESSOR_ARCHITEW6432 = AMD64
 # makefile
 MAKEFLAGS = pqrR
+# environment
+ONEDRIVE = C:\Users\zefan\OneDrive - Christengemeente Tholen
 # makefile
-CURDIR := /data/code/typescript/Server-manager
+CURDIR := c:/code/typescript/Server-manager
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
-*D = $(patsubst %/,%,$(dir $*))
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
-PAM_KWALLET5_LOGIN = /run/user/1000/kwallet5.socket
+PROGRAMFILES = C:\Program Files (x86)
 # environment
 MFLAGS = -pqrR
 # default
 .SHELLFLAGS := -c
 # environment
-QT_LINUX_ACCESSIBILITY_ALWAYS_ON = 1
+NDI_RUNTIME_DIR_V4 = C:\Program Files\NDI\NDI 5 Tools\Runtime
 # environment
-XDG_CONFIG_DIRS = /home/zjobse/.config/kdedefaults:/etc/xdg
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # automatic
-+D = $(patsubst %/,%,$(dir $+))
-# environment
-XCURSOR_THEME = breeze_cursors
-# environment
-XDG_SESSION_DESKTOP = KDE
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
 # makefile (from 'makefile', line 1)
 MAKEFILE_LIST := makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 2707
-# environment
-XDG_SESSION_TYPE = x11
+VSCODE_PID = 21624
 # automatic
-?D = $(patsubst %/,%,$(dir $?))
-# environment
-FREETYPE_PROPERTIES = truetype:interpreter-version=38
-# environment
-SESSION_MANAGER = local/Jobse-PC:@/tmp/.ICE-unix/1374,unix/Jobse-PC:/tmp/.ICE-unix/1374
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
 *F = $(notdir $*)
-# environment
-CHROME_DESKTOP = code-url-handler.desktop
-# environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
-<D = $(patsubst %/,%,$(dir $<))
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# environment
+PHPSTORM = C:\Program Files\JetBrains\PhpStorm 2020.3.1\bin;
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+ONEDRIVECONSUMER = C:\Users\zefan\OneDrive
 # default
-MAKE_HOST := x86_64-pc-linux-gnu
-# makefile
-SHELL = /bin/sh
+MAKE_HOST := Windows32
+# environment
+PROGRAMDATA = C:\ProgramData
+# default
+SHELL := sh.exe
+# environment
+HOMEPATH = \Users\zefan
 # default
 MAKECMDGOALS := all
 # environment
-DOTNET_BUNDLE_EXTRACT_BASE_DIR = /home/zjobse/.cache/dotnet_bundle_extract
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
-SHLVL = 1
+COMSPEC = C:\WINDOWS\system32\cmd.exe
+# environment
+WINDIR = C:\WINDOWS
 # environment
 MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = /home/zjobse/.cargo/bin:/home/zjobse/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/cxoffice/bin:/home/zjobse/.dotnet/tools:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin
+MOSQUITTO_DIR = C:\Program Files\mosquitto
+# environment
+PATH = C:\Program Files\Eclipse Adoptium\jdk-17.0.1.12-hotspot\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft VS Code\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Tailscale IPN;C:\ProgramData\ComposerSetup\bin;C:\Users\zefan\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\GTK3-Runtime Win64\bin;C:\Program Files\dotnet\;C:\Program Files\Conan\conan;C:\Users\zefan\scoop\shims;C:\Users\zefan\.cargo\bin;C:\Users\zefan\AppData\Local\Microsoft\WindowsApps;C:\Users\zefan\AppData\Local\Programs\Fiddler;C:\Program Files\JetBrains\PhpStorm 2020.3.1\bin;C:\Users\zefan\AppData\Local\Microsoft\WindowsApps;C:\Users\zefan\.dotnet\tools;C:\Users\zefan\AppData\Roaming\npm;C:\xampp\php;C:\Users\zefan\AppData\Roaming\Composer\vendor\bin;C:\Users\zefan\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\GTK3-Runtime Win64\bin;C:\Users\zefan\.dotnet\tools
+# environment
+ZES_ENABLE_SYSMAN = 1
+# environment
+COMPUTERNAME = JOBSE-LAPTOP
 # default
 MAKEFILES := 
-# environment
-LC_MONETARY = nl_NL.UTF-8
-# environment
-MOTD_SHOWN = pam
 # automatic
 ^F = $(notdir $^)
 # environment
-LC_TIME = nl_NL.UTF-8
+PROMPT = $P$G
 # environment
-INVOCATION_ID = 585628e5370b4677bbb2c9475623ae97
+CHOCOLATEYLASTPATHUPDATE = 132476609277809119
 # environment
-LC_TELEPHONE = nl_NL.UTF-8
+LOGONSERVER = \\JOBSE-LAPTOP
+# environment
+USERNAME = zefan
+# environment
+COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # automatic
 ?F = $(notdir $?)
 # environment
-KDE_APPLICATIONS_AS_SCOPE = 1
+PROGRAMW6432 = C:\Program Files
 # environment
-XDG_SEAT = seat0
-# environment
-XDG_CURRENT_DESKTOP = KDE
+PATHEXT = .PY;.SCM;.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
 # automatic
 +F = $(notdir $+)
 # environment
-XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-DESKTOP_SESSION = plasma
-# environment
-ORIGINAL_XDG_CURRENT_DESKTOP = KDE
+USERDOMAIN = JOBSE-LAPTOP
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
-LOGNAME = zjobse
+OS = Windows_NT
 # environment
-RACK_DIR = /usr/share/vcvrack
-# environment
-XDG_VTNR = 1
+NDI_RUNTIME_DIR_V3 = C:\Program Files\NDI\NDI 5 Tools\Runtime
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 1402
-# environment
-DISPLAY = :0
-# environment
-GTK_MODULES = canberra-gtk-module
-# environment
-USER = zjobse
+NVM_HOME = C:\Users\zefan\AppData\Roaming\nvm
 # default
 MAKE_VERSION := 4.3
 # environment
-KDE_SESSION_UID = 1000
+NDI_RUNTIME_DIR_V5 = C:\Program Files\NDI\NDI 5 Tools\Runtime
 # environment
-MANAGERPID = 1234
+PROGRAMFILES(X86) = C:\Program Files (x86)
 # environment
-LC_MEASUREMENT = nl_NL.UTF-8
+USERDOMAIN_ROAMINGPROFILE = JOBSE-LAPTOP
 # environment
-DEBUGINFOD_URLS = https://debuginfod.archlinux.org
+NUMBER_OF_PROCESSORS = 12
 # environment
-_ = /usr/bin/make
+PUBLIC = C:\Users\Public
 # environment
-LC_PAPER = nl_NL.UTF-8
+APPDATA = C:\Users\zefan\AppData\Roaming
 # environment
-XDG_RUNTIME_DIR = /run/user/1000
+HOMEDRIVE = C:
 # environment
-JOURNAL_STREAM = 8:26195
+NVM_SYMLINK = C:\Program Files\nodejs
 # environment
-XDG_SESSION_CLASS = user
+PROCESSOR_ARCHITECTURE = x86
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-GTK2_RC_FILES = /etc/gtk-2.0/gtkrc:/home/zjobse/.gtkrc-2.0:/home/zjobse/.config/gtkrc-2.0
-# environment
-HOME = /home/zjobse
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-2cc8dc8d-1.72.2-main.sock
+TEMP = C:\Users\zefan\AppData\Local\Temp
 # environment
-XDG_SESSION_ID = 2
-# environment
-XCURSOR_SIZE = 24
+VSCODE_IPC_HOOK = \\.\pipe\bd1678ba713604bf9179a5734229fdbf-1.72.2-main-sock
 # default
 .RECIPEPREFIX := 
 # automatic
@@ -215,23 +203,21 @@ XCURSOR_SIZE = 24
 # default
 SUFFIXES := 
 # environment
-QT_AUTO_SCREEN_SCALE_FACTOR = 0
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+SESSIONNAME = Console
 # environment
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
-KDE_SESSION_VERSION = 5
 # default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
-KDE_FULL_SESSION = true
+PROCESSOR_REVISION = 9e0a
 # environment
-DOTNET_ROOT = /usr/share/dotnet
-# environment
-LC_IDENTIFICATION = nl_NL.UTF-8
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
 # variable set hash-table stats:
-# Load=109/1024=11%, Rehash=0, Collisions=5/139=4%
+# Load=102/1024=10%, Rehash=0, Collisions=12/129=9%
 
 # Pattern-specific Variable Values
 
@@ -239,7 +225,7 @@ LC_IDENTIFICATION = nl_NL.UTF-8
 
 # Directories
 
-# . (device 2065, inode 22024042): 15 files, no impossibilities.
+# . (key c:/code/typescript/Server-manager, mtime 1666374567): 15 files, no impossibilities.
 
 # 15 files, no impossibilities in 1 directories.
 
@@ -280,7 +266,6 @@ build:
 
 test:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 14):
@@ -289,7 +274,7 @@ test:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 12:42:54.347882049
+#  Last modified 2022-08-01 16:32:22
 #  File has been updated.
 #  Successfully updated.
 
@@ -301,12 +286,12 @@ makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 199 B / avg = 8 B
-# current buf: size = 8162 B / used = 199 B / count = 23 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 21 / storage = 167 B / avg = 7 B
+# current buf: size = 8174 B / used = 167 B / count = 21 / avg = 7 B
 
-# strcache performance: lookups = 30 / hit rate = 23%
+# strcache performance: lookups = 28 / hit rate = 25%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Sat Oct 22 14:12:32 2022
+# Load=21/8192=0%, Rehash=0, Collisions=0/28=0%
+# Finished Make data base on Mon Oct 24 19:16:42 2022
 
  

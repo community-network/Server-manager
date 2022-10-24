@@ -10,7 +10,7 @@ import { OperationsApi } from "../api";
 function PageLink(props) {
     return (
         <div className={styles.PageLink}>
-            <NavLink to={props.to}  className={({ isActive }) =>
+            <NavLink to={props.to} onClick={props.callback} className={({ isActive }) =>
               isActive ? styles.PageLinkActive : undefined
             } title={props.name}>{props.content || props.name}</NavLink>
         </div>
@@ -73,22 +73,22 @@ export function Sidebar(props) {
             );
 
             if (user.auth.isDeveloper) {
-                devLink = <PageLink to="/dev/" name={t("sidebar.devOptions")} content={devOptionsContent} />;
+                devLink = <PageLink to="/dev/" callback={props.callback} name={t("sidebar.devOptions")} content={devOptionsContent} />;
             }
             
             if (user.auth.isManager) {
-                manLink = <PageLink to="/man/" name={t("sidebar.manOptions")} content={manOptionsContent} />;
+                manLink = <PageLink to="/man/" callback={props.callback} name={t("sidebar.manOptions")} content={manOptionsContent} />;
             }
 
             accountLink = [
-                ABSwitch("", <PageLink key={0} to="/home/" name="Home page" />, "homePage"),
+                ABSwitch("", <PageLink key={0} callback={props.callback} to="/home/" name="Home page" />, "homePage"),
                 //<PageLink key={1} to="/account/" name="Account" />,
                 <PageLink key={2} to="/group/new/" name="Create Group" content={addGroupContent} />,
             ];
             groupLinks = [];
             for (let i in user.permissions.isAdminOf) {
                 let group = user.permissions.isAdminOf[i];
-                groupLinks.push(<PageLink to={ "/group/" + group.id } name={group.groupName} key={i} />);
+                groupLinks.push(<PageLink callback={props.callback} to={ "/group/" + group.id } name={group.groupName} key={i} />);
             }
                 
         } else {

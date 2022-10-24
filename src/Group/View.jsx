@@ -195,14 +195,14 @@ export function Group(props) {
         <>
             <Row>
                 <Column>
-                    <PageCard buttons={settingsCycle} maxWidth="750" >
+                    <PageCard buttons={settingsCycle} maxWidth="1000" >
                         {catSettings[settingsListing]}
                     </PageCard>
                 </Column>
             </Row>
             <Row>
                 <Column>
-                    <PageCard buttons={pageCycle} maxWidth="750" >
+                    <PageCard buttons={pageCycle} maxWidth="1000" >
                         {catListing[listing]}
                     </PageCard>
                 </Column>
@@ -691,7 +691,7 @@ function GroupServerAccount(props) {
             <h2>
                 {t("group.name")} - {(!!props.group) ? props.group.groupName : t("pending")}
             </h2>
-            <h5>
+            <h5 className={styles.GroupId}>
                 {t("group.id")}<span className={styles.GroupIdentity}>{props.gid}</span>
             </h5>
 
