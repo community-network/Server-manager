@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Oct 24 19:16:42 2022
+# Make data base, printed on Tue Oct 25 08:04:48 2022
 
 # Variables
 
@@ -177,6 +177,8 @@ USERDOMAIN_ROAMINGPROFILE = JOBSE-LAPTOP
 # environment
 NUMBER_OF_PROCESSORS = 12
 # environment
+NODE_TLS_REJECT_UNAUTHORIZED = 0
+# environment
 PUBLIC = C:\Users\Public
 # environment
 APPDATA = C:\Users\zefan\AppData\Roaming
@@ -217,7 +219,7 @@ PROCESSOR_REVISION = 9e0a
 # environment
 PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
 # variable set hash-table stats:
-# Load=102/1024=10%, Rehash=0, Collisions=12/129=9%
+# Load=103/1024=10%, Rehash=0, Collisions=12/130=9%
 
 # Pattern-specific Variable Values
 
@@ -292,6 +294,6 @@ makefile:
 # strcache performance: lookups = 28 / hit rate = 25%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/28=0%
-# Finished Make data base on Mon Oct 24 19:16:42 2022
+# Finished Make data base on Tue Oct 25 08:04:48 2022
 
  
