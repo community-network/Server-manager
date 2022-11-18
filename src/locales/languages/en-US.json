@@ -120,7 +120,7 @@
         },
         "supportedGames": {
             "main": "Games on account:",
-            "update": "Update game list"
+            "update": "Update cookie"
         }
     },
     "serverStatus": {
