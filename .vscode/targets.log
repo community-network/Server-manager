@@ -1,225 +1,160 @@
-make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
 
-# GNU Make 4.3
-# Built for Windows32
-# Copyright (C) 1988-2020 Free Software Foundation, Inc.
-# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-# This is free software: you are free to change and redistribute it.
-# There is NO WARRANTY, to the extent permitted by law.
+# This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Tue Oct 25 08:04:48 2022
+
+# Make data base, printed on Thu Nov 24 17:16:44 2022
 
 # Variables
 
-# environment
-SYSTEMDRIVE = C:
-# environment
-LC_ALL = C
-# environment
-USERPROFILE = C:\Users\zefan
-# environment
-LOCALAPPDATA = C:\Users\zefan\AppData\Local
-# environment
-NDI_RUNTIME_DIR_V2 = C:\Program Files\NDI\NDI 5 Tools\Runtime
-# environment
-VSCODE_CWD = C:\code\typescript\Server-manager
-# environment
-CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
-# environment
-SYSTEMROOT = C:\WINDOWS
-# environment
-PROCESSOR_LEVEL = 6
-# environment
-PSMODULEPATH = C:\Program Files (x86)\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules;
-# default
-MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
 # automatic
-@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
-# environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_21624_BQILVWNMIELSASQB
-# environment
-ONEDRIVECOMMERCIAL = C:\Users\zefan\OneDrive - Christengemeente Tholen
-# environment
-VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# default
-.VARIABLES := 
-# automatic
-%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
-# automatic
-^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
-# automatic
-%F = $(notdir $%)
-# environment
-VSCODE_CODE_CACHE_PATH = C:\Users\zefan\AppData\Roaming\Code\CachedData\d045a5eda657f4d7b676dedbfa7aab8207f8a075
-# environment
-LANG = C
-# default
-.LOADED := 
-# environment
-TMP = C:\Users\zefan\AppData\Local\Temp
-# default
-.INCLUDE_DIRS = .
-# environment
-PROCESSOR_ARCHITEW6432 = AMD64
-# makefile
-MAKEFLAGS = pqrR
-# environment
-ONEDRIVE = C:\Users\zefan\OneDrive - Christengemeente Tholen
-# makefile
-CURDIR := c:/code/typescript/Server-manager
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# automatic
-*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
-# environment
-PROGRAMFILES = C:\Program Files (x86)
-# environment
-MFLAGS = -pqrR
-# default
-.SHELLFLAGS := -c
-# environment
-NDI_RUNTIME_DIR_V4 = C:\Program Files\NDI\NDI 5 Tools\Runtime
-# environment
-COMMONPROGRAMW6432 = C:\Program Files\Common Files
-# automatic
-+D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
-# makefile (from 'makefile', line 1)
-MAKEFILE_LIST := makefile
-# automatic
-@F = $(notdir $@)
-# environment
-VSCODE_PID = 21624
-# automatic
-?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
-# automatic
-*F = $(notdir $*)
-# automatic
-<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
-# environment
-PHPSTORM = C:\Program Files\JetBrains\PhpStorm 2020.3.1\bin;
-# environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# environment
-ONEDRIVECONSUMER = C:\Users\zefan\OneDrive
-# default
-MAKE_HOST := Windows32
-# environment
-PROGRAMDATA = C:\ProgramData
-# default
-SHELL := sh.exe
-# environment
-HOMEPATH = \Users\zefan
-# default
-MAKECMDGOALS := all
-# environment
-DRIVERDATA = C:\Windows\System32\Drivers\DriverData
-# environment
-COMSPEC = C:\WINDOWS\system32\cmd.exe
-# environment
-WINDIR = C:\WINDOWS
-# environment
-MAKELEVEL := 0
-# default
-MAKE = $(MAKE_COMMAND)
-# environment
-MOSQUITTO_DIR = C:\Program Files\mosquitto
-# environment
-PATH = C:\Program Files\Eclipse Adoptium\jdk-17.0.1.12-hotspot\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft VS Code\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Tailscale IPN;C:\ProgramData\ComposerSetup\bin;C:\Users\zefan\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\GTK3-Runtime Win64\bin;C:\Program Files\dotnet\;C:\Program Files\Conan\conan;C:\Users\zefan\scoop\shims;C:\Users\zefan\.cargo\bin;C:\Users\zefan\AppData\Local\Microsoft\WindowsApps;C:\Users\zefan\AppData\Local\Programs\Fiddler;C:\Program Files\JetBrains\PhpStorm 2020.3.1\bin;C:\Users\zefan\AppData\Local\Microsoft\WindowsApps;C:\Users\zefan\.dotnet\tools;C:\Users\zefan\AppData\Roaming\npm;C:\xampp\php;C:\Users\zefan\AppData\Roaming\Composer\vendor\bin;C:\Users\zefan\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\GTK3-Runtime Win64\bin;C:\Users\zefan\.dotnet\tools
-# environment
-ZES_ENABLE_SYSMAN = 1
-# environment
-COMPUTERNAME = JOBSE-LAPTOP
-# default
-MAKEFILES := 
-# automatic
-^F = $(notdir $^)
-# environment
-PROMPT = $P$G
-# environment
-CHOCOLATEYLASTPATHUPDATE = 132476609277809119
-# environment
-LOGONSERVER = \\JOBSE-LAPTOP
-# environment
-USERNAME = zefan
-# environment
-COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
+<D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
 # environment
-PROGRAMW6432 = C:\Program Files
-# environment
-PATHEXT = .PY;.SCM;.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+ELECTRON_NO_ATTACH_CONSOLE = 1
 # automatic
-+F = $(notdir $+)
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/zjobse/code/typescript/Server-manager
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"nl","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# makefile (from `makefile', line 1)
+MAKEFILE_LIST :=  makefile
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+INFOPATH = /opt/homebrew/share/info:
+# environment
+VSCODE_CWD = /Users/zjobse/code/typescript/Server-manager
+# environment
+PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/zjobse/.cargo/bin
+# environment
+LaunchInstanceID = 0897CF9F-13C8-489A-A732-6E03B01BD8DD
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.gzQ4kM4Cnb/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+PWD = /Users/zjobse/code/typescript/Server-manager
+# environment
+HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-USERDOMAIN = JOBSE-LAPTOP
-# 'override' directive
-GNUMAKEFLAGS := 
+MANPATH = /opt/homebrew/share/man::
 # environment
-OS = Windows_NT
-# environment
-NDI_RUNTIME_DIR_V3 = C:\Program Files\NDI\NDI 5 Tools\Runtime
-# makefile
-.DEFAULT_GOAL := build
-# environment
-NVM_HOME = C:\Users\zefan\AppData\Roaming\nvm
-# default
-MAKE_VERSION := 4.3
-# environment
-NDI_RUNTIME_DIR_V5 = C:\Program Files\NDI\NDI 5 Tools\Runtime
-# environment
-PROGRAMFILES(X86) = C:\Program Files (x86)
-# environment
-USERDOMAIN_ROAMINGPROFILE = JOBSE-LAPTOP
-# environment
-NUMBER_OF_PROCESSORS = 12
-# environment
-NODE_TLS_REJECT_UNAUTHORIZED = 0
-# environment
-PUBLIC = C:\Users\Public
-# environment
-APPDATA = C:\Users\zefan\AppData\Roaming
-# environment
-HOMEDRIVE = C:
-# environment
-NVM_SYMLINK = C:\Program Files\nodejs
-# environment
-PROCESSOR_ARCHITECTURE = x86
-# environment
+ 
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
-# environment
-ELECTRON_RUN_AS_NODE = 1
-# environment
-TEMP = C:\Users\zefan\AppData\Local\Temp
-# environment
-VSCODE_IPC_HOOK = \\.\pipe\bd1678ba713604bf9179a5734229fdbf-1.72.2-main-sock
+HOME = /Users/zjobse
 # default
-.RECIPEPREFIX := 
-# automatic
-<F = $(notdir $<)
-# default
-SUFFIXES := 
-# environment
-ALLUSERSPROFILE = C:\ProgramData
-# environment
-SESSIONNAME = Console
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
 VSCODE_CLI = 1
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
+VSCODE_CODE_CACHE_PATH = /Users/zjobse/Library/Application Support/Code/CachedData/6261075646f055b99068d3688932416f2346dd3b
+# environment
+LOGNAME = zjobse
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XPC_FLAGS = 0x0
 # default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
 # environment
-PROCESSOR_REVISION = 9e0a
+SHLVL = 3
+# default
+MAKE_VERSION := 3.81
 # environment
-PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+USER = zjobse
+# makefile
+.DEFAULT_GOAL := build
+# environment
+TERM_SESSION_ID = 203180B1-7418-421D-A75F-87829479AE96
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# environment
+TERM_PROGRAM = Apple_Terminal
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/0k/9_wv_37j3073_9k5g40sd5rr0000gn/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/zjobse/Library/Application Support/Code/1.73.1-main.sock
+# environment
+MallocNanoZone = 0
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+TERM_PROGRAM_VERSION = 447
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.293729.293735.21BAB402-5CF6-4A65-B03B-36E886B33FC0
+# environment
+HOMEBREW_PREFIX = /opt/homebrew
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+HOMEBREW_REPOSITORY = /opt/homebrew
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x5
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+LC_ALL = C
+# environment
+SECURITYSESSIONID = 186a5
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+MAKELEVEL := 0
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_PID = 969
 # variable set hash-table stats:
-# Load=103/1024=10%, Rehash=0, Collisions=12/130=9%
+# Load=69/1024=7%, Rehash=0, Collisions=1/92=1%
 
 # Pattern-specific Variable Values
 
@@ -227,9 +162,9 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
 
 # Directories
 
-# . (key c:/code/typescript/Server-manager, mtime 1666374567): 15 files, no impossibilities.
+# . (device 16777231, inode 2406015): 14 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -237,12 +172,56 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
 
 # Files
 
+# Not a target:
+all:
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 start:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'makefile', line 20):
+#  commands to execute (from `makefile', line 20):
 	npm run start
+	
+
+test:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 14):
+	npm run test
+	
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-11-22 08:09:01
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+build:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+#  commands to execute (from `makefile', line 9):
+	# Build is defined in package.json
+	# Rebuild cleaning made by react-scripts
+	npm run build
+	
 
 # Not a target:
 .DEFAULT:
@@ -250,50 +229,19 @@ start:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-all:
-#  Command line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
-
-build:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 9):
-	# Build is defined in package.json
-	# Rebuild cleaning made by react-scripts
-	npm run build
-
-test:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 14):
-	npm run test
-
-# Not a target:
-makefile:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-01 16:32:22
-#  File has been updated.
-#  Successfully updated.
-
 # files hash-table stats:
-# Load=7/1024=1%, Rehash=0, Collisions=0/17=0%
+# Load=7/1024=1%, Rehash=0, Collisions=0/19=0%
 # VPATH Search Paths
 
-# No 'vpath' search paths.
+# No `vpath' search paths.
 
-# No general ('VPATH' variable) search path.
+# No general (`VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 21 / storage = 167 B / avg = 7 B
-# current buf: size = 8174 B / used = 167 B / count = 21 / avg = 7 B
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# strcache performance: lookups = 28 / hit rate = 25%
-# hash-table stats:
-# Load=21/8192=0%, Rehash=0, Collisions=0/28=0%
-# Finished Make data base on Tue Oct 25 08:04:48 2022
+# Finished Make data base on Thu Nov 24 17:16:44 2022
 
  
