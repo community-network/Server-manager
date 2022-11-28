@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
  */
 export function useServer(sid) {
     return useQuery(
-        ['server' + sid], 
+        ['server' + sid],
         () => OperationsApi.getServer(sid)
     );
 }
@@ -32,7 +32,10 @@ export function useServer(sid) {
 export function useGame(sid) {
     return useQuery(
         ['serverGame' + sid], 
-        () => OperationsApi.getServerGame(sid)
+        () => OperationsApi.getServerGame(sid),
+        {
+            refetchInterval: 10000
+        }
     );
 }
 
