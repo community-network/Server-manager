@@ -309,7 +309,7 @@ export function ReasonDropdownButton(props) {
 
     return (
         <div className={styles.container} ref={container}>
-            <button type="button" className={styles.button} onClick={() => setOpen(!open)}>{props.name}</button>
+            <button disabled={options.length <= 0} type="button" className={styles.button} onClick={() => setOpen(!open)}>{props.name}</button>
             {open && (<div className={styles.buttonDropdown}>
                 <ul className={styles.ul}>
                     {

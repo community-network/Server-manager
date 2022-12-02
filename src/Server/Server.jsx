@@ -567,7 +567,7 @@ function PlayerLogInfo(props) {
             <Row>
                 <TextInput style={{ marginRight: "12px" }} name={t("server.playerLogs.search")} callback={(v) => setSearchWord(v.target.value)} />
                 <ButtonRow>
-                    <Button name="Left" content={arrowLeft} disabled={dateIndex === 0} callback={_ => { if (dateIndex !== 0) { setDateIndex(dateIndex - 1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
+                    <Button name="Left" content={arrowLeft} disabled={dateIndex === 0} callback={_ => { if (dateIndex > 0) { setDateIndex(dateIndex - 1); props.setDate(playerLogList.intDates[dateIndex]) } }} />
                     <select className={buttonStyle.dropdownButton} value={dateIndex} onChange={event => { setDateIndex(parseInt(event.target.value)); props.setDate(playerLogList.intDates[dateIndex]) }}>
                         {playerLogList.dates.map((value, i) => {
                             var datetime = new Date(value);
