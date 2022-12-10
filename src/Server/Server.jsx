@@ -93,7 +93,8 @@ export function ServerRotation(props) {
             </div>
             {width <= 610 ?
                 <>
-                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")}<br/> - Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
+                    <span className={styles.serverBadge}>{server_status} - {t("server.game.playerlistUpdate")} {t("change", { change: update_timestamp })} {t("server.ago")}</span>
+                    <span className={styles.serverBadge}>Last worker update {t("change", { change: worker_timestamp })} {t("server.ago")}</span>
                     <div style={{ padding: "5px" }} />
                 </>
                 : <div style={{ paddingTop: "5px" }} />}

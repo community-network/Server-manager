@@ -231,9 +231,11 @@ export function Player({ player, i, sid, moveTeam, width, gameName }) {
     return (
         <div className={styles.PlayerRow}>
 
-            <span className={styles.PlayerIndex} value="slot">
-                {i + 1}
-            </span>
+            {width > 400 ?
+                <span className={styles.PlayerIndex} value="slot">
+                    {i + 1}
+                </span>
+                : <></>}
 
             <span className={styles.PlayerLevel} value="rank">
                 {
@@ -249,7 +251,7 @@ export function Player({ player, i, sid, moveTeam, width, gameName }) {
                     player.name
                 }
             </span>
-            {width > 400 ?
+            {width > 360 ?
                 <span className={styles.PlayerTimer} title="" value="jointime">
                     {t("change", { change: dateAdded })}
                 </span>

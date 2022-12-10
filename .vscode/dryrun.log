@@ -3,5 +3,6 @@ make: Entering directory `/Users/zjobse/code/typescript/Server-manager'
 # Build is defined in package.json
 # Rebuild cleaning made by react-scripts
 npm run build
+ 
 make: Leaving directory `/Users/zjobse/code/typescript/Server-manager'
  
