@@ -45,7 +45,15 @@ export const bf1Maps = [
 
 export const bf1Modes = [
     "CONQUEST",
-    "FRONTLINES"
+    "FRONTLINES",
+    "RUSH",
+    "DOMINATION",
+    "WAR PIGEONS",
+    "TEAM DEATHMATCH",
+    //"AIR ASSAULT",
+    "SUPPLY DROP",
+    //"OPERATIONS",
+    //"SHOCK OPERATIONS"
 ];
 
 export const bfvServerRegions = {

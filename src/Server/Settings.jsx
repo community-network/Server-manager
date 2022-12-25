@@ -70,6 +70,21 @@ export function IngameSettings(props) {
         setCanApply(newCanApply);
     }, [maps, originalMaps]);
 
+    function moveArrayElement(list, item, offset) {
+        const index = list.indexOf(item)
+        const newIndex = index + offset
+        
+        if (newIndex > -1 && newIndex < list.length) {
+          // Remove the element from the array
+          const removedElement = list.splice(index, 1)[0]
+      
+          // At "newIndex", remove 0 elements and insert the removed element
+          list.splice(newIndex, 0, removedElement)
+        }
+    }
+      
+    
+
     return (
         <>
             <h2 style={{ marginLeft: "20px" }}>{t("server.ingameSettings.main")}</h2>
@@ -91,6 +106,8 @@ export function IngameSettings(props) {
                                     {bf1Modes.map((name, index) => <option key={index} selected={element.mode === name} value={name}>{name}</option>)}
                                 </select>
                         
+                                <Button disabled={!allowedTo} style={{ marginLeft: "0", fontSize: "16px", padding: "16px" }} name="&#8593;" callback={_ => {const current = [...maps]; moveArrayElement(current, current[index], -1); setMaps(current)}} />
+                                <Button disabled={!allowedTo} style={{ marginLeft: "0", fontSize: "16px", padding: "16px" }} name="&#8595;" callback={_ => {const current = [...maps]; moveArrayElement(current, current[index], 1); setMaps(current)}} />
                                 <Button disabled={!allowedTo} style={{ marginLeft: "0" }} name={t("server.ingameSettings.removeMap")} callback={_ => {const current = [...maps]; current.splice(index, 1); setMaps(current)}} />
                             </div>
                         )

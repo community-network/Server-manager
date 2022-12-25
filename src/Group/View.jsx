@@ -984,7 +984,7 @@ function GroupStatus(props) {
     if (props.group) {
         groupId = props.group.id
         if (props.group.servers.length !== 0) {
-            serverId = props.group.servers[serverNum].id
+            serverId = props.group.servers[serverNum]?.id
         }
     }
     const { data: groupStats } = useQuery(['groupStats' + groupId], () => OperationsApi.getStats(groupId), { staleTime: Infinity, refetchOnWindowFocus: false });
@@ -1031,19 +1031,25 @@ function GroupStatus(props) {
             <h5 style={{ marginTop: "15px", marginBottom: "5px" }}>
                 {t("group.status.stats.servers.main")}
             </h5>
-            <ButtonRow>
-                <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={serverNum} onChange={e => setServerNum(e.target.value)}>
-                    {props.group.servers.map((element, index) => {
-                        return (
-                            <option value={index}>{element.name}</option>
-                        )
-                    })}
-                </select>
-            </ButtonRow>
+            {
+                (props.group) ? (
+                    <ButtonRow>
+                        <select className={styles.SmallSwitch} style={{ marginLeft: "20px", marginBottom: "10px" }} value={serverNum} onChange={e => setServerNum(e.target.value)}>
+                            {props.group.servers.map((element, index) => {
+                                return (
+                                    <option value={index}>{element.name}</option>
+                                )
+                            })}
+                        </select>
+                    </ButtonRow>
+                ) : (
+                    <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
+                )
+            }
             {
                 (serverStats) ? (
                     <div style={{ paddingLeft: "10px" }}>
-                        {serverStats.data.playerAmounts.length !== 0 ? (
+                        {serverStats.data.playerAmounts.length > 0 ? (
                             <>
                                 {width < 760 ? (
                                     <>
