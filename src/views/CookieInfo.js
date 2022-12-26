@@ -18,7 +18,7 @@ export function CookieInfo() {
                     <ButtonUrl href="https://youtu.be/Znd1YjmXqO8" name={t("cookieInfo.video")} /> : <></>
                     }
                     <h5 style={{paddingTop: '.5rem'}}>
-                        {t("cookieInfo.0")}<a href="https://www.origin.com/" target="_blank" rel="noopener noreferrer">Origin.com</a>{t("cookieInfo.1")}
+                        {t("cookieInfo.0")}<a href="https://www.ea.com/login" target="_blank" rel="noopener noreferrer">https://www.ea.com/login</a>{t("cookieInfo.1")}
                     </h5>
                     <h5 style={{paddingTop: '.5rem'}}>
                         {t("cookieInfo.2")}

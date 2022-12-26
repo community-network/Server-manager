@@ -10,16 +10,15 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Dec  9 11:58:46 2022
+# Make data base, printed on Mon Dec 26 14:08:51 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -31,7 +30,7 @@ CURDIR := /Users/zjobse/code/typescript/Server-manager
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"nl-nl","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"nl","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
 # makefile (from `makefile', line 1)
@@ -41,17 +40,15 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_CWD = /Users/zjobse/code/typescript/Server-manager
+VSCODE_CWD = /
 # environment
-PATH = /usr/local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/zjobse/.cargo/bin
-# environment
-LaunchInstanceID = 2C540883-795D-4635-AFA0-73C2F9CE1612
+PATH = /usr/local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Users/zjobse/.cargo/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.XXhYFsHUS7/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.zSdABC4q5B/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -69,9 +66,7 @@ HOME = /Users/zjobse
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = /Users/zjobse/Library/Application Support/Code/CachedData/5235c6bb189b60b01b1f49062f4ffa42384f8c91
+VSCODE_CODE_CACHE_PATH = /Users/zjobse/Library/Application Support/Code/CachedData/e8a3071ea4344d9d48ef8a4df2c097372b0c5161
 # environment
 LOGNAME = zjobse
 # environment
@@ -85,21 +80,17 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 3
+SHLVL = 1
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = zjobse
 # makefile
 .DEFAULT_GOAL := build
-# environment
-TERM_SESSION_ID = B6267F65-BAE2-4F40-BA95-6962FE5057DC
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
-# environment
-TERM_PROGRAM = Apple_Terminal
 # default
 .VARIABLES := 
 # environment
@@ -107,7 +98,7 @@ TMPDIR = /var/folders/0k/9_wv_37j3073_9k5g40sd5rr0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/zjobse/Library/Application Support/Code/1.74.0-main.sock
+VSCODE_IPC_HOOK = /Users/zjobse/Library/Application Support/Code/1.74.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -117,9 +108,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-TERM_PROGRAM_VERSION = 447
-# environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.4871747.4871753.246AA023-F818-4FD1-B3F6-4E2771614892
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.9566314.9566320
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -138,8 +127,7 @@ MAKEFILES :=
 <F = $(notdir $<)
 # environment
 LC_ALL = C
-# environment
-SECURITYSESSIONID = 186b3
+ 
 # automatic
 ^F = $(notdir $^)
 # default
@@ -149,11 +137,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-TERM = xterm-256color
-# environment
-VSCODE_PID = 79552
+VSCODE_PID = 18283
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=1/92=1%
+# Load=61/1024=6%, Rehash=0, Collisions=1/84=1%
 
 # Pattern-specific Variable Values
 
@@ -240,6 +226,6 @@ build:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Dec  9 11:58:46 2022
+# Finished Make data base on Mon Dec 26 14:08:51 2022
 
  
