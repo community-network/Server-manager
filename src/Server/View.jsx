@@ -249,6 +249,8 @@ function ServerAutomation(props) {
     const { t } = useTranslation();
 
     const [kickOnPingDisabled, setKickOnPingDisabled] = useState(false);
+    const [kickLowRankDisabled, setKickLowRankDisabled] = useState(false);
+    const [kickHighRankDisabled, setKickHighRankDisabled] = useState(false);
     const [serverState, setServerState] = useState(null);
     const [canApply, setCanApply] = useState(false);
     const [applyStatus, setApplyStatus] = useState(null);
@@ -256,11 +258,13 @@ function ServerAutomation(props) {
     useEffect(() => {
 
         if (server) {
-            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage } = server;
-            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage };
+            const { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage, kickMinRank, kickMaxRank, rankKickReason } = server;
+            const originalServerState = { autoBanKick, autoBfbanKick, autoGlobalBanMessage, autoPingKick, autoPingKickMessage, minAutoPingKick, autoBfBanMessage, kickMinRank, kickMaxRank, rankKickReason };
             if (serverState === null) {
                 setServerState(originalServerState);
                 setKickOnPingDisabled(autoPingKick !== 0);
+                setKickLowRankDisabled(kickMinRank >= 0);
+                setKickHighRankDisabled(kickMaxRank >= 0);
             } else {
                 let newCanApply = false;
                 for (var i in originalServerState) {
@@ -275,7 +279,7 @@ function ServerAutomation(props) {
 
     }, [server, serverState]);
 
-    const changeSrerverState = (v) => {
+    const changeServerState = (v) => {
         setServerState(s => ({ ...s, ...v }));
     }
 
@@ -315,7 +319,7 @@ function ServerAutomation(props) {
                 {t("server.protection.vBanDescription3")}<br />
                 {t("server.protection.vBanDescription4")}
             </h5>
-            <Switch checked={getServerValue("autoBanKick")} name={t("server.protection.vBanEnable")} callback={(v) => changeSrerverState({ autoBanKick: v })}/>
+            <Switch checked={getServerValue("autoBanKick")} name={t("server.protection.vBanEnable")} callback={(v) => changeServerState({ autoBanKick: v })}/>
             <h5 style={{ marginTop: "8px" }}>
                 {t("server.protection.vbanReasonDesc0")}<br />
                 {t("server.protection.vbanReasonDesc1")}
@@ -323,28 +327,27 @@ function ServerAutomation(props) {
             
             <TextInput
                 disabled={!allowedTo || (serverState && !serverState.autoBanKick)}
-                callback={(e) => changeSrerverState({ autoGlobalBanMessage: e.target.value })}
+                callback={(e) => changeServerState({ autoGlobalBanMessage: e.target.value })}
                 defaultValue={getServerValue("autoGlobalBanMessage")}
                 name={t("server.protection.vBanMsg")}
             />
             <h5 style={{ marginTop: "30px" }}>{t("server.protection.bfbanDescription")}<i>bfban.com</i></h5>
-            <Switch checked={getServerValue("autoBfbanKick")} name={t("server.protection.bfbanEnable")} callback={(v) => changeSrerverState({ autoBfbanKick: v })} />
+            <Switch checked={getServerValue("autoBfbanKick")} name={t("server.protection.bfbanEnable")} callback={(v) => changeServerState({ autoBfbanKick: v })} />
             <TextInput
                 disabled={!allowedTo || (serverState && !serverState.autoBfbanKick)}
-                callback={(e) => changeSrerverState({ autoBfBanMessage: e.target.value })}
+                callback={(e) => changeServerState({ autoBfBanMessage: e.target.value })}
                 defaultValue={getServerValue("autoBfBanMessage")}
                 name={t("server.protection.bfBanMsg")}
             />
             <h5 style={{ marginTop: "30px" }}>{t("server.protection.pingKickDescription")}</h5>
-            <Switch checked={kickOnPingDisabled} name={t("server.protection.pingKickEnable")} callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeSrerverState({ autoPingKick: 0 }) : changeSrerverState({ autoPingKick: 200 })  }} />
+            <Switch checked={kickOnPingDisabled} name={t("server.protection.pingKickEnable")} callback={(v) => { setKickOnPingDisabled(v); (!v) ?changeServerState({ autoPingKick: 0 }) : changeServerState({ autoPingKick: 200 })  }} />
             <TextInput
                 type="number"
                 disabled={!allowedTo || !kickOnPingDisabled}
                 callback={
                     (e) => {
-                        console.log(e.target.value);
                         if (e.target.value < 0) {} else {
-                            if (e.target.value !== "") changeSrerverState({ autoPingKick: parseInt(e.target.value) })
+                            if (e.target.value !== "") changeServerState({ autoPingKick: parseInt(e.target.value) })
                         }
                     }
                 }
@@ -353,7 +356,7 @@ function ServerAutomation(props) {
             />
             <TextInput
                 disabled={!allowedTo || !kickOnPingDisabled}
-                callback={(e) => changeSrerverState({ autoPingKickMessage: e.target.value })}
+                callback={(e) => changeServerState({ autoPingKickMessage: e.target.value })}
                 defaultValue={getServerValue("autoPingKickMessage")}
                 name={t("server.protection.pingKickMsg")}
             />
@@ -363,10 +366,9 @@ function ServerAutomation(props) {
                 disabled={!allowedTo || !kickOnPingDisabled}
                 callback={
                     (e) => {
-                        console.log(e.target.value < 0);
                         if (e.target.value < 0) {} else {
                             if (e.target.value !== "") {
-                                changeSrerverState({ minAutoPingKick: parseInt(e.target.value) })
+                                changeServerState({ minAutoPingKick: parseInt(e.target.value) })
                             }
                         }
                     }
@@ -374,6 +376,47 @@ function ServerAutomation(props) {
                 defaultValue={getServerValue("minAutoPingKick")}
                 value={(serverState) ? serverState.minAutoPingKick : "" }
                 name={t("server.protection.minAutoPingKick")}
+            />
+            <h5 style={{ marginTop: "30px" }}>{t("server.protection.KickRankDesc")}</h5>
+            <TextInput
+                disabled={!allowedTo || (!kickLowRankDisabled && !kickHighRankDisabled)}
+                callback={(e) => changeServerState({ rankKickReason: e.target.value })}
+                defaultValue={getServerValue("rankKickReason")}
+                name={t("server.protection.rankKickReason")}
+            />
+            <Switch checked={kickLowRankDisabled} name={t("server.protection.kickLowRank")} callback={(v) => { setKickLowRankDisabled(v); (!v) ?changeServerState({ kickMinRank: -1 }) : changeServerState({ kickMinRank: 0 })  }} />
+            <TextInput
+                type="number"
+                disabled={!allowedTo || !kickLowRankDisabled}
+                callback={
+                    (e) => {
+                        if (e.target.value < 0) {} else {
+                            if (e.target.value !== "") {
+                                changeServerState({ kickMinRank: parseInt(e.target.value) })
+                            }
+                        }
+                    }
+                }
+                defaultValue={getServerValue("kickMinRank")}
+                value={(serverState) ? serverState.kickMinRank : "" }
+                name={t("server.protection.kickMinRank")}
+            />
+            <Switch checked={kickHighRankDisabled} name={t("server.protection.kickHighRank")} callback={(v) => { setKickHighRankDisabled(v); (!v) ?changeServerState({ kickMaxRank: -1 }) : changeServerState({ kickMaxRank: 150 })  }} />
+            <TextInput
+                type="number"
+                disabled={!allowedTo || !kickHighRankDisabled}
+                callback={
+                    (e) => {
+                        if (e.target.value < 0) {} else {
+                            if (e.target.value !== "") {
+                                changeServerState({ kickMaxRank: parseInt(e.target.value) })
+                            }
+                        }
+                    }
+                }
+                defaultValue={getServerValue("kickMaxRank")}
+                value={(serverState) ? serverState.kickMaxRank : "" }
+                name={t("server.protection.kickMaxRank")}
             />
             {   
                 (props.server && canApply) ? (

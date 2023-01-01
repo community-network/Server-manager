@@ -641,7 +641,11 @@
             "pingKickMsg": "Auto ping msg",
             "pingKickMinDesc": "Mimimum amount of players for autokick to start working (0 for always)",
             "pingKickMin": "High ping value",
-            "minAutoPingKick": "Minimum playeramount before it kicks"
+            "minAutoPingKick": "Minimum playeramount before it kicks",
+            "KickRankDesc": "Kick a player based on their rank ingame",
+            "rankKickReason": "Rank not within requirements",
+            "kickLowRank": "Kick if rank is lower than:",
+            "kickHighRank": "Kick if rank is higher than:"
         },
         "settings": {
             "main": "Settings",
