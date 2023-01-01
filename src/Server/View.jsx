@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { PageContext } from "./ServerGlobalContext";
 
 import { OperationsApi } from "../api";
+import { spartaGames } from "../Globals";
 
 import { useNavigate } from 'react-router-dom';
 import { ServerRotation, ServerInfoHolder, BanList, VipList, AdminList, FireStarter, Spectator, Playerlogs, PlayTime } from "./Server";
@@ -377,47 +378,51 @@ function ServerAutomation(props) {
                 value={(serverState) ? serverState.minAutoPingKick : "" }
                 name={t("server.protection.minAutoPingKick")}
             />
-            <h5 style={{ marginTop: "30px" }}>{t("server.protection.KickRankDesc")}</h5>
-            <TextInput
-                disabled={!allowedTo || (!kickLowRankDisabled && !kickHighRankDisabled)}
-                callback={(e) => changeServerState({ rankKickReason: e.target.value })}
-                defaultValue={getServerValue("rankKickReason")}
-                name={t("server.protection.rankKickReason")}
-            />
-            <Switch checked={kickLowRankDisabled} name={t("server.protection.kickLowRank")} callback={(v) => { setKickLowRankDisabled(v); (!v) ?changeServerState({ kickMinRank: -1 }) : changeServerState({ kickMinRank: 0 })  }} />
-            <TextInput
-                type="number"
-                disabled={!allowedTo || !kickLowRankDisabled}
-                callback={
-                    (e) => {
-                        if (e.target.value < 0) {} else {
-                            if (e.target.value !== "") {
-                                changeServerState({ kickMinRank: parseInt(e.target.value) })
+            {spartaGames.includes(server && server.game) ? (
+                <>
+                    <h5 style={{ marginTop: "30px" }}>{t("server.protection.KickRankDesc")}</h5>
+                    <TextInput
+                        disabled={!allowedTo || (!kickLowRankDisabled && !kickHighRankDisabled)}
+                        callback={(e) => changeServerState({ rankKickReason: e.target.value })}
+                        defaultValue={getServerValue("rankKickReason")}
+                        name={t("server.protection.rankKickReason")}
+                    />
+                    <Switch checked={kickLowRankDisabled} name={t("server.protection.kickLowRank")} callback={(v) => { setKickLowRankDisabled(v); (!v) ?changeServerState({ kickMinRank: -1 }) : changeServerState({ kickMinRank: 0 })  }} />
+                    <TextInput
+                        type="number"
+                        disabled={!allowedTo || !kickLowRankDisabled}
+                        callback={
+                            (e) => {
+                                if (e.target.value < 0) {} else {
+                                    if (e.target.value !== "") {
+                                        changeServerState({ kickMinRank: parseInt(e.target.value) })
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                defaultValue={getServerValue("kickMinRank")}
-                value={(serverState) ? serverState.kickMinRank : "" }
-                name={t("server.protection.kickMinRank")}
-            />
-            <Switch checked={kickHighRankDisabled} name={t("server.protection.kickHighRank")} callback={(v) => { setKickHighRankDisabled(v); (!v) ?changeServerState({ kickMaxRank: -1 }) : changeServerState({ kickMaxRank: 150 })  }} />
-            <TextInput
-                type="number"
-                disabled={!allowedTo || !kickHighRankDisabled}
-                callback={
-                    (e) => {
-                        if (e.target.value < 0) {} else {
-                            if (e.target.value !== "") {
-                                changeServerState({ kickMaxRank: parseInt(e.target.value) })
+                        defaultValue={getServerValue("kickMinRank")}
+                        value={(serverState) ? serverState.kickMinRank : "" }
+                        name={t("server.protection.kickMinRank")}
+                    />
+                    <Switch checked={kickHighRankDisabled} name={t("server.protection.kickHighRank")} callback={(v) => { setKickHighRankDisabled(v); (!v) ?changeServerState({ kickMaxRank: -1 }) : changeServerState({ kickMaxRank: 150 })  }} />
+                    <TextInput
+                        type="number"
+                        disabled={!allowedTo || !kickHighRankDisabled}
+                        callback={
+                            (e) => {
+                                if (e.target.value < 0) {} else {
+                                    if (e.target.value !== "") {
+                                        changeServerState({ kickMaxRank: parseInt(e.target.value) })
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                defaultValue={getServerValue("kickMaxRank")}
-                value={(serverState) ? serverState.kickMaxRank : "" }
-                name={t("server.protection.kickMaxRank")}
-            />
+                        defaultValue={getServerValue("kickMaxRank")}
+                        value={(serverState) ? serverState.kickMaxRank : "" }
+                        name={t("server.protection.kickMaxRank")}
+                    />
+                </>
+            ) : <></>}
             {   
                 (props.server && canApply) ? (
                     <ButtonRow>

@@ -5,6 +5,11 @@ export const statusOnlyGames = [
     "bf4"
 ];
 
+export const spartaGames = [
+    "bf1",
+    "bfv",
+];
+
 export const supportedGames = [
     "bf1",
     "bfv",
