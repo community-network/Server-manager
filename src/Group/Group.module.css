@@ -14,6 +14,14 @@
     width: 100%;
 }
 
+.manageDev {
+
+}
+
+.ShownGame {
+    
+}
+
 .GroupRow:hover {
     background: var(--color-container);
 }

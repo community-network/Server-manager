@@ -21,6 +21,14 @@
     width: 100%;
 }
 
+.BanRow {
+
+}
+
+.manageDev {
+    
+}
+
 .GroupName {
     flex-grow: 2;
     color: var(--color-text-high);

@@ -1,0 +1,2725 @@
+import * as React from "react";
+import { useMeasure } from "react-use";
+import cryptoRandomString from "crypto-random-string";
+import {
+  useQuery,
+  useQueryClient,
+  useMutation,
+  UseQueryResult,
+} from "@tanstack/react-query";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { IGroupGet, OperationsApi } from "../api";
+import { statusOnlyGames } from "../Globals";
+
+import styles from "./Group.module.css";
+import { StatsPieChart, PlayerInfo } from "./Charts";
+import {
+  ServerRow,
+  GameStatsAd,
+  VBanList,
+  ExclusionList,
+  ReasonList,
+  GroupLogs,
+  WorkerStatus,
+  SeederStRow,
+  SeederStCustom,
+  EmptyRow,
+  SeederRow,
+  ServerAliasRow,
+} from "./Group";
+
+import {
+  Switch,
+  useModal,
+  Column,
+  Card,
+  Header,
+  ButtonLink,
+  ButtonRow,
+  Button,
+  UserStRow,
+  Row,
+  FakeUserStRow,
+  TextInput,
+  ScrollRow,
+  PageCard,
+  ButtonUrl,
+} from "../components";
+import { ChangeAccountModal, AddAccountModal } from "./Modals";
+import "../locales/config";
+import { useTranslation } from "react-i18next";
+import {
+  IGroupCookie,
+  IGroupInfo,
+  IGroupServer,
+  IGroupsInfo,
+  IGroupStats,
+  IGroupUser,
+  IGroupUsers,
+  ISeeder,
+  ISeederInfo,
+  ISeederList,
+  ISeederServerAliasName,
+  IServerStats,
+  IUserInfo,
+} from "../ReturnTypes";
+
+// unused
+// const deleteIcon = (
+//     <svg viewBox="0 0 24 24" style={{ width: '16px' }}>
+//         <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+//     </svg>
+// );
+
+export function Group(): React.ReactElement {
+  const params = useParams();
+  const { gid } = params;
+
+  const queryClient = useQueryClient();
+
+  const {
+    error: groupError,
+    data: groups,
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
+    ["groupId" + gid],
+    () => OperationsApi.getGroup(gid),
+    { staleTime: 30000 },
+  );
+  const {
+    error: userError,
+    data: user,
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
+    ["user"],
+    () => OperationsApi.user,
+  );
+
+  const removeAdmin = useMutation(
+    (variables: { gid: string; uid: string }) =>
+      OperationsApi.removeGroupAdmin(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid, uid }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["groupUsers" + gid]);
+        // Snapshot the previous value
+        const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
+
+        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+          old.data[0].admins = old.data[0].admins.filter(
+            (admin: { id: string }) => admin.id !== uid,
+          );
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousUsers, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(
+          ["groupUsers" + context.gid],
+          context.previousUsers,
+        );
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        queryClient.invalidateQueries(["groupUsers" + context.gid]);
+      },
+    },
+  );
+
+  const removeOwner = useMutation(
+    (variables: { gid: string; uid: string }) =>
+      OperationsApi.removeGroupOwner(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid, uid }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["groupUsers" + gid]);
+        // Snapshot the previous value
+        const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
+
+        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+          old.data[0].owners = old.data[0].owners.filter(
+            (admin: { id: string }) => admin.id !== uid,
+          );
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousUsers, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(
+          ["groupUsers" + context.gid],
+          context.previousUsers,
+        );
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        queryClient.invalidateQueries(["groupUsers" + context.gid]);
+      },
+    },
+  );
+
+  const group =
+    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+  const [listing, setListing] = React.useState("servers");
+  const [settingsListing, setSettingsListing] = React.useState("account");
+  const { t } = useTranslation();
+
+  const catListing = {
+    owners: (
+      <GroupOwners group={group} user={user} gid={gid} onDelete={removeOwner} />
+    ),
+    admins: (
+      <GroupAdmins group={group} user={user} gid={gid} onDelete={removeAdmin} />
+    ),
+    servers: <GroupServers group={group} user={user} gid={gid} />,
+    vbanlist: <VBanList user={user} gid={gid} />,
+    exclusionlist: <ExclusionList user={user} gid={gid} />,
+    reasonList: <ReasonList user={user} gid={gid} />,
+    grouplogs: <GroupLogs gid={gid} />,
+    seeding: <Seeding group={group} user={user} gid={gid} />,
+  };
+
+  const catSettings = {
+    account: <GroupServerAccount gid={gid} user={user} group={group} />,
+    discord: <GroupDiscordSettings gid={gid} user={user} group={group} />,
+    settings: <GroupSettings gid={gid} user={user} group={group} />,
+    status: <GroupStatus gid={gid} user={user} group={group} />,
+    danger: <GroupDangerZone gid={gid} user={user} group={group} />,
+  };
+
+  const pageCycle = [
+    {
+      name: t("group.servers.main"),
+      callback: () => setListing("servers"),
+    },
+    {
+      name: t("group.admins.main"),
+      callback: () => setListing("admins"),
+    },
+    {
+      name: t("group.owners.main"),
+      callback: () => setListing("owners"),
+    },
+    {
+      name: t("group.vban.main"),
+      callback: () => setListing("vbanlist"),
+    },
+    {
+      name: t("group.exclusions.main"),
+      callback: () => setListing("exclusionlist"),
+    },
+    {
+      name: (
+        <>
+          {t("group.reasonList.main")}
+          <svg
+            style={{
+              marginLeft: "10px",
+              height: "16px",
+              color: "var(--color-text)",
+            }}
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M7,11H1V13H7V11M9.17,7.76L7.05,5.64L5.64,7.05L7.76,9.17L9.17,7.76M13,1H11V7H13V1M18.36,7.05L16.95,5.64L14.83,7.76L16.24,9.17L18.36,7.05M17,11V13H23V11H17M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M14.83,16.24L16.95,18.36L18.36,16.95L16.24,14.83L14.83,16.24M5.64,16.95L7.05,18.36L9.17,16.24L7.76,14.83L5.64,16.95M11,23H13V17H11V23Z"
+            />
+          </svg>
+        </>
+      ),
+      callback: () => setListing("reasonList"),
+    },
+    {
+      name: t("group.seeding.main"),
+      callback: () => setListing("seeding"),
+    },
+  ];
+
+  if (group && group.isOwner) {
+    pageCycle.push({
+      name: t("group.logs.main"),
+      callback: () => setListing("grouplogs"),
+    });
+  }
+
+  const settingsCycle = [
+    {
+      name: t("group.account.main"),
+      callback: () => setSettingsListing("account"),
+    },
+    {
+      name: t("group.discord.main"),
+      callback: () => setSettingsListing("discord"),
+    },
+    {
+      name: t("group.settings.main"),
+      callback: () => setSettingsListing("settings"),
+    },
+    {
+      name: t("group.status.main"),
+      callback: () => setSettingsListing("status"),
+    },
+    {
+      name: t("group.danger.main"),
+      callback: () => setSettingsListing("danger"),
+    },
+  ];
+
+  if (
+    groupError ||
+    userError ||
+    (groups && groups.data && groups.data.length === 0)
+  ) {
+    return <Navigate to="/" />;
+  }
+
+  return (
+    <>
+      <Row>
+        <Column>
+          <PageCard buttons={settingsCycle} maxWidth={1000}>
+            {catSettings[settingsListing]}
+          </PageCard>
+        </Column>
+      </Row>
+      <Row>
+        <Column>
+          <PageCard buttons={pageCycle} maxWidth={1000}>
+            {catListing[listing]}
+          </PageCard>
+        </Column>
+      </Row>
+    </>
+  );
+}
+function GroupAdmins(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  onDelete: { mutate: (arg0?: any) => void };
+  gid: string;
+}): React.ReactElement {
+  const {
+    data: groupUsers,
+  }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery(
+    ["groupUsers" + props.group.id],
+    () => OperationsApi.getUsers(props.group.id),
+    { staleTime: Infinity, refetchOnWindowFocus: false },
+  );
+
+  const modal = useModal();
+
+  let hasRights = false;
+  const [selected, setSelected] = React.useState([]);
+  const { t } = useTranslation();
+
+  if (props.group && props.user)
+    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const fakeListing = [1, 1, 1];
+
+  let adminList: IGroupUser[];
+  if (groupUsers) {
+    adminList = [...groupUsers.data[0].admins];
+    adminList.sort(
+      (a: { addedAt: string }, b: { addedAt: string }) =>
+        Date.parse(b.addedAt) - Date.parse(a.addedAt),
+    );
+  }
+
+  const isSelected = selected.length > 0;
+
+  const changeSelected = (v: any, id: any) => {
+    setSelected((b) => (!v ? b.filter((item) => item !== id) : [...b, id]));
+  };
+
+  const removeAdmins = () => {
+    setSelected([]);
+    selected.map((o) => props.onDelete.mutate({ gid: props.gid, uid: o }));
+  };
+
+  return (
+    <>
+      <h2>{t("group.admins.main")}</h2>
+      <h5>
+        {t("group.admins.description0")}
+        <br />
+        {t("group.admins.description1")}
+      </h5>
+      {isSelected ? (
+        <h5>
+          <b>{t("group.admins.selected", { number: selected.length })}</b>
+        </h5>
+      ) : (
+        <h5>{t("group.admins.select")}</h5>
+      )}
+      <ButtonRow>
+        {hasRights ? (
+          <Button
+            name={t("group.admins.add")}
+            callback={() =>
+              modal.show(
+                <AddGroupAdmin gid={props.group.id} callback={modal.close} />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.admins.add")}
+          />
+        )}
+        {hasRights && isSelected ? (
+          <Button
+            name={t("group.admins.removeSelected")}
+            callback={removeAdmins}
+          />
+        ) : (
+          <Button disabled={true} name={t("group.admins.remove")} />
+        )}
+      </ButtonRow>
+      {adminList
+        ? adminList.map((admin: IGroupUser, i: number) => (
+            <UserStRow
+              user={admin}
+              callback={(v) => changeSelected(v, admin.id)}
+              key={admin.id || i}
+            />
+          ))
+        : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
+    </>
+  );
+}
+
+function ServerLists(props: { servers: IGroupServer[] }) {
+  const { servers } = props;
+  const { t } = useTranslation();
+
+  const bf1Servers = servers.filter((s: { game: string }) => s.game === "bf1");
+  const bf1Rows = bf1Servers.map((server: IGroupServer, i: number) => (
+    <ServerRow server={server} key={i} />
+  ));
+
+  const bf5Servers = servers.filter((s: { game: string }) => s.game === "bfv");
+  const bf5Rows = bf5Servers.map((server: IGroupServer, i: number) => (
+    <ServerRow server={server} key={i} />
+  ));
+
+  const bf2042Servers = servers.filter(
+    (s: { game: string }) => s.game === "bf2042",
+  );
+  const bf2042Rows = bf2042Servers.map((server: IGroupServer, i: number) => (
+    <ServerRow server={server} key={i} />
+  ));
+
+  const bf4Servers = servers.filter((s: { game: string }) => s.game === "bf4");
+  const bf4Rows = bf4Servers.map((server: IGroupServer, i: number) => (
+    <ServerRow server={server} key={i} />
+  ));
+
+  /* <img style={{maxHeight: '14px', marginRight: '15px'}} alt={t("games.bfv")} src={`/img/gameIcons/bfv.png`}/> */
+
+  return (
+    <>
+      {bf1Rows.length === 0 ? null : (
+        <h2 className={styles.ShownGame}>{t("games.bf1")}</h2>
+      )}
+      {bf1Rows}
+      {bf5Rows.length === 0 ? null : (
+        <h2 className={styles.ShownGame}>{t("games.bfv")}</h2>
+      )}
+      {bf5Rows}
+      {bf2042Rows.length === 0 ? null : (
+        <h2 className={styles.ShownGame}>{t("games.bf2042")}</h2>
+      )}
+      {bf2042Rows}
+      {bf4Rows.length === 0 ? null : (
+        <h2 className={styles.ShownGame}>{t("games.bf4")}</h2>
+      )}
+      {bf4Rows}
+    </>
+  );
+}
+
+function ServerListsLoading() {
+  const fakeListing = [1, 1, 1];
+
+  return (
+    <>
+      {fakeListing.map((_, i) => (
+        <FakeUserStRow key={i} />
+      ))}
+    </>
+  );
+}
+
+function GroupServers(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  gid: string;
+}): React.ReactElement {
+  let hasRights = false;
+
+  if (props.group && props.user)
+    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <h2>{t("group.servers.main")}</h2>
+      <h5>
+        {t("group.servers.description0")}
+        <br />
+        {t("group.servers.description1")}
+      </h5>
+      {props.group ? (
+        <ServerLists servers={props.group.servers} />
+      ) : (
+        <ServerListsLoading />
+      )}
+      <ButtonRow>
+        {hasRights ? (
+          <ButtonLink
+            name={t("group.servers.add")}
+            to={"/group/" + props.gid + "/add/server"}
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.servers.add")}
+          />
+        )}
+      </ButtonRow>
+    </>
+  );
+}
+
+function Seeding(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  gid: string;
+}): React.ReactElement {
+  const modal = useModal();
+
+  let hasRights = false;
+  const [selected, setSelected] = React.useState(null);
+  const [customServerName, setCustomServerName] = React.useState("");
+  const [broadcast, setBroadcast] = React.useState("");
+  const [serverAliases, setServerAliases] = React.useState({});
+  const [notJoining, setNotJoining] = React.useState("");
+
+  const [hour, setHour] = React.useState("7");
+  const [minute, setMinute] = React.useState("0");
+  const [rejoin, setRejoin] = React.useState(undefined);
+  const { t } = useTranslation();
+
+  if (props.group && props.user)
+    hasRights =
+      props.group.isOwner || props.group.isAdmin || props.user.auth.isDeveloper;
+  const {
+    data: seedingInfo,
+  }: UseQueryResult<ISeederInfo, { code: number; message: string }> = useQuery(
+    ["seeding" + props.gid],
+    () => OperationsApi.getSeeding(props.gid),
+    { staleTime: 30000 },
+  );
+  const {
+    data: seeders,
+  }: UseQueryResult<ISeederList, { code: number; message: string }> = useQuery(
+    ["seeders" + props.gid],
+    () => OperationsApi.getSeeders(props.gid),
+    { staleTime: 30000 },
+  );
+  const {
+    data: serverAliasNames,
+  }: UseQueryResult<ISeederServerAliasName, { code: number; message: string }> =
+    useQuery(
+      ["serveraliasname" + props.gid],
+      () => OperationsApi.getServerAliases(props.gid),
+      { staleTime: 30000 },
+    );
+  const queryClient = useQueryClient();
+  const fakeListing = [1, 1, 1];
+
+  let ingameAmount = 0;
+  if (seeders) {
+    ingameAmount = seeders.seeders.filter(
+      (seeder: ISeeder) => seeder.isRunning,
+    ).length;
+  }
+
+  let serverList: IGroupServer[];
+  if (props.group) {
+    serverList = [...props.group.servers];
+    serverList.sort((a: { name }, b: { name }) => b.name - a.name);
+    serverList = serverList.filter((a: { game: string }) => a.game === "bf1");
+  }
+
+  React.useEffect(() => {
+    if (seedingInfo) {
+      if (rejoin === undefined) {
+        setRejoin(seedingInfo.rejoin);
+      }
+
+      if (serverAliasNames && seeders) {
+        const seederlist = {};
+        let playerNotJoining = "";
+
+        seeders.seeders.map(
+          (value: ISeeder) => (seederlist[value.seederName] = value.isRunning),
+        );
+
+        const serverAlias: { [string: string]: { joined: 0; other: 0 } } = {};
+        Object.entries(serverAliasNames).map(
+          ([_, value]) => (serverAlias[value] = { joined: 0, other: 0 }),
+        );
+        Object.entries(seedingInfo.keepAliveSeeders).map(([key, value]) =>
+          seederlist[key]
+            ? (serverAlias[value.serverName].joined += 1)
+            : ((serverAlias[value.serverName].other += 1),
+              (playerNotJoining += `${key}, `)),
+        );
+
+        setNotJoining(playerNotJoining);
+        setServerAliases(serverAlias);
+      }
+    }
+  }, [seedingInfo, serverAliasNames]);
+
+  const isSelected = selected !== undefined;
+
+  const changeSelected = (
+    i: number,
+    e: { target: { value: React.SetStateAction<string> } },
+  ) => {
+    if (i === 90) {
+      if (e) {
+        setCustomServerName(e.target.value);
+      }
+      setSelected(i);
+    } else {
+      setSelected(() => (i !== selected ? i : undefined));
+    }
+  };
+
+  const joinServer = () => {
+    let server: IGroupServer;
+    if (selected === 90) {
+      server = { name: customServerName, id: "" };
+    } else {
+      server = props.group.servers[selected];
+    }
+    OperationsApi.setSeeding({
+      serverName: server.name,
+      serverId: server.id,
+      action: "joinServer",
+      groupId: props.gid,
+      rejoin: rejoin,
+      message: "",
+    });
+    setSelected(undefined);
+    let timeout = 300;
+    if (selected === 90) {
+      timeout = 1000;
+    }
+    setTimeout(() => {
+      queryClient.invalidateQueries(["seeding" + props.gid]);
+    }, timeout);
+  };
+
+  const scheduleSeed = () => {
+    let server: IGroupServer;
+    if (selected === 90) {
+      server = { name: customServerName, id: "" };
+    } else {
+      server = props.group.servers[selected];
+    }
+    OperationsApi.scheduleSeeding({
+      timeStamp: `${hour}:${minute}0`,
+      serverName: server.name,
+      groupId: props.gid,
+    });
+    setSelected(undefined);
+    setTimeout(() => {
+      queryClient.invalidateQueries(["seeding" + props.gid]);
+    }, 1000);
+  };
+
+  return (
+    <>
+      <h2>{t("group.seeding.main")}</h2>
+      <h5>
+        {t("group.seeding.description0")}
+        <br />
+        {t("group.seeding.description2")}
+        <br />
+        <a
+          alt=""
+          href="https://github.com/community-network/bf1-seeder"
+          rel="noreferrer"
+          target="_blank"
+        >
+          {t("group.seeding.app")}
+        </a>
+      </h5>
+      {seedingInfo ? (
+        seedingInfo.action === "joinServer" ? (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>
+              {t("group.seeding.status.seedServer", {
+                serverName: seedingInfo.serverName,
+              })}
+            </b>
+          </h5>
+        ) : seedingInfo.action === "broadcastMessage" ? (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>
+              {t("group.seeding.status.broadcastMessage", {
+                message: seedingInfo.gameId,
+              })}
+            </b>
+          </h5>
+        ) : (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>{t(`group.seeding.status.${seedingInfo.action}`)}</b>
+          </h5>
+        )
+      ) : (
+        <></>
+      )}
+
+      {seedingInfo ? (
+        seedingInfo.startServer !== null ? (
+          <h5>
+            <b>
+              {t("group.seeding.scheduled.true", {
+                serverName: seedingInfo.startServer,
+                startTime: seedingInfo.startTime,
+              })}
+            </b>
+          </h5>
+        ) : (
+          <h5>{t("group.seeding.scheduled.false")}</h5>
+        )
+      ) : (
+        <></>
+      )}
+      <ButtonRow>
+        <select
+          className={styles.SwitchGame}
+          value={hour}
+          onChange={(e) => setHour(e.target.value)}
+        >
+          {[...Array(24)].map((_, i) => {
+            return (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            );
+          })}
+        </select>
+        <select
+          className={styles.SwitchGame}
+          value={minute}
+          onChange={(e) => setMinute(e.target.value)}
+        >
+          <option value="0">0</option>
+          <option value="3">30</option>
+        </select>
+        {hasRights && isSelected ? (
+          <Button
+            name={t("group.seeding.actions.schedule")}
+            callback={scheduleSeed}
+          />
+        ) : (
+          <Button disabled={true} name={t("group.seeding.actions.schedule")} />
+        )}
+        {hasRights && seedingInfo && seedingInfo.startTime !== null ? (
+          <Button
+            name={t("group.seeding.actions.undoSchedule")}
+            callback={() =>
+              modal.show(
+                <UnscheduleSeed gid={props.group.id} callback={modal.close} />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.seeding.actions.undoSchedule")}
+          />
+        )}
+      </ButtonRow>
+      <ButtonRow>
+        <select
+          className={styles.SwitchGame}
+          value={rejoin}
+          onChange={(e) => setRejoin(e.target.value === "true")}
+        >
+          <option value="true">{t("group.seeding.auto-rejoin.true")}</option>
+          <option value="false">{t("group.seeding.auto-rejoin.false")}</option>
+        </select>
+        {hasRights && isSelected ? (
+          <Button
+            name={t("group.seeding.actions.joinSelected")}
+            callback={joinServer}
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("group.seeding.actions.joinSelected")}
+          />
+        )}
+        {hasRights ? (
+          <Button
+            name={t("group.seeding.actions.leave")}
+            callback={() =>
+              modal.show(
+                <LeaveServer
+                  gid={props.group.id}
+                  textItem={"leave"}
+                  option={"leaveServer"}
+                  callback={modal.close}
+                  rejoin={rejoin}
+                />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.seeding.actions.leave")}
+          />
+        )}
+        {hasRights ? (
+          <Button
+            name={t("group.seeding.actions.shutdownWindows")}
+            callback={() =>
+              modal.show(
+                <LeaveServer
+                  gid={props.group.id}
+                  textItem={"shutdownWindows"}
+                  option={"shutdownPC"}
+                  callback={modal.close}
+                  rejoin={rejoin}
+                />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.seeding.actions.shutdownWindows")}
+          />
+        )}
+      </ButtonRow>
+      {props.group
+        ? serverList.map((server: IGroupServer, i: number) => (
+            <SeederStRow
+              user={server}
+              selected={selected === i}
+              callback={() => changeSelected(i, undefined)}
+              key={server.id || i}
+            />
+          ))
+        : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
+      <SeederStCustom
+        selected={selected === 90}
+        callback={(e) => changeSelected(90, e)}
+        key={90}
+      />
+      <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>
+        {t("group.seeding.broadcast.main")}
+      </h2>
+      <Row>
+        <TextInput
+          callback={(e) => setBroadcast(e.target.value)}
+          defaultValue={broadcast}
+          name={t("group.seeding.broadcast.message")}
+        />
+        {hasRights && broadcast !== "" ? (
+          <Button
+            name={t("group.seeding.broadcast.sendMessage")}
+            callback={() =>
+              modal.show(
+                <SeederBroadcast
+                  gid={props.group.id}
+                  message={broadcast}
+                  callback={modal.close}
+                  rejoin={rejoin}
+                />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.seeding.broadcast.sendMessage")}
+          />
+        )}
+      </Row>
+      <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>
+        {t("group.seeding.seeders.main", {
+          seeders: seeders ? seeders.seeders.length : 0,
+          ingame: ingameAmount,
+        })}
+      </h2>
+      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+        {seeders && seedingInfo && props.group
+          ? seeders.seeders.map((seeder: ISeeder, i: number) => (
+              <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
+            ))
+          : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
+              <EmptyRow key={i} />
+            ))}
+      </div>
+      {serverAliasNames ? (
+        <>
+          <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>
+            Keepalive server list
+          </h2>
+          <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+            {Object.entries(serverAliasNames).map(([key, value], i) =>
+              key !== "groupId" ? (
+                <ServerAliasRow
+                  servername={value}
+                  serverId={key}
+                  key={i}
+                  serveraliasinfo={serverAliases}
+                />
+              ) : (
+                <div key={i}></div>
+              ),
+            )}
+          </div>
+          <h5 style={{ marginBottom: "4px", marginTop: "16px" }}>
+            Failed to multialive:
+            <br />
+            {notJoining}
+          </h5>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+}
+
+function GroupOwners(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  onDelete: { mutate: (arg0?: any) => void };
+  gid: string;
+}): React.ReactElement {
+  const modal = useModal();
+  const [selected, setSelected] = React.useState([]);
+  const { t } = useTranslation();
+
+  const {
+    data: groupUsers,
+  }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery(
+    ["groupUsers" + props.group.id],
+    () => OperationsApi.getUsers(props.group.id),
+    { staleTime: Infinity, refetchOnWindowFocus: false },
+  );
+
+  let hasRights = false;
+  if (props.group && props.user)
+    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const fakeListing = [1, 1, 1];
+
+  let ownerList: any[];
+  if (groupUsers) {
+    ownerList = [...groupUsers.data[0].owners];
+    ownerList.sort(
+      (a: { addedAt: string }, b: { addedAt: string }) =>
+        Date.parse(b.addedAt) - Date.parse(a.addedAt),
+    );
+  }
+
+  const isSelected = selected.length > 0;
+
+  const changeSelected = (v: any, id: any) => {
+    setSelected((b) => (!v ? b.filter((item) => item !== id) : [...b, id]));
+  };
+
+  const removeOwners = () => {
+    setSelected([]);
+    selected.map((o) => props.onDelete.mutate({ gid: props.gid, uid: o }));
+  };
+
+  return (
+    <>
+      <h2>{t("group.owners.main")}</h2>
+      <h5>
+        {t("group.owners.description0")}
+        <br />
+        {t("group.owners.description1")}
+      </h5>
+      {isSelected ? (
+        <h5>
+          <b>{t("group.owners.selected", { number: selected.length })}</b>
+        </h5>
+      ) : (
+        <h5>{t("group.owners.select")}</h5>
+      )}
+      <ButtonRow>
+        {hasRights ? (
+          <Button
+            name={t("group.owners.add")}
+            callback={() =>
+              modal.show(
+                <AddGroupOwner gid={props.group.id} callback={modal.close} />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.owners.add")}
+          />
+        )}
+        {hasRights && isSelected ? (
+          <Button
+            name={t("group.owners.removeSelected")}
+            callback={removeOwners}
+          />
+        ) : (
+          <Button disabled={true} name={t("group.owners.remove")} />
+        )}
+      </ButtonRow>
+      {ownerList
+        ? ownerList.map((owner: IGroupUser, i: number) => (
+            <UserStRow
+              user={owner}
+              callback={(v) => changeSelected(v, owner.id)}
+              key={owner.id || i}
+            />
+          ))
+        : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
+    </>
+  );
+}
+
+function GroupServerAccount(
+  props: JSX.IntrinsicAttributes & {
+    group: IGroupInfo;
+    gid: string;
+    user: IUserInfo;
+    cookie?: IGroupCookie;
+  },
+): React.ReactElement {
+  let hasRights = false;
+
+  if (props.group && props.user)
+    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const { t } = useTranslation();
+  const modal = useModal();
+
+  return (
+    <>
+      <h2>
+        {t("group.name")} -{" "}
+        {!!props.group ? props.group.groupName : t("pending")}
+      </h2>
+      <h5 className={styles.GroupId}>
+        {t("group.id")}
+        <span className={styles.GroupIdentity}>{props.gid}</span>
+      </h5>
+
+      <h2>Accounts used for group</h2>
+      <h5 style={{ marginTop: "0px" }}>
+        {t("createGroup.cookieDescription2")}
+      </h5>
+      {props.group ? (
+        <ScrollRow>
+          {props.group.cookies.map((cookie: IGroupCookie, index: number) => {
+            return (
+              <div key={index}>
+                <AccountInfo {...props} cookie={cookie} />
+              </div>
+            );
+          })}
+        </ScrollRow>
+      ) : (
+        <></>
+      )}
+
+      <ButtonRow>
+        {hasRights ? (
+          <Button
+            name={t("cookie.add")}
+            callback={() =>
+              modal.show(
+                <AddAccountModal
+                  gid={props.gid}
+                  group={props.group}
+                  user={props.user}
+                  callback={modal.close}
+                />,
+              )
+            }
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("cookie.add")}
+          />
+        )}
+      </ButtonRow>
+    </>
+  );
+}
+
+function AccountInfo(props: {
+  group: IGroupInfo;
+  gid: string;
+  user: IUserInfo;
+  cookie: IGroupCookie;
+}) {
+  const { group, gid, user, cookie } = props;
+  const { t } = useTranslation();
+  const modal = useModal();
+  return (
+    <>
+      <div
+        className={styles.AccountInfo}
+        onClick={() =>
+          modal.show(
+            <ChangeAccountModal
+              gid={gid}
+              group={group}
+              cookie={cookie}
+              user={user}
+              callback={modal.close}
+            />,
+          )
+        }
+      >
+        <h2>
+          {!group
+            ? t("cookie.status.loading")
+            : !cookie.username
+            ? t("cookie.status.pending")
+            : cookie.username}
+          {group && !cookie.validCookie ? (
+            <span style={{ color: "#FF7575" }}>
+              {" - "}
+              {t("cookie.invalid")}
+            </span>
+          ) : (
+            <></>
+          )}
+        </h2>
+        <h5 style={{ marginTop: "0px" }}>
+          {t("group.account.description0")}
+          <br />
+          {t("group.account.description1")}
+          <i>accounts.ea.com</i>
+        </h5>
+        <h5 style={{ marginTop: "0px" }}>
+          {t("cookie.supportedGames.main")}
+          {cookie.supportedGames
+            .sort()
+            .map((supportedGame: string, i: number) => {
+              if (cookie.supportedGames.length - 1 !== i) {
+                return ` ${t(`games.${supportedGame}`)},`;
+              } else {
+                return ` ${t(`games.${supportedGame}`)}`;
+              }
+            })}
+        </h5>
+        <h5 style={{ marginTop: "0px" }}>
+          {group && group.defaultCookie === cookie.id
+            ? t("cookie.accountType.default")
+            : t("cookie.accountType.extra")}
+        </h5>
+      </div>
+    </>
+  );
+}
+
+function GroupDiscordSettings(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  gid: string;
+}): React.ReactElement {
+  let allowedTo = false;
+  if (props.group && props.user)
+    allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const queryClient = useQueryClient();
+
+  const [adminId, setAdminId] = React.useState(0);
+  const [modId, setModId] = React.useState(0);
+  const [serverId, setServerId] = React.useState(0);
+  const [applyStatus, setApplyStatus] = React.useState(null);
+  const { t } = useTranslation();
+
+  React.useEffect(() => {
+    if (props.group) {
+      if (serverId !== props.group.discordGroupId)
+        setServerId(props.group.discordGroupId);
+
+      if (modId !== props.group.discordModRoleId)
+        setModId(props.group.discordModRoleId);
+
+      if (adminId !== props.group.discordAdminRoleId)
+        setAdminId(props.group.discordAdminRoleId);
+    }
+  }, [props.group]);
+
+  const editDiscordDetails = useMutation(
+    (variables: {
+      gid: string;
+      type?: string;
+      value: {
+        [string: string]: string | number | boolean;
+      };
+    }) => OperationsApi.editGroup(variables),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+      },
+      onSuccess: async () => {
+        setApplyStatus(null);
+      },
+      onError: async () => {
+        setApplyStatus(false);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        queryClient.invalidateQueries(["groupId" + props.gid]);
+      },
+    },
+  );
+
+  return (
+    <>
+      <GameStatsAd />
+      <h5 style={{ marginTop: "8px" }}>
+        {t("group.discord.description0")}
+        <br />
+        {t("group.discord.description1")}
+      </h5>
+      <h5>{t("group.discord.commandList")}</h5>
+      <Row>
+        <TextInput
+          disabled={!allowedTo}
+          callback={(e) => setServerId(e.target.value)}
+          defaultValue={serverId}
+          name={t("discord.id")}
+        />
+        <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+          {t("discord.idDescription")}
+        </p>
+      </Row>
+      <h5 style={{ marginTop: "8px" }}>
+        {t("group.discord.permDescription0")}
+        <br />
+        {t("group.discord.permDescription1")}
+      </h5>
+      <Row>
+        <TextInput
+          disabled={!allowedTo}
+          callback={(e) => setAdminId(e.target.value)}
+          defaultValue={adminId}
+          name={t("discord.adminId")}
+        />
+        <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+          {t("discord.adminIdDescription")}
+        </p>
+      </Row>
+      <Row>
+        <TextInput
+          disabled={!allowedTo}
+          callback={(e) => setModId(e.target.value)}
+          defaultValue={modId}
+          name={t("discord.modId")}
+        />
+        <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+          {t("discord.modIdDescription")}
+        </p>
+      </Row>
+      {props.group &&
+      (serverId !== props.group.discordGroupId ||
+        modId !== props.group.discordModRoleId ||
+        adminId !== props.group.discordAdminRoleId) ? (
+        <ButtonRow>
+          <Button
+            name={t("apply")}
+            disabled={!allowedTo || applyStatus !== null}
+            callback={() =>
+              editDiscordDetails.mutate({
+                gid: props.gid,
+                value: {
+                  discordGroupId: serverId,
+                  discordModRoleId: modId,
+                  discordAdminRoleId: adminId,
+                },
+              })
+            }
+            status={applyStatus}
+          />
+        </ButtonRow>
+      ) : (
+        ""
+      )}
+    </>
+  );
+}
+
+function GroupSettings(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  gid: string;
+}): React.ReactElement {
+  let allowedTo = false;
+  if (props.group && props.user)
+    allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  const [tokenDisabled, setTokenDisabled] = React.useState(
+    props.group ? props.group.tokenUsed : false,
+  );
+  const [groupState, setGroupState] = React.useState(null);
+  const [canApply, setCanApply] = React.useState(false);
+  const [applyStatus, setApplyStatus] = React.useState(null);
+
+  React.useEffect(() => {
+    if (props.group) {
+      const { visableBans, cookieLocale } = props.group;
+      let token: string;
+      const originalGroupState = {
+        visableBans,
+        cookieLocale,
+        token: props.group.tokenUsed ? "-" : "",
+      };
+      if (groupState === null) {
+        setGroupState(originalGroupState);
+        setTokenDisabled(token !== "");
+      } else {
+        let newCanApply = false;
+        for (const i in originalGroupState) {
+          newCanApply ||= groupState[i] !== originalGroupState[i];
+        }
+        if (groupState.token === "") setTokenDisabled(false);
+        setCanApply(newCanApply);
+      }
+    }
+  }, [props.group, groupState]);
+
+  const changeGroupState = (v: {
+    visableBans?: boolean;
+    cookieLocale?: string;
+    token?: string;
+  }) => {
+    setGroupState((s) => ({ ...s, ...v }));
+  };
+
+  const editGroupSettings = useMutation(
+    (variables: { [string: string]: string | number | boolean }) =>
+      OperationsApi.editGroup({ value: variables, gid: props.gid }),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+      },
+      onSuccess: async () => {
+        setApplyStatus(null);
+      },
+      onError: async () => {
+        setApplyStatus(false);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        queryClient.invalidateQueries(["groupId" + props.gid]);
+      },
+    },
+  );
+
+  const getGroupValue = (key: string) => {
+    if (props.group && key in props.group) {
+      return props.group[key];
+    }
+    return "";
+  };
+
+  return (
+    <>
+      <h5>{t("group.settings.visableBansDesc")}</h5>
+      <Switch
+        checked={getGroupValue("visableBans")}
+        name={t("group.settings.visableBans")}
+        callback={(v) => changeGroupState({ visableBans: v })}
+      />
+      <h5 style={{ marginTop: "8px" }}>
+        {t("group.settings.localeDescription0")}
+        <br />
+        {t("group.settings.localeDescription1")}
+        <a
+          href="https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Oracle.com
+        </a>
+      </h5>
+      <Row>
+        <TextInput
+          type="text"
+          disabled={!allowedTo}
+          callback={(e) => changeGroupState({ cookieLocale: e.target.value })}
+          defaultValue={getGroupValue("cookieLocale")}
+          name={t("cookie.locale")}
+        />
+        <p style={{ margin: "0 0 0 20px", alignSelf: "center" }}>
+          {t("cookie.locale")}
+        </p>
+      </Row>
+      <h5 style={{ paddingTop: "1rem" }}>
+        {t("group.settings.tokenDescription0")}
+        <br />
+        {t("group.settings.tokenDescription1")}
+      </h5>
+      <Switch
+        checked={tokenDisabled}
+        name={t("group.settings.tokenEnable")}
+        callback={(v) => {
+          let token = "";
+          setTokenDisabled(v);
+          !v ? (token = "") : (token = cryptoRandomString({ length: 40 }));
+          document.getElementsByTagName("input")[1].value = token;
+          changeGroupState({ token: token });
+        }}
+      />
+      <Row>
+        <TextInput
+          type="text"
+          disabled={!allowedTo || !tokenDisabled}
+          callback={(e) => changeGroupState({ token: e.target.value })}
+          defaultValue={getGroupValue("token")}
+          name={t("group.settings.token")}
+        />
+        <Button
+          name={t("group.settings.tokenGen")}
+          callback={() => {
+            const token = cryptoRandomString({ length: 40 });
+            changeGroupState({ token: token });
+            document.getElementsByTagName("input")[1].value = token;
+          }}
+        />
+      </Row>
+      <ButtonRow>
+        <ButtonUrl
+          href={`https://manager-api.gametools.network/docs/`}
+          name={t("ApiInfo.link")}
+        />
+      </ButtonRow>
+      {props.group && canApply ? (
+        <ButtonRow>
+          <Button
+            name={t("apply")}
+            disabled={!allowedTo || applyStatus !== null}
+            callback={() => editGroupSettings.mutate(groupState)}
+            status={applyStatus}
+          />
+        </ButtonRow>
+      ) : (
+        ""
+      )}
+    </>
+  );
+}
+
+function GroupStatus(props: {
+  gid: string;
+  group: IGroupInfo;
+  user: IUserInfo;
+}): React.ReactElement {
+  const [statusRef, { width }] = useMeasure();
+  const { t } = useTranslation();
+  const [serverNum, setServerNum] = React.useState("0");
+  let groupId = "";
+  let serverId = "";
+  if (props.group) {
+    groupId = props.group.id;
+    if (props.group.servers.length !== 0) {
+      serverId = props.group.servers[serverNum]?.id;
+    }
+  }
+  const {
+    data: groupStats,
+  }: UseQueryResult<IGroupStats, { code: number; message: string }> = useQuery(
+    ["groupStats" + groupId],
+    () => OperationsApi.getStats(groupId),
+    { staleTime: Infinity, refetchOnWindowFocus: false },
+  );
+  const {
+    data: serverStats,
+  }: UseQueryResult<IServerStats, { code: number; message: string }> = useQuery(
+    ["serverStats" + serverId],
+    () => OperationsApi.getServerStats(serverId),
+    { staleTime: Infinity, refetchOnWindowFocus: false },
+  );
+
+  return (
+    <div ref={statusRef}>
+      {props.group ? (
+        <>
+          <h5 style={{ marginTop: "0px" }}>{t("group.status.worker.main")}</h5>
+          <WorkerStatus
+            worker={props.group.inWorker}
+            lastUpdate={props.group.lastUpdate}
+          />
+          <h5>{t("group.status.cookiecheck.main")}</h5>
+          {props.group.lastCookieCheck !== null ? (
+            <h5>
+              {t("time", { date: new Date(props.group.lastCookieCheck) })}
+            </h5>
+          ) : (
+            <h5>{t("group.status.cookiecheck.never")}</h5>
+          )}
+        </>
+      ) : (
+        ""
+      )}
+      <h5 style={{ marginTop: "15px", marginBottom: "0px" }}>
+        {t("group.status.stats.main")}
+      </h5>
+      {groupStats ? (
+        <div style={{ paddingLeft: "10px" }}>
+          <h5 style={{ margin: "3px 20px" }}>
+            {t("group.status.stats.autoKickPingAmount", {
+              amount: groupStats.autoKickPingAmount,
+            })}
+          </h5>
+          <h5 style={{ margin: "3px 20px" }}>
+            {t("group.status.stats.bfbanAmount", {
+              amount: groupStats.bfbanAmount,
+            })}
+          </h5>
+          <h5 style={{ margin: "3px 20px" }}>
+            {t("group.status.stats.moveAmount", {
+              amount: groupStats.moveAmount,
+            })}
+          </h5>
+          <h5 style={{ margin: "3px 20px" }}>
+            {t("group.status.stats.kickAmount", {
+              amount: groupStats.kickAmount,
+            })}
+          </h5>
+          <h5 style={{ margin: "3px 20px" }}>
+            {t("group.status.stats.banAmount", {
+              amount: groupStats.banAmount,
+            })}
+          </h5>
+          <h5 style={{ margin: "3px 20px" }}>
+            {t("group.status.stats.globalBanKickAmount", {
+              amount: groupStats.globalBanKickAmount,
+            })}
+          </h5>
+        </div>
+      ) : (
+        <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
+      )}
+
+      <h5 style={{ marginTop: "15px", marginBottom: "5px" }}>
+        {t("group.status.stats.servers.main")}
+      </h5>
+      {props.group ? (
+        <ButtonRow>
+          <select
+            className={styles.SmallSwitch}
+            style={{ marginLeft: "20px", marginBottom: "10px" }}
+            value={serverNum}
+            onChange={(e) => setServerNum(e.target.value)}
+          >
+            {props.group.servers.map(
+              (
+                element: {
+                  name: string;
+                },
+                index: number,
+              ) => {
+                return (
+                  <option key={index} value={index}>
+                    {element.name}
+                  </option>
+                );
+              },
+            )}
+          </select>
+        </ButtonRow>
+      ) : (
+        <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
+      )}
+      {serverStats ? (
+        <div style={{ paddingLeft: "10px" }}>
+          {serverStats.data.playerAmounts.length > 0 ? (
+            <>
+              {width < 760 ? (
+                <>
+                  <StatsPieChart stats={serverStats.data} />
+                  <PlayerInfo stats={serverStats.data} />
+                </>
+              ) : (
+                <div style={{ display: "flex" }}>
+                  <StatsPieChart stats={serverStats.data} />
+                  <PlayerInfo stats={serverStats.data} />
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <h5 style={{ marginBottom: "5px" }}>
+                {/* TODO: Test */}
+                {serverStats.data.serverName}
+              </h5>
+              <h5 style={{ margin: "0px 25px" }}>
+                {t("group.status.stats.servers.none")}
+              </h5>
+              <br />
+            </>
+          )}
+        </div>
+      ) : (
+        <h5 style={{ margin: "3px 20px" }}>{t("loading")}</h5>
+      )}
+    </div>
+  );
+}
+
+function GroupDangerZone(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  gid: string;
+}): React.ReactElement {
+  let allowedTo = false;
+  let canSetUpOps = false;
+
+  if (props.group && props.user)
+    allowedTo = props.group.isOwner || props.user.auth.isDeveloper;
+  if (props.group && props.user)
+    canSetUpOps = props.group.makeOperations && props.group.isOwner;
+
+  const queryClient = useQueryClient();
+
+  const [groupName, setGroupName] = React.useState("");
+  const [applyStatus, setApplyStatus] = React.useState(null);
+  const { t } = useTranslation();
+
+  React.useEffect(() => {
+    if (props.group && groupName !== props.group.groupName) {
+      setGroupName(props.group.groupName);
+    }
+  }, [props.group]);
+
+  const editGroupName = useMutation(
+    (variables: {
+      gid: string;
+      type?: string;
+      value: {
+        [string: string]: string | number | boolean;
+      };
+    }) => OperationsApi.editGroup(variables),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+      },
+      onSuccess: async () => {
+        setApplyStatus(null);
+      },
+      onError: async () => {
+        setApplyStatus(false);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        queryClient.invalidateQueries(["groupId" + props.gid]);
+      },
+    },
+  );
+
+  return (
+    <>
+      <h5 style={{ marginTop: "0px" }}>{t("group.danger.nameChange")}</h5>
+      <TextInput
+        disabled={!allowedTo}
+        callback={(e) => setGroupName(e.target.value)}
+        defaultValue={groupName}
+        name={t("group.name")}
+      />
+      {props.group && groupName !== props.group.groupName ? (
+        <ButtonRow>
+          <Button
+            name={t("apply")}
+            disabled={!allowedTo || applyStatus !== null}
+            callback={() =>
+              editGroupName.mutate({
+                gid: props.gid,
+                value: {
+                  groupName,
+                },
+              })
+            }
+            status={applyStatus}
+          />
+        </ButtonRow>
+      ) : (
+        ""
+      )}
+      <h5 style={{ marginTop: "8px" }}>
+        {t("group.danger.deleteInfo0")}
+        <br />
+        {t("group.danger.deleteInfo1")}
+      </h5>
+      <ButtonRow>
+        <ButtonLink
+          style={{ color: "#FF7575" }}
+          name={t("group.danger.delete")}
+          to={`/group/${props.gid}/delete/`}
+          disabled={!allowedTo}
+        />
+        <ButtonLink
+          name={t("sidebar.makeOperations")}
+          to={`/makeops/${props.gid}/`}
+          disabled={!canSetUpOps}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
+export function AddGroupOwner(props: any): React.ReactElement {
+  const gid = props.gid;
+
+  const [addAdminState, changeState] = React.useState({
+    uid: "",
+    nickname: "",
+    canAdd: false,
+  });
+  const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+
+  const AddGroupOwnerExecute = useMutation(
+    (variables: { gid: string; uid: string; nickname: string }) =>
+      OperationsApi.addGroupOwner(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid, uid, nickname }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["groupUsers" + gid]);
+        // Snapshot the previous value
+        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+        // Optimistically update to the new value
+        const UTCNow = new Date(Date.now()).toUTCString();
+
+        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+          old.data[0].owners.push({ id: uid, name: nickname, addedAt: UTCNow });
+          old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousGroup, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(
+          ["groupUsers" + context.gid],
+          context.previousGroup,
+        );
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        queryClient.invalidateQueries(["groupUsers" + context.gid]);
+      },
+    },
+  );
+
+  const updateState = (values: { nickname?: any; uid?: any }) => {
+    const newState = {
+      ...addAdminState,
+      ...values,
+    };
+    newState.canAdd = newState.uid !== "" && newState.nickname !== "";
+    changeState(newState);
+  };
+
+  return (
+    <>
+      <h2>{t("group.owners.addNew")}</h2>
+      <TextInput
+        name={t("group.addMenu.nickname")}
+        callback={(e) => updateState({ nickname: e.target.value })}
+      />
+      <TextInput
+        name={t("group.addMenu.id")}
+        callback={(e) => updateState({ uid: e.target.value })}
+      />
+      <ButtonRow>
+        <Button
+          name={t("group.owners.add")}
+          disabled={!addAdminState.canAdd}
+          callback={() => {
+            AddGroupOwnerExecute.mutate({
+              gid,
+              uid: addAdminState.uid,
+              nickname: addAdminState.nickname,
+            });
+            props.callback(null);
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
+export function AddGroupAdmin(props: any): React.ReactElement {
+  const gid = props.gid;
+
+  const [addAdminState, changeState] = React.useState({
+    uid: "",
+    nickname: "",
+    canAdd: false,
+  });
+  const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+
+  const AddGroupAdminExecute = useMutation(
+    (variables: { gid: string; uid: string; nickname: string }) =>
+      OperationsApi.addGroupAdmin(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid, uid, nickname }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["groupUsers" + gid]);
+        // Snapshot the previous value
+        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+        // Optimistically update to the new value
+        const UTCNow = new Date(Date.now()).toUTCString();
+
+        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+          old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousGroup, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(
+          ["groupUsers" + context.gid],
+          context.previousGroup,
+        );
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        queryClient.invalidateQueries(["groupUsers" + context.gid]);
+      },
+    },
+  );
+
+  const updateState = (values: { nickname?: string; uid?: string }) => {
+    const newState = {
+      ...addAdminState,
+      ...values,
+    };
+    newState.canAdd = newState.uid !== "" && newState.nickname !== "";
+    changeState(newState);
+  };
+
+  return (
+    <>
+      <h2>{t("group.admins.addNew")}</h2>
+      <TextInput
+        name={t("group.addMenu.nickname")}
+        callback={(e) => updateState({ nickname: e.target.value })}
+      />
+      <TextInput
+        name={t("group.addMenu.id")}
+        callback={(e) => updateState({ uid: e.target.value })}
+      />
+      <ButtonRow>
+        <Button
+          name={t("group.admins.add")}
+          disabled={!addAdminState.canAdd}
+          callback={() => {
+            AddGroupAdminExecute.mutate({
+              gid,
+              uid: addAdminState.uid,
+              nickname: addAdminState.nickname,
+            });
+            props.callback();
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
+export function AddGroup(): React.ReactElement {
+  const [addGroupState, changeState] = React.useState({
+    variables: {
+      groupName: "",
+      discordId: "",
+      adminRole: "",
+      modRole: "",
+      remid: "",
+      sid: "",
+    },
+    roleDisplay: false,
+    canAdd: false,
+  });
+  const { t } = useTranslation();
+
+  const [applyStatus, setApplyStatus] = React.useState(null);
+  const [errorUpdating, setError] = React.useState({
+    code: 0,
+    message: "Unknown",
+  });
+  const queryClient = useQueryClient();
+  const history = useNavigate();
+
+  const AddNewGroupExecute = useMutation(
+    (variables: {
+      groupName: string;
+      discordId: string;
+      modRole: string;
+      adminRole: string;
+      sid: string;
+      remid: string;
+    }) => OperationsApi.addGroup(variables),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+        await queryClient.cancelQueries(["user"]);
+
+        return {};
+      },
+      onSuccess: async (variables) => {
+        setApplyStatus(null);
+
+        queryClient.setQueryData(["user"], (old: IUserInfo) => {
+          if (old) {
+            old.permissions.isAdminOf.push({
+              groupName: addGroupState.variables.groupName,
+              id: variables.id,
+            });
+          }
+          return old;
+        });
+
+        history(`/group/${variables.id}`);
+      },
+      onError: async (
+        error: React.SetStateAction<{ code: number; message: string }>,
+      ) => {
+        setError(error);
+        setApplyStatus(false);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        queryClient.invalidateQueries(["user"]);
+      },
+    },
+  );
+
+  const checkInputVariables = (newVariables: {
+    groupName?: string;
+    discordId?: string;
+    modRole?: string;
+    adminRole?: string;
+    sid?: string;
+    remid?: string;
+  }) => {
+    const newGroupState = {
+      ...addGroupState,
+      variables: {
+        ...addGroupState.variables,
+        ...newVariables,
+      },
+    };
+    const newVars = newGroupState.variables;
+    newGroupState.roleDisplay = newVars.discordId !== "";
+    newGroupState.canAdd =
+      newVars.remid.length > 1 &&
+      newVars.sid.length > 1 &&
+      newVars.groupName.length > 2;
+    changeState(newGroupState);
+  };
+
+  return (
+    <Row>
+      <Column>
+        <Card>
+          <h2>{t("createGroup.main")}</h2>
+          <h5>{t("createGroup.description")}</h5>
+          <TextInput
+            name={t("group.name")}
+            callback={(e) => {
+              checkInputVariables({ groupName: e.target.value });
+            }}
+          />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("createGroup.discordDescription")}
+          </h5>
+          <TextInput
+            name={t("discord.id")}
+            callback={(e) => {
+              checkInputVariables({ discordId: e.target.value });
+            }}
+          />
+          <TextInput
+            name={t("discord.modId")}
+            disabled={!addGroupState.roleDisplay}
+            callback={(e) => {
+              checkInputVariables({ modRole: e.target.value });
+            }}
+          />
+          <TextInput
+            name={t("discord.adminId")}
+            disabled={!addGroupState.roleDisplay}
+            callback={(e) => {
+              checkInputVariables({ adminRole: e.target.value });
+            }}
+          />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("createGroup.cookieDescription0")}
+            <br />
+            {t("createGroup.cookieDescription1")}
+            <br />
+            {t("createGroup.cookieDescription2")}
+            <br />
+          </h5>
+          <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("cookie.sidDescription")}
+            <i>accounts.ea.com</i>
+          </h5>
+          <TextInput
+            name={t("cookie.sid")}
+            autocomplete="off"
+            callback={(e) => {
+              checkInputVariables({ sid: e.target.value });
+            }}
+          />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("cookie.remidDescription")}
+            <i>accounts.ea.com</i>
+          </h5>
+          <TextInput
+            name={t("cookie.remid")}
+            autocomplete="off"
+            callback={(e) => {
+              checkInputVariables({ remid: e.target.value });
+            }}
+          />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("createGroup.acceptDescription0")}
+            <br />
+            {t("createGroup.acceptDescription1")}
+          </h5>
+          <ButtonRow>
+            <Button
+              name={t("createGroup.accept")}
+              disabled={!addGroupState.canAdd || applyStatus !== null}
+              status={applyStatus}
+              callback={() =>
+                AddNewGroupExecute.mutate(addGroupState.variables)
+              }
+            />
+            <h5
+              style={{
+                marginBottom: 0,
+                alignSelf: "center",
+                opacity: applyStatus === false ? 1 : 0,
+              }}
+            >
+              Error {errorUpdating.code}: {errorUpdating.message}
+            </h5>
+          </ButtonRow>
+        </Card>
+      </Column>
+    </Row>
+  );
+}
+
+export function DeleteGroup(): React.ReactElement {
+  const params = useParams();
+  const thisGid = params.gid;
+
+  const {
+    data: groups,
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
+    ["groupId" + thisGid],
+    () => OperationsApi.getGroup(thisGid),
+    { staleTime: 30000 },
+  );
+  const group =
+    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+
+  const queryClient = useQueryClient();
+  const history = useNavigate();
+  const { t } = useTranslation();
+
+  const DeleteGroupExecute = useMutation(
+    (variables: IGroupGet) => OperationsApi.removeGroup(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["user"]);
+        // Snapshot the previous value
+        const previousGroups = queryClient.getQueryData(["user"]);
+        // Optimistically update to the new value
+        queryClient.setQueryData(["user"], (old: IUserInfo) => {
+          if (old) {
+            old.permissions.isAdminOf = old.permissions.isAdminOf.filter(
+              (group: { id: string }) => group.id !== gid,
+            );
+          }
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousGroups, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(["user"], context.previousGroups);
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries(["user"]);
+      },
+    },
+  );
+
+  return (
+    <Row>
+      <Column>
+        <Header>
+          <h2>{t("group.danger.delete")}</h2>
+        </Header>
+        <Card>
+          <h2>{t("group.danger.main")}</h2>
+          {group ? (
+            <p>{t("group.danger.checkWithName", { name: group.groupName })}</p>
+          ) : (
+            <p>{t("group.danger.check")}</p>
+          )}
+          <ButtonRow>
+            <ButtonLink
+              name={t("group.danger.back")}
+              to={"/group/" + thisGid}
+            />
+            <Button
+              name={t("group.danger.confirm")}
+              callback={() => {
+                DeleteGroupExecute.mutate({ gid: thisGid });
+                history("/account/");
+              }}
+            />
+          </ButtonRow>
+        </Card>
+      </Column>
+    </Row>
+  );
+}
+
+export function AddGroupServer(): React.ReactElement {
+  const params = useParams();
+  const { gid } = params;
+
+  const [game, setGame] = React.useState("bf1");
+  const [cookieId, setCookieId] = React.useState("");
+  const [sid, setSid] = React.useState("");
+  const [remid, setRemid] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [alias, setAlias] = React.useState("");
+
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  const {
+    isError,
+    data: groups,
+    error,
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
+    ["groupId" + gid],
+    () => OperationsApi.getGroup(gid),
+    {
+      staleTime: 30000,
+    },
+  );
+  const group =
+    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+
+  const AddGroupServerExecute = useMutation(
+    (variables: {
+      gid: string;
+      name: string;
+      alias: string;
+      game: string;
+      cookieId: string;
+      sid: string;
+      remid: string;
+    }) => OperationsApi.addGroupServer(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid, name, game }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["groupId" + gid]);
+        // Snapshot the previous value
+        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+        // Optimistically update to the new value
+        const UTCNow = new Date(Date.now()).toUTCString();
+
+        queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
+          old.data[0].servers.push({
+            addedAt: UTCNow,
+            id: null,
+            name: name,
+            game: game,
+          });
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousGroup, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(
+          ["groupId" + context.gid],
+          context.previousGroup,
+        );
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        queryClient.invalidateQueries(["groupId" + context.gid]);
+      },
+    },
+  );
+
+  const isDisabled =
+    name === "" || (cookieId === "add" && (sid === "" || remid === ""));
+  const history = useNavigate();
+
+  return (
+    <Row>
+      <Column>
+        <Card>
+          <h2>{t("group.serverAddMenu.main")}</h2>
+          <TextInput
+            name={t("group.serverAddMenu.name")}
+            callback={(e) => {
+              setName(e.target.value);
+            }}
+          />
+          <TextInput
+            name={t("group.serverAddMenu.alias")}
+            callback={(e) => {
+              setAlias(e.target.value);
+            }}
+          />
+          <ButtonRow>
+            <select
+              style={{ marginLeft: "5px" }}
+              className={styles.SwitchTitle}
+              value={game}
+              onChange={(e) => setGame(e.target.value)}
+            >
+              {statusOnlyGames.map((key, index) => {
+                return (
+                  <option key={index} value={key}>
+                    {t(`games.${key}`)}
+                  </option>
+                );
+              })}
+            </select>
+            {!isError ? (
+              <>
+                {group ? (
+                  <select
+                    style={{ marginLeft: "6px" }}
+                    className={styles.SwitchGame}
+                    onChange={(e) => setCookieId(e.target.value)}
+                  >
+                    <option value="">{t("cookie.accountType.default")}</option>
+                    {group.cookies.map(
+                      (
+                        key: {
+                          id: string | number | readonly string[];
+                          username:
+                            | string
+                            | number
+                            | boolean
+                            | React.ReactFragment
+                            | React.ReactPortal
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>;
+                        },
+                        index: React.Key,
+                      ) => (
+                        <option
+                          key={index}
+                          selected={cookieId === key.id}
+                          value={key.id}
+                        >
+                          {key.username}
+                        </option>
+                      ),
+                    )}
+                    <option value="add">{t("cookie.accountType.add")}</option>
+                  </select>
+                ) : (
+                  ""
+                )}
+              </>
+            ) : (
+              <>{`Error ${error.code}: {error.message}`}</>
+            )}
+          </ButtonRow>
+          {cookieId === "add" ? (
+            <>
+              <h5 style={{ marginTop: "8px" }}>
+                {t("cookie.sidDescription")}
+                <i>accounts.ea.com</i>
+              </h5>
+              <TextInput
+                name={t("cookie.sid")}
+                autocomplete="off"
+                callback={(e) => {
+                  setSid(e.target.value);
+                }}
+              />
+              <h5 style={{ marginTop: "8px" }}>
+                {t("cookie.remidDescription")}
+                <i>accounts.ea.com</i>
+              </h5>
+              <TextInput
+                name={t("cookie.remid")}
+                autocomplete="off"
+                callback={(e) => {
+                  setRemid(e.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+          <ButtonRow>
+            <Button
+              disabled={isDisabled}
+              name={t("group.servers.add")}
+              callback={() => {
+                AddGroupServerExecute.mutate({
+                  gid,
+                  alias,
+                  name,
+                  game,
+                  cookieId,
+                  sid,
+                  remid,
+                });
+                history("/group/" + gid);
+              }}
+            />
+          </ButtonRow>
+        </Card>
+      </Column>
+    </Row>
+  );
+}
+
+export function EditGroup(): React.ReactElement {
+  return <></>;
+}
+
+export function MakeOps(): React.ReactElement {
+  const params = useParams();
+  const { gid } = params;
+
+  const {
+    data: groups,
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
+    ["groupId" + gid],
+    () => OperationsApi.getGroup(gid),
+    { staleTime: 30000 },
+  );
+  const group =
+    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+
+  const [addGroupState, changeState] = React.useState({
+    variables: {
+      server: "",
+      remid: "",
+      sid: "",
+      gid: gid,
+    },
+    canAdd: false,
+  });
+
+  const [applyStatus, setApplyStatus] = React.useState(null);
+  const [errorUpdating, setError] = React.useState({
+    code: 0,
+    message: "Unknown",
+  });
+  const { t } = useTranslation();
+
+  const SetupOperations = useMutation(
+    (variables: { server: string; sid: string; remid: string }) =>
+      OperationsApi.setupOps(variables),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+        return {};
+      },
+      onSuccess: async () => {
+        setApplyStatus(null);
+      },
+      onError: async (
+        error: React.SetStateAction<{ code: number; message: string }>,
+      ) => {
+        setError(error);
+        setApplyStatus(false);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        undefined;
+      },
+    },
+  );
+
+  const checkInputVariables = (newVariables: {
+    server?: string;
+    sid?: string;
+    remid?: string;
+  }) => {
+    const newGroupState = {
+      ...addGroupState,
+      variables: {
+        ...addGroupState.variables,
+        ...newVariables,
+      },
+    };
+    const newVars = newGroupState.variables;
+    newGroupState.canAdd =
+      newVars.remid.length > 1 &&
+      newVars.sid.length > 1 &&
+      newVars.server.length > 1;
+    changeState(newGroupState);
+  };
+
+  if (group) {
+    if (
+      addGroupState.variables.server === "" &&
+      group.servers[0] !== undefined
+    ) {
+      checkInputVariables({ server: group.servers[0].id });
+    }
+  }
+
+  return (
+    <Row>
+      <Column>
+        <Card>
+          <h2>{t("operations.main")}</h2>
+          <h5>
+            {t("operations.description0")}
+            <br />
+            {t("operations.description1")}
+            <br />
+            {t("operations.description2")}
+          </h5>
+          {group ? (
+            <ButtonRow>
+              <select
+                className={styles.SwitchGame}
+                onChange={(e) =>
+                  checkInputVariables({ server: e.target.value })
+                }
+              >
+                {group.servers.map((server: IGroupServer, index: number) => {
+                  if (server.game === "bf1") {
+                    return (
+                      <option key={index} value={server.id}>
+                        {server.name}
+                      </option>
+                    );
+                  }
+                  return "";
+                })}
+              </select>
+            </ButtonRow>
+          ) : (
+            <></>
+          )}
+
+          {/* <TextInput name="Server name" callback={(e) => { checkInputVariables({ server: e.target.value }) }} /> */}
+          <h5 style={{ marginTop: "8px" }}>
+            {t("operations.server")}
+            <b>{t("operations.owner")}</b>
+            {t("operations.cookies")}
+          </h5>
+          <ButtonRow>
+            <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+          </ButtonRow>
+          <h5 style={{ marginTop: "8px" }}>
+            {t("cookie.sidDescription")}
+            <i>accounts.ea.com</i>
+          </h5>
+          <TextInput
+            name={t("cookie.sid")}
+            type="password"
+            autocomplete="new-password"
+            callback={(e) => {
+              checkInputVariables({ sid: e.target.value });
+            }}
+          />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("cookie.remidDescription")}
+            <i>accounts.ea.com</i>
+          </h5>
+          <TextInput
+            name={t("cookie.remid")}
+            type="password"
+            autocomplete="new-password"
+            callback={(e) => {
+              checkInputVariables({ remid: e.target.value });
+            }}
+          />
+          <h5 style={{ marginTop: "8px" }}>
+            {t("operations.acceptDescription0")}
+            <br />
+            {t("operations.acceptDescription1")}
+          </h5>
+          <ButtonRow>
+            <Button
+              name={t("operations.accept")}
+              disabled={!addGroupState.canAdd || applyStatus !== null}
+              status={applyStatus}
+              callback={() => SetupOperations.mutate(addGroupState.variables)}
+            />
+            <h5
+              style={{
+                marginBottom: 0,
+                alignSelf: "center",
+                opacity: applyStatus === false ? 1 : 0,
+              }}
+            >
+              Error {errorUpdating.code}: {errorUpdating.message}
+            </h5>
+          </ButtonRow>
+        </Card>
+      </Column>
+    </Row>
+  );
+}
+
+export function LeaveServer(props: {
+  gid: string;
+  textItem: string;
+  option: string;
+  rejoin: boolean;
+  callback: (args0: any) => void;
+}): React.ReactElement {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const AddGroupAdminExecute = useMutation(
+    (variables: {
+      serverName: string;
+      serverId: string;
+      action: string;
+      groupId: string;
+      rejoin: boolean;
+      message: string;
+    }) => OperationsApi.setSeeding(variables),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(["seeding" + props.gid]);
+      },
+    },
+  );
+
+  return (
+    <>
+      <h2>{t("group.seeding.main")}</h2>
+      <h2>
+        {t("group.seeding.popup.confirmInfo", {
+          option: t(`group.seeding.actions.${props.textItem}`),
+        })}
+      </h2>
+      <ButtonRow>
+        <Button
+          name={t(`group.seeding.popup.confirm`)}
+          callback={() => {
+            AddGroupAdminExecute.mutate({
+              serverName: "",
+              serverId: "0",
+              action: props.option,
+              groupId: props.gid,
+              rejoin: props.rejoin,
+              message: "",
+            });
+            props.callback(null);
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
+export function AddKeepAlive(props: {
+  gid: string;
+  sid: string;
+  callback: () => void;
+}): React.ReactElement {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const [hostname, setHostname] = React.useState("");
+
+  const AddGroupAdminExecute = useMutation(
+    (variables: { serverId: string; hostname: string }) =>
+      OperationsApi.addKeepAlive(variables),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(["seeding" + props.gid]);
+      },
+    },
+  );
+
+  return (
+    <>
+      <h2>{t("group.seeding.keepalive.add")}</h2>
+      <h2>{t("group.seeding.keepalive.hostname")}</h2>
+      <TextInput
+        style={{ height: "32px" }}
+        name={t("group.seeding.keepalive.sethostname")}
+        callback={(e) => setHostname(e.target.value)}
+      />
+      <ButtonRow>
+        <Button
+          name={t(`group.seeding.popup.confirm`)}
+          callback={() => {
+            AddGroupAdminExecute.mutate({
+              serverId: props.sid,
+              hostname: hostname,
+            });
+            props.callback();
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
+export function SeederBroadcast(props: {
+  gid: string;
+  message: string;
+  rejoin: boolean;
+  callback: (args0: any) => void;
+}): React.ReactElement {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const AddGroupAdminExecute = useMutation(
+    (variables: {
+      serverName: string;
+      serverId: string;
+      action: string;
+      groupId: string;
+      rejoin: boolean;
+      message: string;
+    }) => OperationsApi.setSeeding(variables),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(["seeding" + props.gid]);
+      },
+    },
+  );
+
+  return (
+    <>
+      <h2>{t("group.seeding.main")}</h2>
+      <h2>
+        {t("group.seeding.popup.broadcastInfo", { message: props.message })}
+      </h2>
+      <ButtonRow>
+        <Button
+          name={t(`group.seeding.popup.confirm`)}
+          callback={() => {
+            AddGroupAdminExecute.mutate({
+              serverName: "",
+              serverId: "0",
+              action: "broadcastMessage",
+              groupId: props.gid,
+              rejoin: props.rejoin,
+              message: props.message,
+            });
+            props.callback(null);
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
+export function UnscheduleSeed(props: {
+  gid: string;
+  callback: (args0: any) => void;
+}): React.ReactElement {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const AddGroupAdminExecute = useMutation(
+    (variables: { groupId: string }) =>
+      OperationsApi.undoScheduleSeeding(variables),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(["seeding" + props.gid]);
+      },
+    },
+  );
+  return (
+    <>
+      <h2>{t("group.seeding.main")}</h2>
+      <h2>
+        {t("group.seeding.confirmInfo", {
+          option: t("group.seeding.undoSchedule"),
+        })}
+      </h2>
+      <ButtonRow>
+        <Button
+          name={t(`group.seeding.confirm`)}
+          callback={() => {
+            AddGroupAdminExecute.mutate({ groupId: props.gid });
+            props.callback(null);
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
