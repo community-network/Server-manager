@@ -62,6 +62,12 @@ export interface IGroupInfo {
   visableBans: boolean;
   webhookUrl: string;
   workerEnabled: boolean;
+  seederServers: ISeederServer[];
+}
+
+export interface ISeederServer {
+  name: string;
+  game: string;
 }
 
 export interface IGroupServer {

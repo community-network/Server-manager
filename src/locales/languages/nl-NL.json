@@ -236,7 +236,7 @@
         },
         "seeding": {
             "main": "Seed servers",
-            "description0": "Seed uw battlefield 1 servers.",
+            "description0": "Seed uw battlefield 1 en 4 servers.",
             "description1": "Je moet minimaal eigenaar zijn van de groep om dit paneel te kunnen bedienen",
             "description2": "Je moet de applicatie van de link hieronder draaien op elke pc die u wilt helpt met seeden",
             "custom": "Zelf invoeren",
@@ -285,6 +285,15 @@
                 "hostname": "Welke hostname wil je koppelen aan de geselecteerde server?",
                 "sethostname": "Hostname",
                 "currentHostname": "'{{ hostname }}' verwijderen van de geselecteerde server?"
+            },
+            "game": {
+                "bf4": "bf4",
+                "bf1": "bf1"
+            },
+            "other": {
+                "main": "Andere servers (seed-only servers)",
+                "add": "Voeg een seed-only server toe",
+                "remove": "Verwijder een seed-only server"
             }
         },
         "servers": {

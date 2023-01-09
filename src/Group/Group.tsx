@@ -43,7 +43,8 @@ import {
   ITailUserLog,
   IUserInfo,
   ISeederInfo,
-  IUserDiscord,
+  ISeeder,
+  ISeederServer,
 } from "../ReturnTypes";
 
 export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
@@ -791,7 +792,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
       },
       onError: (
         error: React.SetStateAction<{ code: number; message: string }>,
-        newTodo,
+        _newTodo,
         context,
       ) => {
         setBanApplyStatus(false);
@@ -807,7 +808,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
         modal.close(null);
       },
       // Always refetch after error or success:
-      onSettled: (data, error, variables, context) => {
+      onSettled: (_data, _error, _variables, context) => {
         queryClient.invalidateQueries(["globalBanList" + context.gid]);
       },
     },
@@ -910,38 +911,72 @@ function SelectableRow(props: {
 }
 
 export function SeederStRow(props: {
-  user: IGroupServer;
+  server: IGroupServer;
   callback: (args0: any) => void;
   selected: boolean;
 }): React.ReactElement {
-  const user = props.user;
+  const server = props.server;
 
   return (
     <SelectableRow callback={props.callback} selected={props.selected}>
-      <div className={styles.DiscordName}>{user.name}</div>
+      <div className={styles.DiscordName}>{server.name}</div>
     </SelectableRow>
   );
 }
 
 export function SeederStCustom(props: {
   callback: (arg0?: any) => void;
-  selected: any;
+  selected: boolean;
+  onClick: (args0: any) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
+  const [textContent, setTextContent] = React.useState("");
 
   return (
     <SelectableRow callback={props.callback} selected={props.selected}>
       <TextInput
         style={{ height: "32px" }}
         name={t("group.seeding.custom")}
-        callback={(e) => props.callback(e)}
+        value={textContent}
+        callback={(e) => {
+          setTextContent(e.target.value);
+          props.callback(textContent);
+        }}
+      />
+      <Button
+        style={{ height: "32px" }}
+        name={t("group.seeding.other.add")}
+        callback={(e) => props.onClick(textContent)}
+        // callback={}
       />
     </SelectableRow>
   );
 } // callback={(e) => setReason(e.target.value)}
 
+export function SeederStCustomRow(props: {
+  server: ISeederServer;
+  callback: (args0: any) => void;
+  selected: boolean;
+  onClick: (args0: any) => void;
+}): React.ReactElement {
+  const { t } = useTranslation();
+  const server = props.server;
+
+  return (
+    <SelectableRow callback={props.callback} selected={props.selected}>
+      <div className={styles.DiscordName}>{server.name}</div>
+      <Button
+        style={{ height: "32px" }}
+        name={t("group.seeding.other.remove")}
+        callback={(e) => props.onClick(server.name)}
+        // callback={}
+      />
+    </SelectableRow>
+  );
+}
+
 export function SeederRow(props: {
-  seeder: any;
+  seeder: ISeeder;
   seedingInfo: ISeederInfo;
 }): React.ReactElement {
   const { t } = useTranslation();
@@ -1358,7 +1393,7 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
       },
       onError: (
         error: React.SetStateAction<{ code: number; message: string }>,
-        newTodo,
+        _newTodo,
         context,
       ) => {
         setExcludeApplyStatus(false);
@@ -1374,7 +1409,7 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
         modal.close(null);
       },
       // Always refetch after error or success:
-      onSettled: (data, error, variables, context) => {
+      onSettled: (_data, _error, _variables, context) => {
         queryClient.invalidateQueries(["globalExclusionList" + context.gid]);
       },
     },
@@ -1586,7 +1621,7 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
     },
     onError: (
       err: React.SetStateAction<{ code: number; message: string }>,
-      newTodo,
+      _newTodo,
       context,
     ) => {
       setReasonApplyStatus(false);
@@ -1602,7 +1637,7 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
       modal.close(null);
     },
     // Always refetch after error or success:
-    onSettled: (data, error, variables, context) => {
+    onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries(["globalReasonList" + context.gid]);
     },
   });

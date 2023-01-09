@@ -260,7 +260,7 @@
         "seeding": {
             "main": "Seed servers",
             "app": "Download the seeding app",
-            "description0": "Seed your battlefield 1 servers.",
+            "description0": "Seed your battlefield 1 and 4 servers.",
             "description1": "You need at least Owner role to access this panel,",
             "description2": "You have to run the application from the link below this message on every pc that you want to have help with seeding",
             "custom": "Custom server",
@@ -309,6 +309,15 @@
                 "hostname": "Which hostname do you want to add to selected server?",
                 "sethostname": "Hostname",
                 "currentHostname": "remove '{{ hostname }}' from the selected server?"
+            },
+            "game": {
+                "bf4": "bf4",
+                "bf1": "bf1"
+            },
+            "other": {
+                "main": "Other servers (seed-only servers)",
+                "add": "Add seed-only server",
+                "remove": "Remove seed-only server"
             }
         },
         "servers": {

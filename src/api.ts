@@ -861,16 +861,22 @@ export class ApiProvider extends JsonClient {
     }
   }
 
-  async getSeeding(gid: string): Promise<ISeederInfo> {
-    return await this.getJsonMethod("getseeder", { groupid: gid });
+  async getSeeding(gid: string, game: string): Promise<ISeederInfo> {
+    return await this.getJsonMethod("getseeder", { groupid: gid, game: game });
   }
 
-  async getSeeders(gid: string): Promise<ISeederList> {
-    return await this.getJsonMethod("seeders", { groupid: gid });
+  async getSeeders(gid: string, game: string): Promise<ISeederList> {
+    return await this.getJsonMethod("seeders", { groupid: gid, game: game });
   }
 
-  async getServerAliases(gid: string): Promise<ISeederServerAliasName> {
-    return await this.getJsonMethod("serveraliasname", { groupid: gid });
+  async getServerAliases(
+    gid: string,
+    game: string,
+  ): Promise<ISeederServerAliasName> {
+    return await this.getJsonMethod("serveraliasname", {
+      groupid: gid,
+      game: game,
+    });
   }
 
   async setSeeding({
@@ -880,6 +886,7 @@ export class ApiProvider extends JsonClient {
     groupId,
     rejoin,
     message,
+    game,
   }: {
     serverName: string;
     serverId: string;
@@ -887,6 +894,7 @@ export class ApiProvider extends JsonClient {
     groupId: string;
     rejoin: boolean;
     message: string;
+    game: string;
   }): Promise<IDefaultMessage> {
     return await this.postJsonMethod("seeder", {
       servername: serverName,
@@ -895,6 +903,39 @@ export class ApiProvider extends JsonClient {
       groupid: groupId,
       rejoin: rejoin,
       message: message,
+      game: game,
+    });
+  }
+
+  async addSeederServer({
+    groupId,
+    game,
+    servername,
+  }: {
+    groupId: string;
+    game: string;
+    servername: string;
+  }): Promise<IDefaultMessage> {
+    return await this.postJsonMethod("addseederserver", {
+      groupid: groupId,
+      servername: servername,
+      game: game,
+    });
+  }
+
+  async delSeederServer({
+    groupId,
+    game,
+    servername,
+  }: {
+    groupId: string;
+    game: string;
+    servername: string;
+  }): Promise<IDefaultMessage> {
+    return await this.postJsonMethod("removeseederserver", {
+      groupid: groupId,
+      servername: servername,
+      game: game,
     });
   }
 

@@ -26,6 +26,7 @@ import {
   EmptyRow,
   SeederRow,
   ServerAliasRow,
+  SeederStCustomRow,
 } from "./Group";
 
 import {
@@ -62,6 +63,7 @@ import {
   ISeederServerAliasName,
   IServerStats,
   IUserInfo,
+  ISeederServer,
 } from "../ReturnTypes";
 
 // unused
@@ -512,6 +514,7 @@ function Seeding(props: {
   const [broadcast, setBroadcast] = React.useState("");
   const [serverAliases, setServerAliases] = React.useState({});
   const [notJoining, setNotJoining] = React.useState("");
+  const [game, setGame] = React.useState("bf1");
 
   const [hour, setHour] = React.useState("7");
   const [minute, setMinute] = React.useState("0");
@@ -524,23 +527,23 @@ function Seeding(props: {
   const {
     data: seedingInfo,
   }: UseQueryResult<ISeederInfo, { code: number; message: string }> = useQuery(
-    ["seeding" + props.gid],
-    () => OperationsApi.getSeeding(props.gid),
+    ["seeding" + props.gid + game],
+    () => OperationsApi.getSeeding(props.gid, game),
     { staleTime: 30000 },
   );
   const {
     data: seeders,
   }: UseQueryResult<ISeederList, { code: number; message: string }> = useQuery(
-    ["seeders" + props.gid],
-    () => OperationsApi.getSeeders(props.gid),
+    ["seeders" + props.gid + game],
+    () => OperationsApi.getSeeders(props.gid, game),
     { staleTime: 30000 },
   );
   const {
     data: serverAliasNames,
   }: UseQueryResult<ISeederServerAliasName, { code: number; message: string }> =
     useQuery(
-      ["serveraliasname" + props.gid],
-      () => OperationsApi.getServerAliases(props.gid),
+      ["serveraliasname" + props.gid + game],
+      () => OperationsApi.getServerAliases(props.gid, game),
       { staleTime: 30000 },
     );
   const queryClient = useQueryClient();
@@ -554,10 +557,17 @@ function Seeding(props: {
   }
 
   let serverList: IGroupServer[];
+  let seederServerList: ISeederServer[];
   if (props.group) {
     serverList = [...props.group.servers];
     serverList.sort((a: { name }, b: { name }) => b.name - a.name);
-    serverList = serverList.filter((a: { game: string }) => a.game === "bf1");
+    serverList = serverList.filter((a: { game: string }) => a.game === game);
+
+    seederServerList = [...props.group.seederServers];
+    seederServerList.sort((a: { name }, b: { name }) => b.name - a.name);
+    seederServerList = seederServerList.filter(
+      (a: { game: string }) => a.game === game,
+    );
   }
 
   React.useEffect(() => {
@@ -576,7 +586,7 @@ function Seeding(props: {
 
         const serverAlias: { [string: string]: { joined: 0; other: 0 } } = {};
         Object.entries(serverAliasNames).map(
-          ([_, value]) => (serverAlias[value] = { joined: 0, other: 0 }),
+          ([, value]) => (serverAlias[value] = { joined: 0, other: 0 }),
         );
         Object.entries(seedingInfo.keepAliveSeeders).map(([key, value]) =>
           seederlist[key]
@@ -593,13 +603,10 @@ function Seeding(props: {
 
   const isSelected = selected !== undefined;
 
-  const changeSelected = (
-    i: number,
-    e: { target: { value: React.SetStateAction<string> } },
-  ) => {
+  const changeSelected = (i: number, e: string) => {
     if (i === 90) {
       if (e) {
-        setCustomServerName(e.target.value);
+        setCustomServerName(e);
       }
       setSelected(i);
     } else {
@@ -611,6 +618,8 @@ function Seeding(props: {
     let server: IGroupServer;
     if (selected === 90) {
       server = { name: customServerName, id: "" };
+    } else if (selected >= 900) {
+      server = { name: seederServerList.at(selected - 900)?.name, id: "" };
     } else {
       server = props.group.servers[selected];
     }
@@ -621,6 +630,7 @@ function Seeding(props: {
       groupId: props.gid,
       rejoin: rejoin,
       message: "",
+      game: game,
     });
     setSelected(undefined);
     let timeout = 300;
@@ -629,6 +639,39 @@ function Seeding(props: {
     }
     setTimeout(() => {
       queryClient.invalidateQueries(["seeding" + props.gid]);
+    }, timeout);
+  };
+
+  const addSeederServer = (servername) => {
+    console.log(servername);
+    OperationsApi.addSeederServer({
+      servername: servername,
+      groupId: props.gid,
+      game: game,
+    });
+    setSelected(undefined);
+    let timeout = 300;
+    if (selected === 90) {
+      timeout = 1000;
+    }
+    setTimeout(() => {
+      queryClient.invalidateQueries(["groupId" + props.gid]);
+    }, timeout);
+  };
+
+  const removeSeederServer = (servername) => {
+    OperationsApi.delSeederServer({
+      servername: servername,
+      groupId: props.gid,
+      game: game,
+    });
+    setSelected(undefined);
+    let timeout = 300;
+    if (selected === 90) {
+      timeout = 1000;
+    }
+    setTimeout(() => {
+      queryClient.invalidateQueries(["groupId" + props.gid]);
     }, timeout);
   };
 
@@ -668,37 +711,8 @@ function Seeding(props: {
         </a>
       </h5>
       {seedingInfo ? (
-        seedingInfo.action === "joinServer" ? (
-          <h5>
-            {t("group.seeding.status.main")}
-            <b>
-              {t("group.seeding.status.seedServer", {
-                serverName: seedingInfo.serverName,
-              })}
-            </b>
-          </h5>
-        ) : seedingInfo.action === "broadcastMessage" ? (
-          <h5>
-            {t("group.seeding.status.main")}
-            <b>
-              {t("group.seeding.status.broadcastMessage", {
-                message: seedingInfo.gameId,
-              })}
-            </b>
-          </h5>
-        ) : (
-          <h5>
-            {t("group.seeding.status.main")}
-            <b>{t(`group.seeding.status.${seedingInfo.action}`)}</b>
-          </h5>
-        )
-      ) : (
-        <></>
-      )}
-
-      {seedingInfo ? (
         seedingInfo.startServer !== null ? (
-          <h5>
+          <h5 style={{ marginBottom: "0px", marginTop: "10px" }}>
             <b>
               {t("group.seeding.scheduled.true", {
                 serverName: seedingInfo.startServer,
@@ -707,7 +721,9 @@ function Seeding(props: {
             </b>
           </h5>
         ) : (
-          <h5>{t("group.seeding.scheduled.false")}</h5>
+          <h5 style={{ marginBottom: "0px", marginTop: "10px" }}>
+            {t("group.seeding.scheduled.false")}
+          </h5>
         )
       ) : (
         <></>
@@ -759,7 +775,46 @@ function Seeding(props: {
           />
         )}
       </ButtonRow>
+      <h2 style={{ marginBottom: "0px", marginTop: "16px" }}>
+        {t("group.seeding.main")}
+      </h2>
+      {seedingInfo ? (
+        seedingInfo.action === "joinServer" ? (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>
+              {t("group.seeding.status.seedServer", {
+                serverName: seedingInfo.serverName,
+              })}
+            </b>
+          </h5>
+        ) : seedingInfo.action === "broadcastMessage" ? (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>
+              {t("group.seeding.status.broadcastMessage", {
+                message: seedingInfo.gameId,
+              })}
+            </b>
+          </h5>
+        ) : (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>{t(`group.seeding.status.${seedingInfo.action}`)}</b>
+          </h5>
+        )
+      ) : (
+        <></>
+      )}
       <ButtonRow>
+        <select
+          className={styles.SwitchGame}
+          value={game}
+          onChange={(e) => setGame(e.target.value)}
+        >
+          <option value="bf1">{t("group.seeding.game.bf1")}</option>
+          <option value="bf4">{t("group.seeding.game.bf4")}</option>
+        </select>
         <select
           className={styles.SwitchGame}
           value={rejoin}
@@ -790,6 +845,7 @@ function Seeding(props: {
                   option={"leaveServer"}
                   callback={modal.close}
                   rejoin={rejoin}
+                  game={game}
                 />,
               )
             }
@@ -812,6 +868,7 @@ function Seeding(props: {
                   option={"shutdownPC"}
                   callback={modal.close}
                   rejoin={rejoin}
+                  game={game}
                 />,
               )
             }
@@ -827,16 +884,29 @@ function Seeding(props: {
       {props.group
         ? serverList.map((server: IGroupServer, i: number) => (
             <SeederStRow
-              user={server}
+              server={server}
               selected={selected === i}
               callback={() => changeSelected(i, undefined)}
               key={server.id || i}
             />
           ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
+      <h2 style={{ marginTop: "6px" }}>{t("group.seeding.other.main")}</h2>
+      {props.group
+        ? seederServerList.map((server: ISeederServer, i: number) => (
+            <SeederStCustomRow
+              server={server}
+              selected={selected === i + 900}
+              onClick={removeSeederServer}
+              callback={() => changeSelected(i + 900, server.name)}
+              key={i + 900}
+            />
+          ))
+        : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <SeederStCustom
         selected={selected === 90}
         callback={(e) => changeSelected(90, e)}
+        onClick={addSeederServer}
         key={90}
       />
       <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>
@@ -858,6 +928,7 @@ function Seeding(props: {
                   message={broadcast}
                   callback={modal.close}
                   rejoin={rejoin}
+                  game={game}
                 />,
               )
             }
@@ -2543,12 +2614,13 @@ export function LeaveServer(props: {
   textItem: string;
   option: string;
   rejoin: boolean;
+  game: string;
   callback: (args0: any) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const AddGroupAdminExecute = useMutation(
+  const LeaveServerExecure = useMutation(
     (variables: {
       serverName: string;
       serverId: string;
@@ -2556,6 +2628,7 @@ export function LeaveServer(props: {
       groupId: string;
       rejoin: boolean;
       message: string;
+      game: string;
     }) => OperationsApi.setSeeding(variables),
     {
       onSettled: () => {
@@ -2576,13 +2649,14 @@ export function LeaveServer(props: {
         <Button
           name={t(`group.seeding.popup.confirm`)}
           callback={() => {
-            AddGroupAdminExecute.mutate({
+            LeaveServerExecure.mutate({
               serverName: "",
               serverId: "0",
               action: props.option,
               groupId: props.gid,
               rejoin: props.rejoin,
               message: "",
+              game: props.game,
             });
             props.callback(null);
           }}
@@ -2640,6 +2714,7 @@ export function SeederBroadcast(props: {
   gid: string;
   message: string;
   rejoin: boolean;
+  game: string;
   callback: (args0: any) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
@@ -2653,6 +2728,7 @@ export function SeederBroadcast(props: {
       groupId: string;
       rejoin: boolean;
       message: string;
+      game: string;
     }) => OperationsApi.setSeeding(variables),
     {
       onSettled: () => {
@@ -2678,6 +2754,7 @@ export function SeederBroadcast(props: {
               groupId: props.gid,
               rejoin: props.rejoin,
               message: props.message,
+              game: props.game,
             });
             props.callback(null);
           }}

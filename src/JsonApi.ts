@@ -1,6 +1,6 @@
 import { IUserInfo } from "./ReturnTypes";
 
-const MODE = "prod";
+const MODE = "local";
 
 const endPoints = {
   local: "https://localhost:5051/api/",
