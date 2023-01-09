@@ -46,9 +46,9 @@ export interface IGroupInfo {
   cookieLocale: string;
   cookies: IGroupCookie[];
   defaultCookie: string;
-  discordAdminRoleId: number;
-  discordGroupId: number;
-  discordModRoleId: number;
+  discordAdminRoleId: string;
+  discordGroupId: string;
+  discordModRoleId: string;
   groupName: string;
   id: string;
   inWorker: boolean;

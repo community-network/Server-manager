@@ -1166,9 +1166,9 @@ function GroupDiscordSettings(props: {
 
   const queryClient = useQueryClient();
 
-  const [adminId, setAdminId] = React.useState(0);
-  const [modId, setModId] = React.useState(0);
-  const [serverId, setServerId] = React.useState(0);
+  const [adminId, setAdminId] = React.useState("");
+  const [modId, setModId] = React.useState("");
+  const [serverId, setServerId] = React.useState("");
   const [applyStatus, setApplyStatus] = React.useState(null);
   const { t } = useTranslation();
 
