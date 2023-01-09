@@ -588,12 +588,13 @@ function Seeding(props: {
         Object.entries(serverAliasNames).map(
           ([, value]) => (serverAlias[value] = { joined: 0, other: 0 }),
         );
-        Object.entries(seedingInfo.keepAliveSeeders).map(([key, value]) =>
-          seederlist[key]
-            ? (serverAlias[value.serverName].joined += 1)
-            : ((serverAlias[value.serverName].other += 1),
-              (playerNotJoining += `${key}, `)),
-        );
+        Object.entries(seedingInfo.keepAliveSeeders).map(([key, value]) => {
+          const server = serverAlias[value?.serverName];
+          if (server)
+            seederlist[key]
+              ? (server.joined += 1)
+              : ((server.other += 1), (playerNotJoining += `${key}, `));
+        });
 
         setNotJoining(playerNotJoining);
         setServerAliases(serverAlias);
