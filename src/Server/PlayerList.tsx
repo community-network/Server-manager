@@ -453,7 +453,7 @@ function PlayerButtons(props: {
  */
 function PlayerButton(props: {
   children: React.ReactElement | React.ReactElement[] | string;
-  onClick: (args0: any) => any;
+  onClick: (args0: any) => void;
 }): React.ReactElement {
   const { children, onClick } = props;
   return (

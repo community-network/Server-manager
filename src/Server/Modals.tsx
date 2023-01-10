@@ -22,17 +22,12 @@ import "../locales/config";
 import { useUser } from "./Manager";
 
 import styles from "./Styles.module.css";
-import {
-  IInGameServerInfo,
-  IServerPlayer,
-  IStartsReturn,
-  IUserServer,
-} from "../ReturnTypes";
+import { IInGameServerInfo, IStartsReturn, IUserServer } from "../ReturnTypes";
 
 export function ServerKickPlayer(props: {
-  eaid: any;
-  playerId?: any;
-  userId?: any;
+  eaid: string;
+  playerId?: string | number;
+  userId?: number;
   sid: string;
 }): React.ReactElement {
   const { sid, eaid } = props;

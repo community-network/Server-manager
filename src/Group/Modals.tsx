@@ -183,7 +183,7 @@ export function AddAccountModal(props: {
   group: IGroupInfo;
   gid: string;
   user: IUserInfo;
-  callback: (args0: any) => any;
+  callback: (args0: any) => void;
 }) {
   const { group, gid, user, callback } = props;
   let allowedTo = false;
@@ -291,9 +291,9 @@ export function AddAccountModal(props: {
 }
 
 export function GroupGlobalUnbanPlayer(props: {
-  eaid: any;
-  gid?: any;
-  playerId?: any;
+  eaid: string;
+  gid?: string;
+  playerId?: string;
 }): React.ReactElement {
   const { gid, eaid, playerId } = props;
 
@@ -530,9 +530,9 @@ export function GroupRemoveAccount(props: {
 }
 
 export function GroupRemoveExclusionPlayer(props: {
-  eaid: any;
-  gid?: any;
-  playerId?: any;
+  eaid: string;
+  gid?: string;
+  playerId?: string;
 }): React.ReactElement {
   const { gid, eaid, playerId } = props;
 
@@ -667,9 +667,9 @@ export function GroupRemoveExclusionPlayer(props: {
 }
 
 export function GroupRemoveReason(props: {
-  eaid?: any;
-  gid?: any;
-  reasonId?: any;
+  eaid?: string;
+  gid?: string;
+  reasonId?: string;
 }): React.ReactElement {
   const { gid, reasonId } = props;
 

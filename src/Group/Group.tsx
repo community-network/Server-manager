@@ -94,13 +94,10 @@ export function WorkerStatus(props: {
 export function ServerRow(props: {
   server: IGroupServer;
   button?:
-    | string
-    | number
+    | React.ReactElement
     | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
     | React.ReactFragment
-    | React.ReactPortal
-    | Iterable<React.ReactNode>;
+    | React.ReactPortal;
 }): React.ReactElement {
   const server = props.server;
   const { t } = useTranslation();
@@ -1267,7 +1264,7 @@ export function ExclusionList(props: {
 
 function ExclusionListRow(props: {
   player: IGlobalGroupPlayerInfo;
-  callback: (args0: any) => any;
+  callback: (args0: any) => void;
 }): React.ReactElement {
   const modal = useModal();
   const { player } = props;
@@ -1557,7 +1554,7 @@ export function ReasonList(props: {
 
 function ReasonListRow(props: {
   reason: IReason;
-  callback: (args0: any) => any;
+  callback: (args0: any) => void;
 }): React.ReactElement {
   const reason = props.reason;
   const { t } = useTranslation();

@@ -30,7 +30,7 @@ export function UserRow(props: { discord: IUserDiscord }): React.ReactElement {
 // https://date-fns.org/v2.22.1/docs/format
 export function UserStRow(props: {
   user: IGroupUser;
-  callback: (arg0?: unknown) => void;
+  callback: (arg0?: any) => void;
 }): React.ReactElement {
   const user = props.user;
   const { t } = useTranslation();

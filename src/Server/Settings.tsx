@@ -116,7 +116,11 @@ export function IngameSettings(props: {
     setCanApply(newCanApply);
   }, [maps, originalMaps]);
 
-  function moveArrayElement(list: any[], item: any, offset: number) {
+  function moveArrayElement(
+    list: IServerRotation[],
+    item: IServerRotation,
+    offset: number,
+  ) {
     const index = list.indexOf(item);
     const newIndex = index + offset;
 

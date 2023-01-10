@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { Button, ButtonRow } from "../components";
 
 import styles from "./Group.module.css";
-import { IServerStat, IServerStats } from "../ReturnTypes";
+import { IServerStat } from "../ReturnTypes";
 
 ChartJS.register(
   zoomPlugin,

@@ -333,7 +333,7 @@ function GroupAdmins(props: {
 
   const isSelected = selected.length > 0;
 
-  const changeSelected = (v: any, id: any) => {
+  const changeSelected = (v: string, id: number) => {
     setSelected((b) => (!v ? b.filter((item) => item !== id) : [...b, id]));
   };
 
@@ -1005,7 +1005,7 @@ function GroupOwners(props: {
 
   const fakeListing = [1, 1, 1];
 
-  let ownerList: any[];
+  let ownerList: IGroupUser[];
   if (groupUsers) {
     ownerList = [...groupUsers.data[0].owners];
     ownerList.sort(
@@ -1016,7 +1016,7 @@ function GroupOwners(props: {
 
   const isSelected = selected.length > 0;
 
-  const changeSelected = (v: any, id: any) => {
+  const changeSelected = (v: string, id: number) => {
     setSelected((b) => (!v ? b.filter((item) => item !== id) : [...b, id]));
   };
 
@@ -2328,33 +2328,15 @@ export function AddGroupServer(): React.ReactElement {
                     onChange={(e) => setCookieId(e.target.value)}
                   >
                     <option value="">{t("cookie.accountType.default")}</option>
-                    {group.cookies.map(
-                      (
-                        key: {
-                          id: string | number | readonly string[];
-                          username:
-                            | string
-                            | number
-                            | boolean
-                            | React.ReactFragment
-                            | React.ReactPortal
-                            | React.ReactElement<
-                                any,
-                                string | React.JSXElementConstructor<any>
-                              >
-                            | Iterable<React.ReactNode>;
-                        },
-                        index: React.Key,
-                      ) => (
-                        <option
-                          key={index}
-                          selected={cookieId === key.id}
-                          value={key.id}
-                        >
-                          {key.username}
-                        </option>
-                      ),
-                    )}
+                    {group.cookies.map((key: IGroupCookie, index: number) => (
+                      <option
+                        key={index}
+                        selected={cookieId === key.id}
+                        value={key.id}
+                      >
+                        {key.username}
+                      </option>
+                    ))}
                     <option value="add">{t("cookie.accountType.add")}</option>
                   </select>
                 ) : (
