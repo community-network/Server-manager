@@ -639,7 +639,7 @@ function Seeding(props: {
       timeout = 1000;
     }
     setTimeout(() => {
-      queryClient.invalidateQueries(["seeding" + props.gid]);
+      queryClient.invalidateQueries(["seeding" + props.gid + game]);
     }, timeout);
   };
 
@@ -651,13 +651,9 @@ function Seeding(props: {
       game: game,
     });
     setSelected(undefined);
-    let timeout = 300;
-    if (selected === 90) {
-      timeout = 1000;
-    }
     setTimeout(() => {
       queryClient.invalidateQueries(["groupId" + props.gid]);
-    }, timeout);
+    }, 150);
   };
 
   const removeSeederServer = (servername) => {
@@ -667,13 +663,9 @@ function Seeding(props: {
       game: game,
     });
     setSelected(undefined);
-    let timeout = 300;
-    if (selected === 90) {
-      timeout = 1000;
-    }
     setTimeout(() => {
       queryClient.invalidateQueries(["groupId" + props.gid]);
-    }, timeout);
+    }, 150);
   };
 
   const scheduleSeed = () => {
