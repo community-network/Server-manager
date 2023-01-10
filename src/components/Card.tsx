@@ -21,8 +21,8 @@ export function CardRow(props: IDefaultInterface): React.ReactElement {
 
 export function PageCard(props: {
   buttons?: (
-    | { name: string; callback: (args0?: any) => void }
-    | { name: React.ReactElement; callback: (args0?: any) => void }
+    | { name: string; callback: (args0?: string) => void }
+    | { name: React.ReactElement; callback: (args0?: string) => void }
   )[];
   maxWidth?: number;
   activeButton?: number;

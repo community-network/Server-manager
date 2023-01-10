@@ -300,7 +300,7 @@ export function Group(): React.ReactElement {
 function GroupAdmins(props: {
   group: IGroupInfo;
   user: IUserInfo;
-  onDelete: { mutate: (arg0?: any) => void };
+  onDelete: { mutate: (arg0?: { gid: string; uid: string }) => void };
   gid: string;
 }): React.ReactElement {
   const {
@@ -984,7 +984,7 @@ function Seeding(props: {
 function GroupOwners(props: {
   group: IGroupInfo;
   user: IUserInfo;
-  onDelete: { mutate: (arg0?: any) => void };
+  onDelete: { mutate: (arg0?: { gid: string; uid: string }) => void };
   gid: string;
 }): React.ReactElement {
   const modal = useModal();
@@ -2590,7 +2590,7 @@ export function LeaveServer(props: {
   option: string;
   rejoin: boolean;
   game: string;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -2690,7 +2690,7 @@ export function SeederBroadcast(props: {
   message: string;
   rejoin: boolean;
   game: string;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -2741,7 +2741,7 @@ export function SeederBroadcast(props: {
 
 export function UnscheduleSeed(props: {
   gid: string;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const queryClient = useQueryClient();

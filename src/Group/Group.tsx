@@ -887,7 +887,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
 
 function SelectableRow(props: {
   selected: boolean;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
   children?:
     | React.ReactElement
     | boolean
@@ -899,7 +899,7 @@ function SelectableRow(props: {
       className={
         props.selected ? styles.selectableRowSelected : styles.selectableRow
       }
-      onClick={() => props.callback(null)}
+      onClick={() => props.callback()}
     >
       {props.selected ? <IconSelected /> : <IconNotSelected />}
       {props.children}
@@ -909,7 +909,7 @@ function SelectableRow(props: {
 
 export function SeederStRow(props: {
   server: IGroupServer;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
   selected: boolean;
 }): React.ReactElement {
   const server = props.server;
@@ -922,9 +922,9 @@ export function SeederStRow(props: {
 }
 
 export function SeederStCustom(props: {
-  callback: (arg0?: any) => void;
+  callback: (arg0?: string) => void;
   selected: boolean;
-  onClick: (args0: any) => void;
+  onClick: (args0?: string) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const [textContent, setTextContent] = React.useState("");
@@ -943,7 +943,7 @@ export function SeederStCustom(props: {
       <Button
         style={{ height: "32px" }}
         name={t("group.seeding.other.add")}
-        callback={(e) => props.onClick(textContent)}
+        callback={() => props.onClick(textContent)}
         // callback={}
       />
     </SelectableRow>
@@ -952,9 +952,9 @@ export function SeederStCustom(props: {
 
 export function SeederStCustomRow(props: {
   server: ISeederServer;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
   selected: boolean;
-  onClick: (args0: any) => void;
+  onClick: (args0?: string) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const server = props.server;
@@ -965,7 +965,7 @@ export function SeederStCustomRow(props: {
       <Button
         style={{ height: "32px" }}
         name={t("group.seeding.other.remove")}
-        callback={(e) => props.onClick(server.name)}
+        callback={() => props.onClick(server.name)}
         // callback={}
       />
     </SelectableRow>
@@ -1046,7 +1046,12 @@ export function KeepAliveRow(props: {
 export function ServerAliasRow(props: {
   servername: string;
   serverId: string;
-  serveraliasinfo: { [x: string]: any };
+  serveraliasinfo: {
+    [string: string]: {
+      joined: number;
+      other: number;
+    };
+  };
 }): React.ReactElement {
   const serveralias = props.servername;
   const serverId = props.serverId;
@@ -1080,7 +1085,7 @@ export function DelKeepAlive(props: {
   gid: string;
   hostname: string;
   sid: string;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
 }): React.ReactElement {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -1264,7 +1269,7 @@ export function ExclusionList(props: {
 
 function ExclusionListRow(props: {
   player: IGlobalGroupPlayerInfo;
-  callback: (args0: any) => void;
+  callback: (args0?: any) => void;
 }): React.ReactElement {
   const modal = useModal();
   const { player } = props;
@@ -1554,7 +1559,7 @@ export function ReasonList(props: {
 
 function ReasonListRow(props: {
   reason: IReason;
-  callback: (args0: any) => void;
+  callback: (args0?: any) => void;
 }): React.ReactElement {
   const reason = props.reason;
   const { t } = useTranslation();

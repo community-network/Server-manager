@@ -252,7 +252,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
           <Button
             name={t("apply")}
             disabled={applyStatus !== null}
-            callback={(_) => editGroupSettings.mutate(groupState)}
+            callback={() => editGroupSettings.mutate(groupState)}
             status={applyStatus}
           />
           <h5
@@ -291,7 +291,7 @@ export function Manager() {
       .filter((p: { groupName: string }) =>
         p.groupName.toLowerCase().includes(searchWord.toLowerCase()),
       )
-      .forEach((g: any, i: any) => {
+      .forEach((g: IManGroup, i: number) => {
         groups.push(<GroupRow key={i} group={g} />);
       });
   } else if (isError) {

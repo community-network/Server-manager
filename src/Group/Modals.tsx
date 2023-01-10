@@ -29,7 +29,7 @@ export function ChangeAccountModal(props: {
   gid: string;
   cookie: IGroupCookie;
   user: IUserInfo;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
 }) {
   const { group, gid, cookie, user, callback } = props;
   let allowedTo = false;
@@ -183,7 +183,7 @@ export function AddAccountModal(props: {
   group: IGroupInfo;
   gid: string;
   user: IUserInfo;
-  callback: (args0: any) => void;
+  callback: (args0?: string) => void;
 }) {
   const { group, gid, user, callback } = props;
   let allowedTo = false;

@@ -15,7 +15,7 @@ export function Button(props: {
   width?: number;
   value?: string;
   disabled?: boolean;
-  callback?: { (args0: any): any };
+  callback?: { (): void };
   name?: string;
   content?: React.ReactElement | React.ReactElement[] | string;
   status?: string;
@@ -150,7 +150,7 @@ export function TextInput(props: {
 export function SmallButton(props: {
   disabled?: boolean;
   id?: number;
-  callback: (arg0?: any) => void;
+  callback: (arg0?: void) => void;
   vars?: any;
   name?: string;
   content?: React.ReactElement | React.ReactElement[] | string;
@@ -224,7 +224,7 @@ export function PlayerDropdownButton(props: {
 }): React.ReactElement {
   const [open, setOpen] = React.useState(false);
 
-  const container: React.MutableRefObject<any> = React.useRef();
+  const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
 
   React.useEffect(() => {
     const handleClickOutside = (event: { target: any }) => {
@@ -276,7 +276,7 @@ export function PlayerDropdownButton(props: {
 
 export function ShowDropDown(props: { options: any[] }): React.ReactElement {
   const [open, setOpen] = React.useState(true);
-  const container: React.MutableRefObject<any> = React.useRef();
+  const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
   React.useEffect(() => {
     const handleClickOutside = (event: { target: any }) => {
       if (container.current && !container.current.contains(event.target)) {
@@ -299,7 +299,7 @@ export function ShowDropDown(props: { options: any[] }): React.ReactElement {
           <ul className={styles.ul}>
             {props.options.map(
               (
-                option: { callback: (arg0?: any) => void; name: string },
+                option: { callback: (arg0?: string) => void; name: string },
                 index: number,
               ) => (
                 <li
@@ -327,7 +327,7 @@ export function ChoosePageButtons(props: {
   maxWidth: number;
   buttons: {
     name: string | React.ReactElement;
-    callback: (arg0?: any) => void;
+    callback: (arg0?: string) => void;
     content?: React.ReactElement;
   }[];
 }): React.ReactElement {
@@ -336,7 +336,7 @@ export function ChoosePageButtons(props: {
   const maxWidth = props.maxWidth || 1320;
 
   const [open, setOpen] = React.useState(false);
-  const container: React.MutableRefObject<any> = React.useRef();
+  const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
 
   React.useEffect(() => {
     const handleClickOutside = (event: { target: any }) => {
@@ -479,7 +479,7 @@ export function ReasonDropdownButton(props: {
   gid?: string;
   sid?: string;
   name: string;
-  callback: (arg0?: any) => void;
+  callback: (arg0?: string) => void;
   style: React.CSSProperties;
 }): React.ReactElement {
   const [open, setOpen] = React.useState(false);
@@ -495,7 +495,7 @@ export function ReasonDropdownButton(props: {
       options.push(element.item);
     });
   }
-  const container: React.MutableRefObject<any> = React.useRef();
+  const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
 
   React.useEffect(() => {
     const handleClickOutside = (event: { target: any }) => {

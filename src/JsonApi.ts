@@ -43,11 +43,14 @@ export default class JsonClient {
   }
   async postMethod(
     method: string,
-    params: { [name: string]: any },
+    params: { [name: string]: unknown },
   ): Promise<Response> {
     return fetch(this.constructApiUrl(method, {}), params);
   }
-  postJsonMethod(method: string, params: any): Promise<any> {
+  postJsonMethod(
+    method: string,
+    params: { [name: string]: unknown },
+  ): Promise<any> {
     const options = {
       method: "POST",
       body: JSON.stringify(params),

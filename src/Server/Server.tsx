@@ -929,7 +929,7 @@ export function Playerlogs(props: { sid: string }): React.ReactElement {
 function PlayerLogInfo(props: {
   data: IPlayerLog;
   isError: boolean;
-  setDate: (arg0?: any) => void;
+  setDate: (arg0?: React.SetStateAction<string> | number) => void;
   sid: string;
   date: string;
   error: { code: number; message: string };
