@@ -272,7 +272,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
   );
 }
 
-export function Manager() {
+export default function Manager() {
   const { t } = useTranslation();
   const [searchWord, setSearchWord] = React.useState("");
   const {

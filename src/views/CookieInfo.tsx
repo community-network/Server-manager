@@ -3,7 +3,7 @@ import { Column, Card, Header, Row, ButtonUrl } from "../components";
 import "../locales/config";
 import { useTranslation } from "react-i18next";
 
-export function CookieInfo() {
+export default function CookieInfo() {
   const { t } = useTranslation();
   const getLanguage = () => window.localStorage.i18nextLng;
 

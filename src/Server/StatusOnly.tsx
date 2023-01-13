@@ -13,7 +13,7 @@ import { useServer } from "./Manager";
 /**
  * Server page
  */
-export function StatusOnlyServer(): React.ReactElement {
+export default function StatusOnlyServer(): React.ReactElement {
   const params = useParams();
   const { sid } = params;
 

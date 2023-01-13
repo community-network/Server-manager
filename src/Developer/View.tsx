@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { GroupRow } from "../Group/Group";
 import { IDevGroups } from "../ReturnTypes";
 
-export function Developer() {
+export default function Developer() {
   const { t } = useTranslation();
   const [searchWord, setSearchWord] = React.useState("");
   const {
