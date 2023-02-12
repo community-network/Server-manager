@@ -35,7 +35,8 @@
         "WAR PIGEONS": "War pigeons",
         "OPERATIONS": "Operations",
         "TEAM DEATHMATCH": "Team deathmatch",
-        "BREAKTHROUGH": "Breakthrough"
+        "BREAKTHROUGH": "Breakthrough",
+        "CUSTOM": "Aangepast"
     },
     "maps": {
         "Amiens" : "Amiens",
@@ -94,12 +95,33 @@
         "Wake Island": "Wake Island"
     },
     "cookie": {
+        "check": "Selecteer een spel dat de cookie ondersteund om na te gaan of de cookie geldig is.",
+        "add": "Server account toevoegen",
+        "setDefaultCookie": "Stel in als standaard",
         "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
         "remid": "REMID cookie",
         "sidDescription": "Session cookies kunnen gevonden worden onder ",
         "remidDescription": "Reminder session cookies kunnen gevonden worden onder ",
         "sid": "SID cookie",
-        "locale": "Taaltag"
+        "locale": "Taaltag",
+        "delete": "Verwijder serveraccount",
+        "status": {
+            "loading": "Accountstatus bijwerken…",
+            "pending": "Dit account heeft het status \"in behandeling\""
+        },
+        "accountType": {
+            "add": "Nieuw cookie toevoegen",
+            "default": "Standaard account",
+            "extra": "Extra account"
+        },
+        "removeMenu": {
+            "main": "Weet u zeker dat u service account \"{{name}}\" wilt verwijderen?",
+            "confirm": "Account verwijderen"
+        },
+        "supportedGames": {
+            "main": "Spellen van account",
+            "update": "Spellijst bijwerken"
+        }
     },
     "serverStatus": {
         "pending": "in behandeling",
@@ -205,7 +227,8 @@
         },
         "settings": {
             "main": "Instellingen",
-            "makeOperations": "Operations optie aanzetten voor groep"
+            "makeOperations": "Operations optie aanzetten voor groep",
+            "seedServers": "Seeding bots activeren"
         }
     },
     "createGroup": {
@@ -236,6 +259,7 @@
         },
         "seeding": {
             "main": "Seed servers",
+            "app": "Download de seeding app",
             "description0": "Seed uw battlefield 1 en 4 servers.",
             "description1": "Je moet minimaal eigenaar zijn van de groep om dit paneel te kunnen bedienen",
             "description2": "Je moet de applicatie van de link hieronder draaien op elke pc die u wilt helpt met seeden",
@@ -300,6 +324,7 @@
             "main": "Servers",
             "description0": "Serverinstanties toegevoegd aan huidige groep.",
             "description1": "U moet minstens eigenaarsrol hebben voordat u servers kunt toeveogen.",
+            "alias": "Alias: {{alias}}",
             "add": "Server toevoegen"
         },
         "owners": {
@@ -317,15 +342,42 @@
             "main": "V-Ban lijst",
             "description0": "Lijst van verbannen spelers in deze groep.",
             "description1": "{{number}} sloten gebruikt",
-            "reason": "",
             "noReason": "met reden",
+            "add": "Ban toevoegen",
             "unban": "Unban",
             "table": {
                 "playerName": "Spelernaam",
                 "playerId": "Speler ID",
                 "reason": "Reden",
                 "admin": "Admin",
-                "timestamp": "Tijdstempel"
+                "timestamp": "Tijdstempel",
+                "bannedUntil": "Tot"
+            }
+        },
+        "exclusions": {
+            "main": "Uitsluitingen",
+            "description0": "Lijst met spelers die zijn uitgesloten van autokick (ping en bfban).",
+            "description1": "{{number}} sloten gebruikt",
+            "noReason": "met reden",
+            "add": "Uitsluiting toevoegen",
+            "remove": "Uitsluiting toevoegen",
+            "table": {
+                "playerName": "Spelernaam",
+                "playerId": "Speler ID",
+                "reason": "Reden",
+                "admin": "Admin",
+                "timestamp": "Tijdstempel",
+                "bannedUntil": "Tot"
+            }
+        },
+        "reasonList": {
+            "main": "Vooraf gedefinieerde redenen",
+            "description0": "Stel een vooraf gedefinieerde lijst met redenen in, zodat u die kan selecteren wanneer u een speler probeert te kicken, bannen of vbannen.",
+            "noReason": "Reden die toegevoegd moet worden",
+            "add": "Reden toevoegen",
+            "remove": "Reden verwijderen",
+            "table": {
+                "reason": "Reden"
             }
         },
         "logs": {
@@ -459,19 +511,29 @@
             "addVip": "Maak vip",
             "removeVip": "Verwijder uit vip"
         },
+        "ingameSettings": {
+            "main": "In-game instellingen",
+            "rotation": "Verander server maprotatie",
+            "addMap": "Andere map toevoegen",
+            "removeMap": "Verwijderen",
+            "cookie": "Cookie die gebruikt moet worden om server veranderingen aan te brengen, cookies binnen de manager of manueel sid/remid kiezen zijn mogelijk:"
+        },
         "game": {
             "main": "Huidige spel",
             "info": "[{{inQue}}] spelers",
             "restart": "Herstarten",
             "mapSwitch": "Verander map..",
-            "playerlistUpdate": "Laatste update"
+            "startServer": "Server starten",
+            "playerlistUpdate": "Laatste update",
+            "bfvPlaygroundSelect": "Config selecteren",
+            "serverRegionSelect": "Regio selecteren"
         },
         "banList": {
             "main": "Banlijst",
             "description0": "Lijst van verbannen spelers in deze server.",
-            "description1": "",
+            "description1": "Gebruikte",
             "description2": "{{number}} sloten gebruikt van de 200",
-            "description3": "",
+            "description3": "Gebruik onze per-groep virtuele banlijst,",
             "description4": "Gebruik onze groep-gebaseerde V-Ban lijst om te bannen zonder limiet.",
             "table": {
                 "playerName": "Spelernaam",
@@ -485,7 +547,7 @@
         "vipList": {
             "main": "VIP spelers",
             "description0": "Lijst van VIP spelers op de server.",
-            "description1": "",
+            "description1": "Gebruikte",
             "description2": "{{number}} sloten gebruikt van de 50",
             "table": {
                 "playerName": "Spelernaam",
@@ -495,7 +557,7 @@
         "adminList": {
             "main": "Server admins",
             "description0": "Lijst van server admins op de server.",
-            "description1": "",
+            "description1": "Gebruikte",
             "description2": "{{number}} sloten gebruikt van de 50",
             "table": {
                 "playerName": "Spelernaam",
@@ -519,7 +581,7 @@
             "table": {
                 "playerName": "Spelernaam",
                 "playerId": "Speler ID",
-                "amount": "Tijdsbesteding op de server"
+                "timePlayed": "Tijd gespendeerd op de server"
             }
         },
         "spectatorList": {
@@ -570,10 +632,10 @@
         "protection": {
             "main": "Server protectie",
             "title": "Automatische serverprotectie",
-            "vBanDescription0": "",
+            "vBanDescription0": "Maak kennis met nieuwe tools die zijn ontwikkeld om uw servers te beschermen tegen hackers.",
             "vBanDescription1": "Globale virtuele banlijst kickt spelers automatisch op ",
             "vBanDescription2": "alle servers in de groep",
-            "vBanDescription3": "",
+            "vBanDescription3": "Leveren",
             "vBanDescription4": "Dit geeft een oneindig aantal bans en gesychroniseerde banlijst.",
             "vBanEnable": "globale V-Ban aanzetten",
             "vbanReasonDesc0": "Dit bericht is zichtbaar voor de gebruikers",
@@ -588,7 +650,11 @@
             "pingKickMsg": "Ping-kick bericht",
             "pingKickMinDesc": "Minimaal aantal spelers voordat autokick werkt (0 om altijd te laten werken)",
             "pingKickMin": "Minimale ping voordat de speler gekickt word",
-            "minAutoPingKick": "Minimaal aantal spelers voordat het begint met kicken"
+            "minAutoPingKick": "Minimaal aantal spelers voordat het begint met kicken",
+            "KickRankDesc": "Kick een speler gebaseerd op zijn rank in het spel",
+            "rankKickReason": "Rank niet binnen eisen",
+            "kickLowRank": "Kick als rank lager is dan:",
+            "kickHighRank": "Kick als rank hoger is dan:"
         },
         "settings": {
             "main": "instellingen",
@@ -698,6 +764,16 @@
             "reason": "Redem",
             "confirm": "Ban!"
         },
+        "removeExclusionsMenu": {
+            "main": "U gaat {{name}} verwijderen van exclusie lijst",
+            "reasonDescription": "Vul een reden in waarom deze speler verwijderd moet worden van de lijst met uitgesloten spelers voor autokick (ping en bfban).",
+            "reason": "Reden",
+            "confirm": "Verwijderen"
+        },
+        "removeReasonMenu": {
+            "main": "Weet U het zeker?",
+            "confirm": "Verwijderen"
+        },
         "unvipMenu": {
             "main": "U gaat {{name}} uit vip halen",
             "reasonDescription": "Geef een reden om deze speler uit vip te halen.",
@@ -710,6 +786,22 @@
             "reasonDescription": "Vul een reden om deze speler toe te voegen.",
             "reason": "Redem",
             "confirm": "Ban!"
+        },
+        "exclusionsMenu": {
+            "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan de lijst met uitgesloten spelers",
+            "playerName": "gebruikersnaam",
+            "reasonDescription": "Vul een reden in waarom deze speler uitgesloten moet zijn van autokick (ping en bfban).",
+            "reason": "Reden",
+            "excludeDesc0": "Als je hem tijdelijk wilt uitsluiten, geef dan tijd in",
+            "excludeDesc1": "uren hieronder, of laat het op 0 staan om hem permanent uit te sluiten.",
+            "excludeAmount": "Uitsluit tijd",
+            "confirm": "Toevoegen"
+        },
+        "reasonMenu": {
+            "reasonDescription": "Voeg een vooraf gedefinieerde reden toe",
+            "reason": "Reden",
+            "select": "Selecteren",
+            "confirm": "Toevoegen"
         },
         "danger": {
             "main": "Gevaarlijke zone",
@@ -760,5 +852,11 @@
     },
     "ApiInfo": {
         "link": "Klik hier voor een lijst met alle beschikbare aanvragen naar de API"
+    },
+    "imageAlts": {
+        "main": "Logo van manager",
+        "gamestats": "Gamestats logo",
+        "userAvatar": "Gebruikers' avatar",
+        "tutorial": "Visuele hulp"
     }
 }
