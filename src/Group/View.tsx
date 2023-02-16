@@ -563,11 +563,13 @@ function Seeding(props: {
     serverList.sort((a: { name }, b: { name }) => b.name - a.name);
     serverList = serverList.filter((a: { game: string }) => a.game === game);
 
-    seederServerList = [...props.group.seederServers];
-    seederServerList.sort((a: { name }, b: { name }) => b.name - a.name);
-    seederServerList = seederServerList.filter(
-      (a: { game: string }) => a.game === game,
-    );
+    if (props.group.seederServers != undefined) {
+      seederServerList = [...props.group.seederServers];
+      seederServerList.sort((a: { name }, b: { name }) => b.name - a.name);
+      seederServerList = seederServerList.filter(
+        (a: { game: string }) => a.game === game,
+      );
+    }
   }
 
   React.useEffect(() => {

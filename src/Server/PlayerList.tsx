@@ -11,8 +11,13 @@ import styles from "./PlayerList.module.css";
 import { bf1Factions, bfvFactions, IFactions } from "./Factions";
 
 import { ServerKickPlayer, ServerBanPlayer, PlayerStatsModal } from "./Modals";
-import { useMovePlayer } from "./Manager";
-import { IInGameServerInfo, IServerInfo, IServerPlayer } from "../ReturnTypes";
+import { useMovePlayer, useSeeder } from "./Manager";
+import {
+  IInGameServerInfo,
+  ISeederServerPlayer,
+  IServerInfo,
+  IServerPlayer,
+} from "../ReturnTypes";
 
 export function PlayerList(props: {
   game: IInGameServerInfo;
@@ -37,6 +42,21 @@ export function PlayerList(props: {
     teams &&
     !("error" in teams[0]) &&
     (teams[0].players !== undefined || teams[1].players !== undefined);
+
+  const gameId = havePlayers ? game.data[0].ingameServerId : null;
+  const { data: seederInfo } = useSeeder(parseInt(gameId));
+  const haveSeederPlayers =
+    seederInfo && seederInfo.teams && seederInfo.teams.length > 0;
+  let seederPlayers: Map<number, ISeederServerPlayer> = new Map<
+    number,
+    ISeederServerPlayer
+  >();
+  if (haveSeederPlayers) {
+    seederPlayers = new Map<number, ISeederServerPlayer>();
+    seederInfo.teams.map((team) => {
+      team.players.map((player) => seederPlayers.set(player.player_id, player));
+    });
+  }
 
   const maxTeamPlayers = haveGame ? game.data[0].info.maxPlayerAmount / 2 : "";
   const maxSpectator = 4;
@@ -104,6 +124,7 @@ export function PlayerList(props: {
     <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage>
   ) : (
     <ListPlayerGroup
+      seederPlayers={seederPlayers}
       gameName={gameName}
       players={teams[0].players}
       team="0"
@@ -119,6 +140,7 @@ export function PlayerList(props: {
     <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage>
   ) : (
     <ListPlayerGroup
+      seederPlayers={seederPlayers}
       gameName={gameName}
       players={teams[1].players}
       team="1"
@@ -137,6 +159,7 @@ export function PlayerList(props: {
     <PlayerListMessage>{t("server.players.noSpectators")}</PlayerListMessage>
   ) : (
     <ListPlayerGroup
+      seederPlayers={seederPlayers}
       players={spectators}
       team={null}
       sid={sid}
@@ -257,12 +280,13 @@ function LoadingPlayer() {
 }
 
 function ListPlayerGroup(props: {
+  seederPlayers: Map<number, ISeederServerPlayer>;
   team: string;
   players: IServerPlayer[];
   sid: string;
   gameName: string | boolean;
 }): React.ReactElement {
-  const { team, sid, gameName } = props;
+  const { team, sid, gameName, seederPlayers } = props;
   let { players } = props;
   const [playerListRef, { width }] = useMeasure();
   const [playerListSort] = React.useContext(PageContext);
@@ -273,6 +297,7 @@ function ListPlayerGroup(props: {
     <div ref={playerListRef}>
       {players.map((player: IServerPlayer, index: number) => (
         <Player
+          seederPlayer={seederPlayers.get(player.playerId)}
           gameName={gameName}
           player={player}
           key={index}
@@ -299,13 +324,14 @@ function ListPlayerGroup(props: {
  */
 export function Player(props: {
   player: IServerPlayer;
+  seederPlayer: ISeederServerPlayer;
   i: number;
   sid: string;
   moveTeam: string | boolean;
   width: number;
   gameName: string | boolean;
 }): React.ReactElement {
-  const { player, i, sid, moveTeam, width, gameName } = props;
+  const { player, i, sid, moveTeam, width, gameName, seederPlayer } = props;
   const modal = useModal();
   const { t } = useTranslation();
   const dateAdded = new Date(player.joinTime / 1000);
@@ -331,13 +357,31 @@ export function Player(props: {
         {player.rank === null ? "??" : player.rank}
       </span>
 
+      {seederPlayer ? (
+        <img
+          height="14rem"
+          style={{ marginRight: "0.2rem" }}
+          src={seederPlayer.player_class?.white}
+        />
+      ) : (
+        <></>
+      )}
+
       <span className={styles.PlayerName} onClick={showStats} value="nickname">
         {player.platoon === "" ? "" : `[${player.platoon}] `}
         {player.name}
       </span>
       {width > 360 ? (
-        <span className={styles.PlayerTimer} title="" value="jointime">
+        <span
+          className={styles.PlayerTimer}
+          style={{ whiteSpace: "nowrap", overflow: "hidden" }}
+          title=""
+          value="jointime"
+        >
           {t("change", { change: dateAdded })}
+          {seederPlayer
+            ? ` - ${seederPlayer?.score} score - ${seederPlayer?.kills}/${seederPlayer?.deaths} KD`
+            : ""}
         </span>
       ) : (
         <></>

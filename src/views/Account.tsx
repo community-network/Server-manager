@@ -107,6 +107,10 @@ export default function Account() {
               href="https://github.com/sponsors/community-network"
               name={t("sidebar.sponsor")}
             />
+            <ButtonUrl
+              href="https://explore.transifex.com/gametools/"
+              name={t("translation.help")}
+            />
           </ButtonRow>
         </Card>
       </Column>

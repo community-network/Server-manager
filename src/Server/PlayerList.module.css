@@ -1,5 +1,7 @@
 .PlayerTimer {
-    width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    /* width: 90px; */
 }
 
 .playerAmount {
@@ -47,6 +49,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .PlayerName:hover {
     color: var(--color-text-high);
 }
@@ -65,7 +68,7 @@
     width: 45px;
 }
 
-.PlayerPing > svg {
+.PlayerPing>svg {
     width: 18px;
     height: 18px;
     margin-left: 5px;
@@ -146,12 +149,14 @@
 
 
 @keyframes LoadingColor {
-    0%{
+    0% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.6;
     }
+
     100% {
         opacity: 1;
     }

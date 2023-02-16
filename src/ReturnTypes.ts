@@ -283,6 +283,7 @@ export interface IInGameServerInfo {
       smallmode: string;
       url: string;
     };
+    ingameServerId: string;
     isAdmin: boolean;
     players: IServerTeam[];
     serverStatus: string;
@@ -574,4 +575,77 @@ export interface IBfvCreateServer {
 
 export interface IServerOperationSuccess {
   info: string;
+}
+
+export interface ISeederGameItem {
+  id?: string;
+  name?: string;
+  shortName?: string;
+  image?: string;
+  type?: string;
+  subtype?: string;
+  class?: string;
+}
+
+export interface ISeederServerPlayer {
+  index?: number;
+  teamId: number;
+  mark: number;
+  platoon?: {
+    tag: string;
+    name: string;
+    icon: string;
+  };
+  squad_id?: number;
+  squad_name?: string;
+  rank: number;
+  name: string;
+  player_id: number;
+  kills: number;
+  deaths: number;
+  score: number;
+  player_class?: {
+    id: string;
+    name?: string;
+    black?: string;
+    white?: string;
+  };
+  Spectator?: 0;
+  vehicle?: ISeederGameItem;
+  weapons?: ISeederGameItem[];
+}
+
+export interface ISeederServerInfo {
+  _id: string;
+  gameId: number;
+  ingameChat?: {
+    timestamp: string;
+    sender: string;
+    content: string;
+  }[];
+  serverinfo: {
+    country: string;
+    description: string;
+    level: string;
+    maps: string[];
+    mode: string;
+    name: string;
+    owner: string;
+    region: string;
+    servertype: string;
+    settings: string[];
+  };
+  teams: {
+    players: ISeederServerPlayer[];
+    teamid: string;
+    image: string;
+    name: string;
+    score: number;
+    faction?: string;
+    key?: string;
+    scoreFromKills?: number;
+    scoreFromFlags?: number;
+  }[];
+  timeStamp: string;
+  update_timestamp: number;
 }

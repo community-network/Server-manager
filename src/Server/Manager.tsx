@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { OperationsApi } from "../api";
 import { useTranslation } from "react-i18next";
+import { ISeederServerInfo } from "../ReturnTypes";
 
 /**
  * Hook to get user info
@@ -33,6 +34,19 @@ export function useGame(sid: string) {
       refetchInterval: 10000,
     },
   );
+}
+
+export function useSeeder(gid: number) {
+  return useQuery(["seederPlayers", gid], () => {
+    if (gid) {
+      const result: Promise<ISeederServerInfo> = fetch(
+        `https://api.gametools.network/bf1/seederplayers/?gameid=${gid}`,
+      ).then((r) => r.json());
+      return result;
+    } else {
+      return null;
+    }
+  });
 }
 
 /**
