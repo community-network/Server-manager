@@ -306,8 +306,8 @@ function GroupAdmins(props: {
   const {
     data: groupUsers,
   }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery(
-    ["groupUsers" + props.group.id],
-    () => OperationsApi.getUsers(props.group.id),
+    ["groupUsers" + props.group?.id],
+    () => OperationsApi.getUsers(props.group?.id),
     { staleTime: Infinity, refetchOnWindowFocus: false },
   );
 
@@ -363,7 +363,7 @@ function GroupAdmins(props: {
             name={t("group.admins.add")}
             callback={() =>
               modal.show(
-                <AddGroupAdmin gid={props.group.id} callback={modal.close} />,
+                <AddGroupAdmin gid={props.group?.id} callback={modal.close} />,
               )
             }
           />
@@ -613,6 +613,10 @@ function GroupPlatoons(props: {
   const { t } = useTranslation();
 
   const platoons = {};
+
+  if (!props.group) {
+    return <></>;
+  }
 
   Object.keys(props.group.platoons).map((platoonId) => {
     const { isLoading, isError, data } = useQuery(
