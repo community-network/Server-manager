@@ -608,7 +608,7 @@ function GroupPlatoons(props: {
   const [applicants, setApplicants] = React.useState([]);
   const [members, setMembers] = React.useState([]);
   if (props.group && props.user)
-    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+    hasRights = props.group.isAdmin || props.user.auth.isDeveloper;
 
   const { t } = useTranslation();
 
@@ -779,7 +779,12 @@ function GroupPlatoons(props: {
       ) : (
         <></>
       )}
-      <PlatoonList platoons={platoons} gid={props.gid} hasRights={hasRights} />
+      <PlatoonList
+        platoons={platoons}
+        gid={props.gid}
+        group={props.group}
+        user={props.user}
+      />
     </>
   );
 }
@@ -787,11 +792,16 @@ function GroupPlatoons(props: {
 function PlatoonList(props: {
   platoons: { [name: string]: any };
   gid: string;
-  hasRights: boolean;
+  group: IGroupInfo;
+  user: IUserInfo;
 }): React.ReactElement {
-  const { platoons, hasRights } = props;
+  const { platoons } = props;
   const [selected, setSelected] = React.useState([]);
   const { t } = useTranslation();
+
+  let hasRights = false;
+  if (props.group && props.user)
+    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
   const queryClient = useQueryClient();
 
