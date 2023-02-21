@@ -635,135 +635,146 @@ function GroupPlatoons(props: {
     <>
       <h2>{t("group.platoons.main")}</h2>
       <h5>{t("group.platoons.description0")}</h5>
-      <h2>{t("group.platoons.applicants.main")}</h2>
-      {Object.keys(props.group.platoons).map((platoonId, index) => {
-        return (
-          <PlatoonApplicants
-            group={props.group}
-            platoonId={platoonId}
-            platoonInfo={platoons[platoonId]}
-            callback={(v, platoonId, member) =>
-              setApplicants((b) =>
-                !v
-                  ? b.filter(
-                      (item) =>
-                        item?.playerId !== member.id &&
-                        item?.platoonId != platoonId,
-                    )
-                  : [
-                      ...b,
-                      {
-                        playerId: member.id,
-                        platoonId: platoonId,
-                        memberInfo: member,
-                      },
-                    ],
-              )
-            }
-            key={index}
-          />
-        );
-      })}
-      <ButtonRow>
-        {hasRights && applicants.length > 0 ? (
-          <>
-            <Button
-              name={t("group.platoons.applicants.accept")}
-              callback={() => {
-                applicants.map((o) =>
-                  changePlatoon.mutate({
-                    request: "acceptApplicant",
-                    gid: props.gid,
-                    platoonid: o.platoonId,
-                    pid: o.playerId,
-                    memberInfo: o.memberInfo,
-                  }),
-                );
-                setApplicants([]);
-              }}
-            />
-            <Button
-              name={t("group.platoons.applicants.decline")}
-              callback={() => {
-                applicants.map((o) =>
-                  changePlatoon.mutate({
-                    request: "rejectApplicant",
-                    gid: props.gid,
-                    platoonid: o.platoonId,
-                    pid: o.playerId,
-                    memberInfo: o.memberInfo,
-                  }),
-                );
-                setApplicants([]);
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <Button
-              disabled={true}
-              name={t("group.platoons.applicants.accept")}
-            />
-            <Button
-              disabled={true}
-              name={t("group.platoons.applicants.decline")}
-            />
-          </>
-        )}
-      </ButtonRow>
-      <h2>{t("group.platoons.members.main")}</h2>
-      {Object.values(platoons).map((platoon: IPlatoonStats, index: number) => {
-        return platoon.members.map((player, memberIndex) => {
-          return (
-            <SelectableRow
-              key={index + memberIndex}
-              callback={(v) =>
-                setMembers((b) =>
-                  !v
-                    ? b.filter(
-                        (item) =>
-                          item?.playerId !== player.id &&
-                          item?.platoonId != platoon.id,
+      {Object.keys(props.group.platoons).length > 0 ? (
+        <>
+          <h2>{t("group.platoons.applicants.main")}</h2>
+          {Object.keys(props.group.platoons).map((platoonId, index) => {
+            return (
+              <PlatoonApplicants
+                group={props.group}
+                platoonId={platoonId}
+                platoonInfo={platoons[platoonId]}
+                callback={(v, platoonId, member) =>
+                  setApplicants((b) =>
+                    !v
+                      ? b.filter(
+                          (item) =>
+                            item?.playerId !== member.id &&
+                            item?.platoonId != platoonId,
+                        )
+                      : [
+                          ...b,
+                          {
+                            playerId: member.id,
+                            platoonId: platoonId,
+                            memberInfo: member,
+                          },
+                        ],
+                  )
+                }
+                key={index}
+              />
+            );
+          })}
+          <ButtonRow>
+            {hasRights && applicants.length > 0 ? (
+              <>
+                <Button
+                  name={t("group.platoons.applicants.accept")}
+                  callback={() => {
+                    applicants.map((o) =>
+                      changePlatoon.mutate({
+                        request: "acceptApplicant",
+                        gid: props.gid,
+                        platoonid: o.platoonId,
+                        pid: o.playerId,
+                        memberInfo: o.memberInfo,
+                      }),
+                    );
+                    setApplicants([]);
+                  }}
+                />
+                <Button
+                  name={t("group.platoons.applicants.decline")}
+                  callback={() => {
+                    applicants.map((o) =>
+                      changePlatoon.mutate({
+                        request: "rejectApplicant",
+                        gid: props.gid,
+                        platoonid: o.platoonId,
+                        pid: o.playerId,
+                        memberInfo: o.memberInfo,
+                      }),
+                    );
+                    setApplicants([]);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  disabled={true}
+                  name={t("group.platoons.applicants.accept")}
+                />
+                <Button
+                  disabled={true}
+                  name={t("group.platoons.applicants.decline")}
+                />
+              </>
+            )}
+          </ButtonRow>
+          <h2>{t("group.platoons.members.main")}</h2>
+          {Object.values(platoons).map(
+            (platoon: IPlatoonStats, index: number) => {
+              return platoon.members.map((player, memberIndex) => {
+                return (
+                  <SelectableRow
+                    key={index + memberIndex}
+                    callback={(v) =>
+                      setMembers((b) =>
+                        !v
+                          ? b.filter(
+                              (item) =>
+                                item?.playerId !== player.id &&
+                                item?.platoonId != platoon.id,
+                            )
+                          : [
+                              ...b,
+                              {
+                                playerId: player.id,
+                                platoonId: platoon.id,
+                                memberInfo: player,
+                              },
+                            ],
                       )
-                    : [
-                        ...b,
-                        {
-                          playerId: player.id,
-                          platoonId: platoon.id,
-                          memberInfo: player,
-                        },
-                      ],
-                )
-              }
-            >
-              <div className={styles.DiscordName}>{player.name}</div>
-              <div className={styles.ServerAliasName}>{player.role}</div>
-              <div className={styles.ServerAliasName}>{platoon.name}</div>
-            </SelectableRow>
-          );
-        });
-      })}
-      <ButtonRow>
-        {hasRights && members.length > 0 ? (
-          <Button
-            name={t("group.platoons.members.remove")}
-            callback={() => {
-              members.map((o) =>
-                changePlatoon.mutate({
-                  request: "kickMember",
-                  gid: props.gid,
-                  platoonid: o.platoonId,
-                  pid: o.playerId,
-                  memberInfo: o.memberInfo,
-                }),
-              );
-              setMembers([]);
-            }}
-          />
-        ) : (
-          <Button disabled={true} name={t("group.platoons.members.remove")} />
-        )}
-      </ButtonRow>
+                    }
+                  >
+                    <div className={styles.DiscordName}>{player.name}</div>
+                    <div className={styles.ServerAliasName}>{player.role}</div>
+                    <div className={styles.ServerAliasName}>{platoon.name}</div>
+                  </SelectableRow>
+                );
+              });
+            },
+          )}
+          <ButtonRow>
+            {hasRights && members.length > 0 ? (
+              <Button
+                name={t("group.platoons.members.remove")}
+                callback={() => {
+                  members.map((o) =>
+                    changePlatoon.mutate({
+                      request: "kickMember",
+                      gid: props.gid,
+                      platoonid: o.platoonId,
+                      pid: o.playerId,
+                      memberInfo: o.memberInfo,
+                    }),
+                  );
+                  setMembers([]);
+                }}
+              />
+            ) : (
+              <Button
+                disabled={true}
+                name={t("group.platoons.members.remove")}
+              />
+            )}
+          </ButtonRow>
+        </>
+      ) : (
+        <></>
+      )}
       <PlatoonList platoons={platoons} gid={props.gid} hasRights={hasRights} />
     </>
   );
