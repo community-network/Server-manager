@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "./TopBar.module.css";
 import { useTranslation } from "react-i18next";
 
-import { OperationsApi } from "../api";
-import { IUserInfo } from "../ReturnTypes";
+import { OperationsApi } from "../api/api";
+import { IUserInfo } from "../api/ReturnTypes";
 
 export function TopBar(props: {
   hideSidebar: React.MouseEventHandler<HTMLButtonElement>;

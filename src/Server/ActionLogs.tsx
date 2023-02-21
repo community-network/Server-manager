@@ -6,12 +6,12 @@ import { useModal } from "../components/Card";
 
 import styles from "./ActionLogs.module.css";
 
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 
 import "../locales/config";
 
 import { PlayerStatsModal } from "./Modals";
-import { ITailServerLog, ITailServerLogItem } from "../ReturnTypes";
+import { ITailServerLog, ITailServerLogItem } from "../api/ReturnTypes";
 
 export function LogList(props: { sid: string }): React.ReactElement {
   const { t } = useTranslation();

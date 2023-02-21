@@ -329,6 +329,23 @@
             "alias": "Alias: {{alias}}",
             "add": "Add Server"
         },
+        "platoons": {
+            "main": "Platoons",
+            "description0": "Manage many platoons as if they were one big platoon",
+            "search": "Search platoonname",
+            "add": "Add platoons",
+            "remove": "Remove platoons",
+            "resultNotFound": "No platoons found with that name",
+            "members": {
+                "main": "Members",
+                "remove": "Remove member"
+            },
+            "applicants": {
+                "main": "Applicants",
+                "accept": "Accept",
+                "decline": "Decline"
+            }
+        },
         "owners": {
             "main": "Owners",
             "description0": "List of current group Owners. This role can add new Servers,",

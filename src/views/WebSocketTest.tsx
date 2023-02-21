@@ -1,5 +1,5 @@
 import * as React from "react";
-import { endPointName } from "../JsonApi";
+import { endPointName } from "../api/JsonApi";
 import { Row } from "../components";
 import "../locales/config";
 import { useParams } from "react-router-dom";

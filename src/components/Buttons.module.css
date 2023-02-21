@@ -120,7 +120,7 @@
 
 .li {
     padding: 8px 12px;
-   
+
 }
 
 .li:hover {
@@ -146,7 +146,7 @@
     padding: 10px 5px 10px 20px;
     height: 40px;
     background: var(--color-container);
-    
+
     font-weight: 500;
     font-size: 13px;
     color: var(--color-text);
@@ -256,7 +256,7 @@
     padding: 10px 20px;
 }
 
-.SwitchRow > span {
+.SwitchRow>span {
     margin-left: 10px;
     font-size: 13px;
     font-weight: 600;
@@ -278,7 +278,7 @@
     font-family: "Montserrat";
     border-bottom-color: transparent;
     position: relative;
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
 .ChoosePageButton:hover {
@@ -327,6 +327,6 @@
     flex-shrink: 0;
 }
 
-.selectableRow:hover > .iconSelect, .selectableRowSelected > .iconSelect  {
+.selectableRow:hover>.iconSelect, .selectableRowSelected>.iconSelect {
     color: var(--color-text-high);
 }

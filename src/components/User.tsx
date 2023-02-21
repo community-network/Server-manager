@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./User.module.css";
 import { SelectableRow } from "./Buttons";
 import { useTranslation } from "react-i18next";
-import { IGroupUser, IUserDiscord } from "../ReturnTypes";
+import { IGroupUser, IUserDiscord } from "../api/ReturnTypes";
 
 export function UserRow(props: { discord: IUserDiscord }): React.ReactElement {
   const user = props.discord;

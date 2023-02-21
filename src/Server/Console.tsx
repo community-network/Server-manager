@@ -15,7 +15,7 @@ import "../locales/config";
 import { ServerKickPlayer, ServerBanPlayer, ServerMovePlayer } from "./Modals";
 import { useUnban, useRemoveVip, useAddVip, useMovePlayer } from "./Manager";
 import { LogList } from "./ActionLogs";
-import { IInGameServerInfo, IServerInfo } from "../ReturnTypes";
+import { IInGameServerInfo, IServerInfo } from "../api/ReturnTypes";
 
 /**
  * Console block to operate the server

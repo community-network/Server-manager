@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Navigate } from "react-router-dom";
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import {
   Column,
   Card,
@@ -14,7 +14,7 @@ import "../locales/config";
 import { useTranslation } from "react-i18next";
 
 import { GroupRow } from "../Group/Group";
-import { IDevGroups } from "../ReturnTypes";
+import { IDevGroups } from "../api/ReturnTypes";
 
 export default function Developer() {
   const { t } = useTranslation();

@@ -7,6 +7,7 @@ import {
   IDefaultMessage,
   IDefaultMessageWithGid,
   IDevGroups,
+  IEditPlatoon,
   IFirestarterList,
   IGlobalGroupPlayer,
   IGroupsInfo,
@@ -682,6 +683,60 @@ export class ApiProvider extends JsonClient {
       cookieid: cookieId,
       sid: sid,
       remid: remid,
+    });
+  }
+
+  async addGroupPlatoons({
+    gid,
+    platoonIds,
+    cookieId,
+    sid,
+    remid,
+  }: {
+    gid: string;
+    platoonIds: string[];
+    cookieId: string;
+    sid: string;
+    remid: string;
+  }): Promise<IDefaultMessage> {
+    return await this.postJsonMethod("addplatoons", {
+      platoonids: platoonIds,
+      groupid: gid,
+      cookieid: cookieId,
+      sid: sid,
+      remid: remid,
+    });
+  }
+
+  async removeGroupPlatoons({
+    gid,
+    platoonIds,
+  }: {
+    gid: string;
+    platoonIds: string[];
+  }): Promise<IDefaultMessage> {
+    return await this.postJsonMethod("delplatoons", {
+      platoonids: platoonIds,
+      groupid: gid,
+    });
+  }
+
+  async platoonActions({
+    request,
+    gid,
+    platoonid,
+    pid,
+  }: {
+    request: string;
+    gid: string;
+    platoonid: string;
+    pid: string;
+  }): Promise<IEditPlatoon> {
+    return await this.postJsonMethod("platoonactions", {
+      request,
+      groupid: gid,
+      platoonid,
+      playerid: pid,
     });
   }
 

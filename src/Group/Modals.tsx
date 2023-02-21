@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { checkGameString } from "../Server/Modals";
 
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import {
   Switch,
   useModal,
@@ -22,7 +22,7 @@ import {
   IGroupsInfo,
   IReasonList,
   IUserInfo,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
 
 export function ChangeAccountModal(props: {
   group: IGroupInfo;

@@ -6,7 +6,7 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import {
   Column,
   Card,
@@ -20,7 +20,7 @@ import {
 import "../locales/config";
 import { useTranslation } from "react-i18next";
 import ChangeLanguage from "../locales/ChangeLanguage";
-import { IUserInfo } from "../ReturnTypes";
+import { IUserInfo } from "../api/ReturnTypes";
 
 export default function Account() {
   const history = useNavigate();

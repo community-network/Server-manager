@@ -3,7 +3,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { PageContext } from "./ServerGlobalContext";
 
-import { IServerGet, OperationsApi } from "../api";
+import { IServerGet, OperationsApi } from "../api/api";
 import { spartaGames } from "../Globals";
 
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ import { useParams } from "react-router-dom";
 
 import Console from "./Console";
 import { PlayerList } from "./PlayerList";
-import { IGroupsInfo, IServerInfo } from "../ReturnTypes";
+import { IGroupsInfo, IServerInfo } from "../api/ReturnTypes";
 
 /**
  * Server page

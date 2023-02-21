@@ -22,6 +22,7 @@ import {
   DeleteGroup,
   AddGroupServer,
   MakeOps,
+  AddGroupPlatoon,
 } from "../Group/View";
 
 export default function PageLayout(): React.ReactElement {
@@ -89,6 +90,10 @@ function AnimatedViews(): React.ReactElement {
             <Route path="/group/:gid/add/server" element={<AddGroupServer />} />
             <Route path="/group/:gid/add/admin/" element={<AddGroupAdmin />} />
             <Route path="/group/:gid/add/owner/" element={<AddGroupOwner />} />
+            <Route
+              path="/group/:gid/add/platoon"
+              element={<AddGroupPlatoon />}
+            />
 
             <Route path="/group/:gid/edit/" element={<EditGroup />} />
             <Route path="/group/:gid/delete" element={<DeleteGroup />} />

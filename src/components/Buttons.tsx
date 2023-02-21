@@ -6,8 +6,8 @@ import { Status } from "./Status";
 import { useMeasure } from "react-use";
 
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { OperationsApi } from "../api";
-import { IReasonList } from "../ReturnTypes";
+import { OperationsApi } from "../api/api";
+import { IReasonList } from "../api/ReturnTypes";
 
 export function Button(props: {
   style?: React.CSSProperties;

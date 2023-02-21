@@ -15,7 +15,7 @@ import {
 } from "./Modals";
 import { supportedGames } from "../Globals";
 
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import "../locales/config";
 import styles from "./Group.module.css";
 
@@ -45,7 +45,7 @@ import {
   ISeederInfo,
   ISeeder,
   ISeederServer,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
 
 export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
   const { t } = useTranslation();

@@ -12,7 +12,7 @@ import { Row } from "../components/Flex";
 import { useModal } from "../components/Card";
 import { ClickableHead } from "../components/Table";
 
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import { bfvServerRegions } from "../Globals";
 import "../locales/config";
 
@@ -35,7 +35,7 @@ import {
   IPlayingScoreboardPlayer,
   IServerInfo,
   IServerRotation,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
 
 export function SmallText(props: {
   children: React.ReactElement | React.ReactElement[] | string;

@@ -8,7 +8,7 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { IGroupGet, OperationsApi } from "../api";
+import { IGroupGet, OperationsApi } from "../api/api";
 import { statusOnlyGames } from "../Globals";
 
 import styles from "./Group.module.css";
@@ -45,6 +45,7 @@ import {
   ScrollRow,
   PageCard,
   ButtonUrl,
+  SelectableRow,
 } from "../components";
 import { ChangeAccountModal, AddAccountModal } from "./Modals";
 import "../locales/config";
@@ -64,7 +65,18 @@ import {
   IServerStats,
   IUserInfo,
   ISeederServer,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
+import { getLanguage } from "../locales/config";
+import { GametoolsApi } from "../api/GametoolsApi";
+import {
+  IPlatoonApplicant,
+  IPlatoonApplicants,
+  IPlatoonPlayer,
+  IPlatoonResult,
+  IPlatoonSearchResult,
+  IPlatoonStats,
+} from "../api/GametoolsReturnTypes";
+import { group } from "console";
 
 // unused
 // const deleteIcon = (
@@ -180,7 +192,7 @@ export function Group(): React.ReactElement {
     vbanlist: <VBanList user={user} gid={gid} />,
     exclusionlist: <ExclusionList user={user} gid={gid} />,
     reasonList: <ReasonList user={user} gid={gid} />,
-    grouplogs: <GroupLogs gid={gid} />,
+    platoons: <GroupPlatoons group={group} user={user} gid={gid} />,
     seeding: <Seeding group={group} user={user} gid={gid} />,
   };
 
@@ -190,12 +202,17 @@ export function Group(): React.ReactElement {
     settings: <GroupSettings gid={gid} user={user} group={group} />,
     status: <GroupStatus gid={gid} user={user} group={group} />,
     danger: <GroupDangerZone gid={gid} user={user} group={group} />,
+    grouplogs: <GroupLogs gid={gid} />,
   };
 
   const pageCycle = [
     {
       name: t("group.servers.main"),
       callback: () => setListing("servers"),
+    },
+    {
+      name: t("group.platoons.main"),
+      callback: () => setListing("platoons"),
     },
     {
       name: t("group.admins.main"),
@@ -214,24 +231,7 @@ export function Group(): React.ReactElement {
       callback: () => setListing("exclusionlist"),
     },
     {
-      name: (
-        <>
-          {t("group.reasonList.main")}
-          <svg
-            style={{
-              marginLeft: "10px",
-              height: "16px",
-              color: "var(--color-text)",
-            }}
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M7,11H1V13H7V11M9.17,7.76L7.05,5.64L5.64,7.05L7.76,9.17L9.17,7.76M13,1H11V7H13V1M18.36,7.05L16.95,5.64L14.83,7.76L16.24,9.17L18.36,7.05M17,11V13H23V11H17M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M14.83,16.24L16.95,18.36L18.36,16.95L16.24,14.83L14.83,16.24M5.64,16.95L7.05,18.36L9.17,16.24L7.76,14.83L5.64,16.95M11,23H13V17H11V23Z"
-            />
-          </svg>
-        </>
-      ),
+      name: t("group.reasonList.main"),
       callback: () => setListing("reasonList"),
     },
     {
@@ -239,13 +239,6 @@ export function Group(): React.ReactElement {
       callback: () => setListing("seeding"),
     },
   ];
-
-  if (group && group.isOwner) {
-    pageCycle.push({
-      name: t("group.logs.main"),
-      callback: () => setListing("grouplogs"),
-    });
-  }
 
   const settingsCycle = [
     {
@@ -269,6 +262,13 @@ export function Group(): React.ReactElement {
       callback: () => setSettingsListing("danger"),
     },
   ];
+
+  if (group && group.isOwner) {
+    settingsCycle.push({
+      name: t("group.logs.main"),
+      callback: () => setListing("grouplogs"),
+    });
+  }
 
   if (
     groupError ||
@@ -501,6 +501,410 @@ function GroupServers(props: {
   );
 }
 
+function GroupPlatoons(props: {
+  group: IGroupInfo;
+  user: IUserInfo;
+  gid: string;
+}): React.ReactElement {
+  let hasRights = false;
+
+  const queryClient = useQueryClient();
+
+  const changePlatoon = useMutation(
+    (variables: {
+      request: string;
+      gid: string;
+      platoonid: string;
+      pid: string;
+      memberInfo: IPlatoonPlayer;
+    }) => OperationsApi.platoonActions(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ request, gid, platoonid, pid, memberInfo }) => {
+        // Snapshot the previous value
+        const previousPlatoonInfo = queryClient.getQueryData([
+          "platoonDetails" + gid + platoonid,
+        ]);
+        const previousGroup = queryClient.getQueryData([
+          "platoonApplicants" + gid + platoonid,
+        ]);
+
+        if (request == "acceptApplicant") {
+          // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+          await queryClient.cancelQueries(["platoonDetails" + gid + platoonid]);
+          queryClient.setQueryData(
+            ["platoonDetails" + gid + platoonid],
+            (old: IPlatoonStats) => {
+              old.members.push({ ...memberInfo, role: "Private" });
+              return old;
+            },
+          );
+        }
+        if (request == "kickMember") {
+          // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+          await queryClient.cancelQueries(["platoonDetails" + gid + platoonid]);
+          queryClient.setQueryData(
+            ["platoonDetails" + gid + platoonid],
+            (old: IPlatoonStats) => {
+              old.members = old.members.filter(
+                (member: { id: string }) => member.id !== pid,
+              );
+              return old;
+            },
+          );
+        }
+
+        if (["acceptApplicant", "rejectApplicant"].includes(request)) {
+          // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+          await queryClient.cancelQueries([
+            "platoonApplicants" + gid + platoonid,
+          ]);
+          queryClient.setQueryData(
+            ["platoonApplicants" + gid + platoonid],
+            (old: IPlatoonApplicants) => {
+              old.result = old.result.filter(
+                (applicant: { id: string }) => applicant.id !== pid,
+              );
+              return old;
+            },
+          );
+        }
+        // Return a context object with the snapshotted value
+        return { previousGroup, gid, platoonid, request, previousPlatoonInfo };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        if (["acceptApplicant", "kickMember"].includes(context.request)) {
+          queryClient.setQueryData(
+            ["platoonDetails" + context.gid, context.platoonid],
+            context.previousPlatoonInfo,
+          );
+        }
+        if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
+          queryClient.setQueryData(
+            ["platoonApplicants" + context.gid, context.platoonid],
+            context.previousGroup,
+          );
+        }
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        if (["acceptApplicant", "kickMember"].includes(context.request)) {
+          queryClient.invalidateQueries([
+            "platoonDetails" + context.gid,
+            context.platoonid,
+          ]);
+        }
+        if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
+          queryClient.invalidateQueries([
+            "platoonApplicants" + context.gid,
+            context.platoonid,
+          ]);
+        }
+      },
+    },
+  );
+
+  const [applicants, setApplicants] = React.useState([]);
+  const [members, setMembers] = React.useState([]);
+  if (props.group && props.user)
+    hasRights = props.group.isOwner || props.user.auth.isDeveloper;
+
+  const { t } = useTranslation();
+
+  const platoons = {};
+
+  Object.keys(props.group.platoons).map((platoonId) => {
+    const { isLoading, isError, data } = useQuery(
+      ["platoonDetails" + props.group.id + platoonId],
+      () =>
+        GametoolsApi.platoon({
+          id: platoonId,
+          platform: "pc",
+          lang: getLanguage(),
+        }),
+      { staleTime: 30000 },
+    );
+
+    if (!isLoading && !isError) {
+      platoons[platoonId] = data;
+    }
+  });
+
+  return (
+    <>
+      <h2>{t("group.platoons.main")}</h2>
+      <h5>{t("group.platoons.description0")}</h5>
+      <h2>{t("group.platoons.applicants.main")}</h2>
+      {Object.keys(props.group.platoons).map((platoonId, index) => {
+        return (
+          <PlatoonApplicants
+            group={props.group}
+            platoonId={platoonId}
+            platoonInfo={platoons[platoonId]}
+            callback={(v, platoonId, member) =>
+              setApplicants((b) =>
+                !v
+                  ? b.filter(
+                      (item) =>
+                        item?.playerId !== member.id &&
+                        item?.platoonId != platoonId,
+                    )
+                  : [
+                      ...b,
+                      {
+                        playerId: member.id,
+                        platoonId: platoonId,
+                        memberInfo: member,
+                      },
+                    ],
+              )
+            }
+            key={index}
+          />
+        );
+      })}
+      <ButtonRow>
+        {hasRights && applicants.length > 0 ? (
+          <>
+            <Button
+              name={t("group.platoons.applicants.accept")}
+              callback={() => {
+                applicants.map((o) =>
+                  changePlatoon.mutate({
+                    request: "acceptApplicant",
+                    gid: props.gid,
+                    platoonid: o.platoonId,
+                    pid: o.playerId,
+                    memberInfo: o.memberInfo,
+                  }),
+                );
+                setApplicants([]);
+              }}
+            />
+            <Button
+              name={t("group.platoons.applicants.decline")}
+              callback={() => {
+                applicants.map((o) =>
+                  changePlatoon.mutate({
+                    request: "rejectApplicant",
+                    gid: props.gid,
+                    platoonid: o.platoonId,
+                    pid: o.playerId,
+                    memberInfo: o.memberInfo,
+                  }),
+                );
+                setApplicants([]);
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Button
+              disabled={true}
+              name={t("group.platoons.applicants.accept")}
+            />
+            <Button
+              disabled={true}
+              name={t("group.platoons.applicants.decline")}
+            />
+          </>
+        )}
+      </ButtonRow>
+      <h2>{t("group.platoons.members.main")}</h2>
+      {Object.values(platoons).map((platoon: IPlatoonStats, index: number) => {
+        return platoon.members.map((player, memberIndex) => {
+          return (
+            <SelectableRow
+              key={index + memberIndex}
+              callback={(v) =>
+                setMembers((b) =>
+                  !v
+                    ? b.filter(
+                        (item) =>
+                          item?.playerId !== player.id &&
+                          item?.platoonId != platoon.id,
+                      )
+                    : [
+                        ...b,
+                        {
+                          playerId: player.id,
+                          platoonId: platoon.id,
+                          memberInfo: player,
+                        },
+                      ],
+                )
+              }
+            >
+              <div className={styles.DiscordName}>{player.name}</div>
+              <div className={styles.ServerAliasName}>{player.role}</div>
+              <div className={styles.ServerAliasName}>{platoon.name}</div>
+            </SelectableRow>
+          );
+        });
+      })}
+      <ButtonRow>
+        {hasRights && members.length > 0 ? (
+          <Button
+            name={t("group.platoons.members.remove")}
+            callback={() => {
+              members.map((o) =>
+                changePlatoon.mutate({
+                  request: "kickMember",
+                  gid: props.gid,
+                  platoonid: o.platoonId,
+                  pid: o.playerId,
+                  memberInfo: o.memberInfo,
+                }),
+              );
+              setMembers([]);
+            }}
+          />
+        ) : (
+          <Button disabled={true} name={t("group.platoons.members.remove")} />
+        )}
+      </ButtonRow>
+      <PlatoonList platoons={platoons} gid={props.gid} hasRights={hasRights} />
+    </>
+  );
+}
+
+function PlatoonList(props: {
+  platoons: { [name: string]: any };
+  gid: string;
+  hasRights: boolean;
+}): React.ReactElement {
+  const { platoons, hasRights } = props;
+  const [selected, setSelected] = React.useState([]);
+  const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+
+  const removePlatoons = useMutation(
+    (variables: { gid: string; platoonIds: string[] }) =>
+      OperationsApi.removeGroupPlatoons(variables),
+    // {
+    //   // When mutate is called:
+    //   onMutate: async ({ gid, platoonIds }) => {
+    //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+    //     await queryClient.cancelQueries(["groupId" + gid]);
+    //     // Snapshot the previous value
+    //     const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+
+    //     queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
+    //       old.data[0].platoons = Object.fromEntries(
+    //         Object.entries(old.data[0].platoons).filter(
+    //           ([key]) => !platoonIds.includes(key),
+    //         ),
+    //       );
+    //       return old;
+    //     });
+    //     // Return a context object with the snapshotted value
+    //     return { previousGroup, gid };
+    //   },
+    //   // If the mutation fails, use the context returned from onMutate to roll back
+    //   onError: (_err, _newTodo, context) => {
+    //     queryClient.setQueryData(
+    //       ["groupId" + context.gid],
+    //       context.previousGroup,
+    //     );
+    //   },
+    //   // Always refetch after error or success:
+    //   onSettled: (_data, _error, _variables, context) => {
+    //     queryClient.invalidateQueries(["groupId" + context.gid]);
+    //   },
+    // },
+  );
+
+  return (
+    <>
+      <h2>{t("group.platoons.main")}</h2>
+      {Object.values(platoons).map((platoon: IPlatoonStats, index: number) => {
+        return (
+          <SelectableRow
+            key={index}
+            callback={(v) => {
+              setSelected((b) =>
+                !v
+                  ? b.filter((item) => item !== platoon.id)
+                  : [...b, platoon.id],
+              );
+            }}
+          >
+            <div className={styles.DiscordName}>{platoon.name}</div>
+          </SelectableRow>
+        );
+      })}
+      <ButtonRow>
+        {hasRights ? (
+          <ButtonLink
+            name={t("group.platoons.add")}
+            to={"/group/" + props.gid + "/add/platoon"}
+          />
+        ) : (
+          <Button
+            disabled={true}
+            name={t("denied")}
+            content={t("group.platoons.add")}
+          />
+        )}
+        {hasRights && selected.length > 0 ? (
+          <Button
+            name={t("group.platoons.remove")}
+            callback={() => {
+              removePlatoons.mutate({ gid: props.gid, platoonIds: selected });
+              setSelected([]);
+            }}
+          />
+        ) : (
+          <Button disabled={true} name={t("group.platoons.remove")} />
+        )}
+      </ButtonRow>
+    </>
+  );
+}
+
+function PlatoonApplicants(props: {
+  group: IGroupInfo;
+  platoonId: string;
+  platoonInfo: IPlatoonStats;
+  callback?: (
+    selected: any,
+    platoonId: string,
+    player: IPlatoonApplicant,
+  ) => void;
+}): React.ReactElement {
+  const { group, platoonId, platoonInfo } = props;
+  const {
+    isLoading,
+    isError,
+    data: applicants,
+  } = useQuery(
+    ["platoonApplicants" + group.id + platoonId],
+    () => GametoolsApi.platoonApplicants({ groupId: group.id, platoonId }),
+    { staleTime: 30000 },
+  );
+
+  if (!isLoading && !isError) {
+    return (
+      <>
+        {applicants.result.map((key: IPlatoonApplicant, index: number) => {
+          return (
+            <SelectableRow
+              key={index}
+              callback={(v) => props.callback(v, platoonId, key)}
+            >
+              <div className={styles.DiscordName}>{key.name}</div>
+              <div className={styles.ServerAliasName}>{platoonInfo?.name}</div>
+            </SelectableRow>
+          );
+        })}
+      </>
+    );
+  }
+  return <></>;
+}
+
 function Seeding(props: {
   group: IGroupInfo;
   user: IUserInfo;
@@ -646,7 +1050,6 @@ function Seeding(props: {
   };
 
   const addSeederServer = (servername) => {
-    console.log(servername);
     OperationsApi.addSeederServer({
       servername: servername,
       groupId: props.gid,
@@ -2399,6 +2802,220 @@ export function AddGroupServer(): React.ReactElement {
       </Column>
     </Row>
   );
+}
+
+export function AddGroupPlatoon(): React.ReactElement {
+  const params = useParams();
+  const { gid } = params;
+  const [cookieId, setCookieId] = React.useState("");
+  const [sid, setSid] = React.useState("");
+  const [remid, setRemid] = React.useState("");
+
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [selected, setSelected] = React.useState<string[]>([]);
+
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  const {
+    isError,
+    data: groups,
+    error,
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
+    ["groupId" + gid],
+    () => OperationsApi.getGroup(gid),
+    {
+      staleTime: 30000,
+    },
+  );
+  const group =
+    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+
+  const AddGroupPlatoonExecute = useMutation(
+    (variables: {
+      gid: string;
+      platoonIds: string[];
+      cookieId: string;
+      sid: string;
+      remid: string;
+    }) => OperationsApi.addGroupPlatoons(variables),
+    {
+      // When mutate is called:
+      onMutate: async ({ gid, platoonIds }) => {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries(["groupId" + gid]);
+        // Snapshot the previous value
+        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+        // Optimistically update to the new value
+        queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
+          platoonIds.map((platoonId) => (old.data[0].platoons[platoonId] = ""));
+          return old;
+        });
+        // Return a context object with the snapshotted value
+        return { previousGroup, gid };
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
+      onError: (_err, _newTodo, context) => {
+        queryClient.setQueryData(
+          ["groupId" + context.gid],
+          context.previousGroup,
+        );
+      },
+      // Always refetch after error or success:
+      onSettled: (_data, _error, _variables, context) => {
+        queryClient.invalidateQueries(["groupId" + context.gid]);
+      },
+    },
+  );
+
+  const {
+    isLoading: loading,
+    isError: searchError,
+    data: platoons,
+  } = useQuery(["platoons" + searchTerm], () =>
+    GametoolsApi.platoonSearch({
+      name: searchTerm,
+      platform: "pc",
+      lang: getLanguage(),
+    }),
+  );
+
+  const isDisabled =
+    selected.length < 1 || (cookieId === "add" && (sid === "" || remid === ""));
+  const history = useNavigate();
+
+  return (
+    <Row>
+      <Column>
+        <Card>
+          <h2>{t("group.platoons.add")}</h2>
+          <ButtonRow>
+            {!isError ? (
+              <>
+                {group ? (
+                  <select
+                    style={{ marginLeft: "6px" }}
+                    className={styles.SwitchGame}
+                    onChange={(e) => setCookieId(e.target.value)}
+                  >
+                    <option value="">{t("cookie.accountType.default")}</option>
+                    {group.cookies.map((key: IGroupCookie, index: number) => (
+                      <option
+                        key={index}
+                        selected={cookieId === key.id}
+                        value={key.id}
+                      >
+                        {key.username}
+                      </option>
+                    ))}
+                    <option value="add">{t("cookie.accountType.add")}</option>
+                  </select>
+                ) : (
+                  ""
+                )}
+              </>
+            ) : (
+              <>{`Error ${error.code}: {error.message}`}</>
+            )}
+            <TextInput
+              name={t("group.platoons.search")}
+              callback={(ev: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchTerm(ev.target.value);
+              }}
+            />
+          </ButtonRow>
+          {cookieId === "add" ? (
+            <>
+              <h5 style={{ marginTop: "8px" }}>
+                {t("cookie.sidDescription")}
+                <i>accounts.ea.com</i>
+              </h5>
+              <TextInput
+                name={t("cookie.sid")}
+                autocomplete="off"
+                callback={(e) => {
+                  setSid(e.target.value);
+                }}
+              />
+              <h5 style={{ marginTop: "8px" }}>
+                {t("cookie.remidDescription")}
+                <i>accounts.ea.com</i>
+              </h5>
+              <TextInput
+                name={t("cookie.remid")}
+                autocomplete="off"
+                callback={(e) => {
+                  setRemid(e.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+          <PlatoonResults
+            loading={loading}
+            platoons={platoons}
+            error={searchError}
+            callback={(e) => setSelected(e)}
+          />
+          <ButtonRow>
+            <Button
+              disabled={isDisabled}
+              name={t("group.platoons.add")}
+              callback={() => {
+                AddGroupPlatoonExecute.mutate({
+                  gid,
+                  platoonIds: selected,
+                  cookieId,
+                  sid,
+                  remid,
+                });
+                history("/group/" + gid);
+              }}
+            />
+          </ButtonRow>
+        </Card>
+      </Column>
+    </Row>
+  );
+}
+
+function PlatoonResults(props: {
+  loading: boolean;
+  error: boolean;
+  platoons: IPlatoonSearchResult;
+  callback?: (arg0?: any) => void;
+}): React.ReactElement {
+  const { t } = useTranslation();
+
+  const changeSelected = (v: string, id: string) => {
+    props.callback((b) => (!v ? b.filter((item) => item !== id) : [...b, id]));
+  };
+  const { platoons } = props;
+  if (!props.loading && !props.error) {
+    if (platoons.platoons.length == 0) {
+      return <p>{t("group.platoons.resultNotFound")}</p>;
+    }
+    return (
+      <>
+        {platoons.platoons.map((key: IPlatoonResult, index: number) => {
+          return (
+            <SelectableRow
+              key={index}
+              callback={(v) => changeSelected(v, key.id)}
+            >
+              <div className={styles.DiscordName}>{key.name}</div>
+              <div className={styles.ServerAliasName}>
+                {key.currentSize} / 100 {t("group.platoons.members")}
+              </div>
+            </SelectableRow>
+          );
+        })}
+      </>
+    );
+  } else {
+    return <ServerListsLoading />;
+  }
 }
 
 export function EditGroup(): React.ReactElement {

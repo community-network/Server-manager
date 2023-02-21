@@ -58,6 +58,7 @@ export interface IGroupInfo {
   lastUpdate: string;
   makeOperations: boolean;
   servers: IGroupServer[];
+  platoons: { [name: string]: string };
   tokenUsed: boolean;
   visableBans: boolean;
   webhookUrl: string;
@@ -452,62 +453,6 @@ export interface IManGroupServer {
   status: string;
 }
 
-export interface IStartsReturn {
-  avatar: string;
-  userName: string;
-  id: number;
-  rank: number;
-  rankImg: string;
-  rankName: string;
-  skill: number;
-  scorePerMinute: number;
-  killsPerMinute: number;
-  winPercent: string;
-  bestClass: string;
-  accuracy: string;
-  headshots: string;
-  timePlayed: string;
-  secondsPlayed: number;
-  killDeath: number;
-  infantryKillDeath: number;
-  infantryKillsPerMinute: number;
-  kills: number;
-  deaths: number;
-  wins: number;
-  loses: number;
-  longestHeadShot: number;
-  revives: number;
-  dogtagsTaken: number;
-  highestKillStreak: number;
-  roundsPlayed: number;
-  awardScore: number;
-  bonusScore: number;
-  squadScore: number;
-  currentRankProgress: number;
-  totalRankProgress: number;
-  avengerKills: number;
-  saviorKills: number;
-  headShots: number;
-  heals: number;
-  repairs: number;
-  killAssists: number;
-}
-
-export interface IManagerStats {
-  amounts: {
-    communities: number;
-    servers: number;
-    perWeek: {
-      bfbanKicks: number;
-      movedPlayers: number;
-      kickedPlayers: number;
-      bannedPlayers: number;
-      globalbanKicks: number;
-      pingKicks: number;
-    };
-  };
-}
-
 export interface IBfvPlaygrounds {
   playgrounds: IBfvPlayground[];
 }
@@ -568,6 +513,12 @@ export interface IServerChangeRotation {
   };
 }
 
+export interface IEditPlatoon {
+  id: string;
+  jsonrpc: string;
+  result: boolean;
+}
+
 export interface IBfvCreateServer {
   gameId: number;
   pingSite: string;
@@ -575,77 +526,4 @@ export interface IBfvCreateServer {
 
 export interface IServerOperationSuccess {
   info: string;
-}
-
-export interface ISeederGameItem {
-  id?: string;
-  name?: string;
-  shortName?: string;
-  image?: string;
-  type?: string;
-  subtype?: string;
-  class?: string;
-}
-
-export interface ISeederServerPlayer {
-  index?: number;
-  teamId: number;
-  mark: number;
-  platoon?: {
-    tag: string;
-    name: string;
-    icon: string;
-  };
-  squad_id?: number;
-  squad_name?: string;
-  rank: number;
-  name: string;
-  player_id: number;
-  kills: number;
-  deaths: number;
-  score: number;
-  player_class?: {
-    id: string;
-    name?: string;
-    black?: string;
-    white?: string;
-  };
-  Spectator?: 0;
-  vehicle?: ISeederGameItem;
-  weapons?: ISeederGameItem[];
-}
-
-export interface ISeederServerInfo {
-  _id: string;
-  gameId: number;
-  ingameChat?: {
-    timestamp: string;
-    sender: string;
-    content: string;
-  }[];
-  serverinfo: {
-    country: string;
-    description: string;
-    level: string;
-    maps: string[];
-    mode: string;
-    name: string;
-    owner: string;
-    region: string;
-    servertype: string;
-    settings: string[];
-  };
-  teams: {
-    players: ISeederServerPlayer[];
-    teamid: string;
-    image: string;
-    name: string;
-    score: number;
-    faction?: string;
-    key?: string;
-    scoreFromKills?: number;
-    scoreFromFlags?: number;
-  }[];
-  timeStamp: string;
-  update_timestamp: number;
 }

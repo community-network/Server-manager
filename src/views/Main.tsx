@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Navigate } from "react-router-dom";
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 
 import { MainPageComponent } from "../components";
-import { IUserInfo } from "../ReturnTypes";
+import { IUserInfo } from "../api/ReturnTypes";
 
 export default function Main() {
   const {

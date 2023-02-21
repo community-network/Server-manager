@@ -6,7 +6,7 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query";
 import { Navigate } from "react-router-dom";
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import {
   Switch,
   Column,
@@ -26,7 +26,7 @@ import {
   IManGroupOwner,
   IManGroups,
   IManGroupServer,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
 
 export function GroupRow(props: { group: IManGroup }): React.ReactElement {
   const { t } = useTranslation();

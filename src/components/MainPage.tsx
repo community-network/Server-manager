@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import styles from "./MainPage.module.css";
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import "../locales/config";
 import { useTranslation } from "react-i18next";
-import { IManagerStats } from "../ReturnTypes";
+import { GametoolsApi } from "../api/GametoolsApi";
 
 function ListItem(props: {
   header: string;
@@ -33,15 +33,10 @@ function LoginButton(): React.ReactElement {
 export function MainPageComponent(): React.ReactElement {
   const { t } = useTranslation();
   const {
+    isLoading,
     isError,
     data: stats,
-    isLoading,
-  }: UseQueryResult<
-    IManagerStats,
-    { code: number; message: string }
-  > = useQuery(["managerStats"], () =>
-    fetch("https://api.gametools.network/manager/info/").then((r) => r.json()),
-  );
+  } = useQuery(["managerStats"], () => GametoolsApi.managerStats());
   return (
     <div className={styles.MainPage}>
       <div className={styles.MainPageCard}>

@@ -11,13 +11,15 @@ import styles from "./PlayerList.module.css";
 import { bf1Factions, bfvFactions, IFactions } from "./Factions";
 
 import { ServerKickPlayer, ServerBanPlayer, PlayerStatsModal } from "./Modals";
-import { useMovePlayer, useSeeder } from "./Manager";
+import { useMovePlayer } from "./Manager";
 import {
   IInGameServerInfo,
-  ISeederServerPlayer,
   IServerInfo,
   IServerPlayer,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
+import { GametoolsApi } from "../api/GametoolsApi";
+import { useQuery } from "@tanstack/react-query";
+import { ISeederServerPlayer } from "../api/GametoolsReturnTypes";
 
 export function PlayerList(props: {
   game: IInGameServerInfo;
@@ -44,7 +46,11 @@ export function PlayerList(props: {
     (teams[0].players !== undefined || teams[1].players !== undefined);
 
   const gameId = havePlayers ? game.data[0].ingameServerId : null;
-  const { data: seederInfo } = useSeeder(parseInt(gameId));
+  const { data: seederInfo } = useQuery(["seederPlayers", gameId], () =>
+    GametoolsApi.seederPlayerList({
+      gameId: gameId,
+    }),
+  );
   const haveSeederPlayers =
     seederInfo && seederInfo.teams && seederInfo.teams.length > 0;
   let seederPlayers: Map<number, ISeederServerPlayer> = new Map<

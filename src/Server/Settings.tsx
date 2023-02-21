@@ -15,7 +15,7 @@ import {
   ButtonUrl,
   ButtonLink,
 } from "../components";
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import { bf1Maps, bf1Modes } from "../Globals";
 import {
   IServerInfo,
@@ -23,7 +23,7 @@ import {
   ICookie,
   IServerRotation,
   ICookieList,
-} from "../ReturnTypes";
+} from "../api/ReturnTypes";
 
 export function IngameSettings(props: {
   server: IServerInfo;

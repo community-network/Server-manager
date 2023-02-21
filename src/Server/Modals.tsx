@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { OperationsApi } from "../api";
+import { OperationsApi } from "../api/api";
 import {
   useModal,
   Switch,
@@ -22,7 +22,9 @@ import "../locales/config";
 import { useUser } from "./Manager";
 
 import styles from "./Styles.module.css";
-import { IInGameServerInfo, IStartsReturn, IUserServer } from "../ReturnTypes";
+import { IInGameServerInfo, IUserServer } from "../api/ReturnTypes";
+import { GametoolsApi } from "../api/GametoolsApi";
+import { getLanguage } from "../locales/config";
 
 export function ServerKickPlayer(props: {
   eaid: string;
@@ -371,16 +373,18 @@ export function PlayerStatsModal(props: {
     check = player;
   }
   const {
+    isLoading,
     isError,
     data: stats,
-    isLoading,
-  }: UseQueryResult<
-    IStartsReturn,
-    { code: number; message: string }
-  > = useQuery(["playerStatsByEAID", player], () =>
-    fetch(
-      `https://api.gametools.network/bf1/stats/?${type}=${check}&lang=en-us&platform=pc&=`,
-    ).then((r) => r.json()),
+  } = useQuery(["stats" + "bf1" + type + check], () =>
+    GametoolsApi.stats({
+      game: "bf1",
+      type: "stats",
+      getter: type,
+      userName: check.toString(),
+      lang: getLanguage(),
+      platform: "pc",
+    }),
   );
   const { t } = useTranslation();
 

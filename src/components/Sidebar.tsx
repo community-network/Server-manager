@@ -5,8 +5,8 @@ import { ABSwitch } from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
 import "../locales/config";
 import { useTranslation } from "react-i18next";
-import { OperationsApi } from "../api";
-import { IUserInfo } from "../ReturnTypes";
+import { OperationsApi } from "../api/api";
+import { IUserInfo } from "../api/ReturnTypes";
 
 function PageLink(props: {
   to: To;
