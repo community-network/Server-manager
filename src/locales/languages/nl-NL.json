@@ -329,6 +329,23 @@
             "alias": "Alias: {{alias}}",
             "add": "Server toevoegen"
         },
+        "platoons": {
+            "main": "Platoons",
+            "description0": "Beheer al je platoons alsof het een hele grote is",
+            "search": "Zoek op platoon naam",
+            "add": "Platoon toevoegen",
+            "remove": "Platoon verwijderen",
+            "resultNotFound": "Geen platoon gevonden met die naam",
+            "members": {
+                "main": "Leden",
+                "remove": "Leden verwijderen"
+            },
+            "applicants": {
+                "main": "Aanvragers",
+                "accept": "Accepteren",
+                "decline": "Weigeren"
+            }
+        },
         "owners": {
             "main": "Eigenaren",
             "description0": "Lijst van huidige eigenaren in deze groep.",
