@@ -58,6 +58,8 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html"),
 );
 
+registerRoute(/\.(?:js|css)$/, new StaleWhileRevalidate());
+
 // An example runtime caching route for requests that aren't handled by the
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
