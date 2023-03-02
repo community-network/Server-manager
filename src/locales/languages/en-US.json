@@ -158,11 +158,11 @@
             },
             "1": {
                 "heading": "Unlimited Global V-Ban list",
-                "body": "Ban as many players as you want to on all your servers with virtal ban list."
+                "body": "Ban as many players as you want to on all your servers with virtual ban list."
             },
             "2": {
                 "heading": "High ping players kick",
-                "body": "Automaticaly kick players from your servers based on ping threshold."
+                "body": "Automatically kick players from your servers based on ping threshold."
             },
             "3": {
                 "heading": "Discord tools to maintain server",
@@ -426,7 +426,7 @@
             "gamestats": "Add Game Stats bot on your Discord server, in order to control BF1 servers with commands.",
             "commandList": "for a list of commands that you can use in Discord, use the \"!bfadmin\" command.",
             "permDescription0": "Every person with that role id can use",
-            "permDescription1": "discord commands to contol the server."
+            "permDescription1": "discord commands to control the server."
         },
         "settings": {
             "main": "Group settings",
