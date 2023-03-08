@@ -17,6 +17,8 @@ Battlefield 1, 5 (beta) and 2042 server manager created by Community Network.
     2. Virtual ban list with infinity number of ban slots
     3. High ping auto kick
 
+### Links
+
 * [Discord](https://discord.gametools.network)
 * [API](https://manager-api.gametools.network/docs/)
 * [Help with translation](https://explore.transifex.com/gametools/servermanager/)
