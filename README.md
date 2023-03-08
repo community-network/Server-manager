@@ -1,6 +1,6 @@
 # [Server Manager](https://manager.gametools.network/)
 
-Battlefield One server manager created by Community Network.
+Battlefield 1, 5 (beta) and 2042 server manager created by Community Network.
 
 ### Features
 
@@ -17,4 +17,6 @@ Battlefield One server manager created by Community Network.
     2. Virtual ban list with infinity number of ban slots
     3. High ping auto kick
 
-
+* [Discord](https://discord.gametools.network)
+* [API](https://manager-api.gametools.network/docs/)
+* [Help with translation](https://explore.transifex.com/gametools/servermanager/)
