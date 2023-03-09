@@ -7,7 +7,7 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
-import { clientsClaim } from "workbox-core";
+import { setCacheNameDetails, clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import {
   cleanupOutdatedCaches,
@@ -21,7 +21,7 @@ clientsClaim();
 
 setCacheNameDetails({
   prefix: "manager-app",
-  suffix: "v0.0.1",
+  suffix: "v0.0.2",
   precache: "pre-cache",
   runtime: "runtime-cache",
 });
