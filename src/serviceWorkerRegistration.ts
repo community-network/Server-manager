@@ -129,13 +129,18 @@ function checkValidServiceWorker(swUrl, config) {
 }
 
 export function unregister() {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.ready
-      .then((registration) => {
-        registration.unregister();
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
-  }
+  navigator.serviceWorker.getRegistrations().then(function (registrations) {
+    for (const registration of registrations) {
+      registration.unregister();
+    }
+  });
+  // if ("serviceWorker" in navigator) {
+  //   navigator.serviceWorker.ready
+  //     .then((registration) => {
+  //       registration.unregister();
+  //     })
+  //     .catch((error) => {
+  //       console.error(error.message);
+  //     });
+  // }
 }
