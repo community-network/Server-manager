@@ -97,32 +97,32 @@
         "Wake Island": "Wake Island"
     },
     "cookie": {
-        "check": "Select a game the cookie supports to check if valid",
-        "add": "Add server account",
-        "setDefaultCookie": "Set as default",
+        "check": "Geçerli olup olmadığını kontrol etmek için çerezin desteklediği bir oyun seçin",
+        "add": "Sunucu hesabı ekle",
+        "setDefaultCookie": "Varsayılan olarak ayarla",
         "invalid": "Σφάλμα: Τα coockies που χρησιμοποιείς δεν είναι έγκυρα!",
         "remid": "REMID cookie",
         "sidDescription": "Τα coockies μπορούν να βρεθούν στο ",
         "remidDescription": "Μπορείτε να βρείτε τα cookies συνεδρίας υπενθύμισης στη διεύθυνση ",
         "sid": "SID cookie",
-        "locale": "Language tag",
-        "delete": "Delete server account",
+        "locale": "Dil etiketi",
+        "delete": "Sunucu hesabını sil",
         "status": {
-            "loading": "Updating account status..",
-            "pending": "We have a pending status for this account"
+            "loading": "Hesap durumu güncelleniyor..",
+            "pending": "Bu hesap için bekleyen bir durumumuz var"
         },
         "accountType": {
-            "add": "Add new cookie",
-            "default": "Default account",
-            "extra": "Extra account"
+            "add": "Yeni çerez ekle",
+            "default": "Varsayılan hesap",
+            "extra": "Ekstra hesap"
         },
         "removeMenu": {
-            "main": "Are you sure you want to remove \"{{name}}\" service account?",
-            "confirm": "Remove account"
+            "main": "\"{{name}}\" hizmet hesabını kaldırmak istediğinizden emin misiniz?",
+            "confirm": "Hesabı kaldır"
         },
         "supportedGames": {
-            "main": "Games on account:",
-            "update": "Update game list"
+            "main": "Hesaptaki oyunlar:",
+            "update": "Oyun listesini güncelle"
         }
     },
     "serverStatus": {
@@ -130,13 +130,13 @@
         "noServer": "Ο διακομιστής δε βρέθηκε",
         "noAdmin": "Κανένα δικαίομα διαχειριστή",
         "running": "Τρέχει",
-        "notSupported": "No status support"
+        "notSupported": "Durum desteği yok"
     },
     "serverBotStatus": {
         "pending": "Εκκρεμής κατάσταση",
-        "noService": "No worker found",
-        "failed": "Worker failed",
-        "running": "Running with name \"{{worker}}\""
+        "noService": "İşçi bulunamadı",
+        "failed": "İşçi başarısız oldu",
+        "running": "\"{{worker}}\" adıyla çalıştırılıyor"
     },
     "discord": {
         "id": "Ταυτότητα διακομιστή Discord",
@@ -158,11 +158,11 @@
             },
             "1": {
                 "heading": "Απεριόριστη λίστα Global V-Ban",
-                "body": "Ban as many players as you want to on all your servers with virtual ban list."
+                "body": "Sanal ban listesi ile tüm sunucularınızda istediğiniz kadar oyuncuyu banlayın."
             },
             "2": {
                 "heading": "Kickάρισμα παικτών με υψυλό ping",
-                "body": "Automatically kick players from your servers based on ping threshold."
+                "body": "Ping eşiğine göre oyuncuları sunucularınızdan otomatik olarak atın."
             },
             "3": {
                 "heading": "Discord εργαλεία για τη συντήρηση του διακομιστή",
@@ -186,7 +186,7 @@
                 "pingKicks": "παίκτες kicked για ping",
                 "movedPlayers": "παίκτες που μεταφέρθηκαν σε διαφορετική ομάδα",
                 "kickedPlayers": "παίκτες kicked μέσο του panel",
-                "bannedPlayers": "players banned via the panel"
+                "bannedPlayers": "panel aracılığı ile banlanan edilen oyuncular"
             }
         }
     },
@@ -211,26 +211,26 @@
         "main": "Yönetim Seçenekleri",
         "listGroups": "Λίστα ομάδων",
         "worker": {
-            "main": "Worker account",
+            "main": "İşçi hesabı",
             "lastUpdate": "Τελευταία ενημέρωση"
         },
         "owners": {
             "main": "Κάτοχοι",
-            "createdAt": "User created at"
+            "createdAt": "Kullanıcı şu tarihte oluşturuldu"
         },
         "servers": {
             "main": "Διακομιστές",
-            "status": "Server status",
-            "lastUpdate": "Last worker update",
-            "createdAt": "Server added at",
-            "autoPingKick": "Kick for ping",
+            "status": "Sunucu durumu",
+            "lastUpdate": "Son çalışan güncellemesi",
+            "createdAt": "Sunucu şu zamanda eklendi",
+            "autoPingKick": "Ping için kickle",
             "autoBanKick": "vBan kick",
             "autoBfbanKick": "BfBan kick"
         },
         "settings": {
             "main": "Ρυθμίσεις",
-            "makeOperations": "Enable make operations",
-            "seedServers": "Enable seeding bots"
+            "makeOperations": "Make işlemlerini etkinleştirin",
+            "seedServers": "Seedleme botlarını aktifleştir"
         }
     },
     "createGroup": {
@@ -260,90 +260,90 @@
             "selected": "Επιλέξατε {{number}} διαχειριστές."
         },
         "seeding": {
-            "main": "Seed servers",
-            "app": "Download the seeding app",
-            "description0": "Seed your battlefield 1 and 4 servers.",
-            "description1": "You need at least Owner role to access this panel,",
-            "description2": "You have to run the application from the link below this message on every pc that you want to have help with seeding",
-            "custom": "Custom server",
+            "main": "Sunucuları seedle",
+            "app": "Seedleme uygulamasını indirin",
+            "description0": "Battlefield 1 ve 4 sunucularınızı seedleyin.",
+            "description1": "Bu panele erişmek için en az Sahip rolüne sahip olmanız gerekir,",
+            "description2": "Seeding konusunda yardım almak istediğiniz her bilgisayarda bu mesajın altındaki bağlantıdan uygulamayı çalıştırmanız gerekir",
+            "custom": "Özel sunucu",
             "broadcast": {
-                "main": "Broadcast a message to all servers",
-                "message": "message",
-                "sendMessage": "Send"
+                "main": "Bir mesajı tüm sunuculara yayınla",
+                "message": "mesaj",
+                "sendMessage": "Gönder"
             },
             "scheduled": {
-                "true": "Scheduled on {{startTime}} for {{serverName}}",
-                "false": "No auto-seed scheduled."
+                "true": " {{serverName}} için planlanan tarih {{startTime}}",
+                "false": "Otomatik-seed ayarlanmamış"
             },
             "auto-rejoin": {
-                "true": "auto-rejoin",
-                "false": "no auto-rejoin"
+                "true": "otomatik yeniden bağlan",
+                "false": "otomatik yeniden bağlanma"
             },
             "popup": {
-                "confirmInfo": "Are you sure you want to {{option}}?",
-                "broadcastInfo": "Are you sure you want to broadcast \"{{message}}\"?",
-                "confirm": "Confirm!"
+                "confirmInfo": "{{option}} yapmak istediğinizden emin misiniz?",
+                "broadcastInfo": "\"{{message}}\" yayınlamak istediğinizden emin misiniz?",
+                "confirm": "Onayla!"
             },
             "actions": {
-                "joinSelected": "Join selected server",
-                "leave": "Leave current server",
-                "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
-                "schedule": "Schedule seeding starttime (UTC timezone)",
-                "undoSchedule": "remove seeding from schedule"
+                "joinSelected": "Seçili sunucuya katıl",
+                "leave": "Geçerli sunucudan ayrıl",
+                "shutdownWindows": "Bilgisayarları kapat (kapatma seçeneği etkinken)",
+                "schedule": "Seedleme başlangıç zamanını planlayın (UTC zaman dilimi)",
+                "undoSchedule": "seedlemeyi programdan kaldırın"
             },
             "status": {
-                "main": "Status: ",
-                "seedServer": "Seeding {{serverName}}",
-                "leaveServer": "Not in any server",
-                "shutdownPC": "Turned all PC's off with shutdown option enabled",
-                "broadcastMessage": "Broadcasted \"{{message}}\" to all servers"
+                "main": "Durum:",
+                "seedServer": "Seedleniyor {{serverName}}",
+                "leaveServer": "Hiçbir sunucuda değil",
+                "shutdownPC": "Kapatma seçeneği etkinleştirilerek tüm bilgisayarlar kapatıldı",
+                "broadcastMessage": "Tüm sunuculara \"{{message}}\" yayınladı"
             },
             "seeders": {
-                "main": "Currently {{seeders}} seeders online with {{ingame}} in the game",
-                "true": "in the game",
-                "false": "not in the game",
-                "defaultDescription": "following global-seeding system"
+                "main": "Şu anda {{seeders}} adet seeder {{ingame}} ile birlikte oyunda",
+                "true": "oyunda",
+                "false": "oyunda değil",
+                "defaultDescription": "Global-seeding sistemi takip ediliyor"
             },
             "keepalive": {
-                "main": "Connect hostname to server for keeping them alive",
-                "add": "Add hostname",
-                "remove": "Remove hostname",
-                "hostname": "Which hostname do you want to add to selected server?",
-                "sethostname": "Hostname",
-                "currentHostname": "remove '{{ hostname }}' from the selected server?"
+                "main": "Canlı tutmak için ana bilgisayar adını sunucuya bağlayın",
+                "add": "Ana bilgisayar adı ekle",
+                "remove": "Ana bilgisayar adını kaldır",
+                "hostname": "Seçili sunucuya hangi ana bilgisayar adını eklemek istiyorsunuz?",
+                "sethostname": "Ana bilgisayar adı",
+                "currentHostname": "'{{ hostname }}' öğesi seçili sunucudan kaldırılsın mı?"
             },
             "game": {
                 "bf4": "bf4",
                 "bf1": "bf1"
             },
             "other": {
-                "main": "Other servers (seed-only servers)",
-                "add": "Add seed-only server",
-                "remove": "Remove seed-only server"
+                "main": "Diğer sunucular (seed-only sunucular)",
+                "add": "Seed-only sunucu ekle",
+                "remove": "Seed-only sunucuyu kaldır"
             }
         },
         "servers": {
             "main": "Διακομιστές",
             "description0": "Οι παρουσίες διακομιστών προστέθηκαν στην τρέχουσα ομάδα. Πρέπει να έχεις",
             "description1": "Ρόλο ιδιοκτήτη για την προσθήκη νέων διακομιστών.",
-            "alias": "Alias: {{alias}}",
+            "alias": "Takma ad: {{alias}}",
             "add": "Προσθέσθε διακομιστή"
         },
         "platoons": {
-            "main": "Platoons",
-            "description0": "Manage many platoons as if they were one big platoon",
-            "search": "Search platoonname",
-            "add": "Add platoons",
-            "remove": "Remove platoons",
-            "resultNotFound": "No platoons found with that name",
+            "main": "Platoonlar",
+            "description0": "Birçok platoonu tek bir büyük platoonmuş gibi yönetin",
+            "search": "Ara platoonname",
+            "add": "Platoonları ekle",
+            "remove": "Platoonları kaldır",
+            "resultNotFound": "Bu isimde bir platoon bulunamadı",
             "members": {
-                "main": "Members",
-                "remove": "Remove member"
+                "main": "Üyeler",
+                "remove": "Üyeyi kaldır"
             },
             "applicants": {
-                "main": "Applicants",
-                "accept": "Accept",
-                "decline": "Decline"
+                "main": "Başvuranlar",
+                "accept": "Kabul et",
+                "decline": "Reddet"
             }
         },
         "owners": {
@@ -362,7 +362,7 @@
             "description0": "Λίστα banαρισμένων παικτών σε αυτη την ομάδα.",
             "description1": "Χρησιμοποιημένες {{number}} θυρίδες",
             "noReason": "με λόγο",
-            "add": "Add ban",
+            "add": "Ban ekle",
             "unban": "Unban",
             "table": {
                 "playerName": "Όνομα παίκτη",
