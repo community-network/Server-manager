@@ -266,7 +266,7 @@ export function Group(): React.ReactElement {
   if (group && group.isOwner) {
     settingsCycle.push({
       name: t("group.logs.main"),
-      callback: () => setListing("grouplogs"),
+      callback: () => setSettingsListing("grouplogs"),
     });
   }
 
