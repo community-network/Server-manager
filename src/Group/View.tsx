@@ -3031,7 +3031,7 @@ function PlatoonResults(props: {
             >
               <div className={styles.DiscordName}>{key.name}</div>
               <div className={styles.ServerAliasName}>
-                {key.currentSize} / 100 {t("group.platoons.members")}
+                {key.currentSize} / 100 {t("group.platoons.members.main")}
               </div>
             </SelectableRow>
           );
