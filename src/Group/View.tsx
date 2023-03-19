@@ -3122,12 +3122,11 @@ export function MakeOps(): React.ReactElement {
     changeState(newGroupState);
   };
 
+  let bf1Servers = [];
   if (group) {
-    if (
-      addGroupState.variables.server === "" &&
-      group.servers[0] !== undefined
-    ) {
-      checkInputVariables({ server: group.servers[0].id });
+    bf1Servers = group.servers.filter((item) => item.game == "bf1");
+    if (addGroupState.variables.server === "" && bf1Servers[0] !== undefined) {
+      checkInputVariables({ server: bf1Servers[0].id });
     }
   }
 
@@ -3151,15 +3150,12 @@ export function MakeOps(): React.ReactElement {
                   checkInputVariables({ server: e.target.value })
                 }
               >
-                {group.servers.map((server: IGroupServer, index: number) => {
-                  if (server.game === "bf1") {
-                    return (
-                      <option key={index} value={server.id}>
-                        {server.name}
-                      </option>
-                    );
-                  }
-                  return "";
+                {bf1Servers.map((server: IGroupServer, index: number) => {
+                  return (
+                    <option key={index} value={server.id}>
+                      {server.name}
+                    </option>
+                  );
                 })}
               </select>
             </ButtonRow>
