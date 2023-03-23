@@ -1,5 +1,18 @@
 # [Server Manager](https://manager.gametools.network/)
 
+Frontend of [Operations-Api](https://github.com/community-network/Operations-API)
+
+## Contribute
+
+Start the backend first, and change `Server-manager/src/api
+/JsonApi.ts` MODE to "local".
+
+use the latest version of node, 
+and install the needed packages with `npm install`
+you can run it with
+`npm run start`
+
+
 Battlefield 1, 5 (beta) and 2042 server manager created by Community Network.
 
 ### Features
