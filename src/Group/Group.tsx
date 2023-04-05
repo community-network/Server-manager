@@ -27,6 +27,7 @@ import {
   IconSelected,
   IconNotSelected,
   ReasonDropdownButton,
+  Switch,
 } from "../components/Buttons";
 import { useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
@@ -731,7 +732,10 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
 
   const queryClient = useQueryClient();
 
+  const [usePlayerId, setUsePlayerId] = React.useState(false);
   const [playerName, setPlayerName] = React.useState("");
+  const [playerId, setPlayerId] = React.useState("");
+
   const [reason, setReason] = React.useState("");
   const [banTime, setBanTime] = React.useState("0");
 
@@ -775,7 +779,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
           (old: IGlobalGroupPlayer) => {
             old.data.push({
               id: playerId,
-              playerName: name,
+              playerName: name != undefined ? name : "",
               reason: reason,
               timeStamp: UTCNow,
               bannedUntil: null,
@@ -823,11 +827,24 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
       <h2 style={{ marginLeft: "20px" }}>
         {t("server.vBanMenu.playerNameDescription")}{" "}
       </h2>
-      <TextInput
-        value={playerName}
-        name={t("server.vBanMenu.playerName")}
-        callback={(e) => setPlayerName(e.target.value)}
+      <Switch
+        checked={usePlayerId}
+        name={t("server.vBanMenu.usePlayerId")}
+        callback={(v) => setUsePlayerId(v)}
       />
+      {usePlayerId ? (
+        <TextInput
+          value={playerId}
+          name={t("server.vBanMenu.playerId")}
+          callback={(e) => setPlayerId(e.target.value)}
+        />
+      ) : (
+        <TextInput
+          value={playerName}
+          name={t("server.vBanMenu.playerName")}
+          callback={(e) => setPlayerName(e.target.value)}
+        />
+      )}
       <h5 style={{ maxWidth: "300px" }}>
         {t("server.vBanMenu.reasonDescription")}
       </h5>
@@ -864,8 +881,8 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
             GlobalBanPlayer.mutate({
               gid,
               reason,
-              name: playerName,
-              playerId: undefined,
+              name: usePlayerId ? undefined : playerName,
+              playerId: usePlayerId ? Number.parseInt(playerId) : undefined,
               banTime,
             })
           }

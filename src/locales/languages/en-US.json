@@ -804,7 +804,9 @@
             "playerName": "username",
             "reasonDescription": "Enter a reason to vBan this player.",
             "reason": "Reason",
-            "confirm": "Ban!"
+            "confirm": "Ban!",
+            "usePlayerId": "Use player ID to ban",
+            "playerId": "Player ID"
         },
         "exclusionsMenu": {
             "playerNameDescription": "Fill in the name of the player you want to add to exclusions",
