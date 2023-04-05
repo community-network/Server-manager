@@ -23,7 +23,7 @@
     },
     "games": {
         "bf3": "Battlefield 3 (statusbot only)",
-        "bf4": "Battlefield 4 (statusbot only)",
+        "bf4": "Battlefield 4 (statusbot/seeder only)",
         "bfh": "Battlefield Hardline (statusbot only)",
         "bf1": "Battlefield 1",
         "bfv": "Battlefield 5 (Early beta)",
@@ -130,7 +130,7 @@
         "noServer": "Server not found",
         "noAdmin": "No admin rights",
         "running": "Running",
-        "notSupported": "No status support"
+        "notSupported": "No backgroundworker status support"
     },
     "serverBotStatus": {
         "pending": "Pending status",
