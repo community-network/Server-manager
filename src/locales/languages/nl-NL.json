@@ -23,7 +23,7 @@
     },
     "games": {
         "bf3": "Battlefield 3 (alleen statusbot)",
-        "bf4": "Battlefield 4 (alleen statusbot)",
+        "bf4": "Battlefield 4 (alleen statusbot en seeder)",
         "bfh": "Battlefield Hardline (alleen statusbot)",
         "bf1": "Battlefield 1",
         "bfv": "Battlefield 5 (vroege beta)",
@@ -130,7 +130,7 @@
         "noServer": "Server niet gevonden",
         "noAdmin": "Geen admin rechten",
         "running": "Draaiend",
-        "notSupported": "Geen status support"
+        "notSupported": "Geen background-worker status support"
     },
     "serverBotStatus": {
         "pending": "in behandeling",
@@ -804,7 +804,9 @@
             "playerName": "gebruikersnaam",
             "reasonDescription": "Vul een reden om deze speler toe te voegen.",
             "reason": "Redem",
-            "confirm": "Ban!"
+            "confirm": "Ban!",
+            "usePlayerId": "Speler ID gebruiken voor ban",
+            "playerId": "Speler ID"
         },
         "exclusionsMenu": {
             "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan de lijst met uitgesloten spelers",
