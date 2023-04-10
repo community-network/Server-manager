@@ -1,883 +1,887 @@
 {
-    "beta": "beta",
-    "eBeta": "vroege beta",
-    "search": "Zoeken...",
-    "pending": "In afwachting...",
-    "loading": "Laden..",
-    "denied": "Niet toegestaan",
-    "apply": "Toepassen",
-    "export": "Exporteren",
-    "date": "{{date, date|eee, dd MMM yyyy}}",
-    "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
-    "shortDateTime": "{{date, date|PPpp}}",
-    "chartDateTime": "{{date, date|d-M, HH:mm}}",
-    "time": "{{date, date|p}}",
-    "change": "{{change, change}}",
-    "notApplicable": "N/A",
-    "boolean": {
-        "enabled": "geactiveerd",
-        "disabled": "gedeactiveerd"
+  "beta": "beta",
+  "eBeta": "vroege beta",
+  "search": "Zoeken...",
+  "pending": "In afwachting...",
+  "loading": "Laden..",
+  "denied": "Niet toegestaan",
+  "apply": "Toepassen",
+  "export": "Exporteren",
+  "date": "{{date, date|eee, dd MMM yyyy}}",
+  "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
+  "shortDateTime": "{{date, date|PPpp}}",
+  "chartDateTime": "{{date, date|d-M, HH:mm}}",
+  "time": "{{date, date|p}}",
+  "change": "{{change, change}}",
+  "notApplicable": "N/A",
+  "boolean": {
+    "enabled": "geactiveerd",
+    "disabled": "gedeactiveerd"
+  },
+  "translation": {
+    "help": "Help met vertalingen"
+  },
+  "games": {
+    "bf3": "Battlefield 3 (alleen statusbot)",
+    "bf4": "Battlefield 4 (alleen statusbot en seeder)",
+    "bfh": "Battlefield Hardline (alleen statusbot)",
+    "bf1": "Battlefield 1",
+    "bfv": "Battlefield 5 (vroege beta)",
+    "bf2042": "Battlefield 2042"
+  },
+  "gamemodes": {
+    "FRONTLINES": "Frontlines",
+    "DOMINATION": "Domination",
+    "SHOCK OPERATIONS": "Shock operations",
+    "RUSH": "Rush",
+    "CONQUEST": "Conquest",
+    "WAR PIGEONS": "War pigeons",
+    "OPERATIONS": "Operations",
+    "TEAM DEATHMATCH": "Team deathmatch",
+    "BREAKTHROUGH": "Breakthrough",
+    "CUSTOM": "Aangepast"
+  },
+  "maps": {
+    "Amiens": "Amiens",
+    "Argonne Forest": "Argonne Forest",
+    "Ballroom Blitz": "Ballroom Blitz",
+    "Empire's Edge": "Empire's Edge",
+    "Fao Fortress": "Fao Fortress",
+    "Monte Grappa": "Monte Grappa",
+    "St Quentin Scar": "St Quentin Scar",
+    "Sinai Desert": "Sinai Desert",
+    "Suez": "Suez",
+    "Giant's Shadow": "Giant's Shadow",
+    "Verdun Heights": "Verdun Heights",
+    "Fort De Vaux": "Fort De Vaux",
+    "Soissons": "Soissons",
+    "Rupture": "Rupture",
+    "Nivelle Nights": "Nivelle Nights",
+    "Prise de Tahure": "Prise de Tahure",
+    "Łupków Pass": "Łupków Pass",
+    "Albion": "Albion",
+    "Galicia": "Galicia",
+    "Brusilov Keep": "Brusilov Keep",
+    "Tsaritsyn": "Tsaritsyn",
+    "Volga River": "Volga River",
+    "Achi Baba": "Achi Baba",
+    "Cape Helles": "Cape Helles",
+    "Heligoland Bight": "Heligoland Bight",
+    "Zeebrugge": "Zeebrugge",
+    "Caporetto": "Caporetto",
+    "Passchendaele": "Passchendaele",
+    "River Somme": "River Somme",
+    "London Calling: Raiders": "London Calling: Raiders",
+    "London Calling: Scourge": "London Calling: Scourge",
+    "Razor's Edge": "Razor's Edge",
+    "Aerodrome": "Aerodrome",
+    "Al Marj Encampment": "Al Marj Encampment",
+    "Al Sundan": "Al Sundan",
+    "Arras": "Arras",
+    "Devastation": "Devastation",
+    "Fjell 652": "Fjell 652",
+    "Halvøy": "Halvøy",
+    "Hamada": "Hamada",
+    "Iwo Jima": "Iwo Jima",
+    "Lofoten Islands": "Lofoten Islands",
+    "Marita": "Marita",
+    "Mercury": "Mercury",
+    "Narvik": "Narvik",
+    "Operation Underground": "Operation Underground",
+    "Pacific Storm": "Pacific Storm",
+    "Panzerstorm": "Panzerstorm",
+    "Provence": "Provence",
+    "Rotterdam": "Rotterdam",
+    "Solomon Islands": "Solomon Islands",
+    "Twisted Steel": "Twisted Steel",
+    "Wake Island": "Wake Island"
+  },
+  "cookie": {
+    "check": "Selecteer een spel dat de cookie ondersteund om na te gaan of de cookie geldig is.",
+    "add": "Server account toevoegen",
+    "setDefaultCookie": "Stel in als standaard",
+    "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
+    "remid": "REMID cookie",
+    "sidDescription": "Session cookies kunnen gevonden worden onder ",
+    "remidDescription": "Reminder session cookies kunnen gevonden worden onder ",
+    "sid": "SID cookie",
+    "locale": "Taaltag",
+    "delete": "Verwijder serveraccount",
+    "status": {
+      "loading": "Accountstatus bijwerken…",
+      "pending": "Dit account heeft het status \"in behandeling\""
     },
-    "translation": {
-        "help": "Help met vertalingen"
+    "accountType": {
+      "add": "Nieuw cookie toevoegen",
+      "default": "Standaard account",
+      "extra": "Extra account"
     },
-    "games": {
-        "bf3": "Battlefield 3 (alleen statusbot)",
-        "bf4": "Battlefield 4 (alleen statusbot en seeder)",
-        "bfh": "Battlefield Hardline (alleen statusbot)",
-        "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (vroege beta)",
-        "bf2042": "Battlefield 2042"
+    "removeMenu": {
+      "main": "Weet u zeker dat u service account \"{{name}}\" wilt verwijderen?",
+      "confirm": "Account verwijderen"
     },
-    "gamemodes": {
-        "FRONTLINES": "Frontlines",
-        "DOMINATION": "Domination",
-        "SHOCK OPERATIONS": "Shock operations",
-        "RUSH": "Rush",
-        "CONQUEST": "Conquest",
-        "WAR PIGEONS": "War pigeons",
-        "OPERATIONS": "Operations",
-        "TEAM DEATHMATCH": "Team deathmatch",
-        "BREAKTHROUGH": "Breakthrough",
-        "CUSTOM": "Aangepast"
+    "supportedGames": {
+      "main": "Spellen van account",
+      "update": "Spellijst bijwerken"
+    }
+  },
+  "serverStatus": {
+    "pending": "in behandeling",
+    "noServer": "Server niet gevonden",
+    "noAdmin": "Geen admin rechten",
+    "running": "Draaiend",
+    "notSupported": "Geen background-worker status support"
+  },
+  "serverBotStatus": {
+    "pending": "in behandeling",
+    "noService": "Geen worker gevonden",
+    "failed": "Worker is gefaald",
+    "running": "Draaiend met \"{{worker}}\" als naam"
+  },
+  "discord": {
+    "id": "Discord Server ID",
+    "idDescription": "Jouw Discord server ID",
+    "adminId": "Beheerdersrol ID",
+    "adminIdDescription": "Id of Admin rol",
+    "modId": "Mod-rol ID",
+    "modIdDescription": "Id of Moderator rol, moderators kunnen alleen spelers kicken"
+  },
+  "mainPage": {
+    "main": "Een nieuwe manier om je Battlefield 1 servers te beheren",
+    "description": "Server Manager is een nieuwe Gametools & BFBan service gemaakt door Community Network",
+    "login": "Inloggen",
+    "featureList": {
+      "main": "Functies",
+      "0": {
+        "heading": "BFBan anti-cheat",
+        "body": "Bescherm uw servers tegen hackers bevestigd op www.bfban.com"
+      },
+      "1": {
+        "heading": "Ongelimiteerde globale V-Ban lijst",
+        "body": "Ban zo veel spelers als u wilt op al uw servers met de virtuele ban lijst."
+      },
+      "2": {
+        "heading": "Kick spelers met hoge ping",
+        "body": "Kick automatisch spelers met een hoge ping van uw server gebaseerd op een door u ingestelde limiet"
+      },
+      "3": {
+        "heading": "Discord tools om je servers te bijhouden",
+        "body": "Beheer Battlefield servers recht vanuit uw Discord gebaseerd op rollen."
+      },
+      "4": {
+        "heading": "Logboekregistratie van serveracties",
+        "body": "Bekijk volledige logboeken van alle acties die op uw servers en groepen zijn uitgevoerd."
+      },
+      "5": {
+        "heading": "Volledige controle over uw servers",
+        "body": "Admins kunnen uw server bedienen met dezelfde functionaliteit als in het spel."
+      }
     },
-    "maps": {
-        "Amiens": "Amiens",
-        "Argonne Forest": "Argonne Forest",
-        "Ballroom Blitz": "Ballroom Blitz",
-        "Empire's Edge": "Empire's Edge",
-        "Fao Fortress": "Fao Fortress",
-        "Monte Grappa": "Monte Grappa",
-        "St Quentin Scar": "St Quentin Scar",
-        "Sinai Desert": "Sinai Desert",
-        "Suez": "Suez",
-        "Giant's Shadow": "Giant's Shadow",
-        "Verdun Heights": "Verdun Heights",
-        "Fort De Vaux": "Fort De Vaux",
-        "Soissons": "Soissons",
-        "Rupture": "Rupture",
-        "Nivelle Nights": "Nivelle Nights",
-        "Prise de Tahure": "Prise de Tahure",
-        "Łupków Pass": "Łupków Pass",
-        "Albion": "Albion",
-        "Galicia": "Galicia",
-        "Brusilov Keep": "Brusilov Keep",
-        "Tsaritsyn": "Tsaritsyn",
-        "Volga River": "Volga River",
-        "Achi Baba": "Achi Baba",
-        "Cape Helles": "Cape Helles",
-        "Heligoland Bight": "Heligoland Bight",
-        "Zeebrugge": "Zeebrugge",
-        "Caporetto": "Caporetto",
-        "Passchendaele": "Passchendaele",
-        "River Somme": "River Somme",
-        "London Calling: Raiders": "London Calling: Raiders",
-        "London Calling: Scourge": "London Calling: Scourge",
-        "Razor's Edge": "Razor's Edge",
-        "Aerodrome": "Aerodrome",
-        "Al Marj Encampment": "Al Marj Encampment",
-        "Al Sundan": "Al Sundan",
-        "Arras": "Arras",
-        "Devastation": "Devastation",
-        "Fjell 652": "Fjell 652",
-        "Halvøy": "Halvøy",
-        "Hamada": "Hamada",
-        "Iwo Jima": "Iwo Jima",
-        "Lofoten Islands": "Lofoten Islands",
-        "Marita": "Marita",
-        "Mercury": "Mercury",
-        "Narvik": "Narvik",
-        "Operation Underground": "Operation Underground",
-        "Pacific Storm": "Pacific Storm",
-        "Panzerstorm": "Panzerstorm",
-        "Provence": "Provence",
-        "Rotterdam": "Rotterdam",
-        "Solomon Islands": "Solomon Islands",
-        "Twisted Steel": "Twisted Steel",
-        "Wake Island": "Wake Island"
+    "statistics": {
+      "main": "Gebruikt door {{communities}} groepen met een totaal van {{servers}} servers",
+      "weekly": {
+        "main": "Weekelijkse statistieken:",
+        "bfbanKicks": "spelers gekickt door bfban",
+        "globalbanKicks": "spelers gekickt door globale V-Ban lijsten",
+        "pingKicks": "spelers gekickt voor ping",
+        "movedPlayers": "spelers veranderd van team",
+        "kickedPlayers": "spelers gekickt via het panel",
+        "bannedPlayers": "spelers verbannen via het panel"
+      }
+    }
+  },
+  "account": {
+    "main": "Account",
+    "discordProfile": "Discord profiel",
+    "loggedIn": "Ingelogd",
+    "permissions": {
+      "main": "Permissies",
+      "admin": "Beheerder",
+      "server": "Server eigenaar",
+      "system": "Systeem administrator"
+    }
+  },
+  "dev": {
+    "main": "Developer opties",
+    "listGroups": "Lijst van groepen",
+    "addGroup": "Groep toevoegen",
+    "manage": "Group beheren"
+  },
+  "man": {
+    "main": "Management opties",
+    "listGroups": "Lijst van groepen",
+    "worker": {
+      "main": "Worker account",
+      "lastUpdate": "Laaste update"
     },
-    "cookie": {
-        "check": "Selecteer een spel dat de cookie ondersteund om na te gaan of de cookie geldig is.",
-        "add": "Server account toevoegen",
-        "setDefaultCookie": "Stel in als standaard",
-        "invalid": "Error: De cookies die je nu gebruikt zijn niet geldig!",
-        "remid": "REMID cookie",
-        "sidDescription": "Session cookies kunnen gevonden worden onder ",
-        "remidDescription": "Reminder session cookies kunnen gevonden worden onder ",
-        "sid": "SID cookie",
-        "locale": "Taaltag",
-        "delete": "Verwijder serveraccount",
-        "status": {
-            "loading": "Accountstatus bijwerken…",
-            "pending": "Dit account heeft het status \"in behandeling\""
-        },
-        "accountType": {
-            "add": "Nieuw cookie toevoegen",
-            "default": "Standaard account",
-            "extra": "Extra account"
-        },
-        "removeMenu": {
-            "main": "Weet u zeker dat u service account \"{{name}}\" wilt verwijderen?",
-            "confirm": "Account verwijderen"
-        },
-        "supportedGames": {
-            "main": "Spellen van account",
-            "update": "Spellijst bijwerken"
-        }
+    "owners": {
+      "main": "Eigenaren",
+      "createdAt": "Gebruiker gemaakt op"
     },
-    "serverStatus": {
-        "pending": "in behandeling",
-        "noServer": "Server niet gevonden",
-        "noAdmin": "Geen admin rechten",
-        "running": "Draaiend",
-        "notSupported": "Geen background-worker status support"
+    "servers": {
+      "main": "Servers",
+      "status": "Server status",
+      "lastUpdate": "Laatste update van de worker",
+      "createdAt": "Server toegevoegd op",
+      "autoPingKick": "Kick voor ping",
+      "autoBanKick": "V-Ban kick",
+      "autoBfbanKick": "BfBan kick"
     },
-    "serverBotStatus": {
-        "pending": "in behandeling",
-        "noService": "Geen worker gevonden",
-        "failed": "Worker is gefaald",
-        "running": "Draaiend met \"{{worker}}\" als naam"
+    "settings": {
+      "main": "Instellingen",
+      "makeOperations": "Operations optie aanzetten voor groep",
+      "seedServers": "Seeding bots activeren"
+    }
+  },
+  "createGroup": {
+    "main": "Nieuwe groep maken",
+    "description": "Maak een nieuwe groep om uw communityservers te beheren",
+    "discordDescription": "Optioneel kunt u uw Discord-server toevoegen om servertools te integreren",
+    "cookieDescription0": "Elke groep moet een speciaal account koppelen met bepaalde eisen:",
+    "cookieDescription1": "Het moet een Battlefield 1 admin op de server in het spel (niet het servereingenaar account)",
+    "cookieDescription2": "Het account moet nergens anders gebruikt worden, anders kan het leiden tot foutmeldingen",
+    "acceptDescription0": "Door op deze knop te drukken, staat u toe",
+    "acceptDescription1": "server manager tool recht te geven tot het account.",
+    "accept": "Groep maken"
+  },
+  "group": {
+    "main": "Groep",
+    "name": "Groepsnaam",
+    "id": "Identiteit",
+    "admins": {
+      "main": "Beheerders",
+      "description0": "Beheerdersrol kan servers beheren.",
+      "description1": "U moet minstens eigenaarsrol hebben voordat u beheerders kunt toeveogen.",
+      "add": "Beheerder toevoegen",
+      "addNew": "Nieuwe beheerder toevoegen",
+      "removeSelected": "Verwijder geselecteerde beheerder",
+      "remove": "Verwijderen",
+      "select": "Selecteer beheerders om ze te verwijderen.",
+      "selected": "Je hebt {{number}} beheerders geselecteerd."
     },
-    "discord": {
-        "id": "Discord Server ID",
-        "idDescription": "Jouw Discord server ID",
-        "adminId": "Beheerdersrol ID",
-        "adminIdDescription": "Id of Admin rol",
-        "modId": "Mod-rol ID",
-        "modIdDescription": "Id of Moderator rol, moderators kunnen alleen spelers kicken"
+    "seeding": {
+      "main": "Seed servers",
+      "app": "Download de seeding app",
+      "description0": "Seed uw battlefield 1 en 4 servers.",
+      "description1": "Je moet minimaal eigenaar zijn van de groep om dit paneel te kunnen bedienen",
+      "description2": "Je moet de applicatie van de link hieronder draaien op elke pc die u wilt helpt met seeden",
+      "custom": "Zelf invoeren",
+      "broadcast": {
+        "main": "Stuur een bericht naar al uw servers",
+        "message": "bericht",
+        "sendMessage": "Verzenden"
+      },
+      "scheduled": {
+        "true": "Start om {{startTime}} voor {{serverName}}",
+        "false": "Tijd voor auto-seed niet geplanned."
+      },
+      "auto-rejoin": {
+        "true": "auto-herjoin",
+        "false": "geen auto-herjoin"
+      },
+      "popup": {
+        "confirmInfo": "Weet u zeker dat u \"{{option}}\" wilt uitvoeren?",
+        "broadcastInfo": "Weet u zeker dat u \"{{message}}\" wilt sturen naar alle servers?",
+        "confirm": "Uitvoeren!"
+      },
+      "actions": {
+        "joinSelected": "Betreed de geselecteerde server",
+        "leave": "Verlaat huidige server",
+        "shutdownWindows": "Zet de PC's uit (Als afsluitoptie aan staat)",
+        "schedule": "Begin met seeden op deze tijd (UTC tijdzone)",
+        "undoSchedule": "verwijder seeden van de planning"
+      },
+      "status": {
+        "main": "Status: ",
+        "seedServer": "{{serverName}} aan het seeden",
+        "leaveServer": "Niet in een server",
+        "shutdownPC": "Alle PC's met de afsluitoptie aan zijn uitgeschakeld",
+        "broadcastMessage": "\"{{message}}\" verzonden naar alle servers"
+      },
+      "seeders": {
+        "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
+        "true": "in het spel",
+        "false": "niet in het spel",
+        "defaultDescription": "globale seeders aan het volgen"
+      },
+      "keepalive": {
+        "main": "Verbind hostname aan een server om servers overeind te houden",
+        "add": "Hostname toevoegen",
+        "remove": "Hostname verwijden",
+        "hostname": "Welke hostname wil je koppelen aan de geselecteerde server?",
+        "sethostname": "Hostname",
+        "currentHostname": "'{{ hostname }}' verwijderen van de geselecteerde server?"
+      },
+      "game": {
+        "bf4": "bf4",
+        "bf1": "bf1"
+      },
+      "other": {
+        "main": "Andere servers (seed-only servers)",
+        "add": "Voeg een seed-only server toe",
+        "remove": "Verwijder een seed-only server"
+      }
     },
-    "mainPage": {
-        "main": "Een nieuwe manier om je Battlefield 1 servers te beheren",
-        "description": "Server Manager is een nieuwe Gametools & BFBan service gemaakt door Community Network",
-        "login": "Inloggen",
-        "featureList": {
-            "main": "Functies",
-            "0": {
-                "heading": "BFBan anti-cheat",
-                "body": "Bescherm uw servers tegen hackers bevestigd op www.bfban.com"
-            },
-            "1": {
-                "heading": "Ongelimiteerde globale V-Ban lijst",
-                "body": "Ban zo veel spelers als u wilt op al uw servers met de virtuele ban lijst."
-            },
-            "2": {
-                "heading": "Kick spelers met hoge ping",
-                "body": "Kick automatisch spelers met een hoge ping van uw server gebaseerd op een door u ingestelde limiet"
-            },
-            "3": {
-                "heading": "Discord tools om je servers te bijhouden",
-                "body": "Beheer Battlefield servers recht vanuit uw Discord gebaseerd op rollen."
-            },
-            "4": {
-                "heading": "Logboekregistratie van serveracties",
-                "body": "Bekijk volledige logboeken van alle acties die op uw servers en groepen zijn uitgevoerd."
-            },
-            "5": {
-                "heading": "Volledige controle over uw servers",
-                "body": "Admins kunnen uw server bedienen met dezelfde functionaliteit als in het spel."
-            }
-        },
-        "statistics": {
-            "main": "Gebruikt door {{communities}} groepen met een totaal van {{servers}} servers",
-            "weekly": {
-                "main": "Weekelijkse statistieken:",
-                "bfbanKicks": "spelers gekickt door bfban",
-                "globalbanKicks": "spelers gekickt door globale V-Ban lijsten",
-                "pingKicks": "spelers gekickt voor ping",
-                "movedPlayers": "spelers veranderd van team",
-                "kickedPlayers": "spelers gekickt via het panel",
-                "bannedPlayers": "spelers verbannen via het panel"
-            }
-        }
+    "servers": {
+      "main": "Servers",
+      "description0": "Serverinstanties toegevoegd aan huidige groep.",
+      "description1": "U moet minstens eigenaarsrol hebben voordat u servers kunt toeveogen.",
+      "alias": "Alias: {{alias}}",
+      "add": "Server toevoegen"
+    },
+    "platoons": {
+      "main": "Platoons",
+      "description0": "Beheer al je platoons alsof het een hele grote is",
+      "search": "Zoek op platoon naam",
+      "add": "Platoon toevoegen",
+      "remove": "Platoon verwijderen",
+      "resultNotFound": "Geen platoon gevonden met die naam",
+      "members": {
+        "main": "Leden",
+        "remove": "Leden verwijderen"
+      },
+      "applicants": {
+        "main": "Aanvragers",
+        "accept": "Accepteren",
+        "decline": "Weigeren"
+      }
+    },
+    "owners": {
+      "main": "Eigenaren",
+      "description0": "Lijst van huidige eigenaren in deze groep.",
+      "description1": "Deze rol kan servers, beheerders en andere eigenaren toevoegen. Wees voorzichtig aan wie u deze rol geeft!",
+      "add": "Eigenaar toevoegen",
+      "addNew": "Nieuwe eigenaar toevoegen",
+      "removeSelected": "Verwijder geselecteerde eigenaar",
+      "remove": "Verwijderen",
+      "select": "Selecteer eigenaren om ze te verwijderen.",
+      "selected": "Je hebt {{number}} eigenaren geselecteerd."
+    },
+    "vban": {
+      "main": "V-Ban lijst",
+      "description0": "Lijst van verbannen spelers in deze groep.",
+      "description1": "{{number}} sloten gebruikt",
+      "noReason": "met reden",
+      "add": "Ban toevoegen",
+      "unban": "Unban",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "reason": "Reden",
+        "admin": "Admin",
+        "timestamp": "Tijdstempel",
+        "bannedUntil": "Tot"
+      }
+    },
+    "exclusions": {
+      "main": "Uitsluitingen",
+      "description0": "Lijst met spelers die zijn uitgesloten van autokick (ping en bfban).",
+      "description1": "{{number}} sloten gebruikt",
+      "noReason": "met reden",
+      "add": "Uitsluiting toevoegen",
+      "remove": "Uitsluiting toevoegen",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "reason": "Reden",
+        "admin": "Admin",
+        "timestamp": "Tijdstempel",
+        "bannedUntil": "Tot"
+      }
+    },
+    "reasonList": {
+      "main": "Vooraf gedefinieerde redenen",
+      "description0": "Stel een vooraf gedefinieerde lijst met redenen in, zodat u die kan selecteren wanneer u een speler probeert te kicken, bannen of vbannen.",
+      "noReason": "Reden die toegevoegd moet worden",
+      "add": "Reden toevoegen",
+      "remove": "Reden verwijderen",
+      "table": {
+        "reason": "Reden"
+      }
+    },
+    "logs": {
+      "main": "Groepslogboek",
+      "description": "Groepslogboeken lijst",
+      "reasons": {
+        "addVban": "v-Banned",
+        "removeVban": "verwijderd van v-Ban",
+        "editGroup": "betwerkte de groep",
+        "addUser": "voegde toe als admin",
+        "addOwner": "voegde toe als owner",
+        "addGroup": "creerde deze groep",
+        "removeOwner": "verwijderde owner",
+        "removeUser": "verwijderde admin",
+        "magic": "Deed magie aan"
+      }
     },
     "account": {
-        "main": "Account",
-        "discordProfile": "Discord profiel",
-        "loggedIn": "Ingelogd",
-        "permissions": {
-            "main": "Permissies",
-            "admin": "Beheerder",
-            "server": "Server eigenaar",
-            "system": "Systeem administrator"
-        }
+      "main": "Server account",
+      "description0": "Accountmanager, die uw servers gaat beheren.",
+      "description1": "Deze cookies kunnen gevonden worden onder "
     },
-    "dev": {
-        "main": "Developer opties",
-        "listGroups": "Lijst van groepen",
-        "addGroup": "Groep toevoegen",
-        "manage": "Group beheren"
+    "discord": {
+      "main": "Discord integratie",
+      "description0": "Met onze bot, kunnen u uw admins de servers laten bedienen vanuit Discord",
+      "description1": "door gebruik te maken van commands met de ! prefix. De prefix kan aangepast worden met de !setprefix command.",
+      "gamestats": "Voeg de Game Stats bot toe aan uw Discord server om uw Battlefield 1 servers te bedienen met commando's",
+      "commandList": "Voor een lijst met commando's die u kan gebruiken in Discord, gebruik de \"!bfadmin\" command.",
+      "permDescription0": "Elk persoon met deze rol id's kunnen",
+      "permDescription1": "Discord commando's gebruiken om de servers te beheren."
     },
-    "man": {
-        "main": "Management opties",
-        "listGroups": "Lijst van groepen",
-        "worker": {
-            "main": "Worker account",
-            "lastUpdate": "Laaste update"
-        },
-        "owners": {
-            "main": "Eigenaren",
-            "createdAt": "Gebruiker gemaakt op"
-        },
+    "settings": {
+      "main": "Groepinstellingen",
+      "visableBansDesc": "Maak uw servers banlijst beschikbaar als iemand checkt of een speler ergens anders al verbannen is.",
+      "visableBans": "\"!checkban\" zichtbaarheid aanzetten",
+      "localeDescription0": "De taaltag word gebruikt bij het ophalen van serverinformatie, informatie zoals mapnaam worden dan in de opgegeven taal neergezet.",
+      "localeDescription1": "Taaltags kunnen gevonden onder ",
+      "tokenDescription0": "Als je de backend van de manager-api wil gebruiken, genereer dan hier een token en bewaar het goed.",
+      "tokenDescription1": "We staan het alleen toe om een nieuwe te genereren, we kunnen niet de oude token geven vanuit het paneel.",
+      "token": "Token",
+      "tokenGen": "Genereren",
+      "tokenEnable": "Groeptoken activeren"
+    },
+    "status": {
+      "main": "Groepsstatus",
+      "worker": {
+        "main": "Huidige status van de groep zijn worker:",
+        "in": "Is bezig in worker voor {{time}}",
+        "queue": "Wachtend in de queue"
+      },
+      "cookiecheck": {
+        "main": "Laaste keer dat de geldigheid van de cookie is gecheckt:",
+        "never": "De cookie van deze groep is nog nooit gevalideerd"
+      },
+      "stats": {
+        "main": "Statistieken over deze groep van deze week:",
+        "autoKickPingAmount": "{{amount}} spelers gekickt voor ping.",
+        "bfbanAmount": "{{amount}} spelers gekickt via bfban.",
+        "moveAmount": "{{amount}} spelers verplaatst van team via het panel, discord bot of token.",
+        "kickAmount": "{{amount}} spelers gekickt van team via het panel, discord bot of token.",
+        "banAmount": "{{amount}} spelers verbannen van team via het panel, discord bot of token.",
+        "globalBanKickAmount": "{{amount}} spelers gekickt via de vBan lijst van deze groep.",
         "servers": {
-            "main": "Servers",
-            "status": "Server status",
-            "lastUpdate": "Laatste update van de worker",
-            "createdAt": "Server toegevoegd op",
-            "autoPingKick": "Kick voor ping",
-            "autoBanKick": "V-Ban kick",
-            "autoBfbanKick": "BfBan kick"
-        },
-        "settings": {
-            "main": "Instellingen",
-            "makeOperations": "Operations optie aanzetten voor groep",
-            "seedServers": "Seeding bots activeren"
+          "main": "Statistieken van server:",
+          "none": "Geen informatie over deze server",
+          "info": {
+            "main": "Serverinfo over tijd",
+            "players": "# of spelers",
+            "vips": "# of vips",
+            "admins": "# of admins",
+            "bans": "# of bans"
+          },
+          "maps": {
+            "main": "Meest populare map",
+            "info": "% of maps"
+          },
+          "modes": {
+            "main": "Meest populare gamemode",
+            "info": "% of gamemodes"
+          },
+          "worstMaps": {
+            "main": "Map met de minst aantal spelers",
+            "info": "% of maps"
+          }
         }
+      }
     },
-    "createGroup": {
-        "main": "Nieuwe groep maken",
-        "description": "Maak een nieuwe groep om uw communityservers te beheren",
-        "discordDescription": "Optioneel kunt u uw Discord-server toevoegen om servertools te integreren",
-        "cookieDescription0": "Elke groep moet een speciaal account koppelen met bepaalde eisen:",
-        "cookieDescription1": "Het moet een Battlefield 1 admin op de server in het spel (niet het servereingenaar account)",
-        "cookieDescription2": "Het account moet nergens anders gebruikt worden, anders kan het leiden tot foutmeldingen",
-        "acceptDescription0": "Door op deze knop te drukken, staat u toe",
-        "acceptDescription1": "server manager tool recht te geven tot het account.",
-        "accept": "Groep maken"
+    "danger": {
+      "main": "Gevaarlijke zone",
+      "nameChange": "U kunt de naam van de huidige groep veranderen.",
+      "delete": "Groep verwijderen",
+      "deleteInfo0": "Als u een groep verwijderd, zal het alle servers",
+      "deleteInfo1": "serveraccount en gebruikers verwijderen.",
+      "check": "Weet u het zeker dat u deze groep wil verwijderen?",
+      "checkWithName": "Weet u het zeker dat u {{name}} wilt verwijderen?",
+      "confirm": "Ja, Verwijderen",
+      "back": "oh, nope!"
     },
-    "group": {
-        "main": "Groep",
-        "name": "Groepsnaam",
-        "id": "Identiteit",
-        "admins": {
-            "main": "Beheerders",
-            "description0": "Beheerdersrol kan servers beheren.",
-            "description1": "U moet minstens eigenaarsrol hebben voordat u beheerders kunt toeveogen.",
-            "add": "Beheerder toevoegen",
-            "addNew": "Nieuwe beheerder toevoegen",
-            "removeSelected": "Verwijder geselecteerde beheerder",
-            "remove": "Verwijderen",
-            "select": "Selecteer beheerders om ze te verwijderen.",
-            "selected": "Je hebt {{number}} beheerders geselecteerd."
-        },
-        "seeding": {
-            "main": "Seed servers",
-            "app": "Download de seeding app",
-            "description0": "Seed uw battlefield 1 en 4 servers.",
-            "description1": "Je moet minimaal eigenaar zijn van de groep om dit paneel te kunnen bedienen",
-            "description2": "Je moet de applicatie van de link hieronder draaien op elke pc die u wilt helpt met seeden",
-            "custom": "Zelf invoeren",
-            "broadcast": {
-                "main": "Stuur een bericht naar al uw servers",
-                "message": "bericht",
-                "sendMessage": "Verzenden"
-            },
-            "scheduled": {
-                "true": "Start om {{startTime}} voor {{serverName}}",
-                "false": "Tijd voor auto-seed niet geplanned."
-            },
-            "auto-rejoin": {
-                "true": "auto-herjoin",
-                "false": "geen auto-herjoin"
-            },
-            "popup": {
-                "confirmInfo": "Weet u zeker dat u \"{{option}}\" wilt uitvoeren?",
-                "broadcastInfo": "Weet u zeker dat u \"{{message}}\" wilt sturen naar alle servers?",
-                "confirm": "Uitvoeren!"
-            },
-            "actions": {
-                "joinSelected": "Betreed de geselecteerde server",
-                "leave": "Verlaat huidige server",
-                "shutdownWindows": "Zet de PC's uit (Als afsluitoptie aan staat)",
-                "schedule": "Begin met seeden op deze tijd (UTC tijdzone)",
-                "undoSchedule": "verwijder seeden van de planning"
-            },
-            "status": {
-                "main": "Status: ",
-                "seedServer": "{{serverName}} aan het seeden",
-                "leaveServer": "Niet in een server",
-                "shutdownPC": "Alle PC's met de afsluitoptie aan zijn uitgeschakeld",
-                "broadcastMessage": "\"{{message}}\" verzonden naar alle servers"
-            },
-            "seeders": {
-                "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
-                "true": "in het spel",
-                "false": "niet in het spel",
-                "defaultDescription": "globale seeders aan het volgen"
-            },
-            "keepalive": {
-                "main": "Verbind hostname aan een server om servers overeind te houden",
-                "add": "Hostname toevoegen",
-                "remove": "Hostname verwijden",
-                "hostname": "Welke hostname wil je koppelen aan de geselecteerde server?",
-                "sethostname": "Hostname",
-                "currentHostname": "'{{ hostname }}' verwijderen van de geselecteerde server?"
-            },
-            "game": {
-                "bf4": "bf4",
-                "bf1": "bf1"
-            },
-            "other": {
-                "main": "Andere servers (seed-only servers)",
-                "add": "Voeg een seed-only server toe",
-                "remove": "Verwijder een seed-only server"
-            }
-        },
-        "servers": {
-            "main": "Servers",
-            "description0": "Serverinstanties toegevoegd aan huidige groep.",
-            "description1": "U moet minstens eigenaarsrol hebben voordat u servers kunt toeveogen.",
-            "alias": "Alias: {{alias}}",
-            "add": "Server toevoegen"
-        },
-        "platoons": {
-            "main": "Platoons",
-            "description0": "Beheer al je platoons alsof het een hele grote is",
-            "search": "Zoek op platoon naam",
-            "add": "Platoon toevoegen",
-            "remove": "Platoon verwijderen",
-            "resultNotFound": "Geen platoon gevonden met die naam",
-            "members": {
-                "main": "Leden",
-                "remove": "Leden verwijderen"
-            },
-            "applicants": {
-                "main": "Aanvragers",
-                "accept": "Accepteren",
-                "decline": "Weigeren"
-            }
-        },
-        "owners": {
-            "main": "Eigenaren",
-            "description0": "Lijst van huidige eigenaren in deze groep.",
-            "description1": "Deze rol kan servers, beheerders en andere eigenaren toevoegen. Wees voorzichtig aan wie u deze rol geeft!",
-            "add": "Eigenaar toevoegen",
-            "addNew": "Nieuwe eigenaar toevoegen",
-            "removeSelected": "Verwijder geselecteerde eigenaar",
-            "remove": "Verwijderen",
-            "select": "Selecteer eigenaren om ze te verwijderen.",
-            "selected": "Je hebt {{number}} eigenaren geselecteerd."
-        },
-        "vban": {
-            "main": "V-Ban lijst",
-            "description0": "Lijst van verbannen spelers in deze groep.",
-            "description1": "{{number}} sloten gebruikt",
-            "noReason": "met reden",
-            "add": "Ban toevoegen",
-            "unban": "Unban",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "reason": "Reden",
-                "admin": "Admin",
-                "timestamp": "Tijdstempel",
-                "bannedUntil": "Tot"
-            }
-        },
-        "exclusions": {
-            "main": "Uitsluitingen",
-            "description0": "Lijst met spelers die zijn uitgesloten van autokick (ping en bfban).",
-            "description1": "{{number}} sloten gebruikt",
-            "noReason": "met reden",
-            "add": "Uitsluiting toevoegen",
-            "remove": "Uitsluiting toevoegen",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "reason": "Reden",
-                "admin": "Admin",
-                "timestamp": "Tijdstempel",
-                "bannedUntil": "Tot"
-            }
-        },
-        "reasonList": {
-            "main": "Vooraf gedefinieerde redenen",
-            "description0": "Stel een vooraf gedefinieerde lijst met redenen in, zodat u die kan selecteren wanneer u een speler probeert te kicken, bannen of vbannen.",
-            "noReason": "Reden die toegevoegd moet worden",
-            "add": "Reden toevoegen",
-            "remove": "Reden verwijderen",
-            "table": {
-                "reason": "Reden"
-            }
-        },
-        "logs": {
-            "main": "Groepslogboek",
-            "description": "Groepslogboeken lijst",
-            "reasons": {
-                "addVban": "v-Banned",
-                "removeVban": "verwijderd van v-Ban",
-                "editGroup": "betwerkte de groep",
-                "addUser": "voegde toe als admin",
-                "addOwner": "voegde toe als owner",
-                "addGroup": "creerde deze groep",
-                "removeOwner": "verwijderde owner",
-                "removeUser": "verwijderde admin",
-                "magic": "Deed magie aan"
-            }
-        },
-        "account": {
-            "main": "Server account",
-            "description0": "Accountmanager, die uw servers gaat beheren.",
-            "description1": "Deze cookies kunnen gevonden worden onder "
-        },
-        "discord": {
-            "main": "Discord integratie",
-            "description0": "Met onze bot, kunnen u uw admins de servers laten bedienen vanuit Discord",
-            "description1": "door gebruik te maken van commands met de ! prefix. De prefix kan aangepast worden met de !setprefix command.",
-            "gamestats": "Voeg de Game Stats bot toe aan uw Discord server om uw Battlefield 1 servers te bedienen met commando's",
-            "commandList": "Voor een lijst met commando's die u kan gebruiken in Discord, gebruik de \"!bfadmin\" command.",
-            "permDescription0": "Elk persoon met deze rol id's kunnen",
-            "permDescription1": "Discord commando's gebruiken om de servers te beheren."
-        },
-        "settings": {
-            "main": "Groepinstellingen",
-            "visableBansDesc": "Maak uw servers banlijst beschikbaar als iemand checkt of een speler ergens anders al verbannen is.",
-            "visableBans": "\"!checkban\" zichtbaarheid aanzetten",
-            "localeDescription0": "De taaltag word gebruikt bij het ophalen van serverinformatie, informatie zoals mapnaam worden dan in de opgegeven taal neergezet.",
-            "localeDescription1": "Taaltags kunnen gevonden onder ",
-            "tokenDescription0": "Als je de backend van de manager-api wil gebruiken, genereer dan hier een token en bewaar het goed.",
-            "tokenDescription1": "We staan het alleen toe om een nieuwe te genereren, we kunnen niet de oude token geven vanuit het paneel.",
-            "token": "Token",
-            "tokenGen": "Genereren",
-            "tokenEnable": "Groeptoken activeren"
-        },
-        "status": {
-            "main": "Groepsstatus",
-            "worker": {
-                "main": "Huidige status van de groep zijn worker:",
-                "in": "Is bezig in worker voor {{time}}",
-                "queue": "Wachtend in de queue"
-            },
-            "cookiecheck": {
-                "main": "Laaste keer dat de geldigheid van de cookie is gecheckt:",
-                "never": "De cookie van deze groep is nog nooit gevalideerd"
-            },
-            "stats": {
-                "main": "Statistieken over deze groep van deze week:",
-                "autoKickPingAmount": "{{amount}} spelers gekickt voor ping.",
-                "bfbanAmount": "{{amount}} spelers gekickt via bfban.",
-                "moveAmount": "{{amount}} spelers verplaatst van team via het panel, discord bot of token.",
-                "kickAmount": "{{amount}} spelers gekickt van team via het panel, discord bot of token.",
-                "banAmount": "{{amount}} spelers verbannen van team via het panel, discord bot of token.",
-                "globalBanKickAmount": "{{amount}} spelers gekickt via de vBan lijst van deze groep.",
-                "servers": {
-                    "main": "Statistieken van server:",
-                    "none": "Geen informatie over deze server",
-                    "info": {
-                        "main": "Serverinfo over tijd",
-                        "players": "# of spelers",
-                        "vips": "# of vips",
-                        "admins": "# of admins",
-                        "bans": "# of bans"
-                    },
-                    "maps": {
-                        "main": "Meest populare map",
-                        "info": "% of maps"
-                    },
-                    "modes": {
-                        "main": "Meest populare gamemode",
-                        "info": "% of gamemodes"
-                    },
-                    "worstMaps": {
-                        "main": "Map met de minst aantal spelers",
-                        "info": "% of maps"
-                    }
-                }
-            }
-        },
-        "danger": {
-            "main": "Gevaarlijke zone",
-            "nameChange": "U kunt de naam van de huidige groep veranderen.",
-            "delete": "Groep verwijderen",
-            "deleteInfo0": "Als u een groep verwijderd, zal het alle servers",
-            "deleteInfo1": "serveraccount en gebruikers verwijderen.",
-            "check": "Weet u het zeker dat u deze groep wil verwijderen?",
-            "checkWithName": "Weet u het zeker dat u {{name}} wilt verwijderen?",
-            "confirm": "Ja, Verwijderen",
-            "back": "oh, nope!"
-        },
-        "addMenu": {
-            "id": "Discord gebruikers ID",
-            "nickname": "Bijnaam (mag van alles zijn, word vanzelf aangepast)"
-        },
-        "serverAddMenu": {
-            "main": "Nieuwe server toevoegen",
-            "description": "Groep server",
-            "name": "Servernaam",
-            "alias": "Alias (optioneel)"
-        }
+    "addMenu": {
+      "id": "Discord gebruikers ID",
+      "nickname": "Bijnaam (mag van alles zijn, word vanzelf aangepast)"
     },
-    "operations": {
-        "main": "Operations Gamemode instellen",
-        "description0": "Operations gamemode instellen op uw server.",
-        "description1": "Let op, u verliest het in-game admin paneel!",
-        "description2": "Voeg eerst de server toe aan het paneel in een groep voordat u dit doet, en check of hij ook echt werkt.",
-        "acceptDescription0": "Door op deze knop te drukken, staat u toe",
-        "acceptDescription1": "server manager tool recht te geven tot het account.",
-        "accept": "Operations instellen",
-        "server": "Server ",
-        "owner": "eigenaar",
-        "cookies": " cookies."
-    },
-    "server": {
-        "main": "Server paneel",
-        "playerName": "Spelernaam",
-        "ago": "geleden",
-        "action": {
-            "kick": "Kick",
-            "move": "verplaats",
-            "ban": "Ban",
-            "unban": "Unban",
-            "addVip": "Maak vip",
-            "removeVip": "Verwijder uit vip"
-        },
-        "ingameSettings": {
-            "main": "In-game instellingen",
-            "rotation": "Verander server maprotatie",
-            "addMap": "Andere map toevoegen",
-            "removeMap": "Verwijderen",
-            "cookie": "Cookie die gebruikt moet worden om server veranderingen aan te brengen, cookies binnen de manager of manueel sid/remid kiezen zijn mogelijk:"
-        },
-        "game": {
-            "main": "Huidige spel",
-            "info": "[{{inQue}}] spelers",
-            "restart": "Herstarten",
-            "mapSwitch": "Verander map..",
-            "startServer": "Server starten",
-            "playerlistUpdate": "Laatste update",
-            "bfvPlaygroundSelect": "Config selecteren",
-            "serverRegionSelect": "Regio selecteren"
-        },
-        "banList": {
-            "main": "Banlijst",
-            "description0": "Lijst van verbannen spelers in deze server.",
-            "description1": "Gebruikte",
-            "description2": "{{number}} sloten gebruikt van de 200",
-            "description3": "Gebruik onze per-groep virtuele banlijst,",
-            "description4": "Gebruik onze groep-gebaseerde V-Ban lijst om te bannen zonder limiet.",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "reason": "Reden",
-                "admin": "Admin",
-                "until": "Tot",
-                "timestamp": "Tijdstempel"
-            }
-        },
-        "vipList": {
-            "main": "VIP spelers",
-            "description0": "Lijst van VIP spelers op de server.",
-            "description1": "Gebruikte",
-            "description2": "{{number}} sloten gebruikt van de 50",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID"
-            }
-        },
-        "adminList": {
-            "main": "Server admins",
-            "description0": "Lijst van server admins op de server.",
-            "description1": "Gebruikte",
-            "description2": "{{number}} sloten gebruikt van de 50",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID"
-            }
-        },
-        "firestarterList": {
-            "main": "Firestarter lijst",
-            "description0": "We houden bij wanneer de voorronde op uw server voorbij is, en bewaren een lijst met spelers die dan op de server zit.",
-            "description1": "Zodat u kunt checken wie er geholpen heeft met het starten van uw server binnen deze maand.",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "amount": "Hoeveelheid"
-            }
-        },
-        "playTimeList": {
-            "main": "Speeltijd",
-            "description0": "Lijst met hoe lang iedere speler op uw server is geweest, zodat u hem wat speciaals kan geven voor dit.",
-            "description1": "Deze data is per week, en word neergezet als \"uren:minuten\"",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "timePlayed": "Tijd gespendeerd op de server"
-            }
-        },
-        "spectatorList": {
-            "main": "Spectator lijst",
-            "description0": "Wij houden een lijst bij met wie in de laatste 24 uur de server is binnengekomen als toeschouwer",
-            "description1": "want er bestaat een hack binnen het spel dat cheaters in staat stelt om controle over andere spelers te krijgen...",
-            "description2": "Dit is een manier om terug te vechten tegen deze hackers.",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "time": "Tijdstempel"
-            }
-        },
-        "playerLogs": {
-            "main": "Spelerlogboek",
-            "description0": "We houden bij wie er allemaal in uw server is geweest binnen de laatste 24 uur,",
-            "description1": "want hackers hebben een manier gevonden om servers te crashen.",
-            "description2": "Dit is een manier om uit te vogelen wanneer en wie het deed.",
-            "description3": "Filter de lijsten zodat alleen de lijsten met die speler erin overblijft:",
-            "search": "Zoek speler in opgehaalde lijst...",
-            "filterPlayer": "filter tijden via spelernaam...",
-            "table": {
-                "playerName": "Spelernaam",
-                "playerId": "Speler ID",
-                "ping": "Ping",
-                "role": "Rol"
-            }
-        },
-        "logs": {
-            "main": "Logboek",
-            "reasons": {
-                "addServerBan": "bande",
-                "kickPlayer": "kickte",
-                "removeServerBan": "unbande",
-                "addServerVip": "gaf VIP aan",
-                "movePlayer": "verplaatste",
-                "removeServerVip": "verwijderde VIP van",
-                "magic": "Deed magie aan"
-            },
-            "types": {
-                "pingChecker": "Ping checker",
-                "vBan": "V-Ban",
-                "bfban": "BFBan"
-            },
-            "reason": "met reden",
-            "noReason": "zonder een reden"
-        },
-        "protection": {
-            "main": "Server protectie",
-            "title": "Automatische serverprotectie",
-            "vBanDescription0": "Maak kennis met nieuwe tools die zijn ontwikkeld om uw servers te beschermen tegen hackers.",
-            "vBanDescription1": "Globale virtuele banlijst kickt spelers automatisch op ",
-            "vBanDescription2": "alle servers in de groep",
-            "vBanDescription3": "Leveren",
-            "vBanDescription4": "Dit geeft een oneindig aantal bans en gesychroniseerde banlijst.",
-            "vBanEnable": "globale V-Ban aanzetten",
-            "vbanReasonDesc0": "Dit bericht is zichtbaar voor de gebruikers",
-            "vbanReasonDesc1": "die automatisch gekickt zijn door het globale V-Ban systeem",
-            "vBanMsg": "V-Ban bericht",
-            "bfbanDescription": "Bescherm de server tegen bekende cheaters in ",
-            "bfbanEnable": "Zet BFBan Anti-cheat aan",
-            "bfBanMsg": "BfBan bericht",
-            "pingKickDescription": "automatsch spelers met een constant hoge ping kicken.",
-            "pingKickEnable": "Kick voor hoge ping",
-            "pingKickAmount": "Minimale ping voordat de speler gekickt word",
-            "pingKickMsg": "Ping-kick bericht",
-            "pingKickMinDesc": "Minimaal aantal spelers voordat autokick werkt (0 om altijd te laten werken)",
-            "pingKickMin": "Minimale ping voordat de speler gekickt word",
-            "minAutoPingKick": "Minimaal aantal spelers voordat het begint met kicken",
-            "KickRankDesc": "Kick een speler gebaseerd op zijn rank in het spel",
-            "rankKickReason": "Rank niet binnen eisen",
-            "kickLowRank": "Kick als rank lager is dan:",
-            "kickHighRank": "Kick als rank hoger is dan:"
-        },
-        "settings": {
-            "main": "instellingen",
-            "title": "Server instellingen",
-            "nameDescription": "Verander servernaam",
-            "name": "Servernaam",
-            "aliasDescription": "Alias die moet gebruikt worden in de Discord bot. (kan ook een nummer zijn bijvoorbeeld)",
-            "alias": "Alias",
-            "cookie": "Stel het account in dat word gebruikt voor gegevens op te halen / bewerken van de server",
-            "discordBot": {
-                "main": "Discord Battlefield-server status-bot",
-                "token": "Discord token",
-                "tokenDesc": "De Discord token die hij zal gebruiken voor de server status bot (Een worker word vanzelf aangemaakt wanneer u het invult en op toepassen drukt)",
-                "channel": "Discord channel id",
-                "channelDesc": "De Discord channel id waar het veranderingen een spelerhoeveelheiden zal posten",
-                "minPlayerAmount": "min. hoeveelheid om een ronde te starten",
-                "minPlayerAmountDesc": "Minimum aantal spelers om een ronde te starten met de huidige gamemode",
-                "prevReqCount": "Vorige aantal aanvragen",
-                "prevReqCountDesc": "Hoeveel aanvragen hij moet checken tussen starten en draaiend, (standaard = 5, 5 * 2 == 10 minuten)",
-                "startedAmount": "Genoeg om het draaiend te houden",
-                "startedAmountDesc": "Hoeveel spelers telt als een draaiende server",
-                "ownerId": "Playerid van de eigenaar",
-                "ownerIdDesc": "In Battlefield 5 en Battlefield 2042 zijn de servers gratis, daardoor is het heel makkelijk om iemand anders zijn server na te maken. Vul het playerid in van de eigenaar om dit te voorkomen.",
-                "restartWorker": "Herstart",
-                "restartWorkerDesc": "Herstart de serverstatus bot (doet hetzelfde wanneer u op toepassen drukt)"
-            }
-        },
-        "console": {
-            "main": "Console",
-            "logs": "Actielogboek weergeven",
-            "amount": "{{amount}} items in logboek"
-        },
-        "players": {
-            "main": "{{amount}} van de {{max}} spelers",
-            "failed": "Oeps.. Spelerlijst ophalen is gefaald!",
-            "noPlayers": "Nog niemand is in dit team!",
-            "noSpectators": "Er zijn geen toeschouwers",
-            "full": "Team vol",
-            "0": "Team 1",
-            "1": "Team 2",
-            "spectators": "Toeschouwers",
-            "timeInfo": "Hoe lang de speler al in het spel is",
-            "sort": {
-                "main": "Sorteer de spelerlijsten",
-                "position": "Positie op de server (standaard)",
-                "ping": "Ping",
-                "name": "Spelernaam",
-                "rank": "Rank",
-                "joinTime": "Join time"
-            }
-        },
-        "factions": {
-            "BFFactionId_FactionAHU": "Austro-Hungarian Empire",
-            "BFFactionId_FactionGER": "German Empire",
-            "BFFactionId_FactionOTM": "Ottoman Empire",
-            "BFFactionId_FactionITA": "Kingdom of Italy",
-            "BFFactionId_FactionUK": "United Kingdom",
-            "BFFactionId_FactionUSA": "United States of America",
-            "BFFactionId_FactionFRA": "France",
-            "BFFactionId_FactionRUS": "Russian Empire",
-            "BFFactionId_FactionBOL": "Red Army",
-            "BFFactionId_FactionWA": "White Army",
-            "BFFactionId_FactionUKM": "Royal Marines",
-            "BFFactionId_FactionUSA_Pacific": "United States of America",
-            "BFFactionId_FactionJPN": "Empire of Japan"
-        },
-        "playerStats": {
-            "main": "Statistieken van {{player}}",
-            "loading": "stats laden...",
-            "skill": "Skill: ",
-            "rank": "Level: ",
-            "killsPerMinute": "KPM: ",
-            "winPercent": "Win: ",
-            "accuracy": "Accuracy: ",
-            "headshots": "Headshots: ",
-            "killDeath": "KD: ",
-            "id": "ID: ",
-            "currentName": "Huidige naam: ",
-            "toStatsPage": "Volledige stats.."
-        },
-        "kickMenu": {
-            "main": "U gaat {{name}} kicken",
-            "reasonDescription": "Deze reden is zichtbaar voor de speler! Het is ook beperkt tot 30 tekens en er zijn slechts een paar speciale symbolen toegestaan.",
-            "reason": "Reden",
-            "confirm": "Kick hem!"
-        },
-        "banMenu": {
-            "main": "U gaat {{name}} verbannen",
-            "reasonDescription": "Geef een reden om deze speler te verbannen.",
-            "reason": "Reden",
-            "vBanOption": "gebruik V-Ban in plaats van via in het spel bannen.",
-            "tempbanDesc0": "Als u hem tijdelijk wil verbannen, geef dan een tijd in uren",
-            "tempbanDesc1": "of hou het 0 om hem permanent te bannen.",
-            "tempbanDesc2": "Word nog niet ondersteund in V-Ban.",
-            "tempbanAmount": "Ban tijd",
-            "confirm": "Ban!"
-        },
-        "unbanMenu": {
-            "main": "U gaat {{name}} unbannen",
-            "reasonDescription": "Geef een reden om deze speler te unbannen.",
-            "reason": "Reden",
-            "confirm": "Unban!"
-        },
-        "vUnbanMenu": {
-            "main": "U gaat {{name}} verwijderen van vBan",
-            "reasonDescription": "Geef een reden om deze speler te verwijderen.",
-            "reason": "Redem",
-            "confirm": "Ban!"
-        },
-        "removeExclusionsMenu": {
-            "main": "U gaat {{name}} verwijderen van exclusie lijst",
-            "reasonDescription": "Vul een reden in waarom deze speler verwijderd moet worden van de lijst met uitgesloten spelers voor autokick (ping en bfban).",
-            "reason": "Reden",
-            "confirm": "Verwijderen"
-        },
-        "removeReasonMenu": {
-            "main": "Weet U het zeker?",
-            "confirm": "Verwijderen"
-        },
-        "unvipMenu": {
-            "main": "U gaat {{name}} uit vip halen",
-            "reasonDescription": "Geef een reden om deze speler uit vip te halen.",
-            "reason": "Reden",
-            "confirm": "Vip verwijderen!"
-        },
-        "vBanMenu": {
-            "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan V-Ban",
-            "playerName": "gebruikersnaam",
-            "reasonDescription": "Vul een reden om deze speler toe te voegen.",
-            "reason": "Redem",
-            "confirm": "Ban!",
-            "usePlayerId": "Speler ID gebruiken voor ban",
-            "playerId": "Speler ID"
-        },
-        "exclusionsMenu": {
-            "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan de lijst met uitgesloten spelers",
-            "playerName": "gebruikersnaam",
-            "reasonDescription": "Vul een reden in waarom deze speler uitgesloten moet zijn van autokick (ping en bfban).",
-            "reason": "Reden",
-            "excludeDesc0": "Als je hem tijdelijk wilt uitsluiten, geef dan tijd in",
-            "excludeDesc1": "uren hieronder, of laat het op 0 staan om hem permanent uit te sluiten.",
-            "excludeAmount": "Uitsluit tijd",
-            "confirm": "Toevoegen"
-        },
-        "reasonMenu": {
-            "reasonDescription": "Voeg een vooraf gedefinieerde reden toe",
-            "reason": "Reden",
-            "select": "Selecteren",
-            "confirm": "Toevoegen"
-        },
-        "danger": {
-            "main": "Gevaarlijke zone",
-            "delete": "Server verwijderen",
-            "check": "Weet u het zeker dat u deze server wil verwijderen?",
-            "checkWithName": "Weet u het zeker dat u {{name}} wilt verwijderen?",
-            "confirm": "Ja, Verwijderen",
-            "back": "oh, nope!"
-        }
-    },
-    "sidebar": {
-        "main": "Hoofdpagina",
-        "home": "Thuis",
-        "account": "Account",
-        "devOptions": "Developer opties",
-        "manOptions": "Management opties",
-        "createGroup": "Groep maken",
-        "makeOperations": "Maak de server Operations",
-        "logout": "Uitloggen",
-        "help": "Hulp nodig?",
-        "sponsor": "Sponsor ons"
-    },
-    "cookieInfo": {
-        "link": "Click here for info on how to get the sid and remid",
-        "main": "How to get the SID and REMID cookies",
-        "0": "1. Open ",
-        "1": " in incognito mode with Chrome or Edge.",
-        "2": "2. Login with the account you want to use, don't forget to check \"Remember me\".",
-        "3": "3. After login, click on the lock:",
-        "4": "4. In this menu choose cookies:",
-        "5": "5. Expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\"",
-        "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
-        "7": "If you logout the cookies are no longer valid."
-    },
-    "statusBotInfo": {
-        "link": "Klik hier voor informatie hoe u de discord token krijgt en de bot koppeld aan uw server",
-        "main": "Discord bot en token",
-        "0": "Creer een Discord bot:",
-        "1": "1. Login op de Discord developer portal: ",
-        "2": "2. Klik op \"New Application\" rechtsbovenin, geef de bot een naam en klik op \"create\".",
-        "3": "3. Klik op bot \"Bot\" aan de linkerkant en klik \"Add Bot\".",
-        "4": "4. Kopieer de Discord token en plak het in het \"Discord token\" veld in \"Server settings\" van de server manager en klik op \"Apply\" onderin.",
-        "5": "Voeg de Discord bot toe aan uw discord:",
-        "6": "5. Op de nieuwgemaakte bot, ga naar de \"General Information\" pagina, en klik op \"Copy\" onder \"Application ID\" in de developer portal",
-        "7": "6. Copy this link: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, replace \"APPLICATION_ID\" with the Application Id got from step 5 and open the link in your browser.",
-        "8": "7. Selecteer de server waaraan u hem wilt koppelen en klik Authorize.",
-        "9": "De bot heeft geen speciale permissies nodig om de status van de server te laten zien, om berichten te laten sturen moet hij permissies hebben om berichten te sturen, embeds te maken en om fotos te versturen."
-    },
-    "ApiInfo": {
-        "link": "Klik hier voor een lijst met alle beschikbare aanvragen naar de API"
-    },
-    "imageAlts": {
-        "main": "Logo van manager",
-        "gamestats": "Gamestats logo",
-        "userAvatar": "Gebruikers' avatar",
-        "tutorial": "Visuele hulp"
+    "serverAddMenu": {
+      "main": "Nieuwe server toevoegen",
+      "description": "Groep server",
+      "name": "Servernaam",
+      "alias": "Alias (optioneel)"
     }
+  },
+  "operations": {
+    "main": "Operations Gamemode instellen",
+    "description0": "Operations gamemode instellen op uw server.",
+    "description1": "Let op, u verliest het in-game admin paneel!",
+    "description2": "Voeg eerst de server toe aan het paneel in een groep voordat u dit doet, en check of hij ook echt werkt.",
+    "acceptDescription0": "Door op deze knop te drukken, staat u toe",
+    "acceptDescription1": "server manager tool recht te geven tot het account.",
+    "accept": "Operations instellen",
+    "server": "Server ",
+    "owner": "eigenaar",
+    "cookies": " cookies."
+  },
+  "server": {
+    "main": "Server paneel",
+    "playerName": "Spelernaam",
+    "ago": "geleden",
+    "action": {
+      "kick": "Kick",
+      "move": "verplaats",
+      "ban": "Ban",
+      "unban": "Unban",
+      "addVip": "Maak vip",
+      "removeVip": "Verwijder uit vip"
+    },
+    "ingameSettings": {
+      "main": "In-game instellingen",
+      "rotation": "Verander server maprotatie",
+      "addMap": "Andere map toevoegen",
+      "removeMap": "Verwijderen",
+      "cookie": "Cookie die gebruikt moet worden om server veranderingen aan te brengen, cookies binnen de manager of manueel sid/remid kiezen zijn mogelijk:"
+    },
+    "game": {
+      "main": "Huidige spel",
+      "info": "[{{inQue}}] spelers",
+      "restart": "Herstarten",
+      "mapSwitch": "Verander map..",
+      "startServer": "Server starten",
+      "playerlistUpdate": "Laatste update",
+      "bfvPlaygroundSelect": "Config selecteren",
+      "serverRegionSelect": "Regio selecteren"
+    },
+    "banList": {
+      "main": "Banlijst",
+      "description0": "Lijst van verbannen spelers in deze server.",
+      "description1": "Gebruikte",
+      "description2": "{{number}} sloten gebruikt van de 200",
+      "description3": "Gebruik onze per-groep virtuele banlijst,",
+      "description4": "Gebruik onze groep-gebaseerde V-Ban lijst om te bannen zonder limiet.",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "reason": "Reden",
+        "admin": "Admin",
+        "until": "Tot",
+        "timestamp": "Tijdstempel"
+      }
+    },
+    "vipList": {
+      "main": "VIP spelers",
+      "description0": "Lijst van VIP spelers op de server.",
+      "description1": "Gebruikte",
+      "description2": "{{number}} sloten gebruikt van de 50",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID"
+      }
+    },
+    "adminList": {
+      "main": "Server admins",
+      "description0": "Lijst van server admins op de server.",
+      "description1": "Gebruikte",
+      "description2": "{{number}} sloten gebruikt van de 50",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID"
+      }
+    },
+    "firestarterList": {
+      "main": "Firestarter lijst",
+      "description0": "We houden bij wanneer de voorronde op uw server voorbij is, en bewaren een lijst met spelers die dan op de server zit.",
+      "description1": "Zodat u kunt checken wie er geholpen heeft met het starten van uw server binnen deze maand.",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "amount": "Hoeveelheid"
+      }
+    },
+    "playTimeList": {
+      "main": "Speeltijd",
+      "description0": "Lijst met hoe lang iedere speler op uw server is geweest, zodat u hem wat speciaals kan geven voor dit.",
+      "description1": "Deze data is per week, en word neergezet als \"uren:minuten\"",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "timePlayed": "Tijd gespendeerd op de server"
+      }
+    },
+    "spectatorList": {
+      "main": "Spectator lijst",
+      "description0": "Wij houden een lijst bij met wie in de laatste 24 uur de server is binnengekomen als toeschouwer",
+      "description1": "want er bestaat een hack binnen het spel dat cheaters in staat stelt om controle over andere spelers te krijgen...",
+      "description2": "Dit is een manier om terug te vechten tegen deze hackers.",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "time": "Tijdstempel"
+      }
+    },
+    "playerLogs": {
+      "main": "Spelerlogboek",
+      "description0": "We houden bij wie er allemaal in uw server is geweest binnen de laatste 24 uur,",
+      "description1": "want hackers hebben een manier gevonden om servers te crashen.",
+      "description2": "Dit is een manier om uit te vogelen wanneer en wie het deed.",
+      "description3": "Filter de lijsten zodat alleen de lijsten met die speler erin overblijft:",
+      "search": "Zoek speler in opgehaalde lijst...",
+      "filterPlayer": "filter tijden via spelernaam...",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "ping": "Ping",
+        "role": "Rol"
+      }
+    },
+    "logs": {
+      "main": "Logboek",
+      "reasons": {
+        "addServerBan": "bande",
+        "kickPlayer": "kickte",
+        "removeServerBan": "unbande",
+        "addServerVip": "gaf VIP aan",
+        "movePlayer": "verplaatste",
+        "removeServerVip": "verwijderde VIP van",
+        "magic": "Deed magie aan"
+      },
+      "types": {
+        "pingChecker": "Ping checker",
+        "vBan": "V-Ban",
+        "bfban": "BFBan"
+      },
+      "reason": "met reden",
+      "noReason": "zonder een reden"
+    },
+    "protection": {
+      "main": "Server protectie",
+      "title": "Automatische serverprotectie",
+      "vBanDescription0": "Maak kennis met nieuwe tools die zijn ontwikkeld om uw servers te beschermen tegen hackers.",
+      "vBanDescription1": "Globale virtuele banlijst kickt spelers automatisch op ",
+      "vBanDescription2": "alle servers in de groep",
+      "vBanDescription3": "Leveren",
+      "vBanDescription4": "Dit geeft een oneindig aantal bans en gesychroniseerde banlijst.",
+      "vBanEnable": "globale V-Ban aanzetten",
+      "vbanReasonDesc0": "Dit bericht is zichtbaar voor de gebruikers",
+      "vbanReasonDesc1": "die automatisch gekickt zijn door het globale V-Ban systeem",
+      "vBanMsg": "V-Ban bericht",
+      "bfbanDescription": "Bescherm de server tegen bekende cheaters in ",
+      "bfbanEnable": "Zet BFBan Anti-cheat aan",
+      "bfBanMsg": "BfBan bericht",
+      "pingKickDescription": "automatsch spelers met een constant hoge ping kicken.",
+      "pingKickEnable": "Kick voor hoge ping",
+      "pingKickAmount": "Minimale ping voordat de speler gekickt word",
+      "pingKickMsg": "Ping-kick bericht",
+      "pingKickMinDesc": "Minimaal aantal spelers voordat autokick werkt (0 om altijd te laten werken)",
+      "pingKickMin": "Minimale ping voordat de speler gekickt word",
+      "minAutoPingKick": "Minimaal aantal spelers voordat het begint met kicken",
+      "KickRankDesc": "Kick een speler gebaseerd op zijn rank in het spel",
+      "rankKickReason": "Rank niet binnen eisen",
+      "kickLowRank": "Kick als rank lager is dan:",
+      "kickHighRank": "Kick als rank hoger is dan:",
+      "statsKick": "Kick als weapon/vehicle stats te hoog zijn",
+      "statsKickExample": "Download voorbeeldbestand",
+      "statsKickDownload": "Download huidige statskick",
+      "statsKickRemove": "Statskick uitzetten"
+    },
+    "settings": {
+      "main": "instellingen",
+      "title": "Server instellingen",
+      "nameDescription": "Verander servernaam",
+      "name": "Servernaam",
+      "aliasDescription": "Alias die moet gebruikt worden in de Discord bot. (kan ook een nummer zijn bijvoorbeeld)",
+      "alias": "Alias",
+      "cookie": "Stel het account in dat word gebruikt voor gegevens op te halen / bewerken van de server",
+      "discordBot": {
+        "main": "Discord Battlefield-server status-bot",
+        "token": "Discord token",
+        "tokenDesc": "De Discord token die hij zal gebruiken voor de server status bot (Een worker word vanzelf aangemaakt wanneer u het invult en op toepassen drukt)",
+        "channel": "Discord channel id",
+        "channelDesc": "De Discord channel id waar het veranderingen een spelerhoeveelheiden zal posten",
+        "minPlayerAmount": "min. hoeveelheid om een ronde te starten",
+        "minPlayerAmountDesc": "Minimum aantal spelers om een ronde te starten met de huidige gamemode",
+        "prevReqCount": "Vorige aantal aanvragen",
+        "prevReqCountDesc": "Hoeveel aanvragen hij moet checken tussen starten en draaiend, (standaard = 5, 5 * 2 == 10 minuten)",
+        "startedAmount": "Genoeg om het draaiend te houden",
+        "startedAmountDesc": "Hoeveel spelers telt als een draaiende server",
+        "ownerId": "Playerid van de eigenaar",
+        "ownerIdDesc": "In Battlefield 5 en Battlefield 2042 zijn de servers gratis, daardoor is het heel makkelijk om iemand anders zijn server na te maken. Vul het playerid in van de eigenaar om dit te voorkomen.",
+        "restartWorker": "Herstart",
+        "restartWorkerDesc": "Herstart de serverstatus bot (doet hetzelfde wanneer u op toepassen drukt)"
+      }
+    },
+    "console": {
+      "main": "Console",
+      "logs": "Actielogboek weergeven",
+      "amount": "{{amount}} items in logboek"
+    },
+    "players": {
+      "main": "{{amount}} van de {{max}} spelers",
+      "failed": "Oeps.. Spelerlijst ophalen is gefaald!",
+      "noPlayers": "Nog niemand is in dit team!",
+      "noSpectators": "Er zijn geen toeschouwers",
+      "full": "Team vol",
+      "0": "Team 1",
+      "1": "Team 2",
+      "spectators": "Toeschouwers",
+      "timeInfo": "Hoe lang de speler al in het spel is",
+      "sort": {
+        "main": "Sorteer de spelerlijsten",
+        "position": "Positie op de server (standaard)",
+        "ping": "Ping",
+        "name": "Spelernaam",
+        "rank": "Rank",
+        "joinTime": "Join time"
+      }
+    },
+    "factions": {
+      "BFFactionId_FactionAHU": "Austro-Hungarian Empire",
+      "BFFactionId_FactionGER": "German Empire",
+      "BFFactionId_FactionOTM": "Ottoman Empire",
+      "BFFactionId_FactionITA": "Kingdom of Italy",
+      "BFFactionId_FactionUK": "United Kingdom",
+      "BFFactionId_FactionUSA": "United States of America",
+      "BFFactionId_FactionFRA": "France",
+      "BFFactionId_FactionRUS": "Russian Empire",
+      "BFFactionId_FactionBOL": "Red Army",
+      "BFFactionId_FactionWA": "White Army",
+      "BFFactionId_FactionUKM": "Royal Marines",
+      "BFFactionId_FactionUSA_Pacific": "United States of America",
+      "BFFactionId_FactionJPN": "Empire of Japan"
+    },
+    "playerStats": {
+      "main": "Statistieken van {{player}}",
+      "loading": "stats laden...",
+      "skill": "Skill: ",
+      "rank": "Level: ",
+      "killsPerMinute": "KPM: ",
+      "winPercent": "Win: ",
+      "accuracy": "Accuracy: ",
+      "headshots": "Headshots: ",
+      "killDeath": "KD: ",
+      "id": "ID: ",
+      "currentName": "Huidige naam: ",
+      "toStatsPage": "Volledige stats.."
+    },
+    "kickMenu": {
+      "main": "U gaat {{name}} kicken",
+      "reasonDescription": "Deze reden is zichtbaar voor de speler! Het is ook beperkt tot 30 tekens en er zijn slechts een paar speciale symbolen toegestaan.",
+      "reason": "Reden",
+      "confirm": "Kick hem!"
+    },
+    "banMenu": {
+      "main": "U gaat {{name}} verbannen",
+      "reasonDescription": "Geef een reden om deze speler te verbannen.",
+      "reason": "Reden",
+      "vBanOption": "gebruik V-Ban in plaats van via in het spel bannen.",
+      "tempbanDesc0": "Als u hem tijdelijk wil verbannen, geef dan een tijd in uren",
+      "tempbanDesc1": "of hou het 0 om hem permanent te bannen.",
+      "tempbanDesc2": "Word nog niet ondersteund in V-Ban.",
+      "tempbanAmount": "Ban tijd",
+      "confirm": "Ban!"
+    },
+    "unbanMenu": {
+      "main": "U gaat {{name}} unbannen",
+      "reasonDescription": "Geef een reden om deze speler te unbannen.",
+      "reason": "Reden",
+      "confirm": "Unban!"
+    },
+    "vUnbanMenu": {
+      "main": "U gaat {{name}} verwijderen van vBan",
+      "reasonDescription": "Geef een reden om deze speler te verwijderen.",
+      "reason": "Redem",
+      "confirm": "Ban!"
+    },
+    "removeExclusionsMenu": {
+      "main": "U gaat {{name}} verwijderen van exclusie lijst",
+      "reasonDescription": "Vul een reden in waarom deze speler verwijderd moet worden van de lijst met uitgesloten spelers voor autokick (ping en bfban).",
+      "reason": "Reden",
+      "confirm": "Verwijderen"
+    },
+    "removeReasonMenu": {
+      "main": "Weet U het zeker?",
+      "confirm": "Verwijderen"
+    },
+    "unvipMenu": {
+      "main": "U gaat {{name}} uit vip halen",
+      "reasonDescription": "Geef een reden om deze speler uit vip te halen.",
+      "reason": "Reden",
+      "confirm": "Vip verwijderen!"
+    },
+    "vBanMenu": {
+      "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan V-Ban",
+      "playerName": "gebruikersnaam",
+      "reasonDescription": "Vul een reden om deze speler toe te voegen.",
+      "reason": "Redem",
+      "confirm": "Ban!",
+      "usePlayerId": "Speler ID gebruiken voor ban",
+      "playerId": "Speler ID"
+    },
+    "exclusionsMenu": {
+      "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan de lijst met uitgesloten spelers",
+      "playerName": "gebruikersnaam",
+      "reasonDescription": "Vul een reden in waarom deze speler uitgesloten moet zijn van autokick (ping en bfban).",
+      "reason": "Reden",
+      "excludeDesc0": "Als je hem tijdelijk wilt uitsluiten, geef dan tijd in",
+      "excludeDesc1": "uren hieronder, of laat het op 0 staan om hem permanent uit te sluiten.",
+      "excludeAmount": "Uitsluit tijd",
+      "confirm": "Toevoegen"
+    },
+    "reasonMenu": {
+      "reasonDescription": "Voeg een vooraf gedefinieerde reden toe",
+      "reason": "Reden",
+      "select": "Selecteren",
+      "confirm": "Toevoegen"
+    },
+    "danger": {
+      "main": "Gevaarlijke zone",
+      "delete": "Server verwijderen",
+      "check": "Weet u het zeker dat u deze server wil verwijderen?",
+      "checkWithName": "Weet u het zeker dat u {{name}} wilt verwijderen?",
+      "confirm": "Ja, Verwijderen",
+      "back": "oh, nope!"
+    }
+  },
+  "sidebar": {
+    "main": "Hoofdpagina",
+    "home": "Thuis",
+    "account": "Account",
+    "devOptions": "Developer opties",
+    "manOptions": "Management opties",
+    "createGroup": "Groep maken",
+    "makeOperations": "Maak de server Operations",
+    "logout": "Uitloggen",
+    "help": "Hulp nodig?",
+    "sponsor": "Sponsor ons"
+  },
+  "cookieInfo": {
+    "link": "Click here for info on how to get the sid and remid",
+    "main": "How to get the SID and REMID cookies",
+    "0": "1. Open ",
+    "1": " in incognito mode with Chrome or Edge.",
+    "2": "2. Login with the account you want to use, don't forget to check \"Remember me\".",
+    "3": "3. After login, click on the lock:",
+    "4": "4. In this menu choose cookies:",
+    "5": "5. Expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\"",
+    "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
+    "7": "If you logout the cookies are no longer valid."
+  },
+  "statusBotInfo": {
+    "link": "Klik hier voor informatie hoe u de discord token krijgt en de bot koppeld aan uw server",
+    "main": "Discord bot en token",
+    "0": "Creer een Discord bot:",
+    "1": "1. Login op de Discord developer portal: ",
+    "2": "2. Klik op \"New Application\" rechtsbovenin, geef de bot een naam en klik op \"create\".",
+    "3": "3. Klik op bot \"Bot\" aan de linkerkant en klik \"Add Bot\".",
+    "4": "4. Kopieer de Discord token en plak het in het \"Discord token\" veld in \"Server settings\" van de server manager en klik op \"Apply\" onderin.",
+    "5": "Voeg de Discord bot toe aan uw discord:",
+    "6": "5. Op de nieuwgemaakte bot, ga naar de \"General Information\" pagina, en klik op \"Copy\" onder \"Application ID\" in de developer portal",
+    "7": "6. Copy this link: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, replace \"APPLICATION_ID\" with the Application Id got from step 5 and open the link in your browser.",
+    "8": "7. Selecteer de server waaraan u hem wilt koppelen en klik Authorize.",
+    "9": "De bot heeft geen speciale permissies nodig om de status van de server te laten zien, om berichten te laten sturen moet hij permissies hebben om berichten te sturen, embeds te maken en om fotos te versturen."
+  },
+  "ApiInfo": {
+    "link": "Klik hier voor een lijst met alle beschikbare aanvragen naar de API"
+  },
+  "imageAlts": {
+    "main": "Logo van manager",
+    "gamestats": "Gamestats logo",
+    "userAvatar": "Gebruikers' avatar",
+    "tutorial": "Visuele hulp"
+  }
 }
