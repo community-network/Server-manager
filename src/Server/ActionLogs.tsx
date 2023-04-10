@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { useTranslation } from "react-i18next";
 
 import { useModal } from "../components/Card";

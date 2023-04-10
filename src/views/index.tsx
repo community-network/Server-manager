@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { IUserInfo } from "../api/ReturnTypes";
 import { OperationsApi } from "../api/api";
 import { useTranslation } from "react-i18next";

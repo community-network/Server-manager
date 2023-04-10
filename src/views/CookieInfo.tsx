@@ -1,5 +1,8 @@
 import * as React from "react";
 import { Column, Card, Header, Row, ButtonUrl } from "../components";
+import cookieInfo1 from "../assets/img/cookieInfo/c1.png";
+import cookieInfo2 from "../assets/img/cookieInfo/c2.png";
+import cookieInfo3 from "../assets/img/cookieInfo/c3.png";
 import "../locales/config";
 import { useTranslation } from "react-i18next";
 
@@ -38,19 +41,19 @@ export default function CookieInfo() {
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src="/img/cookieInfo/1.png"
+            src={cookieInfo1}
           />
           <h5 style={{ paddingTop: "1.5rem" }}>{t("cookieInfo.4")}</h5>
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src="/img/cookieInfo/2.png"
+            src={cookieInfo2}
           />
           <h5 style={{ paddingTop: "1.5rem" }}>{t("cookieInfo.5")}</h5>
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src="/img/cookieInfo/3.png"
+            src={cookieInfo3}
           />
           <h5 style={{ paddingTop: "1.5rem" }}>
             {t("cookieInfo.6")}

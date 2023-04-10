@@ -5,7 +5,8 @@ import styles from "./Buttons.module.css";
 import { Status } from "./Status";
 import { useMeasure } from "react-use";
 
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { OperationsApi } from "../api/api";
 import { IReasonList } from "../api/ReturnTypes";
 

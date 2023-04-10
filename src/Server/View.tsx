@@ -41,6 +41,8 @@ import { useParams } from "react-router-dom";
 import Console from "./Console";
 import { PlayerList } from "./PlayerList";
 import { IGroupsInfo, IServerInfo } from "../api/ReturnTypes";
+import { FileToJson } from "../components/FileUpload";
+import { utils, writeFile } from "xlsx";
 
 /**
  * Server page
@@ -308,6 +310,7 @@ function ServerAutomation(props: {
         kickMinRank,
         kickMaxRank,
         rankKickReason,
+        statsKick,
       } = server;
       const originalServerState = {
         autoBanKick,
@@ -320,6 +323,7 @@ function ServerAutomation(props: {
         kickMinRank,
         kickMaxRank,
         rankKickReason,
+        statsKick,
       };
       if (serverState === null) {
         setServerState(originalServerState);
@@ -348,6 +352,7 @@ function ServerAutomation(props: {
     rankKickReason?: string;
     kickMinRank?: number;
     kickMaxRank?: number;
+    statsKick?: any;
   }) => {
     setServerState((s: { [string: string]: string | number | boolean }) => ({
       ...s,
@@ -550,6 +555,28 @@ function ServerAutomation(props: {
         </>
       ) : (
         <></>
+      )}
+      <h5 style={{ marginTop: "8px" }}>
+        {t("server.protection.statsKick")}
+      </h5>
+      <ButtonRow>
+        <Button callback={() => {
+          window.location.href = "/files/bf1_statskick_example.xlsx"
+        }} name={t("server.protection.statsKickExample")}/>
+        <FileToJson callback={(data) => changeServerState({ statsKick: data })} />
+      </ButtonRow>
+      {serverState && Object.keys(serverState.statsKick).length > 0 && (
+        <ButtonRow style={{ marginTop: 0 }}>
+        <Button callback={() => {
+          const filename = 'current_statskick.xlsx';
+          var ws = utils.json_to_sheet(serverState.statsKick);
+          var wb = utils.book_new();
+          utils.book_append_sheet(wb, ws, "People");
+          writeFile(wb, filename);
+        }} name={t("server.protection.statsKickDownload")}/>
+        <Button callback={() => changeServerState({ statsKick: {} })} 
+          name={t("server.protection.statsKickRemove")}/>
+        </ButtonRow>
       )}
       {props.server && canApply ? (
         <ButtonRow>

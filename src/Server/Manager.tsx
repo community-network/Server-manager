@@ -1,9 +1,5 @@
-import {
-  useQuery,
-  useQueryClient,
-  useMutation,
-  UseMutationResult,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { UseMutationResult } from "@tanstack/react-query/build/lib/types";
 import { useState } from "react";
 import { OperationsApi } from "../api/api";
 import { useTranslation } from "react-i18next";

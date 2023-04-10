@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { NavLink, To } from "react-router-dom";
 import { ABSwitch } from "../testing/ABtesting";
 import styles from "./Sidebar.module.css";
@@ -168,7 +169,6 @@ export function Sidebar(props: {
 
   return (
     <div className={props.visible ? styles.Sidebar : styles.HiddenSidebar}>
-      {/*<TopSidebar />*/}
       <div
         style={{
           display: "flex",
@@ -182,7 +182,6 @@ export function Sidebar(props: {
         {manLink}
         <div className={styles.GroupLinks}>{groupLinks}</div>
       </div>
-      {/* <p style={{ paddingLeft: "48px", fontSize: "12px" }}>v{APP_VERSION} channel {(getChannel() === 0) ? "A" : "B"}</p> */}
     </div>
   );
 }

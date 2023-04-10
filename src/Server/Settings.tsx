@@ -1,10 +1,6 @@
 import * as React from "react";
-import {
-  useQuery,
-  useQueryClient,
-  useMutation,
-  UseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { useTranslation } from "react-i18next";
 import styles from "./Styles.module.css";
 

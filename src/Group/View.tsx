@@ -1,12 +1,8 @@
 import * as React from "react";
 import { useMeasure } from "react-use";
 import cryptoRandomString from "crypto-random-string";
-import {
-  useQuery,
-  useQueryClient,
-  useMutation,
-  UseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { IGroupGet, OperationsApi } from "../api/api";
 import { statusOnlyGames } from "../Globals";
@@ -76,7 +72,6 @@ import {
   IPlatoonSearchResult,
   IPlatoonStats,
 } from "../api/GametoolsReturnTypes";
-import { group } from "console";
 
 // unused
 // const deleteIcon = (

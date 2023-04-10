@@ -263,6 +263,7 @@ export interface IServerInfo {
   rankKickReason: string;
   serverAlias: number;
   serverName: string;
+  statsKick: { [string: string]: any };
 }
 
 export interface IInGameServerInfo {

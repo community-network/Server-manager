@@ -1,5 +1,7 @@
 import * as React from "react";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import logoRelease from "../assets/img/logo-release.png";
+import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { Link } from "react-router-dom";
 import styles from "./TopBar.module.css";
 import { useTranslation } from "react-i18next";
@@ -54,7 +56,7 @@ export function TopBar(props: {
         <Link to="/" title="Main page" className={styles.mainPage}>
           <img
             alt={t("imageAlts.main")}
-            src="/img/logo-release.png"
+            src={logoRelease}
             className={styles.logo}
           />
         </Link>

@@ -1,12 +1,9 @@
 import * as React from "react";
 import { useMeasure } from "react-use";
 import { Link } from "react-router-dom";
-import {
-  useQuery,
-  useQueryClient,
-  useMutation,
-  UseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import gamestatsLogo from "../assets/img/game-stats.png";
 import { useTranslation } from "react-i18next";
 import {
   GroupGlobalUnbanPlayer,
@@ -227,7 +224,7 @@ export function GameStatsAd(): React.ReactElement {
       className={styles.gameStatsAd}
       href="https://discord.com/oauth2/authorize?client_id=714524944783900794&scope=bot&permissions=83968"
     >
-      <img alt={t("imageAlts.gamestats")} src="/img/game-stats.png" />
+      <img alt={t("imageAlts.gamestats")} src={gamestatsLogo} />
       <span>{t("group.discord.gamestats")}</span>
     </a>
   );
