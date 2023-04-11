@@ -265,6 +265,7 @@ function Bf2042ServerManagement(props: {sid: string}): React.ReactElement {
         <option value="restart">{t("server.action.restartRound")}</option>
         <option value="next_level">{t("server.action.nextLevel")}</option>
         <option value="shutdown">{t("server.action.shutdown")}</option>
+        <option value="shutdown_eor">{t("server.action.shutdownEor")}</option>
       </select>
       <Button
         name={t("execute")}

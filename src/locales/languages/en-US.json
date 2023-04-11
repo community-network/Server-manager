@@ -533,7 +533,8 @@
       "nextRound": "Next round",
       "nextLevel": "Next level",
       "restartRound": "Restart round",
-      "shutdown": "Stop server"
+      "shutdown": "Stop server",
+      "shutdownEor": "Stop at end of round"
     },
     "ingameSettings": {
       "main": "Ingame settings",

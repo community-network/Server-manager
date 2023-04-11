@@ -21,7 +21,7 @@ clientsClaim();
 
 setCacheNameDetails({
   prefix: "manager-app",
-  suffix: "v0.0.9",
+  suffix: "v0.0.10",
   precache: "pre-cache",
   runtime: "runtime-cache",
 });
