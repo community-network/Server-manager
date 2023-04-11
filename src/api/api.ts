@@ -86,6 +86,19 @@ export class ApiProvider extends JsonClient {
     });
   }
 
+  async changeBf2042Server({
+    sid,
+    action,
+  }: {
+    sid: string;
+    action: string;
+  }): Promise<IKickResult> {
+    return await this.postJsonMethod("bf2042changeserver", {
+      serverid: sid,
+      action: action,
+    });
+  }
+
   async globalBanPlayer({
     name,
     reason,

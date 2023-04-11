@@ -152,7 +152,7 @@ export function ServerRotation(props: {
       ) : (
         <div style={{ paddingTop: "5px" }} />
       )}
-      {dbServer && dbServer.game === "bf1" ? (
+      {dbServer && dbServer.game === "bf1" && (
         <>
           <ButtonRow>
             <Button
@@ -189,16 +189,15 @@ export function ServerRotation(props: {
             )}
           </ButtonRow>
         </>
-      ) : (
-        <></>
       )}
-      {dbServer && dbServer.game === "bfv" ? (
+      {dbServer && dbServer.game === "bfv" && (
         <BfvServerManagement
           sid={dbServer.id}
           serverName={dbServer.serverName}
         />
-      ) : (
-        <></>
+      )}
+      {dbServer && dbServer.game === "bf2042" && (
+        <Bf2042ServerManagement sid={dbServer.id} />
       )}
       <ButtonRow>
         <select
@@ -217,6 +216,76 @@ export function ServerRotation(props: {
     </div>
   );
 }
+
+
+function Bf2042ServerManagement(props: {sid: string}): React.ReactElement {
+  const { sid } = props;
+  const { t } = useTranslation();
+  const [action, setAction] = React.useState("next_round");
+  const [applyStatus, setApplyStatus] = React.useState(null);
+  const [errorUpdating, setError] = React.useState("Unknown");
+
+  const bf2042ChangeServer = useMutation(
+    (_: {
+      sid: string;
+      action: string;
+    }) =>
+      OperationsApi.changeBf2042Server({
+        sid,
+        action
+      }),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+      },
+      onSuccess: async () => {
+        setApplyStatus(null);
+      },
+      onError: async (error: React.SetStateAction<string>) => {
+        setApplyStatus(false);
+        setError(error);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        undefined;
+      },
+    },
+  );
+
+  return (
+    <ButtonRow>
+      <select
+        className={styles.SwitchGame}
+        value={action}
+        onChange={(e) => {
+          setAction(e.target.value);
+        }}
+      >
+        <option value="next_round">{t("server.action.nextRound")}</option>
+        <option value="restart">{t("server.action.restartRound")}</option>
+        <option value="next_level">{t("server.action.nextLevel")}</option>
+        <option value="shutdown">{t("server.action.shutdown")}</option>
+      </select>
+      <Button
+        name={t("execute")}
+        callback={() => {
+          bf2042ChangeServer.mutate({ sid, action });
+        }}
+        status={applyStatus}
+      />
+      <h5
+        style={{
+          marginBottom: 0,
+          alignSelf: "center",
+          opacity: applyStatus === false ? 1 : 0,
+        }}
+      >
+        {errorUpdating}
+      </h5>
+    </ButtonRow>
+  );
+}
+
 
 function BfvServerManagement(props: {
   sid: string;

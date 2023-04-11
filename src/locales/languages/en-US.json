@@ -18,6 +18,7 @@
     "enabled": "enabled",
     "disabled": "disabled"
   },
+  "execute": "execute",
   "translation": {
     "help": "Help with translation"
   },
@@ -528,7 +529,11 @@
       "ban": "Ban",
       "unban": "Unban",
       "addVip": "Add vip",
-      "removeVip": "Remove vip"
+      "removeVip": "Remove vip",
+      "nextRound": "Next round",
+      "nextLevel": "Next level",
+      "restartRound": "Restart round",
+      "shutdown": "Stop server"
     },
     "ingameSettings": {
       "main": "Ingame settings",
