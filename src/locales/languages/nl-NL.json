@@ -18,6 +18,7 @@
     "enabled": "geactiveerd",
     "disabled": "gedeactiveerd"
   },
+  "execute": "uitvoeren",
   "translation": {
     "help": "Help met vertalingen"
   },
@@ -528,7 +529,12 @@
       "ban": "Ban",
       "unban": "Unban",
       "addVip": "Maak vip",
-      "removeVip": "Verwijder uit vip"
+      "removeVip": "Verwijder uit vip",
+      "nextRound": "Volgende ronde",
+      "nextLevel": "Volgend level",
+      "restartRound": "Herstart ronde",
+      "shutdown": "Stop server",
+      "shutdownEor": "Stop aan het einde van de ronde"
     },
     "ingameSettings": {
       "main": "In-game instellingen",
