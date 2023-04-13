@@ -680,7 +680,7 @@
       "rankKickReason": "Rank not within requirements",
       "kickLowRank": "Kick if rank is lower than:",
       "kickHighRank": "Kick if rank is higher than:",
-      "statsKick": "Kick if weapon/vehicle stats are to high",
+      "statsKick": "Kick if weapon/vehicle stats are too high",
       "statsKickExample": "Download example file",
       "statsKickDownload": "Download current",
       "statsKickRemove": "Disable statskick"
