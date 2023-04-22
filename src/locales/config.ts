@@ -6,14 +6,16 @@ import * as translationGR from "./languages/el-GR.json";
 import * as translationCH from "./languages/zh-CN.json";
 import * as translationNL from "./languages/nl-NL.json";
 import * as translationDE from "./languages/de.json";
+import * as translationHE from "./languages/he.json";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { formatDistanceToNowStrict, format } from "date-fns";
-import { enUS, tr, el, zhCN, nl, de } from "date-fns/locale";
+import { enUS, tr, el, zhCN, nl, de, he } from "date-fns/locale";
 
 const locales = {
   "en-US": enUS,
   "tr-TR": tr,
+  "he-IL": he,
   "el-GR": el,
   "zh-CN": zhCN,
   "nl-NL": nl,
@@ -29,6 +31,9 @@ export const resources = {
   },
   "el-GR": {
     translation: translationGR,
+  },
+  "he-IL": {
+    translation: translationHE,
   },
   //   "ru-RU": {
   //     translation: translationRU,

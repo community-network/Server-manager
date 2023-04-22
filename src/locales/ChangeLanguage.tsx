@@ -19,6 +19,7 @@ const LanguageSelector = (): React.ReactElement => {
       <option value="en-US">English</option>
       <option value="zh-CN">简体中文</option>
       <option value="tr-TR">Türkçe</option>
+      <option value="he-IL">עִברִית</option>
       <option value="el-GR">Ελληνικα</option>
       <option value="nl-NL">Nederlands</option>
       <option value="de-DE">Deutsch</option>
