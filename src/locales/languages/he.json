@@ -1,0 +1,893 @@
+{
+  "beta": "בטא",
+  "eBeta": "גרסת בטא מוקדמת",
+  "search": "חפש...",
+  "pending": "בהמתנה...",
+  "loading": "טוען...",
+  "denied": "לא מורשה",
+  "apply": "החל",
+  "export": "ייצא",
+  "date": "{{date, date|eee, dd MMM yyyy}}",
+  "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
+  "shortDateTime": "{{date, date|PPpp}}",
+  "chartDateTime": "{{date, date|d-M, HH:mm}}",
+  "time": "{{date, date|p}}",
+  "change": "{{change, change}}",
+  "notApplicable": "לא זמין",
+  "boolean": {
+    "enabled": "מופעל",
+    "disabled": "מנוטרל"
+  },
+  "execute": "לבצע",
+  "translation": {
+    "help": "עזור עם תרגום"
+  },
+  "games": {
+    "bf3": "באטלפילד 3 (רק סטטוס-בוט)",
+    "bf4": "באטלפילד 4 (סטטוס-בוט\\ זורע בלבד)",
+    "bfh": "Battlefield Hardline (סטטוסבוט בלבד)",
+    "bf1": "באטלפילד 1",
+    "bfv": "באטלפילד 5 (גרסת בטא מוקדמת)",
+    "bf2042": "באטלפילד 2042"
+  },
+  "gamemodes": {
+    "FRONTLINES": "פרונטליינז",
+    "DOMINATION": "דומיניישן",
+    "SHOCK OPERATIONS": "שוק אופריישנז",
+    "RUSH": "ראש",
+    "CONQUEST": "קונקואסט",
+    "WAR PIGEONS": "וואר פיג'נז",
+    "OPERATIONS": "אופריישנז",
+    "TEAM DEATHMATCH": "טידיאם",
+    "BREAKTHROUGH": "ברייק-ת'רו",
+    "CUSTOM": "מצב מותאים"
+  },
+  "maps": {
+    "Amiens": "אמיינז",
+    "Argonne Forest": "אורגון פורסט",
+    "Ballroom Blitz": "בלרום בליץ",
+    "Empire's Edge": "אמפיירז אדג'",
+    "Fao Fortress": "פאו פורטרס",
+    "Monte Grappa": "מונטה גראפה",
+    "St Quentin Scar": "סיינט קואינטן סקאר",
+    "Sinai Desert": "סיני דזרט",
+    "Suez": "סואץ",
+    "Giant's Shadow": "ג'יינט שאדו",
+    "Verdun Heights": "וורדון הייטס",
+    "Fort De Vaux": "פורט דה וו",
+    "Soissons": "סואסונז",
+    "Rupture": "ראפצ'ר",
+    "Nivelle Nights": "ניבל נייטס",
+    "Prise de Tahure": "פרייז דה טהור",
+    "Łupków Pass": "לופקוב פאס",
+    "Albion": "אלביון",
+    "Galicia": "גליסייה",
+    "Brusilov Keep": "בוריסלוב קיפ",
+    "Tsaritsyn": "טזאריצין",
+    "Volga River": "וולגה ריבר",
+    "Achi Baba": "אצ'י באבא",
+    "Cape Helles": "קייפ הילס",
+    "Heligoland Bight": "הליגולנד בייט",
+    "Zeebrugge": "זיברוג",
+    "Caporetto": "קפורטו",
+    "Passchendaele": "פאשנדייל",
+    "River Somme": "ריבא סומא",
+    "London Calling: Raiders": "לונדון קולינג: ריידרס",
+    "London Calling: Scourge": "לונדון קולינג: סורג'",
+    "Razor's Edge": "רייזורז אדג'",
+    "Aerodrome": "אירודרום",
+    "Al Marj Encampment": "אל מארג' אנקייפמנט",
+    "Al Sundan": "אל סונדן",
+    "Arras": "אראס",
+    "Devastation": "דבסטיישן",
+    "Fjell 652": "פיג'ל 652",
+    "Halvøy": "Halvøy",
+    "Hamada": "חמאדה",
+    "Iwo Jima": "איו ג'ימה",
+    "Lofoten Islands": "לופטן איילנדס",
+    "Marita": "מאריטה",
+    "Mercury": "מרקורי",
+    "Narvik": "נרוויק",
+    "Operation Underground": "אופריישנז אנדרגראונד",
+    "Pacific Storm": "פסיפיק סטורם",
+    "Panzerstorm": "פאנזר סטורם",
+    "Provence": "פרובנס",
+    "Rotterdam": "רוטרדאם",
+    "Solomon Islands": "סלומון איילנדס",
+    "Twisted Steel": "טוויסטד סטיל",
+    "Wake Island": "ווייק איילנד"
+  },
+  "cookie": {
+    "check": "בחר משחק שהעוגייה תומך כדי לבדוק אם הוא חוקי",
+    "add": "הוסף חשבון שרת",
+    "setDefaultCookie": "קבע כברירת מחדל",
+    "invalid": "שגיאה: העוגיות שאתה משתמש בהם כעת אינם תקפים!",
+    "remid": "עוגיית REMID",
+    "sidDescription": "עוגיות sassion יכולות להימצא ב",
+    "remidDescription": "ניתן למצוא קובצי Cookie של הפעלת תזכורת בכתובת",
+    "sid": "עוגיית SID",
+    "locale": "תג שפה",
+    "delete": "מחק חשבון שרת",
+    "status": {
+      "loading": "מעדכן סטטוס חשבון..",
+      "pending": "יש לנו סטטוס 'בהמתנה' לשרת הזה"
+    },
+    "accountType": {
+      "add": "הוסף עוגייה חדשה",
+      "default": "חשבון ברירת מחדל",
+      "extra": "חשבון אקסטרה"
+    },
+    "removeMenu": {
+      "main": "האם אתה בטוח שאתה רוצה להסיר את חשבון השירות של \"{{name}}\"",
+      "confirm": "הסר חשבון"
+    },
+    "supportedGames": {
+      "main": "משחקים בחשבון:",
+      "update": "עדכן את רשימת המשחקים"
+    }
+  },
+  "serverStatus": {
+    "pending": "מצב המתנה",
+    "noServer": "שרת לא נמצא",
+    "noAdmin": "אין זכויות אדמין",
+    "running": "רץ",
+    "notSupported": "אין תמיכה בסטטוס פעיל ברקע"
+  },
+  "serverBotStatus": {
+    "pending": "מצב המתנה",
+    "noService": "לא נמצא פעיל",
+    "failed": "פעיל נכשל",
+    "running": "פועל בשם \"{{worker}}\""
+  },
+  "discord": {
+    "id": "מזהה שרת דיסקורד ID",
+    "idDescription": "מספר מזהה משתמש הדיסקורד שלך",
+    "adminId": "מספר מזהה לאדמין רול",
+    "adminIdDescription": "מספר מזהה של אדמין רול",
+    "modId": "מספר מזהה למוד רול",
+    "modIdDescription": "מספר מזהה למודטרייטור מוד, מודרייטורים יכולים רק לבעוט שחקנים."
+  },
+  "mainPage": {
+    "main": "דרך חדשה לנהל את שרתי Battlefield 1 שלך",
+    "description": "Server Manager הוא שירות Gametools & BFBan חדש שנוצר על ידי Community Network",
+    "login": "התחבר",
+    "featureList": {
+      "main": "תכונות",
+      "0": {
+        "heading": "BFBan Anti Cheat",
+        "body": "הגן על השרתים שלך כנגד האקרים שמאושרים ע\"י www.bfban.com"
+      },
+      "1": {
+        "heading": "רשימת V-Ban גלובלית ללא הגבלה",
+        "body": "חסום כמה שחקנים שתרצה בכל השרתים שלך עם רשימת וירטואל באן."
+      },
+      "2": {
+        "heading": "בעט שחקנים בעלי פינג גבוה",
+        "body": "בעט אוטומטית שחקנים מהשרתים שלך על סמך סף הפינג."
+      },
+      "3": {
+        "heading": "כלי דיסקורד לתחזוקת שרת",
+        "body": "שלוט בשרתים שלך ישירות מהדיסקורד על סמך תפקידים."
+      },
+      "4": {
+        "heading": "רישום פעולות בשרת",
+        "body": "ראה יומנים מלאים על כל פעולה שבוצעה בשרתים ובקבוצות שלך."
+      },
+      "5": {
+        "heading": "שליטה מלאה על השרתים שלך",
+        "body": "אדמינים יכולים לשלוט בשרתים עם אותן פונקציות כמו במשחק."
+      }
+    },
+    "statistics": {
+      "main": "בשימוש על ידי {{communities}} קהילות עם סך של {{servers}} שרתים",
+      "weekly": {
+        "main": "סטטיסטיקות שבועיות:",
+        "bfbanKicks": "שחקנים שנבעטו על ידי bfban",
+        "globalbanKicks": "שחקנים שקיבלו קיק מקבוצות V-Ban גלובליות",
+        "pingKicks": "שחקנים שקיבלו קיק בגלל פינג",
+        "movedPlayers": "שחקנים עברו לקבוצה האחרת",
+        "kickedPlayers": "שחקנים שקיבלו קיק דרך הפאנל",
+        "bannedPlayers": "שחקנים שקיבלו באן דרך הפאנל"
+      }
+    }
+  },
+  "account": {
+    "main": "חשבון",
+    "discordProfile": "פרופיל דיסקורד",
+    "loggedIn": "מחובר",
+    "permissions": {
+      "main": "הרשאות",
+      "admin": "מנהל שרת",
+      "server": "בעלי השרת",
+      "system": "מנהל מערכת"
+    }
+  },
+  "dev": {
+    "main": "אפשרויות מפתח",
+    "listGroups": "רשימת קבוצות",
+    "addGroup": "הוסף קבוצה חדשה",
+    "manage": "נהל קבוצה"
+  },
+  "man": {
+    "main": "אפשרויות ניהול",
+    "listGroups": "רשימת של קבוצות",
+    "worker": {
+      "main": "חשבון פעיל",
+      "lastUpdate": "עדכון אחרון"
+    },
+    "owners": {
+      "main": "בעלים",
+      "createdAt": "משתמש נוצר ב"
+    },
+    "servers": {
+      "main": "שרתים",
+      "status": "סטטוס שרת",
+      "lastUpdate": "עדכון פעיל אחרון",
+      "createdAt": "שרת נוצר ב",
+      "autoPingKick": "Kick for ping",
+      "autoBanKick": "vBan kick",
+      "autoBfbanKick": "BfBan kick"
+    },
+    "settings": {
+      "main": "הגדרות",
+      "makeOperations": "אפשר פעולות ביצוע",
+      "seedServers": "הפעל בוטים זורעים"
+    }
+  },
+  "createGroup": {
+    "main": "צור קבוצה חדשה",
+    "description": "צור קבוצה חדשה כדי לנהל את שרתי הקהילה שלך",
+    "discordDescription": "נתון לבחירה, אתה יכול להוסיף את שרת הדיסקורד שלך, על מנת למזג אותו\nעם כלי שרת",
+    "cookieDescription0": "כל קבוצה צריכה להיות משויכת עם חשבון מיוחד עם דרישות מסוימות:",
+    "cookieDescription1": "זה צריך להיות מודרייטור שרת BF1 (אין צורך בגישת בעלים)",
+    "cookieDescription2": "אם חשבון זה נועד לבאטלפילד 1, הוא לא אמור להיות בשימוש בשום מקום אחר.\nאחרת זה יוביל לבעיות.",
+    "acceptDescription0": "בלחיצה על כפתור זה, הינך מסכים לתת",
+    "acceptDescription1": "גישה לכלי מנהל השרת לחשבון.",
+    "accept": "צור קבוצה"
+  },
+  "group": {
+    "main": "קבוצה",
+    "name": "שם קבוצה",
+    "id": "זהות",
+    "admins": {
+      "main": "אדמינים",
+      "description0": "רול של אדמין יכול לנהל שרתים.",
+      "description1": "חייב להיות לך לפחות רול 'בעלים' על מנת להוסיף אדמינים חדשים.",
+      "add": "הוסף אדמין",
+      "addNew": "הוסף אדמין חדש",
+      "removeSelected": "הסר אדמינים מסומנים",
+      "remove": "הסר אדמינים",
+      "select": "בחר אדמינים כדי להסיר אותם.",
+      "selected": "בחרת {{number}} אדמינים."
+    },
+    "seeding": {
+      "main": "זרע שרתים",
+      "app": "הורד את יישום הזריעה",
+      "description0": "זרע את שרתי באטלפילד 1 ו4.",
+      "description1": "אתה צריך לפחות תפקיד בעלים כדי לגשת לפאנל זה,",
+      "description2": "עליך להפעיל את היישום מהקישור שמתחת להודעה זו בכל מחשב שאתה רוצה לקבל עזרה בזריעה",
+      "custom": "שרת מותאם אישית",
+      "broadcast": {
+        "main": "שדר הודעה לכל השרתים",
+        "message": "הודעה",
+        "sendMessage": "שלח"
+      },
+      "scheduled": {
+        "true": "מתוכנן ב-{{startTime}} עבור {{serverName}}",
+        "false": "לא מתוזמן זריעה אוטומטית."
+      },
+      "auto-rejoin": {
+        "true": "הצטרפות אוטומטית",
+        "false": "אין הצטרפות אוטומטית"
+      },
+      "popup": {
+        "confirmInfo": "האם אתה בטוח שאתה רוצה {{option}}?",
+        "broadcastInfo": "האם אתה בטוח שאתה רוצה לשדר \"{{הודעה}}\"?",
+        "confirm": "לְאַשֵׁר!"
+      },
+      "actions": {
+        "joinSelected": "הצטרף לשרת הנבחר",
+        "leave": "עזוב את השרת הנוכחי",
+        "shutdownWindows": "כיבוי מחשבים (עם אפשרות כיבוי מופעלת)",
+        "schedule": "תזמון זמן התחלה של זריעה (אזור זמן UTC)",
+        "undoSchedule": "להסיר זריעה מלוח הזמנים"
+      },
+      "status": {
+        "main": "סטָטוּס:",
+        "seedServer": "זריעה של {{serverName}}",
+        "leaveServer": "לא באף שרת",
+        "shutdownPC": "כיבה את כל המחשבים עם אפשרות כיבוי מופעלת",
+        "broadcastMessage": "שדר \"{{הודעה}}\" לכל השרתים"
+      },
+      "seeders": {
+        "main": "כרגע {{seeders}} זורעים מקוונים עם {{ingame}} במשחק",
+        "true": "בתוך המשחק",
+        "false": "לא במשחק",
+        "defaultDescription": "בעקבות מערכת זריעה גלובלית"
+      },
+      "keepalive": {
+        "main": "חבר את שם המארח לשרת כדי לשמור אותם בחיים",
+        "add": "הוסף שם מארח",
+        "remove": "הסר את שם המארח",
+        "hostname": "איזה שם מארח ברצונך להוסיף לשרת הנבחר?",
+        "sethostname": "שם מארח",
+        "currentHostname": "להסיר את '{{ hostname }}' מהשרת הנבחר?"
+      },
+      "game": {
+        "bf4": "bf4",
+        "bf1": "bf1"
+      },
+      "other": {
+        "main": "שרתים אחרים (שרתי זריעה בלבד)",
+        "add": "הוסף שרת זרעים בלבד",
+        "remove": "הסר את שרת ה-Seed בלבד"
+      }
+    },
+    "servers": {
+      "main": "שרתים",
+      "description0": "מקרי שרת נוספו לקבוצה הנוכחית.",
+      "description1": "אתה צריך להיות בתפקיד הבעלים כדי להוסיף שרתים חדשים.",
+      "alias": "כינוי: {{כינוי}}",
+      "add": "הוסף שרת"
+    },
+    "platoons": {
+      "main": "Platoons",
+      "description0": "נהל מחלקות רבות כאילו היו מחלקה אחת גדולה",
+      "search": "חפש שם מחלקה",
+      "add": "הוסף מחלקה",
+      "remove": "הסר מחלקות",
+      "resultNotFound": "לא נמצאו מחלקות עם השם הזה",
+      "members": {
+        "main": "חברים",
+        "remove": "הסר חבר"
+      },
+      "applicants": {
+        "main": "מועמדים",
+        "accept": "אשר",
+        "decline": "דחה"
+      }
+    },
+    "owners": {
+      "main": "בעלים",
+      "description0": "רשימת בעלי הקבוצה הנוכחיים. תפקיד זה יכול להוסיף שרתים חדשים,",
+      "description1": "אדמינים ובעלים אחרים. תהיה זהיר עם זה!",
+      "add": "הוסף בעלים",
+      "addNew": "הוסף בעלים חדשים",
+      "removeSelected": "הסר בעלים מסומנים",
+      "remove": "הסר בעלים",
+      "select": "בחר בעלים כדי להסיר אותם.",
+      "selected": "בחרת ב-{{number}} בעלים."
+    },
+    "vban": {
+      "main": "רשימת Vban",
+      "description0": "רשימת שחקנים חסומים בקבוצה זו.",
+      "description1": "השתמשו ב-{{מספר}} משבצות",
+      "noReason": "עם סיבה",
+      "add": "הוסף באן",
+      "unban": "בטל חסימה",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "reason": "סיבה",
+        "admin": "אדמין",
+        "timestamp": "חותמת זמן",
+        "bannedUntil": "עד"
+      }
+    },
+    "exclusions": {
+      "main": "רשימת חריגים",
+      "description0": "רשימת שחקנים שלא נכללו בבעיטה אוטומטית (פינג ו-bfban).",
+      "description1": "השתמשו ב-{{מספר}} משבצות",
+      "noReason": "עם סיבה",
+      "add": "הוסף חריגה",
+      "remove": "הסר החרגה",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "reason": "סיבה",
+        "admin": "אדמין",
+        "timestamp": "חותמת זמן",
+        "bannedUntil": "עד"
+      }
+    },
+    "reasonList": {
+      "main": "סיבות מותאמות מראש",
+      "description0": "הגדר רשימה של סיבות מוגדרת מראש שתוכל לבחור מהן\nכשתרצה לבעוט\\באן\\vban שחקן",
+      "noReason": "סיבה להוסיף",
+      "add": "הוסף סיבה",
+      "remove": "הסר סיבה",
+      "table": {
+        "reason": "סיבה"
+      }
+    },
+    "logs": {
+      "main": "יומני קבוצה",
+      "description": "רשימת יומן הקבוצה",
+      "reasons": {
+        "addVban": "vBanned",
+        "removeVban": "הוסר מ-vBan",
+        "editGroup": "קבוצה ערוכה",
+        "addUser": "הוסיף אדמין",
+        "addOwner": "הוסיף בעלים",
+        "addGroup": "הוסיף את הקבוצה הזו",
+        "removeOwner": "הוסר בעלים",
+        "removeUser": "הוסר אדמין",
+        "magic": "שינה מפה ל"
+      }
+    },
+    "account": {
+      "main": "חשבון שרת",
+      "description0": "מנהל חשבונות, שינהל את השרתים שלך.",
+      "description1": "תוכל למצוא את העוגיות האלה ב"
+    },
+    "discord": {
+      "main": "מיזוג דיסקורד",
+      "description0": "עם הבוט שלנו, אתה יכול לאפשר לאדמינים לשלוט בשרתים שלך",
+      "description1": "על ידי שימוש בפקודות עם ! סימן מקדים",
+      "gamestats": "הוסף בוט סטטיסטיקות משחק בשרת הדיסקורד שלך, כדי לשלוט על שרתי BF1 עם פקודות.",
+      "commandList": "לקבלת רשימה של פקודות שבהן אתה יכול להשתמש ב-Discord, השתמש בפקודה \"!bfadmin\".",
+      "permDescription0": "כל אדם עם התפקיד הזה יכול להשתמש",
+      "permDescription1": "פקודות דיסקורד לשליטה בשרת."
+    },
+    "settings": {
+      "main": "הגדרות קבוצה",
+      "visableBansDesc": "אפשר לחסומים של השרתים שלך להיות גלויים כאשר מישהו בודק אם שחקן כבר חסום במקום אחר:",
+      "visableBans": "אפשר את החשיפה ל: \"!checkban\"",
+      "localeDescription0": "תג השפה המשמש עבור קובץ ה-cookie, פרטי השרת כמו שם המפה יהיו בשפה זו.",
+      "localeDescription1": "ניתן למצוא תגיות שפה בכתובת",
+      "tokenDescription0": "אם אתה רוצה להשתמש ב-backend של manager-api, צור כאן מפתח ושמור אותו איפשהו.",
+      "tokenDescription1": "אנחנו מאפשרים לך ליצור רק אחד חדש, אנחנו לא יכולים לתת לך את המפתח הישן מהפאנל.",
+      "token": "מפתח",
+      "tokenGen": "חולל",
+      "tokenEnable": "הפעל מפתח קבוצה"
+    },
+    "status": {
+      "main": "סטטוס קבוצה",
+      "worker": {
+        "main": "מידע על פעיל של הקבוצה הזו:",
+        "in": "כרגע פעיל עבור {{time}}",
+        "queue": "מחכים בתור"
+      },
+      "cookiecheck": {
+        "main": "בדיקה אחרונה של אם עוגיות הקבוצה תקפות:",
+        "never": "הקבוצה מעולם לא נבדקה עבור קובצי Cookie"
+      },
+      "stats": {
+        "main": "נתונים סטטיסטיים על הקבוצה הנוכחית במהלך השבוע:",
+        "autoKickPingAmount": "{{amount}} שחקנים נבעטו בגלל פינג.",
+        "bfbanAmount": "{{amount}} שחקנים נבעטו דרך bfban.",
+        "moveAmount": "{{amount}} שחקנים הועברו דרך הפאנל, בוט הדיסקורד או המפתח.",
+        "kickAmount": "{{amount}} שחקנים נבעטו דרך הפאנל, בוט הדיסקורד או המפתח.",
+        "banAmount": "{{amount}} שחקנים נחסמו דרך הפאנל, בוט הדיסקורד או המפתח.",
+        "globalBanKickAmount": "{{amount}} שחקנים נבעטו דרך רשימת vBan של הקבוצה.",
+        "servers": {
+          "main": "סטטיסטיקה של השרת:",
+          "none": "אין מידע על השרת",
+          "info": {
+            "main": "מידע על השרת לאורך זמן",
+            "players": "# שחקנים",
+            "vips": "# של vips",
+            "admins": "# אדמינים",
+            "bans": "# של חסומים"
+          },
+          "maps": {
+            "main": "המפה הפופולרית ביותר",
+            "info": "% מהמפות"
+          },
+          "modes": {
+            "main": "מצב המשחק הפופולרי ביותר",
+            "info": "% ממצבי המשחק"
+          },
+          "worstMaps": {
+            "main": "מפה עם כמות השחקנים הנמוכה ביותר",
+            "info": "% מהמפות"
+          }
+        }
+      }
+    },
+    "danger": {
+      "main": "אזור סכנה",
+      "nameChange": "אתה יכול לשנות את השם של הקבוצה הנוכחית.",
+      "delete": "מחק קבוצה",
+      "deleteInfo0": "ברגע שתמחק קבוצה, היא תסיר את כל השרתים,",
+      "deleteInfo1": "חשבון השרת והמשתמשים שבהם נעשה שימוש.",
+      "check": "האם אתה בטוח שברצונך למחוק את הקבוצה הזו?",
+      "checkWithName": "האם אתה בטוח שברצונך למחוק את {{name}}?",
+      "confirm": "כן, מחק",
+      "back": "אוי, לא!"
+    },
+    "addMenu": {
+      "id": "Discord UID",
+      "nickname": "כינוי (כל שהוא, יעודכן אוטומטית)"
+    },
+    "serverAddMenu": {
+      "main": "הוסף שרת חדש",
+      "description": "שרת קבוצה",
+      "name": "שם שרת",
+      "alias": "כינוי (אופציונלי)"
+    }
+  },
+  "operations": {
+    "main": "הגדרת פעולות משחק",
+    "description0": "הגדרת מצב משחק בשרת שלך.",
+    "description1": "שימו לב, אתם תאבדו את פאנל האדמין במשחק!",
+    "description2": "וודא  להוסיף שרת ללוח זה ולבדוק אותו.",
+    "acceptDescription0": "בלחיצה על כפתור זה, הינך מסכים לתת",
+    "acceptDescription1": "גישה לכלי מנהל השרת לחשבון.",
+    "accept": "בצע פעולות",
+    "server": "שרת",
+    "owner": "בעלים",
+    "cookies": "עוגיות"
+  },
+  "server": {
+    "main": "פאנל שרת",
+    "playerName": "שם שחקן",
+    "ago": "לפני",
+    "action": {
+      "kick": "בעט",
+      "move": "העבר",
+      "ban": "חסום",
+      "unban": "בטל חסימה",
+      "addVip": "הוסף vip",
+      "removeVip": "הסר vip",
+      "nextRound": "סיבוב הבא",
+      "nextLevel": "רמה הבאה",
+      "restartRound": "התחל סיבוב מחדש",
+      "shutdown": "הפסק שרת",
+      "shutdownEor": "הפסק בסיום הסיבוב"
+    },
+    "ingameSettings": {
+      "main": "הגדרות במשחק",
+      "rotation": "שנה את סדר השרת",
+      "addMap": "הוסף מפה נוספת",
+      "removeMap": "הסר",
+      "cookie": "קובצי Cookie המשמשים לביצוע שינויים בשרת, הן קובצי Cookie שהוגדרו במנהל והן ב-sid/remid אפשריים:"
+    },
+    "game": {
+      "main": "משחק נוכחי",
+      "info": "[{{inQue}}] שחקנים",
+      "restart": "הפעל מחדש",
+      "mapSwitch": "החלף מפה",
+      "startServer": "הפעל שרת",
+      "playerlistUpdate": "עדכון אחרון",
+      "bfvPlaygroundSelect": "בחר תצורה",
+      "serverRegionSelect": "בחר אזור"
+    },
+    "banList": {
+      "main": "רשימת חסומים",
+      "description0": "רשימת שחקנים חסומים בשרת זה.",
+      "description1": "בשימוש",
+      "description2": "{{number}} משבצות מתוך 200",
+      "description3": "השתמש ברשימת החסומים הווירטואלית מבוססת הקבוצות שלנו,",
+      "description4": "כדי לאסור כמות בלתי מוגבלת של שחקנים.",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "reason": "סיבה",
+        "admin": "אדמין",
+        "until": "עד",
+        "timestamp": "חותמת זמן"
+      }
+    },
+    "vipList": {
+      "main": "שחקני VIP",
+      "description0": "רשימת שחקני VIP בשרת זה.",
+      "description1": "בשימוש",
+      "description2": "{{number}} משבצות מתוך 50",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן"
+      }
+    },
+    "adminList": {
+      "main": "אדמינים בשרת",
+      "description0": "רשימה של אדמינים בשרת זה.",
+      "description1": "בשימוש",
+      "description2": "{{number}} משבצות מתוך 50",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן"
+      }
+    },
+    "firestarterList": {
+      "main": "רשימת זורעים",
+      "description0": "אנו מודדים מתי הסתיים הסיבוב המקדים של השרת שלך וסופרים את כל השחקנים שנמצאים בשרת כשהוא מתחיל,",
+      "description1": "כדי שתוכל לבדוק כאן מי עוזר לך להפעיל את השרת שלך.",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "amount": "כמות"
+      }
+    },
+    "playTimeList": {
+      "main": "זמן משחק",
+      "description0": "רשימה של כמה זמן כל שחקן נמצא בשרת הזה, כך שתוכל לתת משהו מיוחד לשחקן בתור תודה על המשחק.",
+      "description1": "נתונים אלה הם לשבוע ונמדדים כ\"שעות:דקות\"",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "timePlayed": "זמן שהייה בשרת"
+      }
+    },
+    "spectatorList": {
+      "main": "רשימת צופים",
+      "description0": "אנו שומרים רשימה של מי צפה בשרת ב-24 השעות האחרונות,",
+      "description1": "כי קיימת פריצה בתוך Battlefield 1 שמאפשרת להם לשלוט בשחקנים במשחק עצמו...",
+      "description2": "זו אחת הדרכים להילחם נגד ההאקרים האלה.",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "time": "זמן"
+      }
+    },
+    "playerLogs": {
+      "main": "יומני שחקן",
+      "description0": "אנחנו שומרים רשימה של מי שבשרת ב24\n השעות האחרונות,",
+      "description1": "בגלל קבוצה של האקרים שממשיכים להקריס את השרתים.",
+      "description2": "זאת דרך אחת כדי לגלות מתי\\מי עשה את זה.",
+      "description3": "סנן את הרשימה כך שתוצג רק כאשר שחקן מסוים נמצא ברשימה שהוחזרה:",
+      "search": "חפש שחקן ברשימה שנאספה...",
+      "filterPlayer": "סנן תאריכים על השחקן",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "ping": "פינג",
+        "role": "רול"
+      }
+    },
+    "logs": {
+      "main": "רישומים",
+      "reasons": {
+        "addServerBan": "נחסם",
+        "kickPlayer": "נבעט",
+        "removeServerBan": "חסימה הוסרה",
+        "addServerVip": "נתן vip ל",
+        "movePlayer": "הועבר",
+        "removeServerVip": "הסיר vip מ",
+        "magic": "שינה מפה ל"
+      },
+      "types": {
+        "pingChecker": "בודק פינג",
+        "vBan": "VBan",
+        "bfban": "BFban"
+      },
+      "reason": "עם סיבה",
+      "noReason": "בלי סיבה מוגדרת"
+    },
+    "protection": {
+      "main": "הגנת שרת",
+      "title": "הגנת שרת אוטומטית ",
+      "vBanDescription0": "מציגים כלים חדשים שפותחו כדי להגן על השרתים שלך מפני האקרים.",
+      "vBanDescription1": "Banlist וירטואלי גלובלי בועט אוטומטית בשחקנים",
+      "vBanDescription2": "כל שרתי הקבוצה",
+      "vBanDescription3": "מספק",
+      "vBanDescription4": "כמות אינסופית של חריצי חסימה ורשימת חסימה מסונכרנת.",
+      "vBanEnable": "הפעל Global V-Ban",
+      "vbanReasonDesc0": "ההודעה הזו תופיע למשתמשים שקיבלו",
+      "vbanReasonDesc1": "נבעט אוטומטית על ידי מערכת V-Ban Global.",
+      "vBanMsg": "הודעת V-Ban",
+      "bfbanDescription": "הגן על השרת מפני צ'יטרים ידועים",
+      "bfbanEnable": "הפעל BFBan Anti Cheat",
+      "bfBanMsg": "הודעת BfBan",
+      "pingKickDescription": "בעט אוטומטית שחקנים עם פינג גבוה קבוע",
+      "pingKickEnable": "בעט על פינג גבוה",
+      "pingKickAmount": "ערך פינג גבוה",
+      "pingKickMsg": "הודעה אוטומטית פינג",
+      "pingKickMinDesc": "כמות מינימלית של שחקנים לבעיטה אוטומטית כדי להתחיל לעבוד (0 לתמיד)",
+      "pingKickMin": "ערך פינג גבוה",
+      "minAutoPingKick": "מינימום כמות שחקנים לפני הבעיטות",
+      "KickRankDesc": "בעט שחקן על בסיס הדרגה שלהם במשחק",
+      "rankKickReason": "דרגה לא במסגרת הדרישות",
+      "kickLowRank": "בעט אם הדרגה קטנה מ:",
+      "kickHighRank": "בעט אם הדרגה גבוהה מ:",
+      "statsKick": "בעט אם סטטיסטיקת ה-נשק\\רכב גבוהה מדי",
+      "statsKickExample": "הורד קובץ דוגמא",
+      "statsKickDownload": "הורד את הנוכחי",
+      "statsKickRemove": "השבת בעיטת סטטיסטיקה"
+    },
+    "settings": {
+      "main": "הגדרות",
+      "title": "הגדרות שרת",
+      "nameDescription": "שנה שם שרת",
+      "name": "שם השרת",
+      "aliasDescription": "כינוי לשימוש עם בוט Discord. (יכול להיות מספר שרת, למשל)",
+      "alias": "כינויים",
+      "cookie": "הגדר את החשבון המשמש כדי לקבל מידע ולבצע שינויים בשרת",
+      "discordBot": {
+        "main": "Discord Battlefield-server status-bot",
+        "token": "מפתח דיסקורד",
+        "tokenDesc": "מפתח הדיסקורד שהוא ישתמש בו עבור בוט סטטוס השרת (עובד ייווצר אוטומטית לאחר שתמלא את מפתח הדיסקורד ותלחץ על החל)",
+        "channel": "מספר מזהה לערוץ דיסקורד",
+        "channelDesc": "המזהה ערוץ דיסקורד שהוא יפרסם את השינויים בכמות שחקנים ל-",
+        "minPlayerAmount": "כמות מינימלית להתחלת הסיבוב",
+        "minPlayerAmountDesc": "כמות מינימום של שחקנים להתחיל סיבוב במצב המשחק הנוכחי של השרת",
+        "prevReqCount": "הקודם. בקשה לספור",
+        "prevReqCountDesc": "כמה בקשות צריך לבדוק בין הפעלה להפעלה, (ברירת מחדל = 5, 5 * 2 == 10 דקות)",
+        "startedAmount": "מספיק כדי להמשיך לפעול",
+        "startedAmountDesc": "כמה שחקנים נחשבים לשרת פועל",
+        "ownerId": "מזהה השחקן של הבעלים",
+        "ownerIdDesc": "ב-Battlefield 5 וב-Battlefield 2042 השרתים הם בחינם, בגלל זה ממש קל להעתיק את השרת של מישהו. מלא את ה-playerid של בעל השרת כאן כדי למנוע זאת.",
+        "restartWorker": "הפעל מחדש",
+        "restartWorkerDesc": "הפעל מחדש את בוט השרת סטטוס (עושה אותו דבר כאשר אתה מחיל שינוי)"
+      }
+    },
+    "console": {
+      "main": "קונסול",
+      "logs": "הצג רישום פעולות",
+      "amount": "{{amount}} פריטים ברשומות"
+    },
+    "players": {
+      "main": "{{amount}} של {{max}} שחקנים",
+      "failed": "אופס.. רשימת שחקנים נכשלה!",
+      "noPlayers": "אף אחד עוד לא הצטרף לצד זה עדיין!",
+      "noSpectators": "אין צופים",
+      "full": "קבוצה מלאה",
+      "0": "קבוצה 1",
+      "1": "קבוצה 2",
+      "spectators": "צופים",
+      "timeInfo": "כמה זמן השחקן נמצא במשחק",
+      "sort": {
+        "main": "מיין את רשימת השחקנים",
+        "position": "מקום בשרת (ברירת מחדל)",
+        "ping": "פינג",
+        "name": "שם שחקן",
+        "rank": "דרגה",
+        "joinTime": "זמן הצטרפות"
+      }
+    },
+    "factions": {
+      "BFFactionId_FactionAHU": "האימפריה האוסטרו-הונגרית",
+      "BFFactionId_FactionGER": "האימפריה הגרמנית",
+      "BFFactionId_FactionOTM": "אימפריה עות'מאנית",
+      "BFFactionId_FactionITA": "ממלכת איטליה",
+      "BFFactionId_FactionUK": "הממלכה המאוחדת",
+      "BFFactionId_FactionUSA": "ארצות הברית",
+      "BFFactionId_FactionFRA": "צרפת",
+      "BFFactionId_FactionRUS": "האימפריה הרוסית",
+      "BFFactionId_FactionBOL": "צבא אדום",
+      "BFFactionId_FactionWA": "צבא לבן",
+      "BFFactionId_FactionUKM": "נחתים מלכותיים",
+      "BFFactionId_FactionUSA_Pacific": "ארצות הברית",
+      "BFFactionId_FactionJPN": "אימפריה של יפן"
+    },
+    "playerStats": {
+      "main": "סטטיסטיקות משחק עבור {{player}}",
+      "loading": "טוען נתונים סטטיסטיים...",
+      "skill": "כישורים:",
+      "rank": "רָמָה:",
+      "killsPerMinute": "הריגות לדקה:",
+      "winPercent": "נצחונות:",
+      "accuracy": "דיוק:",
+      "headshots": "הדשוטס:",
+      "killDeath": "קיי די:",
+      "id": "מספר מזהה:",
+      "currentName": "שם נוכחי:",
+      "toStatsPage": "סטטיסטיקה מלאה.."
+    },
+    "kickMenu": {
+      "main": "אתה עומד לבעוט את {{name}}",
+      "reasonDescription": "סיבה זו תהיה גלויה לשחקן! זה גם מוגבל בתווים ל-30, ומאפשר רק כמה סמלים מיוחדים.",
+      "reason": "סיבה",
+      "confirm": "בעט אותו!"
+    },
+    "banMenu": {
+      "main": "אתה הולך לתת באן ל{{name}}",
+      "reasonDescription": "הכנס סיבה לנתינת באן לשחקן זה.",
+      "reason": "סיבה",
+      "vBanOption": "השתמש בחסימה וירטואלית במקום ברשימת החסימה הקלאסית",
+      "tempbanDesc0": "אם אתה רוצה לתת לו באן זמני, פרט זמן ב",
+      "tempbanDesc1": "שעות מתחת, או השאר 0 כדי לבצע חסימה לצמיתות.",
+      "tempbanDesc2": "עדיין לא נתמך על ידי V-Ban.",
+      "tempbanAmount": "זמן הבאן",
+      "confirm": "באן!"
+    },
+    "unbanMenu": {
+      "main": "אתה עומד להסיר את הבאן מ{{name}}",
+      "reasonDescription": "הכנס סיבה להסרת הבאן משחקן זה.",
+      "reason": "סיבה",
+      "confirm": "הסר באן!"
+    },
+    "vUnbanMenu": {
+      "main": "אתה הולך להסיר את {{name}} מ-vban",
+      "reasonDescription": "הזן סיבה להסיר את השחקן הזה.",
+      "reason": "סיבה",
+      "confirm": "הסר באן!"
+    },
+    "removeExclusionsMenu": {
+      "main": "אתה עומד להסיר את {{name}} מהחריגות",
+      "reasonDescription": "הזן סיבה להסיר את ההכללה משחקן זה עבור autokick (פינג ו-bfban).",
+      "reason": "סיבה",
+      "confirm": "הסר"
+    },
+    "removeReasonMenu": {
+      "main": "האם אתה בטוח?",
+      "confirm": "הסר"
+    },
+    "unvipMenu": {
+      "main": "אתה הולך להסיר את {{name}} מ-vip",
+      "reasonDescription": "הזן סיבה להסרת VIP מהשחקן הזה.",
+      "reason": "סיבה",
+      "confirm": "הסר vip!"
+    },
+    "vBanMenu": {
+      "playerNameDescription": "מלא את שם השחקן שברצונך לחסום",
+      "playerName": "שם משתמש",
+      "reasonDescription": "הזן סיבה לvban שחקן זה.",
+      "reason": "סיבה",
+      "confirm": "באן!",
+      "usePlayerId": "השתמש במזהה שחקן כדי לחסום",
+      "playerId": "מזהה שחקן"
+    },
+    "exclusionsMenu": {
+      "playerNameDescription": "מלא את שם השחקן שברצונך להוסיף להחרגות",
+      "playerName": "שם משתמש",
+      "reasonDescription": "הזן סיבה להחריג את השחקן הזה מ-autokick (פינג ו-bfban).",
+      "reason": "סיבה",
+      "excludeDesc0": "אם אתה רוצה להחריג אותו באופן זמני, ציין זמן ב-",
+      "excludeDesc1": "שעות מתחת, או השאר את זה 0 כדי להחריג אותו לצמיתות.",
+      "excludeAmount": "אל תכלול זמן",
+      "confirm": "הוסף"
+    },
+    "reasonMenu": {
+      "reasonDescription": "הוסף סיבה מוגדרת מראש",
+      "reason": "סיבה",
+      "select": "בחר",
+      "confirm": "הוסף"
+    },
+    "danger": {
+      "main": "אזור סכנה",
+      "delete": "מחק שרת",
+      "check": "האם אתה בטוח שאתה רוצה למחוק את השרת הזה?",
+      "checkWithName": "האם אתה בטוח שברצונך למחוק את {{name}}?",
+      "confirm": "כן, מחק",
+      "back": "אוי, לא!"
+    }
+  },
+  "sidebar": {
+    "main": "דף ראשי",
+    "home": "דף בית",
+    "account": "חשבון",
+    "devOptions": "אפשרויות מפתח",
+    "manOptions": "אפשרויות ניהול",
+    "createGroup": "צור קבוצה",
+    "makeOperations": "בצע פעולות",
+    "logout": "התנתק",
+    "help": "צריך עזרה?",
+    "sponsor": "נותנים לנו חסות"
+  },
+  "cookieInfo": {
+    "link": "לחץ כאן לקבלת מידע על איך למצוא את הsid והremid",
+    "main": "איך למצוא את עוגיות הSID והREMID",
+    "0": "1. פתח",
+    "1": "במצב גלישה באופן פרטי עם דפדפן כרום או אדג'",
+    "2": "2. התחבר עם החשבון שאתה רוצה להשתמש, אל תשכח לסמן \"זכור אותי\".",
+    "3": "3. לאחר ההתחברות, לחץ על המנעול:",
+    "4": "4. בתפריט הזה בחר עוגיות:",
+    "5": "5. הרחב את \"accounts.ea.com\" ולחץ על sid ו\\או remid כדי לראות את העוגיה\nמתחת ל\"Content\"",
+    "6": "6. לאחר שמצאת את עוגיות הSID והREMID אל תתנתק, פשוט סגור את\nהדפדפן.",
+    "7": "אם אתה מתנתק העוגיות לא יהיו בתוקף יותר."
+  },
+  "statusBotInfo": {
+    "link": "לחץ כאן לקבלת מידע על איך למצוא את מפתח הדיסקורד ולהזמין את הבוט\nלדיסקורד שלך",
+    "main": "בוט ומפתח הדיסקורד",
+    "0": "צור דיסקורד בוט:",
+    "1": "1. התחבר אל Discord developer portal:",
+    "2": "2. לחץ על \"New Application\" בחלק העליון הימני, תן שם לבוט ולחץ create.",
+    "3": "3. לחץ על \"Bot\" בחלק הימני ולחץ \"Add Bot\".",
+    "4": "4. העתק את מפתח הדיסקורד משם והדבק אותו בשדה \"Discord token\" בתוך\n\"Server settings\" של המנג'קר ולחץ \"Apply\" בתחתית.",
+    "5": "הוסף את הבוט לדיסקורד שלך:",
+    "6": "5. בבוט החדש שנוצר, בדף \"מידע כללי\", לחץ על \"העתק\" תחת \"מזהה אפליקציה\"",
+    "7": "6. העתק את הקישור הזה: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, החלף את \"APPLICATION_ID\" במזהה האפליקציה שהתקבל משלב 5 ופתח את הקישור בדפדפן שלך.",
+    "8": "7. בחר את השרת שאליו תרצה להזמין את הבוט ולחץ על Authorize.",
+    "9": "הבוט לא צריך הרשאות מיוחדות כדי להציג את סטטוס השרת, כדי לשלוח הודעות הוא צריך את ההרשאה לשלוח הודעות, הטמעות ותמונות."
+  },
+  "ApiInfo": {
+    "link": "לחץ כאן כדי לקבל את כל הבקשות הזמינות עבור ה-API"
+  },
+  "imageAlts": {
+    "main": "מנהל של manager",
+    "gamestats": "לוגו של Gamestats",
+    "userAvatar": "אוואטר משתמש",
+    "tutorial": "סיוע חזותי"
+  }
+}
