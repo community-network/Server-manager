@@ -556,26 +556,34 @@ function ServerAutomation(props: {
       ) : (
         <></>
       )}
-      <h5 style={{ marginTop: "8px" }}>
-        {t("server.protection.statsKick")}
-      </h5>
+      <h5 style={{ marginTop: "8px" }}>{t("server.protection.statsKick")}</h5>
       <ButtonRow>
-        <Button callback={() => {
-          window.location.href = "/files/bf1_statskick_example.xlsx"
-        }} name={t("server.protection.statsKickExample")}/>
-        <FileToJson callback={(data) => changeServerState({ statsKick: data })} />
+        <Button
+          callback={() => {
+            window.location.href = "/files/bf1_statskick_example.xlsx";
+          }}
+          name={t("server.protection.statsKickExample")}
+        />
+        <FileToJson
+          callback={(data) => changeServerState({ statsKick: data })}
+        />
       </ButtonRow>
       {serverState && Object.keys(serverState.statsKick).length > 0 && (
         <ButtonRow style={{ marginTop: 0 }}>
-        <Button callback={() => {
-          const filename = 'current_statskick.xlsx';
-          var ws = utils.json_to_sheet(serverState.statsKick);
-          var wb = utils.book_new();
-          utils.book_append_sheet(wb, ws, "People");
-          writeFile(wb, filename);
-        }} name={t("server.protection.statsKickDownload")}/>
-        <Button callback={() => changeServerState({ statsKick: {} })} 
-          name={t("server.protection.statsKickRemove")}/>
+          <Button
+            callback={() => {
+              const filename = "current_statskick.xlsx";
+              const ws = utils.json_to_sheet(serverState.statsKick);
+              const wb = utils.book_new();
+              utils.book_append_sheet(wb, ws, "People");
+              writeFile(wb, filename);
+            }}
+            name={t("server.protection.statsKickDownload")}
+          />
+          <Button
+            callback={() => changeServerState({ statsKick: {} })}
+            name={t("server.protection.statsKickRemove")}
+          />
         </ButtonRow>
       )}
       {props.server && canApply ? (
