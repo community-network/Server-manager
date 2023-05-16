@@ -15,8 +15,11 @@
     "change": "{{change, change}}",
     "notApplicable": "无",
     "boolean": {
-        "enable": "开启",
-        "disable": "关闭"
+        "enabled": "enabled",
+        "disabled": "disabled"
+    },
+    "translation": {
+        "help": "Help with translation"
     },
     "games": {
         "bf3": "战地3 (只战绩机器人)",
@@ -35,8 +38,8 @@
         "WAR PIGEONS": "战争信鸽",
         "OPERATIONS": "行动",
         "TEAM DEATHMATCH": "团队死斗",
-        "SUPPLY DROP": "空降补给",
-        "AIR ASSAULT": "空中突袭"
+        "BREAKTHROUGH": "Breakthrough",
+        "CUSTOM": "Custom"
     },
     "maps": {
         "Amiens": "亚眠",
@@ -70,16 +73,57 @@
         "River Somme": "索姆河",
         "London Calling: Raiders": "伦敦的呼唤-夜袭",
         "London Calling: Scourge": "伦敦的呼唤-灾祸",
-        "Razor's Edge": "剃刀边缘"
+        "Razor's Edge": "剃刀边缘",
+        "Aerodrome": "Aerodrome",
+        "Al Marj Encampment": "Al Marj Encampment",
+        "Al Sundan": "Al Sundan",
+        "Arras": "Arras",
+        "Devastation": "Devastation",
+        "Fjell 652": "Fjell 652",
+        "Halvøy": "Halvøy",
+        "Hamada": "Hamada",
+        "Iwo Jima": "Iwo Jima",
+        "Lofoten Islands": "Lofoten Islands",
+        "Marita": "Marita",
+        "Mercury": "Mercury",
+        "Narvik": "Narvik",
+        "Operation Underground": "Operation Underground",
+        "Pacific Storm": "Pacific Storm",
+        "Panzerstorm": "Panzerstorm",
+        "Provence": "Provence",
+        "Rotterdam": "Rotterdam",
+        "Solomon Islands": "Solomon Islands",
+        "Twisted Steel": "Twisted Steel",
+        "Wake Island": "Wake Island"
     },
     "cookie": {
         "check": "选择一个游戏，cookie支持检查它是否有效",
+        "add": "Add server account",
+        "setDefaultCookie": "Set as default",
         "invalid": "错误：你当前的cookie无效",
         "remid": "REMID cookie",
         "sidDescription": "Session cookies可以在此处被找到 ",
         "remidDescription": "Reminder session cookies可以在此处被找到",
         "sid": "SID cookie",
-        "locale": "语言标签"
+        "locale": "语言标签",
+        "delete": "Delete server account",
+        "status": {
+            "loading": "Updating account status..",
+            "pending": "We have a pending status for this account"
+        },
+        "accountType": {
+            "add": "Add new cookie",
+            "default": "Default account",
+            "extra": "Extra account"
+        },
+        "removeMenu": {
+            "main": "Are you sure you want to remove \"{{name}}\" service account?",
+            "confirm": "Remove account"
+        },
+        "supportedGames": {
+            "main": "Games on account:",
+            "update": "Update game list"
+        }
     },
     "serverStatus": {
         "pending": "处理状态",
@@ -114,11 +158,11 @@
             },
             "1": {
                 "heading": "无限的群组全局Vban名单",
-                "body": "支持在服务器组上建立一个无限数量的Vban名单，它在该组下所有服务器生效"
+                "body": "Ban as many players as you want to on all your servers with virtual ban list."
             },
             "2": {
                 "heading": "高ping玩家踢出",
-                "body": "自动踢出服务器高ping玩家，防止服务器lag"
+                "body": "Automatically kick players from your servers based on ping threshold."
             },
             "3": {
                 "heading": "基于Discord角色的游戏工具",
@@ -185,7 +229,8 @@
         },
         "settings": {
             "main": "设置",
-            "makeOperations": "开启设置行动"
+            "makeOperations": "开启设置行动",
+            "seedServers": "Enable seeding bots"
         }
     },
     "createGroup": {
@@ -232,7 +277,7 @@
             },
             "auto-rejoin": {
                 "true": "自动重加入",
-                "false": "不要自动重加入" 
+                "false": "不要自动重加入"
             },
             "popup": {
                 "confirmInfo": "你确定要 {{option}}?",
@@ -256,7 +301,8 @@
             "seeders": {
                 "main": "最近的 {{seeders}} 该暖服者在线 正在游玩 {{ingame}} ",
                 "true": "在游戏中",
-                "false": "不在游戏中"
+                "false": "不在游戏中",
+                "defaultDescription": "following global-seeding system"
             },
             "keepalive": {
                 "main": "连接到该服务器的主机名来使其始终在线",
@@ -265,13 +311,40 @@
                 "hostname": "你想增加哪一个主机名到被选中的服务器",
                 "sethostname": "主机名",
                 "currentHostname": "从被选中的服务器中删除 '{{ hostname }}'?"
+            },
+            "game": {
+                "bf4": "bf4",
+                "bf1": "bf1"
+            },
+            "other": {
+                "main": "Other servers (seed-only servers)",
+                "add": "Add seed-only server",
+                "remove": "Remove seed-only server"
             }
         },
         "servers": {
             "main": "服务器",
             "description0": "服务器实例将被增加到该实例. ",
             "description1": "必须有群组根管理去添加服务器.",
+            "alias": "Alias: {{alias}}",
             "add": "添加服务器"
+        },
+        "platoons": {
+            "main": "Platoons",
+            "description0": "Manage many platoons as if they were one big platoon",
+            "search": "Search platoonname",
+            "add": "Add platoons",
+            "remove": "Remove platoons",
+            "resultNotFound": "No platoons found with that name",
+            "members": {
+                "main": "Members",
+                "remove": "Remove member"
+            },
+            "applicants": {
+                "main": "Applicants",
+                "accept": "Accept",
+                "decline": "Decline"
+            }
         },
         "owners": {
             "main": "所有者",
@@ -288,15 +361,42 @@
             "main": "Vban虚拟封禁名单",
             "description0": "该群组的虚拟封禁名单.",
             "description1": "已经使用了{{number}} 个栏位",
-            "reason": "",
             "noReason": "理由",
+            "add": "Add ban",
             "unban": "解ban",
             "table": {
                 "playerName": "玩家名称",
                 "playerId": "玩家数字ID",
                 "reason": "理由",
                 "admin": "管理",
-                "timestamp": "时间标签"
+                "timestamp": "时间标签",
+                "bannedUntil": "直到"
+            }
+        },
+        "exclusions": {
+            "main": "Exclusions list",
+            "description0": "List of players excluded from autokick (ping and bfban).",
+            "description1": "已经使用了{{number}} 个栏位",
+            "noReason": "理由",
+            "add": "Add exclusion",
+            "remove": "Remove exclusion",
+            "table": {
+                "playerName": "玩家名字",
+                "playerId": "玩家数字ID",
+                "reason": "原因",
+                "admin": "管理",
+                "timestamp": "时间标签",
+                "bannedUntil": "直到"
+            }
+        },
+        "reasonList": {
+            "main": "Predefined reasons",
+            "description0": "Set a predefined list of reasons you can select from when trying to kick/ban/vban a player",
+            "noReason": "Reason to add",
+            "add": "Add reason",
+            "remove": "Remove reason",
+            "table": {
+                "reason": "原因"
             }
         },
         "logs": {
@@ -326,7 +426,19 @@
             "gamestats": "为你的Discord频道增加Gamestats机器人,这样你就可以使用命令来管理服务器.",
             "commandList": "使用\"!bfadmin\" 可以列出你可以使用的所有命令",
             "permDescription0": "每一个人都可以使用discord数字ID进行授权",
-            "permDescription1": "Discord机器人命令可以进行控制服务器."
+            "permDescription1": "discord commands to control the server."
+        },
+        "settings": {
+            "main": "群组设置",
+            "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
+            "visableBans": "开启\"!checkban\" 公开",
+            "localeDescription0": "语言标签是写入cookie中的, 像地图名称等服务器信息会以该语言显示.",
+            "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 ",
+            "tokenDescription0": "如果你想使用服管面板的api，你需要生成一个token并把它保存在某个地方(推荐云笔记).",
+            "tokenDescription1": "我们只允许你生成一个新的，如果你丢失了旧token则不能从面板中找回.",
+            "token": "Token",
+            "tokenGen": "生成",
+            "tokenEnable": "启用群组token"
         },
         "status": {
             "main": "群组状态",
@@ -372,18 +484,6 @@
                 }
             }
         },
-        "settings": {
-            "main": "群组设置",
-            "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
-            "visableBans": "开启\"!checkban\" 公开",
-            "localeDescription0": "语言标签是写入cookie中的, 像地图名称等服务器信息会以该语言显示.",
-            "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 ",
-            "tokenDescription0": "如果你想使用服管面板的api，你需要生成一个token并把它保存在某个地方(推荐云笔记).",
-            "tokenDescription1": "我们只允许你生成一个新的，如果你丢失了旧token则不能从面板中找回.",
-            "token": "Token",
-            "tokenGen": "生成",
-            "tokenEnable": "启用群组token"
-        },
         "danger": {
             "main": "高危区域",
             "nameChange": "你可以更改该群组的名称.",
@@ -391,6 +491,7 @@
             "deleteInfo0": "一旦你删除了该群组，该群组下的所有服务器将会从列表中移除,",
             "deleteInfo1": "包括服务器管理账号和相关的用户",
             "check": "你确定要删除该群组吗?",
+            "checkWithName": "你确定删除 {{name}}?",
             "confirm": "是的删除",
             "back": "奥上帝不要删除!"
         },
@@ -429,12 +530,22 @@
             "addVip": "增加vip",
             "removeVip": "删除vip"
         },
+        "ingameSettings": {
+            "main": "Ingame settings",
+            "rotation": "Change the server rotation",
+            "addMap": "Add another map",
+            "removeMap": "Remove",
+            "cookie": "Cookie used to make the server changes, both cookies set in manager and sid/remid are possible:"
+        },
         "game": {
             "main": "目前的游戏",
             "info": "[{{inQue}}] 个玩家",
             "restart": "重启",
             "mapSwitch": "切图..",
-            "playerlistUpdate": "最后一次刷新"
+            "startServer": "Start server",
+            "playerlistUpdate": "最后一次刷新",
+            "bfvPlaygroundSelect": "Select config",
+            "serverRegionSelect": "Select region"
         },
         "banList": {
             "main": "封禁列表",
@@ -461,7 +572,6 @@
                 "playerName": "玩家名称",
                 "playerId": "玩家数字ID"
             }
-
         },
         "adminList": {
             "main": "服务器管理员",
@@ -559,7 +669,11 @@
             "pingKickMsg": "high ping kick",
             "pingKickMinDesc": "自动踢高ping开始工作的玩家数（0表示永远起作用）",
             "pingKickMin": "开始高ping踢出玩家数",
-            "minAutoPingKick": "高ping被踢的最小玩家总数量"
+            "minAutoPingKick": "高ping被踢的最小玩家总数量",
+            "KickRankDesc": "Kick a player based on their rank ingame",
+            "rankKickReason": "Rank not within requirements",
+            "kickLowRank": "Kick if rank is lower than:",
+            "kickHighRank": "Kick if rank is higher than:"
         },
         "settings": {
             "main": "设置",
@@ -593,6 +707,7 @@
             "amount": "{{amount}} 个事件"
         },
         "players": {
+            "main": "{{amount}} of {{max}} players",
             "failed": "草，服务器玩家列表读取失败!",
             "noPlayers": "还没有人加入这一边!",
             "noSpectators": "目前还没有观察者",
@@ -636,10 +751,12 @@
             "headshots": "爆头: ",
             "killDeath": "KD: ",
             "id": "ID: ",
+            "currentName": "Current name: ",
             "toStatsPage": "查看完整数据.."
         },
         "kickMenu": {
             "main": "你将把 {{name}}踢出",
+            "reasonDescription": "This reason will be visibe to player! It is also limited in characters to 30, and allow only a few special symbols.",
             "reason": "理由",
             "confirm": "踢了他!"
         },
@@ -666,6 +783,16 @@
             "reason": "理由",
             "confirm": "解封!"
         },
+        "removeExclusionsMenu": {
+            "main": "You are going to remove {{name}} from exclusions",
+            "reasonDescription": "Enter a reason to remove the exclusion from this player for autokick (ping and bfban).",
+            "reason": "原因",
+            "confirm": "Remove"
+        },
+        "removeReasonMenu": {
+            "main": "Are you sure?",
+            "confirm": "Remove"
+        },
         "unvipMenu": {
             "main": "你正在把 {{name}} 从vip中移除",
             "reasonDescription": "输入一个删vip的理由.",
@@ -678,6 +805,22 @@
             "reasonDescription": "写个vban该玩家的理由.",
             "reason": "理由",
             "confirm": "Vban了他!"
+        },
+        "exclusionsMenu": {
+            "playerNameDescription": "Fill in the name of the player you want to add to exclusions",
+            "playerName": "玩家名",
+            "reasonDescription": "Enter a reason to exclude this player from autokick (ping and bfban).",
+            "reason": "原因",
+            "excludeDesc0": "If you want to temporary exclude him, specify time in",
+            "excludeDesc1": "hours below, or leave it 0 to exclude him permanently.",
+            "excludeAmount": "Exclude time",
+            "confirm": "Add"
+        },
+        "reasonMenu": {
+            "reasonDescription": "Add a predefined reason",
+            "reason": "原因",
+            "select": "Select",
+            "confirm": "Add"
         },
         "danger": {
             "main": "危险区域",
@@ -703,7 +846,6 @@
     "cookieInfo": {
         "link": "点击这里查看如何获取SID和REMID cookies",
         "main": "获取REMID和SID的方法",
-        "video": "视频教程",
         "0": "1.打开 ",
         "1": "在Chrome或Edge的匿名防追踪模式下",
         "2": "2. 登录你想使用的Origin账号【严禁黑号后果自负】, 不要忘记勾选 \"记住我\".",
@@ -729,5 +871,11 @@
     },
     "ApiInfo": {
         "link": "点击这里获取API所有可行的请求"
+    },
+    "imageAlts": {
+        "main": "Logo manager",
+        "gamestats": "Gamestats logo",
+        "userAvatar": "User avatar",
+        "tutorial": "Visual aid"
     }
 }
