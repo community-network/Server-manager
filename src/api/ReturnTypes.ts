@@ -443,6 +443,7 @@ export interface IManGroupOwner {
 }
 
 export interface IManGroupServer {
+  noUpdateFor30Days: boolean;
   autoBanKick: boolean;
   autoBfbanKick: boolean;
   autoPingKick: number;

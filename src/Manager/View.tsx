@@ -183,7 +183,13 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
         <tbody>
           {group && group.servers ? (
             group.servers.map((server: IManGroupServer, i: number) => (
-              <tr key={i} className={styles.BanRow}>
+              <tr
+                key={i}
+                className={styles.BanRow}
+                style={{
+                  color: server?.noUpdateFor30Days ? "#ff6666" : "#d0d0d0",
+                }}
+              >
                 <td>
                   <span>{server.serverName}</span>
                 </td>
