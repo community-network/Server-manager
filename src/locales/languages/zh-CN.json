@@ -1,733 +1,893 @@
 {
-    "beta": "测试",
-    "eBeta": "早期测试",
-    "search": "搜索中",
-    "pending": "处理中",
-    "loading": "载入中",
-    "denied": "不被允许",
-    "apply": "应用",
-    "export": "导出EXCEL",
-    "date": "{{date, date|PP}}",
-    "dateTime": "{{date, date|PPpp}}",
-    "shortDateTime": "{{date, date|PPpp}}",
-    "chartDateTime": "{{date, date|d-M, HH:mm}}",
-    "time": "{{date, date|p}}",
-    "change": "{{change, change}}",
-    "notApplicable": "无",
-    "boolean": {
-        "enable": "开启",
-        "disable": "关闭"
+  "beta": "测试",
+  "eBeta": "早期测试",
+  "search": "搜索中",
+  "pending": "处理中",
+  "loading": "载入中",
+  "denied": "不被允许",
+  "apply": "应用",
+  "export": "导出EXCEL",
+  "date": "{{date, date|PP}}",
+  "dateTime": "{{date, date|PPpp}}",
+  "shortDateTime": "{{date, date|PPpp}}",
+  "chartDateTime": "{{date, date|d-M, HH:mm}}",
+  "time": "{{date, date|p}}",
+  "change": "{{change, change}}",
+  "notApplicable": "无",
+  "boolean": {
+    "enabled": "启用",
+    "disabled": "禁用"
+  },
+  "execute": "执行",
+  "translation": {
+    "help": "协助翻译"
+  },
+  "games": {
+    "bf3": "战地3 (只战绩机器人)",
+    "bf4": "战地风云 4（仅限状态机器人/暖服机）",
+    "bfh": "战地 硬仗 (只战绩机器人)",
+    "bf1": "战地 1",
+    "bfv": "战地 5 (早期测试)",
+    "bf2042": "战地 2042"
+  },
+  "gamemodes": {
+    "FRONTLINES": "前线",
+    "DOMINATION": "抢攻",
+    "SHOCK OPERATIONS": "突破行动",
+    "RUSH": "突袭",
+    "CONQUEST": "征服",
+    "WAR PIGEONS": "战争信鸽",
+    "OPERATIONS": "行动",
+    "TEAM DEATHMATCH": "团队死斗",
+    "BREAKTHROUGH": "突破",
+    "CUSTOM": "自定义"
+  },
+  "maps": {
+    "Amiens": "亚眠",
+    "Argonne Forest": "阿尔贡森林",
+    "Ballroom Blitz": "流血宴厅",
+    "Empire's Edge": "帝国边境",
+    "Fao Fortress": "法欧堡",
+    "Monte Grappa": "格拉巴山",
+    "St Quentin Scar": "圣康坦的伤痕",
+    "Sinai Desert": "西奈沙漠",
+    "Suez": "苏伊士",
+    "Giant's Shadow": "庞然暗影",
+    "Verdun Heights": "凡尔登高地",
+    "Fort De Vaux": "法乌克斯要塞",
+    "Soissons": "苏瓦松",
+    "Rupture": "决裂",
+    "Nivelle Nights": "尼维尔之夜",
+    "Prise de Tahure": "攻占托尔",
+    "Łupków Pass": "武普库夫山口",
+    "Albion": "阿尔比恩",
+    "Galicia": "加利西亚",
+    "Brusilov Keep": "勃鲁西洛夫关口",
+    "Tsaritsyn": "察里津",
+    "Volga River": "窝瓦河",
+    "Achi Baba": "阿奇巴巴",
+    "Cape Helles": "海丽丝岬",
+    "Heligoland Bight": "黑尔戈兰湾",
+    "Zeebrugge": "泽布吕赫",
+    "Caporetto": "卡波雷托",
+    "Passchendaele": "帕斯尚尔",
+    "River Somme": "索姆河",
+    "London Calling: Raiders": "伦敦的呼唤-夜袭",
+    "London Calling: Scourge": "伦敦的呼唤-灾祸",
+    "Razor's Edge": "剃刀边缘",
+    "Aerodrome": "机场",
+    "Al Marj Encampment": "迈尔季营地",
+    "Al Sundan": "艾尔舒丹",
+    "Arras": "阿拉斯",
+    "Devastation": "荒废之地",
+    "Fjell 652": "菲耶尔652",
+    "Halvøy": "半岛",
+    "Hamada": "哈马达",
+    "Iwo Jima": "硫磺岛",
+    "Lofoten Islands": "罗浮敦群岛",
+    "Marita": "马瑞塔",
+    "Mercury": "水星",
+    "Narvik": "纳尔维克",
+    "Operation Underground": "地下行动",
+    "Pacific Storm": "太平洋风暴",
+    "Panzerstorm": "战车风暴",
+    "Provence": "普罗旺斯",
+    "Rotterdam": "鹿特丹",
+    "Solomon Islands": "所罗门群岛",
+    "Twisted Steel": "扭曲钢铁",
+    "Wake Island": "威客岛"
+  },
+  "cookie": {
+    "check": "选择一个游戏，cookie支持检查它是否有效",
+    "add": "添加服务器帐户",
+    "setDefaultCookie": "设为默认",
+    "invalid": "错误：你当前的cookie无效",
+    "remid": "REMID cookie",
+    "sidDescription": "Session cookies可以在此处被找到 ",
+    "remidDescription": "Reminder session cookies可以在此处被找到",
+    "sid": "SID cookie",
+    "locale": "语言标签",
+    "delete": "删除服务器帐户",
+    "status": {
+      "loading": "更新帐户状态..",
+      "pending": "我们有这个帐户的待定状态"
     },
-    "games": {
-        "bf3": "战地3 (只战绩机器人)",
-        "bf4": "战地 4 (只战绩机器人)",
-        "bfh": "战地 硬仗 (只战绩机器人)",
-        "bf1": "战地 1",
-        "bfv": "战地 5 (早期测试)",
-        "bf2042": "战地 2042"
+    "accountType": {
+      "add": "添加新的 cookie",
+      "default": "默认账户",
+      "extra": "额外帐户"
     },
-    "gamemodes": {
-        "FRONTLINES": "前线",
-        "DOMINATION": "抢攻",
-        "SHOCK OPERATIONS": "突破行动",
-        "RUSH": "突袭",
-        "CONQUEST": "征服",
-        "WAR PIGEONS": "战争信鸽",
-        "OPERATIONS": "行动",
-        "TEAM DEATHMATCH": "团队死斗",
-        "SUPPLY DROP": "空降补给",
-        "AIR ASSAULT": "空中突袭"
+    "removeMenu": {
+      "main": "您确定要删除“{{name}}”服务帐号吗？",
+      "confirm": "删除帐户"
     },
-    "maps": {
-        "Amiens": "亚眠",
-        "Argonne Forest": "阿尔贡森林",
-        "Ballroom Blitz": "流血宴厅",
-        "Empire's Edge": "帝国边境",
-        "Fao Fortress": "法欧堡",
-        "Monte Grappa": "格拉巴山",
-        "St Quentin Scar": "圣康坦的伤痕",
-        "Sinai Desert": "西奈沙漠",
-        "Suez": "苏伊士",
-        "Giant's Shadow": "庞然暗影",
-        "Verdun Heights": "凡尔登高地",
-        "Fort De Vaux": "法乌克斯要塞",
-        "Soissons": "苏瓦松",
-        "Rupture": "决裂",
-        "Nivelle Nights": "尼维尔之夜",
-        "Prise de Tahure": "攻占托尔",
-        "Łupków Pass": "武普库夫山口",
-        "Albion": "阿尔比恩",
-        "Galicia": "加利西亚",
-        "Brusilov Keep": "勃鲁西洛夫关口",
-        "Tsaritsyn": "察里津",
-        "Volga River": "窝瓦河",
-        "Achi Baba": "阿奇巴巴",
-        "Cape Helles": "海丽丝岬",
-        "Heligoland Bight": "黑尔戈兰湾",
-        "Zeebrugge": "泽布吕赫",
-        "Caporetto": "卡波雷托",
-        "Passchendaele": "帕斯尚尔",
-        "River Somme": "索姆河",
-        "London Calling: Raiders": "伦敦的呼唤-夜袭",
-        "London Calling: Scourge": "伦敦的呼唤-灾祸",
-        "Razor's Edge": "剃刀边缘"
+    "supportedGames": {
+      "main": "账号上的游戏：",
+      "update": "更新游戏列表"
+    }
+  },
+  "serverStatus": {
+    "pending": "处理状态",
+    "noServer": "错误：服务器未找到",
+    "noAdmin": "错误：当前账号没有该服务器管理权限",
+    "running": "运行中",
+    "notSupported": "没有后台工作者状态支持"
+  },
+  "serverBotStatus": {
+    "pending": "处理状态中",
+    "noService": "没有找到线程",
+    "failed": "线程运行失败",
+    "running": "正在以\"{{worker}}\"的名称运行"
+  },
+  "discord": {
+    "id": "你的Discord Server ID",
+    "idDescription": "请输入你的Discord频道服务器数字ID",
+    "adminId": "根管理的discord账号数字ID",
+    "adminIdDescription": "根管理的discord数字ID",
+    "modId": "子管理的discord数字ID",
+    "modIdDescription": "子管理只能踢人"
+  },
+  "mainPage": {
+    "main": "一种全新的管理战地1服务器的工具",
+    "description": "服务器管理工具是一个由Community-Network创建的全新Gametools & BFBan 服务",
+    "login": "登录",
+    "featureList": {
+      "main": "特点",
+      "0": {
+        "heading": "BFBan反外挂",
+        "body": "自动踢出www.bfban.com实锤名单，进而保护您的服务器"
+      },
+      "1": {
+        "heading": "无限的群组全局Vban名单",
+        "body": "使用虚拟禁令列表在所有服务器上禁止任意数量的玩家。"
+      },
+      "2": {
+        "heading": "高ping玩家踢出",
+        "body": "根据 ping 阈值自动将玩家踢出您的服务器。"
+      },
+      "3": {
+        "heading": "基于Discord角色的游戏工具",
+        "body": "可以凭借discord账户进行服务器管理."
+      },
+      "4": {
+        "heading": "服务器操作日志",
+        "body": "服务器的所有操作都将记录在案随时查阅."
+      },
+      "5": {
+        "heading": "对你的服务器进行完全掌控",
+        "body": "管理员可以和游戏内一样的对服务器进行控制."
+      }
     },
-    "cookie": {
-        "check": "选择一个游戏，cookie支持检查它是否有效",
-        "invalid": "错误：你当前的cookie无效",
-        "remid": "REMID cookie",
-        "sidDescription": "Session cookies可以在此处被找到 ",
-        "remidDescription": "Reminder session cookies可以在此处被找到",
-        "sid": "SID cookie",
-        "locale": "语言标签"
+    "statistics": {
+      "main": "目前已经被全球 {{communities}} 个游戏社群使用，这其中涵盖了 {{servers}} 个服务器",
+      "weekly": {
+        "main": "本周统计:",
+        "bfbanKicks": "被bfban自动踢的没妈孤儿总数",
+        "globalbanKicks": "被群组虚拟vban踢掉的玩家总数",
+        "pingKicks": "因为高延迟被踢的玩家",
+        "movedPlayers": "被换边的玩家",
+        "kickedPlayers": "通过这个面板被踢的玩家",
+        "bannedPlayers": "通过这个面板被ban的玩家"
+      }
+    }
+  },
+  "account": {
+    "main": "账户",
+    "discordProfile": "Discord资料",
+    "loggedIn": "已登陆",
+    "permissions": {
+      "main": "权限",
+      "admin": "管理员",
+      "server": "服务器拥有者",
+      "system": "系统管理员"
+    }
+  },
+  "dev": {
+    "main": "开发者选项",
+    "listGroups": "群组列表",
+    "addGroup": "添加服务器群组",
+    "manage": "管理服务器群组"
+  },
+  "man": {
+    "main": "管理选项",
+    "listGroups": "群组列表",
+    "worker": {
+      "main": "线程账户",
+      "lastUpdate": "最后更新"
     },
-    "serverStatus": {
-        "pending": "处理状态",
-        "noServer": "错误：服务器未找到",
-        "noAdmin": "错误：当前账号没有该服务器管理权限",
-        "running": "运行中",
-        "notSupported": "没有状态支持"
+    "owners": {
+      "main": "所有者",
+      "createdAt": "用户被创建于"
     },
-    "serverBotStatus": {
-        "pending": "处理状态中",
-        "noService": "没有找到线程",
-        "failed": "线程运行失败",
-        "running": "正在以\"{{worker}}\"的名称运行"
+    "servers": {
+      "main": "服务器",
+      "status": "服务器状态",
+      "lastUpdate": "线程最后更新",
+      "createdAt": "服务器被添加于",
+      "autoPingKick": "延迟踢出",
+      "autoBanKick": "vBan踢出",
+      "autoBfbanKick": "BfBan踢出"
     },
-    "discord": {
-        "id": "你的Discord Server ID",
-        "idDescription": "请输入你的Discord频道服务器数字ID",
-        "adminId": "根管理的discord账号数字ID",
-        "adminIdDescription": "根管理的discord数字ID",
-        "modId": "子管理的discord数字ID",
-        "modIdDescription": "子管理只能踢人"
+    "settings": {
+      "main": "设置",
+      "makeOperations": "开启设置行动",
+      "seedServers": "启用暖服机器人"
+    }
+  },
+  "createGroup": {
+    "main": "创建新的群组",
+    "description": "创建一个新的群组来管理你社区的所有服务器",
+    "discordDescription": "可选的，你可以写入您的discord频道数字ID，让工具和频道有机的结合",
+    "cookieDescription0": "每一个群组必须指定一个特定ORIGIN账号满足一下内容:",
+    "cookieDescription1": "它必须是这些服务器的管理员(不一定是服主)",
+    "cookieDescription2": "该账号在设置后不能在其他地方登录包括网页、Origin、小助手等",
+    "acceptDescription0": "通过这个按钮,你将同意授权",
+    "acceptDescription1": "服务器管理工具使用该账号.",
+    "accept": "创建群组"
+  },
+  "group": {
+    "main": "群组",
+    "name": "群组名称",
+    "id": "身份",
+    "admins": {
+      "main": "根管理员",
+      "description0": "根管理员角色可以管理服务器，你必须使用一个",
+      "description1": "跟管理员所有者可以添加子管理员.",
+      "add": "添加根管理员",
+      "addNew": "添加一个新管理员",
+      "removeSelected": "删除所选的管理员",
+      "remove": "删除管理员",
+      "select": "选择管理去删除.",
+      "selected": "你选择了{{number}} 几个管理."
     },
-    "mainPage": {
-        "main": "一种全新的管理战地1服务器的工具",
-        "description": "服务器管理工具是一个由Community-Network创建的全新Gametools & BFBan 服务",
-        "login": "登录",
-        "featureList": {
-            "main": "特点",
-            "0": {
-                "heading": "BFBan反外挂",
-                "body": "自动踢出www.bfban.com实锤名单，进而保护您的服务器"
-            },
-            "1": {
-                "heading": "无限的群组全局Vban名单",
-                "body": "支持在服务器组上建立一个无限数量的Vban名单，它在该组下所有服务器生效"
-            },
-            "2": {
-                "heading": "高ping玩家踢出",
-                "body": "自动踢出服务器高ping玩家，防止服务器lag"
-            },
-            "3": {
-                "heading": "基于Discord角色的游戏工具",
-                "body": "可以凭借discord账户进行服务器管理."
-            },
-            "4": {
-                "heading": "服务器操作日志",
-                "body": "服务器的所有操作都将记录在案随时查阅."
-            },
-            "5": {
-                "heading": "对你的服务器进行完全掌控",
-                "body": "管理员可以和游戏内一样的对服务器进行控制."
-            }
-        },
-        "statistics": {
-            "main": "目前已经被全球 {{communities}} 个游戏社群使用，这其中涵盖了 {{servers}} 个服务器",
-            "weekly": {
-                "main": "本周统计:",
-                "bfbanKicks": "被bfban自动踢的没妈孤儿总数",
-                "globalbanKicks": "被群组虚拟vban踢掉的玩家总数",
-                "pingKicks": "因为高延迟被踢的玩家",
-                "movedPlayers": "被换边的玩家",
-                "kickedPlayers": "通过这个面板被踢的玩家",
-                "bannedPlayers": "通过这个面板被ban的玩家"
-            }
-        }
+    "seeding": {
+      "main": "暖服",
+      "app": "下载暖服程序",
+      "description0": "暖你的战地1服务器",
+      "description1": "你最少需要一个所有者角色去访问暖服面板,",
+      "description2": "你必须从以下连接访问暖服工具来使你想暖的服暖起来",
+      "custom": "自定义服务器",
+      "broadcast": {
+        "main": "对所有服务器发起广播",
+        "message": "消息",
+        "sendMessage": "发送"
+      },
+      "scheduled": {
+        "true": "开始暖服的时间 {{startTime}} 要暖的服务器名 {{serverName}}",
+        "false": "不要自动暖服."
+      },
+      "auto-rejoin": {
+        "true": "自动重加入",
+        "false": "不要自动重加入"
+      },
+      "popup": {
+        "confirmInfo": "你确定要 {{option}}?",
+        "broadcastInfo": "你确定要广播\"{{message}}\"?",
+        "confirm": "确定!"
+      },
+      "actions": {
+        "joinSelected": "加入所选服务器",
+        "leave": "离开最近的服务器",
+        "shutdownWindows": "关闭电脑 (with shutdown option enabled)",
+        "schedule": "计划开始暖服时间(UTC timezone)",
+        "undoSchedule": "从计划里删除暖服"
+      },
+      "status": {
+        "main": "状态: ",
+        "seedServer": "暖服中{{serverName}}",
+        "leaveServer": "不在任何服务器",
+        "shutdownPC": "关闭所有电脑并且开启关机选项",
+        "broadcastMessage": "广播 \"{{message}}\" 到所有服务器"
+      },
+      "seeders": {
+        "main": "最近的 {{seeders}} 该暖服者在线 正在游玩 {{ingame}} ",
+        "true": "在游戏中",
+        "false": "不在游戏中",
+        "defaultDescription": "遵循全球暖服系统"
+      },
+      "keepalive": {
+        "main": "连接到该服务器的主机名来使其始终在线",
+        "add": "增加一个主机名",
+        "remove": "删除一个主机名",
+        "hostname": "你想增加哪一个主机名到被选中的服务器",
+        "sethostname": "主机名",
+        "currentHostname": "从被选中的服务器中删除 '{{ hostname }}'?"
+      },
+      "game": {
+        "bf4": "bf4",
+        "bf1": "bf1"
+      },
+      "other": {
+        "main": "其他服务器（仅暖服服务器）",
+        "add": "添加仅暖服服务器",
+        "remove": "删除仅暖服服务器"
+      }
+    },
+    "servers": {
+      "main": "服务器",
+      "description0": "服务器实例将被增加到该实例. ",
+      "description1": "必须有群组根管理去添加服务器.",
+      "alias": "其他: {{alias}}",
+      "add": "添加服务器"
+    },
+    "platoons": {
+      "main": "战排",
+      "description0": "像管理一个大型战排一样管理许多战排排",
+      "search": "搜索战排名称",
+      "add": "添加战排",
+      "remove": "移除战排",
+      "resultNotFound": "找不到具有该名称的战排",
+      "members": {
+        "main": "成员",
+        "remove": "移出成员"
+      },
+      "applicants": {
+        "main": "申请人",
+        "accept": "同意",
+        "decline": "拒绝"
+      }
+    },
+    "owners": {
+      "main": "所有者",
+      "description0": "该群组的所有所有者，所有者可以关联新的服务器,",
+      "description1": "增加新的管理和增加其他所有者，要非常小心的添加!",
+      "add": "添加所有者",
+      "addNew": "添加新的所有者",
+      "removeSelected": "删除选定的所有者",
+      "remove": "删除所有者",
+      "select": "选定所有者并且删除他们.",
+      "selected": "你选择了{{number}} 个所有者."
+    },
+    "vban": {
+      "main": "Vban虚拟封禁名单",
+      "description0": "该群组的虚拟封禁名单.",
+      "description1": "已经使用了{{number}} 个栏位",
+      "noReason": "理由",
+      "add": "添加禁令",
+      "unban": "解ban",
+      "table": {
+        "playerName": "玩家名称",
+        "playerId": "玩家数字ID",
+        "reason": "理由",
+        "admin": "管理",
+        "timestamp": "时间标签",
+        "bannedUntil": "直到"
+      }
+    },
+    "exclusions": {
+      "main": "排除清单",
+      "description0": "从自动踢中排除的玩家列表（ping 和 bfban）。",
+      "description1": "已经使用了{{number}} 个栏位",
+      "noReason": "理由",
+      "add": "添加排除",
+      "remove": "删除排除",
+      "table": {
+        "playerName": "玩家名字",
+        "playerId": "玩家数字ID",
+        "reason": "原因",
+        "admin": "管理",
+        "timestamp": "时间标签",
+        "bannedUntil": "直到"
+      }
+    },
+    "reasonList": {
+      "main": "预先设定原因",
+      "description0": "设置一个预定义的原因列表，您可以在尝试踢/禁止/禁止玩家时从中选择",
+      "noReason": "添加的原因",
+      "add": "添加原因",
+      "remove": "移除原因",
+      "table": {
+        "reason": "原因"
+      }
+    },
+    "logs": {
+      "main": "群组日志",
+      "description": "群组日志列表",
+      "reasons": {
+        "addVban": "已经被vban",
+        "removeVban": "解除vban",
+        "editGroup": "编辑群组",
+        "addUser": "已经增加管理",
+        "addOwner": "已经增加所有者",
+        "addGroup": "已经增加这个群组",
+        "removeOwner": "已经删除所有者",
+        "removeUser": "已经删除管理",
+        "magic": "对他使用魔法"
+      }
     },
     "account": {
-        "main": "账户",
-        "discordProfile": "Discord资料",
-        "loggedIn": "已登陆",
-        "permissions": {
-            "main": "权限",
-            "admin": "管理员",
-            "server": "服务器拥有者",
-            "system": "系统管理员"
-        }
+      "main": "服务器Origin管理账号",
+      "description0": "该ORIGIN账号将会管理你的游戏服务器.",
+      "description1": "这些cookie可以在该处被找到 "
     },
-    "dev": {
-        "main": "开发者选项",
-        "listGroups": "群组列表",
-        "addGroup": "添加服务器群组",
-        "manage": "管理服务器群组"
+    "discord": {
+      "main": "Discord频道整合",
+      "description0": "通过整合discord频道您的频道管理可以使用discord机器人来管理服务器",
+      "description1": "通过! 的前缀命令来使用.",
+      "gamestats": "为你的Discord频道增加Gamestats机器人,这样你就可以使用命令来管理服务器.",
+      "commandList": "使用\"!bfadmin\" 可以列出你可以使用的所有命令",
+      "permDescription0": "每一个人都可以使用discord数字ID进行授权",
+      "permDescription1": "discord 命令来控制服务器。"
     },
-    "man": {
-        "main": "管理选项",
-        "listGroups": "群组列表",
-        "worker": {
-            "main": "线程账户",
-            "lastUpdate": "最后更新"
-        },
-        "owners": {
-            "main": "所有者",
-            "createdAt": "用户被创建于"
-        },
+    "settings": {
+      "main": "群组设置",
+      "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
+      "visableBans": "开启\"!checkban\" 公开",
+      "localeDescription0": "语言标签是写入cookie中的, 像地图名称等服务器信息会以该语言显示.",
+      "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 ",
+      "tokenDescription0": "如果你想使用服管面板的api，你需要生成一个token并把它保存在某个地方(推荐云笔记).",
+      "tokenDescription1": "我们只允许你生成一个新的，如果你丢失了旧token则不能从面板中找回.",
+      "token": "Token",
+      "tokenGen": "生成",
+      "tokenEnable": "启用群组token"
+    },
+    "status": {
+      "main": "群组状态",
+      "worker": {
+        "main": "关于这个组的线程:",
+        "in": "最近在群组线程的时间 {{time}}",
+        "queue": "等待队列中"
+      },
+      "cookiecheck": {
+        "main": "上次检查群组cookie是否有效:",
+        "never": "该群组还从没检查过cookie是否有效"
+      },
+      "stats": {
+        "main": "该群组这周的统计:",
+        "autoKickPingAmount": "{{amount}} 个玩家被ping设置踢了.",
+        "bfbanAmount": "{{amount}} 个挂壁被bfban踢了.",
+        "moveAmount": "{{amount}} 个玩家被面板或discord机器人或者token换边.",
+        "kickAmount": "{{amount}}个玩家被面板或discord机器人或者token踢了.",
+        "banAmount": "{{amount}} 个玩家被面板或discord机器人或者token ban了.",
+        "globalBanKickAmount": "{{amount}} 个玩家被vban列表踢了.",
         "servers": {
-            "main": "服务器",
-            "status": "服务器状态",
-            "lastUpdate": "线程最后更新",
-            "createdAt": "服务器被添加于",
-            "autoPingKick": "延迟踢出",
-            "autoBanKick": "vBan踢出",
-            "autoBfbanKick": "BfBan踢出"
-        },
-        "settings": {
-            "main": "设置",
-            "makeOperations": "开启设置行动"
+          "main": "服务器统计:",
+          "none": "没有服务器信息",
+          "info": {
+            "main": "所有时间的服务器信息",
+            "players": "# 玩家数量",
+            "vips": "# VIP数量",
+            "admins": "# 管理员数量",
+            "bans": "# 被ban数量"
+          },
+          "maps": {
+            "main": "最受欢迎地图",
+            "info": "% 地图数量"
+          },
+          "modes": {
+            "main": "最受欢迎的游戏模式",
+            "info": "游戏模式百分比"
+          },
+          "worstMaps": {
+            "main": "最少用量玩家的地图",
+            "info": "地图百分比"
+          }
         }
+      }
     },
-    "createGroup": {
-        "main": "创建新的群组",
-        "description": "创建一个新的群组来管理你社区的所有服务器",
-        "discordDescription": "可选的，你可以写入您的discord频道数字ID，让工具和频道有机的结合",
-        "cookieDescription0": "每一个群组必须指定一个特定ORIGIN账号满足一下内容:",
-        "cookieDescription1": "它必须是这些服务器的管理员(不一定是服主)",
-        "cookieDescription2": "该账号在设置后不能在其他地方登录包括网页、Origin、小助手等",
-        "acceptDescription0": "通过这个按钮,你将同意授权",
-        "acceptDescription1": "服务器管理工具使用该账号.",
-        "accept": "创建群组"
+    "danger": {
+      "main": "高危区域",
+      "nameChange": "你可以更改该群组的名称.",
+      "delete": "删除群组",
+      "deleteInfo0": "一旦你删除了该群组，该群组下的所有服务器将会从列表中移除,",
+      "deleteInfo1": "包括服务器管理账号和相关的用户",
+      "check": "你确定要删除该群组吗?",
+      "checkWithName": "你确定删除 {{name}}?",
+      "confirm": "是的删除",
+      "back": "奥上帝不要删除!"
     },
-    "group": {
-        "main": "群组",
-        "name": "群组名称",
-        "id": "身份",
-        "admins": {
-            "main": "根管理员",
-            "description0": "根管理员角色可以管理服务器，你必须使用一个",
-            "description1": "跟管理员所有者可以添加子管理员.",
-            "add": "添加根管理员",
-            "addNew": "添加一个新管理员",
-            "removeSelected": "删除所选的管理员",
-            "remove": "删除管理员",
-            "select": "选择管理去删除.",
-            "selected": "你选择了{{number}} 几个管理."
-        },
-        "seeding": {
-            "main": "暖服",
-            "app": "下载暖服程序",
-            "description0": "暖你的战地1服务器",
-            "description1": "你最少需要一个所有者角色去访问暖服面板,",
-            "description2": "你必须从以下连接访问暖服工具来使你想暖的服暖起来",
-            "custom": "自定义服务器",
-            "broadcast": {
-                "main": "对所有服务器发起广播",
-                "message": "消息",
-                "sendMessage": "发送"
-            },
-            "scheduled": {
-                "true": "开始暖服的时间 {{startTime}} 要暖的服务器名 {{serverName}}",
-                "false": "不要自动暖服."
-            },
-            "auto-rejoin": {
-                "true": "自动重加入",
-                "false": "不要自动重加入" 
-            },
-            "popup": {
-                "confirmInfo": "你确定要 {{option}}?",
-                "broadcastInfo": "你确定要广播\"{{message}}\"?",
-                "confirm": "确定!"
-            },
-            "actions": {
-                "joinSelected": "加入所选服务器",
-                "leave": "离开最近的服务器",
-                "shutdownWindows": "关闭电脑 (with shutdown option enabled)",
-                "schedule": "计划开始暖服时间(UTC timezone)",
-                "undoSchedule": "从计划里删除暖服"
-            },
-            "status": {
-                "main": "状态: ",
-                "seedServer": "暖服中{{serverName}}",
-                "leaveServer": "不在任何服务器",
-                "shutdownPC": "关闭所有电脑并且开启关机选项",
-                "broadcastMessage": "广播 \"{{message}}\" 到所有服务器"
-            },
-            "seeders": {
-                "main": "最近的 {{seeders}} 该暖服者在线 正在游玩 {{ingame}} ",
-                "true": "在游戏中",
-                "false": "不在游戏中"
-            },
-            "keepalive": {
-                "main": "连接到该服务器的主机名来使其始终在线",
-                "add": "增加一个主机名",
-                "remove": "删除一个主机名",
-                "hostname": "你想增加哪一个主机名到被选中的服务器",
-                "sethostname": "主机名",
-                "currentHostname": "从被选中的服务器中删除 '{{ hostname }}'?"
-            }
-        },
-        "servers": {
-            "main": "服务器",
-            "description0": "服务器实例将被增加到该实例. ",
-            "description1": "必须有群组根管理去添加服务器.",
-            "add": "添加服务器"
-        },
-        "owners": {
-            "main": "所有者",
-            "description0": "该群组的所有所有者，所有者可以关联新的服务器,",
-            "description1": "增加新的管理和增加其他所有者，要非常小心的添加!",
-            "add": "添加所有者",
-            "addNew": "添加新的所有者",
-            "removeSelected": "删除选定的所有者",
-            "remove": "删除所有者",
-            "select": "选定所有者并且删除他们.",
-            "selected": "你选择了{{number}} 个所有者."
-        },
-        "vban": {
-            "main": "Vban虚拟封禁名单",
-            "description0": "该群组的虚拟封禁名单.",
-            "description1": "已经使用了{{number}} 个栏位",
-            "reason": "",
-            "noReason": "理由",
-            "unban": "解ban",
-            "table": {
-                "playerName": "玩家名称",
-                "playerId": "玩家数字ID",
-                "reason": "理由",
-                "admin": "管理",
-                "timestamp": "时间标签"
-            }
-        },
-        "logs": {
-            "main": "群组日志",
-            "description": "群组日志列表",
-            "reasons": {
-                "addVban": "已经被vban",
-                "removeVban": "解除vban",
-                "editGroup": "编辑群组",
-                "addUser": "已经增加管理",
-                "addOwner": "已经增加所有者",
-                "addGroup": "已经增加这个群组",
-                "removeOwner": "已经删除所有者",
-                "removeUser": "已经删除管理",
-                "magic": "对他使用魔法"
-            }
-        },
-        "account": {
-            "main": "服务器Origin管理账号",
-            "description0": "该ORIGIN账号将会管理你的游戏服务器.",
-            "description1": "这些cookie可以在该处被找到 "
-        },
-        "discord": {
-            "main": "Discord频道整合",
-            "description0": "通过整合discord频道您的频道管理可以使用discord机器人来管理服务器",
-            "description1": "通过! 的前缀命令来使用.",
-            "gamestats": "为你的Discord频道增加Gamestats机器人,这样你就可以使用命令来管理服务器.",
-            "commandList": "使用\"!bfadmin\" 可以列出你可以使用的所有命令",
-            "permDescription0": "每一个人都可以使用discord数字ID进行授权",
-            "permDescription1": "Discord机器人命令可以进行控制服务器."
-        },
-        "status": {
-            "main": "群组状态",
-            "worker": {
-                "main": "关于这个组的线程:",
-                "in": "最近在群组线程的时间 {{time}}",
-                "queue": "等待队列中"
-            },
-            "cookiecheck": {
-                "main": "上次检查群组cookie是否有效:",
-                "never": "该群组还从没检查过cookie是否有效"
-            },
-            "stats": {
-                "main": "该群组这周的统计:",
-                "autoKickPingAmount": "{{amount}} 个玩家被ping设置踢了.",
-                "bfbanAmount": "{{amount}} 个挂壁被bfban踢了.",
-                "moveAmount": "{{amount}} 个玩家被面板或discord机器人或者token换边.",
-                "kickAmount": "{{amount}}个玩家被面板或discord机器人或者token踢了.",
-                "banAmount": "{{amount}} 个玩家被面板或discord机器人或者token ban了.",
-                "globalBanKickAmount": "{{amount}} 个玩家被vban列表踢了.",
-                "servers": {
-                    "main": "服务器统计:",
-                    "none": "没有服务器信息",
-                    "info": {
-                        "main": "所有时间的服务器信息",
-                        "players": "# 玩家数量",
-                        "vips": "# VIP数量",
-                        "admins": "# 管理员数量",
-                        "bans": "# 被ban数量"
-                    },
-                    "maps": {
-                        "main": "最受欢迎地图",
-                        "info": "% 地图数量"
-                    },
-                    "modes": {
-                        "main": "最受欢迎的游戏模式",
-                        "info": "游戏模式百分比"
-                    },
-                    "worstMaps": {
-                        "main": "最少用量玩家的地图",
-                        "info": "地图百分比"
-                    }
-                }
-            }
-        },
-        "settings": {
-            "main": "群组设置",
-            "visableBansDesc": "允许你的服务器ban位公开，方便有人检查某个玩家已经在某个服务器封禁:",
-            "visableBans": "开启\"!checkban\" 公开",
-            "localeDescription0": "语言标签是写入cookie中的, 像地图名称等服务器信息会以该语言显示.",
-            "localeDescription1": "如中文zh-CN,语言标签可以在此处找到 ",
-            "tokenDescription0": "如果你想使用服管面板的api，你需要生成一个token并把它保存在某个地方(推荐云笔记).",
-            "tokenDescription1": "我们只允许你生成一个新的，如果你丢失了旧token则不能从面板中找回.",
-            "token": "Token",
-            "tokenGen": "生成",
-            "tokenEnable": "启用群组token"
-        },
-        "danger": {
-            "main": "高危区域",
-            "nameChange": "你可以更改该群组的名称.",
-            "delete": "删除群组",
-            "deleteInfo0": "一旦你删除了该群组，该群组下的所有服务器将会从列表中移除,",
-            "deleteInfo1": "包括服务器管理账号和相关的用户",
-            "check": "你确定要删除该群组吗?",
-            "confirm": "是的删除",
-            "back": "奥上帝不要删除!"
-        },
-        "addMenu": {
-            "id": "请输入Discord数字UID",
-            "nickname": "昵称"
-        },
-        "serverAddMenu": {
-            "main": "增加新的服务器",
-            "description": "群组服务器",
-            "name": "服务器在列表中唯一的真实名字（英文）",
-            "alias": "服务器昵称(可选)"
-        }
+    "addMenu": {
+      "id": "请输入Discord数字UID",
+      "nickname": "昵称"
     },
-    "operations": {
-        "main": "设置行动模式",
-        "description0": "在你的服务器上设置行动模式.",
-        "description1": "注意，这将使你丧失游戏内管理面板!",
-        "description2": "请确定已经将该服务器加入我们的服管面板.",
-        "acceptDescription0": "通过这个按钮，你将同意并且继续",
-        "acceptDescription1": "服管工具使用该账号.",
-        "accept": "设置行动！",
-        "server": "服务器 ",
-        "owner": "服务器所有者账号的cookie",
-        "cookies": " cookies."
-    },
-    "server": {
-        "main": "服务器面板",
-        "playerName": "玩家名称",
-        "ago": "前",
-        "action": {
-            "kick": "踢出",
-            "move": "移动",
-            "ban": "封禁",
-            "unban": "解ban",
-            "addVip": "增加vip",
-            "removeVip": "删除vip"
-        },
-        "game": {
-            "main": "目前的游戏",
-            "info": "[{{inQue}}] 个玩家",
-            "restart": "重启",
-            "mapSwitch": "切图..",
-            "playerlistUpdate": "最后一次刷新"
-        },
-        "banList": {
-            "main": "封禁列表",
-            "description0": "展示该服务器所有封禁玩家.",
-            "description1": "已经使用了",
-            "description2": "200个当中的{{number}} ",
-            "description3": "使用我们群组的V-ban虚拟封禁列表功能,",
-            "description4": "可以封禁无限数量的玩家.",
-            "table": {
-                "playerName": "玩家名称",
-                "playerId": "玩家数字ID",
-                "reason": "理由",
-                "admin": "管理",
-                "until": "直到",
-                "timestamp": "时间标签"
-            }
-        },
-        "vipList": {
-            "main": "VIP列表",
-            "description0": "展示该服务器所有VIP.",
-            "description1": "已经使用了 ",
-            "description2": "50个当中的{{number}} ",
-            "table": {
-                "playerName": "玩家名称",
-                "playerId": "玩家数字ID"
-            }
-
-        },
-        "adminList": {
-            "main": "服务器管理员",
-            "description0": "该服务器管理员列表.",
-            "description1": "已经使用了",
-            "description2": "50个当中的{{number}} ",
-            "table": {
-                "playerName": "玩家名称",
-                "playerId": "玩家数字ID"
-            }
-        },
-        "firestarterList": {
-            "main": "暖服统计",
-            "description0": "我们可以统计每天开服之前的所有在场玩家,",
-            "description1": "这样你就可以知道谁在帮你暖服.",
-            "table": {
-                "playerName": "玩家ORIGIN ID",
-                "playerId": "玩家数字ID",
-                "amount": "总次数"
-            }
-        },
-        "playTimeList": {
-            "main": "游玩时间",
-            "description0": "玩家游玩该服务器的时间统计，可以看到谁是死忠粉.",
-            "description1": "这个数据是每周统计的\"hours:minutes\"",
-            "table": {
-                "playerName": "玩家名称",
-                "playerId": "玩家数字ID",
-                "timePlayed": "在这个服游玩时间"
-            }
-        },
-        "spectatorList": {
-            "main": "观察者列表",
-            "description0": "我们将会保存该服务器24小时内的所有观察者ID,",
-            "description1": "这样做的目的是因为战地一有的外挂可以在观察模式操控玩家强制全图索敌...",
-            "description2": "这将是一种对抗该类型外挂的方法.",
-            "table": {
-                "playerName": "玩家名字",
-                "playerId": "玩家数字ID",
-                "time": "时间"
-            }
-        },
-        "playerLogs": {
-            "main": "玩家日志",
-            "description0": "我们将会记录24小时以内游玩过该服务器的所有玩家,",
-            "description1": "因为有那么一小撮人间之屑持续不断的炸服.",
-            "description2": "这是我们屠杀孤儿院的方法.",
-            "description3": "列表玩家筛选器可以筛选出某一特殊时期的玩家:",
-            "search": "在总表中搜寻某玩家...",
-            "filterPlayer": "玩家筛选器",
-            "table": {
-                "playerName": "玩家名称",
-                "playerId": "玩家数字ID",
-                "ping": "延迟",
-                "role": "角色"
-            }
-        },
-        "logs": {
-            "main": "日志",
-            "reasons": {
-                "addServerBan": "已封禁",
-                "kickPlayer": "已踢出",
-                "removeServerBan": "已经解封",
-                "addServerVip": "已经将VIP给",
-                "movePlayer": "已挪边",
-                "removeServerVip": "已经将VIP删除",
-                "magic": "对其使用了魔法"
-            },
-            "types": {
-                "pingChecker": "ping检查",
-                "vBan": "VBan",
-                "bfban": "BFBan"
-            },
-            "reason": "理由",
-            "noReason": "没有任何理由"
-        },
-        "protection": {
-            "main": "服务器保护",
-            "title": "自动保护服务器",
-            "vBanDescription0": "我们最新开发的服务器保护工具将使你的服务器原理外挂.",
-            "vBanDescription1": "全局V-ban虚拟封禁将使该群组下的 ",
-            "vBanDescription2": "所有服务器",
-            "vBanDescription3": "被提供",
-            "vBanDescription4": "无限的ban位和同步的封禁列表.",
-            "vBanEnable": "开启全局V-ban",
-            "vbanReasonDesc0": "这条信息将会出现在被vban玩家屏幕上（英语） ",
-            "vbanReasonDesc1": "auto-kicked by V-Ban Global system.",
-            "vBanMsg": "V-Ban信息",
-            "bfbanDescription": "保护服务器远离BFBAN实锤外挂 ",
-            "bfbanEnable": "开启BFBAN反作弊",
-            "bfBanMsg": "BFBAN信息",
-            "pingKickDescription": "自动踢出指定高ping玩家",
-            "pingKickEnable": "踢出高ping玩家",
-            "pingKickAmount": "指定高ping数值",
-            "pingKickMsg": "high ping kick",
-            "pingKickMinDesc": "自动踢高ping开始工作的玩家数（0表示永远起作用）",
-            "pingKickMin": "开始高ping踢出玩家数",
-            "minAutoPingKick": "高ping被踢的最小玩家总数量"
-        },
-        "settings": {
-            "main": "设置",
-            "title": "服务器设置",
-            "nameDescription": "修改服务器名称",
-            "name": "服务器名称",
-            "aliasDescription": "在Discord频道机器人中显示的服务器昵称. (举个例子，可以是服务器编号)",
-            "alias": "昵称",
-            "cookie": "设置用于得到服务器信息与修改的账号",
-            "discordBot": {
-                "main": "Discord 战地服务器状态 机器人",
-                "token": "Discord token",
-                "tokenDesc": "Discord的token将会被用作服务器状态机器人(当你填入token并且点击应用后，一个线程将会被自动创建)",
-                "channel": "Discord频道的id",
-                "channelDesc": "Discord频道的id将会发布玩家总数变化到",
-                "minPlayerAmount": "最小.开始一局游戏所需的最小玩家",
-                "minPlayerAmountDesc": "该服务器模式开始所需的最小玩家数量",
-                "prevReqCount": "前一个. 需要被计数",
-                "prevReqCountDesc": "在开局到正在运行，需要发送的请求数量, (默认 = 5, 5 * 2 == 10 分钟)",
-                "startedAmount": "足够让他运行的玩家数",
-                "startedAmountDesc": "作为一个正常运行的服务器所需玩家",
-                "ownerId": "所有者的游戏ID",
-                "ownerIdDesc": "在战地5中私服是免费的,所以山寨一个服务器是很简单的.在这里填写所有者游戏ID可以防止这件事.",
-                "restartWorker": "重启",
-                "restartWorkerDesc": "重启服务器状态机器人(当你改变设置时你也需要重启)"
-            }
-        },
-        "console": {
-            "main": "控制台",
-            "logs": "显示操作日志",
-            "amount": "{{amount}} 个事件"
-        },
-        "players": {
-            "failed": "草，服务器玩家列表读取失败!",
-            "noPlayers": "还没有人加入这一边!",
-            "noSpectators": "目前还没有观察者",
-            "full": "满了",
-            "0": "队伍1",
-            "1": "队伍2",
-            "spectators": "观众",
-            "timeInfo": "该玩家加入游戏的时间",
-            "sort": {
-                "main": "玩家列表分类",
-                "position": "服务器上的位置 (默认)",
-                "ping": "延迟",
-                "name": "玩家名称",
-                "rank": "等级",
-                "joinTime": "加入时间"
-            }
-        },
-        "factions": {
-            "BFFactionId_FactionAHU": "奥匈帝国",
-            "BFFactionId_FactionGER": "德帝国",
-            "BFFactionId_FactionOTM": "奥斯曼土鸡",
-            "BFFactionId_FactionITA": "意大利王国",
-            "BFFactionId_FactionUK": "英国",
-            "BFFactionId_FactionUSA": "漂亮国",
-            "BFFactionId_FactionFRA": "法国",
-            "BFFactionId_FactionRUS": "俄帝国",
-            "BFFactionId_FactionBOL": "红军",
-            "BFFactionId_FactionWA": "白军",
-            "BFFactionId_FactionUKM": "皇家海军",
-            "BFFactionId_FactionUSA_Pacific": "美利坚合众国",
-            "BFFactionId_FactionJPN": "日本帝国"
-        },
-        "playerStats": {
-            "main": "玩家统计{{player}}",
-            "loading": "状态载入中...",
-            "skill": "技巧值: ",
-            "rank": "等级: ",
-            "killsPerMinute": "每分钟击杀: ",
-            "winPercent": "胜率: ",
-            "accuracy": "准度: ",
-            "headshots": "爆头: ",
-            "killDeath": "KD: ",
-            "id": "ID: ",
-            "toStatsPage": "查看完整数据.."
-        },
-        "kickMenu": {
-            "main": "你将把 {{name}}踢出",
-            "reason": "理由",
-            "confirm": "踢了他!"
-        },
-        "banMenu": {
-            "main": "你将把{{name}}封禁",
-            "reasonDescription": "请输入ban该玩家的理由.",
-            "reason": "理由",
-            "vBanOption": "使用V-ban虚拟ban位取真实ban位",
-            "tempbanDesc0": "如果你想临时封禁他，那么请下方输入一个时间点",
-            "tempbanDesc1": "小时, 或者输入0永久封禁.",
-            "tempbanDesc2": "目前还没被V-ban支持.",
-            "tempbanAmount": "封禁时间",
-            "confirm": "封禁！"
-        },
-        "unbanMenu": {
-            "main": "你正在解封{{name}}",
-            "reasonDescription": "输入一个解封该玩家的理由.",
-            "reason": "理由",
-            "confirm": "解封!"
-        },
-        "vUnbanMenu": {
-            "main": "你正在把 {{name}} 从vban中删除",
-            "reasonDescription": "输入一个解除vban的原因.",
-            "reason": "理由",
-            "confirm": "解封!"
-        },
-        "unvipMenu": {
-            "main": "你正在把 {{name}} 从vip中移除",
-            "reasonDescription": "输入一个删vip的理由.",
-            "reason": "原因",
-            "confirm": "解封!"
-        },
-        "vBanMenu": {
-            "playerNameDescription": "填充你想虚拟ban的玩家名字",
-            "playerName": "玩家名",
-            "reasonDescription": "写个vban该玩家的理由.",
-            "reason": "理由",
-            "confirm": "Vban了他!"
-        },
-        "danger": {
-            "main": "危险区域",
-            "delete": "删除服务器",
-            "check": "你确定删除这服务器?",
-            "checkWithName": "你确定删除 {{name}}?",
-            "confirm": "是的",
-            "back": "不删!"
-        }
-    },
-    "sidebar": {
-        "main": "主页",
-        "home": "首页",
-        "account": "账户",
-        "devOptions": "开发者选项",
-        "manOptions": "管理选项",
-        "createGroup": "创建群组",
-        "makeOperations": "设置行动",
-        "logout": "注销",
-        "help": "需要帮助？",
-        "sponsor": "赞助者"
-    },
-    "cookieInfo": {
-        "link": "点击这里查看如何获取SID和REMID cookies",
-        "main": "获取REMID和SID的方法",
-        "video": "视频教程",
-        "0": "1.打开 ",
-        "1": "在Chrome或Edge的匿名防追踪模式下",
-        "2": "2. 登录你想使用的Origin账号【严禁黑号后果自负】, 不要忘记勾选 \"记住我\".",
-        "3": "3. 在登录之后,点击地址栏的小锁:",
-        "4": "4. 在这个菜单选择cookies:",
-        "5": "5. 点击展开 \"accounts.ea.com\" 项, 并且分别点击sid和remid去查看这些cookie在 \"内容\"",
-        "6": "6. 在你得到SID和REMID cookie后不要点击Origin登出,直接关闭浏览器即可.",
-        "7": "如果你origin登出了,那么你刚才获取的cookie都会过期."
-    },
-    "statusBotInfo": {
-        "link": "点击这里查看如何获取discord的token和如何邀请机器人进入你的频道",
-        "main": "Discord机器人和token",
-        "0": "创建一个discord机器人:",
-        "1": "1. 登陆discord开发者端口: ",
-        "2": "2. 在右侧点击点击 \"New Application\" 创建一个新的应用,输入机器人的名字并创建.",
-        "3": "3. 在右侧点击\"Bot\" 然后点击\"Add Bot\"新增博通.",
-        "4": "4. 从那里复制Discord token然后把他粘贴到，服管面板的\"Server settings\"服务器设置里的\"Discord token\"表格，然后点击底部的\"应用\".",
-        "5": "为你的频道新增机器人:",
-        "6": "5. 在刚刚新建的机器人那里, 在\"General Information\"通用信息页, 在\"Application ID\"下方 点击\"Copy\"复制",
-        "7": "6. 复制这个链接: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot 并且在浏览器中打开该链接, 用第5步获得的Application Id 应用ID覆盖\"APPLICATION_ID\"  .",
-        "8": "7. 选择你想邀请该机器人到哪一个频道，并且点击授权.",
-        "9": "这个机器人不需要其他额外的权限去显示游戏服务器信息,如果要发送消息和图片或者表情，那么它需要发送消息的权限."
-    },
-    "ApiInfo": {
-        "link": "点击这里获取API所有可行的请求"
+    "serverAddMenu": {
+      "main": "增加新的服务器",
+      "description": "群组服务器",
+      "name": "服务器在列表中唯一的真实名字（英文）",
+      "alias": "服务器昵称(可选)"
     }
+  },
+  "operations": {
+    "main": "设置行动模式",
+    "description0": "在你的服务器上设置行动模式.",
+    "description1": "注意，这将使你丧失游戏内管理面板!",
+    "description2": "请确定已经将该服务器加入我们的服管面板.",
+    "acceptDescription0": "通过这个按钮，你将同意并且继续",
+    "acceptDescription1": "服管工具使用该账号.",
+    "accept": "设置行动！",
+    "server": "服务器 ",
+    "owner": "服务器所有者账号的cookie",
+    "cookies": " cookies."
+  },
+  "server": {
+    "main": "服务器面板",
+    "playerName": "玩家名称",
+    "ago": "前",
+    "action": {
+      "kick": "踢出",
+      "move": "移动",
+      "ban": "封禁",
+      "unban": "解ban",
+      "addVip": "增加vip",
+      "removeVip": "删除vip",
+      "nextRound": "下一轮",
+      "nextLevel": "下一级",
+      "restartRound": "重启回合",
+      "shutdown": "停止服务器",
+      "shutdownEor": "在回合结束时停止"
+    },
+    "ingameSettings": {
+      "main": "游戏设置",
+      "rotation": "更改服务器轮换",
+      "addMap": "添加另一张地图",
+      "removeMap": "移除",
+      "cookie": "用于使服务器发生变化的cookie，在manager和sid/remid中设置的cookie都是可以的："
+    },
+    "game": {
+      "main": "目前的游戏",
+      "info": "[{{inQue}}] 个玩家",
+      "restart": "重启",
+      "mapSwitch": "切图..",
+      "startServer": "启动服务器",
+      "playerlistUpdate": "最后一次刷新",
+      "bfvPlaygroundSelect": "选择配置",
+      "serverRegionSelect": "选择区域"
+    },
+    "banList": {
+      "main": "封禁列表",
+      "description0": "展示该服务器所有封禁玩家.",
+      "description1": "已经使用了",
+      "description2": "200个当中的{{number}} ",
+      "description3": "使用我们群组的V-ban虚拟封禁列表功能,",
+      "description4": "可以封禁无限数量的玩家.",
+      "table": {
+        "playerName": "玩家名称",
+        "playerId": "玩家数字ID",
+        "reason": "理由",
+        "admin": "管理",
+        "until": "直到",
+        "timestamp": "时间标签"
+      }
+    },
+    "vipList": {
+      "main": "VIP列表",
+      "description0": "展示该服务器所有VIP.",
+      "description1": "已经使用了 ",
+      "description2": "50个当中的{{number}} ",
+      "table": {
+        "playerName": "玩家名称",
+        "playerId": "玩家数字ID"
+      }
+    },
+    "adminList": {
+      "main": "服务器管理员",
+      "description0": "该服务器管理员列表.",
+      "description1": "已经使用了",
+      "description2": "50个当中的{{number}} ",
+      "table": {
+        "playerName": "玩家名称",
+        "playerId": "玩家数字ID"
+      }
+    },
+    "firestarterList": {
+      "main": "暖服统计",
+      "description0": "我们可以统计每天开服之前的所有在场玩家,",
+      "description1": "这样你就可以知道谁在帮你暖服.",
+      "table": {
+        "playerName": "玩家ORIGIN ID",
+        "playerId": "玩家数字ID",
+        "amount": "总次数"
+      }
+    },
+    "playTimeList": {
+      "main": "游玩时间",
+      "description0": "玩家游玩该服务器的时间统计，可以看到谁是死忠粉.",
+      "description1": "这个数据是每周统计的\"hours:minutes\"",
+      "table": {
+        "playerName": "玩家名称",
+        "playerId": "玩家数字ID",
+        "timePlayed": "在这个服游玩时间"
+      }
+    },
+    "spectatorList": {
+      "main": "观察者列表",
+      "description0": "我们将会保存该服务器24小时内的所有观察者ID,",
+      "description1": "这样做的目的是因为战地一有的外挂可以在观察模式操控玩家强制全图索敌...",
+      "description2": "这将是一种对抗该类型外挂的方法.",
+      "table": {
+        "playerName": "玩家名字",
+        "playerId": "玩家数字ID",
+        "time": "时间"
+      }
+    },
+    "playerLogs": {
+      "main": "玩家日志",
+      "description0": "我们将会记录24小时以内游玩过该服务器的所有玩家,",
+      "description1": "因为有那么一小撮人间之屑持续不断的炸服.",
+      "description2": "这是我们屠杀孤儿院的方法.",
+      "description3": "列表玩家筛选器可以筛选出某一特殊时期的玩家:",
+      "search": "在总表中搜寻某玩家...",
+      "filterPlayer": "玩家筛选器",
+      "table": {
+        "playerName": "玩家名称",
+        "playerId": "玩家数字ID",
+        "ping": "延迟",
+        "role": "角色"
+      }
+    },
+    "logs": {
+      "main": "日志",
+      "reasons": {
+        "addServerBan": "已封禁",
+        "kickPlayer": "已踢出",
+        "removeServerBan": "已经解封",
+        "addServerVip": "已经将VIP给",
+        "movePlayer": "已挪边",
+        "removeServerVip": "已经将VIP删除",
+        "magic": "对其使用了魔法"
+      },
+      "types": {
+        "pingChecker": "ping检查",
+        "vBan": "VBan",
+        "bfban": "BFBan"
+      },
+      "reason": "理由",
+      "noReason": "没有任何理由"
+    },
+    "protection": {
+      "main": "服务器保护",
+      "title": "自动保护服务器",
+      "vBanDescription0": "我们最新开发的服务器保护工具将使你的服务器原理外挂.",
+      "vBanDescription1": "全局V-ban虚拟封禁将使该群组下的 ",
+      "vBanDescription2": "所有服务器",
+      "vBanDescription3": "被提供",
+      "vBanDescription4": "无限的ban位和同步的封禁列表.",
+      "vBanEnable": "开启全局V-ban",
+      "vbanReasonDesc0": "这条信息将会出现在被vban玩家屏幕上（英语） ",
+      "vbanReasonDesc1": "auto-kicked by V-Ban Global system.",
+      "vBanMsg": "V-Ban信息",
+      "bfbanDescription": "保护服务器远离BFBAN实锤外挂 ",
+      "bfbanEnable": "开启BFBAN反作弊",
+      "bfBanMsg": "BFBAN信息",
+      "pingKickDescription": "自动踢出指定高ping玩家",
+      "pingKickEnable": "踢出高ping玩家",
+      "pingKickAmount": "指定高ping数值",
+      "pingKickMsg": "high ping kick",
+      "pingKickMinDesc": "自动踢高ping开始工作的玩家数（0表示永远起作用）",
+      "pingKickMin": "开始高ping踢出玩家数",
+      "minAutoPingKick": "高ping被踢的最小玩家总数量",
+      "KickRankDesc": "根据玩家在游戏中的排名踢出玩家",
+      "rankKickReason": "排名不在要求范围内",
+      "kickLowRank": "踢出等级低于：",
+      "kickHighRank": "踢出等级高于：",
+      "statsKick": "踢出武器/车辆统计数据太高的玩家",
+      "statsKickExample": "下载示例文件",
+      "statsKickDownload": "当前下载",
+      "statsKickRemove": "禁用 statskick"
+    },
+    "settings": {
+      "main": "设置",
+      "title": "服务器设置",
+      "nameDescription": "修改服务器名称",
+      "name": "服务器名称",
+      "aliasDescription": "在Discord频道机器人中显示的服务器昵称. (举个例子，可以是服务器编号)",
+      "alias": "昵称",
+      "cookie": "设置用于得到服务器信息与修改的账号",
+      "discordBot": {
+        "main": "Discord 战地服务器状态 机器人",
+        "token": "Discord token",
+        "tokenDesc": "Discord的token将会被用作服务器状态机器人(当你填入token并且点击应用后，一个线程将会被自动创建)",
+        "channel": "Discord频道的id",
+        "channelDesc": "Discord频道的id将会发布玩家总数变化到",
+        "minPlayerAmount": "最小.开始一局游戏所需的最小玩家",
+        "minPlayerAmountDesc": "该服务器模式开始所需的最小玩家数量",
+        "prevReqCount": "前一个. 需要被计数",
+        "prevReqCountDesc": "在开局到正在运行，需要发送的请求数量, (默认 = 5, 5 * 2 == 10 分钟)",
+        "startedAmount": "足够让他运行的玩家数",
+        "startedAmountDesc": "作为一个正常运行的服务器所需玩家",
+        "ownerId": "所有者的游戏ID",
+        "ownerIdDesc": "在战地5中私服是免费的,所以山寨一个服务器是很简单的.在这里填写所有者游戏ID可以防止这件事.",
+        "restartWorker": "重启",
+        "restartWorkerDesc": "重启服务器状态机器人(当你改变设置时你也需要重启)"
+      }
+    },
+    "console": {
+      "main": "控制台",
+      "logs": "显示操作日志",
+      "amount": "{{amount}} 个事件"
+    },
+    "players": {
+      "main": "{{amount}} 的 {{max}} 玩家",
+      "failed": "草，服务器玩家列表读取失败!",
+      "noPlayers": "还没有人加入这一边!",
+      "noSpectators": "目前还没有观察者",
+      "full": "满了",
+      "0": "队伍1",
+      "1": "队伍2",
+      "spectators": "观众",
+      "timeInfo": "该玩家加入游戏的时间",
+      "sort": {
+        "main": "玩家列表分类",
+        "position": "服务器上的位置 (默认)",
+        "ping": "延迟",
+        "name": "玩家名称",
+        "rank": "等级",
+        "joinTime": "加入时间"
+      }
+    },
+    "factions": {
+      "BFFactionId_FactionAHU": "奥匈帝国",
+      "BFFactionId_FactionGER": "德帝国",
+      "BFFactionId_FactionOTM": "奥斯曼土鸡",
+      "BFFactionId_FactionITA": "意大利王国",
+      "BFFactionId_FactionUK": "英国",
+      "BFFactionId_FactionUSA": "漂亮国",
+      "BFFactionId_FactionFRA": "法国",
+      "BFFactionId_FactionRUS": "俄帝国",
+      "BFFactionId_FactionBOL": "红军",
+      "BFFactionId_FactionWA": "白军",
+      "BFFactionId_FactionUKM": "皇家海军",
+      "BFFactionId_FactionUSA_Pacific": "美利坚合众国",
+      "BFFactionId_FactionJPN": "日本帝国"
+    },
+    "playerStats": {
+      "main": "玩家统计{{player}}",
+      "loading": "状态载入中...",
+      "skill": "技巧值: ",
+      "rank": "等级: ",
+      "killsPerMinute": "每分钟击杀: ",
+      "winPercent": "胜率: ",
+      "accuracy": "准度: ",
+      "headshots": "爆头: ",
+      "killDeath": "KD: ",
+      "id": "ID: ",
+      "currentName": "当前名称：",
+      "toStatsPage": "查看完整数据.."
+    },
+    "kickMenu": {
+      "main": "你将把 {{name}}踢出",
+      "reasonDescription": "这个原因将对玩家可见！ 它还将字符限制为 30 个，并且只允许使用一些特殊符号。",
+      "reason": "理由",
+      "confirm": "踢了他!"
+    },
+    "banMenu": {
+      "main": "你将把{{name}}封禁",
+      "reasonDescription": "请输入ban该玩家的理由.",
+      "reason": "理由",
+      "vBanOption": "使用V-ban虚拟ban位取真实ban位",
+      "tempbanDesc0": "如果你想临时封禁他，那么请下方输入一个时间点",
+      "tempbanDesc1": "小时, 或者输入0永久封禁.",
+      "tempbanDesc2": "目前还没被V-ban支持.",
+      "tempbanAmount": "封禁时间",
+      "confirm": "封禁！"
+    },
+    "unbanMenu": {
+      "main": "你正在解封{{name}}",
+      "reasonDescription": "输入一个解封该玩家的理由.",
+      "reason": "理由",
+      "confirm": "解封!"
+    },
+    "vUnbanMenu": {
+      "main": "你正在把 {{name}} 从vban中删除",
+      "reasonDescription": "输入一个解除vban的原因.",
+      "reason": "理由",
+      "confirm": "解封!"
+    },
+    "removeExclusionsMenu": {
+      "main": "您将从排除项中删除{{name}}",
+      "reasonDescription": "输入一个原因，以从该播放器中删除对自动踢的排除（ping 和 bfban）。",
+      "reason": "原因",
+      "confirm": "移除"
+    },
+    "removeReasonMenu": {
+      "main": "确认吗?",
+      "confirm": "移除"
+    },
+    "unvipMenu": {
+      "main": "你正在把 {{name}} 从vip中移除",
+      "reasonDescription": "输入一个删vip的理由.",
+      "reason": "原因",
+      "confirm": "解封!"
+    },
+    "vBanMenu": {
+      "playerNameDescription": "填充你想虚拟ban的玩家名字",
+      "playerName": "玩家名",
+      "reasonDescription": "写个vban该玩家的理由.",
+      "reason": "理由",
+      "confirm": "Vban了他!",
+      "usePlayerId": "使用玩家 ID 进行封禁",
+      "playerId": "玩家数字ID"
+    },
+    "exclusionsMenu": {
+      "playerNameDescription": "填写您要添加到排除项的玩家名称",
+      "playerName": "玩家名",
+      "reasonDescription": "输入将此玩家从自动踢中排除的原因（ping 和 bfban）。",
+      "reason": "原因",
+      "excludeDesc0": "如果你想暂时排除他，请指定时间",
+      "excludeDesc1": "小时以下，或将其保留为 0 以永久排除他。",
+      "excludeAmount": "排除时间",
+      "confirm": "增加"
+    },
+    "reasonMenu": {
+      "reasonDescription": "添加预定义原因",
+      "reason": "原因",
+      "select": "选择",
+      "confirm": "添加"
+    },
+    "danger": {
+      "main": "危险区域",
+      "delete": "删除服务器",
+      "check": "你确定删除这服务器?",
+      "checkWithName": "你确定删除 {{name}}?",
+      "confirm": "是的",
+      "back": "不删!"
+    }
+  },
+  "sidebar": {
+    "main": "主页",
+    "home": "首页",
+    "account": "账户",
+    "devOptions": "开发者选项",
+    "manOptions": "管理选项",
+    "createGroup": "创建群组",
+    "makeOperations": "设置行动",
+    "logout": "注销",
+    "help": "需要帮助？",
+    "sponsor": "赞助者"
+  },
+  "cookieInfo": {
+    "link": "点击这里查看如何获取SID和REMID cookies",
+    "main": "获取REMID和SID的方法",
+    "0": "1.打开 ",
+    "1": "在Chrome或Edge的匿名防追踪模式下",
+    "2": "2. 登录你想使用的Origin账号【严禁黑号后果自负】, 不要忘记勾选 \"记住我\".",
+    "3": "3. 在登录之后,点击地址栏的小锁:",
+    "4": "4. 在这个菜单选择cookies:",
+    "5": "5. 点击展开 \"accounts.ea.com\" 项, 并且分别点击sid和remid去查看这些cookie在 \"内容\"",
+    "6": "6. 在你得到SID和REMID cookie后不要点击Origin登出,直接关闭浏览器即可.",
+    "7": "如果你origin登出了,那么你刚才获取的cookie都会过期."
+  },
+  "statusBotInfo": {
+    "link": "点击这里查看如何获取discord的token和如何邀请机器人进入你的频道",
+    "main": "Discord机器人和token",
+    "0": "创建一个discord机器人:",
+    "1": "1. 登陆discord开发者端口: ",
+    "2": "2. 在右侧点击点击 \"New Application\" 创建一个新的应用,输入机器人的名字并创建.",
+    "3": "3. 在右侧点击\"Bot\" 然后点击\"Add Bot\"新增博通.",
+    "4": "4. 从那里复制Discord token然后把他粘贴到，服管面板的\"Server settings\"服务器设置里的\"Discord token\"表格，然后点击底部的\"应用\".",
+    "5": "为你的频道新增机器人:",
+    "6": "5. 在刚刚新建的机器人那里, 在\"General Information\"通用信息页, 在\"Application ID\"下方 点击\"Copy\"复制",
+    "7": "6. 复制这个链接: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot 并且在浏览器中打开该链接, 用第5步获得的Application Id 应用ID覆盖\"APPLICATION_ID\"  .",
+    "8": "7. 选择你想邀请该机器人到哪一个频道，并且点击授权.",
+    "9": "这个机器人不需要其他额外的权限去显示游戏服务器信息,如果要发送消息和图片或者表情，那么它需要发送消息的权限."
+  },
+  "ApiInfo": {
+    "link": "点击这里获取API所有可行的请求"
+  },
+  "imageAlts": {
+    "main": "管理Logo",
+    "gamestats": "游戏统计Logo",
+    "userAvatar": "用户头像",
+    "tutorial": "视觉辅助"
+  }
 }
