@@ -113,28 +113,26 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
           </tr>
         </thead>
         <tbody>
-          <tr className={styles.BanRow}>
-            {group && group.cookieInfo ? (
-              group.cookieInfo.map((account: IManGroupCookie) => (
-                <>
-                  <td>
-                    <span>{account.cookieAcc}</span>
-                  </td>
-                  <td>
-                    <span>
-                      {account.lastUpdate !== undefined
-                        ? t("dateTime", {
-                            date: new Date(account.lastUpdate),
-                          })
-                        : "-"}
-                    </span>
-                  </td>
-                </>
-              ))
-            ) : (
-              <></>
-            )}
-          </tr>
+          {group && group.cookieInfo ? (
+            group.cookieInfo.map((account: IManGroupCookie, i: number) => (
+              <tr key={i} className={styles.BanRow}>
+                <td>
+                  <span>{account.cookieAcc}</span>
+                </td>
+                <td>
+                  <span>
+                    {account.lastUpdate !== undefined
+                      ? t("dateTime", {
+                          date: new Date(account.lastUpdate),
+                        })
+                      : "-"}
+                  </span>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <></>
+          )}
         </tbody>
       </table>
       <table className={styles.ManagementTable}>
