@@ -11,9 +11,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.jsx?$/, /\.tsx?$/],
-        use: ["babel-loader"],
-        exclude: /node_modules/,
+        test: /\.[jt]sx?$/,
+        loader: "esbuild-loader",
+        options: {
+          loader: "tsx",
+          target: "es2015",
+        },
       },
       {
         test: /\.css$/,

@@ -69,12 +69,7 @@
     "typescript": "^5.0.4",
     "typescript-plugin-css-modules": "^5.0.1",
     "html-webpack-plugin": "^5.5.1",
-    "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
-    "@babel/core": "^7.21.8",
-    "@babel/preset-env": "^7.21.5",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.5",
     "style-loader": "^3.3.2",
     "file-loader": "^6.2.0",
     "webpack": "^5.82.0",
@@ -82,6 +77,7 @@
     "webpack-dev-server": "^4.15.0",
     "webpack-merge": "^5.8.0",
     "workbox-webpack-plugin": "^6.5.4",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "esbuild-loader": "^3.0.1"
   }
 }
