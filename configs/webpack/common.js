@@ -12,10 +12,12 @@ module.exports = {
     rules: [
       {
         test: /\.[jt]sx?$/,
-        loader: "esbuild-loader",
-        options: {
-          loader: "tsx",
-          target: "es2015",
+        exclude: /node_modules/,
+        use: {
+          loader: "swc-loader",
+          options: {
+            sync: true,
+          },
         },
       },
       {
