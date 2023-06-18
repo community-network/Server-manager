@@ -1,6 +1,7 @@
 // shared config (dev and prod)
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: "./index.tsx",
@@ -43,6 +44,9 @@ module.exports = {
       favicon: "../src/public/favicon.ico",
       favicon128: "../src/public/favicon128.png",
       favicon256: "../src/public/favicon256.png",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "public" }],
     }),
   ],
 };
