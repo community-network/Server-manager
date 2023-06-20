@@ -431,13 +431,14 @@ function GlobalBanRow(props: {
 
 export function GroupLogs(props: { gid: string }): React.ReactElement {
   const { gid } = props;
+  const [withServers, setWithServers] = React.useState(false);
   const {
     isError,
     data: logList,
     error,
   }: UseQueryResult<ITailUserLog, { code: number; message: string }> = useQuery(
-    ["groupogList" + gid],
-    () => OperationsApi.getGroupLogs({ gid }),
+    ["groupogList" + gid + withServers],
+    () => OperationsApi.getGroupLogs({ gid, withServers }),
   );
   const { t } = useTranslation();
 
@@ -456,6 +457,11 @@ export function GroupLogs(props: { gid: string }): React.ReactElement {
     <div>
       <h2>{t("group.logs.main")}</h2>
       <h5>{t("group.logs.description")}</h5>
+      <Switch
+        checked={withServers}
+        name={t("group.logs.serverLogs")}
+        callback={(v) => setWithServers(v)}
+      />
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         {logList
           ? logList.logs.map((log: ITailUserLogInfo, i: number) => (

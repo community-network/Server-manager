@@ -403,6 +403,7 @@
     "logs": {
       "main": "Group logs",
       "description": "Group log list",
+      "serverLogs": "Add serverlogs to result",
       "reasons": {
         "addVban": "vBanned",
         "removeVban": "removed from vBan",
