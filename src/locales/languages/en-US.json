@@ -681,7 +681,7 @@
       "rankKickReason": "Rank not within requirements",
       "kickLowRank": "Kick if rank is lower than:",
       "kickHighRank": "Kick if rank is higher than:",
-      "statsKick": "Kick if weapon/vehicle stats are too high",
+      "statsKick": "Kick if weapon/vehicle stats are too high (autokick starts after 200 or more kills with the specified weapon)",
       "statsKickExample": "Download example file",
       "statsKickDownload": "Download current",
       "statsKickRemove": "Disable statskick"
