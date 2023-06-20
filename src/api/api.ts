@@ -483,9 +483,16 @@ export class ApiProvider extends JsonClient {
     });
   }
 
-  async getGroupLogs({ gid }: IGroupGet): Promise<ITailUserLog> {
+  async getGroupLogs({
+    gid,
+    withServers,
+  }: {
+    gid: string;
+    withServers: boolean;
+  }): Promise<ITailUserLog> {
     return await this.getJsonMethod("tailuserlog", {
       groupid: gid,
+      withservers: withServers.toString(),
     });
   }
 
