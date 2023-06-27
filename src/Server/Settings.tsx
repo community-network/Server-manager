@@ -52,10 +52,7 @@ export function IngameSettings(props: {
     () => OperationsApi.getCookieList({ sid }),
     { staleTime: 30000 },
   );
-  const cookies =
-    cookieInfo && cookieInfo.data && cookieInfo.data.length > 0
-      ? cookieInfo.data
-      : null;
+  const cookies = cookieInfo?.data?.length > 0 ? cookieInfo?.data : null;
 
   const editOwnerSettings = useMutation(
     (variables: {
@@ -342,13 +339,10 @@ export function ServerSettings(props: {
     { staleTime: 30000 },
   );
   //UseQueryResult<boolean, ICookieList, React.SetStateAction<{ code: number; message: string }>
-  const cookies =
-    cookieInfo && cookieInfo.data && cookieInfo.data.length > 0
-      ? cookieInfo.data
-      : null;
+  const cookies = cookieInfo?.data?.length > 0 ? cookieInfo.data : null;
 
   let allowedTo = false;
-  if (server && server.editPerms) allowedTo = true;
+  if (server?.editPerms) allowedTo = true;
 
   const queryClient = useQueryClient();
 

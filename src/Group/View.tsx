@@ -170,8 +170,7 @@ export function Group(): React.ReactElement {
     },
   );
 
-  const group =
-    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+  const group = groups?.data?.length > 0 ? groups?.data[0] : null;
   const [listing, setListing] = React.useState("servers");
   const [settingsListing, setSettingsListing] = React.useState("account");
   const { t } = useTranslation();
@@ -258,18 +257,14 @@ export function Group(): React.ReactElement {
     },
   ];
 
-  if (group && group.isOwner) {
+  if (group?.isOwner) {
     settingsCycle.push({
       name: t("group.logs.main"),
       callback: () => setSettingsListing("grouplogs"),
     });
   }
 
-  if (
-    groupError ||
-    userError ||
-    (groups && groups.data && groups.data.length === 0)
-  ) {
+  if (groupError || userError || groups?.data?.length === 0) {
     return <Navigate to="/" />;
   }
 
@@ -2563,8 +2558,7 @@ export function DeleteGroup(): React.ReactElement {
     () => OperationsApi.getGroup(thisGid),
     { staleTime: 30000 },
   );
-  const group =
-    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+  const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
   const queryClient = useQueryClient();
   const history = useNavigate();
@@ -2659,8 +2653,7 @@ export function AddGroupServer(): React.ReactElement {
       staleTime: 30000,
     },
   );
-  const group =
-    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+  const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
   const AddGroupServerExecute = useMutation(
     (variables: {
@@ -2848,8 +2841,7 @@ export function AddGroupPlatoon(): React.ReactElement {
       staleTime: 30000,
     },
   );
-  const group =
-    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+  const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
   const AddGroupPlatoonExecute = useMutation(
     (variables: {
@@ -3053,8 +3045,7 @@ export function MakeOps(): React.ReactElement {
     () => OperationsApi.getGroup(gid),
     { staleTime: 30000 },
   );
-  const group =
-    groups && groups.data && groups.data.length > 0 ? groups.data[0] : null;
+  const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
   const [addGroupState, changeState] = React.useState({
     variables: {

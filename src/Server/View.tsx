@@ -70,7 +70,7 @@ export function Server(): React.ReactElement {
     },
   ];
 
-  if (server && server.game === "bf1") {
+  if (server?.game === "bf1") {
     const extra = [
       {
         name: t("server.ingameSettings.main"),
@@ -112,37 +112,37 @@ export function Server(): React.ReactElement {
     serverTabs = serverTabs.concat(extra);
   }
 
-  if (server && server.game === "bf2042") {
+  if (server?.game === "bf2042") {
     const extra = [
       {
         name: t("server.banList.main"),
         callback: () => setTabsListing("banlist"),
       },
-      {
-        name: t("server.firestarterList.main"),
-        callback: () => setTabsListing("firestarter"),
-      },
-      {
-        name: t("server.playTimeList.main"),
-        callback: () => setTabsListing("playtime"),
-      },
-      {
-        name: t("server.spectatorList.main"),
-        callback: () => setTabsListing("spectator"),
-      },
-      {
-        name: t("server.playerLogs.main"),
-        callback: () => setTabsListing("playerlogs"),
-      },
-      {
-        name: t("server.protection.main"),
-        callback: () => setTabsListing("protection"),
-      },
+      // {
+      //   name: t("server.firestarterList.main"),
+      //   callback: () => setTabsListing("firestarter"),
+      // },
+      // {
+      //   name: t("server.playTimeList.main"),
+      //   callback: () => setTabsListing("playtime"),
+      // },
+      // {
+      //   name: t("server.spectatorList.main"),
+      //   callback: () => setTabsListing("spectator"),
+      // },
+      // {
+      //   name: t("server.playerLogs.main"),
+      //   callback: () => setTabsListing("playerlogs"),
+      // },
+      // {
+      //   name: t("server.protection.main"),
+      //   callback: () => setTabsListing("protection"),
+      // },
     ];
     serverTabs = serverTabs.concat(extra);
   }
 
-  if (server && server.game === "bfv") {
+  if (server?.game === "bfv") {
     const extra = [
       {
         name: t("server.firestarterList.main"),
@@ -204,7 +204,11 @@ export function Server(): React.ReactElement {
           <Console game={runningGame} server={server} sid={sid} />
         </Column>
       </Row>
-      <PlayerList game={runningGame} server={server} sid={sid} />
+      {server?.game !== "bf2042" ? (
+        <PlayerList game={runningGame} server={server} sid={sid} />
+      ) : (
+        <></>
+      )}
     </PageContext.Provider>
   );
 }
@@ -285,7 +289,7 @@ function ServerAutomation(props: {
   const { server } = props;
 
   let allowedTo = false;
-  if (server && server.editPerms) allowedTo = true;
+  if (server?.editPerms) allowedTo = true;
 
   const queryClient = useQueryClient();
   const { t } = useTranslation();
