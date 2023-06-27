@@ -60,15 +60,17 @@ export function ServerKickPlayer(props: {
         queryClient.setQueryData(
           ["serverGame" + sid],
           (old: IInGameServerInfo) => {
-            old.data[0].players[0].players =
-              old.data[0].players[0].players.filter(
-                (e: { name: string }) => e.name !== eaid,
-              );
-            old.data[0].players[1].players =
-              old.data[0].players[1].players.filter(
-                (e: { name: string }) => e.name !== eaid,
-              );
-            return old;
+            if (old) {
+              old.data[0].players[0].players =
+                old.data[0].players[0].players.filter(
+                  (e: { name: string }) => e.name !== eaid,
+                );
+              old.data[0].players[1].players =
+                old.data[0].players[1].players.filter(
+                  (e: { name: string }) => e.name !== eaid,
+                );
+              return old;
+            }
           },
         );
         setKickApplyStatus(true);

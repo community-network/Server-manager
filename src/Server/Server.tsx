@@ -190,35 +190,39 @@ export function ServerRotation(props: {
           </ButtonRow>
         </>
       )}
-      {dbServer && dbServer.game === "bfv" && (
+      {dbServer?.game === "bfv" && (
         <BfvServerManagement
           sid={dbServer.id}
           serverName={dbServer.serverName}
         />
       )}
-      {dbServer && dbServer.game === "bf2042" && (
+      {dbServer?.game === "bf2042" ? (
         <Bf2042ServerManagement sid={dbServer.id} />
+      ) : (
+        <ButtonRow>
+          <select
+            className={styles.SwitchGame}
+            value={playerListSort}
+            onChange={(e) => setPlayerListSort(e.target.value)}
+          >
+            <option value="position">{t("server.players.sort.main")}</option>
+            <option value="position">
+              {t("server.players.sort.position")}
+            </option>
+            <option value="-ping">{t("server.players.sort.ping")}</option>
+            <option value="name">{t("server.players.sort.name")}</option>
+            <option value="-rank">{t("server.players.sort.rank")}</option>
+            <option value="joinTime">
+              {t("server.players.sort.joinTime")}
+            </option>
+          </select>
+        </ButtonRow>
       )}
-      <ButtonRow>
-        <select
-          className={styles.SwitchGame}
-          value={playerListSort}
-          onChange={(e) => setPlayerListSort(e.target.value)}
-        >
-          <option value="position">{t("server.players.sort.main")}</option>
-          <option value="position">{t("server.players.sort.position")}</option>
-          <option value="-ping">{t("server.players.sort.ping")}</option>
-          <option value="name">{t("server.players.sort.name")}</option>
-          <option value="-rank">{t("server.players.sort.rank")}</option>
-          <option value="joinTime">{t("server.players.sort.joinTime")}</option>
-        </select>
-      </ButtonRow>
     </div>
   );
 }
 
-
-function Bf2042ServerManagement(props: {sid: string}): React.ReactElement {
+function Bf2042ServerManagement(props: { sid: string }): React.ReactElement {
   const { sid } = props;
   const { t } = useTranslation();
   const [action, setAction] = React.useState("next_round");
@@ -226,13 +230,10 @@ function Bf2042ServerManagement(props: {sid: string}): React.ReactElement {
   const [errorUpdating, setError] = React.useState("Unknown");
 
   const bf2042ChangeServer = useMutation(
-    (_: {
-      sid: string;
-      action: string;
-    }) =>
+    (_: { sid: string; action: string }) =>
       OperationsApi.changeBf2042Server({
         sid,
-        action
+        action,
       }),
     {
       onMutate: async () => {
@@ -286,7 +287,6 @@ function Bf2042ServerManagement(props: {sid: string}): React.ReactElement {
     </ButtonRow>
   );
 }
-
 
 function BfvServerManagement(props: {
   sid: string;
