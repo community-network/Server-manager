@@ -768,6 +768,12 @@ export function PlayTime(props: { sid: string }): React.ReactElement {
             >
               {t("server.playTimeList.table.timePlayed")}
             </ClickableHead>
+            <ClickableHead
+              current={sorting === "-playCount"}
+              onClick={() => setSorting("-playCount")}
+            >
+              {t("server.playTimeList.table.playCount")}
+            </ClickableHead>
           </thead>
           <tbody>
             {playTimeList.data
@@ -813,6 +819,7 @@ function PlayTimeRow(props: {
       </td>
       <td title={t("server.playTimeList.table.playerId")}>{player.playerId}</td>
       <td>{datetime}</td>
+      <td>{player.playCount}</td>
     </tr>
   );
 }

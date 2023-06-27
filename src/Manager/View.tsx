@@ -170,6 +170,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
         <thead>
           <tr className={styles.tableHeaders}>
             <th>{t("man.servers.main")}</th>
+            <th>{t("man.servers.game")}</th>
             <th>{t("man.servers.status")}</th>
             <th>{t("man.servers.autoPingKick")}</th>
             <th>{t("man.servers.autoBanKick")}</th>
@@ -190,6 +191,9 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
               >
                 <td>
                   <span>{server.serverName}</span>
+                </td>
+                <td>
+                  <span>{server.game}</span>
                 </td>
                 <td>
                   <span>

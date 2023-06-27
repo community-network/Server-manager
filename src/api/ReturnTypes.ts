@@ -382,6 +382,7 @@ export interface IPlayingScoreboardPlayer {
   position: number;
   rank: number;
   timePlayed: number;
+  playCount: number;
   userId: number;
 }
 
@@ -449,6 +450,7 @@ export interface IManGroupServer {
   autoPingKick: number;
   createdAt: string;
   id: string;
+  game: string;
   isAdmin: boolean;
   lastUpdate: number;
   serverName: string;

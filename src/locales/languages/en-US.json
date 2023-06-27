@@ -221,6 +221,7 @@
     },
     "servers": {
       "main": "Servers",
+      "game": "Game",
       "status": "Server status",
       "lastUpdate": "Last worker update",
       "createdAt": "Server added at",
@@ -607,7 +608,8 @@
       "table": {
         "playerName": "Player name",
         "playerId": "Player ID",
-        "timePlayed": "Time spent on the server"
+        "timePlayed": "Time spent on the server",
+        "playCount": "Amount of times joined in this week"
       }
     },
     "spectatorList": {
