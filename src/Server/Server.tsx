@@ -54,7 +54,7 @@ export function ServerRotation(props: {
   const { t } = useTranslation();
   let server = null,
     game = null;
-  if (props.game && props.game.data && props.game.data.length > 0) {
+  if (props?.game?.data?.length > 0) {
     server = props.game.data[0];
     game = server.info;
   }
@@ -127,9 +127,13 @@ export function ServerRotation(props: {
             <>
               <span className={styles.serverBadge}>
                 {server_status} - {t("server.game.playerlistUpdate")}{" "}
-                {t("change", { change: update_timestamp })} {t("server.ago")} -
-                Last worker update {t("change", { change: worker_timestamp })}{" "}
-                {t("server.ago")}
+                {t("change", { change: update_timestamp })} {t("server.ago")}
+                {server?.game !== "bf2042" &&
+                  " - " +
+                    t("man.servers.lastUpdate") +
+                    " " +
+                    t("change", { change: worker_timestamp }) +
+                    t("server.ago")}
               </span>
             </>
           ) : (
@@ -143,10 +147,12 @@ export function ServerRotation(props: {
             {server_status} - {t("server.game.playerlistUpdate")}{" "}
             {t("change", { change: update_timestamp })} {t("server.ago")}
           </span>
-          <span className={styles.serverBadge}>
-            Last worker update {t("change", { change: worker_timestamp })}{" "}
-            {t("server.ago")}
-          </span>
+          {server?.game !== "bf2042" && (
+            <span className={styles.serverBadge}>
+              {t("man.servers.lastUpdate")}{" "}
+              {t("change", { change: worker_timestamp })} {t("server.ago")}
+            </span>
+          )}
           <div style={{ padding: "5px" }} />
         </>
       ) : (
