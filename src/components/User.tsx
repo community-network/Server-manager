@@ -12,7 +12,9 @@ export function UserRow(props: { discord: IUserDiscord }): React.ReactElement {
       <img alt="" src={user.avatar} className={styles.Avatar} />
       <div className={styles.DiscordName}>
         {user.name}
-        <span className={styles.DiscordNum}>{user.discriminator}</span>
+        {user.discriminator !== "0" && (
+          <span className={styles.DiscordNum}>{user.discriminator}</span>
+        )}
       </div>
       <div className={styles.secure}>
         <svg viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
