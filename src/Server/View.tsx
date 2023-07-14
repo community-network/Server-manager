@@ -315,6 +315,7 @@ function ServerAutomation(props: {
         kickMaxRank,
         rankKickReason,
         statsKick,
+        excludePlatoonMembers,
       } = server;
       const originalServerState = {
         autoBanKick,
@@ -328,6 +329,7 @@ function ServerAutomation(props: {
         kickMaxRank,
         rankKickReason,
         statsKick,
+        excludePlatoonMembers,
       };
       if (serverState === null) {
         setServerState(originalServerState);
@@ -357,6 +359,7 @@ function ServerAutomation(props: {
     kickMinRank?: number;
     kickMaxRank?: number;
     statsKick?: any;
+    excludePlatoonMembers?: boolean;
   }) => {
     setServerState((s: { [string: string]: string | number | boolean }) => ({
       ...s,
@@ -490,6 +493,14 @@ function ServerAutomation(props: {
         defaultValue={getServerValue("minAutoPingKick")}
         value={serverState ? serverState.minAutoPingKick : ""}
         name={t("server.protection.minAutoPingKick")}
+      />
+      <h5 style={{ marginTop: "30px" }}>
+        {t("server.protection.pltMemberExclDescription")}
+      </h5>
+      <Switch
+        checked={getServerValue("excludePlatoonMembers")}
+        name={t("server.protection.pltMemberExclEnable")}
+        callback={(v) => changeServerState({ excludePlatoonMembers: v })}
       />
       {spartaGames.includes(server && server.game) ? (
         <>

@@ -255,6 +255,7 @@ export interface IServerInfo {
   discordBotStartedAmount: number;
   discordBotToken: string;
   editPerms: boolean;
+  excludePlatoonMembers: boolean,
   game: string;
   id: string;
   kickMaxRank: number;

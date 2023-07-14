@@ -686,7 +686,9 @@
       "statsKick": "Kick if weapon/vehicle stats are too high (autokick starts after 200 or more kills with the specified weapon)",
       "statsKickExample": "Download example file",
       "statsKickDownload": "Download current",
-      "statsKickRemove": "Disable statskick"
+      "statsKickRemove": "Disable statskick",
+      "pltMemberExclEnable": "Exclude platoonmembers",
+      "pltMemberExclDescription": "Exclude the platoonmembers from the platoons you add in the panel from being kicked."
     },
     "settings": {
       "main": "Settings",
