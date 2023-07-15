@@ -641,7 +641,9 @@ function GroupPlatoons(props: {
               callback={(v) => setApplicantSearch(v.target.value)}
             />
           </ButtonRow>
-          <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+          <div
+            style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}
+          >
             {Object.keys(props.group.platoons).map((platoonId, index) => {
               return (
                 <PlatoonApplicants
@@ -726,44 +728,54 @@ function GroupPlatoons(props: {
               callback={(v) => setMemberSearch(v.target.value)}
             />
           </ButtonRow>
-          <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
-            {Object.values(platoons).map((platoon: IPlatoonStats) => 
-              platoon.members.map((player: IPlatoonPlayer) => {
-                player.platoon = platoon.name;
-                player.platoonId = platoon.id;
-                return player;
-              })
-            ).flat().filter((p) =>
-              p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
-            ).sort(DynamicSort("name")).map((player, memberIndex) => {
-              return (
-                <SelectableRow
-                  key={memberIndex}
-                  callback={(v) =>
-                    setMembers((b) =>
-                      !v
-                        ? b.filter(
-                            (item) =>
-                              item?.playerId !== player.id &&
-                              item?.platoonId != player.platoonId,
-                          )
-                        : [
-                            ...b,
-                            {
-                              playerId: player.id,
-                              platoonId: player.platoonId,
-                              memberInfo: player,
-                            },
-                          ],
-                    )
-                  }
-                >
-                  <div className={styles.DiscordName}>{player.name}</div>
-                  <div className={styles.ServerAliasName}>{player.role}</div>
-                  <div className={styles.ServerAliasName}>{player.platoon}</div>
-                </SelectableRow>
-              );
-            })}
+          <div
+            style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}
+          >
+            {Object.values(platoons)
+              .map((platoon: IPlatoonStats) =>
+                platoon.members.map((player: IPlatoonPlayer) => {
+                  player.platoon = platoon.name;
+                  player.platoonId = platoon.id;
+                  return player;
+                }),
+              )
+              .flat()
+              .filter(
+                (p) =>
+                  p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
+              )
+              .sort(DynamicSort("name"))
+              .map((player, memberIndex) => {
+                return (
+                  <SelectableRow
+                    key={memberIndex}
+                    callback={(v) =>
+                      setMembers((b) =>
+                        !v
+                          ? b.filter(
+                              (item) =>
+                                item?.playerId !== player.id &&
+                                item?.platoonId != player.platoonId,
+                            )
+                          : [
+                              ...b,
+                              {
+                                playerId: player.id,
+                                platoonId: player.platoonId,
+                                memberInfo: player,
+                              },
+                            ],
+                      )
+                    }
+                  >
+                    <div className={styles.DiscordName}>{player.name}</div>
+                    <div className={styles.ServerAliasName}>{player.role}</div>
+                    <div className={styles.ServerAliasName}>
+                      {player.platoon}
+                    </div>
+                  </SelectableRow>
+                );
+              })}
           </div>
           <ButtonRow>
             {hasRights && members.length > 0 ? (
@@ -926,19 +938,24 @@ function PlatoonApplicants(props: {
   if (!isLoading && !isError) {
     return (
       <>
-        {applicants?.result?.filter((p) =>
+        {applicants?.result
+          ?.filter(
+            (p) =>
               p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
-            ).map((key: IPlatoonApplicant, index: number) => {
-          return (
-            <SelectableRow
-              key={index}
-              callback={(v) => props.callback(v, platoonId, key)}
-            >
-              <div className={styles.DiscordName}>{key.name}</div>
-              <div className={styles.ServerAliasName}>{platoonInfo?.name}</div>
-            </SelectableRow>
-          );
-        })}
+          )
+          .map((key: IPlatoonApplicant, index: number) => {
+            return (
+              <SelectableRow
+                key={index}
+                callback={(v) => props.callback(v, platoonId, key)}
+              >
+                <div className={styles.DiscordName}>{key.name}</div>
+                <div className={styles.ServerAliasName}>
+                  {platoonInfo?.name}
+                </div>
+              </SelectableRow>
+            );
+          })}
       </>
     );
   }
@@ -1148,8 +1165,8 @@ function Seeding(props: {
           {t("group.seeding.app")}
         </a>
       </h5>
-      {seedingInfo && (
-        seedingInfo.startServer !== null ? (
+      {seedingInfo &&
+        (seedingInfo.startServer !== null ? (
           <h5 style={{ marginBottom: "0px", marginTop: "10px" }}>
             <b>
               {t("group.seeding.scheduled.true", {
@@ -1162,8 +1179,7 @@ function Seeding(props: {
           <h5 style={{ marginBottom: "0px", marginTop: "10px" }}>
             {t("group.seeding.scheduled.false")}
           </h5>
-        )
-      )}
+        ))}
       <ButtonRow>
         <select
           className={styles.SwitchGame}
@@ -1214,8 +1230,8 @@ function Seeding(props: {
       <h2 style={{ marginBottom: "0px", marginTop: "16px" }}>
         {t("group.seeding.main")}
       </h2>
-      {seedingInfo && (
-        seedingInfo.action === "joinServer" ? (
+      {seedingInfo &&
+        (seedingInfo.action === "joinServer" ? (
           <h5>
             {t("group.seeding.status.main")}
             <b>
@@ -1238,8 +1254,7 @@ function Seeding(props: {
             {t("group.seeding.status.main")}
             <b>{t(`group.seeding.status.${seedingInfo.action}`)}</b>
           </h5>
-        )
-      )}
+        ))}
       <ButtonRow>
         <select
           className={styles.SwitchGame}

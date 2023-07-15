@@ -132,7 +132,8 @@ export function ServerRotation(props: {
                   " - " +
                     t("man.servers.lastUpdate") +
                     " " +
-                    t("change", { change: worker_timestamp }) + " " +
+                    t("change", { change: worker_timestamp }) +
+                    " " +
                     t("server.ago")}
               </span>
             </>
