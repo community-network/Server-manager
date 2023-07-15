@@ -33,6 +33,12 @@ interface IPlatoonInfo {
   lang: string;
 }
 
+interface IPlatoonsInfo {
+  ids: string[];
+  platform: string;
+  lang: string;
+}
+
 interface IPlatoonAppl {
   groupId: string;
   platoonId: string;
@@ -59,6 +65,21 @@ export class ApiProvider extends JsonClient {
     return await fetch(
       `https://api.gametools.network/bfglobal/detailedplatoon/?id=${id}&platform=${platform}&lang=${lang}`,
     ).then((r) => r.json());
+  }
+
+  async platoons({
+    ids,
+    platform,
+    lang,
+  }: IPlatoonsInfo): Promise<{ [name: string]: IPlatoonStats }> {
+    const platoonDict: { [name: string]: IPlatoonStats } = {};
+    for (const id of ids) {
+      const result = await fetch(
+        `https://api.gametools.network/bfglobal/detailedplatoon/?id=${id}&platform=${platform}&lang=${lang}`,
+      ).then((r) => r.json());
+      platoonDict[id] = result;
+    }
+    return platoonDict;
   }
 
   async stats({

@@ -1196,7 +1196,7 @@ export function VipList(props: {
   if (props.game && props.game.data && props.game.data.length > 0) {
     server = props.game.data[0];
   }
-  const isOpsMode = server.info.mode.toLowerCase() === "operations";
+  const isOpsMode = server?.info?.mode?.toLowerCase() === "operations";
 
   const modal = useModal();
   const showUnvip = (e: { target: { dataset: any } }) => {
