@@ -113,7 +113,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
           </tr>
         </thead>
         <tbody>
-          {group?.cookieInfo ? (
+          {group?.cookieInfo && (
             group.cookieInfo.map((account: IManGroupCookie, i: number) => (
               <tr key={i} className={styles.BanRow}>
                 <td>
@@ -130,8 +130,6 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                 </td>
               </tr>
             ))
-          ) : (
-            <></>
           )}
         </tbody>
       </table>
@@ -143,7 +141,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
           </tr>
         </thead>
         <tbody>
-          {group?.owners ? (
+          {group?.owners && (
             group.owners.map((player: IManGroupOwner, i: number) => (
               <tr key={i} className={styles.BanRow}>
                 <td title={player.displayName} className={styles.row}>
@@ -161,8 +159,6 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                 </td>
               </tr>
             ))
-          ) : (
-            <></>
           )}
         </tbody>
       </table>
@@ -180,7 +176,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
           </tr>
         </thead>
         <tbody>
-          {group?.servers ? (
+          {group?.servers && (
             group.servers.map((server: IManGroupServer, i: number) => (
               <tr
                 key={i}
@@ -243,8 +239,6 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                 </td>
               </tr>
             ))
-          ) : (
-            <></>
           )}
         </tbody>
       </table>

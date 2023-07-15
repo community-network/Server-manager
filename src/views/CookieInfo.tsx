@@ -17,13 +17,11 @@ export default function CookieInfo() {
           <h2>{t("cookieInfo.main")}</h2>
         </Header>
         <Card>
-          {getLanguage() === "zh-CN" ? (
+          {getLanguage() === "zh-CN" && (
             <ButtonUrl
               href="https://youtu.be/Znd1YjmXqO8"
               name={t("cookieInfo.video")}
             />
-          ) : (
-            <></>
           )}
           <h5 style={{ paddingTop: ".5rem" }}>
             {t("cookieInfo.0")}

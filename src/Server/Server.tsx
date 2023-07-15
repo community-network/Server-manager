@@ -123,7 +123,7 @@ export function ServerRotation(props: {
                 })}`
               : "-"}
           </SmallText>
-          {width > 610 ? (
+          {width > 610 && (
             <>
               <span className={styles.serverBadge}>
                 {server_status} - {t("server.game.playerlistUpdate")}{" "}
@@ -136,8 +136,6 @@ export function ServerRotation(props: {
                     t("server.ago")}
               </span>
             </>
-          ) : (
-            <></>
           )}
         </div>
       </div>
@@ -172,16 +170,14 @@ export function ServerRotation(props: {
               onChange={(e) => setRotationId(e.target.value)}
             >
               <option value="">{t("server.game.mapSwitch")}</option>
-              {game
-                ? game.rotation.map((value: IServerRotation, index: number) => (
-                    <option value={value.index} key={index}>
-                      {t(`maps.${value.mapname}`)} -{" "}
-                      {t(`gamemodes.${value.mode.toUpperCase()}`)}
-                    </option>
-                  ))
-                : ""}
+              {game?.rotation?.map((value: IServerRotation, index: number) => (
+                <option value={value.index} key={index}>
+                  {t(`maps.${value.mapname}`)} -{" "}
+                  {t(`gamemodes.${value.mode.toUpperCase()}`)}
+                </option>
+              ))}
             </select>
-            {rotationId !== "" ? (
+            {rotationId !== "" && (
               <Button
                 name={t("apply")}
                 disabled={!game}
@@ -190,8 +186,6 @@ export function ServerRotation(props: {
                   setRotationId("");
                 }}
               />
-            ) : (
-              ""
             )}
           </ButtonRow>
         </>
@@ -1321,7 +1315,7 @@ function VipRow(props: {
         <span>{player.displayName}</span>
       </td>
       <td title={t("server.vipList.table.playerId")}>{player.id}</td>
-      {!props.isOpsMode ? (
+      {!props.isOpsMode && (
         <th
           className={styles.listButton}
           data-name={player.displayName}
@@ -1330,8 +1324,6 @@ function VipRow(props: {
         >
           {t("server.action.removeVip")}
         </th>
-      ) : (
-        <></>
       )}
     </tr>
   );

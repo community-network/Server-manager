@@ -204,10 +204,8 @@ export function Server(): React.ReactElement {
           <Console game={runningGame} server={server} sid={sid} />
         </Column>
       </Row>
-      {server?.game !== "bf2042" ? (
+      {server?.game !== "bf2042" && (
         <PlayerList game={runningGame} server={server} sid={sid} />
-      ) : (
-        <></>
       )}
     </PageContext.Provider>
   );
@@ -502,7 +500,7 @@ function ServerAutomation(props: {
         name={t("server.protection.pltMemberExclEnable")}
         callback={(v) => changeServerState({ excludePlatoonMembers: v })}
       />
-      {spartaGames.includes(server && server.game) ? (
+      {spartaGames.includes(server && server.game) && (
         <>
           <h5 style={{ marginTop: "30px" }}>
             {t("server.protection.KickRankDesc")}
@@ -568,8 +566,6 @@ function ServerAutomation(props: {
             name={t("server.protection.kickMaxRank")}
           />
         </>
-      ) : (
-        <></>
       )}
       <h5 style={{ marginTop: "8px" }}>{t("server.protection.statsKick")}</h5>
       <ButtonRow>

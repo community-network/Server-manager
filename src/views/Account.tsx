@@ -114,20 +114,14 @@ export default function Account() {
         <Header />
         <Card>
           <h2>{t("account.permissions.main")}</h2>
-          {user && user.auth.isAdmin ? (
+          {user?.auth?.isAdmin && (
             <CardRow>{t("account.permissions.admin")}</CardRow>
-          ) : (
-            <></>
           )}
-          {user && user.auth.isOwner ? (
+          {user?.auth?.isOwner && (
             <CardRow>{t("account.permissions.server")}</CardRow>
-          ) : (
-            <></>
           )}
-          {user && user.auth.isManager ? (
+          {user?.auth?.isManager && (
             <CardRow>{t("account.permissions.system")}</CardRow>
-          ) : (
-            <></>
           )}
         </Card>
       </Column>

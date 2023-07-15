@@ -258,7 +258,7 @@ export function IngameSettings(props: {
       ) : (
         <>{`Error ${error.code}: {error.message}`}</>
       )}
-      {cookie === "add" ? (
+      {cookie === "add" && (
         <>
           <h5 style={{ marginTop: "8px" }}>
             {t("cookie.sidDescription")}
@@ -285,11 +285,9 @@ export function IngameSettings(props: {
             }}
           />
         </>
-      ) : (
-        <></>
       )}
       <ButtonRow>
-        {props.server && canApply ? (
+        {props.server && canApply && (
           <Button
             name={t("apply")}
             disabled={!allowedTo || applyStatus !== null}
@@ -304,8 +302,6 @@ export function IngameSettings(props: {
             }
             status={applyStatus}
           />
-        ) : (
-          ""
         )}
         <h5
           style={{
@@ -616,9 +612,9 @@ export function ServerSettings(props: {
         name={t("server.settings.discordBot.startedAmount")}
       />
 
-      {props.server ? (
+      {props.server && (
         <>
-          {ownerIdGames.includes(props.server.game) ? (
+          {ownerIdGames.includes(props.server.game) && (
             <>
               <h5 style={{ marginTop: "8px" }}>
                 {t("server.settings.discordBot.ownerIdDesc")}
@@ -632,8 +628,6 @@ export function ServerSettings(props: {
                 name={t("server.settings.discordBot.ownerId")}
               />
             </>
-          ) : (
-            <></>
           )}
 
           <h5 style={{ marginTop: "8px" }}>
@@ -659,8 +653,6 @@ export function ServerSettings(props: {
             </h5>
           </ButtonRow>
         </>
-      ) : (
-        <></>
       )}
       <ButtonRow>
         <ButtonLink

@@ -351,33 +351,29 @@ export function Player(props: {
 
   return (
     <div className={styles.PlayerRow}>
-      {width > 400 ? (
+      {width > 400 && (
         <span className={styles.PlayerIndex} value="slot">
           {i + 1}
         </span>
-      ) : (
-        <></>
       )}
 
       <span className={styles.PlayerLevel} value="rank">
         {player.rank === null ? "??" : player.rank}
       </span>
 
-      {seederPlayer ? (
+      {seederPlayer && (
         <img
           height="14rem"
           style={{ marginRight: "0.2rem" }}
           src={seederPlayer.player_class?.white}
         />
-      ) : (
-        <></>
       )}
 
       <span className={styles.PlayerName} onClick={showStats} value="nickname">
         {player.platoon === "" ? "" : `[${player.platoon}] `}
         {player.name}
       </span>
-      {width > 360 ? (
+      {width > 360 && (
         <span
           className={styles.PlayerTimer}
           style={{ whiteSpace: "nowrap", overflow: "hidden" }}
@@ -389,8 +385,6 @@ export function Player(props: {
             ? ` - ${seederPlayer?.score} score - ${seederPlayer?.kills}/${seederPlayer?.deaths} KD`
             : ""}
         </span>
-      ) : (
-        <></>
       )}
 
       <span className={styles.PlayerNone} />
@@ -402,7 +396,7 @@ export function Player(props: {
         moveTeam={moveTeam}
         width={width}
       />
-      {width > 300 ? <PlayerPing ping={player.ping} /> : <></>}
+      {width > 300 && <PlayerPing ping={player.ping} />}
     </div>
   );
 }

@@ -42,6 +42,7 @@ import {
   PageCard,
   ButtonUrl,
   SelectableRow,
+  DynamicSort,
 } from "../components";
 import { ChangeAccountModal, AddAccountModal } from "./Modals";
 import "../locales/config";
@@ -597,6 +598,8 @@ function GroupPlatoons(props: {
 
   const [applicants, setApplicants] = React.useState([]);
   const [members, setMembers] = React.useState([]);
+  const [memberSearch, setMemberSearch] = React.useState("");
+  const [applicantSearch, setApplicantSearch] = React.useState("");
   if (props.group && props.user)
     hasRights = props.group.isAdmin || props.user.auth.isDeveloper;
 
@@ -629,37 +632,46 @@ function GroupPlatoons(props: {
     <>
       <h2>{t("group.platoons.main")}</h2>
       <h5>{t("group.platoons.description0")}</h5>
-      {Object.keys(props.group.platoons).length > 0 ? (
+      {Object.keys(props.group.platoons).length > 0 && (
         <>
-          <h2>{t("group.platoons.applicants.main")}</h2>
-          {Object.keys(props.group.platoons).map((platoonId, index) => {
-            return (
-              <PlatoonApplicants
-                group={props.group}
-                platoonId={platoonId}
-                platoonInfo={platoons[platoonId]}
-                callback={(v, platoonId, member) =>
-                  setApplicants((b) =>
-                    !v
-                      ? b.filter(
-                          (item) =>
-                            item?.playerId !== member.id &&
-                            item?.platoonId != platoonId,
-                        )
-                      : [
-                          ...b,
-                          {
-                            playerId: member.id,
-                            platoonId: platoonId,
-                            memberInfo: member,
-                          },
-                        ],
-                  )
-                }
-                key={index}
-              />
-            );
-          })}
+          <ButtonRow>
+            <h2>{t("group.platoons.applicants.main")}</h2>
+            <TextInput
+              name={t("search")}
+              callback={(v) => setApplicantSearch(v.target.value)}
+            />
+          </ButtonRow>
+          <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+            {Object.keys(props.group.platoons).map((platoonId, index) => {
+              return (
+                <PlatoonApplicants
+                  group={props.group}
+                  platoonId={platoonId}
+                  platoonInfo={platoons[platoonId]}
+                  applicantSearch={applicantSearch}
+                  callback={(v, platoonId, member) =>
+                    setApplicants((b) =>
+                      !v
+                        ? b.filter(
+                            (item) =>
+                              item?.playerId !== member.id &&
+                              item?.platoonId != platoonId,
+                          )
+                        : [
+                            ...b,
+                            {
+                              playerId: member.id,
+                              platoonId: platoonId,
+                              memberInfo: member,
+                            },
+                          ],
+                    )
+                  }
+                  key={index}
+                />
+              );
+            })}
+          </div>
           <ButtonRow>
             {hasRights && applicants.length > 0 ? (
               <>
@@ -707,40 +719,52 @@ function GroupPlatoons(props: {
               </>
             )}
           </ButtonRow>
-          <h2>{t("group.platoons.members.main")}</h2>
-          {Object.values(platoons).map(
-            (platoon: IPlatoonStats, index: number) => {
-              return platoon.members.map((player, memberIndex) => {
-                return (
-                  <SelectableRow
-                    key={index + memberIndex}
-                    callback={(v) =>
-                      setMembers((b) =>
-                        !v
-                          ? b.filter(
-                              (item) =>
-                                item?.playerId !== player.id &&
-                                item?.platoonId != platoon.id,
-                            )
-                          : [
-                              ...b,
-                              {
-                                playerId: player.id,
-                                platoonId: platoon.id,
-                                memberInfo: player,
-                              },
-                            ],
-                      )
-                    }
-                  >
-                    <div className={styles.DiscordName}>{player.name}</div>
-                    <div className={styles.ServerAliasName}>{player.role}</div>
-                    <div className={styles.ServerAliasName}>{platoon.name}</div>
-                  </SelectableRow>
-                );
-              });
-            },
-          )}
+          <ButtonRow>
+            <h2>{t("group.platoons.members.main")}</h2>
+            <TextInput
+              name={t("search")}
+              callback={(v) => setMemberSearch(v.target.value)}
+            />
+          </ButtonRow>
+          <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+            {Object.values(platoons).map((platoon: IPlatoonStats) => 
+              platoon.members.map((player: IPlatoonPlayer) => {
+                player.platoon = platoon.name;
+                player.platoonId = platoon.id;
+                return player;
+              })
+            ).flat().filter((p) =>
+              p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
+            ).sort(DynamicSort("name")).map((player, memberIndex) => {
+              return (
+                <SelectableRow
+                  key={memberIndex}
+                  callback={(v) =>
+                    setMembers((b) =>
+                      !v
+                        ? b.filter(
+                            (item) =>
+                              item?.playerId !== player.id &&
+                              item?.platoonId != player.platoonId,
+                          )
+                        : [
+                            ...b,
+                            {
+                              playerId: player.id,
+                              platoonId: player.platoonId,
+                              memberInfo: player,
+                            },
+                          ],
+                    )
+                  }
+                >
+                  <div className={styles.DiscordName}>{player.name}</div>
+                  <div className={styles.ServerAliasName}>{player.role}</div>
+                  <div className={styles.ServerAliasName}>{player.platoon}</div>
+                </SelectableRow>
+              );
+            })}
+          </div>
           <ButtonRow>
             {hasRights && members.length > 0 ? (
               <Button
@@ -766,8 +790,6 @@ function GroupPlatoons(props: {
             )}
           </ButtonRow>
         </>
-      ) : (
-        <></>
       )}
       <PlatoonList
         platoons={platoons}
@@ -883,13 +905,14 @@ function PlatoonApplicants(props: {
   group: IGroupInfo;
   platoonId: string;
   platoonInfo: IPlatoonStats;
+  applicantSearch: string;
   callback?: (
     selected: any,
     platoonId: string,
     player: IPlatoonApplicant,
   ) => void;
 }): React.ReactElement {
-  const { group, platoonId, platoonInfo } = props;
+  const { group, platoonId, platoonInfo, applicantSearch } = props;
   const {
     isLoading,
     isError,
@@ -903,7 +926,9 @@ function PlatoonApplicants(props: {
   if (!isLoading && !isError) {
     return (
       <>
-        {applicants.result.map((key: IPlatoonApplicant, index: number) => {
+        {applicants?.result?.filter((p) =>
+              p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
+            ).map((key: IPlatoonApplicant, index: number) => {
           return (
             <SelectableRow
               key={index}
@@ -1123,7 +1148,7 @@ function Seeding(props: {
           {t("group.seeding.app")}
         </a>
       </h5>
-      {seedingInfo ? (
+      {seedingInfo && (
         seedingInfo.startServer !== null ? (
           <h5 style={{ marginBottom: "0px", marginTop: "10px" }}>
             <b>
@@ -1138,8 +1163,6 @@ function Seeding(props: {
             {t("group.seeding.scheduled.false")}
           </h5>
         )
-      ) : (
-        <></>
       )}
       <ButtonRow>
         <select
@@ -1191,7 +1214,7 @@ function Seeding(props: {
       <h2 style={{ marginBottom: "0px", marginTop: "16px" }}>
         {t("group.seeding.main")}
       </h2>
-      {seedingInfo ? (
+      {seedingInfo && (
         seedingInfo.action === "joinServer" ? (
           <h5>
             {t("group.seeding.status.main")}
@@ -1216,8 +1239,6 @@ function Seeding(props: {
             <b>{t(`group.seeding.status.${seedingInfo.action}`)}</b>
           </h5>
         )
-      ) : (
-        <></>
       )}
       <ButtonRow>
         <select
@@ -1369,7 +1390,7 @@ function Seeding(props: {
               <EmptyRow key={i} />
             ))}
       </div>
-      {serverAliasNames ? (
+      {serverAliasNames && (
         <>
           <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>
             Keepalive server list
@@ -1394,8 +1415,6 @@ function Seeding(props: {
             {notJoining}
           </h5>
         </>
-      ) : (
-        <></>
       )}
     </>
   );
@@ -1530,19 +1549,15 @@ function GroupServerAccount(
       <h5 style={{ marginTop: "0px" }}>
         {t("createGroup.cookieDescription2")}
       </h5>
-      {props.group ? (
-        <ScrollRow>
-          {props.group.cookies.map((cookie: IGroupCookie, index: number) => {
-            return (
-              <div key={index}>
-                <AccountInfo {...props} cookie={cookie} />
-              </div>
-            );
-          })}
-        </ScrollRow>
-      ) : (
-        <></>
-      )}
+      <ScrollRow>
+        {props?.group?.cookies?.map((cookie: IGroupCookie, index: number) => {
+          return (
+            <div key={index}>
+              <AccountInfo {...props} cookie={cookie} />
+            </div>
+          );
+        })}
+      </ScrollRow>
 
       <ButtonRow>
         {hasRights ? (
@@ -1602,13 +1617,11 @@ function AccountInfo(props: {
             : !cookie.username
             ? t("cookie.status.pending")
             : cookie.username}
-          {group && !cookie.validCookie ? (
+          {group && !cookie.validCookie && (
             <span style={{ color: "#FF7575" }}>
               {" - "}
               {t("cookie.invalid")}
             </span>
-          ) : (
-            <></>
           )}
         </h2>
         <h5 style={{ marginTop: "0px" }}>
@@ -2765,7 +2778,7 @@ export function AddGroupServer(): React.ReactElement {
               <>{`Error ${error.code}: {error.message}`}</>
             )}
           </ButtonRow>
-          {cookieId === "add" ? (
+          {cookieId === "add" && (
             <>
               <h5 style={{ marginTop: "8px" }}>
                 {t("cookie.sidDescription")}
@@ -2790,8 +2803,6 @@ export function AddGroupServer(): React.ReactElement {
                 }}
               />
             </>
-          ) : (
-            <></>
           )}
           <ButtonRow>
             <Button
@@ -2936,7 +2947,7 @@ export function AddGroupPlatoon(): React.ReactElement {
               }}
             />
           </ButtonRow>
-          {cookieId === "add" ? (
+          {cookieId === "add" && (
             <>
               <h5 style={{ marginTop: "8px" }}>
                 {t("cookie.sidDescription")}
@@ -2961,8 +2972,6 @@ export function AddGroupPlatoon(): React.ReactElement {
                 }}
               />
             </>
-          ) : (
-            <></>
           )}
           <PlatoonResults
             loading={loading}
@@ -3128,7 +3137,7 @@ export function MakeOps(): React.ReactElement {
             <br />
             {t("operations.description2")}
           </h5>
-          {group ? (
+          {group && (
             <ButtonRow>
               <select
                 className={styles.SwitchGame}
@@ -3145,8 +3154,6 @@ export function MakeOps(): React.ReactElement {
                 })}
               </select>
             </ButtonRow>
-          ) : (
-            <></>
           )}
 
           {/* <TextInput name="Server name" callback={(e) => { checkInputVariables({ server: e.target.value }) }} /> */}

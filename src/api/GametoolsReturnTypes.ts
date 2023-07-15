@@ -27,6 +27,8 @@ export type IPlatoonStats = {
 };
 
 export type IPlatoonPlayer = {
+  // for mapping platoon in platoon playerlist
+  [x: string]: string;
   id: string;
   name: string;
   role: string;

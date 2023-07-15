@@ -138,10 +138,8 @@ export default function Console(props: {
     <Card>
       <h2>{t("server.console.main")}</h2>
       <Row>
-        {suggestions.length > 0 && suggestions[0].name !== playerName ? (
+        {suggestions.length > 0 && suggestions[0].name !== playerName && (
           <ShowDropDown options={suggestions} />
-        ) : (
-          <></>
         )}
         <TextInput
           name={t("server.playerName")}
@@ -196,7 +194,7 @@ export default function Console(props: {
                 name={t("server.action.kick")}
                 callback={showServerKickPlayer}
               />
-              {gameName && gameName === "bf2042" ? (
+              {gameName && gameName === "bf2042" && (
                 <>
                   <Button
                     disabled={disabledButton}
@@ -209,8 +207,6 @@ export default function Console(props: {
                     callback={unbanPlayerCallback}
                   />
                 </>
-              ) : (
-                <></>
               )}
             </>
           )}
