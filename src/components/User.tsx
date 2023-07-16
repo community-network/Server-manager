@@ -50,3 +50,22 @@ export function UserStRow(props: {
 export function FakeUserStRow(): React.ReactElement {
   return <div className={styles.UserRowSt} />;
 }
+
+export function ListsLoading(props: { amount: number }): React.ReactElement {
+  return (
+    <>
+      {[...Array(props.amount)].map((_, i) => (
+        <FakeUserStRow key={i} />
+      ))}
+    </>
+  );
+}
+
+export function RowLoading(): React.ReactElement {
+  const { t } = useTranslation();
+  return (
+    <tr>
+      <td>{t("loading")}</td>
+    </tr>
+  );
+}

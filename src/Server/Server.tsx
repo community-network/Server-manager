@@ -38,6 +38,7 @@ import {
   IServerRotation,
 } from "../api/ReturnTypes";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { RowLoading } from "../components/User";
 
 export function SmallText(props: {
   children: React.ReactElement | React.ReactElement[] | string;
@@ -448,10 +449,7 @@ export function BanList(props: { sid: string }): React.ReactElement {
     modal.show(<ServerUnbanPlayer sid={sid} playerInfo={playerInfo} />);
   };
 
-  if (!banList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (banList) {
     banList.data = banList.data.sort(DynamicSort(sorting));
   }
 
@@ -466,7 +464,7 @@ export function BanList(props: { sid: string }): React.ReactElement {
         <br />
         {t("server.banList.description1")}{" "}
         <b>
-          {t("server.banList.description2", { number: banList.data.length })}
+          {t("server.banList.description2", { number: banList?.data?.length })}
         </b>
         .{t("server.banList.description3")}
         <br />
@@ -524,13 +522,19 @@ export function BanList(props: { sid: string }): React.ReactElement {
             <th></th>
           </thead>
           <tbody>
-            {banList.data
-              .filter((p: { displayName: string }) =>
-                p.displayName.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IBan, index: number) => (
-                <BanRow player={player} key={index} callback={showUnban} />
-              ))}
+            {banList ? (
+              banList.data
+                .filter((p: { displayName: string }) =>
+                  p.displayName
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase()),
+                )
+                .map((player: IBan, index: number) => (
+                  <BanRow player={player} key={index} callback={showUnban} />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -610,10 +614,7 @@ export function FireStarter(props: { sid: string }): React.ReactElement {
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("-amount");
 
-  if (!starterList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (starterList) {
     starterList.data = starterList.data.sort(DynamicSort(sorting));
   }
 
@@ -661,13 +662,17 @@ export function FireStarter(props: { sid: string }): React.ReactElement {
             </ClickableHead>
           </thead>
           <tbody>
-            {starterList.data
-              .filter((p: { playerName: string }) =>
-                p.playerName.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IFireStarter, index: number) => (
-                <StarterRow player={player} key={index} />
-              ))}
+            {starterList ? (
+              starterList.data
+                .filter((p: { playerName: string }) =>
+                  p.playerName.toLowerCase().includes(searchWord.toLowerCase()),
+                )
+                .map((player: IFireStarter, index: number) => (
+                  <StarterRow player={player} key={index} />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -720,10 +725,7 @@ export function PlayTime(props: { sid: string }): React.ReactElement {
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("-timePlayed");
 
-  if (!playTimeList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (playTimeList) {
     playTimeList.data = playTimeList.data.sort(DynamicSort(sorting));
   }
 
@@ -777,13 +779,17 @@ export function PlayTime(props: { sid: string }): React.ReactElement {
             </ClickableHead>
           </thead>
           <tbody>
-            {playTimeList.data
-              .filter((p: { name: string }) =>
-                p.name.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IPlayingScoreboardPlayer, index: number) => (
-                <PlayTimeRow player={player} key={index} />
-              ))}
+            {playTimeList ? (
+              playTimeList.data
+                .filter((p: { name: string }) =>
+                  p.name.toLowerCase().includes(searchWord.toLowerCase()),
+                )
+                .map((player: IPlayingScoreboardPlayer, index: number) => (
+                  <PlayTimeRow player={player} key={index} />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -840,10 +846,7 @@ export function Spectator(props: { sid: string }): React.ReactElement {
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("name");
 
-  if (!spectatorList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (spectatorList) {
     spectatorList.data = spectatorList.data.sort(DynamicSort(sorting));
   }
 
@@ -893,13 +896,17 @@ export function Spectator(props: { sid: string }): React.ReactElement {
             </ClickableHead>
           </thead>
           <tbody>
-            {spectatorList.data
-              .filter((p: { name: string }) =>
-                p.name.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: any, index: number) => (
-                <SpectatorRow player={player} key={index} />
-              ))}
+            {spectatorList ? (
+              spectatorList.data
+                .filter((p: { name: string }) =>
+                  p.name.toLowerCase().includes(searchWord.toLowerCase()),
+                )
+                .map((player: any, index: number) => (
+                  <SpectatorRow player={player} key={index} />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -1024,10 +1031,7 @@ function PlayerLogInfo(props: {
     return <>{`Error, no info found for that playername`}</>;
   }
 
-  if (!playerLogList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (playerLogList) {
     playerLogList.data = playerLogList.data.sort(DynamicSort(sorting));
   }
 
@@ -1065,7 +1069,7 @@ function PlayerLogInfo(props: {
             callback={() => {
               if (dateIndex > 0) {
                 setDateIndex(dateIndex - 1);
-                props.setDate(playerLogList.intDates[dateIndex]);
+                props.setDate(playerLogList?.intDates[dateIndex]);
               }
             }}
           />
@@ -1074,10 +1078,10 @@ function PlayerLogInfo(props: {
             value={dateIndex}
             onChange={(event) => {
               setDateIndex(parseInt(event.target.value));
-              props.setDate(playerLogList.intDates[dateIndex]);
+              props.setDate(playerLogList?.intDates[dateIndex]);
             }}
           >
-            {playerLogList.dates.map((value: string, index: number) => {
+            {playerLogList?.dates?.map((value: string, index: number) => {
               const datetime = new Date(value);
               return (
                 <option value={index} key={index}>
@@ -1089,11 +1093,11 @@ function PlayerLogInfo(props: {
           <Button
             name="Right"
             content={arrowRight}
-            disabled={dateIndex === playerLogList.intDates.length}
+            disabled={dateIndex === playerLogList?.intDates?.length}
             callback={() => {
-              if (dateIndex !== playerLogList.intDates.length) {
+              if (dateIndex !== playerLogList?.intDates?.length) {
                 setDateIndex(dateIndex + 1);
-                props.setDate(playerLogList.intDates[dateIndex]);
+                props.setDate(playerLogList?.intDates[dateIndex]);
               }
             }}
           />
@@ -1133,13 +1137,17 @@ function PlayerLogInfo(props: {
             </ClickableHead>
           </thead>
           <tbody>
-            {playerLogList.data
-              .filter((p: IPlayerLogPlayer) =>
-                p.name.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IPlayerLogPlayer, index: number) => (
-                <PlayerlogsRow player={player} key={index} />
-              ))}
+            {playerLogList ? (
+              playerLogList.data
+                .filter((p: IPlayerLogPlayer) =>
+                  p.name.toLowerCase().includes(searchWord.toLowerCase()),
+                )
+                .map((player: IPlayerLogPlayer, index: number) => (
+                  <PlayerlogsRow player={player} key={index} />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -1210,10 +1218,7 @@ export function VipList(props: {
     );
   };
 
-  if (!vipList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (vipList) {
     vipList.data = vipList.data.sort(DynamicSort(sorting));
   }
 
@@ -1241,7 +1246,7 @@ export function VipList(props: {
             {t("server.vipList.description1")}
             <b>
               {t("server.vipList.description2", {
-                number: vipList.data.length,
+                number: vipList?.data?.length,
               })}
             </b>
             .
@@ -1268,18 +1273,24 @@ export function VipList(props: {
             </tr>
           </thead>
           <tbody>
-            {vipList.data
-              .filter((p: IInfo) =>
-                p.displayName.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IInfo, i: number) => (
-                <VipRow
-                  player={player}
-                  key={i}
-                  callback={showUnvip}
-                  isOpsMode={isOpsMode}
-                />
-              ))}
+            {vipList ? (
+              vipList.data
+                .filter((p: IInfo) =>
+                  p.displayName
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase()),
+                )
+                .map((player: IInfo, i: number) => (
+                  <VipRow
+                    player={player}
+                    key={i}
+                    callback={showUnvip}
+                    isOpsMode={isOpsMode}
+                  />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -1345,10 +1356,7 @@ export function AdminList(props: { sid: string }): React.ReactElement {
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("displayName");
 
-  if (!adminList) {
-    // TODO: add fake item list on loading
-    return <>{t("loading")}</>;
-  } else {
+  if (adminList) {
     adminList.data = adminList.data.sort(DynamicSort(sorting));
   }
 
@@ -1376,7 +1384,7 @@ export function AdminList(props: { sid: string }): React.ReactElement {
             {t("server.adminList.description1")}
             <b>
               {t("server.adminList.description2", {
-                number: adminList.data.length,
+                number: adminList?.data?.length,
               })}
             </b>
             .
@@ -1402,13 +1410,19 @@ export function AdminList(props: { sid: string }): React.ReactElement {
             </tr>
           </thead>
           <tbody>
-            {adminList.data
-              .filter((p: { displayName: string }) =>
-                p.displayName.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IInfo, i: number) => (
-                <AdminRow player={player} key={i} />
-              ))}
+            {adminList ? (
+              adminList.data
+                .filter((p: { displayName: string }) =>
+                  p.displayName
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase()),
+                )
+                .map((player: IInfo, i: number) => (
+                  <AdminRow player={player} key={i} />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>

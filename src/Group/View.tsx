@@ -73,6 +73,7 @@ import {
   IPlatoonSearchResult,
   IPlatoonStats,
 } from "../api/GametoolsReturnTypes";
+import { ListsLoading } from "../components/User";
 
 // unused
 // const deleteIcon = (
@@ -432,18 +433,6 @@ function ServerLists(props: { servers: IGroupServer[] }) {
   );
 }
 
-function ServerListsLoading() {
-  const fakeListing = [1, 1, 1];
-
-  return (
-    <>
-      {fakeListing.map((_, i) => (
-        <FakeUserStRow key={i} />
-      ))}
-    </>
-  );
-}
-
 function GroupServers(props: {
   group: IGroupInfo;
   user: IUserInfo;
@@ -467,7 +456,7 @@ function GroupServers(props: {
       {props.group ? (
         <ServerLists servers={props.group.servers} />
       ) : (
-        <ServerListsLoading />
+        <ListsLoading amount={3} />
       )}
       <ButtonRow>
         {hasRights ? (
@@ -3050,7 +3039,7 @@ function PlatoonResults(props: {
       </>
     );
   } else {
-    return <ServerListsLoading />;
+    return <ListsLoading amount={3} />;
   }
 }
 

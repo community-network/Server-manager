@@ -44,6 +44,7 @@ import {
   ISeeder,
   ISeederServer,
 } from "../api/ReturnTypes";
+import { ListsLoading, RowLoading } from "../components/User";
 
 export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
   const { t } = useTranslation();
@@ -263,10 +264,7 @@ export function VBanList(props: {
     );
   };
 
-  if (!banList) {
-    // TODO: add fake item list on loading
-    return <>{"Loading.."}</>;
-  } else {
+  if (banList) {
     banList.data = banList.data.sort(DynamicSort(sorting));
   }
 
@@ -279,7 +277,8 @@ export function VBanList(props: {
       <h2>{t("group.vban.main")}</h2>
       <h5>
         {t("group.vban.description0")}{" "}
-        <b>{t("group.vban.description1", { number: banList.data.length })}</b>.
+        <b>{t("group.vban.description1", { number: banList?.data?.length })}</b>
+        .
       </h5>
       <ButtonRow>
         <TextInput
@@ -350,17 +349,23 @@ export function VBanList(props: {
             <th></th>
           </thead>
           <tbody>
-            {banList.data
-              .filter((p) =>
-                p[searchItem].toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IGlobalGroupPlayerInfo, i: number) => (
-                <GlobalBanRow
-                  player={player}
-                  key={i}
-                  callback={showGlobalUnban}
-                />
-              ))}
+            {banList ? (
+              banList.data
+                .filter((p) =>
+                  p[searchItem]
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase()),
+                )
+                .map((player: IGlobalGroupPlayerInfo, i: number) => (
+                  <GlobalBanRow
+                    player={player}
+                    key={i}
+                    callback={showGlobalUnban}
+                  />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -1177,10 +1182,7 @@ export function ExclusionList(props: {
     );
   };
 
-  if (!excludeList) {
-    // TODO: add fake item list on loading
-    return <>{"Loading.."}</>;
-  } else {
+  if (excludeList) {
     excludeList.data = excludeList.data.sort(DynamicSort(sorting));
   }
 
@@ -1195,7 +1197,7 @@ export function ExclusionList(props: {
         {t("group.exclusions.description0")}{" "}
         <b>
           {t("group.exclusions.description1", {
-            number: excludeList.data.length,
+            number: excludeList?.data?.length,
           })}
         </b>
         .
@@ -1269,17 +1271,23 @@ export function ExclusionList(props: {
             <th></th>
           </thead>
           <tbody>
-            {excludeList.data
-              .filter((p) =>
-                p[searchItem].toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((player: IGlobalGroupPlayerInfo, i: number) => (
-                <ExclusionListRow
-                  player={player}
-                  key={i}
-                  callback={showRemoveExclusion}
-                />
-              ))}
+            {excludeList ? (
+              excludeList.data
+                .filter((p) =>
+                  p[searchItem]
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase()),
+                )
+                .map((player: IGlobalGroupPlayerInfo, i: number) => (
+                  <ExclusionListRow
+                    player={player}
+                    key={i}
+                    callback={showRemoveExclusion}
+                  />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
@@ -1526,10 +1534,7 @@ export function ReasonList(props: {
     modal.show(<GroupRemoveReason gid={gid} reasonId={reason.id} />);
   };
 
-  if (!reasonList) {
-    // TODO: add fake item list on loading
-    return <>{"Loading.."}</>;
-  } else {
+  if (reasonList) {
     reasonList.data = reasonList.data.sort(DynamicSort("item"));
   }
 
@@ -1559,17 +1564,21 @@ export function ReasonList(props: {
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         <table style={{ borderCollapse: "collapse", width: "100%" }}>
           <tbody>
-            {reasonList.data
-              .filter((p: { item: string }) =>
-                p.item.toLowerCase().includes(searchWord.toLowerCase()),
-              )
-              .map((reason: IReason, index: number) => (
-                <ReasonListRow
-                  reason={reason}
-                  key={index}
-                  callback={showRemoveReason}
-                />
-              ))}
+            {reasonList ? (
+              reasonList.data
+                .filter((p: { item: string }) =>
+                  p.item.toLowerCase().includes(searchWord.toLowerCase()),
+                )
+                .map((reason: IReason, index: number) => (
+                  <ReasonListRow
+                    reason={reason}
+                    key={index}
+                    callback={showRemoveReason}
+                  />
+                ))
+            ) : (
+              <RowLoading />
+            )}
           </tbody>
         </table>
       </div>
