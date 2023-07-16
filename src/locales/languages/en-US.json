@@ -13,6 +13,7 @@
   "chartDateTime": "{{date, date|d-M, HH:mm}}",
   "time": "{{date, date|p}}",
   "change": "{{change, change}}",
+  "shortChange": "{{change, shortChange}}",
   "notApplicable": "N/A",
   "boolean": {
     "enabled": "enabled",
@@ -21,6 +22,36 @@
   "execute": "execute",
   "translation": {
     "help": "Help with translation"
+  },
+  "shortTimeItems": {
+    "xSeconds": {
+      "one": "1 sec",
+      "other": "{{count}} secs"
+    },
+    "xMinutes": {
+      "one": "1 min",
+      "other": "{{count}} mins"
+    },
+    "xHours": {
+      "one": "1 hour",
+      "other": "{{count}} hours"
+    },
+    "xDays": {
+      "one": "1 day",
+      "other": "{{count}} days"
+    },
+    "xWeeks": {
+      "one": "1 week",
+      "other": "{{count}} weeks"
+    },
+    "xMonths": {
+      "one": "1 month",
+      "other": "{{count}} months"
+    },
+    "xYears": {
+      "one": "1 year",
+      "other": "{{count}} years"
+    }
   },
   "games": {
     "bf3": "Battlefield 3 (statusbot only)",

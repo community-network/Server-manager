@@ -7,7 +7,7 @@ import * as translationCH from "./languages/zh-CN.json";
 import * as translationNL from "./languages/nl-NL.json";
 import * as translationDE from "./languages/de.json";
 import * as translationHE from "./languages/he.json";
-import { initReactI18next } from "react-i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { formatDistanceToNowStrict, format } from "date-fns";
 import { enUS, tr, el, zhCN, nl, de, he } from "date-fns/locale";
@@ -20,6 +20,63 @@ const locales = {
   "zh-CN": zhCN,
   "nl-NL": nl,
   "de-DE": de,
+};
+
+const formatDistanceLocale = {
+  xSeconds: {
+    one: "1 sec",
+    other: "{{count}} sec",
+  },
+  xMinutes: {
+    one: "1 min",
+    other: "{{count}} mins",
+  },
+  xHours: {
+    one: "1 hour",
+    other: "{{count}} hours",
+  },
+  xDays: {
+    one: "1 day",
+    other: "{{count}} days",
+  },
+  xWeeks: {
+    one: "1 week",
+    other: "{{count}} weeks",
+  },
+  xMonths: {
+    one: "1 month",
+    other: "{{count}} months",
+  },
+  xYears: {
+    one: "1 year",
+    other: "{{count}} years",
+  },
+};
+const formatDistance = function formatDistance(
+  token: string,
+  count: number,
+  options: {
+    comparison: number;
+    addSuffix: boolean;
+    locale: Locale;
+  },
+) {
+  let t = resources[options?.locale?.code]?.translation;
+  if (t?.shortTimeItems == undefined) {
+    t = resources["en-US"]?.translation;
+  }
+
+  let result: string = t["shortTimeItems"][token]?.[
+    count == 1 ? "one" : "other"
+  ]?.replace("{{count}}", count.toString());
+  if (!result) {
+    t = resources["en-US"]?.translation;
+    result = t["shortTimeItems"][token]?.[
+      count == 1 ? "one" : "other"
+    ]?.replace("{{count}}", count.toString());
+  }
+
+  return result;
 };
 
 export const resources = {
@@ -69,6 +126,22 @@ i18n
         }
         if (type === "change") {
           return formatDistanceToNowStrict(value, { locale: locales[lng] });
+        }
+        if (type === "shortChange") {
+          const customLocale: Locale = {
+            code: lng,
+            formatDistance: formatDistance,
+            formatLong: null,
+            formatRelative: null,
+            localize: null,
+            match: null,
+            options: {
+              weekStartsOn: 0,
+              firstWeekContainsDate: 1,
+            },
+          };
+
+          return formatDistanceToNowStrict(value, { locale: customLocale });
         }
         return value;
       },

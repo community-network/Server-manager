@@ -380,7 +380,7 @@ export function Player(props: {
           title=""
           value="jointime"
         >
-          {t("change", { change: dateAdded })}
+          {t("shortChange", { change: dateAdded })}
           {seederPlayer
             ? ` - ${seederPlayer?.score} score - ${seederPlayer?.kills}/${seederPlayer?.deaths} KD`
             : ""}
@@ -467,7 +467,7 @@ function PlayerButtons(props: {
   }
 
   // If too small, show button listing instead
-  if (width < 600) {
+  if (width < 550) {
     return (
       <PlayerDropdownButton
         options={playerOptions}
