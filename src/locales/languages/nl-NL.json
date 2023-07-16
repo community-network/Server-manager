@@ -13,6 +13,7 @@
   "chartDateTime": "{{date, date|d-M, HH:mm}}",
   "time": "{{date, date|p}}",
   "change": "{{change, change}}",
+  "shortChange": "{{change, shortChange}}",
   "notApplicable": "N/A",
   "boolean": {
     "enabled": "geactiveerd",
@@ -21,6 +22,36 @@
   "execute": "uitvoeren",
   "translation": {
     "help": "Help met vertalingen"
+  },
+  "shortTimeItems": {
+    "xSeconds": {
+      "one": "1 sec",
+      "other": "{{count}} secs"
+    },
+    "xMinutes": {
+      "one": "1 min",
+      "other": "{{count}} mins"
+    },
+    "xHours": {
+      "one": "1 uur",
+      "other": "{{count}} uren"
+    },
+    "xDays": {
+      "one": "1 day",
+      "other": "{{count}} dagen"
+    },
+    "xWeeks": {
+      "one": "1 week",
+      "other": "{{count}} weken"
+    },
+    "xMonths": {
+      "one": "1 maand",
+      "other": "{{count}} maanden"
+    },
+    "xYears": {
+      "one": "1 jaar",
+      "other": "{{count}} jaren"
+    }
   },
   "games": {
     "bf3": "Battlefield 3 (alleen statusbot)",
@@ -221,6 +252,7 @@
     },
     "servers": {
       "main": "Servers",
+      "game": "Spel",
       "status": "Server status",
       "lastUpdate": "Laatste update van de worker",
       "createdAt": "Server toegevoegd op",
@@ -403,6 +435,7 @@
     "logs": {
       "main": "Groepslogboek",
       "description": "Groepslogboeken lijst",
+      "serverLogs": "Server logs toevoegen aan resultaat",
       "reasons": {
         "addVban": "v-Banned",
         "removeVban": "verwijderd van v-Ban",
@@ -606,7 +639,8 @@
       "table": {
         "playerName": "Spelernaam",
         "playerId": "Speler ID",
-        "timePlayed": "Tijd gespendeerd op de server"
+        "timePlayed": "Tijd gespendeerd op de server",
+        "playCount": "Het aantal keer aangesloten deze week"
       }
     },
     "spectatorList": {
@@ -680,10 +714,12 @@
       "rankKickReason": "Rank niet binnen eisen",
       "kickLowRank": "Kick als rank lager is dan:",
       "kickHighRank": "Kick als rank hoger is dan:",
-      "statsKick": "Kick als weapon/vehicle stats te hoog zijn",
+      "statsKick": "Kick als wapen-/voertuigstatistieken te hoog zijn (autokick begint na 200 of meer kills met het opgegeven wapen)",
       "statsKickExample": "Download voorbeeldbestand",
       "statsKickDownload": "Download huidige statskick",
-      "statsKickRemove": "Statskick uitzetten"
+      "statsKickRemove": "Statskick uitzetten",
+      "pltMemberExclEnable": "Platoon leden uitsluiten",
+      "pltMemberExclDescription": "Platoon leden van de platoons toegevoegd aan het paneel uitsluiten van kick."
     },
     "settings": {
       "main": "instellingen",
