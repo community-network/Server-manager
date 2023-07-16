@@ -369,6 +369,7 @@
       "add": "Add platoons",
       "remove": "Remove platoons",
       "resultNotFound": "No platoons found with that name",
+      "alreadyAdded": "Already added",
       "members": {
         "main": "Members",
         "remove": "Remove member"

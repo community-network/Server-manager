@@ -74,6 +74,7 @@ import {
   IPlatoonStats,
 } from "../api/GametoolsReturnTypes";
 import { ListsLoading } from "../components/User";
+import { IconNotSelected } from "../components/Buttons";
 
 // unused
 // const deleteIcon = (
@@ -2978,6 +2979,7 @@ export function AddGroupPlatoon(): React.ReactElement {
             </>
           )}
           <PlatoonResults
+            group={group}
             loading={loading}
             platoons={platoons}
             error={searchError}
@@ -3006,6 +3008,7 @@ export function AddGroupPlatoon(): React.ReactElement {
 }
 
 function PlatoonResults(props: {
+  group: IGroupInfo;
   loading: boolean;
   error: boolean;
   platoons: IPlatoonSearchResult;
@@ -3024,6 +3027,25 @@ function PlatoonResults(props: {
     return (
       <>
         {platoons.platoons.map((key: IPlatoonResult, index: number) => {
+          if (Object.keys(props?.group?.platoons).includes(key.id)) {
+            return (
+              <div className={styles.SeedRow} key={index}>
+                <IconNotSelected style={{ color: "grey" }} />
+                <div className={styles.DiscordName} style={{ color: "grey" }}>
+                  {key.name}
+                </div>
+                <div className={styles.DateAdded} style={{ color: "grey" }}>
+                  {t("group.platoons.alreadyAdded")}
+                </div>
+                <div
+                  className={styles.ServerAliasName}
+                  style={{ color: "grey" }}
+                >
+                  {key.currentSize} / 100 {t("group.platoons.members.main")}
+                </div>
+              </div>
+            );
+          }
           return (
             <SelectableRow
               key={index}
