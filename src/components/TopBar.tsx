@@ -53,7 +53,7 @@ export function TopBar(props: {
             />
           </svg>
         </button>
-        <Link to="/" title="Main page" className={styles.mainPage}>
+        <Link to="/" title={t("sidebar.main")} className={styles.mainPage}>
           <img
             alt={t("imageAlts.main")}
             src={logoRelease}

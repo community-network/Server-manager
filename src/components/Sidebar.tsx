@@ -138,7 +138,7 @@ export function Sidebar(props: {
             key={0}
             callback={props.callback}
             to="/home/"
-            name="Home page"
+            name={t("sidebar.home")}
           />,
           "homePage",
         ),
@@ -146,7 +146,7 @@ export function Sidebar(props: {
         <PageLink
           key={2}
           to="/group/new/"
-          name="Create Group"
+          name={t("sidebar.createGroup")}
           content={addGroupContent}
         />,
       ];
