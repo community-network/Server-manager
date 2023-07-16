@@ -214,6 +214,7 @@ export interface IPlatoonApplicant {
   oid: string;
   name: string;
   avatar: string;
+  timeStamp: number;
 }
 
 export interface IPlatoonApplicants {

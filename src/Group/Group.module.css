@@ -10,17 +10,21 @@
     flex-grow: 2;
     color: var(--color-text);
     font-weight: 600;
-    white-space:nowrap;
+    white-space: nowrap;
     width: 100%;
 }
 
-.manageDev {
-
+.DateAdded {
+    color: var(--color-text);
+    font-size: 12px;
+    font-weight: 500;
+    align-self: center;
+    flex-shrink: 0;
 }
 
-.ShownGame {
-    
-}
+.manageDev {}
+
+.ShownGame {}
 
 .GroupRow:hover {
     background: var(--color-container);
@@ -64,6 +68,7 @@
     color: var(--color-text);
     margin-left: 10px;
 }
+
 .logIcon {
     width: 18px;
     height: 18px;
@@ -90,13 +95,16 @@
     align-self: center;
     cursor: pointer;
 }
+
 .logPlayer:hover {
     background: var(--color-container-v3);
 }
+
 .logAction, .logReason {
     margin-right: 10px;
     color: var(--color-text);
 }
+
 .logRow {
     padding: 10px 20px;
     margin: 10px 0;
@@ -132,7 +140,7 @@
     flex-grow: 2;
 }
 
-.BanRow:hover > td {
+.BanRow:hover>td {
     cursor: pointer;
     background: var(--color-container-v2);
 }
@@ -176,22 +184,22 @@
     margin-right: 10px;
 }
 
-.serverBadgeOk > span {
+.serverBadgeOk>span {
     margin-left: 5px;
 }
 
-.BanRow > td {
+.BanRow>td {
     border: none;
     padding: 10px 20px;
     font-size: 13px;
     color: var(--color-text);
 }
 
-.BanRow > td:first-child {
+.BanRow>td:first-child {
     border-radius: 8px 0 0 8px;
 }
 
-.BanRow > td:nth-last-child(2) {
+.BanRow>td:nth-last-child(2) {
     border-radius: 0 8px 8px 0;
 }
 
@@ -208,6 +216,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .keepAliveRow {
     margin-right: 10px;
     padding: 10px 20px;
@@ -216,11 +225,13 @@
     color: var(--color-text-high);
     flex-grow: 2;
 }
+
 .keepAliveRemove {
     border-radius: 8px;
     padding: 10px 20px;
     background: var(--color-container);
 }
+
 .keepAliveRemove:hover {
     background: var(--color-container-v2);
     cursor: pointer;
@@ -246,9 +257,11 @@
     background-position-y: 7px;
     border: none;
 }
-.SwitchTitle > option {
+
+.SwitchTitle>option {
     font-family: "Montserrat" !important;
 }
+
 .SwitchTitle:hover {
     background-color: var(--color-container-v2);
 }
@@ -273,12 +286,13 @@
     background-position-x: 100%;
     background-position-y: 7px;
 }
-.SmallSwitch > option {
+
+.SmallSwitch>option {
     font-family: "Montserrat" !important;
 }
 
 .ServerNameText {
-    white-space:nowrap;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: auto;
@@ -369,7 +383,7 @@
     flex-shrink: 0;
 }
 
-.selectableRow:hover > .iconSelect, .selectableRowSelected > .iconSelect  {
+.selectableRow:hover>.iconSelect, .selectableRowSelected>.iconSelect {
     color: var(--color-text-high);
 }
 
@@ -403,7 +417,8 @@
     background-position-x: 100%;
     background-position-y: 8px;
 }
-.SwitchGame > option {
+
+.SwitchGame>option {
     font-family: "Montserrat" !important;
 }
 
@@ -419,6 +434,7 @@
     .ListFullDate {
         display: none;
     }
+
     .ListHalfDate {
         display: initial;
     }
@@ -450,6 +466,7 @@
     .logTime {
         display: none;
     }
+
     .logShortTime {
         display: initial;
     }
@@ -459,6 +476,7 @@
     .ServerAliasName {
         display: none;
     }
+
     .logAction {
         display: none;
     }
@@ -468,9 +486,11 @@
     .serverBadgeOk {
         display: none;
     }
+
     .GroupId {
         display: none;
     }
+
     .groupLogReason, .logReasonDetailed {
         display: none;
     }

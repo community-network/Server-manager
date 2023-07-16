@@ -738,9 +738,8 @@ function GroupPlatoons(props: {
                   }),
                 )
                 .flat()
-                .filter(
-                  (p) =>
-                    p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
+                .filter((p) =>
+                  p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
                 )
                 .sort(DynamicSort("name"))
                 .map((player, memberIndex) => {
@@ -943,14 +942,14 @@ function PlatoonApplicants(props: {
     () => GametoolsApi.platoonApplicants({ groupId: group.id, platoonId }),
     { staleTime: 30000 },
   );
+  const { t } = useTranslation();
 
   if (!isLoading && !isError) {
     return (
       <>
         {applicants?.result
-          ?.filter(
-            (p) =>
-              p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
+          ?.filter((p) =>
+            p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
           )
           .map((key: IPlatoonApplicant, index: number) => {
             return (
@@ -959,6 +958,9 @@ function PlatoonApplicants(props: {
                 callback={(v) => props.callback(v, platoonId, key)}
               >
                 <div className={styles.DiscordName}>{key.name}</div>
+                <div className={styles.DateAdded}>
+                  {t("date", { date: new Date(key.timeStamp * 1000) })}
+                </div>
                 <div className={styles.ServerAliasName}>
                   {platoonInfo?.name}
                 </div>
