@@ -369,6 +369,7 @@
       "add": "Platoon toevoegen",
       "remove": "Platoon verwijderen",
       "resultNotFound": "Geen platoon gevonden met die naam",
+      "alreadyAdded": "Al toegevoegd",
       "members": {
         "main": "Leden",
         "remove": "Leden verwijderen"
