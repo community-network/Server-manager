@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { merge } = require("webpack-merge");
 const { resolve } = require("path");
-const { InjectManifest } = require("workbox-webpack-plugin");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 const commonConfig = require("./common");
 
@@ -19,9 +19,23 @@ module.exports = merge(commonConfig, {
     "react-dom": "ReactDOM",
   },
   plugins: [
-    new InjectManifest({
-      swSrc: "./service-worker.js",
-      swDest: "service-worker.js",
+    new GenerateSW({
+      runtimeCaching: [
+        {
+          urlPattern: /assets/,
+          handler: "CacheFirst",
+        },
+        {
+          urlPattern: new RegExp(
+            "^https://fonts.(?:googleapis|gstatic).com/(.*)",
+          ),
+          handler: "CacheFirst",
+        },
+        {
+          urlPattern: /.*/,
+          handler: "NetworkFirst",
+        },
+      ],
     }),
   ],
 });
