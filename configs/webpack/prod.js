@@ -31,10 +31,6 @@ module.exports = merge(commonConfig, {
           ),
           handler: "CacheFirst",
         },
-        {
-          urlPattern: /.*/,
-          handler: "NetworkFirst",
-        },
       ],
     }),
   ],
