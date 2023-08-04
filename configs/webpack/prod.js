@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { merge } = require("webpack-merge");
 const { resolve } = require("path");
+const { InjectManifest } = require("workbox-webpack-plugin");
 
 const commonConfig = require("./common");
 
@@ -17,4 +18,10 @@ module.exports = merge(commonConfig, {
     react: "React",
     "react-dom": "ReactDOM",
   },
+  plugins: [
+    new InjectManifest({
+      swSrc: "./service-worker.js",
+      swDest: "service-worker.js",
+    }),
+  ],
 });
