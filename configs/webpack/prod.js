@@ -31,6 +31,10 @@ module.exports = merge(commonConfig, {
           ),
           handler: "CacheFirst",
         },
+        {
+          urlPattern: /.*/,
+          handler: "StaleWhileRevalidate",
+        },
       ],
     }),
   ],
