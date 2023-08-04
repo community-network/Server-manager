@@ -31,6 +31,10 @@ module.exports = merge(commonConfig, {
           ),
           handler: "CacheFirst",
         },
+        {
+          urlPattern: new RegExp("^https://unpkg.com/(.*)"),
+          handler: "CacheFirst",
+        },
       ],
     }),
   ],
