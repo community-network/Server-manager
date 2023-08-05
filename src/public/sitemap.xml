@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://manager.gametools.network</loc>
+    <xhtml:link
+               rel="alternate"
+               hreflang="de-de"
+               href="https://manager.gametools.network/?lng=de-de"/>
+    <xhtml:link
+               rel="alternate"
+               hreflang="tr-tr"
+               href="https://manager.gametools.network/?lng=tr-tr"/>
+    <xhtml:link
+               rel="alternate"
+               hreflang="he-il"
+               href="https://manager.gametools.network/?lng=he-il"/>
+    <xhtml:link
+               rel="alternate"
+               hreflang="el-gr"
+               href="https://manager.gametools.network/?lng=el-gr"/>
+    <xhtml:link
+               rel="alternate"
+               hreflang="zh-cn"
+               href="https://manager.gametools.network/?lng=zh-cn"/>
+    <xhtml:link
+               rel="alternate"
+               hreflang="nl-nl"
+               href="https://manager.gametools.network/?lng=nl-nl"/>
+    <xhtml:link
+               rel="alternate"
+               hreflang="en"
+               href="https://manager.gametools.network/?lng=en-us"/>
+  </url>
+</urlset>
