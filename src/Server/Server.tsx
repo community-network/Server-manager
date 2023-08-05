@@ -565,7 +565,14 @@ function BanRow(props: {
     >
       <td title={player.displayName} className={styles.VipName}>
         <div className={styles.VipRowImg}>
-          <img src={player.avatar} alt="" loading="lazy" />
+          <img
+            src={
+              player?.avatar ||
+              "https://secure.download.dm.origin.com/production/avatar/prod/1/599/208x208.JPEG"
+            }
+            alt=""
+            loading="lazy"
+          />
         </div>
         <span>{player.displayName}</span>
       </td>
@@ -1322,7 +1329,14 @@ function VipRow(props: {
     >
       <td title={player.displayName} className={styles.VipName}>
         <div className={styles.VipRowImg}>
-          <img src={player.avatar} alt="" loading="lazy" />
+          <img
+            src={
+              player?.avatar ||
+              "https://secure.download.dm.origin.com/production/avatar/prod/1/599/208x208.JPEG"
+            }
+            alt=""
+            loading="lazy"
+          />
         </div>
         <span>{player.displayName}</span>
       </td>
@@ -1445,7 +1459,14 @@ function AdminRow(props: { player: IInfo }): React.ReactElement {
     >
       <td title={player.displayName} className={styles.VipName}>
         <div className={styles.VipRowImg}>
-          <img src={player.avatar} alt="" loading="lazy" />
+          <img
+            src={
+              player?.avatar ||
+              "https://secure.download.dm.origin.com/production/avatar/prod/1/599/208x208.JPEG"
+            }
+            alt=""
+            loading="lazy"
+          />
         </div>
         <span>{player.displayName}</span>
       </td>
