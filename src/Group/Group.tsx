@@ -303,10 +303,6 @@ export function VBanList(props: {
     );
   };
 
-  if (isError) {
-    return <>{`Error ${error.code}: ${error.message}`}</>;
-  }
-
   return (
     <div>
       <h2>{t("group.vban.main")}</h2>
@@ -351,7 +347,8 @@ export function VBanList(props: {
             <th></th>
           </thead>
           <tbody>
-            {!isLoading ? (
+            {isError && <>{`Error ${error?.code}: ${error?.message}`}</>}
+            {!isLoading && !isError ? (
               banList.map((player: IGlobalGroupPlayerInfo, i: number) => (
                 <GlobalBanRow
                   player={player}
@@ -363,6 +360,7 @@ export function VBanList(props: {
             ) : (
               <RowLoading />
             )}
+            {isFetching && <RowLoading />}
           </tbody>
         </table>
       </div>
@@ -1218,10 +1216,6 @@ export function ExclusionList(props: {
     );
   };
 
-  if (isError) {
-    return <>{`Error ${error.code}: ${error.message}`}</>;
-  }
-
   return (
     <div>
       <h2>{t("group.exclusions.main")}</h2>
@@ -1271,7 +1265,8 @@ export function ExclusionList(props: {
             <th></th>
           </thead>
           <tbody>
-            {excludeList ? (
+            {isError && <>{`Error ${error?.code}: ${error?.message}`}</>}
+            {!isLoading && !isError ? (
               excludeList.map((player: IGlobalGroupPlayerInfo, i: number) => (
                 <ExclusionListRow
                   player={player}
@@ -1285,6 +1280,7 @@ export function ExclusionList(props: {
             ) : (
               <RowLoading />
             )}
+            {isFetching && <RowLoading />}
           </tbody>
         </table>
       </div>
