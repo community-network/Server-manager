@@ -348,7 +348,8 @@ export function VBanList(props: {
           </thead>
           <tbody>
             {isError && <>{`Error ${error?.code}: ${error?.message}`}</>}
-            {!isLoading && !isError ? (
+            {!isLoading &&
+              !isError &&
               banList.map((player: IGlobalGroupPlayerInfo, i: number) => (
                 <GlobalBanRow
                   player={player}
@@ -356,10 +357,7 @@ export function VBanList(props: {
                   callback={showGlobalUnban}
                   innerRef={banList.length === i + 1 ? lastElementRef : null}
                 />
-              ))
-            ) : (
-              <RowLoading />
-            )}
+              ))}
             {isFetching && <RowLoading />}
           </tbody>
         </table>
@@ -1266,7 +1264,8 @@ export function ExclusionList(props: {
           </thead>
           <tbody>
             {isError && <>{`Error ${error?.code}: ${error?.message}`}</>}
-            {!isLoading && !isError ? (
+            {!isLoading &&
+              !isError &&
               excludeList.map((player: IGlobalGroupPlayerInfo, i: number) => (
                 <ExclusionListRow
                   player={player}
@@ -1276,10 +1275,7 @@ export function ExclusionList(props: {
                     excludeList.length === i + 1 ? lastElementRef : null
                   }
                 />
-              ))
-            ) : (
-              <RowLoading />
-            )}
+              ))}
             {isFetching && <RowLoading />}
           </tbody>
         </table>
