@@ -1,7 +1,12 @@
 import * as React from "react";
 import { useMeasure } from "react-use";
 import { Link } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  useMutation,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import gamestatsLogo from "../assets/img/game-stats.png";
 import { useTranslation } from "react-i18next";
@@ -43,8 +48,10 @@ import {
   ISeederInfo,
   ISeeder,
   ISeederServer,
+  ITotalCount,
 } from "../api/ReturnTypes";
 import { ListsLoading, RowLoading } from "../components/User";
+import { UseMeasureRef } from "react-use/lib/useMeasure";
 
 export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
   const { t } = useTranslation();
@@ -236,21 +243,53 @@ export function VBanList(props: {
   user: IUserInfo;
 }): React.ReactElement {
   const { gid } = props;
-  const {
-    isError,
-    data: banList,
-    error,
-  }: UseQueryResult<
-    IGlobalGroupPlayer,
-    { code: number; message: string }
-  > = useQuery(["globalBanList" + gid], () =>
-    OperationsApi.getAutoBanList({ gid }),
-  );
-
-  const [sorting, setSorting] = React.useState("-unixTimeStamp");
   const [searchWord, setSearchWord] = React.useState("");
   const [searchItem, setSearchItem] = React.useState("playerName");
   const { t } = useTranslation();
+
+  const {
+    data: totalCount,
+  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
+    ["getAutoBanCount", gid],
+    () => OperationsApi.getAutoBanCount({ gid }),
+  );
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isError,
+  } = useInfiniteQuery(
+    ["globalBanList", searchWord, searchItem, gid],
+    ({ pageParam = 0 }) =>
+      OperationsApi.getAutoBanList({ gid, pageParam, searchWord, searchItem }),
+    {
+      getNextPageParam: (lastPage) => lastPage.offset,
+    },
+  );
+
+  const banList = React.useMemo(
+    () => (data ? data?.pages.flatMap((item) => item.results) : []),
+    [data],
+  );
+
+  const observer = React.useRef<IntersectionObserver>();
+  const lastElementRef = React.useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasNextPage],
+  );
 
   const modal = useModal();
   const showGlobalUnban = (e: { target: { dataset: any } }) => {
@@ -264,12 +303,8 @@ export function VBanList(props: {
     );
   };
 
-  if (banList) {
-    banList.data = banList.data.sort(DynamicSort(sorting));
-  }
-
   if (isError) {
-    return <>{`Error ${error.code}: {error.message}`}</>;
+    return <>{`Error ${error.code}: ${error.message}`}</>;
   }
 
   return (
@@ -277,8 +312,7 @@ export function VBanList(props: {
       <h2>{t("group.vban.main")}</h2>
       <h5>
         {t("group.vban.description0")}{" "}
-        <b>{t("group.vban.description1", { number: banList?.data?.length })}</b>
-        .
+        <b>{t("group.vban.description1", { number: totalCount?.total })}</b>.
       </h5>
       <ButtonRow>
         <TextInput
@@ -308,61 +342,24 @@ export function VBanList(props: {
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         <table style={{ borderCollapse: "collapse", width: "100%" }}>
           <thead style={{ position: "sticky", top: "0" }}>
-            <ClickableHead
-              current={sorting === "playerName"}
-              onClick={() => setSorting("playerName")}
-            >
-              {t("group.vban.table.playerName")}
-            </ClickableHead>
-            <div className={styles.ListPlayerId}>
-              <ClickableHead
-                current={sorting === "id"}
-                onClick={() => setSorting("id")}
-              >
-                {t("group.vban.table.playerId")}
-              </ClickableHead>
-            </div>
-            <ClickableHead
-              current={sorting === "reason"}
-              onClick={() => setSorting("reason")}
-            >
-              {t("group.vban.table.reason")}
-            </ClickableHead>
-            <ClickableHead
-              current={sorting === "admin"}
-              onClick={() => setSorting("admin")}
-            >
-              {t("group.vban.table.admin")}
-            </ClickableHead>
-            <ClickableHead
-              current={sorting === "bannedUntil"}
-              onClick={() => setSorting("bannedUntil")}
-            >
-              {t("group.vban.table.bannedUntil")}
-            </ClickableHead>
-            <ClickableHead
-              current={sorting === "-unixTimeStamp"}
-              onClick={() => setSorting("-unixTimeStamp")}
-            >
-              {t("group.vban.table.timestamp")}
-            </ClickableHead>
+            <th>{t("group.vban.table.playerName")}</th>
+            <th>{t("group.vban.table.playerId")}</th>
+            <th>{t("group.vban.table.reason")}</th>
+            <th>{t("group.vban.table.admin")}</th>
+            <th>{t("group.vban.table.bannedUntil")}</th>
+            <th>{t("group.vban.table.timestamp")}</th>
             <th></th>
           </thead>
           <tbody>
-            {banList ? (
-              banList.data
-                .filter((p) =>
-                  p[searchItem]
-                    .toLowerCase()
-                    .includes(searchWord.toLowerCase()),
-                )
-                .map((player: IGlobalGroupPlayerInfo, i: number) => (
-                  <GlobalBanRow
-                    player={player}
-                    key={i}
-                    callback={showGlobalUnban}
-                  />
-                ))
+            {!isLoading ? (
+              banList.map((player: IGlobalGroupPlayerInfo, i: number) => (
+                <GlobalBanRow
+                  player={player}
+                  key={i}
+                  callback={showGlobalUnban}
+                  innerRef={banList.length === i + 1 ? lastElementRef : null}
+                />
+              ))
             ) : (
               <RowLoading />
             )}
@@ -374,6 +371,7 @@ export function VBanList(props: {
 }
 
 function GlobalBanRow(props: {
+  innerRef: UseMeasureRef<Element>;
   player: IGlobalGroupPlayerInfo;
   callback: (args0: any) => void;
 }): React.ReactElement {
@@ -382,6 +380,7 @@ function GlobalBanRow(props: {
   const { t } = useTranslation();
   return (
     <tr
+      ref={props.innerRef}
       className={styles.BanRow}
       onClick={(e: any) =>
         e.target.tagName === "TD"
@@ -1153,22 +1152,59 @@ export function ExclusionList(props: {
   gid: string;
   user: IUserInfo;
 }): React.ReactElement {
-  const gid = props.gid;
-  const {
-    isError,
-    data: excludeList,
-    error,
-  }: UseQueryResult<
-    IGlobalGroupPlayer,
-    { code: number; message: string }
-  > = useQuery(["globalExclusionList" + gid], () =>
-    OperationsApi.getExcludedPlayers({ gid }),
-  );
-
-  const [sorting, setSorting] = React.useState("-unixTimeStamp");
+  const { gid } = props;
   const [searchWord, setSearchWord] = React.useState("");
   const [searchItem, setSearchItem] = React.useState("playerName");
   const { t } = useTranslation();
+
+  const {
+    data: totalCount,
+  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
+    ["getExcludedPlayersCount", gid],
+    () => OperationsApi.getExcludedPlayersCount({ gid }),
+  );
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isError,
+  } = useInfiniteQuery(
+    ["globalExclusionList", searchWord, searchItem, gid],
+    ({ pageParam = 0 }) =>
+      OperationsApi.getExcludedPlayers({
+        gid,
+        pageParam,
+        searchWord,
+        searchItem,
+      }),
+    {
+      getNextPageParam: (lastPage) => lastPage.offset,
+    },
+  );
+
+  const excludeList = React.useMemo(
+    () => (data ? data?.pages.flatMap((item) => item.results) : []),
+    [data],
+  );
+
+  const observer = React.useRef<IntersectionObserver>();
+  const lastElementRef = React.useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasNextPage],
+  );
 
   const modal = useModal();
   const showRemoveExclusion = (e: { target: { dataset: any } }) => {
@@ -1182,12 +1218,8 @@ export function ExclusionList(props: {
     );
   };
 
-  if (excludeList) {
-    excludeList.data = excludeList.data.sort(DynamicSort(sorting));
-  }
-
   if (isError) {
-    return <>{`Error ${error.code}: {error.message}`}</>;
+    return <>{`Error ${error.code}: ${error.message}`}</>;
   }
 
   return (
@@ -1197,7 +1229,7 @@ export function ExclusionList(props: {
         {t("group.exclusions.description0")}{" "}
         <b>
           {t("group.exclusions.description1", {
-            number: excludeList?.data?.length,
+            number: totalCount?.total,
           })}
         </b>
         .
@@ -1230,61 +1262,26 @@ export function ExclusionList(props: {
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         <table style={{ borderCollapse: "collapse", width: "100%" }}>
           <thead style={{ position: "sticky", top: "0" }}>
-            <ClickableHead
-              current={sorting === "playerName"}
-              onClick={() => setSorting("playerName")}
-            >
-              {t("group.exclusions.table.playerName")}
-            </ClickableHead>
-            <div className={styles.ListPlayerId}>
-              <ClickableHead
-                current={sorting === "id"}
-                onClick={() => setSorting("id")}
-              >
-                {t("group.exclusions.table.playerId")}
-              </ClickableHead>
-            </div>
-            <ClickableHead
-              current={sorting === "reason"}
-              onClick={() => setSorting("reason")}
-            >
-              {t("group.exclusions.table.reason")}
-            </ClickableHead>
-            <ClickableHead
-              current={sorting === "admin"}
-              onClick={() => setSorting("admin")}
-            >
-              {t("group.exclusions.table.admin")}
-            </ClickableHead>
-            <ClickableHead
-              current={sorting === "bannedUntil"}
-              onClick={() => setSorting("bannedUntil")}
-            >
-              {t("group.exclusions.table.bannedUntil")}
-            </ClickableHead>
-            <ClickableHead
-              current={sorting === "-unixTimeStamp"}
-              onClick={() => setSorting("-unixTimeStamp")}
-            >
-              {t("group.exclusions.table.timestamp")}
-            </ClickableHead>
+            <th>{t("group.exclusions.table.playerName")}</th>
+            <th>{t("group.exclusions.table.playerId")}</th>
+            <th>{t("group.exclusions.table.reason")}</th>
+            <th>{t("group.exclusions.table.admin")}</th>
+            <th>{t("group.exclusions.table.bannedUntil")}</th>
+            <th>{t("group.exclusions.table.timestamp")}</th>
             <th></th>
           </thead>
           <tbody>
             {excludeList ? (
-              excludeList.data
-                .filter((p) =>
-                  p[searchItem]
-                    .toLowerCase()
-                    .includes(searchWord.toLowerCase()),
-                )
-                .map((player: IGlobalGroupPlayerInfo, i: number) => (
-                  <ExclusionListRow
-                    player={player}
-                    key={i}
-                    callback={showRemoveExclusion}
-                  />
-                ))
+              excludeList.map((player: IGlobalGroupPlayerInfo, i: number) => (
+                <ExclusionListRow
+                  player={player}
+                  key={i}
+                  callback={showRemoveExclusion}
+                  innerRef={
+                    excludeList.length === i + 1 ? lastElementRef : null
+                  }
+                />
+              ))
             ) : (
               <RowLoading />
             )}
@@ -1296,6 +1293,7 @@ export function ExclusionList(props: {
 }
 
 function ExclusionListRow(props: {
+  innerRef: UseMeasureRef<Element>;
   player: IGlobalGroupPlayerInfo;
   callback: (args0?: any) => void;
 }): React.ReactElement {
@@ -1304,6 +1302,7 @@ function ExclusionListRow(props: {
   const { t } = useTranslation();
   return (
     <tr
+      ref={props.innerRef}
       className={styles.BanRow}
       onClick={(e: any) =>
         e.target.tagName === "TD"

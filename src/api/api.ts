@@ -43,6 +43,13 @@ export interface IGroupGet {
   gid: string;
 }
 
+export interface IPagedGroupGet {
+  gid: string;
+  pageParam: number;
+  searchWord: string;
+  searchItem: string;
+}
+
 export class ApiProvider extends JsonClient {
   logout(): void {
     const asyncUser = this.logoutAndChangeUser();
@@ -432,16 +439,60 @@ export class ApiProvider extends JsonClient {
     });
   }
 
-  async getAutoBanList({ gid }: IGroupGet): Promise<IGlobalGroupPlayer> {
-    return await this.getJsonMethod("autoban", {
+  async getAutoBanCount({ gid }: IGroupGet) {
+    return await this.getJsonMethod("autobancount", {
       groupid: gid,
     });
   }
 
-  async getExcludedPlayers({ gid }: IGroupGet): Promise<IGlobalGroupPlayer> {
-    return await this.getJsonMethod("excludedplayers", {
+  async getExcludedPlayersCount({ gid }: IGroupGet) {
+    return await this.getJsonMethod("excludedplayerscount", {
       groupid: gid,
     });
+  }
+
+  async getAutoBanList({
+    gid,
+    pageParam,
+    searchWord,
+    searchItem,
+  }: IPagedGroupGet): Promise<IGlobalGroupPlayer> {
+    const limit = 100;
+    const offset = pageParam ? pageParam - 1 : 0;
+    const data = await this.getJsonMethod("autoban", {
+      groupid: gid,
+      offset,
+      limit,
+      searchword: searchWord,
+      searchitem: searchItem,
+    });
+
+    return {
+      results: data.data,
+      offset: offset + limit,
+    };
+  }
+
+  async getExcludedPlayers({
+    gid,
+    pageParam,
+    searchWord,
+    searchItem,
+  }: IPagedGroupGet): Promise<IGlobalGroupPlayer> {
+    const limit = 100;
+    const offset = pageParam ? pageParam : 0;
+    const data = await this.getJsonMethod("excludedplayers", {
+      groupid: gid,
+      offset,
+      limit,
+      searchword: searchWord,
+      searchitem: searchItem,
+    });
+
+    return {
+      results: data.data,
+      offset: offset + limit,
+    };
   }
 
   async getReasonList({

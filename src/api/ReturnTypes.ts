@@ -142,7 +142,8 @@ export interface IServerStat {
 }
 
 export interface IGlobalGroupPlayer {
-  data: IGlobalGroupPlayerInfo[];
+  results: IGlobalGroupPlayerInfo[];
+  offset: number | null;
 }
 
 export interface IGlobalGroupPlayerInfo {
@@ -531,4 +532,8 @@ export interface IBfvCreateServer {
 
 export interface IServerOperationSuccess {
   info: string;
+}
+
+export interface ITotalCount {
+  total: number;
 }

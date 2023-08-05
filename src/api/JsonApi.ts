@@ -23,7 +23,10 @@ export default class JsonClient {
   openLoginPage() {
     window.location.replace(this.constructApiUrl("login", {}));
   }
-  constructApiUrl(method: string, params: { [name: string]: string }): string {
+  constructApiUrl(
+    method: string,
+    params: { [name: string]: string | number },
+  ): string {
     params = params || {};
     let paramStr = "";
     for (const s in params) {
@@ -35,7 +38,7 @@ export default class JsonClient {
   }
   async fetchMethod(
     method: string,
-    params: { [name: string]: string },
+    params: { [name: string]: string | number },
   ): Promise<Response> {
     return fetch(this.constructApiUrl(method, params), {
       credentials: "include",
@@ -63,7 +66,7 @@ export default class JsonClient {
   }
   getJsonMethod(
     method: string,
-    params: { [name: string]: string },
+    params: { [name: string]: string | number },
   ): Promise<any> {
     return this.errorHandler(this.fetchMethod(method, params));
   }
