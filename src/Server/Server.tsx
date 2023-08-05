@@ -565,7 +565,7 @@ function BanRow(props: {
     >
       <td title={player.displayName} className={styles.VipName}>
         <div className={styles.VipRowImg}>
-          <img src={player.avatar} alt="" />
+          <img src={player.avatar} alt="" loading="lazy" />
         </div>
         <span>{player.displayName}</span>
       </td>
@@ -1322,7 +1322,7 @@ function VipRow(props: {
     >
       <td title={player.displayName} className={styles.VipName}>
         <div className={styles.VipRowImg}>
-          <img src={player.avatar} alt="" />
+          <img src={player.avatar} alt="" loading="lazy" />
         </div>
         <span>{player.displayName}</span>
       </td>
@@ -1445,7 +1445,7 @@ function AdminRow(props: { player: IInfo }): React.ReactElement {
     >
       <td title={player.displayName} className={styles.VipName}>
         <div className={styles.VipRowImg}>
-          <img src={player.avatar} alt="" />
+          <img src={player.avatar} alt="" loading="lazy" />
         </div>
         <span>{player.displayName}</span>
       </td>

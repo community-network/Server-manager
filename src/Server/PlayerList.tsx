@@ -366,6 +366,7 @@ export function Player(props: {
           height="14rem"
           style={{ marginRight: "0.2rem" }}
           src={seederPlayer.player_class?.white}
+          loading="lazy"
         />
       )}
 
