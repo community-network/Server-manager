@@ -20,6 +20,7 @@ import {
   IGroupCookie,
   IGroupInfo,
   IGroupsInfo,
+  IGroupUser,
   IReasonList,
   IUserInfo,
 } from "../api/ReturnTypes";
@@ -327,14 +328,20 @@ export function GroupGlobalUnbanPlayer(props: {
         const perviousBanlist = queryClient.getQueryData([
           "globalBanList" + gid,
         ]);
-
+        // pre-removes from the list, while its waiting for the api return
         queryClient.setQueryData(
           ["globalBanList" + gid],
-          (old: IGlobalGroupPlayer) => {
-            old.data = old.data.filter(
+          (old?: IGlobalGroupPlayer) => {
+            console.log(old);
+            
+            let new_results = old?.results?.filter(
               (user: { playerName: string }) => user.playerName !== name,
             );
-            return old;
+            return {
+              results: new_results,
+              offset: old?.offset,
+            }
+
           },
         );
         // Return a context object with the snapshotted value
@@ -569,13 +576,19 @@ export function GroupRemoveExclusionPlayer(props: {
 
         queryClient.setQueryData(
           ["globalExclusionList" + gid],
-          (old: IGlobalGroupPlayer) => {
-            old.data = old.data.filter(
+          (old?: IGlobalGroupPlayer) => {
+            console.log(old);
+            
+            let new_results = old?.results?.filter(
               (user: { playerName: string }) => user.playerName !== name,
             );
-            return old;
+            return {
+              results: new_results,
+              offset: old?.offset,
+            }
+
           },
-        );
+        )        
         // Return a context object with the snapshotted value
         return { previousExcludedlist, gid };
       },
