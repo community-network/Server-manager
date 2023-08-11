@@ -780,7 +780,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
         queryClient.setQueryData(
           ["globalBanList" + gid],
           (old: IGlobalGroupPlayer) => {
-            old.data.push({
+            old?.results?.push({
               id: playerId,
               playerName: name != undefined ? name : "",
               reason: reason,
@@ -1398,7 +1398,7 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
         queryClient.setQueryData(
           ["globalExclusionList" + gid],
           (old: IGlobalGroupPlayer) => {
-            old.data.push({
+            old.results.push({
               id: playerId,
               playerName: name,
               reason: reason,
