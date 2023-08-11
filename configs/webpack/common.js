@@ -3,6 +3,7 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+var webpack = require('webpack');
 
 module.exports = {
   entry: "./index.tsx",
@@ -49,5 +50,8 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [{ from: "public" }],
     }),
+    new webpack.DefinePlugin({
+      'process.env.API_MODE': JSON.stringify(process.env.API_MODE),
+    })    
   ],
 };
