@@ -20,7 +20,6 @@ import {
   IGroupCookie,
   IGroupInfo,
   IGroupsInfo,
-  IGroupUser,
   IReasonList,
   IUserInfo,
 } from "../api/ReturnTypes";
@@ -333,15 +332,14 @@ export function GroupGlobalUnbanPlayer(props: {
           ["globalBanList" + gid],
           (old?: IGlobalGroupPlayer) => {
             console.log(old);
-            
-            let new_results = old?.results?.filter(
+
+            const new_results = old?.results?.filter(
               (user: { playerName: string }) => user.playerName !== name,
             );
             return {
               results: new_results,
               offset: old?.offset,
-            }
-
+            };
           },
         );
         // Return a context object with the snapshotted value
@@ -578,17 +576,16 @@ export function GroupRemoveExclusionPlayer(props: {
           ["globalExclusionList" + gid],
           (old?: IGlobalGroupPlayer) => {
             console.log(old);
-            
-            let new_results = old?.results?.filter(
+
+            const new_results = old?.results?.filter(
               (user: { playerName: string }) => user.playerName !== name,
             );
             return {
               results: new_results,
               offset: old?.offset,
-            }
-
+            };
           },
-        )        
+        );
         // Return a context object with the snapshotted value
         return { previousExcludedlist, gid };
       },

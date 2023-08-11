@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./index.tsx",
-  target: 'node',
+  target: "node",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },

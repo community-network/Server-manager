@@ -1,6 +1,5 @@
 import { IUserInfo } from "./ReturnTypes";
-import { env } from 'node:process';
-
+import { env } from "node:process";
 
 const endPoints = {
   local: "https://localhost:5051/api/",
@@ -8,7 +7,7 @@ const endPoints = {
   prod: "https://manager-api.gametools.network/api/",
 };
 
-const MODE = env.API_MODE in endPoints ? env.API_MODE  : "prod";
+const MODE = env.API_MODE in endPoints ? env.API_MODE : "prod";
 export const endPointName = endPoints[MODE].replace("https://", "").replace(
   "/api/",
   "",
