@@ -3,7 +3,7 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-var webpack = require('webpack');
+var webpack = require("webpack");
 
 module.exports = {
   entry: "./index.tsx",
@@ -51,7 +51,10 @@ module.exports = {
       patterns: [{ from: "public" }],
     }),
     new webpack.DefinePlugin({
-      'process.env.API_MODE': JSON.stringify(process.env.API_MODE),
-    })    
+      // this way we will always have a fallback value
+      "process.env.API_MODE": JSON.stringify(
+        process.env.API_MODE ? process.env.API_MODE : "prod",
+      ),
+    }),
   ],
 };

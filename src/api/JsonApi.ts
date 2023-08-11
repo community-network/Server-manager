@@ -6,9 +6,15 @@ const endPoints = {
   dev: "https://homedev.gametools.network/api/",
   prod: "https://manager-api.gametools.network/api/",
 };
-const MODE = process.env.API_MODE ? process.env.API_MODE : "prod";
 
-console.log("API_MODE: " + MODE);
+const MODE = (() => {
+  const mode_raw = process.env.API_MODE;
+  if (mode_raw && mode_raw in endPoints) {
+    return mode_raw;
+  } else {
+    return "prod";
+  }
+})();
 
 export const endPointName = endPoints[MODE].replace("https://", "").replace(
   "/api/",
@@ -55,7 +61,7 @@ export default class JsonClient {
   postJsonMethod(
     method: string,
     params: { [name: string]: unknown },
-  ): Promise<any> {
+  ): Promise<{ [name: string]: string }> {
     const options = {
       method: "POST",
       body: JSON.stringify(params),
@@ -69,7 +75,7 @@ export default class JsonClient {
   getJsonMethod(
     method: string,
     params: { [name: string]: string | number },
-  ): Promise<any> {
+  ): Promise<{ [name: string]: string }> {
     return this.errorHandler(this.fetchMethod(method, params));
   }
   async errorHandler(
@@ -109,18 +115,21 @@ export default class JsonClient {
     };
   }
   async getUserInfo(): Promise<IUserInfo> {
-    const defaultUser = {
+    const defaultUser: IUserInfo = {
       discord: {
         name: "",
-        discriminator: 0,
+        discriminator: "",
         avatar: "",
       },
+      permissions: {
+        isAdminOf: [],
+      },
       auth: {
-        inGuild: false,
         isAdmin: false,
         isDeveloper: false,
         isOwner: false,
         signedIn: false,
+        isManager: false,
       },
     };
 
