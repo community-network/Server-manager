@@ -1,13 +1,13 @@
 import { IUserInfo } from "./ReturnTypes";
-import { env } from "node:process";
+// import { env } from "node:process";  // todo: allow using env
 
 const endPoints = {
   local: "https://localhost:5051/api/",
   dev: "https://homedev.gametools.network/api/",
   prod: "https://manager-api.gametools.network/api/",
 };
+const MODE = "prod"; // todo: use Environment variables to set the value
 
-const MODE = env.API_MODE in endPoints ? env.API_MODE : "prod";
 export const endPointName = endPoints[MODE].replace("https://", "").replace(
   "/api/",
   "",
