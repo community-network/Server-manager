@@ -728,8 +728,9 @@ function GroupPlatoons(props: {
                   }),
                 )
                 .flat()
-                .filter((p) =>
-                  p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
+                .filter(
+                  (p) =>
+                    p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
                 )
                 .sort(DynamicSort("name"))
                 .map((player, memberIndex) => {
@@ -938,8 +939,9 @@ function PlatoonApplicants(props: {
     return (
       <>
         {applicants?.result
-          ?.filter((p) =>
-            p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
+          ?.filter(
+            (p) =>
+              p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
           )
           .map((key: IPlatoonApplicant, index: number) => {
             return (
@@ -3021,12 +3023,12 @@ function PlatoonResults(props: {
   };
   const { platoons } = props;
   if (!props.loading && !props.error) {
-    if (platoons.platoons.length == 0) {
+    if (platoons?.platoons == undefined || platoons?.platoons?.length == 0) {
       return <p>{t("group.platoons.resultNotFound")}</p>;
     }
     return (
       <>
-        {platoons.platoons.map((key: IPlatoonResult, index: number) => {
+        {platoons?.platoons?.map((key: IPlatoonResult, index: number) => {
           if (Object.keys(props?.group?.platoons).includes(key.id)) {
             return (
               <div className={styles.SeedRow} key={index}>
