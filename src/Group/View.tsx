@@ -75,6 +75,7 @@ import {
 } from "../api/GametoolsReturnTypes";
 import { ListsLoading } from "../components/User";
 import { IconNotSelected } from "../components/Buttons";
+import { EaAuthApi } from "../api/EaAuthApi";
 
 // unused
 // const deleteIcon = (
@@ -2380,6 +2381,90 @@ export function AddGroupAdmin(props: any): React.ReactElement {
   );
 }
 
+export function GetAccountCookie(props: any): React.ReactElement {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [otpRequired, setOtpRequired] = React.useState(false);
+  const [otp, setOtp] = React.useState("");
+  const { t } = useTranslation();
+
+  const GetCookieExecute = useMutation(
+    (variables: { email: string; password: string }) =>
+      EaAuthApi.login(variables),
+    {
+      onSettled: (data) => {
+        if (data?.errors != undefined) {
+          if (data.type == "OTPRequired") setOtpRequired(true);
+          // todo: ?
+        } else {
+          props.callback(data.sid, data.rmid);
+        }
+      },
+    },
+  );
+
+  const GetOTPCookieExecute = useMutation(
+    (variables: { email: string; otp: string }) =>
+      EaAuthApi.otpLogin(variables),
+    {
+      onSettled: (data) => {
+        if (data?.errors != undefined) {
+          // todo: ?
+        } else {
+          props.callback(data.sid, data.rmid);
+        }
+      },
+    },
+  );
+
+  return (
+    <>
+      <h2>{t("createGroup.account.main")}</h2>
+      <TextInput
+        value={email}
+        type="email"
+        name={t("createGroup.account.email")}
+        callback={(e) => setEmail(e.target.value)}
+      />
+      <TextInput
+        value={password}
+        type="password"
+        autocomplete="new-password"
+        name={t("createGroup.account.password")}
+        callback={(e) => setPassword(e.target.value)}
+      />
+      {otpRequired && (
+        <>
+          <h5>{t("createGroup.account.otp.main")}</h5>
+          <TextInput
+            value={otp}
+            name={t("createGroup.account.otp.key")}
+            callback={(e) => setOtp(e.target.value)}
+          />
+        </>
+      )}
+      <ButtonRow>
+        <Button
+          name={t("createGroup.account.getCookie")}
+          callback={() => {
+            if (otpRequired) {
+              GetOTPCookieExecute.mutate({
+                email: email,
+                otp: otp,
+              });
+            } else {
+              GetCookieExecute.mutate({
+                email: email,
+                password: password,
+              });
+            }
+          }}
+        />
+      </ButtonRow>
+    </>
+  );
+}
+
 export function AddGroup(): React.ReactElement {
   const [addGroupState, changeState] = React.useState({
     variables: {
@@ -2402,6 +2487,7 @@ export function AddGroup(): React.ReactElement {
   });
   const queryClient = useQueryClient();
   const history = useNavigate();
+  const modal = useModal();
 
   const AddNewGroupExecute = useMutation(
     (variables: {
@@ -2514,7 +2600,24 @@ export function AddGroup(): React.ReactElement {
             {t("createGroup.cookieDescription2")}
             <br />
           </h5>
-          <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+          <ButtonRow>
+            <Button
+              name={t("createGroup.account.main")}
+              content={t("createGroup.account.main")}
+              callback={() =>
+                modal.show(
+                  <GetAccountCookie
+                    callback={(sid: string, remid: string) => {
+                      checkInputVariables({ sid: sid });
+                      checkInputVariables({ remid: remid });
+                      modal.close();
+                    }}
+                  />,
+                )
+              }
+            />
+            <ButtonUrl href={`/cookieinfo`} name={t("cookieInfo.link")} />
+          </ButtonRow>
           <h5 style={{ marginTop: "8px" }}>
             {t("cookie.sidDescription")}
             <i>accounts.ea.com</i>

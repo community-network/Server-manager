@@ -275,7 +275,17 @@
     "cookieDescription2": "If this account is used for BF1, it shouldn't be used anywhere else. otherwise it will lead in errors",
     "acceptDescription0": "By pressing this button, you agree to give",
     "acceptDescription1": "server manager tool access to the account.",
-    "accept": "Create group"
+    "accept": "Create group",
+    "account": {
+      "main": "Get sid/remid from EA login",
+      "email": "Email",
+      "password": "password",
+      "otp": {
+        "main": "This account needs a OTP key, please look into your email for a message from EA.",
+        "key": "OTP key"
+      },
+      "getCookie": "Get Sid/Remid from this account"
+    }
   },
   "group": {
     "main": "Group",
