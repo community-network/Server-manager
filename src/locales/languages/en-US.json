@@ -575,7 +575,14 @@
       "rotation": "Change the server rotation",
       "addMap": "Add another map",
       "removeMap": "Remove",
-      "cookie": "Cookie used to make the server changes, both cookies set in manager and sid/remid are possible:"
+      "cookie": "Cookie used to make the server changes, both cookies set in manager and sid/remid are possible:",
+      "saveRotation": {
+        "main": "Saved map rotations",
+        "name": "Name for current maprotation",
+        "save": "Save maprotation to list",
+        "remove": "Remove maprotation from list",
+        "current": "Current server maprotation"
+      }
     },
     "game": {
       "main": "Current game",

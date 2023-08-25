@@ -233,7 +233,13 @@ export interface ITailServerLogItem {
   toPlayerId: number;
 }
 
+export interface IMapRotation {
+  mode: string;
+  mapname: string;
+}
+
 export interface IServerInfo {
+  rotations: { [string: string]: IMapRotation[] };
   addedAt: string;
   autoBanKick: boolean;
   autoBfBanMessage: string;

@@ -17,6 +17,7 @@ import {
   IInGameServerInfo,
   IKickResult,
   IManGroups,
+  IMapRotation,
   IMoveResult,
   IPlayerLog,
   IPlayingScoreboard,
@@ -916,7 +917,13 @@ export class ApiProvider extends JsonClient {
     value,
   }: {
     sid: string;
-    value: { [string: string]: string | number | boolean };
+    value: {
+      [string: string]:
+        | string
+        | number
+        | boolean
+        | { [string: string]: IMapRotation[] };
+    };
   }): Promise<void> {
     const answer = await this.postJsonMethod("editserver", {
       serverid: sid,
@@ -927,7 +934,7 @@ export class ApiProvider extends JsonClient {
     }
   }
 
-  async editOwnerSever({
+  async editOwnerServer({
     sid,
     remid,
     cookieid,
