@@ -168,7 +168,10 @@ export function Sidebar(props: {
   }
 
   return (
-    <div className={props.visible ? styles.Sidebar : styles.HiddenSidebar}>
+    <nav
+      role="navigation"
+      className={props.visible ? styles.Sidebar : styles.HiddenSidebar}
+    >
       <div
         style={{
           display: "flex",
@@ -182,6 +185,6 @@ export function Sidebar(props: {
         {manLink}
         <div className={styles.GroupLinks}>{groupLinks}</div>
       </div>
-    </div>
+    </nav>
   );
 }

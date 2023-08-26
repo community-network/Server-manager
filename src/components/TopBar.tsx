@@ -44,7 +44,7 @@ export function TopBar(props: {
 
   return (
     <>
-      <div className={styles.bar}>
+      <header role="banner" className={styles.bar}>
         <button className={styles.showBar} onClick={props.hideSidebar}>
           <svg viewBox="0 0 24 24">
             <path
@@ -63,7 +63,7 @@ export function TopBar(props: {
         <div className={styles.filler}></div>
 
         {accountPage}
-      </div>
+      </header>
     </>
   );
 }
