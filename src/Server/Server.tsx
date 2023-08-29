@@ -36,6 +36,8 @@ import {
   IPlayingScoreboardPlayer,
   IServerInfo,
   IServerRotation,
+  IVip,
+  IVipList,
 } from "../api/ReturnTypes";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { RowLoading } from "../components/User";
@@ -1199,7 +1201,7 @@ export function VipList(props: {
     isError,
     data: vipList,
     error,
-  }: UseQueryResult<IInfoList, { code: number; message: string }> = useQuery(
+  }: UseQueryResult<IVipList, { code: number; message: string }> = useQuery(
     ["serverVipList" + sid],
     () => OperationsApi.getVipList({ sid }),
   );
@@ -1276,6 +1278,12 @@ export function VipList(props: {
               >
                 {t("server.vipList.table.playerId")}
               </ClickableHead>
+              <ClickableHead
+                current={sorting === "-unixBanTimeStamp"}
+                onClick={() => setSorting("-unixBanTimeStamp")}
+              >
+                {t("server.banList.table.until")}
+              </ClickableHead>
               <th></th>
             </tr>
           </thead>
@@ -1306,7 +1314,7 @@ export function VipList(props: {
 }
 
 function VipRow(props: {
-  player: IInfo;
+  player: IVip;
   isOpsMode: boolean;
   callback: (args0: any) => void;
 }): React.ReactElement {
@@ -1341,6 +1349,11 @@ function VipRow(props: {
         <span>{player.displayName}</span>
       </td>
       <td title={t("server.vipList.table.playerId")}>{player.id}</td>
+      <td>
+        {player.vip_until !== ""
+          ? t("dateTime", { date: new Date(player.vip_until) })
+          : ""}
+      </td>
       {!props.isOpsMode && (
         <th
           className={styles.listButton}

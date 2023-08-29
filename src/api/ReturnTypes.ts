@@ -357,6 +357,17 @@ export interface IBan {
   oid?: string;
 }
 
+export interface IVipList {
+  data: IVip[];
+}
+
+export interface IVip {
+  avatar: string;
+  displayName: string;
+  id: string;
+  vip_until: string;
+}
+
 export interface IInfoList {
   data: IInfo[];
 }
