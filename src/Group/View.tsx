@@ -14,6 +14,7 @@ import {
   GameStatsAd,
   VBanList,
   ExclusionList,
+  TrackingList,
   ReasonList,
   GroupLogs,
   WorkerStatus,
@@ -188,6 +189,7 @@ export function Group(): React.ReactElement {
     servers: <GroupServers group={group} user={user} gid={gid} />,
     vbanlist: <VBanList user={user} gid={gid} />,
     exclusionlist: <ExclusionList user={user} gid={gid} />,
+    trackinglist: <TrackingList user={user} gid={gid} />,
     reasonList: <ReasonList user={user} gid={gid} />,
     platoons: <GroupPlatoons group={group} user={user} gid={gid} />,
     seeding: <Seeding group={group} user={user} gid={gid} />,
@@ -226,6 +228,10 @@ export function Group(): React.ReactElement {
     {
       name: t("group.exclusions.main"),
       callback: () => setListing("exclusionlist"),
+    },
+    {
+      name: t("group.tracking.main"),
+      callback: () => setListing("trackinglist"),
     },
     {
       name: t("group.reasonList.main"),
@@ -275,14 +281,14 @@ export function Group(): React.ReactElement {
     <>
       <Row>
         <Column>
-          <PageCard buttons={settingsCycle} maxWidth={1000}>
+          <PageCard buttons={settingsCycle} maxWidth={1150}>
             {catSettings[settingsListing]}
           </PageCard>
         </Column>
       </Row>
       <Row>
         <Column>
-          <PageCard buttons={pageCycle} maxWidth={1000}>
+          <PageCard buttons={pageCycle} maxWidth={1150}>
             {catListing[listing]}
           </PageCard>
         </Column>

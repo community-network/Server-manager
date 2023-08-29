@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import {
   GroupGlobalUnbanPlayer,
   GroupRemoveExclusionPlayer,
+  GroupRemoveTrackedPlayer,
   GroupRemoveReason,
 } from "./Modals";
 import { supportedGames } from "../Globals";
@@ -34,7 +35,6 @@ import {
 import { useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
 import { DynamicSort } from "../components/Functions";
-import { ClickableHead } from "../components/Table";
 import {
   IGlobalGroupPlayer,
   IGlobalGroupPlayerInfo,
@@ -50,8 +50,10 @@ import {
   ISeederServer,
   ITotalCount,
 } from "../api/ReturnTypes";
-import { ListsLoading, RowLoading } from "../components/User";
+import { RowLoading } from "../components/User";
 import { UseMeasureRef } from "react-use/lib/useMeasure";
+import { GametoolsApi } from "../api/GametoolsApi";
+import { ICurrentServerInfo } from "../api/GametoolsReturnTypes";
 
 export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
   const { t } = useTranslation();
@@ -250,7 +252,7 @@ export function VBanList(props: {
   const {
     data: totalCount,
   }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
-    ["getAutoBanCount", gid],
+    ["getAutoBanCount" + gid],
     () => OperationsApi.getAutoBanCount({ gid }),
   );
 
@@ -263,7 +265,7 @@ export function VBanList(props: {
     isLoading,
     isError,
   } = useInfiniteQuery(
-    ["globalBanList", searchWord, searchItem, gid],
+    ["globalBanList" + gid, { searchWord, searchItem }],
     ({ pageParam = 0 }) =>
       OperationsApi.getAutoBanList({ gid, pageParam, searchWord, searchItem }),
     {
@@ -765,61 +767,28 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
       banTime: string;
     }) => OperationsApi.globalBanPlayer(v),
     {
-      onMutate: async ({ gid, reason, name, playerId }) => {
-        setBanApplyStatus(true);
-
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["globalBanList" + gid]);
-        // Snapshot the previous value
-        const perviousBanlist = queryClient.getQueryData([
-          "globalBanList" + gid,
-        ]);
-        // Optimistically update to the new value
-        const UTCNow = new Date(Date.now()).toUTCString();
-
-        queryClient.setQueryData(
-          ["globalBanList" + gid],
-          (old: IGlobalGroupPlayer) => {
-            old?.results?.push({
-              id: playerId,
-              playerName: name != undefined ? name : "",
-              reason: reason,
-              timeStamp: UTCNow,
-              bannedUntil: null,
-              admin: user.discord.name,
-            });
-            return old;
-          },
-        );
-        // Return a context object with the snapshotted value
-        return { perviousBanlist, gid };
-      },
       onError: (
         error: React.SetStateAction<{ code: number; message: string }>,
-        _newTodo,
-        context,
       ) => {
         setBanApplyStatus(false);
         setError(error);
         setTimeout(() => setBanApplyStatus(null), 3000);
-        queryClient.setQueryData(
-          ["globalBanList" + context.gid],
-          context.perviousBanlist,
-        );
       },
       onSuccess: () => {
         setBanApplyStatus(null);
         modal.close(null);
       },
       // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["globalBanList" + context.gid]);
+      onSettled: () => {
+        queryClient.invalidateQueries(["globalBanList" + gid]);
+        queryClient.invalidateQueries(["getAutoBanCount" + gid]);
       },
     },
   );
 
   const isDisabled =
     reason === "" ||
+    playerName === "" ||
     banApplyStatus !== null ||
     userGettingError ||
     !user ||
@@ -1156,7 +1125,7 @@ export function ExclusionList(props: {
   const {
     data: totalCount,
   }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
-    ["getExcludedPlayersCount", gid],
+    ["getExcludedPlayersCount" + gid],
     () => OperationsApi.getExcludedPlayersCount({ gid }),
   );
 
@@ -1169,7 +1138,7 @@ export function ExclusionList(props: {
     isLoading,
     isError,
   } = useInfiniteQuery(
-    ["globalExclusionList", searchWord, searchItem, gid],
+    ["globalExclusionList" + gid, { searchWord, searchItem }],
     ({ pageParam = 0 }) =>
       OperationsApi.getExcludedPlayers({
         gid,
@@ -1383,61 +1352,28 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
       excludeTime: number;
     }) => OperationsApi.globalExcludePlayer(v),
     {
-      onMutate: async ({ gid, reason, name, playerId }) => {
-        setExcludeApplyStatus(true);
-
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["globalExclusionList" + gid]);
-        // Snapshot the previous value
-        const perviousExclusionlist = queryClient.getQueryData([
-          "globalExclusionList" + gid,
-        ]);
-        // Optimistically update to the new value
-        const UTCNow = new Date(Date.now()).toUTCString();
-
-        queryClient.setQueryData(
-          ["globalExclusionList" + gid],
-          (old: IGlobalGroupPlayer) => {
-            old.results.push({
-              id: playerId,
-              playerName: name,
-              reason: reason,
-              timeStamp: UTCNow,
-              bannedUntil: null,
-              admin: user.discord.name,
-            });
-            return old;
-          },
-        );
-        // Return a context object with the snapshotted value
-        return { perviousExclusionlist, gid };
-      },
       onError: (
         error: React.SetStateAction<{ code: number; message: string }>,
-        _newTodo,
-        context,
       ) => {
         setExcludeApplyStatus(false);
         setError(error);
         setTimeout(() => setExcludeApplyStatus(null), 3000);
-        queryClient.setQueryData(
-          ["globalExclusionList" + context.gid],
-          context.perviousExclusionlist,
-        );
       },
       onSuccess: () => {
         setExcludeApplyStatus(null);
         modal.close(null);
       },
       // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["globalExclusionList" + context.gid]);
+      onSettled: () => {
+        queryClient.invalidateQueries(["globalExclusionList" + gid]);
+        queryClient.invalidateQueries(["getExcludedPlayersCount" + gid]);
       },
     },
   );
 
   const isDisabled =
     reason === "" ||
+    playerName === "" ||
     excludeApplyStatus !== null ||
     userGettingError ||
     !user ||
@@ -1456,11 +1392,19 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
       <h5 style={{ maxWidth: "300px" }}>
         {t("server.exclusionsMenu.reasonDescription")}
       </h5>
-      <TextInput
-        value={reason}
-        name={t("server.exclusionsMenu.reason")}
-        callback={(e) => setReason(e.target.value)}
-      />
+      <ButtonRow>
+        <TextInput
+          value={reason}
+          name={t("server.exclusionsMenu.reason")}
+          callback={(e) => setReason(e.target.value)}
+        />
+        <ReasonDropdownButton
+          gid={gid}
+          name={t("server.reasonMenu.select")}
+          callback={(v) => setReason(v)}
+          style={{ maxWidth: "144px" }}
+        />
+      </ButtonRow>
       <h5 style={{ maxWidth: "300px" }}>
         {t("server.exclusionsMenu.excludeDesc0")}
         <br />
@@ -1493,6 +1437,324 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
             marginBottom: 0,
             alignSelf: "center",
             opacity: excludeApplyStatus === false ? 1 : 0,
+          }}
+        >
+          Error {errorUpdating.code}: {errorUpdating.message}
+        </h5>
+      </ButtonRow>
+    </>
+  );
+}
+
+export function TrackingList(props: {
+  gid: string;
+  user: IUserInfo;
+}): React.ReactElement {
+  const { gid } = props;
+  const [searchWord, setSearchWord] = React.useState("");
+  const [searchItem, setSearchItem] = React.useState("playerName");
+  const { t } = useTranslation();
+
+  const {
+    data: totalCount,
+  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
+    ["getTrackedPlayersCount" + gid],
+    () => OperationsApi.getTrackedPlayersCount({ gid }),
+  );
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isError,
+  } = useInfiniteQuery(
+    ["globalTrackingList" + gid, { searchWord, searchItem }],
+    ({ pageParam = 0 }) =>
+      OperationsApi.getTrackedPlayers({
+        gid,
+        pageParam,
+        searchWord,
+        searchItem,
+      }),
+    {
+      getNextPageParam: (lastPage) => lastPage.offset,
+    },
+  );
+
+  const excludeList = React.useMemo(
+    () => (data ? data?.pages.flatMap((item) => item.results) : []),
+    [data],
+  );
+
+  const playerIds: string[] = excludeList.map((player) => player.id);
+
+  const { data: currentServer } = useQuery(
+    ["currentServer" + playerIds],
+    () => GametoolsApi.currentServer({ playerIds }),
+    { staleTime: 30000 },
+  );
+
+  const observer = React.useRef<IntersectionObserver>();
+  const lastElementRef = React.useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasNextPage],
+  );
+
+  const modal = useModal();
+  const showRemoveExclusion = (e: { target: { dataset: any } }) => {
+    const playerInfo = e.target.dataset;
+    modal.show(
+      <GroupRemoveTrackedPlayer
+        gid={gid}
+        eaid={playerInfo.name}
+        playerId={playerInfo.id}
+      />,
+    );
+  };
+
+  return (
+    <div>
+      <h2>{t("group.tracking.main")}</h2>
+      <h5>
+        {t("group.tracking.description0")}{" "}
+        <b>
+          {t("group.tracking.description1", {
+            number: totalCount?.total,
+          })}
+        </b>
+        .
+      </h5>
+      <ButtonRow>
+        <TextInput
+          name={t("search")}
+          callback={(v) => setSearchWord(v.target.value)}
+        />
+        <select
+          className={styles.SwitchGame}
+          value={searchItem}
+          onChange={(e) => setSearchItem(e.target.value)}
+        >
+          <option value="playerName">{t("group.vban.table.playerName")}</option>
+          <option value="id">{t("group.vban.table.playerId")}</option>
+          <option value="reason">{t("group.vban.table.reason")}</option>
+          <option value="admin">{t("group.vban.table.admin")}</option>
+        </select>
+        <Button
+          name={t("group.tracking.add")}
+          callback={() => modal.show(<TrackingPlayer gid={gid} />)}
+        />
+        <ButtonUrl
+          style={{ marginLeft: 0 }}
+          href={`https://manager-api.gametools.network/api/trackedplayersexcel?groupid=${gid}`}
+          name={t("export")}
+        />
+      </ButtonRow>
+      <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
+        <table style={{ borderCollapse: "collapse", width: "100%" }}>
+          <thead style={{ position: "sticky", top: "0" }}>
+            <th>{t("group.tracking.table.playerName")}</th>
+            <th>{t("group.tracking.table.currentServer")}</th>
+            <th>{t("group.tracking.table.playerId")}</th>
+            <th>{t("group.tracking.table.reason")}</th>
+            <th>{t("group.tracking.table.admin")}</th>
+            <th>{t("group.tracking.table.timestamp")}</th>
+            <th></th>
+          </thead>
+          <tbody>
+            {isError && <>{`Error ${error?.code}: ${error?.message}`}</>}
+            {!isLoading &&
+              !isError &&
+              excludeList.map((player: IGlobalGroupPlayerInfo, i: number) => (
+                <TrackingListRow
+                  player={player}
+                  currentServer={currentServer && currentServer[player.id]}
+                  key={i}
+                  callback={showRemoveExclusion}
+                  innerRef={
+                    excludeList.length === i + 1 ? lastElementRef : null
+                  }
+                />
+              ))}
+            {isFetching && <RowLoading />}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function TrackingListRow(props: {
+  innerRef: UseMeasureRef<Element>;
+  currentServer?: ICurrentServerInfo;
+  player: IGlobalGroupPlayerInfo;
+  callback: (args0?: any) => void;
+}): React.ReactElement {
+  const modal = useModal();
+  const { player, currentServer } = props;
+  const { t } = useTranslation();
+  return (
+    <tr
+      ref={props.innerRef}
+      className={styles.BanRow}
+      onClick={(e: any) =>
+        e.target.tagName === "TD"
+          ? modal.show(
+              <PlayerStatsModal
+                player={player.playerName}
+                playerId={player.id}
+              />,
+            )
+          : null
+      }
+    >
+      <td>{player.playerName}</td>
+      <td>
+        {currentServer?.name === ""
+          ? t("group.tracking.noServer")
+          : currentServer?.name}
+      </td>
+      <td className={styles.ListPlayerId}>{player.id}</td>
+      <td>
+        {player.reason === "" ? t("group.tracking.noReason") : player.reason}
+      </td>
+      <td>{player.admin}</td>
+      <td>
+        <div className={styles.ListFullDate}>
+          {player.timeStamp !== undefined
+            ? t("dateTime", { date: new Date(player.timeStamp) })
+            : "-"}
+        </div>
+        <div className={styles.ListHalfDate}>
+          {player.timeStamp !== undefined
+            ? t("date", { date: new Date(player.timeStamp) })
+            : "-"}
+        </div>
+      </td>
+      <th
+        className={styles.globalUnban}
+        data-name={player.playerName}
+        data-id={player.id}
+        onClick={props.callback}
+      >
+        {t("group.tracking.remove")}
+      </th>
+    </tr>
+  );
+}
+
+function TrackingPlayer(props: { gid: string }): React.ReactElement {
+  const modal = useModal();
+  const { gid } = props;
+  const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+
+  const [playerName, setPlayerName] = React.useState("");
+  const [reason, setReason] = React.useState("");
+
+  const [trackingApplyStatus, setTrackingApplyStatus] = React.useState(null);
+  const [errorUpdating, setError] = React.useState({
+    code: 0,
+    message: "Unknown",
+  });
+
+  const {
+    isError: userGettingError,
+    data: user,
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
+    ["user"],
+    () => OperationsApi.user,
+  );
+
+  const GlobalTrackPlayer = useMutation(
+    (v: { name: string; reason: string; gid: string; playerId: string }) =>
+      OperationsApi.globalTrackPlayer(v),
+    {
+      onError: (
+        error: React.SetStateAction<{ code: number; message: string }>,
+      ) => {
+        setTrackingApplyStatus(false);
+        setError(error);
+        setTimeout(() => setTrackingApplyStatus(null), 3000);
+      },
+      onSuccess: () => {
+        setTrackingApplyStatus(null);
+        modal.close(null);
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries(["globalTrackingList" + gid]);
+        queryClient.invalidateQueries(["getTrackedPlayersCount" + gid]);
+      },
+    },
+  );
+
+  const isDisabled =
+    reason === "" ||
+    playerName === "" ||
+    trackingApplyStatus !== null ||
+    userGettingError ||
+    !user ||
+    gid == null;
+
+  return (
+    <>
+      <h2 style={{ marginLeft: "20px" }}>
+        {t("server.trackingMenu.playerNameDescription")}{" "}
+      </h2>
+      <TextInput
+        value={playerName}
+        name={t("server.trackingMenu.playerName")}
+        callback={(e) => setPlayerName(e.target.value)}
+      />
+      <h5 style={{ maxWidth: "300px" }}>
+        {t("server.trackingMenu.reasonDescription")}
+      </h5>
+      <ButtonRow>
+        <TextInput
+          value={reason}
+          name={t("server.trackingMenu.reason")}
+          callback={(e) => setReason(e.target.value)}
+        />
+        <ReasonDropdownButton
+          gid={gid}
+          name={t("server.reasonMenu.select")}
+          callback={(v) => setReason(v)}
+          style={{ maxWidth: "144px" }}
+        />
+      </ButtonRow>
+      <ButtonRow>
+        <Button
+          name={t("server.trackingMenu.confirm")}
+          style={{ maxWidth: "144px" }}
+          disabled={isDisabled}
+          callback={() =>
+            GlobalTrackPlayer.mutate({
+              gid,
+              reason,
+              name: playerName,
+              playerId: undefined,
+            })
+          }
+          status={trackingApplyStatus}
+        />
+        <h5
+          style={{
+            marginBottom: 0,
+            alignSelf: "center",
+            opacity: trackingApplyStatus === false ? 1 : 0,
           }}
         >
           Error {errorUpdating.code}: {errorUpdating.message}

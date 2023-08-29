@@ -6,6 +6,7 @@ import {
   IManagerStats,
   ISeederServerInfo,
   IPlatoonApplicants,
+  ICurrentServer,
 } from "./GametoolsReturnTypes";
 
 interface IPlatoonSearch {
@@ -42,6 +43,10 @@ interface IPlatoonsInfo {
 interface IPlatoonAppl {
   groupId: string;
   platoonId: string;
+}
+
+interface IPlayerServer {
+  playerIds: string[];
 }
 
 export class ApiProvider extends JsonClient {
@@ -106,6 +111,14 @@ export class ApiProvider extends JsonClient {
     return await fetch(`https://api.gametools.network/manager/info/`).then(
       (r) => r.json(),
     );
+  }
+
+  async currentServer({ playerIds }: IPlayerServer): Promise<ICurrentServer> {
+    return await fetch(
+      `https://api.gametools.network/manager/currentserver/bf1?player_ids=${playerIds.join(
+        ",",
+      )}`,
+    ).then((r) => r.json());
   }
 
   async platoonApplicants({

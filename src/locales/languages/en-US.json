@@ -423,6 +423,23 @@
         "bannedUntil": "Until"
       }
     },
+    "tracking": {
+      "main": "Tracked player list",
+      "description0": "List of tracked players to warn in discord when they join your server next time.",
+      "description1": "Used {{number}} slots",
+      "noReason": "with reason",
+      "add": "Add player to track",
+      "remove": "Remove player",
+      "noServer": "Not in a server",
+      "table": {
+        "playerName": "Player name",
+        "playerId": "Player ID",
+        "reason": "Reason",
+        "admin": "Admin",
+        "timestamp": "Timestamp",
+        "currentServer": "Current server"
+      }
+    },
     "reasonList": {
       "main": "Predefined reasons",
       "description0": "Set a predefined list of reasons you can select from when trying to kick/ban/vban a player",
@@ -837,6 +854,12 @@
       "reason": "Reason",
       "confirm": "Unban!"
     },
+    "removeTrackingMenu": {
+      "main": "You are going to remove {{name}} from tracking",
+      "reasonDescription": "Enter a reason to remove tracking from this player.",
+      "reason": "Reason",
+      "confirm": "Remove"
+    },
     "removeExclusionsMenu": {
       "main": "You are going to remove {{name}} from exclusions",
       "reasonDescription": "Enter a reason to remove the exclusion from this player for autokick (ping and bfban).",
@@ -861,6 +884,13 @@
       "confirm": "Ban!",
       "usePlayerId": "Use player ID to ban",
       "playerId": "Player ID"
+    },
+    "trackingMenu": {
+      "playerNameDescription": "Fill in the name of the player you want to add to tracking.",
+      "playerName": "username",
+      "reasonDescription": "Enter a reason to track this player.",
+      "reason": "Reason",
+      "confirm": "Add"
     },
     "exclusionsMenu": {
       "playerNameDescription": "Fill in the name of the player you want to add to exclusions",
