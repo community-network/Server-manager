@@ -360,9 +360,10 @@ export function ServerMovePlayer(props: {
 export function PlayerStatsModal(props: {
   player: string;
   playerId: string | number;
+  gameName?: string;
 }): React.ReactElement {
-  const { player, playerId } = props;
-
+  const { player, playerId, gameName } = props;
+  const game = gameName ?? "bf1";
   let type = "playerid";
   let check: string | number = playerId;
   if (playerId === undefined) {
@@ -375,7 +376,7 @@ export function PlayerStatsModal(props: {
     data: stats,
   } = useQuery(["stats" + "bf1" + type + check], () =>
     GametoolsApi.stats({
-      game: "bf1",
+      game: game,
       type: "stats",
       getter: type,
       userName: check.toString(),
@@ -428,7 +429,9 @@ export function PlayerStatsModal(props: {
           href={
             "https://gametools.network/stats/pc/playerid/" +
             stats.id +
-            "?name=" +
+            "?game=" +
+            game +
+            "&name=" +
             player
           }
           target="_blank"
