@@ -14,6 +14,7 @@ import {
   GameStatsAd,
   VBanList,
   ExclusionList,
+  TrackingList,
   ReasonList,
   GroupLogs,
   WorkerStatus,
@@ -188,6 +189,7 @@ export function Group(): React.ReactElement {
     servers: <GroupServers group={group} user={user} gid={gid} />,
     vbanlist: <VBanList user={user} gid={gid} />,
     exclusionlist: <ExclusionList user={user} gid={gid} />,
+    trackinglist: <TrackingList user={user} gid={gid} />,
     reasonList: <ReasonList user={user} gid={gid} />,
     platoons: <GroupPlatoons group={group} user={user} gid={gid} />,
     seeding: <Seeding group={group} user={user} gid={gid} />,
@@ -226,6 +228,10 @@ export function Group(): React.ReactElement {
     {
       name: t("group.exclusions.main"),
       callback: () => setListing("exclusionlist"),
+    },
+    {
+      name: t("group.tracking.main"),
+      callback: () => setListing("trackinglist"),
     },
     {
       name: t("group.reasonList.main"),
@@ -275,14 +281,14 @@ export function Group(): React.ReactElement {
     <>
       <Row>
         <Column>
-          <PageCard buttons={settingsCycle} maxWidth={1000}>
+          <PageCard buttons={settingsCycle} maxWidth={1150}>
             {catSettings[settingsListing]}
           </PageCard>
         </Column>
       </Row>
       <Row>
         <Column>
-          <PageCard buttons={pageCycle} maxWidth={1000}>
+          <PageCard buttons={pageCycle} maxWidth={1150}>
             {catListing[listing]}
           </PageCard>
         </Column>
@@ -728,8 +734,9 @@ function GroupPlatoons(props: {
                   }),
                 )
                 .flat()
-                .filter((p) =>
-                  p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
+                .filter(
+                  (p) =>
+                    p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
                 )
                 .sort(DynamicSort("name"))
                 .map((player, memberIndex) => {
@@ -938,8 +945,9 @@ function PlatoonApplicants(props: {
     return (
       <>
         {applicants?.result
-          ?.filter((p) =>
-            p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
+          ?.filter(
+            (p) =>
+              p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
           )
           .map((key: IPlatoonApplicant, index: number) => {
             return (
@@ -3021,12 +3029,12 @@ function PlatoonResults(props: {
   };
   const { platoons } = props;
   if (!props.loading && !props.error) {
-    if (platoons.platoons.length == 0) {
+    if (platoons?.platoons == undefined || platoons?.platoons?.length == 0) {
       return <p>{t("group.platoons.resultNotFound")}</p>;
     }
     return (
       <>
-        {platoons.platoons.map((key: IPlatoonResult, index: number) => {
+        {platoons?.platoons?.map((key: IPlatoonResult, index: number) => {
           if (Object.keys(props?.group?.platoons).includes(key.id)) {
             return (
               <div className={styles.SeedRow} key={index}>

@@ -318,48 +318,21 @@ export function GroupGlobalUnbanPlayer(props: {
       reason: string;
     }) => OperationsApi.globalUnbanPlayer(v),
     {
-      onMutate: async ({ gid, name }) => {
-        setBanApplyStatus(true);
-
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["globalBanList" + gid]);
-        // Snapshot the previous value
-        const perviousBanlist = queryClient.getQueryData([
-          "globalBanList" + gid,
-        ]);
-
-        queryClient.setQueryData(
-          ["globalBanList" + gid],
-          (old: IGlobalGroupPlayer) => {
-            old.data = old.data.filter(
-              (user: { playerName: string }) => user.playerName !== name,
-            );
-            return old;
-          },
-        );
-        // Return a context object with the snapshotted value
-        return { perviousBanlist, gid };
-      },
       onError: (
         err: React.SetStateAction<{ code: number; message: string }>,
-        newTodo,
-        context,
       ) => {
         setBanApplyStatus(false);
         setError(err);
         setTimeout(() => setBanApplyStatus(null), 3000);
-        queryClient.setQueryData(
-          ["globalBanList" + context.gid],
-          context.perviousBanlist,
-        );
       },
       onSuccess: () => {
         setBanApplyStatus(null);
         modal.close(null);
       },
       // Always refetch after error or success:
-      onSettled: (data, error, variables, context) => {
-        queryClient.invalidateQueries(["globalBanList" + context.gid]);
+      onSettled: () => {
+        queryClient.invalidateQueries(["getAutoBanCount" + gid]);
+        queryClient.invalidateQueries(["globalBanList" + gid]);
       },
     },
   );
@@ -557,48 +530,21 @@ export function GroupRemoveExclusionPlayer(props: {
       reason: string;
     }) => OperationsApi.globalRemoveExcludePlayer(v),
     {
-      onMutate: async ({ gid, name }) => {
-        setExcludeApplyStatus(true);
-
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["globalExclusionList" + gid]);
-        // Snapshot the previous value
-        const previousExcludedlist = queryClient.getQueryData([
-          "globalExclusionList" + gid,
-        ]);
-
-        queryClient.setQueryData(
-          ["globalExclusionList" + gid],
-          (old: IGlobalGroupPlayer) => {
-            old.data = old.data.filter(
-              (user: { playerName: string }) => user.playerName !== name,
-            );
-            return old;
-          },
-        );
-        // Return a context object with the snapshotted value
-        return { previousExcludedlist, gid };
-      },
       onError: (
         err: React.SetStateAction<{ code: number; message: string }>,
-        newTodo,
-        context,
       ) => {
         setExcludeApplyStatus(false);
         setError(err);
         setTimeout(() => setExcludeApplyStatus(null), 3000);
-        queryClient.setQueryData(
-          ["globalExclusionList" + context.gid],
-          context.previousExcludedlist,
-        );
       },
       onSuccess: () => {
         setExcludeApplyStatus(null);
         modal.close(null);
       },
       // Always refetch after error or success:
-      onSettled: (data, error, variables, context) => {
-        queryClient.invalidateQueries(["globalExclusionList" + context.gid]);
+      onSettled: () => {
+        queryClient.invalidateQueries(["globalExclusionList" + gid]);
+        queryClient.invalidateQueries(["getExcludedPlayersCount" + gid]);
       },
     },
   );
@@ -643,6 +589,116 @@ export function GroupRemoveExclusionPlayer(props: {
           disabled={isDisabled}
           callback={() => {
             RemoveExcludedPlayer.mutate({
+              gid,
+              eaid,
+              reason,
+              name: props.eaid,
+              playerId,
+            });
+          }}
+          status={excludeApplyStatus}
+        />
+        <h5
+          style={{
+            marginBottom: 0,
+            alignSelf: "center",
+            opacity: excludeApplyStatus === false ? 1 : 0,
+          }}
+        >
+          Error {errorUpdating.code}: {errorUpdating.message}
+        </h5>
+      </ButtonRow>
+    </>
+  );
+}
+
+export function GroupRemoveTrackedPlayer(props: {
+  eaid: string;
+  gid?: string;
+  playerId?: string;
+}): React.ReactElement {
+  const { gid, eaid, playerId } = props;
+
+  const queryClient = useQueryClient();
+
+  const modal = useModal();
+  const { t } = useTranslation();
+  const [reason, setReason] = React.useState("");
+  const [excludeApplyStatus, setExcludeApplyStatus] = React.useState(null);
+  const [errorUpdating, setError] = React.useState({
+    code: 0,
+    message: "Unknown",
+  });
+  const { isError: userGettingError, data: user } = useUser();
+
+  const RemoveTrackedPlayer = useMutation(
+    (v: {
+      name: string;
+      eaid: string;
+      gid: string;
+      playerId: string;
+      reason: string;
+    }) => OperationsApi.globalRemoveTrackedPlayer(v),
+    {
+      onError: (
+        err: React.SetStateAction<{ code: number; message: string }>,
+      ) => {
+        setExcludeApplyStatus(false);
+        setError(err);
+        setTimeout(() => setExcludeApplyStatus(null), 3000);
+      },
+      onSuccess: () => {
+        setExcludeApplyStatus(null);
+        modal.close(null);
+      },
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries(["globalTrackingList" + gid]);
+        queryClient.invalidateQueries(["getTrackedPlayersCount" + gid]);
+      },
+    },
+  );
+
+  let perm = null;
+
+  if (user) {
+    user.permissions.isAdminOf.forEach((group) => {
+      if (gid === group.id) {
+        perm = gid;
+      }
+    });
+  }
+
+  const isDisabled =
+    reason === "" ||
+    excludeApplyStatus !== null ||
+    userGettingError ||
+    !user ||
+    perm == null;
+
+  const checkReason = (v: string) =>
+    checkGameString(v) ? setReason(v) : false;
+
+  return (
+    <>
+      <h2 style={{ marginLeft: "20px" }}>
+        {t("server.removeTrackingMenu.main", { name: props.eaid })}{" "}
+      </h2>
+      <h5 style={{ maxWidth: "300px" }}>
+        {t("server.removeTrackingMenu.reasonDescription")}
+      </h5>
+      <TextInput
+        value={reason}
+        name={t("server.removeTrackingMenu.reason")}
+        callback={(e) => checkReason(e.target.value)}
+      />
+      <ButtonRow>
+        <Button
+          name={t("server.removeTrackingMenu.confirm")}
+          style={{ maxWidth: "144px" }}
+          disabled={isDisabled}
+          callback={() => {
+            RemoveTrackedPlayer.mutate({
               gid,
               eaid,
               reason,

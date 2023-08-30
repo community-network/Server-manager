@@ -17,6 +17,7 @@ import {
   IInGameServerInfo,
   IKickResult,
   IManGroups,
+  IMapRotation,
   IMoveResult,
   IPlayerLog,
   IPlayingScoreboard,
@@ -193,6 +194,32 @@ export class ApiProvider extends JsonClient {
     });
   }
 
+  async globalTrackPlayer({
+    name,
+    reason,
+    gid,
+    playerId,
+  }: {
+    name: string;
+    reason: string;
+    gid: string;
+    playerId: string;
+  }): Promise<IDefaultMessage> {
+    if (playerId !== undefined && playerId !== "") {
+      return await this.postJsonMethod("addtrackedplayer", {
+        playername: name,
+        playerid: playerId,
+        groupid: gid,
+        reason: reason,
+      });
+    }
+    return await this.postJsonMethod("addtrackedplayer", {
+      playername: name,
+      groupid: gid,
+      reason: reason,
+    });
+  }
+
   async addReason({
     gid,
     reason,
@@ -233,6 +260,32 @@ export class ApiProvider extends JsonClient {
     });
   }
 
+  async globalRemoveTrackedPlayer({
+    name,
+    gid,
+    playerId,
+    reason,
+  }: {
+    name: string;
+    gid: string;
+    playerId: string;
+    reason: string;
+  }): Promise<IDefaultMessage> {
+    if (reason !== undefined && reason !== "") {
+      return await this.postJsonMethod("deltrackedplayer", {
+        playerid: playerId,
+        playername: name,
+        groupid: gid,
+        reason: reason,
+      });
+    }
+    return await this.postJsonMethod("deltrackedplayer", {
+      playerid: playerId,
+      playername: name,
+      groupid: gid,
+      reason: "",
+    });
+  }
   async delReason({
     gid,
     reasonId,
@@ -451,6 +504,12 @@ export class ApiProvider extends JsonClient {
     });
   }
 
+  async getTrackedPlayersCount({ gid }: IGroupGet) {
+    return await this.getJsonMethod("trackedplayerscount", {
+      groupid: gid,
+    });
+  }
+
   async getAutoBanList({
     gid,
     pageParam,
@@ -482,6 +541,28 @@ export class ApiProvider extends JsonClient {
     const limit = 100;
     const offset = pageParam ? pageParam : 0;
     const data = await this.getJsonMethod("excludedplayers", {
+      groupid: gid,
+      offset,
+      limit,
+      searchword: searchWord,
+      searchitem: searchItem,
+    });
+
+    return {
+      results: data.data,
+      offset: offset + limit,
+    };
+  }
+
+  async getTrackedPlayers({
+    gid,
+    pageParam,
+    searchWord,
+    searchItem,
+  }: IPagedGroupGet): Promise<IGlobalGroupPlayer> {
+    const limit = 100;
+    const offset = pageParam ? pageParam : 0;
+    const data = await this.getJsonMethod("trackedplayers", {
       groupid: gid,
       offset,
       limit,
@@ -916,7 +997,13 @@ export class ApiProvider extends JsonClient {
     value,
   }: {
     sid: string;
-    value: { [string: string]: string | number | boolean };
+    value: {
+      [string: string]:
+        | string
+        | number
+        | boolean
+        | { [string: string]: IMapRotation[] };
+    };
   }): Promise<void> {
     const answer = await this.postJsonMethod("editserver", {
       serverid: sid,
@@ -927,7 +1014,7 @@ export class ApiProvider extends JsonClient {
     }
   }
 
-  async editOwnerSever({
+  async editOwnerServer({
     sid,
     remid,
     cookieid,

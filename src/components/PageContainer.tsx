@@ -7,5 +7,9 @@ export function PageContainer(props: IDefaultInterface): React.ReactElement {
 }
 
 export function PageColumn(props: IDefaultInterface): React.ReactElement {
-  return <div className={styles.PageColumn}>{props.children}</div>;
+  return (
+    <main role="main" className={styles.PageColumn}>
+      {props.children}
+    </main>
+  );
 }

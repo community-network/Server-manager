@@ -220,3 +220,12 @@ export interface IPlatoonApplicant {
 export interface IPlatoonApplicants {
   result: IPlatoonApplicant[];
 }
+
+export interface ICurrentServerInfo {
+  name: string;
+  gameId?: string;
+}
+
+export interface ICurrentServer {
+  [name: string]: ICurrentServerInfo;
+}

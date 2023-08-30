@@ -233,7 +233,13 @@ export interface ITailServerLogItem {
   toPlayerId: number;
 }
 
+export interface IMapRotation {
+  mode: string;
+  mapname: string;
+}
+
 export interface IServerInfo {
+  rotations: { [string: string]: IMapRotation[] };
   addedAt: string;
   autoBanKick: boolean;
   autoBfBanMessage: string;
@@ -349,6 +355,17 @@ export interface IBan {
   unixBanUntilTimeStamp: number;
   platform?: string;
   oid?: string;
+}
+
+export interface IVipList {
+  data: IVip[];
+}
+
+export interface IVip {
+  avatar: string;
+  displayName: string;
+  id: string;
+  vip_until: string;
 }
 
 export interface IInfoList {

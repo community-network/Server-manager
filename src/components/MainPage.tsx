@@ -39,7 +39,7 @@ export function MainPageComponent(): React.ReactElement {
   } = useQuery(["managerStats"], () => GametoolsApi.managerStats());
   return (
     <div className={styles.MainPage}>
-      <div className={styles.MainPageCard}>
+      <main role="main" className={styles.MainPageCard}>
         <div className={styles.titleBlock}>
           <div className={styles.titleContent}>
             <h1>{t("mainPage.main")}</h1>
@@ -114,7 +114,7 @@ export function MainPageComponent(): React.ReactElement {
             <>{t("mainPage.featureList.5.body")}</>
           </ListItem>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

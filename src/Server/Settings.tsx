@@ -19,6 +19,7 @@ import {
   ICookie,
   IServerRotation,
   ICookieList,
+  IMapRotation,
 } from "../api/ReturnTypes";
 
 export function IngameSettings(props: {
@@ -37,6 +38,9 @@ export function IngameSettings(props: {
   const [cookieSid, setCookieSid] = React.useState("");
   const [cookieRemid, setCookieRemid] = React.useState("");
   const [applyStatus, setApplyStatus] = React.useState(null);
+  const [mapRotationName, setMapRotationName] = React.useState("");
+  const [mapRotations, setMapRotations] = React.useState({});
+  const [selectedMaprotation, setSelectedMaprotation] = React.useState("");
   const [errorUpdating, setError] = React.useState({
     code: 0,
     message: "Unknown",
@@ -61,7 +65,7 @@ export function IngameSettings(props: {
       cookieid: string;
       serverid: string;
       maps: IServerRotation[];
-    }) => OperationsApi.editOwnerSever(variables),
+    }) => OperationsApi.editOwnerServer(variables),
     {
       onMutate: async () => {
         setApplyStatus(true);
@@ -82,13 +86,43 @@ export function IngameSettings(props: {
     },
   );
 
+  const editServerSettings = useMutation(
+    (variables: { rotations: { [string: string]: IMapRotation[] } }) =>
+      OperationsApi.editServer({ value: variables, sid: props.sid }),
+    {
+      onMutate: async () => {
+        setApplyStatus(true);
+      },
+      onSuccess: async () => {
+        setApplyStatus(null);
+      },
+      onError: async () => {
+        setApplyStatus(false);
+        setTimeout(() => setApplyStatus(null), 2000);
+      },
+      onSettled: async () => {
+        queryClient.invalidateQueries(["server" + props.sid]);
+      },
+    },
+  );
+
   // set initial
   React.useEffect(() => {
     if (game) {
-      setMaps(JSON.parse(JSON.stringify(game.data[0].info.rotation)));
+      // dont refresh maplist on mapRotation save
+      console.log(selectedMaprotation);
+      if (
+        selectedMaprotation === "" ||
+        !Object.keys(server?.rotations).includes(selectedMaprotation)
+      ) {
+        setMaps(JSON.parse(JSON.stringify(game.data[0].info.rotation)));
+      }
       setOriginalMaps(game.data[0].info.rotation.slice());
     }
-  }, []);
+    if (server) {
+      setMapRotations(server?.rotations);
+    }
+  }, [server]);
   // set if cookies available
   React.useEffect(() => {
     if (cookies) {
@@ -129,6 +163,91 @@ export function IngameSettings(props: {
   return (
     <>
       <h2 style={{ marginLeft: "20px" }}>{t("server.ingameSettings.main")}</h2>
+      <h5 style={{ marginTop: "8px" }}>
+        {t("server.ingameSettings.saveRotation.main")}
+      </h5>
+      {mapRotations && (
+        <ButtonRow>
+          <select
+            disabled={!allowedTo || Object.keys(mapRotations).length <= 0}
+            style={{ marginLeft: "6px" }}
+            className={styles.SwitchGame}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setMaps(originalMaps);
+              } else {
+                setMaps(mapRotations[e.target.value]);
+              }
+              setMapRotationName(e.target.value);
+              setSelectedMaprotation(e.target.value);
+            }}
+          >
+            <option selected={selectedMaprotation === ""} value="">
+              {t("server.ingameSettings.saveRotation.current")}
+            </option>
+            {Object.keys(mapRotations).map((value: string, index: number) => (
+              <option
+                key={index}
+                selected={selectedMaprotation === value}
+                value={value}
+              >
+                {value}
+              </option>
+            ))}
+          </select>
+        </ButtonRow>
+      )}
+
+      <TextInput
+        disabled={!allowedTo}
+        name={t("server.ingameSettings.saveRotation.name")}
+        autocomplete="off"
+        value={mapRotationName}
+        callback={(e) => {
+          setMapRotationName(e.target.value);
+        }}
+      />
+      <ButtonRow>
+        <Button
+          name={t("server.ingameSettings.saveRotation.save")}
+          disabled={
+            !allowedTo || applyStatus !== null || mapRotationName === ""
+          }
+          callback={() => {
+            const sendMaps = [];
+            maps.forEach((element) => {
+              sendMaps.push({
+                mode: element.mode,
+                mapname: element.mapname,
+              });
+            });
+            const mapRotationClone = { ...mapRotations };
+            mapRotationClone[mapRotationName] = sendMaps;
+            editServerSettings.mutate({
+              rotations: mapRotationClone,
+            });
+            setSelectedMaprotation(mapRotationName);
+          }}
+          status={applyStatus}
+        />
+        <Button
+          name={t("server.ingameSettings.saveRotation.remove")}
+          disabled={
+            !allowedTo || applyStatus !== null || selectedMaprotation === ""
+          }
+          callback={() => {
+            const mapRotationClone = { ...mapRotations };
+            delete mapRotationClone[mapRotationName];
+            editServerSettings.mutate({
+              rotations: mapRotationClone,
+            });
+            if (Object.keys(mapRotationClone).length <= 0) {
+              setSelectedMaprotation("");
+            }
+          }}
+          status={applyStatus}
+        />
+      </ButtonRow>
       <h5 style={{ marginTop: "8px" }}>
         {t("server.ingameSettings.rotation")}
       </h5>
@@ -236,7 +355,7 @@ export function IngameSettings(props: {
       <h5 style={{ marginTop: "8px" }}>{t("server.ingameSettings.cookie")}</h5>
       {!isError ? (
         <ButtonRow>
-          {cookies ? (
+          {cookies && (
             <select
               disabled={!allowedTo}
               style={{ marginLeft: "6px" }}
@@ -251,8 +370,6 @@ export function IngameSettings(props: {
               ))}
               <option value="add">{t("cookie.accountType.add")}</option>
             </select>
-          ) : (
-            ""
           )}
         </ButtonRow>
       ) : (
