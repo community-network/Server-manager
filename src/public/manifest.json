@@ -18,7 +18,7 @@
       "sizes": "256x256"
     },
     {
-      "src": "big-logo.png",
+      "src": "favicon512.png",
       "type": "image/png",
       "sizes": "512x512"
     },
@@ -29,7 +29,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "logo.svg",
+      "src": "favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
