@@ -7,6 +7,7 @@
   "denied": "Not allowed",
   "apply": "Apply",
   "export": "Export",
+  "externalScriptError": "Couldn't load external script, something went wrong...",
   "date": "{{date, date|eee, dd MMM yyyy}}",
   "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
   "shortDateTime": "{{date, date|PPpp}}",
