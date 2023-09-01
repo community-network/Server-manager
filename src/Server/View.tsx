@@ -42,7 +42,6 @@ import Console from "./Console";
 import { PlayerList } from "./PlayerList";
 import { IGroupsInfo, IServerInfo } from "../api/ReturnTypes";
 import { FileToJson } from "../components/FileUpload";
-import { utils, writeFile } from "xlsx";
 
 /**
  * Server page
@@ -584,10 +583,10 @@ function ServerAutomation(props: {
           <Button
             callback={() => {
               const filename = "current_statskick.xlsx";
-              const ws = utils.json_to_sheet(serverState.statsKick);
-              const wb = utils.book_new();
-              utils.book_append_sheet(wb, ws, "People");
-              writeFile(wb, filename);
+              const ws = XLSX.utils.json_to_sheet(serverState.statsKick);
+              const wb = XLSX.utils.book_new();
+              XLSX.utils.book_append_sheet(wb, ws, "People");
+              XLSX.writeFile(wb, filename);
             }}
             name={t("server.protection.statsKickDownload")}
           />

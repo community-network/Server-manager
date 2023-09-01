@@ -1,7 +1,6 @@
 import styles from "./FileUpload.module.css";
 
 import * as React from "react";
-import { utils, read } from "xlsx";
 
 export function FileToJson(props: {
   callback?: { (data: unknown[]): void };
@@ -18,10 +17,10 @@ export function FileToJson(props: {
 
         reader.onload = function (e) {
           const data = e.target.result;
-          const readedData = read(data, { type: "binary" });
+          const readedData = XLSX.read(data, { type: "binary" });
           const sheetName = readedData.SheetNames[0];
           const worksheet = readedData.Sheets[sheetName];
-          const dataParse = utils.sheet_to_json(worksheet);
+          const dataParse = XLSX.utils.sheet_to_json(worksheet);
           props.callback(dataParse);
         };
         reader.readAsBinaryString(f);

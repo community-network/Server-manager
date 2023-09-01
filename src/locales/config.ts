@@ -159,3 +159,5 @@ export const getLanguage = () => {
   }
   return language;
 };
+
+export default i18n;

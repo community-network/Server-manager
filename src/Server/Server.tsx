@@ -1350,8 +1350,8 @@ function VipRow(props: {
       </td>
       <td title={t("server.vipList.table.playerId")}>{player.id}</td>
       <td>
-        {player.vip_until !== ""
-          ? t("dateTime", { date: new Date(player.vip_until) })
+        {player?.vip_until !== ""
+          ? t("dateTime", { date: new Date(player?.vip_until) })
           : ""}
       </td>
       {!props.isOpsMode && (
