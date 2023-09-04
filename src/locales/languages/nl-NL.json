@@ -7,6 +7,7 @@
   "denied": "Niet toegestaan",
   "apply": "Toepassen",
   "export": "Exporteren",
+  "externalScriptError": "Kon externe script niet inladen, er ging iets mis...",
   "date": "{{date, date|eee, dd MMM yyyy}}",
   "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
   "shortDateTime": "{{date, date|PPpp}}",
@@ -423,6 +424,23 @@
         "bannedUntil": "Tot"
       }
     },
+    "tracking": {
+      "main": "Lijst met gevolgde spelers",
+      "description0": "Lijst met spelers die een waarschuwing op discord kijgen wanneer zij jou server joinen.",
+      "description1": "{{number}} sloten gebruikt",
+      "noReason": "met reden",
+      "add": "Speler toevoegen om te volgen",
+      "remove": "Speler verijderen",
+      "noServer": "Niet in een server",
+      "table": {
+        "playerName": "Spelernaam",
+        "playerId": "Speler ID",
+        "reason": "Reden",
+        "admin": "Admin",
+        "timestamp": "Tijdstempel",
+        "currentServer": "Huidige server"
+      }
+    },
     "reasonList": {
       "main": "Vooraf gedefinieerde redenen",
       "description0": "Stel een vooraf gedefinieerde lijst met redenen in, zodat u die kan selecteren wanneer u een speler probeert te kicken, bannen of vbannen.",
@@ -575,7 +593,14 @@
       "rotation": "Verander server maprotatie",
       "addMap": "Andere map toevoegen",
       "removeMap": "Verwijderen",
-      "cookie": "Cookie die gebruikt moet worden om server veranderingen aan te brengen, cookies binnen de manager of manueel sid/remid kiezen zijn mogelijk:"
+      "cookie": "Cookie die gebruikt moet worden om server veranderingen aan te brengen, cookies binnen de manager of manueel sid/remid kiezen zijn mogelijk:",
+      "saveRotation": {
+        "main": "Opgeslagen maprotaties",
+        "name": "Naam van huidige maprotatie",
+        "save": "Huidige maprotatie opslaan in lijst",
+        "remove": "Huidige maprotatie verwijderen van lijst",
+        "current": "Maprotatie van de huidige server"
+      }
     },
     "game": {
       "main": "Huidige spel",
@@ -830,6 +855,12 @@
       "reason": "Redem",
       "confirm": "Ban!"
     },
+    "removeTrackingMenu": {
+      "main": "We gaan {{name}} verwijderen van de volglijst.",
+      "reasonDescription": "Geef een reden waarom je deze speler wil stoppen met volgen",
+      "reason": "Reden",
+      "confirm": "Verwijderen"
+    },
     "removeExclusionsMenu": {
       "main": "U gaat {{name}} verwijderen van exclusie lijst",
       "reasonDescription": "Vul een reden in waarom deze speler verwijderd moet worden van de lijst met uitgesloten spelers voor autokick (ping en bfban).",
@@ -854,6 +885,13 @@
       "confirm": "Ban!",
       "usePlayerId": "Speler ID gebruiken voor ban",
       "playerId": "Speler ID"
+    },
+    "trackingMenu": {
+      "playerNameDescription": "Geef de naam van de speler die je wilt toevoegen aan het volgsysteem.",
+      "playerName": "gebruikersnaam",
+      "reasonDescription": "Geef een reden om deze speler te volgen.",
+      "reason": "Reden",
+      "confirm": "Toevoegen"
     },
     "exclusionsMenu": {
       "playerNameDescription": "Vul de naam van de speler in die u wilt toevoegen aan de lijst met uitgesloten spelers",
