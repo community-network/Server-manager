@@ -7,12 +7,14 @@
   "denied": "Δεν επιτρέπεται",
   "apply": "Εφάρμοσε",
   "export": "Εξαγωγή",
+  "externalScriptError": "Harici komut dosyası yüklenemedi, bir şeyler ters gitti...",
   "date": "{{date, date|PP}}",
   "dateTime": "{{date, date|PPpp}}",
   "shortDateTime": "{{date, date|PPpp}}",
   "chartDateTime": "{{date, date|d-M, HH:mm}}",
   "time": "{{date, date|p}}",
   "change": "{{change, change}}",
+  "shortChange": "{{change, shortChange}}",
   "notApplicable": "Yok",
   "boolean": {
     "enabled": "etkin",
@@ -21,6 +23,36 @@
   "execute": "yürüt",
   "translation": {
     "help": "Çeviriye yardım"
+  },
+  "shortTimeItems": {
+    "xSeconds": {
+      "one": "1 saniye",
+      "other": "{{count}} saniye"
+    },
+    "xMinutes": {
+      "one": "1 dakika",
+      "other": "{{count}} dakika"
+    },
+    "xHours": {
+      "one": "1 saat",
+      "other": "{{count}} saat"
+    },
+    "xDays": {
+      "one": "1 gün",
+      "other": "{{count}} gün"
+    },
+    "xWeeks": {
+      "one": "1 hafta",
+      "other": "{{count}} hafta"
+    },
+    "xMonths": {
+      "one": "1 ay",
+      "other": "{{count}} ay"
+    },
+    "xYears": {
+      "one": "1 yıl",
+      "other": "{{count}} yıl"
+    }
   },
   "games": {
     "bf3": "Battlefield 3 (yalnızca statusbot)",
@@ -221,6 +253,7 @@
     },
     "servers": {
       "main": "Διακομιστές",
+      "game": "Oyun",
       "status": "Sunucu durumu",
       "lastUpdate": "Son çalışan güncellemesi",
       "createdAt": "Sunucu şu zamanda eklendi",
@@ -337,6 +370,7 @@
       "add": "Platoonları ekle",
       "remove": "Platoonları kaldır",
       "resultNotFound": "Bu isimde bir platoon bulunamadı",
+      "alreadyAdded": "Zaten eklenmiş",
       "members": {
         "main": "Üyeler",
         "remove": "Üyeyi kaldır"
@@ -390,6 +424,23 @@
         "bannedUntil": "Μέχρι"
       }
     },
+    "tracking": {
+      "main": "Takip edilen oyuncu listesi",
+      "description0": "Bir dahaki sefere sunucunuza katıldıklarında discord'da uyarmak için izlenen oyuncuların listesi.",
+      "description1": "Χρησιμοποιημένες {{number}} θυρίδες",
+      "noReason": "με λόγο",
+      "add": "Oyuncuyu uyarı listesine ekle",
+      "remove": "Oyuncuyu kaldır",
+      "noServer": "Sunucuda değil",
+      "table": {
+        "playerName": "Όνομα Παίκτη",
+        "playerId": "Ταυτότητα Παικτη",
+        "reason": "Αιτία",
+        "admin": "Διαχειριστής",
+        "timestamp": "Χρονική σήμανση",
+        "currentServer": "Şu anki sunucu"
+      }
+    },
     "reasonList": {
       "main": "Önceden tanımlanmış nedenler",
       "description0": "Bir oyuncuyu kick/ban/vban etmeye çalışırken seçebileceğiniz önceden tanımlanmış bir nedenler listesi belirleyin",
@@ -403,6 +454,7 @@
     "logs": {
       "main": "Αρχεία καταγραφής Ομάδως",
       "description": "Λίστα καταγραφής ομάδας",
+      "serverLogs": "Sunucu günlüklerini sonuca ekle",
       "reasons": {
         "addVban": "vBanned",
         "removeVban": "vBan'den kaldırıldı",
@@ -541,7 +593,14 @@
       "rotation": "Sunucu rotasyonunu değiştirme",
       "addMap": "Başka bir harita ekleyin",
       "removeMap": "Kaldır",
-      "cookie": "Sunucu değişikliklerini yapmak için kullanılan çerez, hem yönetici hem de sid/remid'de ayarlanan çerezler mümkündür:"
+      "cookie": "Sunucu değişikliklerini yapmak için kullanılan çerez, hem yönetici hem de sid/remid'de ayarlanan çerezler mümkündür:",
+      "saveRotation": {
+        "main": "Kaydedilen harita rotasyonları",
+        "name": "Geçerli harita rotasyonu için ad",
+        "save": "Harita rotasyonunu listeye kaydet",
+        "remove": "Harita rotasyonunu listeden kaldırın",
+        "current": "Geçerli sunucu harita rotasyonu"
+      }
     },
     "game": {
       "main": "Τρέχων Παιχνίδι",
@@ -606,7 +665,8 @@
       "table": {
         "playerName": "Όνομα Παίκτη",
         "playerId": "Ταυτότητα Παικτη",
-        "timePlayed": "Sunucuda geçirilen süre"
+        "timePlayed": "Sunucuda geçirilen süre",
+        "playCount": "Bu haftaki katılma sayısı"
       }
     },
     "spectatorList": {
@@ -680,10 +740,12 @@
       "rankKickReason": "Rütbe gereksinimler dahilinde değil",
       "kickLowRank": "Rütbe daha düşükse oyundan at:",
       "kickHighRank": "Rütbe daha yüksekse oyundan at:",
-      "statsKick": "Silah/araç özellikleri çok yüksekse kickleyin",
+      "statsKick": "Silah/araç istatistikleri çok yüksekse kickleyin (belirtilen silahla 200 veya daha fazla öldürmeden sonra otomatik kick başlar)",
       "statsKickExample": "Örnek dosyayı indirin",
       "statsKickDownload": "Güncel indir",
-      "statsKickRemove": "Statskick'i devre dışı bırak"
+      "statsKickRemove": "Statskick'i devre dışı bırak",
+      "pltMemberExclEnable": "Müfreze üyelerini hariç tut",
+      "pltMemberExclDescription": "Panele eklediğiniz müfrezelerdeki müfreze üyelerinin tekmelenmesini engelleyin."
     },
     "settings": {
       "main": "Ρυθμίσεις",
@@ -793,6 +855,12 @@
       "reason": "Αιτία",
       "confirm": "Banı kaldır!"
     },
+    "removeTrackingMenu": {
+      "main": "Takipten {{name}}'i kaldıracaksınız",
+      "reasonDescription": "Bu oyuncuyu izlemeden kaldırmak için bir neden girin.",
+      "reason": "Αιτία",
+      "confirm": "Kaldır"
+    },
     "removeExclusionsMenu": {
       "main": "Dışlamalardan {{name}}'i kaldıracaksınız",
       "reasonDescription": "Autokick (ping ve bfban) için bu oyuncunun dışlanmasını kaldırmak için bir neden girin.",
@@ -817,6 +885,13 @@
       "confirm": "Ban!",
       "usePlayerId": "Banlamakiçin oyuncu kimliğini kullan",
       "playerId": "Ταυτότητα Παικτη"
+    },
+    "trackingMenu": {
+      "playerNameDescription": "İzlemeye eklemek istediğiniz oyuncunun adını girin.",
+      "playerName": "kullanıcı adı",
+      "reasonDescription": "Bu oyuncuyu izlemek için bir neden girin.",
+      "reason": "Αιτία",
+      "confirm": "Ekle"
     },
     "exclusionsMenu": {
       "playerNameDescription": "İstisnalara eklemek istediğiniz oyuncunun adını girin",
