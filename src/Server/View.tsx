@@ -309,6 +309,8 @@ function ServerAutomation(props: {
         autoPingKickMessage,
         minAutoPingKick,
         autoBfBanMessage,
+        autoBfeacKick,
+        autoBfeacMessage,
         kickMinRank,
         kickMaxRank,
         rankKickReason,
@@ -323,6 +325,8 @@ function ServerAutomation(props: {
         autoPingKickMessage,
         minAutoPingKick,
         autoBfBanMessage,
+        autoBfeacKick,
+        autoBfeacMessage,
         kickMinRank,
         kickMaxRank,
         rankKickReason,
@@ -350,6 +354,8 @@ function ServerAutomation(props: {
     autoGlobalBanMessage?: string;
     autoBfbanKick?: boolean;
     autoBfBanMessage?: string;
+    autoBfeacKick?: boolean;
+    autoBfeacMessage?: string;
     autoPingKick?: number;
     autoPingKickMessage?: string;
     minAutoPingKick?: number;
@@ -444,6 +450,25 @@ function ServerAutomation(props: {
         defaultValue={getServerValue("autoBfBanMessage")}
         name={t("server.protection.bfBanMsg")}
       />
+
+      <h5 style={{ marginTop: "30px" }}>
+        {t("server.protection.bfeacDescription")}
+        <i>bfeac.com</i>
+      </h5>
+      <Switch
+        checked={getServerValue("autoBfeacKick")}
+        name={t("server.protection.bfeacEnable")}
+        callback={(v) => changeServerState({ autoBfeacKick: v })}
+      />
+      <TextInput
+        disabled={!allowedTo || (serverState && !serverState.autoBfeacKick)}
+        callback={(e) =>
+          changeServerState({ autoBfeacMessage: e.target.value })
+        }
+        defaultValue={getServerValue("autoBfeacMessage")}
+        name={t("server.protection.bfeacMsg")}
+      />
+
       <h5 style={{ marginTop: "30px" }}>
         {t("server.protection.pingKickDescription")}
       </h5>

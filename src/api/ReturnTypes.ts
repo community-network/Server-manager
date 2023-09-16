@@ -243,7 +243,9 @@ export interface IServerInfo {
   addedAt: string;
   autoBanKick: boolean;
   autoBfBanMessage: string;
-  autoBfbanKick: true;
+  autoBfbanKick: boolean;
+  autoBfeacKick: boolean;
+  autoBfeacMessage: string;
   autoGlobalBanMessage: string;
   autoPingKick: number;
   autoPingKickMessage: string;
