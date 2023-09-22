@@ -1,883 +1,971 @@
 {
-    "beta": "Beta",
-    "eBeta": "Frühe Beta",
-    "search": "Suchen...",
-    "pending": "Ausstehend...",
-    "loading": "Lädt...",
-    "denied": "Nicht erlaubt",
-    "apply": "Anwenden",
-    "export": "Exportieren",
-    "date": "{{date, date|eee, dd MMM yyyy}}",
-    "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
-    "shortDateTime": "{{date, date|PPpp}}",
-    "chartDateTime": "{{date, date|d-M, HH:mm}}",
-    "time": "{{date, date|p}}",
-    "change": "{{change, change}}",
-    "notApplicable": "nicht verfügbar",
-    "boolean": {
-        "enabled": "aktivieren",
-        "disabled": "deaktivieren"
+  "beta": "Beta",
+  "eBeta": "Frühe Beta",
+  "search": "Suchen...",
+  "pending": "Ausstehend...",
+  "loading": "Lädt...",
+  "denied": "Nicht erlaubt",
+  "apply": "Anwenden",
+  "export": "Exportieren",
+  "externalScriptError": "Externes Skript konnte nicht geladen werden",
+  "date": "{{date, date|eee, dd MMM yyyy}}",
+  "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
+  "shortDateTime": "{{date, date|PPpp}}",
+  "chartDateTime": "{{date, date|d-M, HH:mm}}",
+  "time": "{{date, date|p}}",
+  "change": "{{change, change}}",
+  "shortChange": "{{change, shortChange}}",
+  "notApplicable": "nicht verfügbar",
+  "boolean": {
+    "enabled": "aktivieren",
+    "disabled": "deaktivieren"
+  },
+  "execute": "ausführen",
+  "translation": {
+    "help": "Hilf bei der Übersetzung"
+  },
+  "shortTimeItems": {
+    "xSeconds": {
+      "one": "1 sekunde",
+      "other": "{{count}} sekunden"
     },
-    "translation": {
-        "help": "Hilf bei der Übersetzung"
+    "xMinutes": {
+      "one": "1 min.",
+      "other": "{{count}} minuten"
     },
-    "games": {
-        "bf3": "Battlefield 3 (nur statusbot)",
-        "bf4": "Battlefield 4 (nur Statusbot/Seeder)",
-        "bfh": "Battlefield Hardline (nur statusbot)",
-        "bf1": "Battlefield 1",
-        "bfv": "Battlefield 5 (Frühe Beta)",
-        "bf2042": "Battlefield 2042"
+    "xHours": {
+      "one": "1 Stunde",
+      "other": "{{count}} Stunden"
     },
-    "gamemodes": {
-        "FRONTLINES": "Frontlinien",
-        "DOMINATION": "Vorherrschaft",
-        "SHOCK OPERATIONS": "Shock operations",
-        "RUSH": "Rush",
-        "CONQUEST": "Eroberung",
-        "WAR PIGEONS": "Kriegstaube",
-        "OPERATIONS": "Operationen",
-        "TEAM DEATHMATCH": "Team-Deathmatch",
-        "BREAKTHROUGH": "Durchbruch",
-        "CUSTOM": "Custom"
+    "xDays": {
+      "one": "1 Tag",
+      "other": "{{count}} Tage"
     },
-    "maps": {
-        "Amiens": "Amiens",
-        "Argonne Forest": "Wald der Argonnen",
-        "Ballroom Blitz": "Krieg im Ballsaal",
-        "Empire's Edge": "Am Rande des Reiches",
-        "Fao Fortress": "Festung von Faw",
-        "Monte Grappa": "Monte Grappa",
-        "St Quentin Scar": "Narbe von St. Quentin",
-        "Sinai Desert": "Wüste Sinai",
-        "Suez": "Suez",
-        "Giant's Shadow": "Schatten des Giganten",
-        "Verdun Heights": "Verdun-Höhen",
-        "Fort De Vaux": "Fort Vaux",
-        "Soissons": "Soissons",
-        "Rupture": "Bruch",
-        "Nivelle Nights": "Nivelle-Nächte",
-        "Prise de Tahure": "Prise de Tahure",
-        "Łupków Pass": "Łupków-Pass",
-        "Albion": "Albion",
-        "Galicia": "Galizien",
-        "Brusilov Keep": "Brussilow-Festung",
-        "Tsaritsyn": "Zarizyn",
-        "Volga River": "Wolga",
-        "Achi Baba": "Achi Baba",
-        "Cape Helles": "Kap Helles",
-        "Heligoland Bight": "Helgoländer Bucht",
-        "Zeebrugge": "Zeebrugge",
-        "Caporetto": "Caporetto",
-        "Passchendaele": "Passendale",
-        "River Somme": "Somme",
-        "London Calling: Raiders": "London Ruft: Angreifer",
-        "London Calling: Scourge": "London Ruft: Geißel",
-        "Razor's Edge": "Auf Messers Schneide",
-        "Aerodrome": "Flugplatz",
-        "Al Marj Encampment": "Lager El Merdj",
-        "Al Sundan": "Al Sundan",
-        "Arras": "Arras",
-        "Devastation": "Vernichtung",
-        "Fjell 652": "Fjell 652",
-        "Halvøy": "Halvøy",
-        "Hamada": "Hamada",
-        "Iwo Jima": "Iwo Jima",
-        "Lofoten Islands": "Lofoten",
-        "Marita": "Marita",
-        "Mercury": "Merkur",
-        "Narvik": "Narvik",
-        "Operation Underground": "Operation Untergrund",
-        "Pacific Storm": "Pazifiksturm",
-        "Panzerstorm": "Panzersturm",
-        "Provence": "Provence",
-        "Rotterdam": "Rotterdam",
-        "Solomon Islands": "Salomonen",
-        "Twisted Steel": "Verbogener Stahl",
-        "Wake Island": "Wake Island"
+    "xWeeks": {
+      "one": "1 Woche",
+      "other": "{{count}} Wochen"
     },
-    "cookie": {
-        "check": "Wähle ein Spiel aus (die die Cookies Supporten) um zu schauen ob es gültig ist",
-        "add": "Server-Account hinzufügen",
-        "setDefaultCookie": "Als Standard festlegen",
-        "invalid": "Fehler: Die Cookies, die Sie benutzen, sind ungültig ",
-        "remid": "REMID cookie",
-        "sidDescription": "Sitzungscookies können hier gefunden werden",
-        "remidDescription": "Remindersitzungscookies können hier gefunden werden",
-        "sid": "SID cookie",
-        "locale": "Sprachen-tag",
-        "delete": "Server-Account löschen",
-        "status": {
-            "loading": "Account Status wird geupdatet...",
-            "pending": "Ausstehender Status für diesen Account"
-        },
-        "accountType": {
-            "add": "Neue Cookies hinzufügen",
-            "default": "Standard Account",
-            "extra": "Zusätzlicher Account"
-        },
-        "removeMenu": {
-            "main": "Sind Sie sicher, dass Sie \"{{name}}\" Service-Account entfernen möchten?",
-            "confirm": "Account entfernen"
-        },
-        "supportedGames": {
-            "main": "Spiele auf dem Account:",
-            "update": "Spielliste updaten"
-        }
+    "xMonths": {
+      "one": "1 Monat",
+      "other": "{{count}} Monate"
     },
-    "serverStatus": {
-        "pending": "Ausstehender Status",
-        "noServer": "Server konnte nicht gefunden werden",
-        "noAdmin": "Keine Adminrechte",
-        "running": "Wird ausgeführt",
-        "notSupported": "Kein \"Hintergrund-Worker\" Status Unterstützung "
+    "xYears": {
+      "one": "1 Jahr",
+      "other": "{{count}} Jahre"
+    }
+  },
+  "games": {
+    "bf3": "Battlefield 3 (nur statusbot)",
+    "bf4": "Battlefield 4 (nur Statusbot/Seeder)",
+    "bfh": "Battlefield Hardline (nur statusbot)",
+    "bf1": "Battlefield 1",
+    "bfv": "Battlefield 5 (Frühe Beta)",
+    "bf2042": "Battlefield 2042"
+  },
+  "gamemodes": {
+    "FRONTLINES": "Frontlinien",
+    "DOMINATION": "Vorherrschaft",
+    "SHOCK OPERATIONS": "Shock operations",
+    "RUSH": "Rush",
+    "CONQUEST": "Eroberung",
+    "WAR PIGEONS": "Kriegstaube",
+    "OPERATIONS": "Operationen",
+    "TEAM DEATHMATCH": "Team-Deathmatch",
+    "BREAKTHROUGH": "Durchbruch",
+    "CUSTOM": "Custom"
+  },
+  "maps": {
+    "Amiens": "Amiens",
+    "Argonne Forest": "Wald der Argonnen",
+    "Ballroom Blitz": "Krieg im Ballsaal",
+    "Empire's Edge": "Am Rande des Reiches",
+    "Fao Fortress": "Festung von Faw",
+    "Monte Grappa": "Monte Grappa",
+    "St Quentin Scar": "Narbe von St. Quentin",
+    "Sinai Desert": "Wüste Sinai",
+    "Suez": "Suez",
+    "Giant's Shadow": "Schatten des Giganten",
+    "Verdun Heights": "Verdun-Höhen",
+    "Fort De Vaux": "Fort Vaux",
+    "Soissons": "Soissons",
+    "Rupture": "Bruch",
+    "Nivelle Nights": "Nivelle-Nächte",
+    "Prise de Tahure": "Prise de Tahure",
+    "Łupków Pass": "Łupków-Pass",
+    "Albion": "Albion",
+    "Galicia": "Galizien",
+    "Brusilov Keep": "Brussilow-Festung",
+    "Tsaritsyn": "Zarizyn",
+    "Volga River": "Wolga",
+    "Achi Baba": "Achi Baba",
+    "Cape Helles": "Kap Helles",
+    "Heligoland Bight": "Helgoländer Bucht",
+    "Zeebrugge": "Zeebrugge",
+    "Caporetto": "Caporetto",
+    "Passchendaele": "Passendale",
+    "River Somme": "Somme",
+    "London Calling: Raiders": "London Ruft: Angreifer",
+    "London Calling: Scourge": "London Ruft: Geißel",
+    "Razor's Edge": "Auf Messers Schneide",
+    "Aerodrome": "Flugplatz",
+    "Al Marj Encampment": "Lager El Merdj",
+    "Al Sundan": "Al Sundan",
+    "Arras": "Arras",
+    "Devastation": "Vernichtung",
+    "Fjell 652": "Fjell 652",
+    "Halvøy": "Halvøy",
+    "Hamada": "Hamada",
+    "Iwo Jima": "Iwo Jima",
+    "Lofoten Islands": "Lofoten",
+    "Marita": "Marita",
+    "Mercury": "Merkur",
+    "Narvik": "Narvik",
+    "Operation Underground": "Operation Untergrund",
+    "Pacific Storm": "Pazifiksturm",
+    "Panzerstorm": "Panzersturm",
+    "Provence": "Provence",
+    "Rotterdam": "Rotterdam",
+    "Solomon Islands": "Salomonen",
+    "Twisted Steel": "Verbogener Stahl",
+    "Wake Island": "Wake Island"
+  },
+  "cookie": {
+    "check": "Wähle ein Spiel aus (die die Cookies Supporten) um zu schauen ob es gültig ist",
+    "add": "Server-Account hinzufügen",
+    "setDefaultCookie": "Als Standard festlegen",
+    "invalid": "Fehler: Die Cookies, die Sie benutzen, sind ungültig ",
+    "remid": "REMID cookie",
+    "sidDescription": "Sitzungscookies können hier gefunden werden",
+    "remidDescription": "Remindersitzungscookies können hier gefunden werden",
+    "sid": "SID cookie",
+    "locale": "Sprachen-tag",
+    "delete": "Server-Account löschen",
+    "status": {
+      "loading": "Account Status wird geupdatet...",
+      "pending": "Ausstehender Status für diesen Account"
     },
-    "serverBotStatus": {
-        "pending": "Ausstehender Status",
-        "noService": "Kein Worker gefunden",
-        "failed": "Worker fehlgeschlagen",
-        "running": "Wird ausgeführt mit Namen \"{{worker}}\""
+    "accountType": {
+      "add": "Neue Cookies hinzufügen",
+      "default": "Standard Account",
+      "extra": "Zusätzlicher Account"
     },
-    "discord": {
-        "id": "Discord Server ID",
-        "idDescription": "Ihre Discord Server ID",
-        "adminId": "Administratorrollen ID",
-        "adminIdDescription": "ID der Administratorrolle",
-        "modId": "Moderatorenrollen ID",
-        "modIdDescription": "ID der Moderatorenrolle, Moderatoren können Spieler rauswerfen"
+    "removeMenu": {
+      "main": "Sind Sie sicher, dass Sie \"{{name}}\" Service-Account entfernen möchten?",
+      "confirm": "Account entfernen"
     },
-    "mainPage": {
-        "main": "Ein neuer Weg Ihre Battlefield 1 Server zu verwalten",
-        "description": "Server Manager ist ein neuer Gametools & BFBan Service,  erstellt von Community Network",
-        "login": "Einloggen",
-        "featureList": {
-            "main": "Features",
-            "0": {
-                "heading": "BFBan Anti-Cheat",
-                "body": "Schützen Sie Ihre Server vor Hackern, die durch www.bfban.com bestätigt wurden"
-            },
-            "1": {
-                "heading": "Unbegrenzte globale V-Ban Liste",
-                "body": "Bannen Sie so viele Spieler von Ihrem Server wie Sie möchten mit der V-Ban Liste."
-            },
-            "2": {
-                "heading": "Spieler mit hohem Ping rauswerfen",
-                "body": "Sie können Spieler automatisch von Ihrem Server werfen basierend auf der Pinggrenze."
-            },
-            "3": {
-                "heading": "Discord Hilfsmittel, um Ihren Server aufrecht zu erhalten",
-                "body": "Kontrollieren Sie Ihre Server direkt im Discord, basierend auf Rollen"
-            },
-            "4": {
-                "heading": "Serveraktion protokollieren",
-                "body": "Volle Einsicht in jede Aktion die auf dem Server ausgeführt wurde."
-            },
-            "5": {
-                "heading": "Volle Kontrolle über Ihre Server",
-                "body": "Volle Kontrolle durch Admins, mit den Befehlen wie ingame."
-            }
-        },
-        "statistics": {
-            "main": "Wird von {{communities}} Communities genutzt, mit {{servers}} Server",
-            "weekly": {
-                "main": "Wöchentliche Statistiken:",
-                "bfbanKicks": "Spieler, die durch bfban rausgeworfen wurden",
-                "globalbanKicks": "Spieler, die durch Global V-Ban Liste rausgeworfen wurden",
-                "pingKicks": "Spieler, die aufgrund Ihres Pings rausgeworfen wurden",
-                "movedPlayers": "Spieler, die ins andere Team verschoben wurden sind",
-                "kickedPlayers": "Rausgeworfene Spieler, durch Panel",
-                "bannedPlayers": "Gebannte Spieler, durch Panel"
-            }
-        }
+    "supportedGames": {
+      "main": "Spiele auf dem Account:",
+      "update": "Spielliste updaten"
+    }
+  },
+  "serverStatus": {
+    "pending": "Ausstehender Status",
+    "noServer": "Server konnte nicht gefunden werden",
+    "noAdmin": "Keine Adminrechte",
+    "running": "Wird ausgeführt",
+    "notSupported": "Kein \"Hintergrund-Worker\" Status Unterstützung "
+  },
+  "serverBotStatus": {
+    "pending": "Ausstehender Status",
+    "noService": "Kein Worker gefunden",
+    "failed": "Worker fehlgeschlagen",
+    "running": "Wird ausgeführt mit Namen \"{{worker}}\""
+  },
+  "discord": {
+    "id": "Discord Server ID",
+    "idDescription": "Ihre Discord Server ID",
+    "adminId": "Administratorrollen ID",
+    "adminIdDescription": "ID der Administratorrolle",
+    "modId": "Moderatorenrollen ID",
+    "modIdDescription": "ID der Moderatorenrolle, Moderatoren können Spieler rauswerfen"
+  },
+  "mainPage": {
+    "main": "Ein neuer Weg Ihre Battlefield 1 Server zu verwalten",
+    "description": "Server Manager ist ein neuer Gametools & BFBan Service,  erstellt von Community Network",
+    "login": "Einloggen",
+    "featureList": {
+      "main": "Features",
+      "0": {
+        "heading": "BFBan Anti-Cheat",
+        "body": "Schützen Sie Ihre Server vor Hackern, die durch www.bfban.com bestätigt wurden"
+      },
+      "1": {
+        "heading": "Unbegrenzte globale V-Ban Liste",
+        "body": "Bannen Sie so viele Spieler von Ihrem Server wie Sie möchten mit der V-Ban Liste."
+      },
+      "2": {
+        "heading": "Spieler mit hohem Ping rauswerfen",
+        "body": "Sie können Spieler automatisch von Ihrem Server werfen basierend auf der Pinggrenze."
+      },
+      "3": {
+        "heading": "Discord Hilfsmittel, um Ihren Server aufrecht zu erhalten",
+        "body": "Kontrollieren Sie Ihre Server direkt im Discord, basierend auf Rollen"
+      },
+      "4": {
+        "heading": "Serveraktion protokollieren",
+        "body": "Volle Einsicht in jede Aktion die auf dem Server ausgeführt wurde."
+      },
+      "5": {
+        "heading": "Volle Kontrolle über Ihre Server",
+        "body": "Volle Kontrolle durch Admins, mit den Befehlen wie ingame."
+      }
+    },
+    "statistics": {
+      "main": "Wird von {{communities}} Communities genutzt, mit {{servers}} Server",
+      "weekly": {
+        "main": "Wöchentliche Statistiken:",
+        "bfbanKicks": "Spieler, die durch bfban rausgeworfen wurden",
+        "globalbanKicks": "Spieler, die durch Global V-Ban Liste rausgeworfen wurden",
+        "pingKicks": "Spieler, die aufgrund Ihres Pings rausgeworfen wurden",
+        "movedPlayers": "Spieler, die ins andere Team verschoben wurden sind",
+        "kickedPlayers": "Rausgeworfene Spieler, durch Panel",
+        "bannedPlayers": "Gebannte Spieler, durch Panel"
+      }
+    }
+  },
+  "account": {
+    "main": "Konto",
+    "discordProfile": "Discordprofil",
+    "loggedIn": "Eingeloggt",
+    "permissions": {
+      "main": "Berechtigungen",
+      "admin": "Serveradministrator",
+      "server": "Serverbesitzer",
+      "system": "Systemadministrator"
+    }
+  },
+  "dev": {
+    "main": "Entwickleroptionen",
+    "listGroups": "Gruppenliste",
+    "addGroup": "Neue Gruppe hinzufügen",
+    "manage": "Gruppe bearbeiten"
+  },
+  "man": {
+    "main": "Management Optionen ",
+    "listGroups": "Gruppenliste",
+    "worker": {
+      "main": "Worker Account",
+      "lastUpdate": "Letztes Update"
+    },
+    "owners": {
+      "main": "Besitzer",
+      "createdAt": "Benutzer erstellt am:"
+    },
+    "servers": {
+      "main": "Server",
+      "game": "Spiel",
+      "status": "Serverstatus",
+      "lastUpdate": "Letztes Worker Update",
+      "createdAt": "Server hinzugefügt am:",
+      "autoPingKick": "Rauswerfen wegen Ping",
+      "autoBanKick": "vBan Rauswurf",
+      "autoBfbanKick": "BfBan Rauswurf "
+    },
+    "settings": {
+      "main": "Einstellungen",
+      "makeOperations": "\"make operations\" aktivieren",
+      "seedServers": "Seedingbots aktivieren"
+    }
+  },
+  "createGroup": {
+    "main": "Neue Gruppe erstellen",
+    "description": "Neue Gruppe erstellen, um Ihre Communityserver zu verwalten",
+    "discordDescription": "Optional können Sie ihren Discordserver hinzufügen, um Servertools zu integrieren",
+    "cookieDescription0": "Jede Gruppe braucht einen speziell ausgewähltem Account, mit folgenden Bedingung:",
+    "cookieDescription1": "Es sollte ein BF1 Servermoderator sein (Besitzer-Zugriff nicht erforderlich)",
+    "cookieDescription2": "Falls dieser Account für BF1 genutzt wird, sollte er nirgendswo anders benutzt werden. Das könnte zu Problemen führen.",
+    "acceptDescription0": "Mit dem drücken dieses Knopfes, stimmst du zu dass ",
+    "acceptDescription1": "Server-Manager-Tool Zugriff auf diesen Account bekommt.",
+    "accept": "Gruppe erstellen"
+  },
+  "group": {
+    "main": "Gruppe",
+    "name": "Gruppenname",
+    "id": "Identität",
+    "admins": {
+      "main": "Administratoren",
+      "description0": "Die Administratorenrolle kann die Server verwalten.",
+      "description1": "Du benötigst mindestens die Besitzerrolle um neue Admins hinzuzufügen.",
+      "add": "Admins hinzufügen",
+      "addNew": "Neuen Admins hinzufügen",
+      "removeSelected": "Ausgewählte Admins entfernen ",
+      "remove": "Admins entfernen",
+      "select": "Admins auswählen um sie zu entfernen",
+      "selected": "Du hast {{number}} Admins ausgewählt."
+    },
+    "seeding": {
+      "main": "Servers Seeden",
+      "app": "Laden Sie sich die Seeding-App herunter",
+      "description0": "Seeden Sie Ihre Battlefield 1 und 4 Server",
+      "description1": "Sie benötigen mindestens die Besitzerrolle um auf diesen Abschnitt zugreifen zu können,",
+      "description2": "Du musst diese Anwendung, Link darunter, auf jedem PC starten, der beim Seeding helfen soll",
+      "custom": "Customserver",
+      "broadcast": {
+        "main": "Übermitteln einer Nachricht an alle Server",
+        "message": "Nachricht",
+        "sendMessage": "Senden"
+      },
+      "scheduled": {
+        "true": "Planmäßiger Start {{startTime}} für {{serverName}}",
+        "false": "Kein automatischer Seeder Start (nach Plan)"
+      },
+      "auto-rejoin": {
+        "true": "auto-rejoin",
+        "false": "kein auto-rejoin"
+      },
+      "popup": {
+        "confirmInfo": "Sind Sie sich Sicher {{option}} auszuführen?",
+        "broadcastInfo": "Sind Sie sich Sicher \"{{message}}\" zu übermitteln?",
+        "confirm": "Bestätigen!"
+      },
+      "actions": {
+        "joinSelected": "Ausgewählten Server beitreten ",
+        "leave": "Aktuellen Server verlassen",
+        "shutdownWindows": "PCs herunterfahren (mit Herunterfahr-Option aktiviert) ",
+        "schedule": "Planmäßige Seeder Startzeit (UTC Zeitzone)",
+        "undoSchedule": "Planmäßiges Seeding entfernen"
+      },
+      "status": {
+        "main": "Status:",
+        "seedServer": "Seeding {{serverName}}",
+        "leaveServer": "In keinem Server",
+        "shutdownPC": "Fährt alle PCs mit aktivierter Herunterfahr-Option herunter",
+        "broadcastMessage": "\"{{message}}\" wurde an alle Server übermittelt"
+      },
+      "seeders": {
+        "main": "Aktuell sind {{seeders}} Seeders online, mit {{ingame}} im Spiel",
+        "true": "Im Spiel",
+        "false": "Nicht im Spiel",
+        "defaultDescription": "folgend das \"global-seeding system\""
+      },
+      "keepalive": {
+        "main": "Verbinde den Hostnamen mit dem Server um ihn am Leben zu erhalten. ",
+        "add": "Hostnamen hinzufügen",
+        "remove": "Hostnamen entfernen",
+        "hostname": "Welchen Hostnamen willst zum ausgewähltem Server hinzufügen?",
+        "sethostname": "Hostname",
+        "currentHostname": "'{{ hostname }}' vom ausgewähltem Server entfernen?"
+      },
+      "game": {
+        "bf4": "BF4",
+        "bf1": "BF1"
+      },
+      "other": {
+        "main": "Andere Server (nur Seedservers)",
+        "add": "Seedserver hinzufügen",
+        "remove": "Seedserver entfernen"
+      }
+    },
+    "servers": {
+      "main": "Server",
+      "description0": "Server Instanz zur aktuellen Gruppe hinzugefügt.",
+      "description1": "Du brauchst die Besitzerrolle um neue Server hinzuzufügen.",
+      "alias": "Alias: {{alias}}",
+      "add": "Server hinzufügen"
+    },
+    "platoons": {
+      "main": "Platoons",
+      "description0": "Verwalte mehrere Platoons, als wäre es ein gemeinsames Platoon ",
+      "search": "Platoonnamen suchen",
+      "add": "Platoons hinzufügen",
+      "remove": "Platoons entfernen",
+      "resultNotFound": "Keine Platoons mit diesem Namen gefunden",
+      "alreadyAdded": "Schon hinzugefügt",
+      "members": {
+        "main": "Mitglieder",
+        "remove": "Mitglied entfernen"
+      },
+      "applicants": {
+        "main": "Bewerber",
+        "accept": "Annehmen",
+        "decline": "Ablehnen"
+      }
+    },
+    "owners": {
+      "main": "Besitzer",
+      "description0": "Liste der aktuellen Besitzer. Diese Rolle kann neue Server hinzufügen,",
+      "description1": "Admins und andere Besitzer. Sei vorsichtig damit!",
+      "add": "Besitzer hinzufügen",
+      "addNew": "Neuen Besitzer hinzufügen",
+      "removeSelected": "Ausgewählten Besitzer entfernen",
+      "remove": "Die Besitzer entfernen",
+      "select": "Wählen Sie einen Besitzer aus um ihn zu entfernen",
+      "selected": "Sie haben {{number}} Besitzer ausgewählt"
+    },
+    "vban": {
+      "main": "Vban Liste",
+      "description0": "Liste der gebannten Spieler in dieser Gruppe",
+      "description1": "Genutzte Slots: {{number}}",
+      "noReason": "Grund:",
+      "add": "Ban hinzufügen",
+      "unban": "Entbannen",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "reason": "Grund",
+        "admin": "Admin",
+        "timestamp": "Zeitstempel ",
+        "bannedUntil": "Bis"
+      }
+    },
+    "exclusions": {
+      "main": "Liste der ausgenommenen Spieler",
+      "description0": "Liste von Spielern auf der Exklusivliste (autokick ping und bfban)",
+      "description1": "Genutzte Slots: {{number}}",
+      "noReason": "Grund",
+      "add": "Ausgenommenen Spieler hinzufügen",
+      "remove": "Ausgenommenen Spieler entfernen",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "reason": "Grund",
+        "admin": "Admin",
+        "timestamp": "Zeitstempel ",
+        "bannedUntil": "Bis"
+      }
+    },
+    "tracking": {
+      "main": "getrackte Spielerliste",
+      "description0": "Liste der getrackten Spieler als Warnung im dc wenn sie den Server das nächste mal betreten ",
+      "description1": "Genutzte Slots: {{number}}",
+      "noReason": "Grund:",
+      "add": "Spieler zur Trackliste hinzufügen",
+      "remove": "Spieler entfernen",
+      "noServer": "Nicht im Server",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "reason": "Grund",
+        "admin": "Admin",
+        "timestamp": "Zeitstempel ",
+        "currentServer": "Aktueller Server"
+      }
+    },
+    "reasonList": {
+      "main": "Vorgefertigte Gründe",
+      "description0": "Vorausgewählte Antworten hinzufügen, für kick/bans/vbans. ",
+      "noReason": "Hinzufügungsgrund",
+      "add": "Grund hinzufügen",
+      "remove": "Grund entfernen",
+      "table": {
+        "reason": "Grund"
+      }
+    },
+    "logs": {
+      "main": "Gruppenprotokolle",
+      "description": "Gruppenprotokolleliste",
+      "serverLogs": "Serverlogs zu Ergebnissen hinzufügen",
+      "reasons": {
+        "addVban": "vBanned",
+        "removeVban": "Von vBan Liste entfernen",
+        "editGroup": "Gruppe bearbeiten",
+        "addUser": "Hinzugefügte Admins",
+        "addOwner": "Hinzugefügte Besitzer",
+        "addGroup": "Gruppe hinzugefügt",
+        "removeOwner": "Entfernte Besitzer",
+        "removeUser": "Entfernte Admins",
+        "magic": "Verzauberte"
+      }
     },
     "account": {
-        "main": "Konto",
-        "discordProfile": "Discordprofil",
-        "loggedIn": "Eingeloggt",
-        "permissions": {
-            "main": "Berechtigungen",
-            "admin": "Serveradministrator",
-            "server": "Serverbesitzer",
-            "system": "Systemadministrator"
-        }
+      "main": "Serveraccount",
+      "description0": "Account-Verwalter der deine Server verwaltet.",
+      "description1": "Diese Cookies können hier gefunden werden:"
     },
-    "dev": {
-        "main": "Entwickleroptionen",
-        "listGroups": "Gruppenliste",
-        "addGroup": "Neue Gruppe hinzufügen",
-        "manage": "Gruppe bearbeiten"
+    "discord": {
+      "main": "Discord Integration",
+      "description0": "Mit unserem Bot kannst du Admins erlauben den Server zu verwalten,",
+      "description1": "mit dem prefix: ! .",
+      "gamestats": "Gamestats-Bot zum Discord hinzufügen um die BF1 Server mit Befehlen zu kontrollieren.",
+      "commandList": "Für eine Liste an Befehlen, benutze einfach den \"!bfadmin\" Befehl.",
+      "permDescription0": "Jede Person mit dieser Rolle kann",
+      "permDescription1": "Discord Befehle um die Server zu verwalten"
     },
-    "man": {
-        "main": "Management Optionen ",
-        "listGroups": "Gruppenliste",
-        "worker": {
-            "main": "Worker Account",
-            "lastUpdate": "Letztes Update"
-        },
-        "owners": {
-            "main": "Besitzer",
-            "createdAt": "Benutzer erstellt am:"
-        },
+    "settings": {
+      "main": "Gruppeneinstellungen",
+      "visableBansDesc": "Server Banns sichtbar machen. Damit andere Leute/Server es sehen können.",
+      "visableBans": "\"!checkban\" Sichtbarkeit aktivieren",
+      "localeDescription0": "Der benutze Sprachentag für die Cookies, zeigt z.B. die Namen der Karten in der ausgewähltem Sprache an.",
+      "localeDescription1": "Sprachtags können hier gefunden werden:",
+      "tokenDescription0": "Wenn du das Backend der Manger-Api nutzen willst, generiere einfach einen Token und speichere ihn dir ab.",
+      "tokenDescription1": "Wir können dir nur einen neuen Token generieren, keinen alten.",
+      "token": "Marke",
+      "tokenGen": "Generieren ",
+      "tokenEnable": "Gruppenmarke aktivieren"
+    },
+    "status": {
+      "main": "Gruppenstatus",
+      "worker": {
+        "main": "Info über dieses Gruppen-Worker:",
+        "in": "Arbeitet aktuell für {{time}}",
+        "queue": "In der Warteschlange"
+      },
+      "cookiecheck": {
+        "main": "Letzter Check ob die Gruppencookies gültig sind:",
+        "never": "Gruppe wurde noch nie für Cookies gecheckt"
+      },
+      "stats": {
+        "main": "Statistiken über die aktuelle Gruppe, in einer Woche:",
+        "autoKickPingAmount": "{{amount}} Spieler wurden wegen ihres Pings gekickt.",
+        "bfbanAmount": "{{amount}} Spieler wurden via bfban gekickt",
+        "moveAmount": "{{amount}} Spieler wurden ins andere Team verschoben (Panel, DC Bot oder Token)",
+        "kickAmount": "{{amount}} Spieler wurden via Panel, DC Bot oder Token gekickt.",
+        "banAmount": "{{amount}} Spieler wurden via Panel, DC Bot oder Token gebannt.",
+        "globalBanKickAmount": "{{amount}} Spieler wurden via vBan gekickt.",
         "servers": {
-            "main": "Server",
-            "status": "Serverstatus",
-            "lastUpdate": "Letztes Worker Update",
-            "createdAt": "Server hinzugefügt am:",
-            "autoPingKick": "Rauswerfen wegen Ping",
-            "autoBanKick": "vBan Rauswurf",
-            "autoBfbanKick": "BfBan Rauswurf "
-        },
-        "settings": {
-            "main": "Einstellungen",
-            "makeOperations": "\"make operations\" aktivieren",
-            "seedServers": "Seedingbots aktivieren"
+          "main": "Serverstatistiken",
+          "none": "Keine Serverinformation",
+          "info": {
+            "main": "Serverinfo über die Zeit",
+            "players": "# von Spielern",
+            "vips": "# von Vips",
+            "admins": "# von Admins",
+            "bans": "# von Bans"
+          },
+          "maps": {
+            "main": "Beliebteste Karte",
+            "info": "% von Karten"
+          },
+          "modes": {
+            "main": "Beliebtester Spielmodus",
+            "info": "% von Spielmodi"
+          },
+          "worstMaps": {
+            "main": "Karte mit den wenigsten Spielern",
+            "info": "% von Karte"
+          }
         }
+      }
     },
-    "createGroup": {
-        "main": "Neue Gruppe erstellen",
-        "description": "Neue Gruppe erstellen, um Ihre Communityserver zu verwalten",
-        "discordDescription": "Optional können Sie ihren Discordserver hinzufügen, um Servertools zu integrieren",
-        "cookieDescription0": "Jede Gruppe braucht einen speziell ausgewähltem Account, mit folgenden Bedingung:",
-        "cookieDescription1": "Es sollte ein BF1 Servermoderator sein (Besitzer-Zugriff nicht erforderlich)",
-        "cookieDescription2": "Falls dieser Account für BF1 genutzt wird, sollte er nirgendswo anders benutzt werden. Das könnte zu Problemen führen.",
-        "acceptDescription0": "Mit dem drücken dieses Knopfes, stimmst du zu dass ",
-        "acceptDescription1": "Server-Manager-Tool Zugriff auf diesen Account bekommt.",
-        "accept": "Gruppe erstellen"
+    "danger": {
+      "main": "Gefahrenzone",
+      "nameChange": "Du kannst den Namen der aktuellen Gruppe ändern.",
+      "delete": "Gruppe löschen",
+      "deleteInfo0": "Wenn du eine Gruppe löschst, werden auch alle Server,",
+      "deleteInfo1": "Server Accounts und User entfernt.",
+      "check": "Bist du dir sicher diese Gruppe zu löschen?",
+      "checkWithName": "Sind sie sich sicher {{name}} zu löschen?",
+      "confirm": "Ja, entfernen",
+      "back": "Oh, nein!"
     },
-    "group": {
-        "main": "Gruppe",
-        "name": "Gruppenname",
-        "id": "Identität",
-        "admins": {
-            "main": "Administratoren",
-            "description0": "Die Administratorenrolle kann die Server verwalten.",
-            "description1": "Du benötigst mindestens die Besitzerrolle um neue Admins hinzuzufügen.",
-            "add": "Admins hinzufügen",
-            "addNew": "Neuen Admins hinzufügen",
-            "removeSelected": "Ausgewählte Admins entfernen ",
-            "remove": "Admins entfernen",
-            "select": "Admins auswählen um sie zu entfernen",
-            "selected": "Du hast {{number}} Admins ausgewählt."
-        },
-        "seeding": {
-            "main": "Servers Seeden",
-            "app": "Laden Sie sich die Seeding-App herunter",
-            "description0": "Seeden Sie Ihre Battlefield 1 und 4 Server",
-            "description1": "Sie benötigen mindestens die Besitzerrolle um auf diesen Abschnitt zugreifen zu können,",
-            "description2": "Du musst diese Anwendung, Link darunter, auf jedem PC starten, der beim Seeding helfen soll",
-            "custom": "Customserver",
-            "broadcast": {
-                "main": "Übermitteln einer Nachricht an alle Server",
-                "message": "Nachricht",
-                "sendMessage": "Senden"
-            },
-            "scheduled": {
-                "true": "Planmäßiger Start {{startTime}} für {{serverName}}",
-                "false": "Kein automatischer Seeder Start (nach Plan)"
-            },
-            "auto-rejoin": {
-                "true": "auto-rejoin",
-                "false": "kein auto-rejoin"
-            },
-            "popup": {
-                "confirmInfo": "Sind Sie sich Sicher {{option}} auszuführen?",
-                "broadcastInfo": "Sind Sie sich Sicher \"{{message}}\" zu übermitteln?",
-                "confirm": "Bestätigen!"
-            },
-            "actions": {
-                "joinSelected": "Ausgewählten Server beitreten ",
-                "leave": "Aktuellen Server verlassen",
-                "shutdownWindows": "PCs herunterfahren (mit Herunterfahr-Option aktiviert) ",
-                "schedule": "Planmäßige Seeder Startzeit (UTC Zeitzone)",
-                "undoSchedule": "Planmäßiges Seeding entfernen"
-            },
-            "status": {
-                "main": "Status:",
-                "seedServer": "Seeding {{serverName}}",
-                "leaveServer": "In keinem Server",
-                "shutdownPC": "Fährt alle PCs mit aktivierter Herunterfahr-Option herunter",
-                "broadcastMessage": "\"{{message}}\" wurde an alle Server übermittelt"
-            },
-            "seeders": {
-                "main": "Aktuell sind {{seeders}} Seeders online, mit {{ingame}} im Spiel",
-                "true": "Im Spiel",
-                "false": "Nicht im Spiel",
-                "defaultDescription": "folgend das \"global-seeding system\""
-            },
-            "keepalive": {
-                "main": "Verbinde den Hostnamen mit dem Server um ihn am Leben zu erhalten. ",
-                "add": "Hostnamen hinzufügen",
-                "remove": "Hostnamen entfernen",
-                "hostname": "Welchen Hostnamen willst zum ausgewähltem Server hinzufügen?",
-                "sethostname": "Hostname",
-                "currentHostname": "'{{ hostname }}' vom ausgewähltem Server entfernen?"
-            },
-            "game": {
-                "bf4": "BF4",
-                "bf1": "BF1"
-            },
-            "other": {
-                "main": "Andere Server (nur Seedservers)",
-                "add": "Seedserver hinzufügen",
-                "remove": "Seedserver entfernen"
-            }
-        },
-        "servers": {
-            "main": "Server",
-            "description0": "Server Instanz zur aktuellen Gruppe hinzugefügt.",
-            "description1": "Du brauchst die Besitzerrolle um neue Server hinzuzufügen.",
-            "alias": "Alias: {{alias}}",
-            "add": "Server hinzufügen"
-        },
-        "platoons": {
-            "main": "Platoons",
-            "description0": "Verwalte mehrere Platoons, als wäre es ein gemeinsames Platoon ",
-            "search": "Platoonnamen suchen",
-            "add": "Platoons hinzufügen",
-            "remove": "Platoons entfernen",
-            "resultNotFound": "Keine Platoons mit diesem Namen gefunden",
-            "members": {
-                "main": "Mitglieder",
-                "remove": "Mitglied entfernen"
-            },
-            "applicants": {
-                "main": "Bewerber",
-                "accept": "Annehmen",
-                "decline": "Ablehnen"
-            }
-        },
-        "owners": {
-            "main": "Besitzer",
-            "description0": "Liste der aktuellen Besitzer. Diese Rolle kann neue Server hinzufügen,",
-            "description1": "Admins und andere Besitzer. Sei vorsichtig damit!",
-            "add": "Besitzer hinzufügen",
-            "addNew": "Neuen Besitzer hinzufügen",
-            "removeSelected": "Ausgewählten Besitzer entfernen",
-            "remove": "Die Besitzer entfernen",
-            "select": "Wählen Sie einen Besitzer aus um ihn zu entfernen",
-            "selected": "Sie haben {{number}} Besitzer ausgewählt"
-        },
-        "vban": {
-            "main": "Vban Liste",
-            "description0": "Liste der gebannten Spieler in dieser Gruppe",
-            "description1": "Genutzte Slots: {{number}}",
-            "noReason": "Grund:",
-            "add": "Ban hinzufügen",
-            "unban": "Entbannen",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "reason": "Grund",
-                "admin": "Admin",
-                "timestamp": "Zeitstempel ",
-                "bannedUntil": "Bis"
-            }
-        },
-        "exclusions": {
-            "main": "Liste der ausgenommenen Spieler",
-            "description0": "Liste von Spielern auf der Exklusivliste (autokick ping und bfban)",
-            "description1": "Genutzte Slots: {{number}}",
-            "noReason": "Grund",
-            "add": "Ausgenommenen Spieler hinzufügen",
-            "remove": "Ausgenommenen Spieler entfernen",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "reason": "Grund",
-                "admin": "Admin",
-                "timestamp": "Zeitstempel ",
-                "bannedUntil": "Bis"
-            }
-        },
-        "reasonList": {
-            "main": "Vorgefertigte Gründe",
-            "description0": "Vorausgewählte Antworten hinzufügen, für kick/bans/vbans. ",
-            "noReason": "Hinzufügungsgrund",
-            "add": "Grund hinzufügen",
-            "remove": "Grund entfernen",
-            "table": {
-                "reason": "Grund"
-            }
-        },
-        "logs": {
-            "main": "Gruppenprotokolle",
-            "description": "Gruppenprotokolleliste",
-            "reasons": {
-                "addVban": "vBanned",
-                "removeVban": "Von vBan Liste entfernen",
-                "editGroup": "Gruppe bearbeiten",
-                "addUser": "Hinzugefügte Admins",
-                "addOwner": "Hinzugefügte Besitzer",
-                "addGroup": "Gruppe hinzugefügt",
-                "removeOwner": "Entfernte Besitzer",
-                "removeUser": "Entfernte Admins",
-                "magic": "Verzauberte"
-            }
-        },
-        "account": {
-            "main": "Serveraccount",
-            "description0": "Account-Verwalter der deine Server verwaltet.",
-            "description1": "Diese Cookies können hier gefunden werden:"
-        },
-        "discord": {
-            "main": "Discord Integration",
-            "description0": "Mit unserem Bot kannst du Admins erlauben den Server zu verwalten,",
-            "description1": "mit dem prefix: ! .",
-            "gamestats": "Gamestats-Bot zum Discord hinzufügen um die BF1 Server mit Befehlen zu kontrollieren.",
-            "commandList": "Für eine Liste an Befehlen, benutze einfach den \"!bfadmin\" Befehl.",
-            "permDescription0": "Jede Person mit dieser Rolle kann",
-            "permDescription1": "Discord Befehle um die Server zu verwalten"
-        },
-        "settings": {
-            "main": "Gruppeneinstellungen",
-            "visableBansDesc": "Server Banns sichtbar machen. Damit andere Leute/Server es sehen können.",
-            "visableBans": "\"!checkban\" Sichtbarkeit aktivieren",
-            "localeDescription0": "Der benutze Sprachentag für die Cookies, zeigt z.B. die Namen der Karten in der ausgewähltem Sprache an.",
-            "localeDescription1": "Sprachtags können hier gefunden werden:",
-            "tokenDescription0": "Wenn du das Backend der Manger-Api nutzen willst, generiere einfach einen Token und speichere ihn dir ab.",
-            "tokenDescription1": "Wir können dir nur einen neuen Token generieren, keinen alten.",
-            "token": "Marke",
-            "tokenGen": "Generieren ",
-            "tokenEnable": "Gruppenmarke aktivieren"
-        },
-        "status": {
-            "main": "Gruppenstatus",
-            "worker": {
-                "main": "Info über dieses Gruppen-Worker:",
-                "in": "Arbeitet aktuell für {{time}}",
-                "queue": "In der Warteschlange"
-            },
-            "cookiecheck": {
-                "main": "Letzter Check ob die Gruppencookies gültig sind:",
-                "never": "Gruppe wurde noch nie für Cookies gecheckt"
-            },
-            "stats": {
-                "main": "Statistiken über die aktuelle Gruppe, in einer Woche:",
-                "autoKickPingAmount": "{{amount}} Spieler wurden wegen ihres Pings gekickt.",
-                "bfbanAmount": "{{amount}} Spieler wurden via bfban gekickt",
-                "moveAmount": "{{amount}} Spieler wurden ins andere Team verschoben (Panel, DC Bot oder Token)",
-                "kickAmount": "{{amount}} Spieler wurden via Panel, DC Bot oder Token gekickt.",
-                "banAmount": "{{amount}} Spieler wurden via Panel, DC Bot oder Token gebannt.",
-                "globalBanKickAmount": "{{amount}} Spieler wurden via vBan gekickt.",
-                "servers": {
-                    "main": "Serverstatistiken",
-                    "none": "Keine Serverinformation",
-                    "info": {
-                        "main": "Serverinfo über die Zeit",
-                        "players": "# von Spielern",
-                        "vips": "# von Vips",
-                        "admins": "# von Admins",
-                        "bans": "# von Bans"
-                    },
-                    "maps": {
-                        "main": "Beliebteste Karte",
-                        "info": "% von Karten"
-                    },
-                    "modes": {
-                        "main": "Beliebtester Spielmodus",
-                        "info": "% von Spielmodi"
-                    },
-                    "worstMaps": {
-                        "main": "Karte mit den wenigsten Spielern",
-                        "info": "% von Karte"
-                    }
-                }
-            }
-        },
-        "danger": {
-            "main": "Gefahrenzone",
-            "nameChange": "Du kannst den Namen der aktuellen Gruppe ändern.",
-            "delete": "Gruppe löschen",
-            "deleteInfo0": "Wenn du eine Gruppe löschst, werden auch alle Server,",
-            "deleteInfo1": "Server Accounts und User entfernt.",
-            "check": "Bist du dir sicher diese Gruppe zu löschen?",
-            "checkWithName": "Sind sie sich sicher {{name}} zu löschen?",
-            "confirm": "Ja, entfernen",
-            "back": "Oh, nein!"
-        },
-        "addMenu": {
-            "id": "Discord UID",
-            "nickname": "Nickname (wird automatisch geupdatet)"
-        },
-        "serverAddMenu": {
-            "main": "Neuen Server hinzufügen",
-            "description": "Gruppenserver",
-            "name": "Servername",
-            "alias": "Alias (optional)"
-        }
+    "addMenu": {
+      "id": "Discord UID",
+      "nickname": "Nickname (wird automatisch geupdatet)"
     },
-    "operations": {
-        "main": "Operation Spielmodus Setup ",
-        "description0": "Operationen Spielmodus auf ihren Server einrichten.",
-        "description1": "Vergewissere dich, dass du damit das Ingame Admin-Panel verlierst!",
-        "description2": "Gehe sicher das du die Server in dieses Panel hinzugefügt hast. Check es nochmal.",
-        "acceptDescription0": "Mit dem drücken dieses Knopfes, stimmst du zu dass",
-        "acceptDescription1": "Server-Manager-Tool Zugriff auf diesen Account bekommt.",
-        "accept": "Make Operations",
-        "server": "Server ",
-        "owner": "Besitzer",
-        "cookies": " cookies."
-    },
-    "server": {
-        "main": "Serverabschnitt",
-        "playerName": "Spielername",
-        "ago": "vor",
-        "action": {
-            "kick": "Rauswerfen",
-            "move": "Wechseln",
-            "ban": "Bannen",
-            "unban": "Entbannen",
-            "addVip": "Vip hinzufügen",
-            "removeVip": "Vip entfernen"
-        },
-        "ingameSettings": {
-            "main": "Ingame Einstellungen",
-            "rotation": "Serverrotation ändern",
-            "addMap": "Eine andere Karte hinzufügen",
-            "removeMap": "Entfernen",
-            "cookie": "Benutze Cookies um die Server zu verwalten, Manager und SID/REMIND sind möglich."
-        },
-        "game": {
-            "main": "Aktuelles Spiel ",
-            "info": "[{{inQue}}] Spieler",
-            "restart": "Neustart",
-            "mapSwitch": "Wechseln zu:",
-            "startServer": "Server starten",
-            "playerlistUpdate": "Letztes Update",
-            "bfvPlaygroundSelect": "Konfiguration auswählen",
-            "serverRegionSelect": "Region auswählen"
-        },
-        "banList": {
-            "main": "Bannliste ",
-            "description0": "Liste der gebannten Spieler auf diesen Server",
-            "description1": "Benutzt",
-            "description2": "{{number}} Slots von 200",
-            "description3": "Benutze unsere Gruppenbasierte vBan Liste,",
-            "description4": "um eine unbegrenzte Anzahl an Spieler zu bannen.",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "reason": "Grund",
-                "admin": "Admin",
-                "until": "Bis",
-                "timestamp": "Zeitstempel "
-            }
-        },
-        "vipList": {
-            "main": "Vip Spieler",
-            "description0": "Vip-Liste auf diesen Server.",
-            "description1": "Benutzt",
-            "description2": "{{number}} Slots von 50",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID"
-            }
-        },
-        "adminList": {
-            "main": "Serveradmins",
-            "description0": "Adminliste von diesen Server.",
-            "description1": "Benutzt",
-            "description2": "{{number}} Slots von 50",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID"
-            }
-        },
-        "firestarterList": {
-            "main": "Firestarter Liste",
-            "description0": "Wir ermitteln wenn die Vorrunde Ihres Servers vorbei ist und zählen alle Spieler in dem Server, wenn er startet,",
-            "description1": "so dass Sie sehen können wer Ihnen hilft den Server zu starten.",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "amount": "Anzahl"
-            }
-        },
-        "playTimeList": {
-            "main": "Spielzeit",
-            "description0": "Liste von Spieler mit ihrer Spielzeit auf diesem Server. Damit du ihnen als Dank etwas spezielles geben kannst.",
-            "description1": "Diese Daten sind nur wöchentlich und sind wie folgt definiert \"Stunden:Minuten\"",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "timePlayed": "Verbrachte Zeit auf dem Server"
-            }
-        },
-        "spectatorList": {
-            "main": "Zuschauerliste",
-            "description0": "Wir erstellen eine Liste von jedem Zuschauer der letzten 24 Stunden,",
-            "description1": "weil es einen Hack in Battlefield 1 gibt, der es erlaubt Spieler im Spiel zu kontrollieren.",
-            "description2": "Das ist ein Weg um gegen diese Hacker zu kämpfen.",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "time": "Zeit"
-            }
-        },
-        "playerLogs": {
-            "main": "Spielerprotokoll",
-            "description0": "Wir erstellen eine Liste von jedem Spieler der in den letzten 24 Stunden auf diesem Server war,",
-            "description1": "da es Hacker gibt die unsere Server crashen.",
-            "description2": "Das ist ein Weg um herauszufinden wann oder wer es war.",
-            "description3": "Filter die Liste nach einen bestimmten Spieler, um zusehen ob er hier auftaucht:",
-            "search": "Suche Spieler in der Liste...",
-            "filterPlayer": "Datumfilter für Spieler",
-            "table": {
-                "playerName": "Spielername",
-                "playerId": "Spieler ID",
-                "ping": "Ping",
-                "role": "Rolle"
-            }
-        },
-        "logs": {
-            "main": "Protokolle",
-            "reasons": {
-                "addServerBan": "gebannt",
-                "kickPlayer": "rausgeworfen",
-                "removeServerBan": "entbanned",
-                "addServerVip": "gab Vip zu",
-                "movePlayer": "wechselte",
-                "removeServerVip": "entfernte Vip für",
-                "magic": "Verzauberte"
-            },
-            "types": {
-                "pingChecker": "Ping Tester",
-                "vBan": "VBan",
-                "bfban": "BFBan"
-            },
-            "reason": "Grund",
-            "noReason": "ohne einen Grund"
-        },
-        "protection": {
-            "main": "Serverschutz",
-            "title": "Auto Serverschutz",
-            "vBanDescription0": "Wir stellen vor, ein neues Tool um sie vor Hackern, in Ihren Servern, zu schützen.",
-            "vBanDescription1": "Global Virtual Ban list auto-kickt Spieler auf",
-            "vBanDescription2": "alle Gruppenserver",
-            "vBanDescription3": "Bereitstellen",
-            "vBanDescription4": "Unbegrenzte Anzahl an Bannslots und einer synchronisierten Bannliste.",
-            "vBanEnable": "Vban-Liste aktivieren",
-            "vbanReasonDesc0": "Diese Nachricht erscheint bei dem Spieler der",
-            "vbanReasonDesc1": "automatisch rausgeworfen wurde durch das Vban System.",
-            "vBanMsg": "V-Ban Nachricht",
-            "bfbanDescription": "Schützen Sie Ihre Server gegen bekannte Cheater in",
-            "bfbanEnable": " BFBan Anti-Cheat aktivieren",
-            "bfBanMsg": "BfBan Nachricht",
-            "pingKickDescription": "Spieler mit konstant hohem Ping rauswerfen",
-            "pingKickEnable": "Rauswurf bei hohem Ping",
-            "pingKickAmount": "High Ping Nummer",
-            "pingKickMsg": "Auto Ping Nachricht",
-            "pingKickMinDesc": "Minimale Anzahl an Spieler, damit autokick einsetzt (0 um es immer aktiv zuhaben)",
-            "pingKickMin": "High Ping Nummer",
-            "minAutoPingKick": "Minimale Spieleranzahl bevor autokick einsetzt",
-            "KickRankDesc": "Kicke Spieler basierend auf ihrem Rang im Spiel",
-            "rankKickReason": "Rang ist nicht im Rahmen der Anforderungen",
-            "kickLowRank": "Rauswurf wenn Rang ist kleiner als:",
-            "kickHighRank": "Rauswurf wenn Rang is größer als:"
-        },
-        "settings": {
-            "main": "Einstellungen",
-            "title": "Servereinstellungen",
-            "nameDescription": "Servernamen ändern",
-            "name": "Servername",
-            "aliasDescription": "Alias um ihn mit dem Discord-Bot zu benutzen (z.B. Servernummer) ",
-            "alias": "Alias",
-            "cookie": "Wähle den Account aus, um Infos bekommen und Änderungen am Server durchzuführen",
-            "discordBot": {
-                "main": "Discord Battlefiel-Serverstatus-Bot",
-                "token": "Discordmarke",
-                "tokenDesc": "Den Discord-Token den der Serverstaus-Bot benutzen wird (ein \"Worker\" wird automatisch erstellt, wenn du den Token eingibst und auf Anwenden drückst)",
-                "channel": "Discord-Kanal-ID",
-                "channelDesc": "Die Discordchannel-ID in der es die Veränderungen posten wird.",
-                "minPlayerAmount": "min. Anzahl um eine Runde zu starten",
-                "minPlayerAmountDesc": "Minimale Anzahl an Spielern, die benötigt werden um eine Runde auf dem jeweiligen Gamemode zu starten.",
-                "prevReqCount": "vorhergehende Anfrage zum zählen",
-                "prevReqCountDesc": "Wie viele Anfragen es benötigt zwischen \"started and running\", (normalerweise = 5,5 * 2 == 10 Minuten)",
-                "startedAmount": "genug um es am Laufen zu halten.",
-                "startedAmountDesc": "Wie viele Spieler zählen als laufender Server",
-                "ownerId": "Spieler ID des Besitzers",
-                "ownerIdDesc": "In BF5 und BF2042 sind Server kostenlos. Deswegen ist es sehr einfach einen Server zu kopieren. Füge deshalb die Spieler-ID des Serverbesitzers hier ein, um dass zu verhindern.",
-                "restartWorker": "Neustart",
-                "restartWorkerDesc": "Starte den Serverstatus-Bot neu (wenn du eine Veränderung vornimmst geschieht dasselbe)"
-            }
-        },
-        "console": {
-            "main": "Konsole",
-            "logs": "Aktionsprotokolle anzeigen",
-            "amount": "{{amount}} Gegenstände im Log "
-        },
-        "players": {
-            "main": "{{amount}} von {{max}} Spielern",
-            "failed": "Ups... Spielerliste fehlgeschlagen",
-            "noPlayers": "Noch keiner ist dieser Seite beigetreten! ",
-            "noSpectators": "Keine Zuschauer",
-            "full": "Team ist voll",
-            "0": "Team 1",
-            "1": "Team 2",
-            "spectators": "Zuschauer",
-            "timeInfo": "Wie lange der Spieler im Spiel ist",
-            "sort": {
-                "main": "Spielerliste sortieren",
-                "position": "Position im Server (Standard)",
-                "ping": "Ping",
-                "name": "Spielername",
-                "rank": "Rang",
-                "joinTime": "Beitritt-Zeit"
-            }
-        },
-        "factions": {
-            "BFFactionId_FactionAHU": "Österreich-Ungarn",
-            "BFFactionId_FactionGER": "Deutsches Kaiserreich",
-            "BFFactionId_FactionOTM": "Osmanisches Reich",
-            "BFFactionId_FactionITA": "Königreich Italien",
-            "BFFactionId_FactionUK": "Großbritannien",
-            "BFFactionId_FactionUSA": "Vereinigte Staaten von Amerika",
-            "BFFactionId_FactionFRA": "Frankreich",
-            "BFFactionId_FactionRUS": "Russisches Reich",
-            "BFFactionId_FactionBOL": "Rote Armee",
-            "BFFactionId_FactionWA": "Weiße Armee",
-            "BFFactionId_FactionUKM": "Royal Marines",
-            "BFFactionId_FactionUSA_Pacific": "Vereinigte Staaten von Amerika",
-            "BFFactionId_FactionJPN": "Japanisches Kaiserreich"
-        },
-        "playerStats": {
-            "main": "Spielerstatistiken für {{player}}",
-            "loading": "Lade Statistiken...",
-            "skill": "Skill:",
-            "rank": "Level:",
-            "killsPerMinute": "KPM:",
-            "winPercent": "Siege:",
-            "accuracy": "Genauigkeit:",
-            "headshots": "Kopfschüsse:",
-            "killDeath": "ET:",
-            "id": "ID:",
-            "currentName": "Aktueller Name:",
-            "toStatsPage": "Vollständige Statistiken... "
-        },
-        "kickMenu": {
-            "main": "Sie sind dabei {{name}} rauszuwerfen",
-            "reasonDescription": "Hier wird für den Spieler der Grund angezeigt! Es gehen nur 30 Zeichen und nur einige Spezialsymbole sind erlaubt!",
-            "reason": "Grund",
-            "confirm": "Wirf ihn raus!"
-        },
-        "banMenu": {
-            "main": "Sie sind dabei {{name}} zu bannen",
-            "reasonDescription": "Banngrund eintragen.",
-            "reason": "Grund",
-            "vBanOption": "Vban Liste anstatt normale Bannliste benutzen",
-            "tempbanDesc0": "Wenn Sie ihn temporär bannen wollen, geben Sie die Zeit in",
-            "tempbanDesc1": "Stunden hier ein, wenn sie ihn permanent bannen wollen, geben Sie 0 ein.",
-            "tempbanDesc2": "Noch nicht unterstützt durch V-Ban",
-            "tempbanAmount": "Bann-Zeit",
-            "confirm": "Bannen!"
-        },
-        "unbanMenu": {
-            "main": "Sie sind dabei {{name}} zu entbannen",
-            "reasonDescription": "Entbannungsgrund eintragen.",
-            "reason": "Grund",
-            "confirm": "Entbannen!"
-        },
-        "vUnbanMenu": {
-            "main": "Sie sind dabei {{name}} von der Vban Liste zu entfernen",
-            "reasonDescription": "Entfernungsgrund eintragen.",
-            "reason": "Grund",
-            "confirm": "Entbannen!"
-        },
-        "removeExclusionsMenu": {
-            "main": "Sie sind dabei {{name}} von der Exklusionsliste zu entfernen",
-            "reasonDescription": "Geben Sie den Grund für dass entfernen von der Exklusionsliste an (Ping und bfban).",
-            "reason": "Grund",
-            "confirm": "Entfernen"
-        },
-        "removeReasonMenu": {
-            "main": "Sind Sie sich sicher?",
-            "confirm": "Entfernen"
-        },
-        "unvipMenu": {
-            "main": "Sie sind dabei {{name}} den Vip-Status zu entfernen",
-            "reasonDescription": "Grund für das entfernen des Vip-Status.",
-            "reason": "Grund",
-            "confirm": "Vip entfernen!"
-        },
-        "vBanMenu": {
-            "playerNameDescription": "Name des Spielers eintragen den Sie bannen wollen",
-            "playerName": "Benutzername",
-            "reasonDescription": "VBangrund eintragen.",
-            "reason": "Grund",
-            "confirm": "Bannen!",
-            "usePlayerId": "Benutze die Spieler ID, um ihn zu bannen",
-            "playerId": "Spieler ID"
-        },
-        "exclusionsMenu": {
-            "playerNameDescription": "Name des Spielers eintragen den Sie zur Exklusionsliste hinzufügen wollen",
-            "playerName": "Benutzername",
-            "reasonDescription": "Geben Sie den Grund für dass hinzufügen zu der Exklusionsliste (Ping und bfban).",
-            "reason": "Grund",
-            "excludeDesc0": "Wenn du ihn nur für eine bestimme Zeit bannen willst, dann gib unten die Zeit in",
-            "excludeDesc1": "Stunden an, setzt es auf 0 um ihn permanent zu bannen.",
-            "excludeAmount": "Ausschlusszeit",
-            "confirm": "Hinzufügen"
-        },
-        "reasonMenu": {
-            "reasonDescription": "Vorgefertigte Grund hinzufügen",
-            "reason": "Grund",
-            "select": "Auswählen",
-            "confirm": "Hinzufügen"
-        },
-        "danger": {
-            "main": "Gefahrenzone",
-            "delete": "Server löschen",
-            "check": "Sind Sie sicher diesen Server zu löschen?",
-            "checkWithName": "Sind sie sich sicher {{name}} zu löschen?",
-            "confirm": "Ja, entfernen",
-            "back": "Oh, nein!"
-        }
-    },
-    "sidebar": {
-        "main": "Hauptseite",
-        "home": "Home page",
-        "account": "Account/Konto",
-        "devOptions": "Entwickleroptionen",
-        "manOptions": "Management Optionen ",
-        "createGroup": "Gruppe erstellen",
-        "makeOperations": "Make Operations",
-        "logout": "Ausloggen",
-        "help": "Hilfe",
-        "sponsor": "Unterstütze uns"
-    },
-    "cookieInfo": {
-        "link": "Klicke hier um zu erfahren wie man die SID und REMID Cookies erhält.",
-        "main": "Wie man die SID und REMID Cookies bekommt",
-        "0": "1. Öffne",
-        "1": "Chrome oder Edge im inkognito Modus",
-        "2": "2. Logge dich mit dem Account den du benutzen willst an, vergiss nicht \"Erinnere mich\" anzukreuzen.",
-        "3": "3. Nach dem einloggen, drücke auf das Schloss:",
-        "4": "4. In diesen Menü wähle Cookies aus:",
-        "5": "5. Erweitere \"accounts.ea.com\" und klicke auf SID und/oder REMID, um die Cookies unter \"Inhalte/Content\" einzusehen.",
-        "6": "6. Wenn du dann die SID und REMID Cookies hast, logge dich nicht aus. Schließ einfach den Browser.",
-        "7": "Wenn du dich aus loggst sind die Cookies nicht mehr gültig."
-    },
-    "statusBotInfo": {
-        "link": "Klicke hier um Infos zu bekommen, wie man den Discord-Toker erhält + wie man den Bot in den DC einlädt.",
-        "main": "Discord-Bot und Token",
-        "0": "Erstelle einen Discord-Bot:",
-        "1": "1. Logge dich beim Discord-Entwicklerportal an:",
-        "2": "2. Klicke auf \"Neue Anwendung\" (oben rechts), gib dem Bot einem Namen und drücke auf erstellen.",
-        "3": "3. Klicke auf \"Bot\" (rechts) und drücke auf \"Bot hinzufügen\".",
-        "4": "4. Kopiere den Discord-Token von hieraus in das \"Discord-Token\" Feld. Dieses Feld ist bei \"Servereinstellungen\" des Managers. Drücke nun \"Anwenden\". ",
-        "5": "Den Bot zu deinem Discord hinzufügen:",
-        "6": "5. Mit dem neuen Bot, klicke bei der \"Allgemeinen Informationen\" Seite auf \"Kopieren\", unter \"Application ID\"",
-        "7": "6. Kopiere diesen Link: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, ersetze \"APPLICATION_ID\" mit deiner \"Application ID\" (die du von Schritt 5 hast) und öffne den Link in deinem Browser.",
-        "8": "7. Wähle den Server aus auf dem du den Bot einladen willst. Und drücke Autorisieren.",
-        "9": "Der Bot benötigt keine besonderen Rechte um den Status der Server zu zeigen. Um Nachrichten zu senden braucht der Nachrichten, einbinden und Foto Rechte."
-    },
-    "ApiInfo": {
-        "link": "Klicke hier um alle verfügbaren Anfragen der API zubekommen"
-    },
-    "imageAlts": {
-        "main": "Logomanager",
-        "gamestats": "Gamestatslogo",
-        "userAvatar": "Benutzer Avatar ",
-        "tutorial": "Visuelle Hilfe"
+    "serverAddMenu": {
+      "main": "Neuen Server hinzufügen",
+      "description": "Gruppenserver",
+      "name": "Servername",
+      "alias": "Alias (optional)"
     }
+  },
+  "operations": {
+    "main": "Operation Spielmodus Setup ",
+    "description0": "Operationen Spielmodus auf ihren Server einrichten.",
+    "description1": "Vergewissere dich, dass du damit das Ingame Admin-Panel verlierst!",
+    "description2": "Gehe sicher das du die Server in dieses Panel hinzugefügt hast. Check es nochmal.",
+    "acceptDescription0": "Mit dem drücken dieses Knopfes, stimmst du zu dass",
+    "acceptDescription1": "Server-Manager-Tool Zugriff auf diesen Account bekommt.",
+    "accept": "Make Operations",
+    "server": "Server ",
+    "owner": "Besitzer",
+    "cookies": " cookies."
+  },
+  "server": {
+    "main": "Serverabschnitt",
+    "playerName": "Spielername",
+    "ago": "vor",
+    "action": {
+      "kick": "Rauswerfen",
+      "move": "Wechseln",
+      "ban": "Bannen",
+      "unban": "Entbannen",
+      "addVip": "Vip hinzufügen",
+      "removeVip": "Vip entfernen",
+      "nextRound": "Nächste Runde",
+      "nextLevel": "Nächstes Level",
+      "restartRound": "Runde neustarten",
+      "shutdown": "Server stoppen",
+      "shutdownEor": "Am Ende der Runde stoppen"
+    },
+    "ingameSettings": {
+      "main": "Ingame Einstellungen",
+      "rotation": "Serverrotation ändern",
+      "addMap": "Eine andere Karte hinzufügen",
+      "removeMap": "Entfernen",
+      "cookie": "Benutze Cookies um die Server zu verwalten, Manager und SID/REMIND sind möglich.",
+      "saveRotation": {
+        "main": "Gespeicherte Kartenrotation",
+        "name": "Name der aktuellen Kartenrotation",
+        "save": "Speichere Kartenrotation",
+        "remove": "Entferne Kartenrotation",
+        "current": "Aktuelle Server Kartenrotation"
+      }
+    },
+    "game": {
+      "main": "Aktuelles Spiel ",
+      "info": "[{{inQue}}] Spieler",
+      "restart": "Neustart",
+      "mapSwitch": "Wechseln zu:",
+      "startServer": "Server starten",
+      "playerlistUpdate": "Letztes Update",
+      "bfvPlaygroundSelect": "Konfiguration auswählen",
+      "serverRegionSelect": "Region auswählen"
+    },
+    "banList": {
+      "main": "Bannliste ",
+      "description0": "Liste der gebannten Spieler auf diesen Server",
+      "description1": "Benutzt",
+      "description2": "{{number}} Slots von 200",
+      "description3": "Benutze unsere Gruppenbasierte vBan Liste,",
+      "description4": "um eine unbegrenzte Anzahl an Spieler zu bannen.",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "reason": "Grund",
+        "admin": "Admin",
+        "until": "Bis",
+        "timestamp": "Zeitstempel "
+      }
+    },
+    "vipList": {
+      "main": "Vip Spieler",
+      "description0": "Vip-Liste auf diesen Server.",
+      "description1": "Benutzt",
+      "description2": "{{number}} Slots von 50",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID"
+      }
+    },
+    "adminList": {
+      "main": "Serveradmins",
+      "description0": "Adminliste von diesen Server.",
+      "description1": "Benutzt",
+      "description2": "{{number}} Slots von 50",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID"
+      }
+    },
+    "firestarterList": {
+      "main": "Firestarter Liste",
+      "description0": "Wir ermitteln wenn die Vorrunde Ihres Servers vorbei ist und zählen alle Spieler in dem Server, wenn er startet,",
+      "description1": "so dass Sie sehen können wer Ihnen hilft den Server zu starten.",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "amount": "Anzahl"
+      }
+    },
+    "playTimeList": {
+      "main": "Spielzeit",
+      "description0": "Liste von Spieler mit ihrer Spielzeit auf diesem Server. Damit du ihnen als Dank etwas spezielles geben kannst.",
+      "description1": "Diese Daten sind nur wöchentlich und sind wie folgt definiert \"Stunden:Minuten\"",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "timePlayed": "Verbrachte Zeit auf dem Server",
+        "playCount": "Anzahl der Beitritte in dieser Woche"
+      }
+    },
+    "spectatorList": {
+      "main": "Zuschauerliste",
+      "description0": "Wir erstellen eine Liste von jedem Zuschauer der letzten 24 Stunden,",
+      "description1": "weil es einen Hack in Battlefield 1 gibt, der es erlaubt Spieler im Spiel zu kontrollieren.",
+      "description2": "Das ist ein Weg um gegen diese Hacker zu kämpfen.",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "time": "Zeit"
+      }
+    },
+    "playerLogs": {
+      "main": "Spielerprotokoll",
+      "description0": "Wir erstellen eine Liste von jedem Spieler der in den letzten 24 Stunden auf diesem Server war,",
+      "description1": "da es Hacker gibt die unsere Server crashen.",
+      "description2": "Das ist ein Weg um herauszufinden wann oder wer es war.",
+      "description3": "Filter die Liste nach einen bestimmten Spieler, um zusehen ob er hier auftaucht:",
+      "search": "Suche Spieler in der Liste...",
+      "filterPlayer": "Datumfilter für Spieler",
+      "table": {
+        "playerName": "Spielername",
+        "playerId": "Spieler ID",
+        "ping": "Ping",
+        "role": "Rolle"
+      }
+    },
+    "logs": {
+      "main": "Protokolle",
+      "reasons": {
+        "addServerBan": "gebannt",
+        "kickPlayer": "rausgeworfen",
+        "removeServerBan": "entbanned",
+        "addServerVip": "gab Vip zu",
+        "movePlayer": "wechselte",
+        "removeServerVip": "entfernte Vip für",
+        "magic": "Verzauberte"
+      },
+      "types": {
+        "pingChecker": "Ping Tester",
+        "vBan": "VBan",
+        "bfban": "BFBan"
+      },
+      "reason": "Grund",
+      "noReason": "ohne einen Grund"
+    },
+    "protection": {
+      "main": "Serverschutz",
+      "title": "Auto Serverschutz",
+      "vBanDescription0": "Wir stellen vor, ein neues Tool um sie vor Hackern, in Ihren Servern, zu schützen.",
+      "vBanDescription1": "Global Virtual Ban list auto-kickt Spieler auf",
+      "vBanDescription2": "alle Gruppenserver",
+      "vBanDescription3": "Bereitstellen",
+      "vBanDescription4": "Unbegrenzte Anzahl an Bannslots und einer synchronisierten Bannliste.",
+      "vBanEnable": "Vban-Liste aktivieren",
+      "vbanReasonDesc0": "Diese Nachricht erscheint bei dem Spieler der",
+      "vbanReasonDesc1": "automatisch rausgeworfen wurde durch das Vban System.",
+      "vBanMsg": "V-Ban Nachricht",
+      "bfbanDescription": "Schützen Sie Ihre Server gegen bekannte Cheater in",
+      "bfbanEnable": " BFBan Anti-Cheat aktivieren",
+      "bfBanMsg": "BfBan Nachricht",
+      "bfeacDescription": "Schützen Sie Ihre Server gegen bekannte Cheater in",
+      "bfeacEnable": "BFEAC Anticheat aktivieren",
+      "bfeacMsg": "BFEAC Nachricht",
+      "pingKickDescription": "Spieler mit konstant hohem Ping rauswerfen",
+      "pingKickEnable": "Rauswurf bei hohem Ping",
+      "pingKickAmount": "High Ping Nummer",
+      "pingKickMsg": "Auto Ping Nachricht",
+      "pingKickMinDesc": "Minimale Anzahl an Spieler, damit autokick einsetzt (0 um es immer aktiv zuhaben)",
+      "pingKickMin": "High Ping Nummer",
+      "minAutoPingKick": "Minimale Spieleranzahl bevor autokick einsetzt",
+      "KickRankDesc": "Kicke Spieler basierend auf ihrem Rang im Spiel",
+      "rankKickReason": "Rang ist nicht im Rahmen der Anforderungen",
+      "kickLowRank": "Rauswurf wenn Rang ist kleiner als:",
+      "kickHighRank": "Rauswurf wenn Rang is größer als:",
+      "statsKick": "Kick wenn Waffen/Fahrzeuge stats zu hoch sind (autokick startet bei 200 oder mehr Kills)",
+      "statsKickExample": "Beispielsdatei herunterladen",
+      "statsKickDownload": "Aktuelle herunterladen",
+      "statsKickRemove": "Stats Kick deaktivieren",
+      "pltMemberExclEnable": "Platoonmitglieder ausschließen",
+      "pltMemberExclDescription": "Schließen Sie die Platoonmitglieder der Platoons, die Sie im Panel hinzufügen, vom Rauswurf aus."
+    },
+    "settings": {
+      "main": "Einstellungen",
+      "title": "Servereinstellungen",
+      "nameDescription": "Servernamen ändern",
+      "name": "Servername",
+      "aliasDescription": "Alias um ihn mit dem Discord-Bot zu benutzen (z.B. Servernummer) ",
+      "alias": "Alias",
+      "cookie": "Wähle den Account aus, um Infos bekommen und Änderungen am Server durchzuführen",
+      "discordBot": {
+        "main": "Discord Battlefiel-Serverstatus-Bot",
+        "token": "Discordmarke",
+        "tokenDesc": "Den Discord-Token den der Serverstaus-Bot benutzen wird (ein \"Worker\" wird automatisch erstellt, wenn du den Token eingibst und auf Anwenden drückst)",
+        "channel": "Discord-Kanal-ID",
+        "channelDesc": "Die Discordchannel-ID in der es die Veränderungen posten wird.",
+        "minPlayerAmount": "min. Anzahl um eine Runde zu starten",
+        "minPlayerAmountDesc": "Minimale Anzahl an Spielern, die benötigt werden um eine Runde auf dem jeweiligen Gamemode zu starten.",
+        "prevReqCount": "vorhergehende Anfrage zum zählen",
+        "prevReqCountDesc": "Wie viele Anfragen es benötigt zwischen \"started and running\", (normalerweise = 5,5 * 2 == 10 Minuten)",
+        "startedAmount": "genug um es am Laufen zu halten.",
+        "startedAmountDesc": "Wie viele Spieler zählen als laufender Server",
+        "ownerId": "Spieler ID des Besitzers",
+        "ownerIdDesc": "In BF5 und BF2042 sind Server kostenlos. Deswegen ist es sehr einfach einen Server zu kopieren. Füge deshalb die Spieler-ID des Serverbesitzers hier ein, um dass zu verhindern.",
+        "restartWorker": "Neustart",
+        "restartWorkerDesc": "Starte den Serverstatus-Bot neu (wenn du eine Veränderung vornimmst geschieht dasselbe)"
+      }
+    },
+    "console": {
+      "main": "Konsole",
+      "logs": "Aktionsprotokolle anzeigen",
+      "amount": "{{amount}} Gegenstände im Log "
+    },
+    "players": {
+      "main": "{{amount}} von {{max}} Spielern",
+      "failed": "Ups... Spielerliste fehlgeschlagen",
+      "noPlayers": "Noch keiner ist dieser Seite beigetreten! ",
+      "noSpectators": "Keine Zuschauer",
+      "full": "Team ist voll",
+      "0": "Team 1",
+      "1": "Team 2",
+      "spectators": "Zuschauer",
+      "timeInfo": "Wie lange der Spieler im Spiel ist",
+      "sort": {
+        "main": "Spielerliste sortieren",
+        "position": "Position im Server (Standard)",
+        "ping": "Ping",
+        "name": "Spielername",
+        "rank": "Rang",
+        "joinTime": "Beitritt-Zeit"
+      }
+    },
+    "factions": {
+      "BFFactionId_FactionAHU": "Österreich-Ungarn",
+      "BFFactionId_FactionGER": "Deutsches Kaiserreich",
+      "BFFactionId_FactionOTM": "Osmanisches Reich",
+      "BFFactionId_FactionITA": "Königreich Italien",
+      "BFFactionId_FactionUK": "Großbritannien",
+      "BFFactionId_FactionUSA": "Vereinigte Staaten von Amerika",
+      "BFFactionId_FactionFRA": "Frankreich",
+      "BFFactionId_FactionRUS": "Russisches Reich",
+      "BFFactionId_FactionBOL": "Rote Armee",
+      "BFFactionId_FactionWA": "Weiße Armee",
+      "BFFactionId_FactionUKM": "Royal Marines",
+      "BFFactionId_FactionUSA_Pacific": "Vereinigte Staaten von Amerika",
+      "BFFactionId_FactionJPN": "Japanisches Kaiserreich"
+    },
+    "playerStats": {
+      "main": "Spielerstatistiken für {{player}}",
+      "loading": "Lade Statistiken...",
+      "skill": "Skill:",
+      "rank": "Level:",
+      "killsPerMinute": "KPM:",
+      "winPercent": "Siege:",
+      "accuracy": "Genauigkeit:",
+      "headshots": "Kopfschüsse:",
+      "killDeath": "ET:",
+      "id": "ID:",
+      "currentName": "Aktueller Name:",
+      "toStatsPage": "Vollständige Statistiken... "
+    },
+    "kickMenu": {
+      "main": "Sie sind dabei {{name}} rauszuwerfen",
+      "reasonDescription": "Hier wird für den Spieler der Grund angezeigt! Es gehen nur 30 Zeichen und nur einige Spezialsymbole sind erlaubt!",
+      "reason": "Grund",
+      "confirm": "Wirf ihn raus!"
+    },
+    "banMenu": {
+      "main": "Sie sind dabei {{name}} zu bannen",
+      "reasonDescription": "Banngrund eintragen.",
+      "reason": "Grund",
+      "vBanOption": "Vban Liste anstatt normale Bannliste benutzen",
+      "tempbanDesc0": "Wenn Sie ihn temporär bannen wollen, geben Sie die Zeit in",
+      "tempbanDesc1": "Stunden hier ein, wenn sie ihn permanent bannen wollen, geben Sie 0 ein.",
+      "tempbanDesc2": "Noch nicht unterstützt durch V-Ban",
+      "tempbanAmount": "Bann-Zeit",
+      "confirm": "Bannen!"
+    },
+    "unbanMenu": {
+      "main": "Sie sind dabei {{name}} zu entbannen",
+      "reasonDescription": "Entbannungsgrund eintragen.",
+      "reason": "Grund",
+      "confirm": "Entbannen!"
+    },
+    "vUnbanMenu": {
+      "main": "Sie sind dabei {{name}} von der Vban Liste zu entfernen",
+      "reasonDescription": "Entfernungsgrund eintragen.",
+      "reason": "Grund",
+      "confirm": "Entbannen!"
+    },
+    "removeTrackingMenu": {
+      "main": "Du wirst {{name}} vom tracking entfernen",
+      "reasonDescription": "Grund für das Entfernen vom Tracking ",
+      "reason": "Grund",
+      "confirm": "Entfernen"
+    },
+    "removeExclusionsMenu": {
+      "main": "Sie sind dabei {{name}} von der Exklusionsliste zu entfernen",
+      "reasonDescription": "Geben Sie den Grund für dass entfernen von der Exklusionsliste an (Ping und bfban).",
+      "reason": "Grund",
+      "confirm": "Entfernen"
+    },
+    "removeReasonMenu": {
+      "main": "Sind Sie sich sicher?",
+      "confirm": "Entfernen"
+    },
+    "unvipMenu": {
+      "main": "Sie sind dabei {{name}} den Vip-Status zu entfernen",
+      "reasonDescription": "Grund für das entfernen des Vip-Status.",
+      "reason": "Grund",
+      "confirm": "Vip entfernen!"
+    },
+    "vBanMenu": {
+      "playerNameDescription": "Name des Spielers eintragen den Sie bannen wollen",
+      "playerName": "Benutzername",
+      "reasonDescription": "VBangrund eintragen.",
+      "reason": "Grund",
+      "confirm": "Bannen!",
+      "usePlayerId": "Benutze die Spieler ID, um ihn zu bannen",
+      "playerId": "Spieler ID"
+    },
+    "trackingMenu": {
+      "playerNameDescription": "Name des zu trackenden Spielers eintragen",
+      "playerName": "Benutzername",
+      "reasonDescription": "Grund für das hinzufügen zum Tracking",
+      "reason": "Grund",
+      "confirm": "Hinzufügen"
+    },
+    "exclusionsMenu": {
+      "playerNameDescription": "Name des Spielers eintragen den Sie zur Exklusionsliste hinzufügen wollen",
+      "playerName": "Benutzername",
+      "reasonDescription": "Geben Sie den Grund für dass hinzufügen zu der Exklusionsliste (Ping und bfban).",
+      "reason": "Grund",
+      "excludeDesc0": "Wenn du ihn nur für eine bestimme Zeit bannen willst, dann gib unten die Zeit in",
+      "excludeDesc1": "Stunden an, setzt es auf 0 um ihn permanent zu bannen.",
+      "excludeAmount": "Ausschlusszeit",
+      "confirm": "Hinzufügen"
+    },
+    "reasonMenu": {
+      "reasonDescription": "Vorgefertigte Grund hinzufügen",
+      "reason": "Grund",
+      "select": "Auswählen",
+      "confirm": "Hinzufügen"
+    },
+    "danger": {
+      "main": "Gefahrenzone",
+      "delete": "Server löschen",
+      "check": "Sind Sie sicher diesen Server zu löschen?",
+      "checkWithName": "Sind sie sich sicher {{name}} zu löschen?",
+      "confirm": "Ja, entfernen",
+      "back": "Oh, nein!"
+    }
+  },
+  "sidebar": {
+    "main": "Hauptseite",
+    "home": "Home page",
+    "account": "Account/Konto",
+    "devOptions": "Entwickleroptionen",
+    "manOptions": "Management Optionen ",
+    "createGroup": "Gruppe erstellen",
+    "makeOperations": "Make Operations",
+    "logout": "Ausloggen",
+    "help": "Hilfe",
+    "sponsor": "Unterstütze uns"
+  },
+  "cookieInfo": {
+    "link": "Klicke hier um zu erfahren wie man die SID und REMID Cookies erhält.",
+    "main": "Wie man die SID und REMID Cookies bekommt",
+    "0": "1. Öffne",
+    "1": "Chrome oder Edge im inkognito Modus",
+    "2": "2. Logge dich mit dem Account den du benutzen willst an, vergiss nicht \"Erinnere mich\" anzukreuzen.",
+    "3": "3. Nach dem einloggen, drücke auf das Schloss:",
+    "4": "4. In diesen Menü wähle Cookies aus:",
+    "5": "5. Erweitere \"accounts.ea.com\" und klicke auf SID und/oder REMID, um die Cookies unter \"Inhalte/Content\" einzusehen.",
+    "6": "6. Wenn du dann die SID und REMID Cookies hast, logge dich nicht aus. Schließ einfach den Browser.",
+    "7": "Wenn du dich aus loggst sind die Cookies nicht mehr gültig."
+  },
+  "statusBotInfo": {
+    "link": "Klicke hier um Infos zu bekommen, wie man den Discord-Toker erhält + wie man den Bot in den DC einlädt.",
+    "main": "Discord-Bot und Token",
+    "0": "Erstelle einen Discord-Bot:",
+    "1": "1. Logge dich beim Discord-Entwicklerportal an:",
+    "2": "2. Klicke auf \"Neue Anwendung\" (oben rechts), gib dem Bot einem Namen und drücke auf erstellen.",
+    "3": "3. Klicke auf \"Bot\" (rechts) und drücke auf \"Bot hinzufügen\".",
+    "4": "4. Kopiere den Discord-Token von hieraus in das \"Discord-Token\" Feld. Dieses Feld ist bei \"Servereinstellungen\" des Managers. Drücke nun \"Anwenden\". ",
+    "5": "Den Bot zu deinem Discord hinzufügen:",
+    "6": "5. Mit dem neuen Bot, klicke bei der \"Allgemeinen Informationen\" Seite auf \"Kopieren\", unter \"Application ID\"",
+    "7": "6. Kopiere diesen Link: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, ersetze \"APPLICATION_ID\" mit deiner \"Application ID\" (die du von Schritt 5 hast) und öffne den Link in deinem Browser.",
+    "8": "7. Wähle den Server aus auf dem du den Bot einladen willst. Und drücke Autorisieren.",
+    "9": "Der Bot benötigt keine besonderen Rechte um den Status der Server zu zeigen. Um Nachrichten zu senden braucht der Nachrichten, einbinden und Foto Rechte."
+  },
+  "ApiInfo": {
+    "link": "Klicke hier um alle verfügbaren Anfragen der API zubekommen"
+  },
+  "imageAlts": {
+    "main": "Logomanager",
+    "gamestats": "Gamestatslogo",
+    "userAvatar": "Benutzer Avatar ",
+    "tutorial": "Visuelle Hilfe"
+  }
 }
