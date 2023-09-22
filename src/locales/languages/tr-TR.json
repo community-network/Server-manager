@@ -411,8 +411,8 @@
     "exclusions": {
       "main": "İstisnalar listesi",
       "description0": "Autokick'ten hariç tutulan oyuncuların listesi (ping ve bfban).",
-      "description1": "Χρησιμοποιημένες {{number}} θυρίδες",
-      "noReason": "με λόγο",
+      "description1": "{{number}} slot kullanıldı",
+      "noReason": "sebebiyle birlikte ",
       "add": "Hariç tutma ekleyin",
       "remove": "Hariç tutmayı kaldırın",
       "table": {
