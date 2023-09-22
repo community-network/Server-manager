@@ -832,8 +832,8 @@
     "kickMenu": {
       "main": "Θα kickάρετε τον παίκτη {{name}}",
       "reasonDescription": "Bu sebep ancak oyuncuya görünür! ayrıca 30 karakter kullanma limiti olup sadece bazı özel sembollere izin verir",
-      "reason": "Αιτία",
-      "confirm": "Kickαρε!"
+      "reason": "sebep",
+      "confirm": "kickle!"
     },
     "banMenu": {
       "main": "Ειστε ετοιμοι να κανετε ban {{name}}",
