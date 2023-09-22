@@ -436,7 +436,7 @@
         "playerName": "oyuncu adı",
         "playerId": "oyuncu id",
         "reason": "neden",
-        "admin": "Διαχειριστής",
+        "admin": "admin",
         "timestamp": "Χρονική σήμανση",
         "currentServer": "Şu anki sunucu"
       }
