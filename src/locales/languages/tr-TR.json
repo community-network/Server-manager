@@ -160,7 +160,7 @@
   },
   "serverStatus": {
     "pending": "Statü Bekleniyor",
-    "noServer": "Ο διακομιστής δε βρέθηκε",
+    "noServer": "Server bulunamadı",
     "noAdmin": "Κανένα δικαίομα διαχειριστή",
     "running": "Τρέχει",
     "notSupported": "Arka planda çalışan statüsü desteği yok"
