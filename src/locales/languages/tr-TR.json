@@ -361,7 +361,7 @@
       "description0": "Aşagıda yer alan sunuculara yeni sunucu eklebilir",
       "description1": "Yeni sunucular eklemek için sunucu sahibi rolü olmalı",
       "alias": "Takma ad: {{alias}}",
-      "add": "Προσθέσθε διακομιστή"
+      "add": "server ekle"
     },
     "platoons": {
       "main": "Platoonlar",
@@ -416,12 +416,12 @@
       "add": "Hariç tutma ekleyin",
       "remove": "Hariç tutmayı kaldırın",
       "table": {
-        "playerName": "Όνομα Παίκτη",
-        "playerId": "Ταυτότητα Παικτη",
-        "reason": "Αιτία",
-        "admin": "Διαχειριστής",
+        "playerName": "oyuncu ismi",
+        "playerId": "oyuncu id ",
+        "reason": "sebep",
+        "admin": "admin",
         "timestamp": "zaman",
-        "bannedUntil": "Μέχρι"
+        "bannedUntil": "şu zamana kadar "
       }
     },
     "tracking": {
