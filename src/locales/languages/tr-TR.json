@@ -831,7 +831,7 @@
     },
     "kickMenu": {
       "main": "Θα kickάρετε τον παίκτη {{name}}",
-      "reasonDescription": "Αυτός ο λόγος θα είναι ορατός στον παίκτη! Περιορίζεται επίσης σε χαρακτήρες έως 30 και επιτρέπει μόνο μερικά ειδικά σύμβολα.",
+      "reasonDescription": "Bu sebep ancak oyuncuya görünür! ayrıca 30 karakter kullanma limiti olup sadece bazı özel sembollere izin verir",
       "reason": "Αιτία",
       "confirm": "Kickαρε!"
     },
