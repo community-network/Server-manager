@@ -280,7 +280,7 @@
   },
   "group": {
     "main": "Ομάδα",
-    "name": "Ονομασία ομάδως",
+    "name": "grup ismi",
     "id": "Ταυτότητα",
     "admins": {
       "main": "Yöneticiler",
