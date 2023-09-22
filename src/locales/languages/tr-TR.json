@@ -836,7 +836,7 @@
       "confirm": "kickle!"
     },
     "banMenu": {
-      "main": "Ειστε ετοιμοι να κανετε ban {{name}}",
+      "main": " {{name}} banlalamak üzeresin",
       "reasonDescription": "Εισάγετε ένα λόγο για να κάνετε ban αυτόν το παίκτη.",
       "reason": "Λόγος",
       "vBanOption": "Χρησιμοποίησε εικονικό ban αντί για κλασσικό ban",
