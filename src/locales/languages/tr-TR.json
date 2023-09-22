@@ -843,13 +843,13 @@
       "tempbanDesc0": "Eğer geçici bir şekilde banlamak istersen, zaman belirt",
       "tempbanDesc1": "perma ban uygulamak için saati 0 yapınız",
       "tempbanDesc2": "V-ban tarafından desteklenmiyor",
-      "tempbanAmount": "Ban ώρα",
+      "tempbanAmount": "ban zamanı",
       "confirm": "Ban!"
     },
     "unbanMenu": {
       "main": "{{name}}'in yasağını kaldırıyorunuz",
       "reasonDescription": "Bu oyuncunun yasağını kaldırmak için bir neden girin.",
-      "reason": "Αιτία",
+      "reason": "sebep",
       "confirm": "Banı kaldır!"
     },
     "vUnbanMenu": {
