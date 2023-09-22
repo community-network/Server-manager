@@ -913,7 +913,7 @@
       "confirm": "Ekle"
     },
     "danger": {
-      "main": "Ζώνη υψηλού κυνδίνου",
+      "main": "tehlike alanı",
       "delete": "Sunucuyu Sil",
       "check": "Bu sunucuyu silmek istediğinizden emin misiniz?",
       "checkWithName": "{{name}}'i silmek istediğinize emin misiniz?",
