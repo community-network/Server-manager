@@ -1,12 +1,12 @@
 {
   "beta": "beta",
-  "eBeta": "Early beta",
+  "eBeta": "Erken erişim",
   "search": "Arama...",
   "pending": "Bekliyor...",
-  "loading": "Yükleniyor...",
-  "denied": "Yasaklanmış",
-  "apply": "Uygula",
-  "export": "Dışa Aktar",
+  "loading": "Yükleniyor..",
+  "denied": "İzin verilmedi",
+  "apply": "Onayla",
+  "export": "Dosyaya aktar",
   "externalScriptError": "Harici komut dosyası yüklenemedi, bir şeyler ters gitti...",
   "date": "{{date, date|PP}}",
   "dateTime": "{{date, date|PPpp}}",
@@ -133,13 +133,13 @@
     "check": "Geçerli olup olmadığını kontrol etmek için çerezin desteklediği bir oyun seçin",
     "add": "Sunucu hesabı ekle",
     "setDefaultCookie": "Varsayılan olarak ayarla",
-    "invalid": "Σφάλμα: Τα coockies που χρησιμοποιείς δεν είναι έγκυρα!",
-    "remid": "REMID cookie",
-    "sidDescription": "Τα coockies μπορούν να βρεθούν στο ",
-    "remidDescription": "Μπορείτε να βρείτε τα cookies συνεδρίας υπενθύμισης στη διεύθυνση ",
-    "sid": "SID cookie",
+    "invalid": "Hata: Şu anda kullandığınız çerezler geçersiz!",
+    "remid": "REMID tanımlama bilgisi",
+    "sidDescription": "Oturum çerezleri şu adreste bulunabilir ",
+    "remidDescription": "Hatırlatma oturumu çerezleri şu adreste bulunabilir ",
+    "sid": "SID tanımlama bilgisi",
     "locale": "Dil etiketi",
-    "delete": "Sunucu hesabını sil",
+    "delete": "Sunucu hesabı sil",
     "status": {
       "loading": "Hesap durumu güncelleniyor..",
       "pending": "Bu hesap için bekleyen bir durumumuz var"
@@ -159,139 +159,139 @@
     }
   },
   "serverStatus": {
-    "pending": "Statü Bekleniyor",
-    "noServer": "Server bulunamadı",
-    "noAdmin": "Admin hakları yok",
-    "running": "Yürütülüyor",
-    "notSupported": "Arka planda çalışan statü desteği yok"
+    "pending": "Bekleme durumu",
+    "noServer": "Sunucu bulunamadı",
+    "noAdmin": "Yönetici hakları yok",
+    "running": "Çalışıyor",
+    "notSupported": "Durum desteği yok"
   },
   "serverBotStatus": {
-    "pending": "Statü bekleniyor",
-    "noService": "İşçi bulunamadı",
-    "failed": "İşçi başarısız oldu",
-    "running": "\"{{worker}}\" adıyla çalıştırılıyor"
+    "pending": "Bekleme durumu",
+    "noService": "Çalışma bulunamadı",
+    "failed": "Çalışma başarısız oldu",
+    "running": "Adla çalıştırma \"{{worker}}\""
   },
   "discord": {
-    "id": "Discord Server ID",
-    "idDescription": "Η ταυτότητα διακομιστή του Discord σου",
-    "adminId": "Αναγνωριστικό ρόλου διαχειριστή",
-    "adminIdDescription": "Ταυτότητα ρόλου διαχειριστή",
-    "modId": "Αναγνωριστικό ρόλου συντονιστή",
-    "modIdDescription": "Ταυτότητα ρόλου συντονιστή, μόνο οι συντονιστές μπορούν να kickάρουν παίκτες"
+    "id": "Discord Sunucu ID",
+    "idDescription": "Discord sunucu kimliğiniz",
+    "adminId": "Yönetici rolü ID",
+    "adminIdDescription": "Yönetici rolü kimliği",
+    "modId": "Mod rol ID",
+    "modIdDescription": "Moderatör rolünün kimliği, moderatörler yalnızca oyuncuları atabilir"
   },
   "mainPage": {
-    "main": "Ο καινούργιος τρόπος για να διαχειρίζεσαι τους Battlefield 1 διακομιστές σου",
-    "description": "Ο Διαχειριστής διακομιστή είναι ένα νέο Gametool & BFBan υπηρεσία δημιουργημένη απο το Community Network",
-    "login": "Log in",
+    "main": "Battlefield 1 sunucularınızı yönetmenin yeni bir yolu",
+    "description": "Sunucu Yöneticisi, Community Network tarafından oluşturulan yeni bir Gametools & BFBan hizmetidir",
+    "login": "Giriş",
     "featureList": {
-      "main": "Χαρακτηριστικά",
+      "main": "Özellikleri",
       "0": {
         "heading": "BFBan Anti Cheat",
-        "body": "Προστάτεψε τους διακομιστές σου από hackers επιβεβαιομένα στο www.bfban.com"
+        "body": "Sunucularınızı www.bfban.com'da onaylanan hilecilere karşı koruyun"
       },
       "1": {
-        "heading": "Απεριόριστη λίστα Global V-Ban",
-        "body": "Sanal ban listesi ile tüm sunucularınızda istediğiniz kadar oyuncuyu banlayın."
+        "heading": "Sınırsız Global V-Ban listesi",
+        "body": "Virtal yasak listesi ile tüm sunucularınızda istediğiniz kadar oyuncuyu yasaklayın."
       },
       "2": {
-        "heading": "Kickάρισμα παικτών με υψυλό ping",
-        "body": "Ping eşiğine göre oyuncuları sunucularınızdan otomatik olarak atın."
+        "heading": "Yüksek ping oyuncuları atma",
+        "body": "Belirlenen ping seviyesine göre otomatik oyundan atma"
       },
       "3": {
-        "heading": "Discord εργαλεία για τη συντήρηση του διακομιστή",
-        "body": "Ελέγξτε τους διακομιστές σας απευθείας στο Discord βάσει ρόλων."
+        "heading": "Sunucuyu korumak için Discord araçları",
+        "body": "Rollere göre sunucularınızı doğrudan Discord'da kontrol edin."
       },
       "4": {
-        "heading": "Καταγραφή ενεργειών διακομιστή",
-        "body": "Δείτε πλήρη αρχεία καταγραφής για κάθε ενέργεια που γίνεται στους διακομιστές και τις ομάδες σας."
+        "heading": "Sunucu eylem günlüğü",
+        "body": "Sunucularınızda ve gruplarınızda yapılan her eylemin tam günlüklerini görün."
       },
       "5": {
-        "heading": "Πλήρης έλεγχος στους διακομιστές σας",
-        "body": "Οι διαχειριστές μπορούν να ελέγχουν το διακομιστή με τις ίδιες λειτουργίες όπως στο παιχνίδι."
+        "heading": "Sunucularınız üzerinde tam kontrol",
+        "body": "Yöneticiler sunucuyu oyundaki ile aynı işlevlerle kontrol edebilir."
       }
     },
     "statistics": {
-      "main": "Χρησιμοποιείται από {{communities}} Κοινότητες με συνολικά {{servers}} διακομιστές ",
+      "main": "Toplam {{communities}} sunucuya sahip {{servers}} Topluluk tarafından kullanılmaktadır",
       "weekly": {
-        "main": "Εβδομαδιαία στατιστικά:",
-        "bfbanKicks": "παίκτες kicked από bfban",
-        "globalbanKicks": "παίκτες kicked μέσο Παγκόσμιες λίστες V-Ban (Global V-Ban lists)",
-        "pingKicks": "παίκτες kicked για ping",
-        "movedPlayers": "παίκτες που μεταφέρθηκαν σε διαφορετική ομάδα",
-        "kickedPlayers": "παίκτες kicked μέσο του panel",
-        "bannedPlayers": "panel aracılığı ile banlanan edilen oyuncular"
+        "main": "Haftalık istatistikler:",
+        "bfbanKicks": "bfban tarafından tekmelenen oyuncular",
+        "globalbanKicks": "Global V-Ban listeleri aracılığıyla atılan oyuncular",
+        "pingKicks": "oyunculara ping için tekme attı",
+        "movedPlayers": "oyuncular diğer takıma geçti",
+        "kickedPlayers": "panel üzerinden atılan oyuncular",
+        "bannedPlayers": "panel üzerinden yasaklanan oyuncular"
       }
     }
   },
   "account": {
-    "main": "Λογαριασμός",
-    "discordProfile": "Προφίλ Discord",
-    "loggedIn": "Συνδεδεμένος",
+    "main": "Hesap",
+    "discordProfile": "Discord Profili",
+    "loggedIn": "Giriş",
     "permissions": {
-      "main": "Άδειες",
-      "admin": "Διαχειριστής",
-      "server": "Κάτοχος διακομιστή",
-      "system": "Διαχειριστής συστήματος"
+      "main": "İzinler",
+      "admin": "Yönetici",
+      "server": "Sunucu sahibi",
+      "system": "Sistem yöneticisi"
     }
   },
   "dev": {
-    "main": "Επιλογές Προγραμματιστή",
-    "listGroups": "Λίστα ομάδων",
-    "addGroup": "Προσθήκη νέας ομάδας",
-    "manage": "Διαχείριση ομάδας"
+    "main": "Geliştirici Seçenekleri",
+    "listGroups": "Grup Listesi",
+    "addGroup": "Yeni Grup ekle",
+    "manage": "Grubu yönet"
   },
   "man": {
-    "main": "Yönetim Seçenekleri",
-    "listGroups": "Λίστα ομάδων",
+    "main": "Yönetici Seçenekleri",
+    "listGroups": "Grup Listesi",
     "worker": {
-      "main": "İşçi hesabı",
-      "lastUpdate": "Τελευταία ενημέρωση"
+      "main": "Aktif hesap",
+      "lastUpdate": "Son Güncelleme"
     },
     "owners": {
-      "main": "Κάτοχοι",
-      "createdAt": "Kullanıcı şu tarihte oluşturuldu"
+      "main": "Sahip",
+      "createdAt": "Kullanıcı oluşturuldu"
     },
     "servers": {
-      "main": "Διακομιστές",
+      "main": "Sunucular",
       "game": "Oyun",
       "status": "Sunucu durumu",
-      "lastUpdate": "Son çalışan güncellemesi",
-      "createdAt": "Sunucu şu zamanda eklendi",
-      "autoPingKick": "Ping için kickle",
-      "autoBanKick": "vBan kick",
-      "autoBfbanKick": "BfBan kick"
+      "lastUpdate": "Son aktif güncellemesi",
+      "createdAt": "Sunucu eklendi",
+      "autoPingKick": "ping için atılma",
+      "autoBanKick": "vBan'dan atılma",
+      "autoBfbanKick": "BfBan'dan atılma"
     },
     "settings": {
-      "main": "Ρυθμίσεις",
-      "makeOperations": "Make işlemlerini etkinleştirin",
+      "main": "Ayarlar",
+      "makeOperations": "İşlemleri gerçekleştirmeyi etkinleştir",
       "seedServers": "Seedleme botlarını aktifleştir"
     }
   },
   "createGroup": {
-    "main": "Δημιουργία νέας ομάδας",
-    "description": "Δημιουργήστε μια νέα ομάδα για τη διαχείριση των διακομιστών κοινότητας",
-    "discordDescription": "Προαιρετικά, μπορείτε να προσθέσετε το διακομιστή discord, για να ενσωματώσετε εργαλεία διακομιστή",
-    "cookieDescription0": "Σε κάθε ομάδα πρέπει να εκχωρηθεί ειδικός λογαριασμός με ορισμένες απαιτήσεις:",
-    "cookieDescription1": "Θα πρέπει να είναι συντονιστής διακομιστή BF1 (δεν απαιτείται πρόσβαση κατόχου)",
-    "cookieDescription2": "Αυτός ο λογαριασμός δεν πρέπει να χρησιμοποιείται οπουδήποτε αλλού, διαφορετικά θα οδηγήσει σε σφάλματα",
-    "acceptDescription0": "Πατώντας αυτό το κουμπί, συμφωνείτε να δώσετε",
-    "acceptDescription1": "πρόσβαση στο εργαλείο διαχειριστή διακομιστή στον λογαριασμό.",
-    "accept": "Δημιουργήστε Ομάδα"
+    "main": "Yeni Grup Oluştur",
+    "description": "Topluluk sunucularınızı yönetmek için yeni bir grup oluşturun",
+    "discordDescription": "İsteğe bağlı olarak, sunucu araçlarını entegre etmek için discord sunucunuzu ekleyebilirsiniz.",
+    "cookieDescription0": "Her gruba belirli gereksinimleri olan özel bir hesap atanmalıdır:",
+    "cookieDescription1": "Bir BF1 sunucu moderatörü olmalıdır (sahip erişimi gerekli değildir)",
+    "cookieDescription2": "Bu hesap başka hiçbir yerde kullanılmamalıdır, aksi takdirde hatalara yol açar",
+    "acceptDescription0": "Bu düğmeye basarak, sunucu yönetici paneline,",
+    "acceptDescription1": "hesabınızı baglamış olursunuz.",
+    "accept": "Grup oluştur"
   },
   "group": {
     "main": "Ομάδα",
     "name": "Ονομασία ομάδως",
     "id": "Ταυτότητα",
     "admins": {
-      "main": "Διαχειριστές",
-      "description0": "Ο ρόλος διαχειριστή μπορεί να διαχειριστεί διακομιστές. Πρέπει να έχετε τουλάχιστον",
-      "description1": "Ρόλο κατόχου για προσθήκη νέων διαχειριστών.",
-      "add": "Προσθέσθε διαχειριστή",
-      "addNew": "Προσθέσθε νέο διαχειριστή",
-      "removeSelected": "Καταργήστε τους επιλεγμένους διαχειριστές",
-      "remove": "Κατάργηση Διαχειριστών",
-      "select": "Επιλέξτε διαχειριστές για να τους καταργήσετε.",
-      "selected": "Επιλέξατε {{number}} διαχειριστές."
+      "main": "Yöneticiler",
+      "description0": "Yönetici rolü, sunucuları yönetebilir.",
+      "description1": "Sunucu yöneticisi yeni yönetici ekliyebilir.",
+      "add": "Yönetici ekle",
+      "addNew": "Yeni Yönetici ekle",
+      "removeSelected": "Seçili Yöneticileri Kaldır",
+      "remove": "Yöneticileri kaldır",
+      "select": "Kaldırılacak yöneticileri seçin.",
+      "selected": "{{Number}} kullanıcı seçtiniz."
     },
     "seeding": {
       "main": "Sunucuları seedle",
@@ -315,15 +315,15 @@
       },
       "popup": {
         "confirmInfo": "{{option}} yapmak istediğinizden emin misiniz?",
-        "broadcastInfo": "\"{{message}}\" yayınlamak istediğinizden emin misiniz?",
+        "broadcastInfo": "\"{{message}} yayını yapmak istediğinizden emin misiniz?",
         "confirm": "Onayla!"
       },
       "actions": {
-        "joinSelected": "Seçili sunucuya katıl",
-        "leave": "Geçerli sunucudan ayrıl",
-        "shutdownWindows": "Bilgisayarları kapat (kapatma seçeneği etkinken)",
-        "schedule": "Seedleme başlangıç zamanını planlayın (UTC zaman dilimi)",
-        "undoSchedule": "seedlemeyi programdan kaldırın"
+        "joinSelected": "Seçilen sunucuya katıl",
+        "leave": "Mevcut sunucudan ayrıl",
+        "shutdownWindows": "PC'leri Kapatma  (kapatma seçeneği etkinken)",
+        "schedule": "Başlatma başlangıç ​​zamanını programlayın (UTC saat dilimi)",
+        "undoSchedule": "Başlatmayı programdan kaldır"
       },
       "status": {
         "main": "Durum:",
@@ -333,18 +333,18 @@
         "broadcastMessage": "Tüm sunuculara \"{{message}}\" yayınladı"
       },
       "seeders": {
-        "main": "Şu anda {{seeders}} adet seeder {{ingame}} ile birlikte oyunda",
+        "main": "Şu anda oyunda {{ingame}} ile çevrimiçi {{seeders}} başlatıcı",
         "true": "oyunda",
         "false": "oyunda değil",
         "defaultDescription": "Global-seeding sistemi takip ediliyor"
       },
       "keepalive": {
-        "main": "Canlı tutmak için ana bilgisayar adını sunucuya bağlayın",
-        "add": "Ana bilgisayar adı ekle",
-        "remove": "Ana bilgisayar adını kaldır",
-        "hostname": "Seçili sunucuya hangi ana bilgisayar adını eklemek istiyorsunuz?",
-        "sethostname": "Ana bilgisayar adı",
-        "currentHostname": "'{{ hostname }}' öğesi seçili sunucudan kaldırılsın mı?"
+        "main": "Onları canlı tutmak için ana bilgisayar adını sunucuya bağlayın",
+        "add": "Ana bilgisayar ekle",
+        "remove": "Ana bilgisayar kaldır",
+        "hostname": "Seçilen sunucuya hangi ana bilgisayar adını eklemek istiyorsunuz?",
+        "sethostname": "ana bilgisayar ",
+        "currentHostname": "'{{ hostname }}' seçili sunucudan kaldırılsın mı?"
       },
       "game": {
         "bf4": "bf4",
@@ -357,9 +357,9 @@
       }
     },
     "servers": {
-      "main": "Διακομιστές",
-      "description0": "Οι παρουσίες διακομιστών προστέθηκαν στην τρέχουσα ομάδα. Πρέπει να έχεις",
-      "description1": "Ρόλο ιδιοκτήτη για την προσθήκη νέων διακομιστών.",
+      "main": "Sunucular",
+      "description0": "Aşagıda yer alan sunuculara yeni sunucu eklebilir",
+      "description1": "Yeni sunucular eklemek için sunucu sahibi rolü olmalı",
       "alias": "Takma ad: {{alias}}",
       "add": "Προσθέσθε διακομιστή"
     },
@@ -382,29 +382,29 @@
       }
     },
     "owners": {
-      "main": "Κάτοχοι",
-      "description0": "Λίστα τρέχοντων κατόχων ομάδας. Αυτός ο ρόλος μπορεί να προσθέσει νέους διακομιστές,",
-      "description1": "Διαχειριστές και άλλους κατόχους. Προσέξτε με αυτό!",
-      "add": "Προσθέσθε κάτοχο",
-      "addNew": "Προσθέσθε νέο κάτοχο",
-      "removeSelected": "Καταργήστε τους επιλεγμένους κατόχους",
-      "remove": "Κατάρηση Κατόχων",
-      "select": "Επιλογή κατόχων για κατάργηση.",
-      "selected": "Επιλέξατε {{number}} κατόχους."
+      "main": "Sahipler",
+      "description0": "Sunucu sahiplerinin isimleri aşağıda yer almaktadır. Bu rol yeni sunucu,",
+      "description1": "sunucu sahibi ve yönetici ekleyebilir, dikkatli olun!",
+      "add": "Sahip Ekle",
+      "addNew": "Yeni Sahip ekle",
+      "removeSelected": "Seçili Sahipleri Kaldır",
+      "remove": "Sahipleri Kaldır",
+      "select": "Kaldırılacak sahipleri seçin.",
+      "selected": "{{Number}} kullanıcı seçtiniz."
     },
     "vban": {
-      "main": "Vban list",
-      "description0": "Λίστα banαρισμένων παικτών σε αυτη την ομάδα.",
-      "description1": "Χρησιμοποιημένες {{number}} θυρίδες",
+      "main": "Vban liste",
+      "description0": "Bu grupta yasaklanan oyuncuların listesi.",
+      "description1": " {{Number}} Yuva kullanıldı",
       "noReason": "με λόγο",
       "add": "Ban ekle",
       "unban": "Unban",
       "table": {
-        "playerName": "Όνομα παίκτη",
-        "playerId": "Ταυτότητα παίκτη",
-        "reason": "Αιτία",
-        "admin": "Διαχειριστής",
-        "timestamp": "Χρονική σήμανση",
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID",
+        "reason": "Nedeni",
+        "admin": "Yönetici",
+        "timestamp": "işlem zamanı",
         "bannedUntil": "Μέχρι"
       }
     },
@@ -452,8 +452,8 @@
       }
     },
     "logs": {
-      "main": "Αρχεία καταγραφής Ομάδως",
-      "description": "Λίστα καταγραφής ομάδας",
+      "main": "Grup kayıtları",
+      "description": "Grup kayıt listesi",
       "serverLogs": "Sunucu günlüklerini sonuca ekle",
       "reasons": {
         "addVban": "vBanned",
@@ -464,124 +464,124 @@
         "addGroup": "bu grubu ekledi",
         "removeOwner": "sahip kaldırıldı",
         "removeUser": "yönetici kaldırıldı",
-        "magic": "έγινε μαγεία σε"
+        "magic": "sihir yaptı"
       }
     },
     "account": {
-      "main": "Λογαριασμός διακομιστή",
-      "description0": "Λογαριασμός manager,  αυτο θα διαχειριστεί τους διακομιστές σας.",
-      "description1": "Αυτά τα cookies μπορείτε να βρείτε στη διεύθυνση "
+      "main": "Sunucu hesabı",
+      "description0": "Hesap yöneticisi, sunucularınızı yönetecek.",
+      "description1": "Bu çerezler şu adreste bulunabilir "
     },
     "discord": {
-      "main": "Ενσωμάτωση Discord",
-      "description0": "Με το bot μας, μπορείτε να επιτρέπετε στους διαχειριστές να ελέγχουν τους διακομιστές σας",
-      "description1": "με το να χρησιμοποιείτε διαταγές ! prefix.",
-      "gamestats": "Προσθέστε το Game Stats bot στον διακομιστή Discord, για να ελέγξετε τους διακομιστές BF1 με εντολές.",
-      "commandList": "για μια λίστα εντολών που μπορείτε να χρησιμοποιήσετε στο Discord, χρησιμοποιήστε το \"!bfadmin\" command.",
-      "permDescription0": "Κάθε άτομο με αυτό το αναγνωριστικό ρόλου μπορεί να χρησιμοποιήσει",
+      "main": "Discord entegrasyonu",
+      "description0": "Bot ile, yöneticilerin sunucularınızı kontrol etmesine izin verebilirsiniz",
+      "description1": "! ön ek. ile komutları kullanarak",
+      "gamestats": "BF1 sunucularını komutlarla kontrol etmek için Discord sunucunuza Game Stats botunu ekleyin.",
+      "commandList": "Discord'da kullanabileceğiniz komutların bir listesi için \"!bfadmin \" komutunu kullanın.",
+      "permDescription0": "Bu rol kimliğine sahip her kişi kullanabilir",
       "permDescription1": "sunucuyu kontrol etmek için discord komutları."
     },
     "settings": {
       "main": "Grup ayarları",
-      "visableBansDesc": "Bir oyuncu başka bir yerde yasaklı olup olmadığını kontrol ettiğinde sunucularınızın yasaklarının görünür olmasına izin verin:",
-      "visableBans": "\"!checkban\" görünürlüğünü etkinleştirin",
-      "localeDescription0": "Çerez için kullanılan dil etiketi, mapname gibi sunucu bilgileri bu dilde olacaktır.",
-      "localeDescription1": "Dil etiketleri şu adreste bulunabilir",
-      "tokenDescription0": "manager-api'nin arka ucunu kullanmak istiyorsanız, burada bir token oluşturun ve bir yere kaydedin.",
-      "tokenDescription1": "Sadece yeni bir tane oluşturmanıza izin veriyoruz, eski tokeni size panelden veremiyoruz.",
-      "token": "Token",
-      "tokenGen": "Oluştur",
-      "tokenEnable": "Grup tokenini etkinleştir"
+      "visableBansDesc": " bir oyuncunun başka bir yerde yasaklanıp yasaklanmadığını kontrol ettiğinde sunucu yasaklarınızın görünür olmasına izin verin:",
+      "visableBans": "\"!checkban\" görünürlüğünü etkinleştir",
+      "localeDescription0": "Çerez için kullanılan dil etiketi, harita adı, sunucu bilgileri o dilde olacaktır..",
+      "localeDescription1": "Dil etiketleri şurada bulunabilir: ",
+      "tokenDescription0": "Yönetici-api'nin arka ucunu kullanmak istiyorsanız, burada bir jeton oluşturun ve bir yere kaydedin.",
+      "tokenDescription1": "Sadece yeni bir tane oluşturmanıza izin veriyoruz, size eski jetonu panelden veremiyoruz.",
+      "token": "Jeton",
+      "tokenGen": "Üret",
+      "tokenEnable": "Grup jetonunu etkinleştir"
     },
     "status": {
       "main": "Grup durumu",
       "worker": {
         "main": "Bu grubun çalışanı hakkında bilgi:",
-        "in": "Şu anda {{time}} için çalışıyor",
-        "queue": "Kuyrukta bekliyorum"
+        "in": "Bununla ilgili çalışmaya devam ediliyor {{time}}",
+        "queue": "Sırada bekleyen."
       },
       "cookiecheck": {
-        "main": "Grubun çerezinin geçerli olup olmadığını son kez kontrol edin:",
+        "main": "Grubun çerezinin geçerli olup olmadığını son kontrol:",
         "never": "Grup çerez için hiç kontrol edilmedi"
       },
       "stats": {
-        "main": "Bu hafta içinde mevcut grupla ilgili istatistikler:",
-        "autoKickPingAmount": "{{amount}} ping yüzünden atılan oyuncular.",
-        "bfbanAmount": "bfban aracılığıyla atılan {{amount}} oyuncular.",
-        "moveAmount": "{{amount}} oyuncular panel, discord botu veya token aracılığıyla taşındı.",
-        "kickAmount": "{{amount}} panel, discord botu veya token aracılığıyla atılan oyuncular.",
-        "banAmount": "{{amount}} panel, discord botu veya token aracılığıyla yasaklanan oyuncular.",
-        "globalBanKickAmount": "{{amount}} grubun vBan listesi aracılığıyla atılan oyuncular.",
+        "main": "Bu haftadaki mevcut grupla ilgili istatistikler:",
+        "autoKickPingAmount": "{{amount}} Oyuncuya ping için tekme atıldı ",
+        "bfbanAmount": "{{amount}} bfban üzerinden atılan oyuncular.",
+        "moveAmount": "{{amount}} oyuncular panel, discord botu veya jeton aracılığıyla taşındı.",
+        "kickAmount": "{{amount}} Panel, discord botu veya jeton aracılığıyla atılan oyuncular.",
+        "banAmount": "{{amount}} panel, discord botu veya jeton aracılığıyla yasaklanan oyuncular.",
+        "globalBanKickAmount": "{{amount}}vBan grup listesi üzerinden atılan oyuncular.",
         "servers": {
           "main": "Sunucu istatistikleri:",
           "none": "Sunucu bilgisi yok",
           "info": {
-            "main": "Zaman içinde Serverinfo",
-            "players": "Oyuncu sayısı #",
-            "vips": "VIP sayısı #",
-            "admins": "Admin sayısı #",
-            "bans": "Ban sayısı #"
+            "main": "Zamanla sunucu bilgisi",
+            "players": "# Oyuncu",
+            "vips": "# Vips",
+            "admins": "# Yönetici",
+            "bans": "# Yasaklı"
           },
           "maps": {
             "main": "En popüler harita",
-            "info": "Haritaların %'si"
+            "info": "Haritaların % "
           },
           "modes": {
             "main": "En popüler oyun modu",
-            "info": "oyun modlarının %'si"
+            "info": "Oyun modu  %"
           },
           "worstMaps": {
             "main": "En az oyuncuya sahip harita",
-            "info": "Haritaların %'si"
+            "info": "Haritaların %"
           }
         }
       }
     },
     "danger": {
-      "main": "Ζώνη υψηλού κυνδίνου",
-      "nameChange": "Μπορείτε να αλλάξετε το όνομα της τρέχουσας ομάδας.",
-      "delete": "Καταργήστε Ομάδα",
-      "deleteInfo0": "Μόλις διαγράψετε μια ομάδα, θα καταργήσει όλους τους διακομιστές,",
-      "deleteInfo1": "λογαριασμούς διακομιστή και χρήστες που χρησιμοποιούνται σε αυτον.",
-      "check": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την ομάδα?",
+      "main": "Riskli bölge",
+      "nameChange": "Mevcut Grubun adını değiştirebilirsiniz.",
+      "delete": "Grubu Sil",
+      "deleteInfo0": "Bir grubu sildiğinizde, tüm sunucuları kaldırır,",
+      "deleteInfo1": "sunucu hesabı ve içinde kullanılan kullanıcılar.",
+      "check": "Bu grubu silmek istediğinizden emin misiniz?",
       "checkWithName": "{{name}}'i silmek istediğinize emin misiniz?",
-      "confirm": "Ναι, διέγραψε",
-      "back": "Οχ, οχι!"
+      "confirm": "Evet, sil",
+      "back": "Dur, hayır!"
     },
     "addMenu": {
       "id": "Discord UID",
-      "nickname": "Ψευδώνυμο (οποιοδήποτε, θα ενημερωθεί αυτόματα)"
+      "nickname": "Nickname ((Otomatik olarak güncellenecektir))"
     },
     "serverAddMenu": {
-      "main": "Προσθήκη νέου διακομιστή",
-      "description": "Διακομιστής Ομάδως",
-      "name": "Ονομασία Διακομιστή",
-      "alias": "Παρατσούκλι (προαιρετικό)"
+      "main": "Yeni Sunucu ekle",
+      "description": "Grup Sunucusu",
+      "name": "Sunucu adı",
+      "alias": "Takma ad (isteğe bağlı)"
     }
   },
   "operations": {
-    "main": "Ρύθμιση λειτουργίας παιχνιδιού",
-    "description0": "Ρύθμιση λειτουργίας παιχνιδιού στο διακομιστή σας.",
-    "description1": "Λάβετε υπόψη ότι θα χάσετε τον πίνακα διαχείρισης του παιχνιδιού!",
-    "description2": "Βεβαιωθείτε ότι έχετε προσθέσει διακομιστή σε αυτόν τον πίνακα και ελέγξτε τον.",
-    "acceptDescription0": "Πατώντας αυτό το κουμπί, συμφωνείτε να δώσετε",
-    "acceptDescription1": "πρόσβαση στο εργαλείο διαχειριστή διακομιστή στον λογαριασμό.",
-    "accept": "Κάντε λειτουργίες",
-    "server": "Διακομιστής ",
-    "owner": "κάτοχος",
-    "cookies": " cookies."
+    "main": "Operasyon oyun modu oluştur",
+    "description0": "Sunucunuzda kurulum işlemleri ",
+    "description1": "Oyun içi yönetici panelini kaybedeceğinizi unutmayın!",
+    "description2": "Bu panele sunucu eklediğinizden emin olun ve kontrol edin.",
+    "acceptDescription0": "Bu düğmeye basarak, sunucu yönetici paneline,",
+    "acceptDescription1": "hesabınızı baglamış olursunuz.",
+    "accept": "Operasyonu oluşturun",
+    "server": "Sunucu ",
+    "owner": "sahip",
+    "cookies": " Çerezler."
   },
   "server": {
-    "main": "Πίνακας διακομιστή",
-    "playerName": "Όνομα Παίκτη",
-    "ago": "πριν",
+    "main": "Sunucu paneli",
+    "playerName": "Oyuncu ismi",
+    "ago": "önce",
     "action": {
-      "kick": "Kick",
-      "move": "Μετακίνησε",
-      "ban": "Ban",
-      "unban": "Unban",
-      "addVip": "Πρόσθεσε vip",
-      "removeVip": "Αφαίρεσε vip",
+      "kick": "AT",
+      "move": "Taşı",
+      "ban": "Yasakla",
+      "unban": "yasak kaldır",
+      "addVip": "Vip ekle",
+      "removeVip": "Vip kaldır",
       "nextRound": "Sonraki tur",
       "nextLevel": "Sonraki seviye",
       "restartRound": "Turu yeniden başlat",
@@ -603,108 +603,108 @@
       }
     },
     "game": {
-      "main": "Τρέχων Παιχνίδι",
-      "info": "[{{inQue}}] παίκτες",
-      "restart": "Επανεκκίνηση",
-      "mapSwitch": "Άλλαξε παιχνίδι..",
+      "main": "Suanki oyun",
+      "info": "[{{inQue}}] oyuncular",
+      "restart": "Yeniden başlat",
+      "mapSwitch": "Oyunu değiştir ..",
       "startServer": "Sunucuyu başlat",
-      "playerlistUpdate": "Τελευταία ενημέρωση",
+      "playerlistUpdate": "Son Güncelleme",
       "bfvPlaygroundSelect": "Config seçin",
       "serverRegionSelect": "Bölge seçiniz"
     },
     "banList": {
-      "main": "Ban list",
-      "description0": "Λίστα banαρισμένων παικτών σε αυτο το διακομιστή.",
-      "description1": "Χρησιμοποιημένο",
-      "description2": "{{number}} θυρίδα από 200",
-      "description3": " Χρησιμοποιήστε τη λίστα εικονικής απαγόρευσης(ban list) που βασίζεται σε ομάδες,",
-      "description4": "για να απαγορεύσετε απεριόριστο αριθμό παικτών.",
+      "main": "Yasak listesi",
+      "description0": "Bu sunucudaki yasaklı oyuncuların listesi.",
+      "description1": "200'de",
+      "description2": "{{number}} yuva kullanıldı",
+      "description3": " Grup tabanlı sanal yasak listemizi kullanın.,",
+      "description4": "sınırsız sayıda oyuncuyu yasaklıyabilirsiniz.",
       "table": {
-        "playerName": "Όνομα παίκτη",
-        "playerId": "Ταυτότητα παίκτη",
-        "reason": "Αιτία",
-        "admin": "Διαχειριστής",
-        "until": "Μέχρι",
-        "timestamp": "Χρονική σήμανση"
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID",
+        "reason": "Nedeni",
+        "admin": "Yönetici",
+        "until": "E kadar",
+        "timestamp": "işlem zamanı"
       }
     },
     "vipList": {
-      "main": "Vip παίκτες",
-      "description0": "Λίστα VIP παικτών σε αυτο τον διακομιστή.",
-      "description1": "Χρησιμοποιημένο ",
-      "description2": "{{number}} θυρίδες από 50",
+      "main": "VIP oyuncular",
+      "description0": "Bu sunucudaki VIP oyuncuların listesi.",
+      "description1": "50'de ",
+      "description2": "{{number}} yuva kullanıldı",
       "table": {
-        "playerName": "Όνομα παίκτη",
-        "playerId": "Ταυτότητα παίκτη"
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID"
       }
     },
     "adminList": {
-      "main": "Διαχειριστες Διακομιστη",
-      "description0": "Λίστα διαχειριστών σε αυτό το διακομιστή.",
-      "description1": "Χρησιμοποιημένο ",
-      "description2": "{{number}}θυρίδες από 50",
+      "main": "Sunucu yöneticileri",
+      "description0": "Bu sunucudaki yöneticilerin listesi.",
+      "description1": "50'de ",
+      "description2": "{{number}} yuva kullanıldı",
       "table": {
-        "playerName": "Όνομα Παίκτη",
-        "playerId": "Ταυτότητα Παικτη"
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID"
       }
     },
     "firestarterList": {
-      "main": " Λίστα Firestarter",
-      "description0": "Μετράμε πότε τερματίστηκε το preround του διακομιστή σας και μετράμε όλες τις συσκευές αναπαραγωγής που βρίσκονται στο διακομιστή όταν ξεκινά,",
-      "description1": "ώστε να μπορείτε να ελέγξετε εδώ ποιος σας βοηθά να ξεκινήσετε τον διακομιστή σας.",
+      "main": "Başlatıcılar",
+      "description0": "Sunucunuzun başlatmak için yardım eden oyuncular burada görünmektedir,",
+      "description1": "böylece sunucunuzu başlatmanıza kimin yardım ettiğini kontrol edebilirsiniz.",
       "table": {
-        "playerName": "Όνομα παίκτη",
-        "playerId": "Ταυτότητα παίκτη",
-        "amount": "Ποσότητα"
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID",
+        "amount": "Miktar"
       }
     },
     "playTimeList": {
-      "main": "Oyun Zamanı",
-      "description0": "Her oyuncunun bu sunucuda ne kadar süredir bulunduğunun listesi, böylece oyuncuya oynadığı için teşekkür olarak özel bir şey verebilirsiniz.",
-      "description1": "Bu veriler haftalıktır ve \"saat:dakika\" olarak ölçülür",
+      "main": "Oyun zamanı",
+      "description0": "Her oyuncunun bu sunucuda ne kadar süredir bulunduğunun listesi, böylece oyuncuya oynadığınız için teşekkür etmek için özel bir şey verebilirsiniz.",
+      "description1": "Bu veriler haftalıktır ve \"saat:dakika\" olarak ölçülür.",
       "table": {
-        "playerName": "Όνομα Παίκτη",
-        "playerId": "Ταυτότητα Παικτη",
-        "timePlayed": "Sunucuda geçirilen süre",
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID",
+        "timePlayed": "Sunucuda harcanan zaman",
         "playCount": "Bu haftaki katılma sayısı"
       }
     },
     "spectatorList": {
-      "main": "Λίστα θεατών",
-      "description0": "Διατηρούμε μια λίστα με το ποιος παρακολούθησε τον διακομιστή τις τελευταίες 24 ώρες,",
-      "description1": "επειδή υπάρχει ένα hack στο Battlefield 1 που τους επιτρέπει να ελέγχουν παίκτες στο ίδιο το παιχνίδι...",
-      "description2": "Αυτός είναι ένας τρόπος να καταπολεμήσετε αυτούς τους χάκερ.",
+      "main": "İzleyici listesi",
+      "description0": "Son 24 saat içinde sunucuya kimlerin izlediğinin bir listesini tutuyoruz,",
+      "description1": "Çünkü Battlefield 1'de, oyundaki oyuncuları kontrol etmelerini sağlayan bir hile var....",
+      "description2": "Bu, o hilecilere karşı savaşmanın bir yolu..",
       "table": {
-        "playerName": "Όνομα παίκτη",
-        "playerId": "Ταυτότητα παίκτη",
-        "time": "Χρόνος"
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID",
+        "time": "Zaman"
       }
     },
     "playerLogs": {
-      "main": "Αρχεία καταγραφής προγράμματος αναπαραγωγής",
-      "description0": "Διατηρούμε μια λίστα με το ποιος βρίσκεται στον διακομιστή τις τελευταίες 24 ώρες,",
-      "description1": "επειδή μια ομάδα χάκερ συνεχίζει να καταρρέει τους διακομιστές.",
-      "description2": "Αυτός είναι ένας τρόπος για να μάθετε πότε / ποιος το έκανε.",
-      "description3": "Φιλτράρετε τη λίστα για εμφάνιση μόνο όταν ένας συγκεκριμένος παίκτης βρίσκεται στη λίστα επιστροφής:",
-      "search": "Αναζητήστε πρόγραμμα αναπαραγωγής στη λίστα συγκεντρωμένων...",
-      "filterPlayer": "Φιλτράρισμα ημερομηνιών στο πρόγραμμα αναπαραγωγής",
+      "main": "Oyuncu Kayıtları",
+      "description0": "Son 24 saat içinde sunucuda kimlerin bulunduğunun bir listesini tutuyoruz,",
+      "description1": "çünkü bir grup hileci sunucuları çökertmeye devam ediyor.",
+      "description2": "Bunu ne zaman/kimin yaptığını bulmanın bir yolu.",
+      "description3": "Listeyi yalnızca belirli bir oyuncu döndürülen listede olduğunda gösterecek şekilde filtreleyin:",
+      "search": "Toplanan listede oyuncu ara...",
+      "filterPlayer": "Oyuncudaki tarihleri ​​filtrele",
       "table": {
-        "playerName": "Όνομα παίκτη",
-        "playerId": "Ταυτότητα παίκτη",
-        "ping": "Ping",
-        "role": "Ρόλος"
+        "playerName": "Oyuncu ismi",
+        "playerId": "Oyuncu ID",
+        "ping": "Geçikme",
+        "role": "Rol"
       }
     },
     "logs": {
       "main": "Αρχεία Καταγραφής",
       "reasons": {
-        "addServerBan": "banned",
-        "kickPlayer": "kicked",
-        "removeServerBan": "unbanned",
-        "addServerVip": "δώθηκε vip σε",
-        "movePlayer": "μετακινήθηκε",
-        "removeServerVip": "αφαιρέθηκε vip απο",
-        "magic": "έγινε μαγεία σε"
+        "addServerBan": "yasaklandı",
+        "kickPlayer": "tarafından",
+        "removeServerBan": "yasak kaldır",
+        "addServerVip": "Vip verdi",
+        "movePlayer": "Takımını degiştirdi",
+        "removeServerVip": "Vip kaldırdı",
+        "magic": "Büyü Yaptı"
       },
       "types": {
         "pingChecker": "Έλεγχος Ping",
@@ -715,30 +715,30 @@
       "noReason": "χωρίς κανένα λόγο"
     },
     "protection": {
-      "main": "Προστασία Διακομιστή",
-      "title": "Αυτόματη προστασία διακομιστή",
-      "vBanDescription0": "Παρουσιάζουμε νέα εργαλεία που αναπτύχθηκαν για την προστασία των διακομιστών σας από χάκερ.",
-      "vBanDescription1": "Παγκόσμια εικονική λίστα απαγόρευσης auto-kick παικτών ",
-      "vBanDescription2": "όλοι οι διακομιστές ομάδας",
-      "vBanDescription3": " χορήγηση",
-      "vBanDescription4": "άπειρος αριθμός ban θυρίδων και συγχρονισμένη λίστα ban.",
-      "vBanEnable": "Ενεργοποίεισε Global V-Ban",
-      "vbanReasonDesc0": "Αυτό το μύνημα εμφανίζεται σε παίκτες που έπαθαν ",
-      "vbanReasonDesc1": "auto-kick από το V-Ban Global σύστημα.",
-      "vBanMsg": "V-Ban μύνημα",
-      "bfbanDescription": "Προστατέψτε τον διακομιστή από γνωστούς απατεώνες στο ",
-      "bfbanEnable": "Ενεργοποιήστε το BFBan Anti Cheat",
+      "main": "Sunucu Koruması",
+      "title": "Otomatik Sunucu Koruması",
+      "vBanDescription0": "Sunucularınızı hilecilere karşı korumak için geliştirilmiş yeni araçlarla tanışın.",
+      "vBanDescription1": "Sonsuz miktarda ban listesi ",
+      "vBanDescription2": "ve senkronize ban listesi sağlayan ",
+      "vBanDescription3": "tüm grup sunucularındaki oyuncuları ",
+      "vBanDescription4": "otomatik olarak atar.",
+      "vBanEnable": "Global V-Ban'ı Etkinleştir",
+      "vbanReasonDesc0": "Bu mesaj, V-Ban Global sistemi tarafından ",
+      "vbanReasonDesc1": "otomatik olarak atılan kullanıcılara görünür.",
+      "vBanMsg": "V-Ban mesajı",
+      "bfbanDescription": "Sunucuyu bilinen hilecilere karşı bu site sayesinde koruyun.  ",
+      "bfbanEnable": "BFBan Anti-Cheat'i aktive et",
       "bfBanMsg": "BfBan mesajı",
       "bfeacDescription": "Προστατέψτε τον διακομιστή από γνωστούς απατεώνες στο ",
       "bfeacEnable": "BFEAC Anti Hileyi Etkinleştir",
       "bfeacMsg": "BFEAC mesajı",
-      "pingKickDescription": "Auto kick παίκτες με συνεχές υψηλό ping",
-      "pingKickEnable": "Kickαρε όταν υψηλό ping",
-      "pingKickAmount": "Υψηλή τιμή ping",
-      "pingKickMsg": "Auto ping μύνημα",
-      "pingKickMinDesc": "Ελάχιστο ποσό παικτών για να ξεκινήσει το autokick (0 για πάντα)",
-      "pingKickMin": "Υψηλή αξία ping",
-      "minAutoPingKick": "Ελάχιστο ποσό παίκτη πριν ξεκινήσει",
+      "pingKickDescription": "Sürekli yüksek gecikme oyuncuları otomatik olarak at",
+      "pingKickEnable": "Yüksek gecikme ile atılma aktive et",
+      "pingKickAmount": "Yüksek gecikme değeri ",
+      "pingKickMsg": "Otomatik gecikme mesajı",
+      "pingKickMinDesc": "Otomatik atmanın başlaması için minimum oyuncu sayısı. (her zaman için 0 )",
+      "pingKickMin": "Yüksek gecikme değeri",
+      "minAutoPingKick": "Atılma öncesi minimum oyuncu gecikmesi",
       "KickRankDesc": "Bir oyuncuyu oyun içindeki rütbesine göre oyundan atın",
       "rankKickReason": "Rütbe gereksinimler dahilinde değil",
       "kickLowRank": "Rütbe daha düşükse oyundan at:",
@@ -751,83 +751,83 @@
       "pltMemberExclDescription": "Panele eklediğiniz müfrezelerdeki müfreze üyelerinin tekmelenmesini engelleyin."
     },
     "settings": {
-      "main": "Ρυθμίσεις",
-      "title": "Ρυθμίσεις διακομιστή",
-      "nameDescription": "Αλλαγή ονόματος διακομιστή",
-      "name": "Ονομα διακομιστή",
-      "aliasDescription": "Ψευδώνυμο για χρήση με ένα bot Discord. (Μπορεί να είναι ένας αριθμός διακομιστή, για παράδειγμα)",
-      "alias": "Παρατσούκλι",
+      "main": "Ayarlar",
+      "title": "Sunucu Ayarları",
+      "nameDescription": "Sunucu Adını Değiştir",
+      "name": "Sunucu Adı",
+      "aliasDescription": "Discord botu ile kullanmak için ön ad. (Örneğin, sunucu numarası olabilir.)",
+      "alias": "Ön Ad",
       "cookie": "Bilgi almak ve sunucuda değişiklik yapmak için kullanılan hesabı ayarlayın",
       "discordBot": {
-        "main": "Discord Battlefield-sunucu durum-botu",
-        "token": "Discord tokeni",
-        "tokenDesc": "Sunucu durumu botu için kullanacağı Discord tokeni (discord tokenini doldurup uygula düğmesine bastıktan sonra otomatik olarak bir çalışan oluşturulacaktır)",
+        "main": "Discord Battlefield-sunucu durumu-bot",
+        "token": "Anlaşmazlık belirteci",
+        "tokenDesc": "Sunucu durumu için kullanacağı Discord belirteci (siz discord belirtecini doldurup Uygula düğmesine bastıktan sonra bir çalışan otomatik olarak oluşturulur)",
         "channel": "Discord kanal kimliği",
-        "channelDesc": "Playeramount'taki değişiklikleri göndereceği Discord kanal kimliği",
-        "minPlayerAmount": "bir tur başlatmak için min. miktar",
-        "minPlayerAmountDesc": "Sunucunun mevcut oyun modunda bir tur başlatmak için minimum oyuncu sayısı",
-        "prevReqCount": "önceki sayım talebi",
-        "prevReqCountDesc": "Başlatma ve çalıştırma arasında kaç isteği kontrol etmesi gerekir, (varsayılan = 5, 5 * 2 == 10 dakika)",
-        "startedAmount": "çalıştırmaya yetecek kadar",
-        "startedAmountDesc": "Kaç oyuncu çalışan bir sunucu olarak sayılır",
-        "ownerId": "Sahibinin oyuncu kimliği",
-        "ownerIdDesc": "Battlefield 5 ve Battlefield 2042'de sunucular ücretsizdir, bu nedenle birinin sunucusunu kopyalamak gerçekten kolaydır. bunu önlemek için sunucu sahibinin oyuncu kimliğini buraya girin.",
-        "restartWorker": "Επανεκκίνηση",
-        "restartWorkerDesc": "Serverstatus botunu yeniden başlatın (bir değişiklik uyguladığınızda da aynısını yapar)"
+        "channelDesc": "Oyuncu miktarındaki değişiklikleri yayınlayacağı Discord kanal kimliği",
+        "minPlayerAmount": "dk. bir tur başlatmak için gereken tutar",
+        "minPlayerAmountDesc": "Sunucunun geçerli oyun modunda bir tur başlatmak için minimum oyuncu sayısı",
+        "prevReqCount": "önceki yıl. sayım talebi",
+        "prevReqCountDesc": "Başlatılmış ve çalıştırılmış arasında kaç isteğin kontrol edilmesi gerekiyor, (varsayılan = 5, 5 * 2 = = 10 dakika)",
+        "startedAmount": "çalışmasını sağlamak için yeterli",
+        "startedAmountDesc": "Çalışan bir sunucu olarak kaç oyuncu sayılır",
+        "ownerId": "Sahibin oyuncu kimliği",
+        "ownerIdDesc": "Battlefield 5 + Battlefield 2042'te sunucular ücretsizdir,  birisinin sunucusunu kopyalamak gerçekten kolaydır. bunu önlemek için sunucu sahibinin playerıd'sini buraya doldurun.",
+        "restartWorker": "Yeniden başlat",
+        "restartWorkerDesc": "Sunucu durum botunu yeniden başlatın (bir değişiklik uyguladığınızda da aynısını yapar)"
       }
     },
     "console": {
-      "main": "Κονσόλα",
-      "logs": "Εμφάνιση αρχείων καταγραφής ενεργειών",
-      "amount": "{{amount}} στοιχείων στο αρχείο καταγραφής"
+      "main": "Konsol",
+      "logs": "Eylem günlükleri",
+      "amount": "Günlükte {{amount}} öğe"
     },
     "players": {
-      "main": "{{amount}} των {{max}} παικτών",
-      "failed": "Ουπς..Η λίστα παικτών απέτυχε!",
-      "noPlayers": " Κανείς δεν έγινε μέλος αυτής της πλευράς ακόμα!",
-      "noSpectators": "Δεν υπάρχουν θεατές",
-      "full": "Takım dolu",
-      "0": "Ομάδα 1",
-      "1": "Ομάδα 2",
-      "spectators": "Θεατές",
-      "timeInfo": "Για πόση ώρα ο παίκτης είναι μέσα",
+      "main": "{{amount}} / {{max}} oyuncu",
+      "failed": "Hata.. Oyuncu listesi başarısız oldu!",
+      "noPlayers": "Bu tarafa henüz kimse katılmadı!",
+      "noSpectators": "seyirci yok",
+      "full": "Dolu",
+      "0": "Takım 1",
+      "1": "Takım 2",
+      "spectators": "izleyici",
+      "timeInfo": "Oyuncunun oyunda ne kadar süre kaldığı",
       "sort": {
-        "main": "Oynatıcı listelerini sırala",
-        "position": "Sunucudaki konum (varsayılan)",
-        "ping": "Ping",
-        "name": "Oyuncu Adı",
+        "main": "Oyuncu listelerini sıralayın",
+        "position": "sunucudaki konum(default)",
+        "ping": "Geçikme",
+        "name": "Oyuncu Id",
         "rank": "Rütbe",
         "joinTime": "Katılma zamanı"
       }
     },
     "factions": {
-      "BFFactionId_FactionAHU": "Αυστρο-Ουγκρική Αυτοκρατορία",
-      "BFFactionId_FactionGER": "Γερμανική Αυτοκρατορία",
-      "BFFactionId_FactionOTM": " Οθωμανική Αυτοκρατορία",
-      "BFFactionId_FactionITA": "Βασίλειο της Ιταλίας",
-      "BFFactionId_FactionUK": "Ηνωμένο Βασίλειο",
-      "BFFactionId_FactionUSA": "Ηνωμένες Πολιτίες Αμερικής",
-      "BFFactionId_FactionFRA": "Γαλλία",
-      "BFFactionId_FactionRUS": "Ρωσική Αυτοκρατορία",
-      "BFFactionId_FactionBOL": "Κόκκινος Στρατός",
-      "BFFactionId_FactionWA": "Λευκός Στρατός",
-      "BFFactionId_FactionUKM": " Βασιλικοί Ναυτικοί ",
-      "BFFactionId_FactionUSA_Pacific": "Ηνωμένες Πολιτίες Αμερικής",
-      "BFFactionId_FactionJPN": "Japonya İmparatorluğu"
+      "BFFactionId_FactionAHU": "Avusturya-Macaristan İmparatorluğu",
+      "BFFactionId_FactionGER": "Alman imparatorluğu",
+      "BFFactionId_FactionOTM": "Osmanlı imparatorluğu",
+      "BFFactionId_FactionITA": "İtalya Krallığı",
+      "BFFactionId_FactionUK": "Birleşik Krallık",
+      "BFFactionId_FactionUSA": "Amerika Birleşik Devletleri",
+      "BFFactionId_FactionFRA": "Fransa",
+      "BFFactionId_FactionRUS": "Rus imparatorluğu",
+      "BFFactionId_FactionBOL": "Kızıl Ordu",
+      "BFFactionId_FactionWA": "Beyaz Ordu",
+      "BFFactionId_FactionUKM": "Kraliyet Deniz Piyadeleri",
+      "BFFactionId_FactionUSA_Pacific": "Amerika Birleşik devletleri",
+      "BFFactionId_FactionJPN": "Japon İmparatorluğu"
     },
     "playerStats": {
-      "main": "Στατιστικά παιχνιδιών για {{player}}",
-      "loading": "Φόρτωση στατιστικών...",
-      "skill": "Επιδεξιότητα: ",
-      "rank": "Επίπεδο: ",
+      "main": "{{player}} 'nin Oyun İstatistikleri",
+      "loading": "İstatistikler Yükleniyor...",
+      "skill": "Yetenek: ",
+      "rank": "Seviye: ",
       "killsPerMinute": "KPM: ",
-      "winPercent": "Νίκη: ",
-      "accuracy": "Ακρίβεια: ",
-      "headshots": "Headshots: ",
+      "winPercent": "Oyun Kazanma Oranı: ",
+      "accuracy": "İsabet Oranı: ",
+      "headshots": "Kafadan Vurma Oranı: ",
       "killDeath": "KD: ",
       "id": "ID: ",
-      "currentName": "Şu anki adı:",
-      "toStatsPage": "Πλήρη στατιστικά.."
+      "currentName": "aktif hesap: ",
+      "toStatsPage": "Tüm İstatistikler.."
     },
     "kickMenu": {
       "main": "Θα kickάρετε τον παίκτη {{name}}",
@@ -853,10 +853,10 @@
       "confirm": "Banı kaldır!"
     },
     "vUnbanMenu": {
-      "main": "vban'dan {{name}}'i kaldıracaksınız",
-      "reasonDescription": "Bu oyuncuyu kaldırmak için bir neden girin.",
-      "reason": "Αιτία",
-      "confirm": "Banı kaldır!"
+      "main": "{{name}} vban'dan kaldıracaksınız",
+      "reasonDescription": "Bu oyucuyu kaldırmak için bir neden girin.",
+      "reason": "Neden",
+      "confirm": "Kaldır"
     },
     "removeTrackingMenu": {
       "main": "Takipten {{name}}'i kaldıracaksınız",
@@ -882,10 +882,10 @@
     },
     "vBanMenu": {
       "playerNameDescription": "Yasaklamak istediğiniz oyuncunun adını girin",
-      "playerName": "kullanıcı adı",
-      "reasonDescription": "Bu oyuncuyu vBan etmek için bir neden girin.",
-      "reason": "Αιτία",
-      "confirm": "Ban!",
+      "playerName": "Kullanıcı adı",
+      "reasonDescription": "Bu oyuncuyu vBan'a eklemek için bir neden girin.",
+      "reason": "sebep",
+      "confirm": "Yasakla!",
       "usePlayerId": "Banlamakiçin oyuncu kimliğini kullan",
       "playerId": "Ταυτότητα Παικτη"
     },
@@ -922,42 +922,42 @@
     }
   },
   "sidebar": {
-    "main": "Κύρια Σελίδα",
-    "home": "Αρχική σελίδα",
-    "account": "Λογαριασμός",
-    "devOptions": "Επιλογές Προγραμματιστή",
+    "main": "Ana Menü",
+    "home": "Ev",
+    "account": "Hesap",
+    "devOptions": "Geliştirici Ayarları",
     "manOptions": "Yönetim Seçenekleri",
-    "createGroup": "Δημιούργησε ομάδα",
-    "makeOperations": "Κάντε λειτουργίες",
-    "logout": "Αποσύνδεση",
-    "help": "Χρειάζεστε βοήθεια?",
-    "sponsor": "Bize sponsor olun"
+    "createGroup": "Grup Oluştur",
+    "makeOperations": "Operasyon sunucusu oluştur",
+    "logout": "Çıkış Yap",
+    "help": "Yardım?",
+    "sponsor": "Sponsor"
   },
   "cookieInfo": {
-    "link": "Sid ve remid'in nasıl alınacağı hakkında bilgi için buraya tıklayın",
+    "link": "Sid ve remidin nasıl alınacağı hakkında bilgi için buraya tıklayın",
     "main": "SID ve REMID çerezleri nasıl alınır",
-    "0": "1. Açın",
-    "1": " Chrome veya Edge ile gizli sekme modda.",
-    "2": "2. Kullanmak istediğiniz hesapla giriş yapın, \"Beni hatırla\" seçeneğini işaretlemeyi unutmayın.",
+    "0": "1. Tıkla ",
+    "1": " Chrome veya Edge ile gizli modda.",
+    "2": "2.Kullanmak istediğiniz hesapla giriş yapın, \"Beni hatırla\" seçeneğini işaretlemeyi unutmayın.",
     "3": "3. Giriş yaptıktan sonra kilide tıklayın:",
     "4": "4. Bu menüde çerezleri seçin:",
-    "5": "5. \"accounts.ea.com\" adresini genişletin ve \"İçerik\" altında çerezi görüntülemek için sid ve/veya remid üzerine tıklayın",
+    "5": "5. \"accounts.ea.com\"u genişletin ve çerezi \"İçerik\" altında görüntülemek için sid ve/veya remid'e tıklayın",
     "6": "6. SID ve REMID çerezini aldıktan sonra oturumu kapatmayın, sadece tarayıcıyı kapatın.",
-    "7": "Oturumu kapatırsanız çerezler artık geçerli değildir."
+    "7": "Oturumu kapatırsanız, çerezler artık geçerli değildir."
   },
   "statusBotInfo": {
-    "link": "Discord tokenini nasıl alacağınız ve botu discordunuza nasıl davet edeceğiniz hakkında bilgi için buraya tıklayın",
-    "main": "Discord botu ve token",
+    "link": "Anlaşmazlık jetonunu nasıl alacağınız ve botu anlaşmazlığınıza nasıl davet edeceğiniz hakkında bilgi için buraya tıklayın",
+    "main": "Discord botu ve jetonu",
     "0": "Bir Discord botu oluşturun:",
-    "1": "1. Discord geliştirici portalına giriş yapın:",
-    "2": "2. Sağ üstteki \"Yeni Uygulama \"ya tıklayın, bota bir isim verin ve oluştur'a basın.",
-    "3": "3. Sağ taraftaki \"Bot\" üzerine tıklayın ve \"Bot Ekle\" düğmesine basın.",
-    "4": "4. Discord tokenini buradan kopyalayın ve yöneticinin \"Sunucu ayarları\" içindeki \"Discord token\" alanına yapıştırın ve alttaki \"Uygula\" düğmesine basın.",
+    "1": "1. Discord geliştirici portalına giriş yapın: ",
+    "2": "2. sağ üstteki \"Yeni Uygulama\"ya tıklayın, bota bir isim verin ve oluştur'a basın.",
+    "3": "3. Sağdaki \"Bot\"a tıklayın ve \"Bot Ekle\"ye basın\".",
+    "4": "4. Discord jetonunu oradan kopyalayın ve yöneticinin \"Sunucu ayarları\" içindeki \"Discord jetonu\" alanına yapıştırın ve alttaki \"Uygula\" düğmesine basın.",
     "5": "Botu discordunuza ekleyin:",
-    "6": "5. Yeni oluşturulan botta, \"Genel Bilgiler\" sayfasında, \"Uygulama Kimliği\" altında \"Kopyala\"ya tıklayın",
-    "7": "6. Bu bağlantıyı kopyalayın: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, \"APPLICATION_ID\" yerine 5. adımdan elde ettiğiniz Uygulama Kimliğini yazın ve bağlantıyı tarayıcınızda açın.",
+    "6": "5. Yeni oluşturulan değil, \"Genel Bilgiler\" sayfasında, \"Uygulama Kimliği\" altında \"Kopyala\" yı tıklayın.\"",
+    "7": "6. Bu bağlantıyı kopyala: https://discord.com/oauth2/authorize?client_id=APPLICATION_ID&scope=bot, \"APPLICATION_ID\"yi 5. adımdan alınan Uygulama Kimliği ile değiştirin ve bağlantıyı tarayıcınızda açın.",
     "8": "7. Botu davet etmek istediğiniz sunucuyu seçin ve Yetkilendir'e basın.",
-    "9": "Botun sunucunun durumunu göstermek için herhangi bir özel izne ihtiyacı yoktur, mesaj göndermek için mesaj, gömme (embed) ve resim gönderme iznine ihtiyacı vardır."
+    "9": "Bot, sunucunun durumunu göstermek için herhangi bir özel izne ihtiyaç duymaz, mesaj göndermek için mesaj, gömme ve resim gönderme iznine ihtiyacı vardır."
   },
   "ApiInfo": {
     "link": "API için mevcut tüm istekleri almak için buraya tıklayın"
