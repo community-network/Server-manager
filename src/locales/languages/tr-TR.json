@@ -616,7 +616,7 @@
       "main": "Yasak listesi",
       "description0": "Bu sunucudaki yasaklı oyuncuların listesi.",
       "description1": "200'de",
-      "description2": "{{number}} yuva kullanıldı",
+      "description2": "{{number}} yuva kullanıldı 200 taneden",
       "description3": " Grup tabanlı sanal yasak listemizi kullanın.,",
       "description4": "sınırsız sayıda oyuncuyu yasaklıyabilirsiniz.",
       "table": {
