@@ -396,7 +396,7 @@
       "main": "Vban liste",
       "description0": "Bu grupta yasaklanan oyuncuların listesi.",
       "description1": " {{Number}} Yuva kullanıldı",
-      "noReason": "με λόγο",
+      "noReason": "sebebiyle birlikte ",
       "add": "Ban ekle",
       "unban": "Unban",
       "table": {
@@ -405,7 +405,7 @@
         "reason": "Nedeni",
         "admin": "Yönetici",
         "timestamp": "işlem zamanı",
-        "bannedUntil": "Μέχρι"
+        "bannedUntil": "şu zamana kadar "
       }
     },
     "exclusions": {
