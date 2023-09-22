@@ -642,7 +642,7 @@
       "main": "Sunucu yöneticileri",
       "description0": "Bu sunucudaki yöneticilerin listesi.",
       "description1": "50'de ",
-      "description2": "{{number}} yuva kullanıldı",
+      "description2": "{{number}} yuva kullanıldı 50 taneden",
       "table": {
         "playerName": "Oyuncu ismi",
         "playerId": "Oyuncu ID"
