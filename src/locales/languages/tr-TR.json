@@ -163,7 +163,7 @@
     "noServer": "Server bulunamadı",
     "noAdmin": "Admin hakları yok",
     "running": "Yürütülüyor",
-    "notSupported": "Arka planda çalışan statüsü desteği yok"
+    "notSupported": "Arka planda çalışan statü desteği yok"
   },
   "serverBotStatus": {
     "pending": "Εκκρεμής κατάσταση",
