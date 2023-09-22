@@ -166,7 +166,7 @@
     "notSupported": "Arka planda çalışan statü desteği yok"
   },
   "serverBotStatus": {
-    "pending": "Εκκρεμής κατάσταση",
+    "pending": "Statü bekleniyor",
     "noService": "İşçi bulunamadı",
     "failed": "İşçi başarısız oldu",
     "running": "\"{{worker}}\" adıyla çalıştırılıyor"
