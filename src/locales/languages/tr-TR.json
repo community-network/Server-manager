@@ -632,7 +632,7 @@
       "main": "VIP oyuncular",
       "description0": "Bu sunucudaki VIP oyuncuların listesi.",
       "description1": "50'de ",
-      "description2": "{{number}} yuva kullanıldı",
+      "description2": "{{number}} yuva kullanıldı 50 taneden",
       "table": {
         "playerName": "Oyuncu ismi",
         "playerId": "Oyuncu ID"
