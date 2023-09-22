@@ -161,8 +161,8 @@
   "serverStatus": {
     "pending": "Statü Bekleniyor",
     "noServer": "Server bulunamadı",
-    "noAdmin": "Κανένα δικαίομα διαχειριστή",
-    "running": "Τρέχει",
+    "noAdmin": "Admin hakları yok",
+    "running": "Yürütülüyor",
     "notSupported": "Arka planda çalışan statüsü desteği yok"
   },
   "serverBotStatus": {
