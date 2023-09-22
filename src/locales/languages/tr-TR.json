@@ -837,8 +837,8 @@
     },
     "banMenu": {
       "main": " {{name}} banlalamak üzeresin",
-      "reasonDescription": "Εισάγετε ένα λόγο για να κάνετε ban αυτόν το παίκτη.",
-      "reason": "Λόγος",
+      "reasonDescription": "Bu oyuncuyu banlamak için bir sebep seçin",
+      "reason": "Sebep",
       "vBanOption": "Χρησιμοποίησε εικονικό ban αντί για κλασσικό ban",
       "tempbanDesc0": "Εάν θέλετε να τον κάνετε ban προσωρινά, καθορίστε το χρόνο σε ",
       "tempbanDesc1": "ώρες παρακάτω, ή αφήστε το στο 0 για μόνιμο ban.",
