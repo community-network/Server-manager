@@ -841,7 +841,7 @@
       "reason": "Sebep",
       "vBanOption": "Klasik Ban listesi yerine Virtual ban listesine ekleyin",
       "tempbanDesc0": "Eğer geçici bir şekilde banlamak istersen, zaman belirt",
-      "tempbanDesc1": "ώρες παρακάτω, ή αφήστε το στο 0 για μόνιμο ban.",
+      "tempbanDesc1": "perma ban uygulamak için saati 0 yapınız",
       "tempbanDesc2": "Δεν υποστηρίζεται ακόμη από το V-Ban.",
       "tempbanAmount": "Ban ώρα",
       "confirm": "Ban!"
