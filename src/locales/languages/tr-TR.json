@@ -917,7 +917,7 @@
       "delete": "Sunucuyu Sil",
       "check": "Bu sunucuyu silmek istediğinizden emin misiniz?",
       "checkWithName": "{{name}}'i silmek istediğinize emin misiniz?",
-      "confirm": "Ναι, διέγραψε",
+      "confirm": "Evet,Sil",
       "back": "Hayır, Olamaz!"
     }
   },
