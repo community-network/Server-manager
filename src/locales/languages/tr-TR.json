@@ -279,7 +279,7 @@
     "accept": "Grup oluştur"
   },
   "group": {
-    "main": "Ομάδα",
+    "main": "grup",
     "name": "grup ismi",
     "id": "Kimlik",
     "admins": {
