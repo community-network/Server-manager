@@ -887,7 +887,7 @@
       "reason": "sebep",
       "confirm": "Yasakla!",
       "usePlayerId": "Banlamakiçin oyuncu kimliğini kullan",
-      "playerId": "Ταυτότητα Παικτη"
+      "playerId": "oyuncu id "
     },
     "trackingMenu": {
       "playerNameDescription": "İzlemeye eklemek istediğiniz oyuncunun adını girin.",
