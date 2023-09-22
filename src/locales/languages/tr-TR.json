@@ -707,7 +707,7 @@
         "magic": "Büyü Yaptı"
       },
       "types": {
-        "pingChecker": "Έλεγχος Ping",
+        "pingChecker": "ping kontolcüsü",
         "vBan": "VBan",
         "bfban": "BFBan"
       },
