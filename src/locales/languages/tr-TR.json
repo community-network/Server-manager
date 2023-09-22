@@ -281,7 +281,7 @@
   "group": {
     "main": "Ομάδα",
     "name": "grup ismi",
-    "id": "Ταυτότητα",
+    "id": "Kimlik",
     "admins": {
       "main": "Yöneticiler",
       "description0": "Yönetici rolü, sunucuları yönetebilir.",
