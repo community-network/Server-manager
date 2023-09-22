@@ -448,7 +448,7 @@
       "add": "Sebep ekle",
       "remove": "Sebebi kaldır",
       "table": {
-        "reason": "Αιτία"
+        "reason": "sebep"
       }
     },
     "logs": {
