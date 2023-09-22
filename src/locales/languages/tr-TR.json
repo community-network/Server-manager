@@ -172,7 +172,7 @@
     "running": "\"{{worker}}\" adıyla çalıştırılıyor"
   },
   "discord": {
-    "id": "Ταυτότητα διακομιστή Discord",
+    "id": "Discord Server ID",
     "idDescription": "Η ταυτότητα διακομιστή του Discord σου",
     "adminId": "Αναγνωριστικό ρόλου διαχειριστή",
     "adminIdDescription": "Ταυτότητα ρόλου διαχειριστή",
