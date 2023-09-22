@@ -918,7 +918,7 @@
       "check": "Bu sunucuyu silmek istediğinizden emin misiniz?",
       "checkWithName": "{{name}}'i silmek istediğinize emin misiniz?",
       "confirm": "Ναι, διέγραψε",
-      "back": "Οχ, οχι!"
+      "back": "Hayır, Olamaz!"
     }
   },
   "sidebar": {
