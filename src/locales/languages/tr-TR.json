@@ -433,7 +433,7 @@
       "remove": "Oyuncuyu kaldır",
       "noServer": "Sunucuda değil",
       "table": {
-        "playerName": "Όνομα Παίκτη",
+        "playerName": "oyuncu adı",
         "playerId": "Ταυτότητα Παικτη",
         "reason": "Αιτία",
         "admin": "Διαχειριστής",
