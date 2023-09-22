@@ -420,15 +420,15 @@
         "playerId": "Ταυτότητα Παικτη",
         "reason": "Αιτία",
         "admin": "Διαχειριστής",
-        "timestamp": "Χρονική σήμανση",
+        "timestamp": "zaman",
         "bannedUntil": "Μέχρι"
       }
     },
     "tracking": {
       "main": "Takip edilen oyuncu listesi",
       "description0": "Bir dahaki sefere sunucunuza katıldıklarında discord'da uyarmak için izlenen oyuncuların listesi.",
-      "description1": "Χρησιμοποιημένες {{number}} θυρίδες",
-      "noReason": "με λόγο",
+      "description1": " {{number}} yuva kullanıldı ",
+      "noReason": "sebebiyle birlikte",
       "add": "Oyuncuyu uyarı listesine ekle",
       "remove": "Oyuncuyu kaldır",
       "noServer": "Sunucuda değil",
