@@ -159,7 +159,7 @@
     }
   },
   "serverStatus": {
-    "pending": "Εκκρεμής κατάσταση",
+    "pending": "Statü Bekleniyor",
     "noServer": "Ο διακομιστής δε βρέθηκε",
     "noAdmin": "Κανένα δικαίομα διαχειριστή",
     "running": "Τρέχει",
