@@ -900,7 +900,7 @@
       "playerNameDescription": "İstisnalara eklemek istediğiniz oyuncunun adını girin",
       "playerName": "kullanıcı adı",
       "reasonDescription": "Bu oyuncuyu autokick'ten hariç tutmak için bir neden girin (ping ve bfban).",
-      "reason": "Αιτία",
+      "reason": "sebep",
       "excludeDesc0": "Onu geçici olarak hariç tutmak istiyorsanız, zamanı",
       "excludeDesc1": "saat olarak aşağıda belirtin veya onu kalıcı olarak hariç tutmak için 0 bırakın.",
       "excludeAmount": "Zaman hariç",
@@ -908,7 +908,7 @@
     },
     "reasonMenu": {
       "reasonDescription": "Önceden tanımlanmış bir neden ekleyin",
-      "reason": "Αιτία",
+      "reason": "sebep",
       "select": "Seç",
       "confirm": "Ekle"
     },
