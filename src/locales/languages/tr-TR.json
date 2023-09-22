@@ -434,8 +434,8 @@
       "noServer": "Sunucuda değil",
       "table": {
         "playerName": "oyuncu adı",
-        "playerId": "Ταυτότητα Παικτη",
-        "reason": "Αιτία",
+        "playerId": "oyuncu id",
+        "reason": "neden",
         "admin": "Διαχειριστής",
         "timestamp": "Χρονική σήμανση",
         "currentServer": "Şu anki sunucu"
