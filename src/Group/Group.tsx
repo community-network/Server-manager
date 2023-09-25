@@ -788,7 +788,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
 
   const isDisabled =
     reason === "" ||
-    playerName === "" ||
+    !(playerName !== "" || playerId !== "") ||
     banApplyStatus !== null ||
     userGettingError ||
     !user ||
