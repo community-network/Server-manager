@@ -6,7 +6,7 @@ const endPoints = {
   dev: "https://homedev.gametools.network/api/",
   prod: "https://manager-api.gametools.network/api/",
 };
-const MODE = "prod"; // todo: use Environment variables to set the value
+const MODE = "local"; // todo: use Environment variables to set the value
 
 export const endPointName = endPoints[MODE].replace("https://", "").replace(
   "/api/",
@@ -53,6 +53,7 @@ export default class JsonClient {
   postJsonMethod(
     method: string,
     params: { [name: string]: unknown },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     const options = {
       method: "POST",
@@ -67,6 +68,7 @@ export default class JsonClient {
   getJsonMethod(
     method: string,
     params: { [name: string]: string | number },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     return this.errorHandler(this.fetchMethod(method, params));
   }

@@ -616,7 +616,7 @@ export function ServerUnvipPlayer(props: {
       ) => {
         setBanApplyStatus(false);
         setError(error);
-        setTimeout((_) => setBanApplyStatus(null), 3000);
+        setTimeout(() => setBanApplyStatus(null), 3000);
       },
       onSuccess: () => {
         setBanApplyStatus(null);

@@ -16,7 +16,6 @@ import "../locales/config";
 
 import { useUser } from "../Server/Manager";
 import {
-  IGlobalGroupPlayer,
   IGroupCookie,
   IGroupInfo,
   IGroupsInfo,

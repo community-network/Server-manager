@@ -50,10 +50,10 @@ export function Tag(props: IDefaultInterface): React.ReactElement {
 const ModalControll = {
   isShown: false,
   children: "",
-  show: (_) => {
+  show: () => {
     undefined;
   },
-  close: (_) => {
+  close: () => {
     undefined;
   },
 };

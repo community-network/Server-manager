@@ -924,7 +924,7 @@ function PlatoonApplicants(props: {
   platoonInfo: IPlatoonStats;
   applicantSearch: string;
   callback?: (
-    selected: any,
+    selected: boolean,
     platoonId: string,
     player: IPlatoonApplicant,
   ) => void;
@@ -2217,7 +2217,10 @@ function GroupDangerZone(props: {
   );
 }
 
-export function AddGroupOwner(props: any): React.ReactElement {
+export function AddGroupOwner(props: {
+  gid: string;
+  callback: any;
+}): React.ReactElement {
   const gid = props.gid;
 
   const [addAdminState, changeState] = React.useState({
@@ -2264,7 +2267,7 @@ export function AddGroupOwner(props: any): React.ReactElement {
     },
   );
 
-  const updateState = (values: { nickname?: any; uid?: any }) => {
+  const updateState = (values: { nickname?: string; uid?: string }) => {
     const newState = {
       ...addAdminState,
       ...values,
@@ -2302,7 +2305,7 @@ export function AddGroupOwner(props: any): React.ReactElement {
   );
 }
 
-export function AddGroupAdmin(props: any): React.ReactElement {
+export function AddGroupAdmin(props: { gid: string }): React.ReactElement {
   const gid = props.gid;
 
   const [addAdminState, changeState] = React.useState({

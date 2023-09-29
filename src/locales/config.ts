@@ -7,7 +7,7 @@ import * as translationCH from "./languages/zh-CN.json";
 import * as translationNL from "./languages/nl-NL.json";
 import * as translationDE from "./languages/de.json";
 import * as translationHE from "./languages/he.json";
-import { initReactI18next, useTranslation } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { formatDistanceToNowStrict, format } from "date-fns";
 import { enUS, tr, el, zhCN, nl, de, he } from "date-fns/locale";
@@ -22,36 +22,6 @@ const locales = {
   "de-DE": de,
 };
 
-const formatDistanceLocale = {
-  xSeconds: {
-    one: "1 sec",
-    other: "{{count}} sec",
-  },
-  xMinutes: {
-    one: "1 min",
-    other: "{{count}} mins",
-  },
-  xHours: {
-    one: "1 hour",
-    other: "{{count}} hours",
-  },
-  xDays: {
-    one: "1 day",
-    other: "{{count}} days",
-  },
-  xWeeks: {
-    one: "1 week",
-    other: "{{count}} weeks",
-  },
-  xMonths: {
-    one: "1 month",
-    other: "{{count}} months",
-  },
-  xYears: {
-    one: "1 year",
-    other: "{{count}} years",
-  },
-};
 const formatDistance = function formatDistance(
   token: string,
   count: number,

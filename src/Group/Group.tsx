@@ -36,7 +36,6 @@ import { useModal } from "../components/Card";
 import { PlayerStatsModal } from "../Server/Modals";
 import { DynamicSort } from "../components/Functions";
 import {
-  IGlobalGroupPlayer,
   IGlobalGroupPlayerInfo,
   IDevGroup,
   IGroupServer,
@@ -258,7 +257,7 @@ export function VBanList(props: {
 
   const {
     data,
-    error,
+    error: unknownErrorType,
     fetchNextPage,
     hasNextPage,
     isFetching,
@@ -273,6 +272,7 @@ export function VBanList(props: {
     },
   );
 
+  const error = unknownErrorType as { code: number; message: string };
   const banList = React.useMemo(
     () => (data ? data?.pages.flatMap((item) => item.results) : []),
     [data],
@@ -294,7 +294,9 @@ export function VBanList(props: {
   );
 
   const modal = useModal();
-  const showGlobalUnban = (e: { target: { dataset: any } }) => {
+  const showGlobalUnban = (e: {
+    target: { dataset: { [string: string]: string } };
+  }) => {
     const playerInfo = e.target.dataset;
     modal.show(
       <GroupGlobalUnbanPlayer

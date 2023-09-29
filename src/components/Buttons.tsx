@@ -221,14 +221,14 @@ export function Switch(props: {
 
 export function PlayerDropdownButton(props: {
   name?: string;
-  options?: any[];
+  options?: { callback: (arg0?: string) => void; name: string }[];
 }): React.ReactElement {
   const [open, setOpen] = React.useState(false);
 
   const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
 
   React.useEffect(() => {
-    const handleClickOutside = (event: { target: any }) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (container.current && !container.current.contains(event.target)) {
         setOpen(false);
       }
@@ -275,11 +275,13 @@ export function PlayerDropdownButton(props: {
   );
 }
 
-export function ShowDropDown(props: { options: any[] }): React.ReactElement {
+export function ShowDropDown(props: {
+  options: { callback: (arg0?: string) => void; name: string }[];
+}): React.ReactElement {
   const [open, setOpen] = React.useState(true);
   const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
   React.useEffect(() => {
-    const handleClickOutside = (event: { target: any }) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (container.current && !container.current.contains(event.target)) {
         setOpen(false);
       }
@@ -340,7 +342,7 @@ export function ChoosePageButtons(props: {
   const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
 
   React.useEffect(() => {
-    const handleClickOutside = (event: { target: any }) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (container.current && !container.current.contains(event.target)) {
         setOpen(false);
       }
@@ -501,7 +503,7 @@ export function ReasonDropdownButton(props: {
   const container: React.MutableRefObject<HTMLDivElement> = React.useRef();
 
   React.useEffect(() => {
-    const handleClickOutside = (event: { target: any }) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (container.current && !container.current.contains(event.target)) {
         setOpen(false);
       }
