@@ -351,7 +351,7 @@ export function Player(props: {
 
   return (
     <div className={styles.PlayerRow}>
-      {width > 400 && (
+      {width > 550 && (
         <span className={styles.PlayerIndex} value="slot">
           {i + 1}
         </span>
@@ -468,7 +468,7 @@ function PlayerButtons(props: {
   }
 
   // If too small, show button listing instead
-  if (width < 550) {
+  if (width < 480) {
     return (
       <PlayerDropdownButton
         options={playerOptions}
