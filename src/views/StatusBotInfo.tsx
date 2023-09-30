@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 
 export function StatusBotInfo() {
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("pageTitle.statusBotInfo")}`;
 
   return (
     <Row>

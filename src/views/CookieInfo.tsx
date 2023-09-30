@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 export default function CookieInfo() {
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("pageTitle.cookieInfo")}`;
   const getLanguage = () => window.localStorage.i18nextLng;
 
   return (

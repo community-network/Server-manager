@@ -967,5 +967,10 @@
     "gamestats": "Gamestats logo",
     "userAvatar": "User avatar",
     "tutorial": "Visual aid"
+  },
+  "pageTitle": {
+    "main": "Manager",
+    "cookieInfo": "How to get the cookie",
+    "statusBotInfo": "How to setup the status bot"
   }
 }

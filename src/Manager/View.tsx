@@ -273,6 +273,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
 
 export default function Manager() {
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("man.main")}`;
   const [searchWord, setSearchWord] = React.useState("");
   const {
     isLoading,

@@ -127,6 +127,9 @@ devDependencies:
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
+  react-ga4:
+    specifier: ^2.1.0
+    version: 2.1.0
   rimraf:
     specifier: ^5.0.1
     version: 5.0.1
@@ -5672,6 +5675,10 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
     dev: false
+
+  /react-ga4@2.1.0:
+    resolution: {integrity: sha512-ZKS7PGNFqqMd3PJ6+C2Jtz/o1iU9ggiy8Y8nUeksgVuvNISbmrQtJiZNvC/TjDsqD0QlU5Wkgs7i+w9+OjHhhQ==}
+    dev: true
 
   /react-i18next@13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-+nFUkbRByFwnrfDcYqvzBuaeZb+nACHx+fAWN/pZMddWOCJH5hoc21+Sa/N/Lqi6ne6/9wC/qRGOoQhJa6IkEQ==}

@@ -18,6 +18,7 @@ import { IDevGroups } from "../api/ReturnTypes";
 
 export default function Developer() {
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("dev.main")}`;
   const [searchWord, setSearchWord] = React.useState("");
   const {
     isLoading,

@@ -55,6 +55,9 @@ export function Server(): React.ReactElement {
 
   const { data: server } = useServer(sid);
   const { data: runningGame } = useGame(sid);
+  document.title = `${t(
+    "pageTitle.main",
+  )} ${server?.game} | ${server?.serverName}`;
 
   const [tabsListing, setTabsListing] = React.useState("info");
   const [playerListSort, setPlayerListSort] = React.useState("position");
@@ -220,6 +223,9 @@ export function DeleteServer(): React.ReactElement {
   const queryClient = useQueryClient();
   const history = useNavigate();
   const { t } = useTranslation();
+  document.title = `${t(
+    "pageTitle.main",
+  )} ${server?.game} | ${server?.serverName}`;
 
   const RemoveServerExecute = useMutation(
     (variables: IServerGet) => OperationsApi.removeServer(variables),

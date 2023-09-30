@@ -19,6 +19,8 @@ import ChangeLanguage from "../locales/ChangeLanguage";
 import { IUserInfo } from "../api/ReturnTypes";
 
 export default function Account() {
+  const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("account.main")}`;
   const history = useNavigate();
   const queryClient = useQueryClient();
 
@@ -57,7 +59,6 @@ export default function Account() {
     },
   });
 
-  const { t } = useTranslation();
   const {
     error: userError,
     data: user,

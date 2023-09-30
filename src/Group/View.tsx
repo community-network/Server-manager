@@ -178,6 +178,9 @@ export function Group(): React.ReactElement {
   const [listing, setListing] = React.useState("servers");
   const [settingsListing, setSettingsListing] = React.useState("account");
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} ${t(
+    "group.main",
+  )} | ${group?.groupName}`;
 
   const catListing = {
     owners: (
@@ -2403,6 +2406,7 @@ export function AddGroup(): React.ReactElement {
     canAdd: false,
   });
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("createGroup.main")}`;
 
   const [applyStatus, setApplyStatus] = React.useState(null);
   const [errorUpdating, setError] = React.useState({
@@ -2592,6 +2596,9 @@ export function DeleteGroup(): React.ReactElement {
   const queryClient = useQueryClient();
   const history = useNavigate();
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${t(
+    "group.danger.main",
+  )}`;
 
   const DeleteGroupExecute = useMutation(
     (variables: IGroupGet) => OperationsApi.removeGroup(variables),
@@ -2670,6 +2677,9 @@ export function AddGroupServer(): React.ReactElement {
 
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${t(
+    "group.servers.add",
+  )}`;
 
   const {
     isError,
@@ -3108,7 +3118,9 @@ export function MakeOps(): React.ReactElement {
     code: 0,
     message: "Unknown",
   });
+
   const { t } = useTranslation();
+  document.title = `${t("pageTitle.main")} | ${t("operations.main")}`;
 
   const SetupOperations = useMutation(
     (variables: { server: string; sid: string; remid: string }) =>
