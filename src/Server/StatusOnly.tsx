@@ -19,9 +19,9 @@ export default function StatusOnlyServer(): React.ReactElement {
 
   const { t } = useTranslation();
   const { data: server } = useServer(sid);
-  document.title = `${t(
-    "pageTitle.main",
-  )} ${server?.game} | ${server?.serverName}`;
+  document.title = `${t("pageTitle.main")} ${
+    server?.game || t("notApplicable")
+  } | ${server?.serverName || t("loading")}`;
 
   const [tabsListing, setTabsListing] = React.useState("settings");
 

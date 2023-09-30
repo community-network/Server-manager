@@ -178,9 +178,9 @@ export function Group(): React.ReactElement {
   const [listing, setListing] = React.useState("servers");
   const [settingsListing, setSettingsListing] = React.useState("account");
   const { t } = useTranslation();
-  document.title = `${t("pageTitle.main")} ${t(
-    "group.main",
-  )} | ${group?.groupName}`;
+  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${
+    group?.groupName || t("loading")
+  }`;
 
   const catListing = {
     owners: (
