@@ -29,6 +29,13 @@ module.exports = {
           name: "assets/[name].[ext]",
         },
       },
+      {
+        test: /\.(jpe?g|png|webp)$/i,
+        use: {
+          loader: "responsive-loader",
+        },
+        type: "javascript/auto",
+      },
     ],
   },
   plugins: [
