@@ -20,6 +20,7 @@ import {
 import { GametoolsApi } from "../api/GametoolsApi";
 import { useQuery } from "@tanstack/react-query";
 import { ISeederServerPlayer } from "../api/GametoolsReturnTypes";
+import { time } from "console";
 
 export function PlayerList(props: {
   game: IInGameServerInfo;
@@ -349,6 +350,8 @@ export function Player(props: {
     );
   };
 
+  const timeItem = JSON.parse(t("shortChange", { change: dateAdded }));
+
   return (
     <div className={styles.PlayerRow}>
       {width > 550 && (
@@ -381,7 +384,12 @@ export function Player(props: {
           title=""
           value="jointime"
         >
-          {t("shortChange", { change: dateAdded })}
+          {t(
+            `shortTimeItems.${timeItem?.token}.${
+              timeItem?.count > 1 ? "other" : "one"
+            }`,
+            { count: timeItem?.count },
+          )}
           {seederPlayer
             ? ` - ${seederPlayer?.score} score - ${seederPlayer?.kills}/${seederPlayer?.deaths} KD`
             : ""}

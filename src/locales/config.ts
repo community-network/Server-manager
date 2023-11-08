@@ -1,16 +1,9 @@
 import i18n from "i18next";
-import * as translationEN from "./languages/en-US.json";
-import * as translationTR from "./languages/tr-TR.json";
-import * as translationGR from "./languages/el-GR.json";
-// import translationRU from './languages/ru-RU.json';
-import * as translationCH from "./languages/zh-CN.json";
-import * as translationNL from "./languages/nl-NL.json";
-import * as translationDE from "./languages/de.json";
-import * as translationHE from "./languages/he.json";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { formatDistanceToNowStrict, format } from "date-fns";
 import { enUS, tr, el, zhCN, nl, de, he } from "date-fns/locale";
+import resourcesToBackend from "i18next-resources-to-backend";
 
 const locales = {
   "en-US": enUS,
@@ -22,65 +15,15 @@ const locales = {
   "de-DE": de,
 };
 
-const formatDistance = function formatDistance(
-  token: string,
-  count: number,
-  options: {
-    comparison: number;
-    addSuffix: boolean;
-    locale: Locale;
-  },
-) {
-  let t = resources[options?.locale?.code]?.translation;
-  if (t?.shortTimeItems == undefined) {
-    t = resources["en-US"]?.translation;
-  }
-
-  let result: string = t["shortTimeItems"][token]?.[
-    count == 1 ? "one" : "other"
-  ]?.replace("{{count}}", count.toString());
-  if (!result) {
-    t = resources["en-US"]?.translation;
-    result = t["shortTimeItems"][token]?.[
-      count == 1 ? "one" : "other"
-    ]?.replace("{{count}}", count.toString());
-  }
-
-  return result;
-};
-
-export const resources = {
-  "en-US": {
-    translation: translationEN,
-  },
-  "tr-TR": {
-    translation: translationTR,
-  },
-  "el-GR": {
-    translation: translationGR,
-  },
-  "he-IL": {
-    translation: translationHE,
-  },
-  //   "ru-RU": {
-  //     translation: translationRU,
-  //   },
-  "zh-CN": {
-    translation: translationCH,
-  },
-  "nl-NL": {
-    translation: translationNL,
-  },
-  "de-DE": {
-    translation: translationDE,
-  },
-};
-
 i18n
+  .use(
+    resourcesToBackend(
+      (language: string) => import(`./languages/${language}.json`),
+    ),
+  )
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
-    resources,
     fallbackLng: "en-US",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default,
@@ -100,7 +43,9 @@ i18n
         if (type === "shortChange") {
           const customLocale: Locale = {
             code: lng,
-            formatDistance: formatDistance,
+            formatDistance: (token: string, count: number) => {
+              return JSON.stringify({ token: token || "", count: count || 0 });
+            },
             formatLong: null,
             formatRelative: null,
             localize: null,
