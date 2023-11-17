@@ -48,6 +48,8 @@ module.exports = merge(commonConfig, {
           handler: "CacheFirst",
         },
       ],
+      skipWaiting: true,
+      clientsClaim: true,
     }),
   ],
 });
