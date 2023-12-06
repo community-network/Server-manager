@@ -43,10 +43,10 @@ export const bf1Modes = [
   "DOMINATION",
   "WAR PIGEONS",
   "TEAM DEATHMATCH",
-  //"AIR ASSAULT",
+  "AIR ASSAULT",
   "SUPPLY DROP",
-  //"OPERATIONS",
-  //"SHOCK OPERATIONS"
+  "OPERATIONS",
+  "SHOCK OPERATIONS"
 ];
 
 export const bfvServerRegions = {
