@@ -46,7 +46,7 @@ export const bf1Modes = [
   "AIR ASSAULT",
   "SUPPLY DROP",
   "OPERATIONS",
-  "SHOCK OPERATIONS"
+  "SHOCK OPERATIONS",
 ];
 
 export const bfvServerRegions = {
