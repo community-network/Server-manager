@@ -7,12 +7,14 @@
   "denied": "不被允许",
   "apply": "应用",
   "export": "导出EXCEL",
+  "externalScriptError": "Couldn't load external script, something went wrong...",
   "date": "{{date, date|PP}}",
   "dateTime": "{{date, date|PPpp}}",
   "shortDateTime": "{{date, date|PPpp}}",
   "chartDateTime": "{{date, date|d-M, HH:mm}}",
   "time": "{{date, date|p}}",
   "change": "{{change, change}}",
+  "shortChange": "{{change, shortChange}}",
   "notApplicable": "无",
   "boolean": {
     "enabled": "启用",
@@ -21,6 +23,36 @@
   "execute": "执行",
   "translation": {
     "help": "协助翻译"
+  },
+  "shortTimeItems": {
+    "xSeconds": {
+      "one": "1 sec",
+      "other": "{{count}} secs"
+    },
+    "xMinutes": {
+      "one": "1 min",
+      "other": "{{count}} mins"
+    },
+    "xHours": {
+      "one": "1 hour",
+      "other": "{{count}} hours"
+    },
+    "xDays": {
+      "one": "1 day",
+      "other": "{{count}} days"
+    },
+    "xWeeks": {
+      "one": "1 week",
+      "other": "{{count}} weeks"
+    },
+    "xMonths": {
+      "one": "1 month",
+      "other": "{{count}} months"
+    },
+    "xYears": {
+      "one": "1 year",
+      "other": "{{count}} years"
+    }
   },
   "games": {
     "bf3": "战地3 (只战绩机器人)",
@@ -221,6 +253,7 @@
     },
     "servers": {
       "main": "服务器",
+      "game": "Game",
       "status": "服务器状态",
       "lastUpdate": "线程最后更新",
       "createdAt": "服务器被添加于",
@@ -337,6 +370,7 @@
       "add": "添加战排",
       "remove": "移除战排",
       "resultNotFound": "找不到具有该名称的战排",
+      "alreadyAdded": "Already added",
       "members": {
         "main": "成员",
         "remove": "移出成员"
@@ -390,6 +424,23 @@
         "bannedUntil": "直到"
       }
     },
+    "tracking": {
+      "main": "Tracked player list",
+      "description0": "List of tracked players to warn in discord when they join your server next time.",
+      "description1": "已经使用了{{number}} 个栏位",
+      "noReason": "理由",
+      "add": "Add player to track",
+      "remove": "Remove player",
+      "noServer": "Not in a server",
+      "table": {
+        "playerName": "玩家名字",
+        "playerId": "玩家数字ID",
+        "reason": "原因",
+        "admin": "管理",
+        "timestamp": "时间标签",
+        "currentServer": "Current server"
+      }
+    },
     "reasonList": {
       "main": "预先设定原因",
       "description0": "设置一个预定义的原因列表，您可以在尝试踢/禁止/禁止玩家时从中选择",
@@ -403,6 +454,7 @@
     "logs": {
       "main": "群组日志",
       "description": "群组日志列表",
+      "serverLogs": "Add serverlogs to result",
       "reasons": {
         "addVban": "已经被vban",
         "removeVban": "解除vban",
@@ -541,7 +593,14 @@
       "rotation": "更改服务器轮换",
       "addMap": "添加另一张地图",
       "removeMap": "移除",
-      "cookie": "用于使服务器发生变化的cookie，在manager和sid/remid中设置的cookie都是可以的："
+      "cookie": "用于使服务器发生变化的cookie，在manager和sid/remid中设置的cookie都是可以的：",
+      "saveRotation": {
+        "main": "Saved map rotations",
+        "name": "Name for current maprotation",
+        "save": "Save maprotation to list",
+        "remove": "Remove maprotation from list",
+        "current": "Current server maprotation"
+      }
     },
     "game": {
       "main": "目前的游戏",
@@ -606,7 +665,8 @@
       "table": {
         "playerName": "玩家名称",
         "playerId": "玩家数字ID",
-        "timePlayed": "在这个服游玩时间"
+        "timePlayed": "在这个服游玩时间",
+        "playCount": "Amount of times joined in this week"
       }
     },
     "spectatorList": {
@@ -669,6 +729,9 @@
       "bfbanDescription": "保护服务器远离BFBAN实锤外挂 ",
       "bfbanEnable": "开启BFBAN反作弊",
       "bfBanMsg": "BFBAN信息",
+      "bfeacDescription": "保护服务器远离BFBAN实锤外挂 ",
+      "bfeacEnable": "Enable BFEAC Anti Cheat",
+      "bfeacMsg": "BFEAC message",
       "pingKickDescription": "自动踢出指定高ping玩家",
       "pingKickEnable": "踢出高ping玩家",
       "pingKickAmount": "指定高ping数值",
@@ -680,10 +743,12 @@
       "rankKickReason": "排名不在要求范围内",
       "kickLowRank": "踢出等级低于：",
       "kickHighRank": "踢出等级高于：",
-      "statsKick": "踢出武器/车辆统计数据太高的玩家",
+      "statsKick": "Kick if weapon/vehicle stats are too high (autokick starts after 200 or more kills with the specified weapon)",
       "statsKickExample": "下载示例文件",
       "statsKickDownload": "当前下载",
-      "statsKickRemove": "禁用 statskick"
+      "statsKickRemove": "禁用 statskick",
+      "pltMemberExclEnable": "Exclude platoonmembers",
+      "pltMemberExclDescription": "Exclude the platoonmembers from the platoons you add in the panel from being kicked."
     },
     "settings": {
       "main": "设置",
@@ -793,6 +858,12 @@
       "reason": "理由",
       "confirm": "解封!"
     },
+    "removeTrackingMenu": {
+      "main": "You are going to remove {{name}} from tracking",
+      "reasonDescription": "Enter a reason to remove tracking from this player.",
+      "reason": "原因",
+      "confirm": "移除"
+    },
     "removeExclusionsMenu": {
       "main": "您将从排除项中删除{{name}}",
       "reasonDescription": "输入一个原因，以从该播放器中删除对自动踢的排除（ping 和 bfban）。",
@@ -817,6 +888,13 @@
       "confirm": "Vban了他!",
       "usePlayerId": "使用玩家 ID 进行封禁",
       "playerId": "玩家数字ID"
+    },
+    "trackingMenu": {
+      "playerNameDescription": "Fill in the name of the player you want to add to tracking.",
+      "playerName": "玩家名",
+      "reasonDescription": "Enter a reason to track this player.",
+      "reason": "原因",
+      "confirm": "添加"
     },
     "exclusionsMenu": {
       "playerNameDescription": "填写您要添加到排除项的玩家名称",
@@ -889,5 +967,10 @@
     "gamestats": "游戏统计Logo",
     "userAvatar": "用户头像",
     "tutorial": "视觉辅助"
+  },
+  "pageTitle": {
+    "main": "Manager",
+    "cookieInfo": "How to get the cookie",
+    "statusBotInfo": "How to setup the status bot"
   }
 }
