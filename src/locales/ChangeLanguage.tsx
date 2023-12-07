@@ -23,6 +23,7 @@ const LanguageSelector = (): React.ReactElement => {
       <option value="el-GR">Ελληνικα</option>
       <option value="nl-NL">Nederlands</option>
       <option value="de-DE">Deutsch</option>
+      <option value="fr_FR">Française</option>
     </select>
   );
 };

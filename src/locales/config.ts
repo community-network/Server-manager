@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { formatDistanceToNowStrict, format } from "date-fns";
-import { enUS, tr, el, zhCN, nl, de, he } from "date-fns/locale";
+import { enUS, tr, el, zhCN, nl, de, he, fr } from "date-fns/locale";
 import resourcesToBackend from "i18next-resources-to-backend";
 
 const locales = {
@@ -13,6 +13,7 @@ const locales = {
   "zh-CN": zhCN,
   "nl-NL": nl,
   "de-DE": de,
+  fr_FR: fr,
 };
 
 i18n
