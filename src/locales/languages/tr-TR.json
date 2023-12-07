@@ -967,5 +967,10 @@
     "gamestats": "Gamestats logosu",
     "userAvatar": "Kullanıcı avatarı",
     "tutorial": "Görsel yardım"
+  },
+  "pageTitle": {
+    "main": "Manager",
+    "cookieInfo": "How to get the cookie",
+    "statusBotInfo": "How to setup the status bot"
   }
 }
