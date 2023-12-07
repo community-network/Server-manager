@@ -7,12 +7,14 @@
   "denied": "לא מורשה",
   "apply": "החל",
   "export": "ייצא",
+  "externalScriptError": "Couldn't load external script, something went wrong...",
   "date": "{{date, date|eee, dd MMM yyyy}}",
   "dateTime": "{{date, date|eee, dd MMM yyyy - p}}",
   "shortDateTime": "{{date, date|PPpp}}",
   "chartDateTime": "{{date, date|d-M, HH:mm}}",
   "time": "{{date, date|p}}",
   "change": "{{change, change}}",
+  "shortChange": "{{change, shortChange}}",
   "notApplicable": "לא זמין",
   "boolean": {
     "enabled": "מופעל",
@@ -21,6 +23,36 @@
   "execute": "לבצע",
   "translation": {
     "help": "עזור עם תרגום"
+  },
+  "shortTimeItems": {
+    "xSeconds": {
+      "one": "1 sec",
+      "other": "{{count}} secs"
+    },
+    "xMinutes": {
+      "one": "1 min",
+      "other": "{{count}} mins"
+    },
+    "xHours": {
+      "one": "1 hour",
+      "other": "{{count}} hours"
+    },
+    "xDays": {
+      "one": "1 day",
+      "other": "{{count}} days"
+    },
+    "xWeeks": {
+      "one": "1 week",
+      "other": "{{count}} weeks"
+    },
+    "xMonths": {
+      "one": "1 month",
+      "other": "{{count}} months"
+    },
+    "xYears": {
+      "one": "1 year",
+      "other": "{{count}} years"
+    }
   },
   "games": {
     "bf3": "באטלפילד 3 (רק סטטוס-בוט)",
@@ -221,6 +253,7 @@
     },
     "servers": {
       "main": "שרתים",
+      "game": "Game",
       "status": "סטטוס שרת",
       "lastUpdate": "עדכון פעיל אחרון",
       "createdAt": "שרת נוצר ב",
@@ -282,7 +315,7 @@
       },
       "popup": {
         "confirmInfo": "האם אתה בטוח שאתה רוצה {{option}}?",
-        "broadcastInfo": "האם אתה בטוח שאתה רוצה לשדר \"{{הודעה}}\"?",
+        "broadcastInfo": "האם אתה בטוח שאתה רוצה לשדר \"{{message}}\"?",
         "confirm": "לְאַשֵׁר!"
       },
       "actions": {
@@ -297,7 +330,7 @@
         "seedServer": "זריעה של {{serverName}}",
         "leaveServer": "לא באף שרת",
         "shutdownPC": "כיבה את כל המחשבים עם אפשרות כיבוי מופעלת",
-        "broadcastMessage": "שדר \"{{הודעה}}\" לכל השרתים"
+        "broadcastMessage": "שדר \"{{message}}\" לכל השרתים"
       },
       "seeders": {
         "main": "כרגע {{seeders}} זורעים מקוונים עם {{ingame}} במשחק",
@@ -327,7 +360,7 @@
       "main": "שרתים",
       "description0": "מקרי שרת נוספו לקבוצה הנוכחית.",
       "description1": "אתה צריך להיות בתפקיד הבעלים כדי להוסיף שרתים חדשים.",
-      "alias": "כינוי: {{כינוי}}",
+      "alias": "כינוי: {{alias}}",
       "add": "הוסף שרת"
     },
     "platoons": {
@@ -337,6 +370,7 @@
       "add": "הוסף מחלקה",
       "remove": "הסר מחלקות",
       "resultNotFound": "לא נמצאו מחלקות עם השם הזה",
+      "alreadyAdded": "Already added",
       "members": {
         "main": "חברים",
         "remove": "הסר חבר"
@@ -361,7 +395,7 @@
     "vban": {
       "main": "רשימת Vban",
       "description0": "רשימת שחקנים חסומים בקבוצה זו.",
-      "description1": "השתמשו ב-{{מספר}} משבצות",
+      "description1": "השתמשו ב-{{number}} משבצות",
       "noReason": "עם סיבה",
       "add": "הוסף באן",
       "unban": "בטל חסימה",
@@ -377,7 +411,7 @@
     "exclusions": {
       "main": "רשימת חריגים",
       "description0": "רשימת שחקנים שלא נכללו בבעיטה אוטומטית (פינג ו-bfban).",
-      "description1": "השתמשו ב-{{מספר}} משבצות",
+      "description1": "השתמשו ב-{{number}} משבצות",
       "noReason": "עם סיבה",
       "add": "הוסף חריגה",
       "remove": "הסר החרגה",
@@ -388,6 +422,23 @@
         "admin": "אדמין",
         "timestamp": "חותמת זמן",
         "bannedUntil": "עד"
+      }
+    },
+    "tracking": {
+      "main": "Tracked player list",
+      "description0": "List of tracked players to warn in discord when they join your server next time.",
+      "description1": "השתמשו ב-{{number}} משבצות",
+      "noReason": "עם סיבה",
+      "add": "Add player to track",
+      "remove": "Remove player",
+      "noServer": "Not in a server",
+      "table": {
+        "playerName": "שם שחקן",
+        "playerId": "מזהה שחקן",
+        "reason": "סיבה",
+        "admin": "אדמין",
+        "timestamp": "חותמת זמן",
+        "currentServer": "Current server"
       }
     },
     "reasonList": {
@@ -403,6 +454,7 @@
     "logs": {
       "main": "יומני קבוצה",
       "description": "רשימת יומן הקבוצה",
+      "serverLogs": "Add serverlogs to result",
       "reasons": {
         "addVban": "vBanned",
         "removeVban": "הוסר מ-vBan",
@@ -541,7 +593,14 @@
       "rotation": "שנה את סדר השרת",
       "addMap": "הוסף מפה נוספת",
       "removeMap": "הסר",
-      "cookie": "קובצי Cookie המשמשים לביצוע שינויים בשרת, הן קובצי Cookie שהוגדרו במנהל והן ב-sid/remid אפשריים:"
+      "cookie": "קובצי Cookie המשמשים לביצוע שינויים בשרת, הן קובצי Cookie שהוגדרו במנהל והן ב-sid/remid אפשריים:",
+      "saveRotation": {
+        "main": "Saved map rotations",
+        "name": "Name for current maprotation",
+        "save": "Save maprotation to list",
+        "remove": "Remove maprotation from list",
+        "current": "Current server maprotation"
+      }
     },
     "game": {
       "main": "משחק נוכחי",
@@ -606,7 +665,8 @@
       "table": {
         "playerName": "שם שחקן",
         "playerId": "מזהה שחקן",
-        "timePlayed": "זמן שהייה בשרת"
+        "timePlayed": "זמן שהייה בשרת",
+        "playCount": "Amount of times joined in this week"
       }
     },
     "spectatorList": {
@@ -669,6 +729,9 @@
       "bfbanDescription": "הגן על השרת מפני צ'יטרים ידועים",
       "bfbanEnable": "הפעל BFBan Anti Cheat",
       "bfBanMsg": "הודעת BfBan",
+      "bfeacDescription": "הגן על השרת מפני צ'יטרים ידועים",
+      "bfeacEnable": "Enable BFEAC Anti Cheat",
+      "bfeacMsg": "BFEAC message",
       "pingKickDescription": "בעט אוטומטית שחקנים עם פינג גבוה קבוע",
       "pingKickEnable": "בעט על פינג גבוה",
       "pingKickAmount": "ערך פינג גבוה",
@@ -680,10 +743,12 @@
       "rankKickReason": "דרגה לא במסגרת הדרישות",
       "kickLowRank": "בעט אם הדרגה קטנה מ:",
       "kickHighRank": "בעט אם הדרגה גבוהה מ:",
-      "statsKick": "בעט אם סטטיסטיקת ה-נשק\\רכב גבוהה מדי",
+      "statsKick": "Kick if weapon/vehicle stats are too high (autokick starts after 200 or more kills with the specified weapon)",
       "statsKickExample": "הורד קובץ דוגמא",
       "statsKickDownload": "הורד את הנוכחי",
-      "statsKickRemove": "השבת בעיטת סטטיסטיקה"
+      "statsKickRemove": "השבת בעיטת סטטיסטיקה",
+      "pltMemberExclEnable": "Exclude platoonmembers",
+      "pltMemberExclDescription": "Exclude the platoonmembers from the platoons you add in the panel from being kicked."
     },
     "settings": {
       "main": "הגדרות",
@@ -793,6 +858,12 @@
       "reason": "סיבה",
       "confirm": "הסר באן!"
     },
+    "removeTrackingMenu": {
+      "main": "You are going to remove {{name}} from tracking",
+      "reasonDescription": "Enter a reason to remove tracking from this player.",
+      "reason": "סיבה",
+      "confirm": "הסר"
+    },
     "removeExclusionsMenu": {
       "main": "אתה עומד להסיר את {{name}} מהחריגות",
       "reasonDescription": "הזן סיבה להסיר את ההכללה משחקן זה עבור autokick (פינג ו-bfban).",
@@ -817,6 +888,13 @@
       "confirm": "באן!",
       "usePlayerId": "השתמש במזהה שחקן כדי לחסום",
       "playerId": "מזהה שחקן"
+    },
+    "trackingMenu": {
+      "playerNameDescription": "Fill in the name of the player you want to add to tracking.",
+      "playerName": "שם משתמש",
+      "reasonDescription": "Enter a reason to track this player.",
+      "reason": "סיבה",
+      "confirm": "הוסף"
     },
     "exclusionsMenu": {
       "playerNameDescription": "מלא את שם השחקן שברצונך להוסיף להחרגות",
@@ -889,5 +967,10 @@
     "gamestats": "לוגו של Gamestats",
     "userAvatar": "אוואטר משתמש",
     "tutorial": "סיוע חזותי"
+  },
+  "pageTitle": {
+    "main": "Manager",
+    "cookieInfo": "How to get the cookie",
+    "statusBotInfo": "How to setup the status bot"
   }
 }
