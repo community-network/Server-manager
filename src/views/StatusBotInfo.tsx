@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Column, Card, Header, Row } from "../components";
-import statusBotInfo1 from "../assets/img/statusBotInfo/1.png";
-import statusBotInfo2 from "../assets/img/statusBotInfo/2.png";
-import statusBotInfo3 from "../assets/img/statusBotInfo/3.png";
-import statusBotInfo4 from "../assets/img/statusBotInfo/4.png";
-import statusBotInfo5 from "../assets/img/statusBotInfo/5.png";
-import statusBotInfo6 from "../assets/img/statusBotInfo/6.png";
-import statusBotInfo7 from "../assets/img/statusBotInfo/7.png";
-import statusBotInfo8 from "../assets/img/statusBotInfo/8.png";
+import statusBotInfo1 from "../assets/img/statusBotInfo/1.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo2 from "../assets/img/statusBotInfo/2.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo3 from "../assets/img/statusBotInfo/3.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo4 from "../assets/img/statusBotInfo/4.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo5 from "../assets/img/statusBotInfo/5.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo6 from "../assets/img/statusBotInfo/6.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo7 from "../assets/img/statusBotInfo/7.png?format=webp&useResponsiveLoader=true";
+import statusBotInfo8 from "../assets/img/statusBotInfo/8.png?format=webp&useResponsiveLoader=true";
 import "../locales/config";
 import { useTranslation } from "react-i18next";
 
@@ -36,31 +36,31 @@ export function StatusBotInfo() {
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src={statusBotInfo1}
+            src={statusBotInfo1.src}
           />
           <h5 style={{ paddingTop: ".5rem" }}>{t("statusBotInfo.2")}</h5>
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src={statusBotInfo2}
+            src={statusBotInfo2.src}
           />
           <h5 style={{ paddingTop: ".5rem" }}>{t("statusBotInfo.3")}</h5>
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src={statusBotInfo3}
+            src={statusBotInfo3.src}
           />
           <h5 style={{ paddingTop: ".5rem" }}>{t("statusBotInfo.4")}</h5>
           <div style={{ display: "flex" }}>
             <img
               alt={t("imageAlts.tutorial")}
               style={{ maxWidth: "20rem", marginRight: "1rem" }}
-              src={statusBotInfo4}
+              src={statusBotInfo4.src}
             />
             <img
               alt={t("imageAlts.tutorial")}
               style={{ maxWidth: "20rem" }}
-              src={statusBotInfo5}
+              src={statusBotInfo5.src}
             />
           </div>
           <h4 style={{ margin: 0, marginTop: "1.5rem" }}>
@@ -70,19 +70,19 @@ export function StatusBotInfo() {
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src={statusBotInfo6}
+            src={statusBotInfo6.src}
           />
           <h5 style={{ paddingTop: ".5rem" }}>{t("statusBotInfo.7")}</h5>
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src={statusBotInfo7}
+            src={statusBotInfo7.src}
           />
           <h5 style={{ paddingTop: ".5rem" }}>{t("statusBotInfo.8")}</h5>
           <img
             alt={t("imageAlts.tutorial")}
             style={{ maxWidth: "20rem" }}
-            src={statusBotInfo8}
+            src={statusBotInfo8.src}
           />
           <h5 style={{ paddingTop: ".5rem" }}>{t("statusBotInfo.9")}</h5>
         </Card>

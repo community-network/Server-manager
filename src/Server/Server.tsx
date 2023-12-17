@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
 import { PageContext } from "./ServerGlobalContext";
 import { useMeasure } from "react-use";
-import noServerImg from "../assets/img/no-server-image.png";
+import noServerImg from "../assets/img/no-server-image.png?format=webp&useResponsiveLoader=true";
 
 import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
@@ -111,7 +111,7 @@ export function ServerRotation(props: {
         <img
           className={styles.serverImage}
           alt="Server map"
-          src={game ? game.url : noServerImg}
+          src={game ? game.url : noServerImg.src}
         />
         <div className={styles.GameInfo}>
           <span className={styles.ServerName}>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import logoRelease from "../assets/img/logo-release.png";
+import logoRelease from "../assets/img/logo-release.png?format=webp&useResponsiveLoader=true";
 import { useQuery } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { Link } from "react-router-dom";
@@ -56,7 +56,7 @@ export function TopBar(props: {
         <Link to="/" title={t("sidebar.main")} className={styles.mainPage}>
           <img
             alt={t("imageAlts.main")}
-            src={logoRelease}
+            src={logoRelease.src}
             className={styles.logo}
           />
         </Link>

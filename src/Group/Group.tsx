@@ -8,7 +8,7 @@ import {
   useInfiniteQuery,
 } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
-import gamestatsLogo from "../assets/img/game-stats.png";
+import gamestatsLogo from "../assets/img/game-stats.png?format=webp&useResponsiveLoader=true";
 import { useTranslation } from "react-i18next";
 import {
   GroupGlobalUnbanPlayer,
@@ -233,7 +233,7 @@ export function GameStatsAd(): React.ReactElement {
       className={styles.gameStatsAd}
       href="https://discord.com/oauth2/authorize?client_id=714524944783900794&scope=bot&permissions=83968"
     >
-      <img alt={t("imageAlts.gamestats")} src={gamestatsLogo} />
+      <img alt={t("imageAlts.gamestats")} src={gamestatsLogo.src} />
       <span>{t("group.discord.gamestats")}</span>
     </a>
   );
