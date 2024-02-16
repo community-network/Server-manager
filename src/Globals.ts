@@ -34,6 +34,9 @@ export const bf1Maps = [
   "Cape Helles",
   "Zeebrugge",
   "Argonne Forest",
+  "Razor's Edge",
+  "London Calling",
+  "London Calling: Scourge",
 ];
 
 export const bf1Modes = [
