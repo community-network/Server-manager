@@ -27,10 +27,6 @@ module.exports = merge(commonConfig, {
     ],
   },
   devtool: "source-map",
-  externals: {
-    react: "React",
-    "react-dom": "ReactDOM",
-  },
   optimization: {
     minimizer: [
       '...',
@@ -49,16 +45,6 @@ module.exports = merge(commonConfig, {
       runtimeCaching: [
         {
           urlPattern: /assets/,
-          handler: "CacheFirst",
-        },
-        {
-          urlPattern: new RegExp(
-            "^https://fonts.(?:googleapis|gstatic).com/(.*)",
-          ),
-          handler: "CacheFirst",
-        },
-        {
-          urlPattern: new RegExp("^https://unpkg.com/(.*)"),
           handler: "CacheFirst",
         },
       ],
