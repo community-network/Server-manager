@@ -1,5 +1,11 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /group/
+Disallow: /account/
+Disallow: /makeops/
+Disallow: /server/
+Disallow: /statusserver/
+Disallow: /man/
+Disallow: /dev/
 
 Sitemap: https://manager.gametools.network/sitemap.xml
