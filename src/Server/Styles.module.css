@@ -30,9 +30,7 @@
 .ServerName {
     font-weight: 500;
     font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-break: break-word;
 }
 
 .GameInfo {
