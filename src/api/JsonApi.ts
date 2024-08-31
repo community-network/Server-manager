@@ -6,7 +6,7 @@ const endPoints = {
   dev: "https://homedev.gametools.network/api/",
   prod: "https://manager-api.gametools.network/api/",
 };
-const MODE = "local"; // todo: use Environment variables to set the value
+const MODE = "prod"; // todo: use Environment variables to set the value
 
 export const endPointName = endPoints[MODE].replace("https://", "").replace(
   "/api/",
