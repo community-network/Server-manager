@@ -1,10 +1,10 @@
-import * as React from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { IUserInfo } from "../api/ReturnTypes";
 import { OperationsApi } from "../api/api";
-import { useTranslation } from "react-i18next";
 
 // Pages
 const Main = React.lazy(() => import("./Main"));
@@ -18,7 +18,7 @@ export default function ViewHandler() {
   const { t } = useTranslation();
   const redirector =
     isError ||
-    (!isLoading && user && !user.auth.signedIn && location.pathname !== "/")
+      (!isLoading && user && !user.auth.signedIn && location.pathname !== "/")
       ? history("/")
       : null;
   return (

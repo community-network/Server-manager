@@ -1,58 +1,58 @@
-import * as React from "react";
-import { useMeasure } from "react-use";
-import { Link } from "react-router-dom";
 import {
+  useInfiniteQuery,
+  useMutation,
   useQuery,
   useQueryClient,
-  useMutation,
-  useInfiniteQuery,
 } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
-import gamestatsLogo from "../assets/img/game-stats.png?format=webp&useResponsiveLoader=true";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useMeasure } from "react-use";
+import gamestatsLogo from "../assets/img/game-stats.png?format=webp&useResponsiveLoader=true";
+import { supportedGames } from "../Globals";
 import {
   GroupGlobalUnbanPlayer,
   GroupRemoveExclusionPlayer,
-  GroupRemoveTrackedPlayer,
   GroupRemoveReason,
+  GroupRemoveTrackedPlayer,
 } from "./Modals";
-import { supportedGames } from "../Globals";
 
 import { OperationsApi } from "../api/api";
 import "../locales/config";
-import styles from "./Group.module.css";
+import * as styles from "./Group.module.css";
 
-import {
-  TextInput,
-  Button,
-  ButtonRow,
-  ButtonUrl,
-  IconSelected,
-  IconNotSelected,
-  ReasonDropdownButton,
-  Switch,
-} from "../components/Buttons";
-import { useModal } from "../components/Card";
-import { PlayerStatsModal } from "../Server/Modals";
-import { DynamicSort } from "../components/Functions";
-import {
-  IGlobalGroupPlayerInfo,
-  IDevGroup,
-  IGroupServer,
-  IReason,
-  IReasonList,
-  ITailUserLogInfo,
-  ITailUserLog,
-  IUserInfo,
-  ISeederInfo,
-  ISeeder,
-  ISeederServer,
-  ITotalCount,
-} from "../api/ReturnTypes";
-import { RowLoading } from "../components/User";
 import { UseMeasureRef } from "react-use/lib/useMeasure";
 import { GametoolsApi } from "../api/GametoolsApi";
 import { ICurrentServerInfo } from "../api/GametoolsReturnTypes";
+import {
+  IDevGroup,
+  IGlobalGroupPlayerInfo,
+  IGroupServer,
+  IReason,
+  IReasonList,
+  ISeeder,
+  ISeederInfo,
+  ISeederServer,
+  ITailUserLog,
+  ITailUserLogInfo,
+  ITotalCount,
+  IUserInfo,
+} from "../api/ReturnTypes";
+import {
+  Button,
+  ButtonRow,
+  ButtonUrl,
+  IconNotSelected,
+  IconSelected,
+  ReasonDropdownButton,
+  Switch,
+  TextInput,
+} from "../components/Buttons";
+import { useModal } from "../components/Card";
+import { DynamicSort } from "../components/Functions";
+import { RowLoading } from "../components/User";
+import { PlayerStatsModal } from "../Server/Modals";
 
 export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
   const { t } = useTranslation();
@@ -65,7 +65,13 @@ export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
       className={styles.GroupRow}
       to={"/group/" + group.id}
     >
-      <span className={styles.GroupName}>{group.groupName}</span>
+      <span className={styles.GroupName}>{group.groupName}&nbsp;
+        <span className={styles.GroupInfo}>{t("dev.groupInfo", {
+          totalAdmins: group?.totalAdmins,
+          totalOwners: group?.totalOwners,
+          totalServers: group?.totalServers
+        })}</span></span>
+
       {width < 350 ? (
         <span></span>
       ) : (
@@ -101,10 +107,10 @@ export function WorkerStatus(props: {
 export function ServerRow(props: {
   server: IGroupServer;
   button?:
-    | React.ReactElement
-    | boolean
-    | React.ReactFragment
-    | React.ReactPortal;
+  | React.ReactElement
+  | boolean
+  | React.ReactFragment
+  | React.ReactPortal;
 }): React.ReactElement {
   const server = props.server;
   const { t } = useTranslation();
@@ -212,8 +218,8 @@ function Shield(props: { status: string }) {
         status === "ok"
           ? styles.shieldOk
           : status === "none"
-          ? styles.shieldNone
-          : styles.shieldErr
+            ? styles.shieldNone
+            : styles.shieldErr
       }
     >
       <path
@@ -385,11 +391,11 @@ function GlobalBanRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.playerName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.playerName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >
@@ -469,11 +475,11 @@ export function GroupLogs(props: { gid: string }): React.ReactElement {
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         {logList
           ? logList.logs.map((log: ITailUserLogInfo, i: number) => (
-              <LogRow log={log} key={i} />
-            ))
+            <LogRow log={log} key={i} />
+          ))
           : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
-              <EmptyRow key={i} />
-            ))}
+            <EmptyRow key={i} />
+          ))}
       </div>
     </div>
   );
@@ -880,10 +886,10 @@ function SelectableRow(props: {
   selected: boolean;
   callback: (args0?: string) => void;
   children?:
-    | React.ReactElement
-    | boolean
-    | React.ReactFragment
-    | React.ReactPortal;
+  | React.ReactElement
+  | boolean
+  | React.ReactFragment
+  | React.ReactPortal;
 }): React.ReactElement {
   return (
     <div
@@ -935,7 +941,7 @@ export function SeederStCustom(props: {
         style={{ height: "32px" }}
         name={t("group.seeding.other.add")}
         callback={() => props.onClick(textContent)}
-        // callback={}
+      // callback={}
       />
     </SelectableRow>
   );
@@ -957,7 +963,7 @@ export function SeederStCustomRow(props: {
         style={{ height: "32px" }}
         name={t("group.seeding.other.remove")}
         callback={() => props.onClick(server.name)}
-        // callback={}
+      // callback={}
       />
     </SelectableRow>
   );
@@ -976,7 +982,7 @@ export function SeederRow(props: {
       <span className={styles.seedingRow}>{seeder.seederName}</span>
       {seeder.isRunning ? (
         props.seedingInfo.keepAliveSeeders &&
-        props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined ? (
+          props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined ? (
           <span className={styles.serverBadgeOk}>
             {t("group.seeding.seeders.true")} -{" "}
             {t("group.seeding.status.seedServer", {
@@ -1270,11 +1276,11 @@ function ExclusionListRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.playerName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.playerName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >
@@ -1613,11 +1619,11 @@ function TrackingListRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.playerName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.playerName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >

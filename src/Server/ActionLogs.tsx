@@ -1,18 +1,18 @@
-import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
 
 import { useModal } from "../components/Card";
 
-import styles from "./ActionLogs.module.css";
+import * as styles from "./ActionLogs.module.css";
 
 import { OperationsApi } from "../api/api";
 
 import "../locales/config";
 
-import { PlayerStatsModal } from "./Modals";
 import { ITailServerLog, ITailServerLogItem } from "../api/ReturnTypes";
+import { PlayerStatsModal } from "./Modals";
 
 export function LogList(props: { sid: string }): React.ReactElement {
   const { t } = useTranslation();
@@ -67,11 +67,11 @@ function LogListing(props: { logList: ITailServerLog }): React.ReactElement {
     <div className={styles.logListing}>
       {logList
         ? logList.logs.map((log: ITailServerLogItem, index: number) => (
-            <LogRow log={log} key={index} />
-          ))
+          <LogRow log={log} key={index} />
+        ))
         : Array.from({ length: 8 }, (_, id) => ({ id })).map(
-            (_, index: number) => <EmptyLogRow key={index} />,
-          )}
+          (_, index: number) => <EmptyLogRow key={index} />,
+        )}
     </div>
   );
 }

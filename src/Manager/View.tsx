@@ -1,25 +1,13 @@
-import * as React from "react";
 import {
+  useMutation,
   useQuery,
   useQueryClient,
-  useMutation,
   UseQueryResult,
 } from "@tanstack/react-query";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router-dom";
 import { OperationsApi } from "../api/api";
-import {
-  Switch,
-  Column,
-  Card,
-  Header,
-  Row,
-  ButtonRow,
-  Button,
-  TextInput,
-} from "../components";
-import "../locales/config";
-import { useTranslation } from "react-i18next";
-import styles from "./View.module.css";
 import {
   IManGroup,
   IManGroupCookie,
@@ -27,6 +15,18 @@ import {
   IManGroups,
   IManGroupServer,
 } from "../api/ReturnTypes";
+import {
+  Button,
+  ButtonRow,
+  Card,
+  Column,
+  Header,
+  Row,
+  Switch,
+  TextInput,
+} from "../components";
+import "../locales/config";
+import * as styles from "./View.module.css";
 
 export function GroupRow(props: { group: IManGroup }): React.ReactElement {
   const { t } = useTranslation();
@@ -96,7 +96,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
     <div className={styles.GroupRow}>
       <div className={styles.GroupHeader}>
         <span className={styles.GroupName}>{group.groupName}</span>
-
+        <span>{group?.totalAdmins} {t("man.admins.main")} -&nbsp;</span>
         {/* {width < 350? <span></span>: */}
         {/* } */}
         <span className={styles.manageDev}>
@@ -108,7 +108,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.worker.main")}</th>
+            <th>{t("man.worker.main")}: {group?.cookieInfo?.length}</th>
             <th>{t("man.worker.lastUpdate")}</th>
           </tr>
         </thead>
@@ -123,8 +123,8 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                   <span>
                     {account.lastUpdate !== undefined
                       ? t("dateTime", {
-                          date: new Date(account.lastUpdate),
-                        })
+                        date: new Date(account.lastUpdate),
+                      })
                       : "-"}
                   </span>
                 </td>
@@ -135,7 +135,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.owners.main")}</th>
+            <th>{t("man.owners.main")}: {group?.owners?.length}</th>
             <th>{t("man.owners.createdAt")}</th>
           </tr>
         </thead>
@@ -163,7 +163,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.servers.main")}</th>
+            <th>{t("man.servers.main")}: {group.servers.length}</th>
             <th>{t("man.servers.game")}</th>
             <th>{t("man.servers.status")}</th>
             <th>{t("man.servers.autoPingKick")}</th>
@@ -223,8 +223,8 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                   <span>
                     {server.lastUpdate !== undefined
                       ? t("dateTime", {
-                          date: new Date(server.lastUpdate * 1000),
-                        })
+                        date: new Date(server.lastUpdate * 1000),
+                      })
                       : "-"}
                   </span>
                 </td>

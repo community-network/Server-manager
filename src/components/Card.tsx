@@ -1,10 +1,10 @@
 import * as React from "react";
-import styles from "./Card.module.css";
+import * as styles from "./Card.module.css";
 
 import { ChoosePageButtons } from "./Buttons";
 import {
-  IDefaultWithStyleInterface,
   IDefaultInterface,
+  IDefaultWithStyleInterface,
 } from "./SharedInterfaces";
 
 export function Card(props: IDefaultWithStyleInterface): React.ReactElement {
@@ -65,10 +65,10 @@ export const useModal = () => React.useContext(ModalContext);
 function Modal(props: {
   show?: boolean;
   content?:
-    | React.ReactElement
-    | boolean
-    | React.ReactFragment
-    | React.ReactPortal;
+  | React.ReactElement
+  | boolean
+  | React.ReactFragment
+  | React.ReactPortal;
 }): React.ReactElement {
   const controller = useModal();
 

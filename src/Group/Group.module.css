@@ -317,6 +317,10 @@
     flex-grow: 2;
 }
 
+.GroupInfo {
+    color: var(--color-text-low);
+}
+
 .AccountInfo {
     display: flex;
     flex-direction: column;

@@ -1,22 +1,22 @@
-import * as React from "react";
-import { Pie, Line } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
   ArcElement,
-  LinearScale,
-  TimeScale,
-  PointElement,
-  LineElement,
-  Tooltip,
+  Chart as ChartJS,
   ChartOptions,
+  LinearScale,
+  LineElement,
+  PointElement,
+  TimeScale,
+  Tooltip,
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 import zoomPlugin from "chartjs-plugin-zoom";
+import * as React from "react";
+import { Line, Pie } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
 import { Button, ButtonRow } from "../components";
 
-import styles from "./Group.module.css";
 import { IServerStat } from "../api/ReturnTypes";
+import * as styles from "./Group.module.css";
 
 ChartJS.register(
   zoomPlugin,

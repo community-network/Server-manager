@@ -24,7 +24,7 @@ import {
   VBanList,
   WorkerStatus,
 } from "./Group";
-import styles from "./Group.module.css";
+import * as styles from "./Group.module.css";
 
 import { useTranslation } from "react-i18next";
 import { GametoolsApi } from "../api/GametoolsApi";

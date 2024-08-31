@@ -1,4 +1,4 @@
-import styles from "./FileUpload.module.css";
+import * as styles from "./FileUpload.module.css";
 
 import * as React from "react";
 

@@ -3,24 +3,23 @@ import { useTranslation } from "react-i18next";
 import { useMeasure } from "react-use";
 import { PageContext } from "./ServerGlobalContext";
 
+import { Card, Column, TopRow, useModal } from "../components";
 import { PlayerDropdownButton } from "../components/Buttons";
 import { DynamicSort } from "../components/Functions";
-import { useModal, Column, Card, TopRow } from "../components";
 
-import styles from "./PlayerList.module.css";
 import { bf1Factions, bfvFactions, IFactions } from "./Factions";
+import * as styles from "./PlayerList.module.css";
 
-import { ServerKickPlayer, ServerBanPlayer, PlayerStatsModal } from "./Modals";
-import { useMovePlayer } from "./Manager";
+import { useQuery } from "@tanstack/react-query";
+import { GametoolsApi } from "../api/GametoolsApi";
+import { ISeederServerPlayer } from "../api/GametoolsReturnTypes";
 import {
   IInGameServerInfo,
   IServerInfo,
   IServerPlayer,
 } from "../api/ReturnTypes";
-import { GametoolsApi } from "../api/GametoolsApi";
-import { useQuery } from "@tanstack/react-query";
-import { ISeederServerPlayer } from "../api/GametoolsReturnTypes";
-import { time } from "console";
+import { useMovePlayer } from "./Manager";
+import { PlayerStatsModal, ServerBanPlayer, ServerKickPlayer } from "./Modals";
 
 export function PlayerList(props: {
   game: IInGameServerInfo;
@@ -385,8 +384,7 @@ export function Player(props: {
           value="jointime"
         >
           {t(
-            `shortTimeItems.${timeItem?.token}.${
-              timeItem?.count > 1 ? "other" : "one"
+            `shortTimeItems.${timeItem?.token}.${timeItem?.count > 1 ? "other" : "one"
             }`,
             { count: timeItem?.count },
           )}

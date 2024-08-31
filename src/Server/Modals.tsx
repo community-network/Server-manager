@@ -1,25 +1,25 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import { OperationsApi } from "../api/api";
 import {
-  useModal,
-  Switch,
-  ButtonRow,
   Button,
-  TextInput,
+  ButtonRow,
   ReasonDropdownButton,
+  Switch,
+  TextInput,
+  useModal,
 } from "../components";
 import "../locales/config";
 
 import { useUser } from "./Manager";
 
-import styles from "./Styles.module.css";
-import { IInGameServerInfo, IUserServer } from "../api/ReturnTypes";
 import { GametoolsApi } from "../api/GametoolsApi";
+import { IInGameServerInfo, IUserServer } from "../api/ReturnTypes";
 import { getLanguage } from "../locales/config";
+import * as styles from "./Styles.module.css";
 
 export function ServerKickPlayer(props: {
   eaid: string;

@@ -1,7 +1,7 @@
 import * as React from "react";
 
+import * as styles from "./Flex.module.css";
 import { IDefaultInterface } from "./SharedInterfaces";
-import styles from "./Flex.module.css";
 
 export function Column(props: IDefaultInterface): React.ReactElement {
   return <div className={styles.Column}>{props.children}</div>;

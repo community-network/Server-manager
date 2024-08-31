@@ -1,25 +1,25 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
-import { PageContext } from "./ServerGlobalContext";
 import { useMeasure } from "react-use";
 import noServerImg from "../assets/img/no-server-image.png?format=webp&useResponsiveLoader=true";
+import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
+import { PageContext } from "./ServerGlobalContext";
 
-import buttonStyle from "../components/Buttons.module.css";
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
-import { DynamicSort } from "../components/Functions";
-import { Row } from "../components/Flex";
+import buttonStyle from "../components/Buttons.module.css";
 import { useModal } from "../components/Card";
+import { Row } from "../components/Flex";
+import { DynamicSort } from "../components/Functions";
 import { ClickableHead } from "../components/Table";
 
 import { OperationsApi } from "../api/api";
 import { bfvServerRegions } from "../Globals";
 import "../locales/config";
 
-import styles from "./Styles.module.css";
+import * as styles from "./Styles.module.css";
 
-import { PlayerStatsModal } from "./Modals";
+import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import {
   IBan,
   IBanList,
@@ -39,8 +39,8 @@ import {
   IVip,
   IVipList,
 } from "../api/ReturnTypes";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import { RowLoading } from "../components/User";
+import { PlayerStatsModal } from "./Modals";
 
 export function SmallText(props: {
   children: React.ReactElement | React.ReactElement[] | string;
@@ -120,10 +120,10 @@ export function ServerRotation(props: {
           <SmallText>
             {game
               ? `${game.map.toUpperCase()} - ${t(
-                  `gamemodes.${game.mode.toUpperCase()}`,
-                )} - ${game.serverInfo} ${t("server.game.info", {
-                  inQue: game.inQue,
-                })}`
+                `gamemodes.${game.mode.toUpperCase()}`,
+              )} - ${game.serverInfo} ${t("server.game.info", {
+                inQue: game.inQue,
+              })}`
               : "-"}
           </SmallText>
           {width > 610 && (
@@ -133,11 +133,11 @@ export function ServerRotation(props: {
                 {t("change", { change: update_timestamp })} {t("server.ago")}
                 {server?.game !== "bf2042" &&
                   " - " +
-                    t("man.servers.lastUpdate") +
-                    " " +
-                    t("change", { change: worker_timestamp }) +
-                    " " +
-                    t("server.ago")}
+                  t("man.servers.lastUpdate") +
+                  " " +
+                  t("change", { change: worker_timestamp }) +
+                  " " +
+                  t("server.ago")}
               </span>
             </>
           )}
@@ -557,11 +557,11 @@ function BanRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.displayName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.displayName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >
@@ -1327,11 +1327,11 @@ function VipRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.displayName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.displayName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >

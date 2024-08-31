@@ -1,10 +1,10 @@
-import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
-import styles from "./MainPage.module.css";
-import { OperationsApi } from "../api/api";
-import "../locales/config";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { OperationsApi } from "../api/api";
 import { GametoolsApi } from "../api/GametoolsApi";
+import "../locales/config";
+import * as styles from "./MainPage.module.css";
 
 function ListItem(props: {
   header: string;

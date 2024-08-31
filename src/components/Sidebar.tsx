@@ -1,13 +1,13 @@
-import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
-import { NavLink, To } from "react-router-dom";
-import { ABSwitch } from "../testing/ABtesting";
-import styles from "./Sidebar.module.css";
-import "../locales/config";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { NavLink, To } from "react-router-dom";
 import { OperationsApi } from "../api/api";
 import { IUserInfo } from "../api/ReturnTypes";
+import "../locales/config";
+import { ABSwitch } from "../testing/ABtesting";
+import * as styles from "./Sidebar.module.css";
 
 function PageLink(props: {
   to: To;
@@ -158,7 +158,7 @@ export function Sidebar(props: {
             callback={props.callback}
             to={"/group/" + group.id}
             name={group.groupName}
-            key={i}
+            key={i + 3}
           />,
         );
       }

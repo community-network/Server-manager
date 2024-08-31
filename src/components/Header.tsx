@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./Header.module.css";
+import * as styles from "./Header.module.css";
 import { IDefaultInterface } from "./SharedInterfaces";
 
 export function Header(props: IDefaultInterface): React.ReactElement {

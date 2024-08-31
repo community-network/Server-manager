@@ -435,6 +435,9 @@ export interface IDevGroups {
 export interface IDevGroup {
   groupName: string;
   id: string;
+  totalAdmins: number;
+  totalOwners: number;
+  totalServers: number;
 }
 
 export interface IManGroups {
@@ -448,6 +451,7 @@ export interface IManGroup {
   id: string;
   makeOperations: boolean;
   owners: IManGroupOwner[];
+  totalAdmins: number;
   servers: IManGroupServer[];
 }
 

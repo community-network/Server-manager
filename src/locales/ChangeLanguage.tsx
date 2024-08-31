@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import styles from "./ChangeLanguage.module.css";
+import * as styles from "./ChangeLanguage.module.css";
 
 const LanguageSelector = (): React.ReactElement => {
   const { i18n } = useTranslation();

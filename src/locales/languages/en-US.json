@@ -238,7 +238,8 @@
     "main": "Developer Options",
     "listGroups": "List of Groups",
     "addGroup": "Add new Group",
-    "manage": "Manage group"
+    "manage": "Manage group",
+    "groupInfo": "{{totalOwners}}/{{totalAdmins}} owners, {{totalServers}} servers"
   },
   "man": {
     "main": "Management Options",
@@ -250,6 +251,9 @@
     "owners": {
       "main": "Owners",
       "createdAt": "User created at"
+    },
+    "admins": {
+      "main": "Admins"
     },
     "servers": {
       "main": "Servers",

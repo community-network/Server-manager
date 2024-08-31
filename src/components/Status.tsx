@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./Status.module.css";
+import * as styles from "./Status.module.css";
 
 function LoadingIcon(): React.ReactElement {
   return (

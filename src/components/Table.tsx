@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./Table.module.css";
+import * as styles from "./Table.module.css";
 
 export function ClickableHead(props: {
   onClick: React.MouseEventHandler;

@@ -7,7 +7,10 @@ const commonConfig = require("./common");
 module.exports = merge(commonConfig, {
   mode: "development",
   devServer: {
-    https: true,
+    server: {
+      type: 'https'
+    },
+    // https: true,
     hot: true, // enable HMR on the server
     historyApiFallback: true, // fixes error 404-ish errors when using react router :see this SO question: https://stackoverflow.com/questions/43209666/react-router-v4-cannot-get-url
   },

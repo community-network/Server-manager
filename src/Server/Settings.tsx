@@ -1,26 +1,26 @@
-import * as React from "react";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
-import styles from "./Styles.module.css";
+import * as styles from "./Styles.module.css";
 
-import {
-  ButtonRow,
-  Button,
-  TextInput,
-  ButtonUrl,
-  ButtonLink,
-} from "../components";
 import { OperationsApi } from "../api/api";
-import { bf1Maps, bf1Modes } from "../Globals";
 import {
-  IServerInfo,
-  IInGameServerInfo,
   ICookie,
-  IServerRotation,
   ICookieList,
+  IInGameServerInfo,
   IMapRotation,
+  IServerInfo,
+  IServerRotation,
 } from "../api/ReturnTypes";
+import {
+  Button,
+  ButtonLink,
+  ButtonRow,
+  ButtonUrl,
+  TextInput,
+} from "../components";
+import { bf1Maps, bf1Modes } from "../Globals";
 
 export function IngameSettings(props: {
   server: IServerInfo;
