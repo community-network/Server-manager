@@ -1,53 +1,41 @@
-import * as React from "react";
-import { useMeasure } from "react-use";
-import cryptoRandomString from "crypto-random-string";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import cryptoRandomString from "crypto-random-string";
+import * as React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useMeasure } from "react-use";
 import { IGroupGet, OperationsApi } from "../api/api";
 import { statusOnlyGames } from "../Globals";
 
-import styles from "./Group.module.css";
-import { StatsPieChart, PlayerInfo } from "./Charts";
+import { PlayerInfo, StatsPieChart } from "./Charts";
 import {
-  ServerRow,
-  GameStatsAd,
-  VBanList,
-  ExclusionList,
-  TrackingList,
-  ReasonList,
-  GroupLogs,
-  WorkerStatus,
-  SeederStRow,
-  SeederStCustom,
   EmptyRow,
+  ExclusionList,
+  GameStatsAd,
+  GroupLogs,
+  ReasonList,
   SeederRow,
-  ServerAliasRow,
+  SeederStCustom,
   SeederStCustomRow,
+  SeederStRow,
+  ServerAliasRow,
+  ServerRow,
+  TrackingList,
+  VBanList,
+  WorkerStatus,
 } from "./Group";
+import styles from "./Group.module.css";
 
-import {
-  Switch,
-  useModal,
-  Column,
-  Card,
-  Header,
-  ButtonLink,
-  ButtonRow,
-  Button,
-  UserStRow,
-  Row,
-  FakeUserStRow,
-  TextInput,
-  ScrollRow,
-  PageCard,
-  ButtonUrl,
-  SelectableRow,
-  DynamicSort,
-} from "../components";
-import { ChangeAccountModal, AddAccountModal } from "./Modals";
-import "../locales/config";
 import { useTranslation } from "react-i18next";
+import { GametoolsApi } from "../api/GametoolsApi";
+import {
+  IPlatoonApplicant,
+  IPlatoonApplicants,
+  IPlatoonPlayer,
+  IPlatoonResult,
+  IPlatoonSearchResult,
+  IPlatoonStats,
+} from "../api/GametoolsReturnTypes";
 import {
   IGroupCookie,
   IGroupInfo,
@@ -59,23 +47,35 @@ import {
   ISeeder,
   ISeederInfo,
   ISeederList,
+  ISeederServer,
   ISeederServerAliasName,
   IServerStats,
   IUserInfo,
-  ISeederServer,
 } from "../api/ReturnTypes";
-import { getLanguage } from "../locales/config";
-import { GametoolsApi } from "../api/GametoolsApi";
 import {
-  IPlatoonApplicant,
-  IPlatoonApplicants,
-  IPlatoonPlayer,
-  IPlatoonResult,
-  IPlatoonSearchResult,
-  IPlatoonStats,
-} from "../api/GametoolsReturnTypes";
-import { ListsLoading } from "../components/User";
+  Button,
+  ButtonLink,
+  ButtonRow,
+  ButtonUrl,
+  Card,
+  Column,
+  DynamicSort,
+  FakeUserStRow,
+  Header,
+  PageCard,
+  Row,
+  ScrollRow,
+  SelectableRow,
+  Switch,
+  TextInput,
+  useModal,
+  UserStRow,
+} from "../components";
 import { IconNotSelected } from "../components/Buttons";
+import { ListsLoading } from "../components/User";
+import "../locales/config";
+import { getLanguage } from "../locales/config";
+import { AddAccountModal, ChangeAccountModal } from "./Modals";
 
 // unused
 // const deleteIcon = (
@@ -178,9 +178,8 @@ export function Group(): React.ReactElement {
   const [listing, setListing] = React.useState("servers");
   const [settingsListing, setSettingsListing] = React.useState("account");
   const { t } = useTranslation();
-  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${
-    group?.groupName || t("loading")
-  }`;
+  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${group?.groupName || t("loading")
+    }`;
 
   const catListing = {
     owners: (
@@ -269,7 +268,7 @@ export function Group(): React.ReactElement {
     },
   ];
 
-  if (group?.isOwner) {
+  if (group?.isOwner || user?.auth?.isDeveloper) {
     settingsCycle.push({
       name: t("group.logs.main"),
       callback: () => setSettingsListing("grouplogs"),
@@ -382,12 +381,12 @@ function GroupAdmins(props: {
       </ButtonRow>
       {adminList
         ? adminList.map((admin: IGroupUser, i: number) => (
-            <UserStRow
-              user={admin}
-              callback={(v) => changeSelected(v, admin.id)}
-              key={admin.id || i}
-            />
-          ))
+          <UserStRow
+            user={admin}
+            callback={(v) => changeSelected(v, admin.id)}
+            key={admin.id || i}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
     </>
   );
@@ -648,18 +647,18 @@ function GroupPlatoons(props: {
                       setApplicants((b) =>
                         !v
                           ? b.filter(
-                              (item) =>
-                                item?.playerId !== member.id &&
-                                item?.platoonId != platoonId,
-                            )
+                            (item) =>
+                              item?.playerId !== member.id &&
+                              item?.platoonId != platoonId,
+                          )
                           : [
-                              ...b,
-                              {
-                                playerId: member.id,
-                                platoonId: platoonId,
-                                memberInfo: member,
-                              },
-                            ],
+                            ...b,
+                            {
+                              playerId: member.id,
+                              platoonId: platoonId,
+                              memberInfo: member,
+                            },
+                          ],
                       )
                     }
                     key={index}
@@ -750,18 +749,18 @@ function GroupPlatoons(props: {
                         setMembers((b) =>
                           !v
                             ? b.filter(
-                                (item) =>
-                                  item?.playerId !== player.id &&
-                                  item?.platoonId != player.platoonId,
-                              )
+                              (item) =>
+                                item?.playerId !== player.id &&
+                                item?.platoonId != player.platoonId,
+                            )
                             : [
-                                ...b,
-                                {
-                                  playerId: player.id,
-                                  platoonId: player.platoonId,
-                                  memberInfo: player,
-                                },
-                              ],
+                              ...b,
+                              {
+                                playerId: player.id,
+                                platoonId: player.platoonId,
+                                memberInfo: player,
+                              },
+                            ],
                         )
                       }
                     >
@@ -1344,25 +1343,25 @@ function Seeding(props: {
       </ButtonRow>
       {props.group
         ? serverList.map((server: IGroupServer, i: number) => (
-            <SeederStRow
-              server={server}
-              selected={selected === i}
-              callback={() => changeSelected(i, undefined)}
-              key={server.id || i}
-            />
-          ))
+          <SeederStRow
+            server={server}
+            selected={selected === i}
+            callback={() => changeSelected(i, undefined)}
+            key={server.id || i}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <h2 style={{ marginTop: "6px" }}>{t("group.seeding.other.main")}</h2>
       {props.group
         ? seederServerList.map((server: ISeederServer, i: number) => (
-            <SeederStCustomRow
-              server={server}
-              selected={selected === i + 900}
-              onClick={removeSeederServer}
-              callback={() => changeSelected(i + 900, server.name)}
-              key={i + 900}
-            />
-          ))
+          <SeederStCustomRow
+            server={server}
+            selected={selected === i + 900}
+            onClick={removeSeederServer}
+            callback={() => changeSelected(i + 900, server.name)}
+            key={i + 900}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <SeederStCustom
         selected={selected === 90}
@@ -1411,11 +1410,11 @@ function Seeding(props: {
       <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         {seeders && seedingInfo && props.group
           ? seeders.seeders.map((seeder: ISeeder, i: number) => (
-              <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
-            ))
+            <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
+          ))
           : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
-              <EmptyRow key={i} />
-            ))}
+            <EmptyRow key={i} />
+          ))}
       </div>
       {serverAliasNames && (
         <>
@@ -1529,12 +1528,12 @@ function GroupOwners(props: {
       </ButtonRow>
       {ownerList
         ? ownerList.map((owner: IGroupUser, i: number) => (
-            <UserStRow
-              user={owner}
-              callback={(v) => changeSelected(v, owner.id)}
-              key={owner.id || i}
-            />
-          ))
+          <UserStRow
+            user={owner}
+            callback={(v) => changeSelected(v, owner.id)}
+            key={owner.id || i}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
     </>
   );
@@ -1631,8 +1630,8 @@ function AccountInfo(props: {
           {!group
             ? t("cookie.status.loading")
             : !cookie?.username
-            ? t("cookie.status.pending")
-            : cookie?.username}
+              ? t("cookie.status.pending")
+              : cookie?.username}
           {group && !cookie?.validCookie && (
             <span style={{ color: "#FF7575" }}>
               {" - "}
@@ -1771,9 +1770,9 @@ function GroupDiscordSettings(props: {
         </p>
       </Row>
       {props.group &&
-      (serverId !== props.group.discordGroupId ||
-        modId !== props.group.discordModRoleId ||
-        adminId !== props.group.discordAdminRoleId) ? (
+        (serverId !== props.group.discordGroupId ||
+          modId !== props.group.discordModRoleId ||
+          adminId !== props.group.discordAdminRoleId) ? (
         <ButtonRow>
           <Button
             name={t("apply")}
