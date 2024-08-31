@@ -5,8 +5,7 @@ import { useMeasure } from "react-use";
 import * as styles from "./Buttons.module.css";
 import { Status } from "./Status";
 
-import { useQuery } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { OperationsApi } from "../api/api";
 import { IReasonList } from "../api/ReturnTypes";
 
@@ -490,10 +489,10 @@ export function ReasonDropdownButton(props: {
   const [open, setOpen] = React.useState(false);
   const {
     data: reasonList,
-  }: UseQueryResult<IReasonList, { code: number; message: string }> = useQuery(
-    ["globalReasonList" + props.gid + props.sid],
-    () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }),
-  );
+  }: UseQueryResult<IReasonList, { code: number; message: string }> = useQuery({
+    queryKey: ["globalReasonList" + props.gid + props.sid],
+    queryFn: () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid })
+  });
   const options = [];
   if (reasonList) {
     reasonList.data.forEach((element: { item: string }) => {

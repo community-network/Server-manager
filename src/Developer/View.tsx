@@ -24,10 +24,10 @@ export default function Developer() {
     isLoading,
     isError,
     data,
-  }: UseQueryResult<IDevGroups, { code: number; message: string }> = useQuery(
-    ["devGroups"],
-    () => OperationsApi.getDevGroups(),
-  );
+  }: UseQueryResult<IDevGroups, { code: number; message: string }> = useQuery({
+    queryKey: ["devGroups"],
+    queryFn: () => OperationsApi.getDevGroups()
+  });
 
   const groups = [];
 

@@ -40,8 +40,8 @@ export function ServerKickPlayer(props: {
   const queryClient = useQueryClient();
   const history = useNavigate();
 
-  const KickPlayer = useMutation(
-    (v: {
+  const KickPlayer = useMutation({
+    mutationFn: (v: {
       sid: string;
       playername: string;
       reason: string;
@@ -49,54 +49,57 @@ export function ServerKickPlayer(props: {
       userId: number;
       eaid?: string;
     }) => OperationsApi.kickPlayer(v),
-    {
-      // When mutate is called:
-      onMutate: async ({ sid, eaid }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["serverGame" + sid]);
-        // Snapshot the previous value
-        const previousGroup = queryClient.getQueryData(["serverGame" + sid]);
-        // Optimistically update to the new value
-        queryClient.setQueryData(
-          ["serverGame" + sid],
-          (old: IInGameServerInfo) => {
-            if (old) {
-              old.data[0].players[0].players =
-                old.data[0].players[0].players.filter(
-                  (e: { name: string }) => e.name !== eaid,
-                );
-              old.data[0].players[1].players =
-                old.data[0].players[1].players.filter(
-                  (e: { name: string }) => e.name !== eaid,
-                );
-              return old;
-            }
-          },
-        );
-        setKickApplyStatus(true);
-        // Return a context object with the snapshotted value
-        return { previousGroup, sid };
-      },
-      onSuccess: () => {
-        setKickApplyStatus(null);
-        modal.close(null);
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-        _newTodo,
-        context,
-      ) => {
-        setKickApplyStatus(false);
-        setError(error);
-        setTimeout(() => setKickApplyStatus(null), 3000);
-        queryClient.setQueryData(
-          ["serverGame" + context.sid],
-          context.previousGroup,
-        );
-      },
+
+    // When mutate is called:
+    onMutate: async ({ sid, eaid }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["serverGame" + sid]
+      });
+      // Snapshot the previous value
+      const previousGroup = queryClient.getQueryData(["serverGame" + sid]);
+      // Optimistically update to the new value
+      queryClient.setQueryData(
+        ["serverGame" + sid],
+        (old: IInGameServerInfo) => {
+          if (old) {
+            old.data[0].players[0].players =
+              old.data[0].players[0].players.filter(
+                (e: { name: string }) => e.name !== eaid,
+              );
+            old.data[0].players[1].players =
+              old.data[0].players[1].players.filter(
+                (e: { name: string }) => e.name !== eaid,
+              );
+            return old;
+          }
+        },
+      );
+      setKickApplyStatus(true);
+      // Return a context object with the snapshotted value
+      return { previousGroup, sid };
     },
-  );
+
+    onSuccess: () => {
+      setKickApplyStatus(null);
+      modal.close(null);
+    },
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+      _newTodo,
+      context,
+    ) => {
+      setKickApplyStatus(false);
+      setError(error);
+      setTimeout(() => setKickApplyStatus(null), 3000);
+      queryClient.setQueryData(
+        ["serverGame" + context.sid],
+        context.previousGroup,
+      );
+    }
+  });
 
   const checkReason = (v: string) =>
     checkGameString(v) ? setReason(v) : false;
@@ -177,8 +180,8 @@ export function ServerBanPlayer(props: {
     }
   }, [playerId, playerInfo.playerId]);
 
-  const BanPlayer = useMutation(
-    (v: {
+  const BanPlayer = useMutation({
+    mutationFn: (v: {
       name?: string;
       reason?: string;
       time?: number;
@@ -187,49 +190,51 @@ export function ServerBanPlayer(props: {
       oid?: string;
       platformId?: string;
     }) => OperationsApi.banPlayer(v),
-    {
-      onMutate: async () => {
-        setBanApplyStatus(true);
-      },
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setBanApplyStatus(false);
-        setError(error);
-        setTimeout(() => setBanApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setBanApplyStatus(null);
-        modal.close(null);
-      },
-    },
-  );
 
-  const GlobalBanPlayer = useMutation(
-    (v: {
+    onMutate: async () => {
+      setBanApplyStatus(true);
+    },
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setBanApplyStatus(false);
+      setError(error);
+      setTimeout(() => setBanApplyStatus(null), 3000);
+    },
+
+    onSuccess: () => {
+      setBanApplyStatus(null);
+      modal.close(null);
+    }
+  });
+
+  const GlobalBanPlayer = useMutation({
+    mutationFn: (v: {
       name: string;
       reason: string;
       gid: string;
       playerId: string;
       banTime: string;
     }) => OperationsApi.globalBanPlayer(v),
-    {
-      onMutate: async () => {
-        setBanApplyStatus(true);
-      },
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setBanApplyStatus(false);
-        setError(error);
-        setTimeout(() => setBanApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setBanApplyStatus(null);
-        modal.close(null);
-      },
+
+    onMutate: async () => {
+      setBanApplyStatus(true);
     },
-  );
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setBanApplyStatus(false);
+      setError(error);
+      setTimeout(() => setBanApplyStatus(null), 3000);
+    },
+
+    onSuccess: () => {
+      setBanApplyStatus(null);
+      modal.close(null);
+    }
+  });
 
   let gid = null;
 
@@ -374,16 +379,19 @@ export function PlayerStatsModal(props: {
     isLoading,
     isError,
     data: stats,
-  } = useQuery(["stats" + "bf1" + type + check], () =>
-    GametoolsApi.stats({
-      game: game,
-      type: "stats",
-      getter: type,
-      userName: check.toString(),
-      lang: getLanguage(),
-      platform: "pc",
-    }),
-  );
+  } = useQuery({
+    queryKey: ["stats" + "bf1" + type + check],
+
+    queryFn: () =>
+      GametoolsApi.stats({
+        game: game,
+        type: "stats",
+        getter: type,
+        userName: check.toString(),
+        lang: getLanguage(),
+        platform: "pc",
+      })
+  });
   const { t } = useTranslation();
 
   const statsBlock =
@@ -481,8 +489,8 @@ export function ServerUnbanPlayer(props: {
   });
   const { isError: userGettingError, data: user } = useUser();
 
-  const UnbanPlayer = useMutation(
-    (v: {
+  const UnbanPlayer = useMutation({
+    mutationFn: (v: {
       name: string;
       reason: string;
       sid: string;
@@ -490,23 +498,24 @@ export function ServerUnbanPlayer(props: {
       oid: string;
       platformId: number;
     }) => OperationsApi.unbanPlayer(v),
-    {
-      onMutate: async () => {
-        setBanApplyStatus(true);
-      },
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setBanApplyStatus(false);
-        setError(error);
-        setTimeout(() => setBanApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setBanApplyStatus(null);
-        modal.close(null);
-      },
+
+    onMutate: async () => {
+      setBanApplyStatus(true);
     },
-  );
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setBanApplyStatus(false);
+      setError(error);
+      setTimeout(() => setBanApplyStatus(null), 3000);
+    },
+
+    onSuccess: () => {
+      setBanApplyStatus(null);
+      modal.close(null);
+    }
+  });
 
   let gid = null;
 
@@ -599,31 +608,32 @@ export function ServerUnvipPlayer(props: {
   });
   const { isError: userGettingError, data: user } = useUser();
 
-  const UnvipPlayer = useMutation(
-    (v: {
+  const UnvipPlayer = useMutation({
+    mutationFn: (v: {
       sid: string;
       name: string;
       reason: string;
       eaid: string;
       playerId: string;
     }) => OperationsApi.removeVip(v),
-    {
-      onMutate: async () => {
-        setBanApplyStatus(true);
-      },
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setBanApplyStatus(false);
-        setError(error);
-        setTimeout(() => setBanApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setBanApplyStatus(null);
-        modal.close(null);
-      },
+
+    onMutate: async () => {
+      setBanApplyStatus(true);
     },
-  );
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setBanApplyStatus(false);
+      setError(error);
+      setTimeout(() => setBanApplyStatus(null), 3000);
+    },
+
+    onSuccess: () => {
+      setBanApplyStatus(null);
+      modal.close(null);
+    }
+  });
 
   let gid = null;
 

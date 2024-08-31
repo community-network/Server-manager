@@ -46,11 +46,14 @@ export function PlayerList(props: {
     (teams[0].players !== undefined || teams[1].players !== undefined);
 
   const gameId = havePlayers ? game.data[0].ingameServerId : null;
-  const { data: seederInfo } = useQuery(["seederPlayers", gameId], () =>
-    GametoolsApi.seederPlayerList({
-      gameId: gameId,
-    }),
-  );
+  const { data: seederInfo } = useQuery({
+    queryKey: ["seederPlayers", gameId],
+
+    queryFn: () =>
+      GametoolsApi.seederPlayerList({
+        gameId: gameId,
+      })
+  });
   const haveSeederPlayers =
     seederInfo && seederInfo.teams && seederInfo.teams.length > 0;
   let seederPlayers: Map<number, ISeederServerPlayer> = new Map<

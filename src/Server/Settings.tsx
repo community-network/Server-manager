@@ -1,5 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import * as styles from "./Styles.module.css";
@@ -51,60 +50,68 @@ export function IngameSettings(props: {
     isError,
     data: cookieInfo,
     error,
-  }: UseQueryResult<ICookieList, { code: number; message: string }> = useQuery(
-    ["cookieInfo" + sid],
-    () => OperationsApi.getCookieList({ sid }),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<ICookieList, { code: number; message: string }> = useQuery({
+    queryKey: ["cookieInfo" + sid],
+    queryFn: () => OperationsApi.getCookieList({ sid }),
+    staleTime: 30000
+  });
   const cookies = cookieInfo?.data?.length > 0 ? cookieInfo?.data : null;
 
-  const editOwnerSettings = useMutation(
-    (variables: {
+  const editOwnerSettings = useMutation({
+    mutationFn: (variables: {
       sid: string;
       remid: string;
       cookieid: string;
       serverid: string;
       maps: IServerRotation[];
     }) => OperationsApi.editOwnerServer(variables),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setApplyStatus(false);
-        setError(error);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["servers" + sid]);
-      },
-    },
-  );
 
-  const editServerSettings = useMutation(
-    (variables: { rotations: { [string: string]: IMapRotation[] } }) =>
-      OperationsApi.editServer({ value: variables, sid: props.sid }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async () => {
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["server" + props.sid]);
-      },
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setApplyStatus(false);
+      setError(error);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["servers" + sid]
+      });
+    }
+  });
+
+  const editServerSettings = useMutation({
+    mutationFn: (variables: { rotations: { [string: string]: IMapRotation[] } }) =>
+      OperationsApi.editServer({ value: variables, sid: props.sid }),
+
+    onMutate: async () => {
+      setApplyStatus(true);
+    },
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async () => {
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["server" + props.sid]
+      });
+    }
+  });
 
   // set initial
   React.useEffect(() => {
@@ -446,11 +453,11 @@ export function ServerSettings(props: {
     isError,
     data: cookieInfo,
     error,
-  }: UseQueryResult<ICookieList, { code: number; message: string }> = useQuery(
-    ["cookieInfo" + sid],
-    () => OperationsApi.getCookieList({ sid }),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<ICookieList, { code: number; message: string }> = useQuery({
+    queryKey: ["cookieInfo" + sid],
+    queryFn: () => OperationsApi.getCookieList({ sid }),
+    staleTime: 30000
+  });
   //UseQueryResult<boolean, ICookieList, React.SetStateAction<{ code: number; message: string }>
   const cookies = cookieInfo?.data?.length > 0 ? cookieInfo.data : null;
 
@@ -524,50 +531,58 @@ export function ServerSettings(props: {
     }));
   };
 
-  const editServerSettings = useMutation(
-    (variables: { [string: string]: string | number | boolean }) =>
+  const editServerSettings = useMutation({
+    mutationFn: (variables: { [string: string]: string | number | boolean }) =>
       OperationsApi.editServer({ value: variables, sid: props.sid }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setApplyStatus(false);
-        setError(error);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["server" + props.sid]);
-      },
-    },
-  );
 
-  const restartWorker = useMutation(
-    () => OperationsApi.restartWorker({ sid: props.sid }),
-    {
-      onMutate: async () => {
-        setRestartStatus(true);
-      },
-      onSuccess: async () => {
-        setRestartStatus(null);
-      },
-      onError: async (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setRestartStatus(false);
-        setRestartError(error);
-        setTimeout(() => setRestartStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["server" + props.sid]);
-      },
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setApplyStatus(false);
+      setError(error);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["server" + props.sid]
+      });
+    }
+  });
+
+  const restartWorker = useMutation({
+    mutationFn: () => OperationsApi.restartWorker({ sid: props.sid }),
+
+    onMutate: async () => {
+      setRestartStatus(true);
+    },
+
+    onSuccess: async () => {
+      setRestartStatus(null);
+    },
+
+    onError: async (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setRestartStatus(false);
+      setRestartError(error);
+      setTimeout(() => setRestartStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["server" + props.sid]
+      });
+    }
+  });
 
   const getServerValue = (key: string) => {
     if (props.server && key in props.server) {

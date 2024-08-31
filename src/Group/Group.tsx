@@ -3,8 +3,8 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
+  UseQueryResult
 } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -256,10 +256,10 @@ export function VBanList(props: {
 
   const {
     data: totalCount,
-  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
-    ["getAutoBanCount" + gid],
-    () => OperationsApi.getAutoBanCount({ gid }),
-  );
+  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery({
+    queryKey: ["getAutoBanCount" + gid],
+    queryFn: () => OperationsApi.getAutoBanCount({ gid })
+  });
 
   const {
     data,
@@ -269,14 +269,13 @@ export function VBanList(props: {
     isFetching,
     isLoading,
     isError,
-  } = useInfiniteQuery(
-    ["globalBanList" + gid, { searchWord, searchItem }],
-    ({ pageParam = 0 }) =>
+  } = useInfiniteQuery({
+    queryKey: ["globalBanList" + gid, { searchWord, searchItem }],
+    queryFn: ({ pageParam = 0 }) =>
       OperationsApi.getAutoBanList({ gid, pageParam, searchWord, searchItem }),
-    {
-      getNextPageParam: (lastPage) => lastPage.offset,
-    },
-  );
+    getNextPageParam: (lastPage) => lastPage.offset,
+    initialPageParam: 0
+  });
 
   const error = unknownErrorType as { code: number; message: string };
   const banList = React.useMemo(
@@ -446,10 +445,10 @@ export function GroupLogs(props: { gid: string }): React.ReactElement {
     isError,
     data: logList,
     error,
-  }: UseQueryResult<ITailUserLog, { code: number; message: string }> = useQuery(
-    ["groupogList" + gid + withServers],
-    () => OperationsApi.getGroupLogs({ gid, withServers }),
-  );
+  }: UseQueryResult<ITailUserLog, { code: number; message: string }> = useQuery({
+    queryKey: ["groupogList" + gid + withServers],
+    queryFn: () => OperationsApi.getGroupLogs({ gid, withServers })
+  });
   const { t } = useTranslation();
 
   if (isError) {
@@ -761,38 +760,43 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
   const {
     isError: userGettingError,
     data: user,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user
+  });
 
-  const GlobalBanPlayer = useMutation(
-    (v: {
+  const GlobalBanPlayer = useMutation({
+    mutationFn: (v: {
       name: string;
       reason: string;
       gid: string;
       playerId: number;
       banTime: string;
     }) => OperationsApi.globalBanPlayer(v),
-    {
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setBanApplyStatus(false);
-        setError(error);
-        setTimeout(() => setBanApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setBanApplyStatus(null);
-        modal.close(null);
-      },
-      // Always refetch after error or success:
-      onSettled: () => {
-        queryClient.invalidateQueries(["globalBanList" + gid]);
-        queryClient.invalidateQueries(["getAutoBanCount" + gid]);
-      },
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setBanApplyStatus(false);
+      setError(error);
+      setTimeout(() => setBanApplyStatus(null), 3000);
     },
-  );
+
+    onSuccess: () => {
+      setBanApplyStatus(null);
+      modal.close(null);
+    },
+
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["globalBanList" + gid]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getAutoBanCount" + gid]
+      });
+    }
+  });
 
   const isDisabled =
     reason === "" ||
@@ -1087,15 +1091,16 @@ export function DelKeepAlive(props: {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const AddGroupAdminExecute = useMutation(
-    (variables: { serverId: string; hostname: string }) =>
+  const AddGroupAdminExecute = useMutation({
+    mutationFn: (variables: { serverId: string; hostname: string }) =>
       OperationsApi.delKeepAlive(variables),
-    {
-      onSettled: () => {
-        queryClient.invalidateQueries(["seeding" + props.gid]);
-      },
-    },
-  );
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid]
+      });
+    }
+  });
 
   return (
     <>
@@ -1132,10 +1137,10 @@ export function ExclusionList(props: {
 
   const {
     data: totalCount,
-  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
-    ["getExcludedPlayersCount" + gid],
-    () => OperationsApi.getExcludedPlayersCount({ gid }),
-  );
+  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery({
+    queryKey: ["getExcludedPlayersCount" + gid],
+    queryFn: () => OperationsApi.getExcludedPlayersCount({ gid })
+  });
 
   const {
     data,
@@ -1145,19 +1150,18 @@ export function ExclusionList(props: {
     isFetching,
     isLoading,
     isError,
-  } = useInfiniteQuery(
-    ["globalExclusionList" + gid, { searchWord, searchItem }],
-    ({ pageParam = 0 }) =>
+  } = useInfiniteQuery({
+    queryKey: ["globalExclusionList" + gid, { searchWord, searchItem }],
+    queryFn: ({ pageParam = 0 }) =>
       OperationsApi.getExcludedPlayers({
         gid,
         pageParam,
         searchWord,
         searchItem,
       }),
-    {
-      getNextPageParam: (lastPage) => lastPage.offset,
-    },
-  );
+    getNextPageParam: (lastPage) => lastPage.offset,
+    initialPageParam: 0
+  });
 
   const excludeList = React.useMemo(
     () => (data ? data?.pages.flatMap((item) => item.results) : []),
@@ -1346,38 +1350,43 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
   const {
     isError: userGettingError,
     data: user,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user
+  });
 
-  const GlobalExcludePlayer = useMutation(
-    (v: {
+  const GlobalExcludePlayer = useMutation({
+    mutationFn: (v: {
       name: string;
       reason: string;
       gid: string;
       playerId: string;
       excludeTime: number;
     }) => OperationsApi.globalExcludePlayer(v),
-    {
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setExcludeApplyStatus(false);
-        setError(error);
-        setTimeout(() => setExcludeApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setExcludeApplyStatus(null);
-        modal.close(null);
-      },
-      // Always refetch after error or success:
-      onSettled: () => {
-        queryClient.invalidateQueries(["globalExclusionList" + gid]);
-        queryClient.invalidateQueries(["getExcludedPlayersCount" + gid]);
-      },
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setExcludeApplyStatus(false);
+      setError(error);
+      setTimeout(() => setExcludeApplyStatus(null), 3000);
     },
-  );
+
+    onSuccess: () => {
+      setExcludeApplyStatus(null);
+      modal.close(null);
+    },
+
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["globalExclusionList" + gid]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getExcludedPlayersCount" + gid]
+      });
+    }
+  });
 
   const isDisabled =
     reason === "" ||
@@ -1465,10 +1474,10 @@ export function TrackingList(props: {
 
   const {
     data: totalCount,
-  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery(
-    ["getTrackedPlayersCount" + gid],
-    () => OperationsApi.getTrackedPlayersCount({ gid }),
-  );
+  }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery({
+    queryKey: ["getTrackedPlayersCount" + gid],
+    queryFn: () => OperationsApi.getTrackedPlayersCount({ gid })
+  });
 
   const {
     data,
@@ -1478,19 +1487,18 @@ export function TrackingList(props: {
     isFetching,
     isLoading,
     isError,
-  } = useInfiniteQuery(
-    ["globalTrackingList" + gid, { searchWord, searchItem }],
-    ({ pageParam = 0 }) =>
+  } = useInfiniteQuery({
+    queryKey: ["globalTrackingList" + gid, { searchWord, searchItem }],
+    queryFn: ({ pageParam = 0 }) =>
       OperationsApi.getTrackedPlayers({
         gid,
         pageParam,
         searchWord,
         searchItem,
       }),
-    {
-      getNextPageParam: (lastPage) => lastPage.offset,
-    },
-  );
+    getNextPageParam: (lastPage) => lastPage.offset,
+    initialPageParam: 0
+  });
 
   const excludeList = React.useMemo(
     () => (data ? data?.pages.flatMap((item) => item.results) : []),
@@ -1499,11 +1507,11 @@ export function TrackingList(props: {
 
   const playerIds: string[] = excludeList.map((player) => player.id);
 
-  const { data: currentServer } = useQuery(
-    ["currentServer" + playerIds],
-    () => GametoolsApi.currentServer({ playerIds }),
-    { staleTime: 30000 },
-  );
+  const { data: currentServer } = useQuery({
+    queryKey: ["currentServer" + playerIds],
+    queryFn: () => GametoolsApi.currentServer({ playerIds }),
+    staleTime: 30000
+  });
 
   const observer = React.useRef<IntersectionObserver>();
   const lastElementRef = React.useCallback(
@@ -1681,33 +1689,38 @@ function TrackingPlayer(props: { gid: string }): React.ReactElement {
   const {
     isError: userGettingError,
     data: user,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user
+  });
 
-  const GlobalTrackPlayer = useMutation(
-    (v: { name: string; reason: string; gid: string; playerId: string }) =>
+  const GlobalTrackPlayer = useMutation({
+    mutationFn: (v: { name: string; reason: string; gid: string; playerId: string }) =>
       OperationsApi.globalTrackPlayer(v),
-    {
-      onError: (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setTrackingApplyStatus(false);
-        setError(error);
-        setTimeout(() => setTrackingApplyStatus(null), 3000);
-      },
-      onSuccess: () => {
-        setTrackingApplyStatus(null);
-        modal.close(null);
-      },
-      // Always refetch after error or success:
-      onSettled: () => {
-        queryClient.invalidateQueries(["globalTrackingList" + gid]);
-        queryClient.invalidateQueries(["getTrackedPlayersCount" + gid]);
-      },
+
+    onError: (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setTrackingApplyStatus(false);
+      setError(error);
+      setTimeout(() => setTrackingApplyStatus(null), 3000);
     },
-  );
+
+    onSuccess: () => {
+      setTrackingApplyStatus(null);
+      modal.close(null);
+    },
+
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["globalTrackingList" + gid]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getTrackedPlayersCount" + gid]
+      });
+    }
+  });
 
   const isDisabled =
     reason === "" ||
@@ -1781,10 +1794,10 @@ export function ReasonList(props: {
     isError,
     data: reasonList,
     error,
-  }: UseQueryResult<IReasonList, { code: number; message: string }> = useQuery(
-    ["globalReasonList" + gid],
-    () => OperationsApi.getReasonList({ gid, sid: undefined }),
-  );
+  }: UseQueryResult<IReasonList, { code: number; message: string }> = useQuery({
+    queryKey: ["globalReasonList" + gid],
+    queryFn: () => OperationsApi.getReasonList({ gid, sid: undefined })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const { t } = useTranslation();
@@ -1885,17 +1898,21 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
   const {
     isError: userGettingError,
     data: user,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user
+  });
 
-  const GlobalAddReason = useMutation((v) => OperationsApi.addReason(v), {
+  const GlobalAddReason = useMutation({
+    mutationFn: (v) => OperationsApi.addReason(v),
+
     onMutate: async ({ gid, reason }: { gid: string; reason: string }) => {
       setReasonApplyStatus(true);
 
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-      await queryClient.cancelQueries(["globalReasonList" + gid]);
+      await queryClient.cancelQueries({
+        queryKey: ["globalReasonList" + gid]
+      });
       // Snapshot the previous value
       const previousReasonlist = queryClient.getQueryData([
         "globalReasonList" + gid,
@@ -1911,6 +1928,7 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
       // Return a context object with the snapshotted value
       return { previousReasonlist, gid };
     },
+
     onError: (
       err: React.SetStateAction<{ code: number; message: string }>,
       _newTodo,
@@ -1924,14 +1942,18 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
         context.previousReasonlist,
       );
     },
+
     onSuccess: () => {
       setReasonApplyStatus(null);
       modal.close(null);
     },
+
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
-      queryClient.invalidateQueries(["globalReasonList" + context.gid]);
-    },
+      queryClient.invalidateQueries({
+        queryKey: ["globalReasonList" + context.gid]
+      });
+    }
   });
 
   const isDisabled =

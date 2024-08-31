@@ -36,7 +36,10 @@ export function MainPageComponent(): React.ReactElement {
     isLoading,
     isError,
     data: stats,
-  } = useQuery(["managerStats"], () => GametoolsApi.managerStats());
+  } = useQuery({
+    queryKey: ["managerStats"],
+    queryFn: () => GametoolsApi.managerStats()
+  });
   return (
     <div className={styles.MainPage}>
       <main role="main" className={styles.MainPageCard}>

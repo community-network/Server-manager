@@ -57,28 +57,32 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
     }
   }, [group, groupState]);
 
-  const editGroupSettings = useMutation(
-    (variables: string) =>
+  const editGroupSettings = useMutation({
+    mutationFn: (variables: string) =>
       OperationsApi.manEditGroup({ value: variables, gid: group.id }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setApplyStatus(false);
-        setError(error);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["server" + group.id]);
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setApplyStatus(false);
+      setError(error);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["server" + group.id]
+      });
+    }
+  });
 
   const changeGroupState = (v: { makeOperations: boolean }) => {
     setGroupState((s: any) => ({ ...s, ...v }));
@@ -279,10 +283,10 @@ export default function Manager() {
     isLoading,
     isError,
     data,
-  }: UseQueryResult<IManGroups, { code: number; message: string }> = useQuery(
-    ["devGroups"],
-    () => OperationsApi.getManGroups(),
-  );
+  }: UseQueryResult<IManGroups, { code: number; message: string }> = useQuery({
+    queryKey: ["devGroups"],
+    queryFn: () => OperationsApi.getManGroups()
+  });
 
   const groups = [];
 

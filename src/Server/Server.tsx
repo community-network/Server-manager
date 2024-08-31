@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, UseQueryResult } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useMeasure } from "react-use";
@@ -7,7 +7,7 @@ import { ServerUnbanPlayer, ServerUnvipPlayer } from "./Modals";
 import { PageContext } from "./ServerGlobalContext";
 
 import { Button, ButtonRow, ButtonUrl, TextInput } from "../components/Buttons";
-import buttonStyle from "../components/Buttons.module.css";
+import * as buttonStyle from "../components/Buttons.module.css";
 import { useModal } from "../components/Card";
 import { Row } from "../components/Flex";
 import { DynamicSort } from "../components/Functions";
@@ -19,7 +19,6 @@ import "../locales/config";
 
 import * as styles from "./Styles.module.css";
 
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
 import {
   IBan,
   IBanList,
@@ -233,29 +232,31 @@ function Bf2042ServerManagement(props: { sid: string }): React.ReactElement {
   const [applyStatus, setApplyStatus] = React.useState(null);
   const [errorUpdating, setError] = React.useState("Unknown");
 
-  const bf2042ChangeServer = useMutation(
-    (_: { sid: string; action: string }) =>
+  const bf2042ChangeServer = useMutation({
+    mutationFn: (_: { sid: string; action: string }) =>
       OperationsApi.changeBf2042Server({
         sid,
         action,
       }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async (error: React.SetStateAction<string>) => {
-        setApplyStatus(false);
-        setError(error);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        undefined;
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async (error: React.SetStateAction<string>) => {
+      setApplyStatus(false);
+      setError(error);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      undefined;
+    }
+  });
 
   return (
     <ButtonRow>
@@ -304,8 +305,8 @@ function BfvServerManagement(props: {
   const [errorUpdating, setError] = React.useState("Unknown");
   const { t } = useTranslation();
 
-  const bfvCreateServer = useMutation(
-    (_: {
+  const bfvCreateServer = useMutation({
+    mutationFn: (_: {
       sid: string;
       playgroundId: string;
       checksum: string;
@@ -317,23 +318,25 @@ function BfvServerManagement(props: {
         checksum,
         serverRegion,
       }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async (error: React.SetStateAction<string>) => {
-        setApplyStatus(false);
-        setError(error);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        undefined;
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async (error: React.SetStateAction<string>) => {
+      setApplyStatus(false);
+      setError(error);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      undefined;
+    }
+  });
 
   const {
     isError,
@@ -342,9 +345,12 @@ function BfvServerManagement(props: {
   }: UseQueryResult<
     IBfvPlaygrounds,
     { code: number; message: string }
-  > = useQuery(["bfvplaygrounds" + sid], () =>
-    OperationsApi.getBfvPlaygrounds({ sid }),
-  );
+  > = useQuery({
+    queryKey: ["bfvplaygrounds" + sid],
+
+    queryFn: () =>
+      OperationsApi.getBfvPlaygrounds({ sid })
+  });
   if (!playgroundList) {
     // TODO: add fake item list on loading
     return <>{t("loading")}</>;
@@ -437,10 +443,10 @@ export function BanList(props: { sid: string }): React.ReactElement {
     isError,
     data: banList,
     error,
-  }: UseQueryResult<IBanList, { code: number; message: string }> = useQuery(
-    ["serverBanList" + sid],
-    () => OperationsApi.getBanList({ sid }),
-  );
+  }: UseQueryResult<IBanList, { code: number; message: string }> = useQuery({
+    queryKey: ["serverBanList" + sid],
+    queryFn: () => OperationsApi.getBanList({ sid })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("displayName");
@@ -616,9 +622,12 @@ export function FireStarter(props: { sid: string }): React.ReactElement {
   }: UseQueryResult<
     IFirestarterList,
     { code: number; message: string }
-  > = useQuery(["serverStarterList" + sid], () =>
-    OperationsApi.getStarterList({ sid }),
-  );
+  > = useQuery({
+    queryKey: ["serverStarterList" + sid],
+
+    queryFn: () =>
+      OperationsApi.getStarterList({ sid })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("-amount");
@@ -727,9 +736,12 @@ export function PlayTime(props: { sid: string }): React.ReactElement {
   }: UseQueryResult<
     IPlayingScoreboard,
     { code: number; message: string }
-  > = useQuery(["playTimeList" + sid], () =>
-    OperationsApi.getPlayTimeList({ sid }),
-  );
+  > = useQuery({
+    queryKey: ["playTimeList" + sid],
+
+    queryFn: () =>
+      OperationsApi.getPlayTimeList({ sid })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("-timePlayed");
@@ -847,10 +859,10 @@ export function Spectator(props: { sid: string }): React.ReactElement {
     isError,
     data: spectatorList,
     error,
-  }: UseQueryResult<any, { code: number; message: string }> = useQuery(
-    ["serverSpectatorList" + sid],
-    () => OperationsApi.getSpectatorList({ sid }),
-  );
+  }: UseQueryResult<any, { code: number; message: string }> = useQuery({
+    queryKey: ["serverSpectatorList" + sid],
+    queryFn: () => OperationsApi.getSpectatorList({ sid })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("name");
@@ -968,10 +980,10 @@ export function Playerlogs(props: { sid: string }): React.ReactElement {
     isError,
     data,
     error,
-  }: UseQueryResult<IPlayerLog, { code: number; message: string }> = useQuery(
-    ["serverPlayerLogList" + date + sid + searchPlayer],
-    () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }),
-  );
+  }: UseQueryResult<IPlayerLog, { code: number; message: string }> = useQuery({
+    queryKey: ["serverPlayerLogList" + date + sid + searchPlayer],
+    queryFn: () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer })
+  });
 
   return (
     <div>
@@ -1201,10 +1213,10 @@ export function VipList(props: {
     isError,
     data: vipList,
     error,
-  }: UseQueryResult<IVipList, { code: number; message: string }> = useQuery(
-    ["serverVipList" + sid],
-    () => OperationsApi.getVipList({ sid }),
-  );
+  }: UseQueryResult<IVipList, { code: number; message: string }> = useQuery({
+    queryKey: ["serverVipList" + sid],
+    queryFn: () => OperationsApi.getVipList({ sid })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("displayName");
@@ -1375,10 +1387,10 @@ export function AdminList(props: { sid: string }): React.ReactElement {
     isError,
     data: adminList,
     error,
-  }: UseQueryResult<IInfoList, { code: number; message: string }> = useQuery(
-    ["serverAdminList" + sid],
-    () => OperationsApi.getAdminList({ sid }),
-  );
+  }: UseQueryResult<IInfoList, { code: number; message: string }> = useQuery({
+    queryKey: ["serverAdminList" + sid],
+    queryFn: () => OperationsApi.getAdminList({ sid })
+  });
 
   const [searchWord, setSearchWord] = React.useState("");
   const [sorting, setSorting] = React.useState("displayName");

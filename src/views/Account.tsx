@@ -1,22 +1,20 @@
-import * as React from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { OperationsApi } from "../api/api";
+import { IUserInfo } from "../api/ReturnTypes";
 import {
-  Column,
-  Card,
-  Header,
-  CardRow,
-  UserRow,
-  TopRow,
   ButtonRow,
   ButtonUrl,
+  Card,
+  CardRow,
+  Column,
+  Header,
+  TopRow,
+  UserRow,
 } from "../components";
-import "../locales/config";
-import { useTranslation } from "react-i18next";
 import ChangeLanguage from "../locales/ChangeLanguage";
-import { IUserInfo } from "../api/ReturnTypes";
+import "../locales/config";
 
 export default function Account() {
   const { t } = useTranslation();
@@ -24,11 +22,15 @@ export default function Account() {
   const history = useNavigate();
   const queryClient = useQueryClient();
 
-  const logoutExecutor = useMutation(async () => OperationsApi.logout(), {
+  const logoutExecutor = useMutation({
+    mutationFn: async () => OperationsApi.logout(),
+
     // When mutate is called:
     onMutate: async () => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-      await queryClient.cancelQueries(["user"]);
+      await queryClient.cancelQueries({
+        queryKey: ["user"]
+      });
       // Snapshot the previous value
       const prevUser = queryClient.getQueryData(["user"]);
       // Optimistically update to the new value
@@ -53,20 +55,23 @@ export default function Account() {
       // Return a context object with the snapshotted value
       return { prevUser };
     },
+
     // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries(["user"]);
-    },
+      queryClient.invalidateQueries({
+        queryKey: ["user"]
+      });
+    }
   });
 
   const {
     error: userError,
     data: user,
     isLoading,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user
+  });
 
   if (!userError && !isLoading && !!user) {
     if (!user.auth.signedIn) {

@@ -1,5 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
 import cryptoRandomString from "crypto-random-string";
 import * as React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -93,86 +92,96 @@ export function Group(): React.ReactElement {
   const {
     error: groupError,
     data: groups,
-  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
-    ["groupId" + gid],
-    () => OperationsApi.getGroup(gid),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["groupId" + gid],
+    queryFn: () => OperationsApi.getGroup(gid),
+    staleTime: 30000
+  });
   const {
     error: userError,
     data: user,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user
+  });
 
-  const removeAdmin = useMutation(
-    (variables: { gid: string; uid: string }) =>
+  const removeAdmin = useMutation({
+    mutationFn: (variables: { gid: string; uid: string }) =>
       OperationsApi.removeGroupAdmin(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid, uid }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["groupUsers" + gid]);
-        // Snapshot the previous value
-        const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
 
-        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
-          old.data[0].admins = old.data[0].admins.filter(
-            (admin: { id: string }) => admin.id !== uid,
-          );
-          return old;
-        });
-        // Return a context object with the snapshotted value
-        return { previousUsers, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(
-          ["groupUsers" + context.gid],
-          context.previousUsers,
+    // When mutate is called:
+    onMutate: async ({ gid, uid }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["groupUsers" + gid]
+      });
+      // Snapshot the previous value
+      const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
+
+      queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+        old.data[0].admins = old.data[0].admins.filter(
+          (admin: { id: string }) => admin.id !== uid,
         );
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["groupUsers" + context.gid]);
-      },
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousUsers, gid };
     },
-  );
 
-  const removeOwner = useMutation(
-    (variables: { gid: string; uid: string }) =>
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(
+        ["groupUsers" + context.gid],
+        context.previousUsers,
+      );
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupUsers" + context.gid]
+      });
+    }
+  });
+
+  const removeOwner = useMutation({
+    mutationFn: (variables: { gid: string; uid: string }) =>
       OperationsApi.removeGroupOwner(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid, uid }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["groupUsers" + gid]);
-        // Snapshot the previous value
-        const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
 
-        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
-          old.data[0].owners = old.data[0].owners.filter(
-            (admin: { id: string }) => admin.id !== uid,
-          );
-          return old;
-        });
-        // Return a context object with the snapshotted value
-        return { previousUsers, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(
-          ["groupUsers" + context.gid],
-          context.previousUsers,
+    // When mutate is called:
+    onMutate: async ({ gid, uid }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["groupUsers" + gid]
+      });
+      // Snapshot the previous value
+      const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
+
+      queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+        old.data[0].owners = old.data[0].owners.filter(
+          (admin: { id: string }) => admin.id !== uid,
         );
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["groupUsers" + context.gid]);
-      },
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousUsers, gid };
     },
-  );
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(
+        ["groupUsers" + context.gid],
+        context.previousUsers,
+      );
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupUsers" + context.gid]
+      });
+    }
+  });
 
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
   const [listing, setListing] = React.useState("servers");
@@ -306,11 +315,12 @@ function GroupAdmins(props: {
 }): React.ReactElement {
   const {
     data: groupUsers,
-  }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery(
-    ["groupUsers" + props.group?.id],
-    () => OperationsApi.getUsers(props.group?.id),
-    { staleTime: Infinity, refetchOnWindowFocus: false },
-  );
+  }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery({
+    queryKey: ["groupUsers" + props.group?.id],
+    queryFn: () => OperationsApi.getUsers(props.group?.id),
+    staleTime: Infinity,
+    refetchOnWindowFocus: false
+  });
 
   const modal = useModal();
 
@@ -494,100 +504,111 @@ function GroupPlatoons(props: {
 
   const queryClient = useQueryClient();
 
-  const changePlatoon = useMutation(
-    (variables: {
+  const changePlatoon = useMutation({
+    mutationFn: (variables: {
       request: string;
       gid: string;
       platoonid: string;
       pid: string;
       memberInfo: IPlatoonPlayer;
     }) => OperationsApi.platoonActions(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ request, gid, platoonid, pid, memberInfo }) => {
-        // Snapshot the previous value
-        const previousPlatoonInfo = queryClient.getQueryData([
-          "platoonDetails" + gid + platoonid,
-        ]);
-        const previousGroup = queryClient.getQueryData([
-          "platoonApplicants" + gid + platoonid,
-        ]);
 
-        if (request == "acceptApplicant") {
-          // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-          await queryClient.cancelQueries(["platoonDetails" + gid + platoonid]);
-          queryClient.setQueryData(
-            ["platoonDetails" + gid + platoonid],
-            (old: IPlatoonStats) => {
-              old.members.push({ ...memberInfo, role: "Private" });
-              return old;
-            },
-          );
-        }
-        if (request == "kickMember") {
-          // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-          await queryClient.cancelQueries(["platoonDetails" + gid + platoonid]);
-          queryClient.setQueryData(
-            ["platoonDetails" + gid + platoonid],
-            (old: IPlatoonStats) => {
-              old.members = old.members.filter(
-                (member: { id: string }) => member.id !== pid,
-              );
-              return old;
-            },
-          );
-        }
+    // When mutate is called:
+    onMutate: async ({ request, gid, platoonid, pid, memberInfo }) => {
+      // Snapshot the previous value
+      const previousPlatoonInfo = queryClient.getQueryData([
+        "platoonDetails" + gid + platoonid,
+      ]);
+      const previousGroup = queryClient.getQueryData([
+        "platoonApplicants" + gid + platoonid,
+      ]);
 
-        if (["acceptApplicant", "rejectApplicant"].includes(request)) {
-          // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-          await queryClient.cancelQueries([
+      if (request == "acceptApplicant") {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries({
+          queryKey: ["platoonDetails" + gid + platoonid]
+        });
+        queryClient.setQueryData(
+          ["platoonDetails" + gid + platoonid],
+          (old: IPlatoonStats) => {
+            old.members.push({ ...memberInfo, role: "Private" });
+            return old;
+          },
+        );
+      }
+      if (request == "kickMember") {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries({
+          queryKey: ["platoonDetails" + gid + platoonid]
+        });
+        queryClient.setQueryData(
+          ["platoonDetails" + gid + platoonid],
+          (old: IPlatoonStats) => {
+            old.members = old.members.filter(
+              (member: { id: string }) => member.id !== pid,
+            );
+            return old;
+          },
+        );
+      }
+
+      if (["acceptApplicant", "rejectApplicant"].includes(request)) {
+        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries({
+          queryKey: [
             "platoonApplicants" + gid + platoonid,
-          ]);
-          queryClient.setQueryData(
-            ["platoonApplicants" + gid + platoonid],
-            (old: IPlatoonApplicants) => {
-              old.result = old.result.filter(
-                (applicant: { id: string }) => applicant.id !== pid,
-              );
-              return old;
-            },
-          );
-        }
-        // Return a context object with the snapshotted value
-        return { previousGroup, gid, platoonid, request, previousPlatoonInfo };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        if (["acceptApplicant", "kickMember"].includes(context.request)) {
-          queryClient.setQueryData(
-            ["platoonDetails" + context.gid, context.platoonid],
-            context.previousPlatoonInfo,
-          );
-        }
-        if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
-          queryClient.setQueryData(
-            ["platoonApplicants" + context.gid, context.platoonid],
-            context.previousGroup,
-          );
-        }
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        if (["acceptApplicant", "kickMember"].includes(context.request)) {
-          queryClient.invalidateQueries([
+          ]
+        });
+        queryClient.setQueryData(
+          ["platoonApplicants" + gid + platoonid],
+          (old: IPlatoonApplicants) => {
+            old.result = old.result.filter(
+              (applicant: { id: string }) => applicant.id !== pid,
+            );
+            return old;
+          },
+        );
+      }
+      // Return a context object with the snapshotted value
+      return { previousGroup, gid, platoonid, request, previousPlatoonInfo };
+    },
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      if (["acceptApplicant", "kickMember"].includes(context.request)) {
+        queryClient.setQueryData(
+          ["platoonDetails" + context.gid, context.platoonid],
+          context.previousPlatoonInfo,
+        );
+      }
+      if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
+        queryClient.setQueryData(
+          ["platoonApplicants" + context.gid, context.platoonid],
+          context.previousGroup,
+        );
+      }
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      if (["acceptApplicant", "kickMember"].includes(context.request)) {
+        queryClient.invalidateQueries({
+          queryKey: [
             "platoonDetails" + context.gid,
             context.platoonid,
-          ]);
-        }
-        if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
-          queryClient.invalidateQueries([
+          ]
+        });
+      }
+      if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
+        queryClient.invalidateQueries({
+          queryKey: [
             "platoonApplicants" + context.gid,
             context.platoonid,
-          ]);
-        }
-      },
-    },
-  );
+          ]
+        });
+      }
+    }
+  });
 
   const [applicants, setApplicants] = React.useState([]);
   const [members, setMembers] = React.useState([]);
@@ -604,16 +625,18 @@ function GroupPlatoons(props: {
     isLoading,
     isError,
     data: platoons,
-  } = useQuery(
-    ["platoonsDetails" + props.group?.id + platoonIds],
-    () =>
+  } = useQuery({
+    queryKey: ["platoonsDetails" + props.group?.id + platoonIds],
+
+    queryFn: () =>
       GametoolsApi.platoons({
         ids: platoonIds,
         platform: "pc",
         lang: getLanguage(),
       }),
-    { staleTime: 30000 },
-  );
+
+    staleTime: 30000
+  });
 
   return (
     <>
@@ -832,41 +855,40 @@ function PlatoonList(props: {
   if (props.group && props.user)
     hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
-  const removePlatoons = useMutation(
-    (variables: { gid: string; platoonIds: string[] }) =>
-      OperationsApi.removeGroupPlatoons(variables),
-    // {
-    //   // When mutate is called:
-    //   onMutate: async ({ gid, platoonIds }) => {
-    //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-    //     await queryClient.cancelQueries(["groupId" + gid]);
-    //     // Snapshot the previous value
-    //     const previousGroup = queryClient.getQueryData(["groupId" + gid]);
-
-    //     queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
-    //       old.data[0].platoons = Object.fromEntries(
-    //         Object.entries(old.data[0].platoons).filter(
-    //           ([key]) => !platoonIds.includes(key),
-    //         ),
-    //       );
-    //       return old;
-    //     });
-    //     // Return a context object with the snapshotted value
-    //     return { previousGroup, gid };
-    //   },
-    //   // If the mutation fails, use the context returned from onMutate to roll back
-    //   onError: (_err, _newTodo, context) => {
-    //     queryClient.setQueryData(
-    //       ["groupId" + context.gid],
-    //       context.previousGroup,
-    //     );
-    //   },
-    //   // Always refetch after error or success:
-    //   onSettled: (_data, _error, _variables, context) => {
-    //     queryClient.invalidateQueries(["groupId" + context.gid]);
-    //   },
-    // },
-  );
+  const removePlatoons = useMutation({
+    mutationFn: // {
+      //   // When mutate is called:
+      //   onMutate: async ({ gid, platoonIds }) => {
+      //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      //     await queryClient.cancelQueries(["groupId" + gid]);
+      //     // Snapshot the previous value
+      //     const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+      //     queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
+      //       old.data[0].platoons = Object.fromEntries(
+      //         Object.entries(old.data[0].platoons).filter(
+      //           ([key]) => !platoonIds.includes(key),
+      //         ),
+      //       );
+      //       return old;
+      //     });
+      //     // Return a context object with the snapshotted value
+      //     return { previousGroup, gid };
+      //   },
+      //   // If the mutation fails, use the context returned from onMutate to roll back
+      //   onError: (_err, _newTodo, context) => {
+      //     queryClient.setQueryData(
+      //       ["groupId" + context.gid],
+      //       context.previousGroup,
+      //     );
+      //   },
+      //   // Always refetch after error or success:
+      //   onSettled: (_data, _error, _variables, context) => {
+      //     queryClient.invalidateQueries(["groupId" + context.gid]);
+      //   },
+      // },
+      (variables: { gid: string; platoonIds: string[] }) =>
+        OperationsApi.removeGroupPlatoons(variables)
+  });
 
   return (
     <>
@@ -936,11 +958,11 @@ function PlatoonApplicants(props: {
     isLoading,
     isError,
     data: applicants,
-  } = useQuery(
-    ["platoonApplicants" + group.id + platoonId],
-    () => GametoolsApi.platoonApplicants({ groupId: group.id, platoonId }),
-    { staleTime: 30000 },
-  );
+  } = useQuery({
+    queryKey: ["platoonApplicants" + group.id + platoonId],
+    queryFn: () => GametoolsApi.platoonApplicants({ groupId: group.id, platoonId }),
+    staleTime: 30000
+  });
   const { t } = useTranslation();
 
   if (!isLoading && !isError) {
@@ -998,26 +1020,26 @@ function Seeding(props: {
       props.group.isOwner || props.group.isAdmin || props.user.auth.isDeveloper;
   const {
     data: seedingInfo,
-  }: UseQueryResult<ISeederInfo, { code: number; message: string }> = useQuery(
-    ["seeding" + props.gid + game],
-    () => OperationsApi.getSeeding(props.gid, game),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<ISeederInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["seeding" + props.gid + game],
+    queryFn: () => OperationsApi.getSeeding(props.gid, game),
+    staleTime: 30000
+  });
   const {
     data: seeders,
-  }: UseQueryResult<ISeederList, { code: number; message: string }> = useQuery(
-    ["seeders" + props.gid + game],
-    () => OperationsApi.getSeeders(props.gid, game),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<ISeederList, { code: number; message: string }> = useQuery({
+    queryKey: ["seeders" + props.gid + game],
+    queryFn: () => OperationsApi.getSeeders(props.gid, game),
+    staleTime: 30000
+  });
   const {
     data: serverAliasNames,
   }: UseQueryResult<ISeederServerAliasName, { code: number; message: string }> =
-    useQuery(
-      ["serveraliasname" + props.gid + game],
-      () => OperationsApi.getServerAliases(props.gid, game),
-      { staleTime: 30000 },
-    );
+    useQuery({
+      queryKey: ["serveraliasname" + props.gid + game],
+      queryFn: () => OperationsApi.getServerAliases(props.gid, game),
+      staleTime: 30000
+    });
   const queryClient = useQueryClient();
   const fakeListing = [1, 1, 1];
 
@@ -1113,7 +1135,9 @@ function Seeding(props: {
       timeout = 1000;
     }
     setTimeout(() => {
-      queryClient.invalidateQueries(["seeding" + props.gid + game]);
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid + game]
+      });
     }, timeout);
   };
 
@@ -1125,7 +1149,9 @@ function Seeding(props: {
     });
     setSelected(undefined);
     setTimeout(() => {
-      queryClient.invalidateQueries(["groupId" + props.gid]);
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + props.gid]
+      });
     }, 150);
   };
 
@@ -1137,7 +1163,9 @@ function Seeding(props: {
     });
     setSelected(undefined);
     setTimeout(() => {
-      queryClient.invalidateQueries(["groupId" + props.gid]);
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + props.gid]
+      });
     }, 150);
   };
 
@@ -1155,7 +1183,9 @@ function Seeding(props: {
     });
     setSelected(undefined);
     setTimeout(() => {
-      queryClient.invalidateQueries(["seeding" + props.gid]);
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid]
+      });
     }, 1000);
   };
 
@@ -1458,11 +1488,12 @@ function GroupOwners(props: {
 
   const {
     data: groupUsers,
-  }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery(
-    ["groupUsers" + props.group?.id],
-    () => OperationsApi.getUsers(props.group?.id),
-    { staleTime: Infinity, refetchOnWindowFocus: false },
-  );
+  }: UseQueryResult<IGroupUsers, { code: number; message: string }> = useQuery({
+    queryKey: ["groupUsers" + props.group?.id],
+    queryFn: () => OperationsApi.getUsers(props.group?.id),
+    staleTime: Infinity,
+    refetchOnWindowFocus: false
+  });
 
   let hasRights = false;
   if (props.group && props.user)
@@ -1697,30 +1728,34 @@ function GroupDiscordSettings(props: {
     }
   }, [props.group]);
 
-  const editDiscordDetails = useMutation(
-    (variables: {
+  const editDiscordDetails = useMutation({
+    mutationFn: (variables: {
       gid: string;
       type?: string;
       value: {
         [string: string]: string | number | boolean;
       };
     }) => OperationsApi.editGroup(variables),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async () => {
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["groupId" + props.gid]);
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async () => {
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + props.gid]
+      });
+    }
+  });
 
   return (
     <>
@@ -1847,25 +1882,29 @@ function GroupSettings(props: {
     setGroupState((s) => ({ ...s, ...v }));
   };
 
-  const editGroupSettings = useMutation(
-    (variables: { [string: string]: string | number | boolean }) =>
+  const editGroupSettings = useMutation({
+    mutationFn: (variables: { [string: string]: string | number | boolean }) =>
       OperationsApi.editGroup({ value: variables, gid: props.gid }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async () => {
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["groupId" + props.gid]);
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async () => {
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + props.gid]
+      });
+    }
+  });
 
   const getGroupValue = (key: string) => {
     if (props.group && key in props.group) {
@@ -1979,18 +2018,20 @@ function GroupStatus(props: {
   }
   const {
     data: groupStats,
-  }: UseQueryResult<IGroupStats, { code: number; message: string }> = useQuery(
-    ["groupStats" + groupId],
-    () => OperationsApi.getStats(groupId),
-    { staleTime: Infinity, refetchOnWindowFocus: false },
-  );
+  }: UseQueryResult<IGroupStats, { code: number; message: string }> = useQuery({
+    queryKey: ["groupStats" + groupId],
+    queryFn: () => OperationsApi.getStats(groupId),
+    staleTime: Infinity,
+    refetchOnWindowFocus: false
+  });
   const {
     data: serverStats,
-  }: UseQueryResult<IServerStats, { code: number; message: string }> = useQuery(
-    ["serverStats" + serverId],
-    () => OperationsApi.getServerStats(serverId),
-    { staleTime: Infinity, refetchOnWindowFocus: false },
-  );
+  }: UseQueryResult<IServerStats, { code: number; message: string }> = useQuery({
+    queryKey: ["serverStats" + serverId],
+    queryFn: () => OperationsApi.getServerStats(serverId),
+    staleTime: Infinity,
+    refetchOnWindowFocus: false
+  });
 
   return (
     <div ref={statusRef}>
@@ -2144,30 +2185,34 @@ function GroupDangerZone(props: {
     }
   }, [props.group]);
 
-  const editGroupName = useMutation(
-    (variables: {
+  const editGroupName = useMutation({
+    mutationFn: (variables: {
       gid: string;
       type?: string;
       value: {
         [string: string]: string | number | boolean;
       };
     }) => OperationsApi.editGroup(variables),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async () => {
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["groupId" + props.gid]);
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async () => {
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + props.gid]
+      });
+    }
+  });
 
   return (
     <>
@@ -2234,40 +2279,45 @@ export function AddGroupOwner(props: {
 
   const queryClient = useQueryClient();
 
-  const AddGroupOwnerExecute = useMutation(
-    (variables: { gid: string; uid: string; nickname: string }) =>
+  const AddGroupOwnerExecute = useMutation({
+    mutationFn: (variables: { gid: string; uid: string; nickname: string }) =>
       OperationsApi.addGroupOwner(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid, uid, nickname }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["groupUsers" + gid]);
-        // Snapshot the previous value
-        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
-        // Optimistically update to the new value
-        const UTCNow = new Date(Date.now()).toUTCString();
 
-        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
-          old.data[0].owners.push({ id: uid, name: nickname, addedAt: UTCNow });
-          old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
-          return old;
-        });
-        // Return a context object with the snapshotted value
-        return { previousGroup, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(
-          ["groupUsers" + context.gid],
-          context.previousGroup,
-        );
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["groupUsers" + context.gid]);
-      },
+    // When mutate is called:
+    onMutate: async ({ gid, uid, nickname }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["groupUsers" + gid]
+      });
+      // Snapshot the previous value
+      const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+      // Optimistically update to the new value
+      const UTCNow = new Date(Date.now()).toUTCString();
+
+      queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+        old.data[0].owners.push({ id: uid, name: nickname, addedAt: UTCNow });
+        old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousGroup, gid };
     },
-  );
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(
+        ["groupUsers" + context.gid],
+        context.previousGroup,
+      );
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupUsers" + context.gid]
+      });
+    }
+  });
 
   const updateState = (values: { nickname?: string; uid?: string }) => {
     const newState = {
@@ -2319,39 +2369,44 @@ export function AddGroupAdmin(props: { gid: string }): React.ReactElement {
 
   const queryClient = useQueryClient();
 
-  const AddGroupAdminExecute = useMutation(
-    (variables: { gid: string; uid: string; nickname: string }) =>
+  const AddGroupAdminExecute = useMutation({
+    mutationFn: (variables: { gid: string; uid: string; nickname: string }) =>
       OperationsApi.addGroupAdmin(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid, uid, nickname }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["groupUsers" + gid]);
-        // Snapshot the previous value
-        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
-        // Optimistically update to the new value
-        const UTCNow = new Date(Date.now()).toUTCString();
 
-        queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
-          old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
-          return old;
-        });
-        // Return a context object with the snapshotted value
-        return { previousGroup, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(
-          ["groupUsers" + context.gid],
-          context.previousGroup,
-        );
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["groupUsers" + context.gid]);
-      },
+    // When mutate is called:
+    onMutate: async ({ gid, uid, nickname }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["groupUsers" + gid]
+      });
+      // Snapshot the previous value
+      const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+      // Optimistically update to the new value
+      const UTCNow = new Date(Date.now()).toUTCString();
+
+      queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
+        old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousGroup, gid };
     },
-  );
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(
+        ["groupUsers" + context.gid],
+        context.previousGroup,
+      );
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupUsers" + context.gid]
+      });
+    }
+  });
 
   const updateState = (values: { nickname?: string; uid?: string }) => {
     const newState = {
@@ -2415,8 +2470,8 @@ export function AddGroup(): React.ReactElement {
   const queryClient = useQueryClient();
   const history = useNavigate();
 
-  const AddNewGroupExecute = useMutation(
-    (variables: {
+  const AddNewGroupExecute = useMutation({
+    mutationFn: (variables: {
       groupName: string;
       discordId: string;
       modRole: string;
@@ -2424,40 +2479,46 @@ export function AddGroup(): React.ReactElement {
       sid: string;
       remid: string;
     }) => OperationsApi.addGroup(variables),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-        await queryClient.cancelQueries(["user"]);
 
-        return {};
-      },
-      onSuccess: async (variables) => {
-        setApplyStatus(null);
+    onMutate: async () => {
+      setApplyStatus(true);
+      await queryClient.cancelQueries({
+        queryKey: ["user"]
+      });
 
-        queryClient.setQueryData(["user"], (old: IUserInfo) => {
-          if (old) {
-            old.permissions.isAdminOf.push({
-              groupName: addGroupState.variables.groupName,
-              id: variables.id,
-            });
-          }
-          return old;
-        });
-
-        history(`/group/${variables.id}`);
-      },
-      onError: async (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setError(error);
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["user"]);
-      },
+      return {};
     },
-  );
+
+    onSuccess: async (variables) => {
+      setApplyStatus(null);
+
+      queryClient.setQueryData(["user"], (old: IUserInfo) => {
+        if (old) {
+          old.permissions.isAdminOf.push({
+            groupName: addGroupState.variables.groupName,
+            id: variables.id,
+          });
+        }
+        return old;
+      });
+
+      history(`/group/${variables.id}`);
+    },
+
+    onError: async (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setError(error);
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"]
+      });
+    }
+  });
 
   const checkInputVariables = (newVariables: {
     groupName?: string;
@@ -2585,11 +2646,11 @@ export function DeleteGroup(): React.ReactElement {
 
   const {
     data: groups,
-  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
-    ["groupId" + thisGid],
-    () => OperationsApi.getGroup(thisGid),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["groupId" + thisGid],
+    queryFn: () => OperationsApi.getGroup(thisGid),
+    staleTime: 30000
+  });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
   const queryClient = useQueryClient();
@@ -2599,37 +2660,42 @@ export function DeleteGroup(): React.ReactElement {
     "group.danger.main",
   )}`;
 
-  const DeleteGroupExecute = useMutation(
-    (variables: IGroupGet) => OperationsApi.removeGroup(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["user"]);
-        // Snapshot the previous value
-        const previousGroups = queryClient.getQueryData(["user"]);
-        // Optimistically update to the new value
-        queryClient.setQueryData(["user"], (old: IUserInfo) => {
-          if (old) {
-            old.permissions.isAdminOf = old.permissions.isAdminOf.filter(
-              (group: { id: string }) => group.id !== gid,
-            );
-          }
-          return old;
-        });
-        // Return a context object with the snapshotted value
-        return { previousGroups, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(["user"], context.previousGroups);
-      },
-      // Always refetch after error or success:
-      onSettled: () => {
-        queryClient.invalidateQueries(["user"]);
-      },
+  const DeleteGroupExecute = useMutation({
+    mutationFn: (variables: IGroupGet) => OperationsApi.removeGroup(variables),
+
+    // When mutate is called:
+    onMutate: async ({ gid }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["user"]
+      });
+      // Snapshot the previous value
+      const previousGroups = queryClient.getQueryData(["user"]);
+      // Optimistically update to the new value
+      queryClient.setQueryData(["user"], (old: IUserInfo) => {
+        if (old) {
+          old.permissions.isAdminOf = old.permissions.isAdminOf.filter(
+            (group: { id: string }) => group.id !== gid,
+          );
+        }
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousGroups, gid };
     },
-  );
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(["user"], context.previousGroups);
+    },
+
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"]
+      });
+    }
+  });
 
   return (
     <Row>
@@ -2684,17 +2750,15 @@ export function AddGroupServer(): React.ReactElement {
     isError,
     data: groups,
     error,
-  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
-    ["groupId" + gid],
-    () => OperationsApi.getGroup(gid),
-    {
-      staleTime: 30000,
-    },
-  );
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["groupId" + gid],
+    queryFn: () => OperationsApi.getGroup(gid),
+    staleTime: 30000
+  });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
-  const AddGroupServerExecute = useMutation(
-    (variables: {
+  const AddGroupServerExecute = useMutation({
+    mutationFn: (variables: {
       gid: string;
       name: string;
       alias: string;
@@ -2703,41 +2767,46 @@ export function AddGroupServer(): React.ReactElement {
       sid: string;
       remid: string;
     }) => OperationsApi.addGroupServer(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid, name, game }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["groupId" + gid]);
-        // Snapshot the previous value
-        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
-        // Optimistically update to the new value
-        const UTCNow = new Date(Date.now()).toUTCString();
 
-        queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
-          old.data[0].servers.push({
-            addedAt: UTCNow,
-            id: null,
-            name: name,
-            game: game,
-          });
-          return old;
+    // When mutate is called:
+    onMutate: async ({ gid, name, game }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["groupId" + gid]
+      });
+      // Snapshot the previous value
+      const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+      // Optimistically update to the new value
+      const UTCNow = new Date(Date.now()).toUTCString();
+
+      queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
+        old.data[0].servers.push({
+          addedAt: UTCNow,
+          id: null,
+          name: name,
+          game: game,
         });
-        // Return a context object with the snapshotted value
-        return { previousGroup, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(
-          ["groupId" + context.gid],
-          context.previousGroup,
-        );
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["groupId" + context.gid]);
-      },
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousGroup, gid };
     },
-  );
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(
+        ["groupId" + context.gid],
+        context.previousGroup,
+      );
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + context.gid]
+      });
+    }
+  });
 
   const isDisabled =
     name === "" || (cookieId === "add" && (sid === "" || remid === ""));
@@ -2870,63 +2939,69 @@ export function AddGroupPlatoon(): React.ReactElement {
     isError,
     data: groups,
     error,
-  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
-    ["groupId" + gid],
-    () => OperationsApi.getGroup(gid),
-    {
-      staleTime: 30000,
-    },
-  );
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["groupId" + gid],
+    queryFn: () => OperationsApi.getGroup(gid),
+    staleTime: 30000
+  });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
-  const AddGroupPlatoonExecute = useMutation(
-    (variables: {
+  const AddGroupPlatoonExecute = useMutation({
+    mutationFn: (variables: {
       gid: string;
       platoonIds: string[];
       cookieId: string;
       sid: string;
       remid: string;
     }) => OperationsApi.addGroupPlatoons(variables),
-    {
-      // When mutate is called:
-      onMutate: async ({ gid, platoonIds }) => {
-        // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries(["groupId" + gid]);
-        // Snapshot the previous value
-        const previousGroup = queryClient.getQueryData(["groupId" + gid]);
-        // Optimistically update to the new value
-        queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
-          platoonIds.map((platoonId) => (old.data[0].platoons[platoonId] = ""));
-          return old;
-        });
-        // Return a context object with the snapshotted value
-        return { previousGroup, gid };
-      },
-      // If the mutation fails, use the context returned from onMutate to roll back
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData(
-          ["groupId" + context.gid],
-          context.previousGroup,
-        );
-      },
-      // Always refetch after error or success:
-      onSettled: (_data, _error, _variables, context) => {
-        queryClient.invalidateQueries(["groupId" + context.gid]);
-      },
+
+    // When mutate is called:
+    onMutate: async ({ gid, platoonIds }) => {
+      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ["groupId" + gid]
+      });
+      // Snapshot the previous value
+      const previousGroup = queryClient.getQueryData(["groupId" + gid]);
+      // Optimistically update to the new value
+      queryClient.setQueryData(["groupId" + gid], (old: IGroupsInfo) => {
+        platoonIds.map((platoonId) => (old.data[0].platoons[platoonId] = ""));
+        return old;
+      });
+      // Return a context object with the snapshotted value
+      return { previousGroup, gid };
     },
-  );
+
+    // If the mutation fails, use the context returned from onMutate to roll back
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData(
+        ["groupId" + context.gid],
+        context.previousGroup,
+      );
+    },
+
+    // Always refetch after error or success:
+    onSettled: (_data, _error, _variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + context.gid]
+      });
+    }
+  });
 
   const {
     isLoading: loading,
     isError: searchError,
     data: platoons,
-  } = useQuery(["platoons" + searchTerm], () =>
-    GametoolsApi.platoonSearch({
-      name: searchTerm,
-      platform: "pc",
-      lang: getLanguage(),
-    }),
-  );
+  } = useQuery({
+    queryKey: ["platoons" + searchTerm],
+
+    queryFn: () =>
+      GametoolsApi.platoonSearch({
+        name: searchTerm,
+        platform: "pc",
+        lang: getLanguage(),
+      })
+  });
 
   const isDisabled =
     selected.length < 1 || (cookieId === "add" && (sid === "" || remid === ""));
@@ -3095,11 +3170,11 @@ export function MakeOps(): React.ReactElement {
 
   const {
     data: groups,
-  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery(
-    ["groupId" + gid],
-    () => OperationsApi.getGroup(gid),
-    { staleTime: 30000 },
-  );
+  }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["groupId" + gid],
+    queryFn: () => OperationsApi.getGroup(gid),
+    staleTime: 30000
+  });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
   const [addGroupState, changeState] = React.useState({
@@ -3121,29 +3196,31 @@ export function MakeOps(): React.ReactElement {
   const { t } = useTranslation();
   document.title = `${t("pageTitle.main")} | ${t("operations.main")}`;
 
-  const SetupOperations = useMutation(
-    (variables: { server: string; sid: string; remid: string }) =>
+  const SetupOperations = useMutation({
+    mutationFn: (variables: { server: string; sid: string; remid: string }) =>
       OperationsApi.setupOps(variables),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-        return {};
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async (
-        error: React.SetStateAction<{ code: number; message: string }>,
-      ) => {
-        setError(error);
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        undefined;
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
+      return {};
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async (
+      error: React.SetStateAction<{ code: number; message: string }>,
+    ) => {
+      setError(error);
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      undefined;
+    }
+  });
 
   const checkInputVariables = (newVariables: {
     server?: string;
@@ -3276,8 +3353,8 @@ export function LeaveServer(props: {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const LeaveServerExecure = useMutation(
-    (variables: {
+  const LeaveServerExecure = useMutation({
+    mutationFn: (variables: {
       serverName: string;
       serverId: string;
       action: string;
@@ -3286,12 +3363,13 @@ export function LeaveServer(props: {
       message: string;
       game: string;
     }) => OperationsApi.setSeeding(variables),
-    {
-      onSettled: () => {
-        queryClient.invalidateQueries(["seeding" + props.gid]);
-      },
-    },
-  );
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid]
+      });
+    }
+  });
 
   return (
     <>
@@ -3331,15 +3409,16 @@ export function AddKeepAlive(props: {
   const queryClient = useQueryClient();
   const [hostname, setHostname] = React.useState("");
 
-  const AddGroupAdminExecute = useMutation(
-    (variables: { serverId: string; hostname: string }) =>
+  const AddGroupAdminExecute = useMutation({
+    mutationFn: (variables: { serverId: string; hostname: string }) =>
       OperationsApi.addKeepAlive(variables),
-    {
-      onSettled: () => {
-        queryClient.invalidateQueries(["seeding" + props.gid]);
-      },
-    },
-  );
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid]
+      });
+    }
+  });
 
   return (
     <>
@@ -3376,8 +3455,8 @@ export function SeederBroadcast(props: {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const AddGroupAdminExecute = useMutation(
-    (variables: {
+  const AddGroupAdminExecute = useMutation({
+    mutationFn: (variables: {
       serverName: string;
       serverId: string;
       action: string;
@@ -3386,12 +3465,13 @@ export function SeederBroadcast(props: {
       message: string;
       game: string;
     }) => OperationsApi.setSeeding(variables),
-    {
-      onSettled: () => {
-        queryClient.invalidateQueries(["seeding" + props.gid]);
-      },
-    },
-  );
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid]
+      });
+    }
+  });
 
   return (
     <>
@@ -3427,15 +3507,16 @@ export function UnscheduleSeed(props: {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const AddGroupAdminExecute = useMutation(
-    (variables: { groupId: string }) =>
+  const AddGroupAdminExecute = useMutation({
+    mutationFn: (variables: { groupId: string }) =>
       OperationsApi.undoScheduleSeeding(variables),
-    {
-      onSettled: () => {
-        queryClient.invalidateQueries(["seeding" + props.gid]);
-      },
-    },
-  );
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid]
+      });
+    }
+  });
   return (
     <>
       <h2>{t("group.seeding.main")}</h2>

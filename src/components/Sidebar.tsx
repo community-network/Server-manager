@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, To } from "react-router-dom";
@@ -72,13 +71,11 @@ export function Sidebar(props: {
     error: userError,
     data: user,
     isLoading,
-  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery(
-    ["user"],
-    () => OperationsApi.user,
-    {
-      retry: 0,
-    },
-  );
+  }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user,
+    retry: 0
+  });
 
   let devLink = <></>,
     manLink = <></>,

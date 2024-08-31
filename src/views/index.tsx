@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -35,5 +34,9 @@ export default function ViewHandler() {
 }
 
 function useCorruentUserHook(): UseQueryResult<IUserInfo> {
-  return useQuery(["user"], () => OperationsApi.user, { retry: 0 });
+  return useQuery({
+    queryKey: ["user"],
+    queryFn: () => OperationsApi.user,
+    retry: 0
+  });
 }

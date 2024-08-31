@@ -227,31 +227,35 @@ export function DeleteServer(): React.ReactElement {
     server?.game || t("notApplicable")
   } | ${server?.serverName || t("loading")}`;
 
-  const RemoveServerExecute = useMutation(
-    (variables: IServerGet) => OperationsApi.removeServer(variables),
-    {
-      onSuccess: async (variables) => {
-        await queryClient.cancelQueries(["groupId" + variables.groupId]);
+  const RemoveServerExecute = useMutation({
+    mutationFn: (variables: IServerGet) => OperationsApi.removeServer(variables),
 
-        queryClient.setQueryData(
-          ["groupId", variables.groupId],
-          (old: IGroupsInfo) => {
-            if (old) {
-              old.data[0].servers = old.data[0].servers.filter(
-                (server: { id: string }) => server.id !== variables.groupId,
-              );
-            }
-            return old;
-          },
-        );
-      },
-      // Always refetch after error or success:
-      onSettled: (data) => {
-        queryClient.invalidateQueries(["groupId" + data.groupId]);
-        history(`/group/${data.groupId}`);
-      },
+    onSuccess: async (variables) => {
+      await queryClient.cancelQueries({
+        queryKey: ["groupId" + variables.groupId]
+      });
+
+      queryClient.setQueryData(
+        ["groupId", variables.groupId],
+        (old: IGroupsInfo) => {
+          if (old) {
+            old.data[0].servers = old.data[0].servers.filter(
+              (server: { id: string }) => server.id !== variables.groupId,
+            );
+          }
+          return old;
+        },
+      );
     },
-  );
+
+    // Always refetch after error or success:
+    onSettled: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["groupId" + data.groupId]
+      });
+      history(`/group/${data.groupId}`);
+    }
+  });
 
   return (
     <Row>
@@ -377,25 +381,29 @@ function ServerAutomation(props: {
     }));
   };
 
-  const editServerSettings = useMutation(
-    (variables: { [string: string]: string | number | boolean }) =>
+  const editServerSettings = useMutation({
+    mutationFn: (variables: { [string: string]: string | number | boolean }) =>
       OperationsApi.editServer({ value: variables, sid: props.sid }),
-    {
-      onMutate: async () => {
-        setApplyStatus(true);
-      },
-      onSuccess: async () => {
-        setApplyStatus(null);
-      },
-      onError: async () => {
-        setApplyStatus(false);
-        setTimeout(() => setApplyStatus(null), 2000);
-      },
-      onSettled: async () => {
-        queryClient.invalidateQueries(["server" + props.sid]);
-      },
+
+    onMutate: async () => {
+      setApplyStatus(true);
     },
-  );
+
+    onSuccess: async () => {
+      setApplyStatus(null);
+    },
+
+    onError: async () => {
+      setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
+    },
+
+    onSettled: async () => {
+      queryClient.invalidateQueries({
+        queryKey: ["server" + props.sid]
+      });
+    }
+  });
 
   const getServerValue = (key: string) => {
     if (server && key in server) {

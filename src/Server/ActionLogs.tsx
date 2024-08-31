@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { UseQueryResult } from "@tanstack/react-query/build/lib/types";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -24,9 +23,12 @@ export function LogList(props: { sid: string }): React.ReactElement {
   }: UseQueryResult<
     ITailServerLog,
     { code: number; message: string }
-  > = useQuery(["serverLogList" + sid], () =>
-    OperationsApi.getServerLogs({ sid }),
-  );
+  > = useQuery({
+    queryKey: ["serverLogList" + sid],
+
+    queryFn: () =>
+      OperationsApi.getServerLogs({ sid })
+  });
   const [isShown, setIsShown] = React.useState(false);
   const showActionLogs = () => {
     setIsShown(!isShown);
