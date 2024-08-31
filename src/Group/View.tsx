@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import cryptoRandomString from "crypto-random-string";
 import * as React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -95,14 +100,14 @@ export function Group(): React.ReactElement {
   }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
     queryKey: ["groupId" + gid],
     queryFn: () => OperationsApi.getGroup(gid),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const {
     error: userError,
     data: user,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 
   const removeAdmin = useMutation({
@@ -113,7 +118,7 @@ export function Group(): React.ReactElement {
     onMutate: async ({ gid, uid }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupUsers" + gid]
+        queryKey: ["groupUsers" + gid],
       });
       // Snapshot the previous value
       const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
@@ -139,9 +144,9 @@ export function Group(): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupUsers" + context.gid]
+        queryKey: ["groupUsers" + context.gid],
       });
-    }
+    },
   });
 
   const removeOwner = useMutation({
@@ -152,7 +157,7 @@ export function Group(): React.ReactElement {
     onMutate: async ({ gid, uid }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupUsers" + gid]
+        queryKey: ["groupUsers" + gid],
       });
       // Snapshot the previous value
       const previousUsers = queryClient.getQueryData(["groupUsers" + gid]);
@@ -178,17 +183,18 @@ export function Group(): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupUsers" + context.gid]
+        queryKey: ["groupUsers" + context.gid],
       });
-    }
+    },
   });
 
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
   const [listing, setListing] = React.useState("servers");
   const [settingsListing, setSettingsListing] = React.useState("account");
   const { t } = useTranslation();
-  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${group?.groupName || t("loading")
-    }`;
+  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${
+    group?.groupName || t("loading")
+  }`;
 
   const catListing = {
     owners: (
@@ -319,7 +325,7 @@ function GroupAdmins(props: {
     queryKey: ["groupUsers" + props.group?.id],
     queryFn: () => OperationsApi.getUsers(props.group?.id),
     staleTime: Infinity,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
   const modal = useModal();
@@ -391,12 +397,12 @@ function GroupAdmins(props: {
       </ButtonRow>
       {adminList
         ? adminList.map((admin: IGroupUser, i: number) => (
-          <UserStRow
-            user={admin}
-            callback={(v) => changeSelected(v, admin.id)}
-            key={admin.id || i}
-          />
-        ))
+            <UserStRow
+              user={admin}
+              callback={(v) => changeSelected(v, admin.id)}
+              key={admin.id || i}
+            />
+          ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
     </>
   );
@@ -526,7 +532,7 @@ function GroupPlatoons(props: {
       if (request == "acceptApplicant") {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries({
-          queryKey: ["platoonDetails" + gid + platoonid]
+          queryKey: ["platoonDetails" + gid + platoonid],
         });
         queryClient.setQueryData(
           ["platoonDetails" + gid + platoonid],
@@ -539,7 +545,7 @@ function GroupPlatoons(props: {
       if (request == "kickMember") {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries({
-          queryKey: ["platoonDetails" + gid + platoonid]
+          queryKey: ["platoonDetails" + gid + platoonid],
         });
         queryClient.setQueryData(
           ["platoonDetails" + gid + platoonid],
@@ -555,9 +561,7 @@ function GroupPlatoons(props: {
       if (["acceptApplicant", "rejectApplicant"].includes(request)) {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries({
-          queryKey: [
-            "platoonApplicants" + gid + platoonid,
-          ]
+          queryKey: ["platoonApplicants" + gid + platoonid],
         });
         queryClient.setQueryData(
           ["platoonApplicants" + gid + platoonid],
@@ -593,21 +597,15 @@ function GroupPlatoons(props: {
     onSettled: (_data, _error, _variables, context) => {
       if (["acceptApplicant", "kickMember"].includes(context.request)) {
         queryClient.invalidateQueries({
-          queryKey: [
-            "platoonDetails" + context.gid,
-            context.platoonid,
-          ]
+          queryKey: ["platoonDetails" + context.gid, context.platoonid],
         });
       }
       if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
         queryClient.invalidateQueries({
-          queryKey: [
-            "platoonApplicants" + context.gid,
-            context.platoonid,
-          ]
+          queryKey: ["platoonApplicants" + context.gid, context.platoonid],
         });
       }
-    }
+    },
   });
 
   const [applicants, setApplicants] = React.useState([]);
@@ -635,7 +633,7 @@ function GroupPlatoons(props: {
         lang: getLanguage(),
       }),
 
-    staleTime: 30000
+    staleTime: 30000,
   });
 
   return (
@@ -670,18 +668,18 @@ function GroupPlatoons(props: {
                       setApplicants((b) =>
                         !v
                           ? b.filter(
-                            (item) =>
-                              item?.playerId !== member.id &&
-                              item?.platoonId != platoonId,
-                          )
+                              (item) =>
+                                item?.playerId !== member.id &&
+                                item?.platoonId != platoonId,
+                            )
                           : [
-                            ...b,
-                            {
-                              playerId: member.id,
-                              platoonId: platoonId,
-                              memberInfo: member,
-                            },
-                          ],
+                              ...b,
+                              {
+                                playerId: member.id,
+                                platoonId: platoonId,
+                                memberInfo: member,
+                              },
+                            ],
                       )
                     }
                     key={index}
@@ -759,9 +757,8 @@ function GroupPlatoons(props: {
                   }),
                 )
                 .flat()
-                .filter(
-                  (p) =>
-                    p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
+                .filter((p) =>
+                  p?.name?.toLowerCase().includes(memberSearch.toLowerCase()),
                 )
                 .sort(DynamicSort("name"))
                 .map((player, memberIndex) => {
@@ -772,18 +769,18 @@ function GroupPlatoons(props: {
                         setMembers((b) =>
                           !v
                             ? b.filter(
-                              (item) =>
-                                item?.playerId !== player.id &&
-                                item?.platoonId != player.platoonId,
-                            )
+                                (item) =>
+                                  item?.playerId !== player.id &&
+                                  item?.platoonId != player.platoonId,
+                              )
                             : [
-                              ...b,
-                              {
-                                playerId: player.id,
-                                platoonId: player.platoonId,
-                                memberInfo: player,
-                              },
-                            ],
+                                ...b,
+                                {
+                                  playerId: player.id,
+                                  platoonId: player.platoonId,
+                                  memberInfo: player,
+                                },
+                              ],
                         )
                       }
                     >
@@ -856,7 +853,8 @@ function PlatoonList(props: {
     hasRights = props.group.isOwner || props.user.auth.isDeveloper;
 
   const removePlatoons = useMutation({
-    mutationFn: // {
+    // {
+    mutationFn:
       //   // When mutate is called:
       //   onMutate: async ({ gid, platoonIds }) => {
       //     // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -887,7 +885,7 @@ function PlatoonList(props: {
       //   },
       // },
       (variables: { gid: string; platoonIds: string[] }) =>
-        OperationsApi.removeGroupPlatoons(variables)
+        OperationsApi.removeGroupPlatoons(variables),
   });
 
   return (
@@ -960,8 +958,9 @@ function PlatoonApplicants(props: {
     data: applicants,
   } = useQuery({
     queryKey: ["platoonApplicants" + group.id + platoonId],
-    queryFn: () => GametoolsApi.platoonApplicants({ groupId: group.id, platoonId }),
-    staleTime: 30000
+    queryFn: () =>
+      GametoolsApi.platoonApplicants({ groupId: group.id, platoonId }),
+    staleTime: 30000,
   });
   const { t } = useTranslation();
 
@@ -969,9 +968,8 @@ function PlatoonApplicants(props: {
     return (
       <>
         {applicants?.result
-          ?.filter(
-            (p) =>
-              p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
+          ?.filter((p) =>
+            p?.name?.toLowerCase().includes(applicantSearch.toLowerCase()),
           )
           .map((key: IPlatoonApplicant, index: number) => {
             return (
@@ -1023,14 +1021,14 @@ function Seeding(props: {
   }: UseQueryResult<ISeederInfo, { code: number; message: string }> = useQuery({
     queryKey: ["seeding" + props.gid + game],
     queryFn: () => OperationsApi.getSeeding(props.gid, game),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const {
     data: seeders,
   }: UseQueryResult<ISeederList, { code: number; message: string }> = useQuery({
     queryKey: ["seeders" + props.gid + game],
     queryFn: () => OperationsApi.getSeeders(props.gid, game),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const {
     data: serverAliasNames,
@@ -1038,7 +1036,7 @@ function Seeding(props: {
     useQuery({
       queryKey: ["serveraliasname" + props.gid + game],
       queryFn: () => OperationsApi.getServerAliases(props.gid, game),
-      staleTime: 30000
+      staleTime: 30000,
     });
   const queryClient = useQueryClient();
   const fakeListing = [1, 1, 1];
@@ -1136,7 +1134,7 @@ function Seeding(props: {
     }
     setTimeout(() => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid + game]
+        queryKey: ["seeding" + props.gid + game],
       });
     }, timeout);
   };
@@ -1150,7 +1148,7 @@ function Seeding(props: {
     setSelected(undefined);
     setTimeout(() => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + props.gid]
+        queryKey: ["groupId" + props.gid],
       });
     }, 150);
   };
@@ -1164,7 +1162,7 @@ function Seeding(props: {
     setSelected(undefined);
     setTimeout(() => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + props.gid]
+        queryKey: ["groupId" + props.gid],
       });
     }, 150);
   };
@@ -1184,7 +1182,7 @@ function Seeding(props: {
     setSelected(undefined);
     setTimeout(() => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid]
+        queryKey: ["seeding" + props.gid],
       });
     }, 1000);
   };
@@ -1373,25 +1371,25 @@ function Seeding(props: {
       </ButtonRow>
       {props.group
         ? serverList.map((server: IGroupServer, i: number) => (
-          <SeederStRow
-            server={server}
-            selected={selected === i}
-            callback={() => changeSelected(i, undefined)}
-            key={server.id || i}
-          />
-        ))
+            <SeederStRow
+              server={server}
+              selected={selected === i}
+              callback={() => changeSelected(i, undefined)}
+              key={server.id || i}
+            />
+          ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <h2 style={{ marginTop: "6px" }}>{t("group.seeding.other.main")}</h2>
       {props.group
         ? seederServerList.map((server: ISeederServer, i: number) => (
-          <SeederStCustomRow
-            server={server}
-            selected={selected === i + 900}
-            onClick={removeSeederServer}
-            callback={() => changeSelected(i + 900, server.name)}
-            key={i + 900}
-          />
-        ))
+            <SeederStCustomRow
+              server={server}
+              selected={selected === i + 900}
+              onClick={removeSeederServer}
+              callback={() => changeSelected(i + 900, server.name)}
+              key={i + 900}
+            />
+          ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <SeederStCustom
         selected={selected === 90}
@@ -1440,11 +1438,11 @@ function Seeding(props: {
       <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         {seeders && seedingInfo && props.group
           ? seeders.seeders.map((seeder: ISeeder, i: number) => (
-            <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
-          ))
+              <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
+            ))
           : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
-            <EmptyRow key={i} />
-          ))}
+              <EmptyRow key={i} />
+            ))}
       </div>
       {serverAliasNames && (
         <>
@@ -1492,7 +1490,7 @@ function GroupOwners(props: {
     queryKey: ["groupUsers" + props.group?.id],
     queryFn: () => OperationsApi.getUsers(props.group?.id),
     staleTime: Infinity,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
   let hasRights = false;
@@ -1559,12 +1557,12 @@ function GroupOwners(props: {
       </ButtonRow>
       {ownerList
         ? ownerList.map((owner: IGroupUser, i: number) => (
-          <UserStRow
-            user={owner}
-            callback={(v) => changeSelected(v, owner.id)}
-            key={owner.id || i}
-          />
-        ))
+            <UserStRow
+              user={owner}
+              callback={(v) => changeSelected(v, owner.id)}
+              key={owner.id || i}
+            />
+          ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
     </>
   );
@@ -1752,9 +1750,9 @@ function GroupDiscordSettings(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + props.gid]
+        queryKey: ["groupId" + props.gid],
       });
-    }
+    },
   });
 
   return (
@@ -1805,9 +1803,9 @@ function GroupDiscordSettings(props: {
         </p>
       </Row>
       {props.group &&
-        (serverId !== props.group.discordGroupId ||
-          modId !== props.group.discordModRoleId ||
-          adminId !== props.group.discordAdminRoleId) ? (
+      (serverId !== props.group.discordGroupId ||
+        modId !== props.group.discordModRoleId ||
+        adminId !== props.group.discordAdminRoleId) ? (
         <ButtonRow>
           <Button
             name={t("apply")}
@@ -1901,9 +1899,9 @@ function GroupSettings(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + props.gid]
+        queryKey: ["groupId" + props.gid],
       });
-    }
+    },
   });
 
   const getGroupValue = (key: string) => {
@@ -2022,16 +2020,18 @@ function GroupStatus(props: {
     queryKey: ["groupStats" + groupId],
     queryFn: () => OperationsApi.getStats(groupId),
     staleTime: Infinity,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
   const {
     data: serverStats,
-  }: UseQueryResult<IServerStats, { code: number; message: string }> = useQuery({
-    queryKey: ["serverStats" + serverId],
-    queryFn: () => OperationsApi.getServerStats(serverId),
-    staleTime: Infinity,
-    refetchOnWindowFocus: false
-  });
+  }: UseQueryResult<IServerStats, { code: number; message: string }> = useQuery(
+    {
+      queryKey: ["serverStats" + serverId],
+      queryFn: () => OperationsApi.getServerStats(serverId),
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+    },
+  );
 
   return (
     <div ref={statusRef}>
@@ -2209,9 +2209,9 @@ function GroupDangerZone(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + props.gid]
+        queryKey: ["groupId" + props.gid],
       });
-    }
+    },
   });
 
   return (
@@ -2287,7 +2287,7 @@ export function AddGroupOwner(props: {
     onMutate: async ({ gid, uid, nickname }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupUsers" + gid]
+        queryKey: ["groupUsers" + gid],
       });
       // Snapshot the previous value
       const previousGroup = queryClient.getQueryData(["groupId" + gid]);
@@ -2314,9 +2314,9 @@ export function AddGroupOwner(props: {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupUsers" + context.gid]
+        queryKey: ["groupUsers" + context.gid],
       });
-    }
+    },
   });
 
   const updateState = (values: { nickname?: string; uid?: string }) => {
@@ -2377,7 +2377,7 @@ export function AddGroupAdmin(props: { gid: string }): React.ReactElement {
     onMutate: async ({ gid, uid, nickname }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupUsers" + gid]
+        queryKey: ["groupUsers" + gid],
       });
       // Snapshot the previous value
       const previousGroup = queryClient.getQueryData(["groupId" + gid]);
@@ -2403,9 +2403,9 @@ export function AddGroupAdmin(props: { gid: string }): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupUsers" + context.gid]
+        queryKey: ["groupUsers" + context.gid],
       });
-    }
+    },
   });
 
   const updateState = (values: { nickname?: string; uid?: string }) => {
@@ -2483,7 +2483,7 @@ export function AddGroup(): React.ReactElement {
     onMutate: async () => {
       setApplyStatus(true);
       await queryClient.cancelQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
 
       return {};
@@ -2515,9 +2515,9 @@ export function AddGroup(): React.ReactElement {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
-    }
+    },
   });
 
   const checkInputVariables = (newVariables: {
@@ -2649,7 +2649,7 @@ export function DeleteGroup(): React.ReactElement {
   }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
     queryKey: ["groupId" + thisGid],
     queryFn: () => OperationsApi.getGroup(thisGid),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
@@ -2667,7 +2667,7 @@ export function DeleteGroup(): React.ReactElement {
     onMutate: async ({ gid }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
       // Snapshot the previous value
       const previousGroups = queryClient.getQueryData(["user"]);
@@ -2692,9 +2692,9 @@ export function DeleteGroup(): React.ReactElement {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
-    }
+    },
   });
 
   return (
@@ -2753,7 +2753,7 @@ export function AddGroupServer(): React.ReactElement {
   }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
     queryKey: ["groupId" + gid],
     queryFn: () => OperationsApi.getGroup(gid),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
@@ -2772,7 +2772,7 @@ export function AddGroupServer(): React.ReactElement {
     onMutate: async ({ gid, name, game }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupId" + gid]
+        queryKey: ["groupId" + gid],
       });
       // Snapshot the previous value
       const previousGroup = queryClient.getQueryData(["groupId" + gid]);
@@ -2803,9 +2803,9 @@ export function AddGroupServer(): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + context.gid]
+        queryKey: ["groupId" + context.gid],
       });
-    }
+    },
   });
 
   const isDisabled =
@@ -2942,7 +2942,7 @@ export function AddGroupPlatoon(): React.ReactElement {
   }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
     queryKey: ["groupId" + gid],
     queryFn: () => OperationsApi.getGroup(gid),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
@@ -2959,7 +2959,7 @@ export function AddGroupPlatoon(): React.ReactElement {
     onMutate: async ({ gid, platoonIds }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupId" + gid]
+        queryKey: ["groupId" + gid],
       });
       // Snapshot the previous value
       const previousGroup = queryClient.getQueryData(["groupId" + gid]);
@@ -2983,9 +2983,9 @@ export function AddGroupPlatoon(): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + context.gid]
+        queryKey: ["groupId" + context.gid],
       });
-    }
+    },
   });
 
   const {
@@ -3000,7 +3000,7 @@ export function AddGroupPlatoon(): React.ReactElement {
         name: searchTerm,
         platform: "pc",
         lang: getLanguage(),
-      })
+      }),
   });
 
   const isDisabled =
@@ -3173,7 +3173,7 @@ export function MakeOps(): React.ReactElement {
   }: UseQueryResult<IGroupsInfo, { code: number; message: string }> = useQuery({
     queryKey: ["groupId" + gid],
     queryFn: () => OperationsApi.getGroup(gid),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
 
@@ -3219,7 +3219,7 @@ export function MakeOps(): React.ReactElement {
 
     onSettled: async () => {
       undefined;
-    }
+    },
   });
 
   const checkInputVariables = (newVariables: {
@@ -3366,9 +3366,9 @@ export function LeaveServer(props: {
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid]
+        queryKey: ["seeding" + props.gid],
       });
-    }
+    },
   });
 
   return (
@@ -3415,9 +3415,9 @@ export function AddKeepAlive(props: {
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid]
+        queryKey: ["seeding" + props.gid],
       });
-    }
+    },
   });
 
   return (
@@ -3468,9 +3468,9 @@ export function SeederBroadcast(props: {
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid]
+        queryKey: ["seeding" + props.gid],
       });
-    }
+    },
   });
 
   return (
@@ -3513,9 +3513,9 @@ export function UnscheduleSeed(props: {
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid]
+        queryKey: ["seeding" + props.gid],
       });
-    }
+    },
   });
   return (
     <>

@@ -3,7 +3,7 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-  UseQueryResult
+  UseQueryResult,
 } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
@@ -65,12 +65,16 @@ export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
       className={styles.GroupRow}
       to={"/group/" + group.id}
     >
-      <span className={styles.GroupName}>{group.groupName}&nbsp;
-        <span className={styles.GroupInfo}>{t("dev.groupInfo", {
-          totalAdmins: group?.totalAdmins,
-          totalOwners: group?.totalOwners,
-          totalServers: group?.totalServers
-        })}</span></span>
+      <span className={styles.GroupName}>
+        {group.groupName}&nbsp;
+        <span className={styles.GroupInfo}>
+          {t("dev.groupInfo", {
+            totalAdmins: group?.totalAdmins,
+            totalOwners: group?.totalOwners,
+            totalServers: group?.totalServers,
+          })}
+        </span>
+      </span>
 
       {width < 350 ? (
         <span></span>
@@ -107,10 +111,10 @@ export function WorkerStatus(props: {
 export function ServerRow(props: {
   server: IGroupServer;
   button?:
-  | React.ReactElement
-  | boolean
-  | React.ReactFragment
-  | React.ReactPortal;
+    | React.ReactElement
+    | boolean
+    | React.ReactFragment
+    | React.ReactPortal;
 }): React.ReactElement {
   const server = props.server;
   const { t } = useTranslation();
@@ -258,7 +262,7 @@ export function VBanList(props: {
     data: totalCount,
   }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery({
     queryKey: ["getAutoBanCount" + gid],
-    queryFn: () => OperationsApi.getAutoBanCount({ gid })
+    queryFn: () => OperationsApi.getAutoBanCount({ gid }),
   });
 
   const {
@@ -274,7 +278,7 @@ export function VBanList(props: {
     queryFn: ({ pageParam = 0 }) =>
       OperationsApi.getAutoBanList({ gid, pageParam, searchWord, searchItem }),
     getNextPageParam: (lastPage) => lastPage.offset,
-    initialPageParam: 0
+    initialPageParam: 0,
   });
 
   const error = unknownErrorType as { code: number; message: string };
@@ -390,11 +394,11 @@ function GlobalBanRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-            <PlayerStatsModal
-              player={player.playerName}
-              playerId={player.id}
-            />,
-          )
+              <PlayerStatsModal
+                player={player.playerName}
+                playerId={player.id}
+              />,
+            )
           : null
       }
     >
@@ -445,10 +449,12 @@ export function GroupLogs(props: { gid: string }): React.ReactElement {
     isError,
     data: logList,
     error,
-  }: UseQueryResult<ITailUserLog, { code: number; message: string }> = useQuery({
-    queryKey: ["groupogList" + gid + withServers],
-    queryFn: () => OperationsApi.getGroupLogs({ gid, withServers })
-  });
+  }: UseQueryResult<ITailUserLog, { code: number; message: string }> = useQuery(
+    {
+      queryKey: ["groupogList" + gid + withServers],
+      queryFn: () => OperationsApi.getGroupLogs({ gid, withServers }),
+    },
+  );
   const { t } = useTranslation();
 
   if (isError) {
@@ -474,11 +480,11 @@ export function GroupLogs(props: { gid: string }): React.ReactElement {
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         {logList
           ? logList.logs.map((log: ITailUserLogInfo, i: number) => (
-            <LogRow log={log} key={i} />
-          ))
+              <LogRow log={log} key={i} />
+            ))
           : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
-            <EmptyRow key={i} />
-          ))}
+              <EmptyRow key={i} />
+            ))}
       </div>
     </div>
   );
@@ -762,7 +768,7 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
     data: user,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 
   const GlobalBanPlayer = useMutation({
@@ -790,12 +796,12 @@ function VbanBanPlayer(props: { gid: string }): React.ReactElement {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["globalBanList" + gid]
+        queryKey: ["globalBanList" + gid],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getAutoBanCount" + gid]
+        queryKey: ["getAutoBanCount" + gid],
       });
-    }
+    },
   });
 
   const isDisabled =
@@ -890,10 +896,10 @@ function SelectableRow(props: {
   selected: boolean;
   callback: (args0?: string) => void;
   children?:
-  | React.ReactElement
-  | boolean
-  | React.ReactFragment
-  | React.ReactPortal;
+    | React.ReactElement
+    | boolean
+    | React.ReactFragment
+    | React.ReactPortal;
 }): React.ReactElement {
   return (
     <div
@@ -945,7 +951,7 @@ export function SeederStCustom(props: {
         style={{ height: "32px" }}
         name={t("group.seeding.other.add")}
         callback={() => props.onClick(textContent)}
-      // callback={}
+        // callback={}
       />
     </SelectableRow>
   );
@@ -967,7 +973,7 @@ export function SeederStCustomRow(props: {
         style={{ height: "32px" }}
         name={t("group.seeding.other.remove")}
         callback={() => props.onClick(server.name)}
-      // callback={}
+        // callback={}
       />
     </SelectableRow>
   );
@@ -986,7 +992,7 @@ export function SeederRow(props: {
       <span className={styles.seedingRow}>{seeder.seederName}</span>
       {seeder.isRunning ? (
         props.seedingInfo.keepAliveSeeders &&
-          props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined ? (
+        props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined ? (
           <span className={styles.serverBadgeOk}>
             {t("group.seeding.seeders.true")} -{" "}
             {t("group.seeding.status.seedServer", {
@@ -1097,9 +1103,9 @@ export function DelKeepAlive(props: {
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["seeding" + props.gid]
+        queryKey: ["seeding" + props.gid],
       });
-    }
+    },
   });
 
   return (
@@ -1139,7 +1145,7 @@ export function ExclusionList(props: {
     data: totalCount,
   }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery({
     queryKey: ["getExcludedPlayersCount" + gid],
-    queryFn: () => OperationsApi.getExcludedPlayersCount({ gid })
+    queryFn: () => OperationsApi.getExcludedPlayersCount({ gid }),
   });
 
   const {
@@ -1160,7 +1166,7 @@ export function ExclusionList(props: {
         searchItem,
       }),
     getNextPageParam: (lastPage) => lastPage.offset,
-    initialPageParam: 0
+    initialPageParam: 0,
   });
 
   const excludeList = React.useMemo(
@@ -1280,11 +1286,11 @@ function ExclusionListRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-            <PlayerStatsModal
-              player={player.playerName}
-              playerId={player.id}
-            />,
-          )
+              <PlayerStatsModal
+                player={player.playerName}
+                playerId={player.id}
+              />,
+            )
           : null
       }
     >
@@ -1352,7 +1358,7 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
     data: user,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 
   const GlobalExcludePlayer = useMutation({
@@ -1380,12 +1386,12 @@ function ExclusionPlayer(props: { gid: string }): React.ReactElement {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["globalExclusionList" + gid]
+        queryKey: ["globalExclusionList" + gid],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getExcludedPlayersCount" + gid]
+        queryKey: ["getExcludedPlayersCount" + gid],
       });
-    }
+    },
   });
 
   const isDisabled =
@@ -1476,7 +1482,7 @@ export function TrackingList(props: {
     data: totalCount,
   }: UseQueryResult<ITotalCount, { code: number; message: string }> = useQuery({
     queryKey: ["getTrackedPlayersCount" + gid],
-    queryFn: () => OperationsApi.getTrackedPlayersCount({ gid })
+    queryFn: () => OperationsApi.getTrackedPlayersCount({ gid }),
   });
 
   const {
@@ -1497,7 +1503,7 @@ export function TrackingList(props: {
         searchItem,
       }),
     getNextPageParam: (lastPage) => lastPage.offset,
-    initialPageParam: 0
+    initialPageParam: 0,
   });
 
   const excludeList = React.useMemo(
@@ -1510,7 +1516,7 @@ export function TrackingList(props: {
   const { data: currentServer } = useQuery({
     queryKey: ["currentServer" + playerIds],
     queryFn: () => GametoolsApi.currentServer({ playerIds }),
-    staleTime: 30000
+    staleTime: 30000,
   });
 
   const observer = React.useRef<IntersectionObserver>();
@@ -1627,11 +1633,11 @@ function TrackingListRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-            <PlayerStatsModal
-              player={player.playerName}
-              playerId={player.id}
-            />,
-          )
+              <PlayerStatsModal
+                player={player.playerName}
+                playerId={player.id}
+              />,
+            )
           : null
       }
     >
@@ -1691,12 +1697,16 @@ function TrackingPlayer(props: { gid: string }): React.ReactElement {
     data: user,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 
   const GlobalTrackPlayer = useMutation({
-    mutationFn: (v: { name: string; reason: string; gid: string; playerId: string }) =>
-      OperationsApi.globalTrackPlayer(v),
+    mutationFn: (v: {
+      name: string;
+      reason: string;
+      gid: string;
+      playerId: string;
+    }) => OperationsApi.globalTrackPlayer(v),
 
     onError: (
       error: React.SetStateAction<{ code: number; message: string }>,
@@ -1714,12 +1724,12 @@ function TrackingPlayer(props: { gid: string }): React.ReactElement {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["globalTrackingList" + gid]
+        queryKey: ["globalTrackingList" + gid],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getTrackedPlayersCount" + gid]
+        queryKey: ["getTrackedPlayersCount" + gid],
       });
-    }
+    },
   });
 
   const isDisabled =
@@ -1796,7 +1806,7 @@ export function ReasonList(props: {
     error,
   }: UseQueryResult<IReasonList, { code: number; message: string }> = useQuery({
     queryKey: ["globalReasonList" + gid],
-    queryFn: () => OperationsApi.getReasonList({ gid, sid: undefined })
+    queryFn: () => OperationsApi.getReasonList({ gid, sid: undefined }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -1900,7 +1910,7 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
     data: user,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 
   const GlobalAddReason = useMutation({
@@ -1911,7 +1921,7 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
 
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["globalReasonList" + gid]
+        queryKey: ["globalReasonList" + gid],
       });
       // Snapshot the previous value
       const previousReasonlist = queryClient.getQueryData([
@@ -1951,9 +1961,9 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["globalReasonList" + context.gid]
+        queryKey: ["globalReasonList" + context.gid],
       });
-    }
+    },
   });
 
   const isDisabled =

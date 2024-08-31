@@ -26,8 +26,7 @@ export function LogList(props: { sid: string }): React.ReactElement {
   > = useQuery({
     queryKey: ["serverLogList" + sid],
 
-    queryFn: () =>
-      OperationsApi.getServerLogs({ sid })
+    queryFn: () => OperationsApi.getServerLogs({ sid }),
   });
   const [isShown, setIsShown] = React.useState(false);
   const showActionLogs = () => {
@@ -69,11 +68,11 @@ function LogListing(props: { logList: ITailServerLog }): React.ReactElement {
     <div className={styles.logListing}>
       {logList
         ? logList.logs.map((log: ITailServerLogItem, index: number) => (
-          <LogRow log={log} key={index} />
-        ))
+            <LogRow log={log} key={index} />
+          ))
         : Array.from({ length: 8 }, (_, id) => ({ id })).map(
-          (_, index: number) => <EmptyLogRow key={index} />,
-        )}
+            (_, index: number) => <EmptyLogRow key={index} />,
+          )}
     </div>
   );
 }

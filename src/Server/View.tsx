@@ -228,11 +228,12 @@ export function DeleteServer(): React.ReactElement {
   } | ${server?.serverName || t("loading")}`;
 
   const RemoveServerExecute = useMutation({
-    mutationFn: (variables: IServerGet) => OperationsApi.removeServer(variables),
+    mutationFn: (variables: IServerGet) =>
+      OperationsApi.removeServer(variables),
 
     onSuccess: async (variables) => {
       await queryClient.cancelQueries({
-        queryKey: ["groupId" + variables.groupId]
+        queryKey: ["groupId" + variables.groupId],
       });
 
       queryClient.setQueryData(
@@ -251,10 +252,10 @@ export function DeleteServer(): React.ReactElement {
     // Always refetch after error or success:
     onSettled: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + data.groupId]
+        queryKey: ["groupId" + data.groupId],
       });
       history(`/group/${data.groupId}`);
-    }
+    },
   });
 
   return (
@@ -400,9 +401,9 @@ function ServerAutomation(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["server" + props.sid]
+        queryKey: ["server" + props.sid],
       });
-    }
+    },
   });
 
   const getServerValue = (key: string) => {
@@ -614,8 +615,8 @@ function ServerAutomation(props: {
       {externalScriptState === "loading"
         ? t("loading")
         : externalScriptState === "error"
-        ? t("externalScriptError")
-        : ""}
+          ? t("externalScriptError")
+          : ""}
       {externalScriptState === "ready" && (
         <>
           <ButtonRow>

@@ -98,10 +98,10 @@ export function ButtonLink(props: {
 
 export function ButtonRow(props: {
   children?:
-  | React.ReactElement
-  | boolean
-  | React.ReactFragment
-  | React.ReactPortal;
+    | React.ReactElement
+    | boolean
+    | React.ReactFragment
+    | React.ReactPortal;
   style?: React.CSSProperties;
 }): React.ReactElement {
   return <div className={styles.buttonRow}>{props.children}</div>;
@@ -491,7 +491,8 @@ export function ReasonDropdownButton(props: {
     data: reasonList,
   }: UseQueryResult<IReasonList, { code: number; message: string }> = useQuery({
     queryKey: ["globalReasonList" + props.gid + props.sid],
-    queryFn: () => OperationsApi.getReasonList({ gid: props.gid, sid: props.sid })
+    queryFn: () =>
+      OperationsApi.getReasonList({ gid: props.gid, sid: props.sid }),
   });
   const options = [];
   if (reasonList) {

@@ -1,7 +1,6 @@
 // shared config (dev and prod)
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { resolve } = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -40,9 +39,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      "React": "react",
-   }),
     new HtmlWebpackPlugin({
       template: "index.html.ejs",
       favicon: "../src/public/favicon.ico",

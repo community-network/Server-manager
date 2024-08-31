@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import * as styles from "./Styles.module.css";
@@ -53,7 +58,7 @@ export function IngameSettings(props: {
   }: UseQueryResult<ICookieList, { code: number; message: string }> = useQuery({
     queryKey: ["cookieInfo" + sid],
     queryFn: () => OperationsApi.getCookieList({ sid }),
-    staleTime: 30000
+    staleTime: 30000,
   });
   const cookies = cookieInfo?.data?.length > 0 ? cookieInfo?.data : null;
 
@@ -84,14 +89,15 @@ export function IngameSettings(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["servers" + sid]
+        queryKey: ["servers" + sid],
       });
-    }
+    },
   });
 
   const editServerSettings = useMutation({
-    mutationFn: (variables: { rotations: { [string: string]: IMapRotation[] } }) =>
-      OperationsApi.editServer({ value: variables, sid: props.sid }),
+    mutationFn: (variables: {
+      rotations: { [string: string]: IMapRotation[] };
+    }) => OperationsApi.editServer({ value: variables, sid: props.sid }),
 
     onMutate: async () => {
       setApplyStatus(true);
@@ -108,9 +114,9 @@ export function IngameSettings(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["server" + props.sid]
+        queryKey: ["server" + props.sid],
       });
-    }
+    },
   });
 
   // set initial
@@ -456,7 +462,7 @@ export function ServerSettings(props: {
   }: UseQueryResult<ICookieList, { code: number; message: string }> = useQuery({
     queryKey: ["cookieInfo" + sid],
     queryFn: () => OperationsApi.getCookieList({ sid }),
-    staleTime: 30000
+    staleTime: 30000,
   });
   //UseQueryResult<boolean, ICookieList, React.SetStateAction<{ code: number; message: string }>
   const cookies = cookieInfo?.data?.length > 0 ? cookieInfo.data : null;
@@ -553,9 +559,9 @@ export function ServerSettings(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["server" + props.sid]
+        queryKey: ["server" + props.sid],
       });
-    }
+    },
   });
 
   const restartWorker = useMutation({
@@ -579,9 +585,9 @@ export function ServerSettings(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["server" + props.sid]
+        queryKey: ["server" + props.sid],
       });
-    }
+    },
   });
 
   const getServerValue = (key: string) => {

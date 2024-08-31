@@ -65,10 +65,10 @@ export const useModal = () => React.useContext(ModalContext);
 function Modal(props: {
   show?: boolean;
   content?:
-  | React.ReactElement
-  | boolean
-  | React.ReactFragment
-  | React.ReactPortal;
+    | React.ReactElement
+    | boolean
+    | React.ReactFragment
+    | React.ReactPortal;
 }): React.ReactElement {
   const controller = useModal();
 

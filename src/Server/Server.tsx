@@ -119,10 +119,10 @@ export function ServerRotation(props: {
           <SmallText>
             {game
               ? `${game.map.toUpperCase()} - ${t(
-                `gamemodes.${game.mode.toUpperCase()}`,
-              )} - ${game.serverInfo} ${t("server.game.info", {
-                inQue: game.inQue,
-              })}`
+                  `gamemodes.${game.mode.toUpperCase()}`,
+                )} - ${game.serverInfo} ${t("server.game.info", {
+                  inQue: game.inQue,
+                })}`
               : "-"}
           </SmallText>
           {width > 610 && (
@@ -132,11 +132,11 @@ export function ServerRotation(props: {
                 {t("change", { change: update_timestamp })} {t("server.ago")}
                 {server?.game !== "bf2042" &&
                   " - " +
-                  t("man.servers.lastUpdate") +
-                  " " +
-                  t("change", { change: worker_timestamp }) +
-                  " " +
-                  t("server.ago")}
+                    t("man.servers.lastUpdate") +
+                    " " +
+                    t("change", { change: worker_timestamp }) +
+                    " " +
+                    t("server.ago")}
               </span>
             </>
           )}
@@ -255,7 +255,7 @@ function Bf2042ServerManagement(props: { sid: string }): React.ReactElement {
 
     onSettled: async () => {
       undefined;
-    }
+    },
   });
 
   return (
@@ -335,7 +335,7 @@ function BfvServerManagement(props: {
 
     onSettled: async () => {
       undefined;
-    }
+    },
   });
 
   const {
@@ -348,8 +348,7 @@ function BfvServerManagement(props: {
   > = useQuery({
     queryKey: ["bfvplaygrounds" + sid],
 
-    queryFn: () =>
-      OperationsApi.getBfvPlaygrounds({ sid })
+    queryFn: () => OperationsApi.getBfvPlaygrounds({ sid }),
   });
   if (!playgroundList) {
     // TODO: add fake item list on loading
@@ -445,7 +444,7 @@ export function BanList(props: { sid: string }): React.ReactElement {
     error,
   }: UseQueryResult<IBanList, { code: number; message: string }> = useQuery({
     queryKey: ["serverBanList" + sid],
-    queryFn: () => OperationsApi.getBanList({ sid })
+    queryFn: () => OperationsApi.getBanList({ sid }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -563,11 +562,11 @@ function BanRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-            <PlayerStatsModal
-              player={player.displayName}
-              playerId={player.id}
-            />,
-          )
+              <PlayerStatsModal
+                player={player.displayName}
+                playerId={player.id}
+              />,
+            )
           : null
       }
     >
@@ -625,8 +624,7 @@ export function FireStarter(props: { sid: string }): React.ReactElement {
   > = useQuery({
     queryKey: ["serverStarterList" + sid],
 
-    queryFn: () =>
-      OperationsApi.getStarterList({ sid })
+    queryFn: () => OperationsApi.getStarterList({ sid }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -739,8 +737,7 @@ export function PlayTime(props: { sid: string }): React.ReactElement {
   > = useQuery({
     queryKey: ["playTimeList" + sid],
 
-    queryFn: () =>
-      OperationsApi.getPlayTimeList({ sid })
+    queryFn: () => OperationsApi.getPlayTimeList({ sid }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -861,7 +858,7 @@ export function Spectator(props: { sid: string }): React.ReactElement {
     error,
   }: UseQueryResult<any, { code: number; message: string }> = useQuery({
     queryKey: ["serverSpectatorList" + sid],
-    queryFn: () => OperationsApi.getSpectatorList({ sid })
+    queryFn: () => OperationsApi.getSpectatorList({ sid }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -982,7 +979,7 @@ export function Playerlogs(props: { sid: string }): React.ReactElement {
     error,
   }: UseQueryResult<IPlayerLog, { code: number; message: string }> = useQuery({
     queryKey: ["serverPlayerLogList" + date + sid + searchPlayer],
-    queryFn: () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer })
+    queryFn: () => OperationsApi.getPlayerLogList({ sid, date, searchPlayer }),
   });
 
   return (
@@ -1215,7 +1212,7 @@ export function VipList(props: {
     error,
   }: UseQueryResult<IVipList, { code: number; message: string }> = useQuery({
     queryKey: ["serverVipList" + sid],
-    queryFn: () => OperationsApi.getVipList({ sid })
+    queryFn: () => OperationsApi.getVipList({ sid }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");
@@ -1339,11 +1336,11 @@ function VipRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-            <PlayerStatsModal
-              player={player.displayName}
-              playerId={player.id}
-            />,
-          )
+              <PlayerStatsModal
+                player={player.displayName}
+                playerId={player.id}
+              />,
+            )
           : null
       }
     >
@@ -1389,7 +1386,7 @@ export function AdminList(props: { sid: string }): React.ReactElement {
     error,
   }: UseQueryResult<IInfoList, { code: number; message: string }> = useQuery({
     queryKey: ["serverAdminList" + sid],
-    queryFn: () => OperationsApi.getAdminList({ sid })
+    queryFn: () => OperationsApi.getAdminList({ sid }),
   });
 
   const [searchWord, setSearchWord] = React.useState("");

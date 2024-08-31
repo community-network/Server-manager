@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { OperationsApi } from "../api/api";
@@ -16,6 +22,9 @@ import {
 import ChangeLanguage from "../locales/ChangeLanguage";
 import "../locales/config";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let _: React.div;
+
 export default function Account() {
   const { t } = useTranslation();
   document.title = `${t("pageTitle.main")} | ${t("account.main")}`;
@@ -29,7 +38,7 @@ export default function Account() {
     onMutate: async () => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
       // Snapshot the previous value
       const prevUser = queryClient.getQueryData(["user"]);
@@ -59,9 +68,9 @@ export default function Account() {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
-    }
+    },
   });
 
   const {
@@ -70,7 +79,7 @@ export default function Account() {
     isLoading,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 
   if (!userError && !isLoading && !!user) {

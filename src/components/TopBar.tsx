@@ -19,7 +19,7 @@ export function TopBar(props: {
     isLoading,
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
   let accountPage = <></>;
 

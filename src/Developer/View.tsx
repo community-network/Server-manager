@@ -26,7 +26,7 @@ export default function Developer() {
     data,
   }: UseQueryResult<IDevGroups, { code: number; message: string }> = useQuery({
     queryKey: ["devGroups"],
-    queryFn: () => OperationsApi.getDevGroups()
+    queryFn: () => OperationsApi.getDevGroups(),
   });
 
   const groups = [];

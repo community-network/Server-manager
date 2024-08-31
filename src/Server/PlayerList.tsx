@@ -52,7 +52,7 @@ export function PlayerList(props: {
     queryFn: () =>
       GametoolsApi.seederPlayerList({
         gameId: gameId,
-      })
+      }),
   });
   const haveSeederPlayers =
     seederInfo && seederInfo.teams && seederInfo.teams.length > 0;
@@ -387,7 +387,8 @@ export function Player(props: {
           value="jointime"
         >
           {t(
-            `shortTimeItems.${timeItem?.token}.${timeItem?.count > 1 ? "other" : "one"
+            `shortTimeItems.${timeItem?.token}.${
+              timeItem?.count > 1 ? "other" : "one"
             }`,
             { count: timeItem?.count },
           )}

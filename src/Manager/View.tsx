@@ -79,9 +79,9 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["server" + group.id]
+        queryKey: ["server" + group.id],
       });
-    }
+    },
   });
 
   const changeGroupState = (v: { makeOperations: boolean }) => {
@@ -100,7 +100,9 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
     <div className={styles.GroupRow}>
       <div className={styles.GroupHeader}>
         <span className={styles.GroupName}>{group.groupName}</span>
-        <span>{group?.totalAdmins} {t("man.admins.main")} -&nbsp;</span>
+        <span>
+          {group?.totalAdmins} {t("man.admins.main")} -&nbsp;
+        </span>
         {/* {width < 350? <span></span>: */}
         {/* } */}
         <span className={styles.manageDev}>
@@ -112,7 +114,9 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.worker.main")}: {group?.cookieInfo?.length}</th>
+            <th>
+              {t("man.worker.main")}: {group?.cookieInfo?.length}
+            </th>
             <th>{t("man.worker.lastUpdate")}</th>
           </tr>
         </thead>
@@ -127,8 +131,8 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                   <span>
                     {account.lastUpdate !== undefined
                       ? t("dateTime", {
-                        date: new Date(account.lastUpdate),
-                      })
+                          date: new Date(account.lastUpdate),
+                        })
                       : "-"}
                   </span>
                 </td>
@@ -139,7 +143,9 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.owners.main")}: {group?.owners?.length}</th>
+            <th>
+              {t("man.owners.main")}: {group?.owners?.length}
+            </th>
             <th>{t("man.owners.createdAt")}</th>
           </tr>
         </thead>
@@ -167,7 +173,9 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.servers.main")}: {group?.servers?.length}</th>
+            <th>
+              {t("man.servers.main")}: {group?.servers?.length}
+            </th>
             <th>{t("man.servers.game")}</th>
             <th>{t("man.servers.status")}</th>
             <th>{t("man.servers.autoPingKick")}</th>
@@ -227,8 +235,8 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
                   <span>
                     {server.lastUpdate !== undefined
                       ? t("dateTime", {
-                        date: new Date(server.lastUpdate * 1000),
-                      })
+                          date: new Date(server.lastUpdate * 1000),
+                        })
                       : "-"}
                   </span>
                 </td>
@@ -285,7 +293,7 @@ export default function Manager() {
     data,
   }: UseQueryResult<IManGroups, { code: number; message: string }> = useQuery({
     queryKey: ["devGroups"],
-    queryFn: () => OperationsApi.getManGroups()
+    queryFn: () => OperationsApi.getManGroups(),
   });
 
   const groups = [];

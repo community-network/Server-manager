@@ -54,7 +54,7 @@ export function ServerKickPlayer(props: {
     onMutate: async ({ sid, eaid }) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["serverGame" + sid]
+        queryKey: ["serverGame" + sid],
       });
       // Snapshot the previous value
       const previousGroup = queryClient.getQueryData(["serverGame" + sid]);
@@ -98,7 +98,7 @@ export function ServerKickPlayer(props: {
         ["serverGame" + context.sid],
         context.previousGroup,
       );
-    }
+    },
   });
 
   const checkReason = (v: string) =>
@@ -206,7 +206,7 @@ export function ServerBanPlayer(props: {
     onSuccess: () => {
       setBanApplyStatus(null);
       modal.close(null);
-    }
+    },
   });
 
   const GlobalBanPlayer = useMutation({
@@ -233,7 +233,7 @@ export function ServerBanPlayer(props: {
     onSuccess: () => {
       setBanApplyStatus(null);
       modal.close(null);
-    }
+    },
   });
 
   let gid = null;
@@ -390,7 +390,7 @@ export function PlayerStatsModal(props: {
         userName: check.toString(),
         lang: getLanguage(),
         platform: "pc",
-      })
+      }),
   });
   const { t } = useTranslation();
 
@@ -514,7 +514,7 @@ export function ServerUnbanPlayer(props: {
     onSuccess: () => {
       setBanApplyStatus(null);
       modal.close(null);
-    }
+    },
   });
 
   let gid = null;
@@ -632,7 +632,7 @@ export function ServerUnvipPlayer(props: {
     onSuccess: () => {
       setBanApplyStatus(null);
       modal.close(null);
-    }
+    },
   });
 
   let gid = null;

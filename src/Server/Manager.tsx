@@ -1,4 +1,9 @@
-import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OperationsApi } from "../api/api";
@@ -9,7 +14,7 @@ import { OperationsApi } from "../api/api";
 export function useUser() {
   return useQuery({
     queryKey: ["user"],
-    queryFn: () => OperationsApi.user
+    queryFn: () => OperationsApi.user,
   });
 }
 
@@ -19,7 +24,7 @@ export function useUser() {
 export function useServer(sid: string) {
   return useQuery({
     queryKey: ["server" + sid],
-    queryFn: () => OperationsApi.getServer(sid)
+    queryFn: () => OperationsApi.getServer(sid),
   });
 }
 
@@ -30,7 +35,7 @@ export function useGame(sid: string) {
   return useQuery({
     queryKey: ["serverGame" + sid],
     queryFn: () => OperationsApi.getServerGame(sid),
-    refetchInterval: 10000
+    refetchInterval: 10000,
   });
 }
 
@@ -60,7 +65,7 @@ export function useUnban() {
 
     onSettled: (_data, _error, _variables, context) => {
       changeUnbanStatus(context.status);
-    }
+    },
   });
   return [unbanStatus, unbanPlayerMutation];
 }
@@ -75,8 +80,12 @@ export function useRemoveVip() {
     status: false,
   });
   const RemoveVip = useMutation({
-    mutationFn: (v: { sid: string; name: string; reason: string; playerId: string }) =>
-      OperationsApi.removeVip(v),
+    mutationFn: (v: {
+      sid: string;
+      name: string;
+      reason: string;
+      playerId: string;
+    }) => OperationsApi.removeVip(v),
 
     onMutate: async () => {
       changeRemoveVipStatus({ name: "Pending..", status: true });
@@ -85,7 +94,7 @@ export function useRemoveVip() {
 
     onSettled: (_data, _error, _variables, context) => {
       changeRemoveVipStatus(context.status);
-    }
+    },
   });
   return [removeVipStatus, RemoveVip];
 }
@@ -96,11 +105,11 @@ export function useRemoveVip() {
 export function useAddVip(): (
   | { name: string; status: boolean }
   | UseMutationResult<
-    any,
-    unknown,
-    { sid: string; name: string; reason: string },
-    { status: { name: string; status: boolean } }
-  >
+      any,
+      unknown,
+      { sid: string; name: string; reason: string },
+      { status: { name: string; status: boolean } }
+    >
 )[] {
   const { t } = useTranslation();
   const [addVipStatus, changeAddVipStatus] = useState({
@@ -118,7 +127,7 @@ export function useAddVip(): (
 
     onSettled: (_data, _error, _variables, context) => {
       changeAddVipStatus(context.status);
-    }
+    },
   });
   return [addVipStatus, AddVip];
 }
@@ -169,7 +178,7 @@ export function useMovePlayer(): UseMutationResult<
     // Always refetch after error or success:
     onSettled: () => {
       //queryClient.invalidateQueries('groupId' + context.gid)
-    }
+    },
   });
   return movePlayer;
 }

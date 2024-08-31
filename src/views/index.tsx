@@ -17,7 +17,7 @@ export default function ViewHandler() {
   const { t } = useTranslation();
   const redirector =
     isError ||
-      (!isLoading && user && !user.auth.signedIn && location.pathname !== "/")
+    (!isLoading && user && !user.auth.signedIn && location.pathname !== "/")
       ? history("/")
       : null;
   return (
@@ -37,6 +37,6 @@ function useCorruentUserHook(): UseQueryResult<IUserInfo> {
   return useQuery({
     queryKey: ["user"],
     queryFn: () => OperationsApi.user,
-    retry: 0
+    retry: 0,
   });
 }

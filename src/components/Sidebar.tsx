@@ -74,7 +74,7 @@ export function Sidebar(props: {
   }: UseQueryResult<IUserInfo, { code: number; message: string }> = useQuery({
     queryKey: ["user"],
     queryFn: () => OperationsApi.user,
-    retry: 0
+    retry: 0,
   });
 
   let devLink = <></>,

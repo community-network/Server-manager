@@ -80,10 +80,10 @@ export function ChangeAccountModal(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + gid]
+        queryKey: ["groupId" + gid],
       });
       callback(null);
-    }
+    },
   });
 
   const updateGamesAccount = useMutation({
@@ -105,10 +105,10 @@ export function ChangeAccountModal(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + gid]
+        queryKey: ["groupId" + gid],
       });
       callback(null);
-    }
+    },
   });
 
   return (
@@ -235,9 +235,9 @@ export function AddAccountModal(props: {
 
     onSettled: async () => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + gid]
+        queryKey: ["groupId" + gid],
       });
-    }
+    },
   });
 
   return (
@@ -329,9 +329,7 @@ export function GroupGlobalUnbanPlayer(props: {
       reason: string;
     }) => OperationsApi.globalUnbanPlayer(v),
 
-    onError: (
-      err: React.SetStateAction<{ code: number; message: string }>,
-    ) => {
+    onError: (err: React.SetStateAction<{ code: number; message: string }>) => {
       setBanApplyStatus(false);
       setError(err);
       setTimeout(() => setBanApplyStatus(null), 3000);
@@ -345,12 +343,12 @@ export function GroupGlobalUnbanPlayer(props: {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getAutoBanCount" + gid]
+        queryKey: ["getAutoBanCount" + gid],
       });
       queryClient.invalidateQueries({
-        queryKey: ["globalBanList" + gid]
+        queryKey: ["globalBanList" + gid],
       });
-    }
+    },
   });
 
   let perm = null;
@@ -434,13 +432,14 @@ export function GroupRemoveAccount(props: {
   const { isError: userGettingError, data: user } = useUser();
 
   const RemoveAccount = useMutation({
-    mutationFn: (v: { gid: string; id: string }) => OperationsApi.removeCookie(v),
+    mutationFn: (v: { gid: string; id: string }) =>
+      OperationsApi.removeCookie(v),
 
     onMutate: async ({ gid, id }) => {
       setRemoveApplyStatus(true);
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["groupId" + gid]
+        queryKey: ["groupId" + gid],
       });
       // Snapshot the previous value
       const previousGroup = queryClient.getQueryData(["groupId" + gid]);
@@ -477,9 +476,9 @@ export function GroupRemoveAccount(props: {
     // Always refetch after error or success:
     onSettled: (data, error, variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["groupId" + context.gid]
+        queryKey: ["groupId" + context.gid],
       });
-    }
+    },
   });
 
   let perm = null;
@@ -552,9 +551,7 @@ export function GroupRemoveExclusionPlayer(props: {
       reason: string;
     }) => OperationsApi.globalRemoveExcludePlayer(v),
 
-    onError: (
-      err: React.SetStateAction<{ code: number; message: string }>,
-    ) => {
+    onError: (err: React.SetStateAction<{ code: number; message: string }>) => {
       setExcludeApplyStatus(false);
       setError(err);
       setTimeout(() => setExcludeApplyStatus(null), 3000);
@@ -568,12 +565,12 @@ export function GroupRemoveExclusionPlayer(props: {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["globalExclusionList" + gid]
+        queryKey: ["globalExclusionList" + gid],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getExcludedPlayersCount" + gid]
+        queryKey: ["getExcludedPlayersCount" + gid],
       });
-    }
+    },
   });
 
   let perm = null;
@@ -667,9 +664,7 @@ export function GroupRemoveTrackedPlayer(props: {
       reason: string;
     }) => OperationsApi.globalRemoveTrackedPlayer(v),
 
-    onError: (
-      err: React.SetStateAction<{ code: number; message: string }>,
-    ) => {
+    onError: (err: React.SetStateAction<{ code: number; message: string }>) => {
       setExcludeApplyStatus(false);
       setError(err);
       setTimeout(() => setExcludeApplyStatus(null), 3000);
@@ -683,12 +678,12 @@ export function GroupRemoveTrackedPlayer(props: {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["globalTrackingList" + gid]
+        queryKey: ["globalTrackingList" + gid],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getTrackedPlayersCount" + gid]
+        queryKey: ["getTrackedPlayersCount" + gid],
       });
-    }
+    },
   });
 
   let perm = null;
@@ -773,14 +768,15 @@ export function GroupRemoveReason(props: {
   const { isError: userGettingError, data: user } = useUser();
 
   const RemoveReason = useMutation({
-    mutationFn: (v: { gid: string; reasonId: string }) => OperationsApi.delReason(v),
+    mutationFn: (v: { gid: string; reasonId: string }) =>
+      OperationsApi.delReason(v),
 
     onMutate: async ({ gid, reasonId }) => {
       setReasonApplyStatus(true);
 
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({
-        queryKey: ["globalReasonList" + gid]
+        queryKey: ["globalReasonList" + gid],
       });
       // Snapshot the previous value
       const previousReasonlist = queryClient.getQueryData([
@@ -822,9 +818,9 @@ export function GroupRemoveReason(props: {
     // Always refetch after error or success:
     onSettled: (data, error, variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["globalReasonList" + context.gid]
+        queryKey: ["globalReasonList" + context.gid],
       });
-    }
+    },
   });
 
   let perm = null;

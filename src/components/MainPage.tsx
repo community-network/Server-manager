@@ -38,7 +38,7 @@ export function MainPageComponent(): React.ReactElement {
     data: stats,
   } = useQuery({
     queryKey: ["managerStats"],
-    queryFn: () => GametoolsApi.managerStats()
+    queryFn: () => GametoolsApi.managerStats(),
   });
   return (
     <div className={styles.MainPage}>
