@@ -167,7 +167,7 @@ export function GroupRow(props: { group: IManGroup }): React.ReactElement {
       <table className={styles.ManagementTable}>
         <thead>
           <tr className={styles.tableHeaders}>
-            <th>{t("man.servers.main")}: {group.servers.length}</th>
+            <th>{t("man.servers.main")}: {group?.servers?.length}</th>
             <th>{t("man.servers.game")}</th>
             <th>{t("man.servers.status")}</th>
             <th>{t("man.servers.autoPingKick")}</th>
