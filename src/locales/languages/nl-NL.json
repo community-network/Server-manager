@@ -238,7 +238,8 @@
     "main": "Developer opties",
     "listGroups": "Lijst van groepen",
     "addGroup": "Groep toevoegen",
-    "manage": "Group beheren"
+    "manage": "Group beheren",
+    "groupInfo": "{{totalOwners}}/{{totalAdmins}} eigenaren, {{totalServers}} servers"
   },
   "man": {
     "main": "Management opties",
@@ -250,6 +251,9 @@
     "owners": {
       "main": "Eigenaren",
       "createdAt": "Gebruiker gemaakt op"
+    },
+    "admins": {
+      "main": "Beheerders"
     },
     "servers": {
       "main": "Servers",
