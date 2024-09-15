@@ -1,11 +1,17 @@
 {
-  
-    "jsc": {
-      "parser": {
-        "syntax": "typescript",
-        "tsx": true,
-        "dynamicImport": true
-      },
-      "target": "es5"
-    }
+  "minify": true,
+  "jsc": {
+    "minify": {
+      "compress": true
+    },
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "dynamicImport": true
+    },
+    "externalHelpers": true
+  },
+  "env": {
+    "targets": "defaults"
   }
+}
