@@ -33,7 +33,7 @@ module.exports = merge(commonConfig, {
       new CssMinimizerPlugin({
         minify: CssMinimizerPlugin.lightningCssMinify,
         minimizerOptions: {
-          targets: lightningcss.browserslistToTargets(browserslist('>= 0.25%'))
+          targets: lightningcss.browserslistToTargets(browserslist('defaults'))
         },
       }),
     ],
