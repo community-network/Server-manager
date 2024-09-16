@@ -209,6 +209,31 @@ export interface ISeederServerInfo {
   update_timestamp: number;
 }
 
+export interface IBfbanPlayers {
+  personaId?: string;
+  url: string;
+  status: number;
+  hacker: boolean;
+  originId: string;
+  originPersonaId: string;
+  originUserId: string;
+  cheatMethods: string;
+}
+
+export interface IManagerPlayers {
+  vban: {
+    [name: string]: { [name: string]: { bannedUntil: string; reason: string } };
+  };
+  otherNames: {
+    [name: string]: {
+      updateTimestamp: string;
+      usedNames: string[];
+    };
+  };
+  bfban: { [name: string]: IBfbanPlayers };
+  bfeac: number[];
+}
+
 export interface IPlatoonApplicant {
   id: string;
   oid: string;

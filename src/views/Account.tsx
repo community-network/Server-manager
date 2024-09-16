@@ -7,6 +7,7 @@ import {
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { AdSwitch } from "../Ads";
 import { OperationsApi } from "../api/api";
 import { IUserInfo } from "../api/ReturnTypes";
 import {
@@ -122,6 +123,7 @@ export default function Account() {
               href="https://explore.transifex.com/gametools/"
               name={t("translation.help")}
             />
+            <AdSwitch />
           </ButtonRow>
         </Card>
       </Column>

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { IUserInfo } from "../api/ReturnTypes";
 import { OperationsApi } from "../api/api";
+import { useExternalScript } from "../components/Functions";
 
 // Pages
 const Main = React.lazy(() => import("./Main"));
@@ -20,6 +21,11 @@ export default function ViewHandler() {
     (!isLoading && user && !user.auth.signedIn && location.pathname !== "/")
       ? history("/")
       : null;
+
+  const externalScript =
+    "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6546858755151450";
+  useExternalScript(externalScript, true);
+
   return (
     <React.Suspense fallback={<div>{t("loading")}</div>}>
       <Routes>

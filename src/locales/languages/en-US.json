@@ -20,6 +20,21 @@
     "enabled": "enabled",
     "disabled": "disabled"
   },
+  "ads": {
+    "main": "Ad",
+    "enabled": "Ads enabled",
+    "disabled": "Ads disabled"
+  },
+  "checkban": {
+    "warn": {
+      "nameChange": "Warning, has {{ amount }} namechanges!",
+      "vban": "Warning, has {{ amount }} vbans!"
+    },
+    "hacker": {
+      "bfban": "Is marked as hacker on BFBan",
+      "bfeac": "Is marked as hacker on BFEAC"
+    }
+  },
   "execute": "execute",
   "translation": {
     "help": "Help with translation"

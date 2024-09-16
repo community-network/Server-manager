@@ -1,13 +1,14 @@
-import JsonClient from "./JsonApi";
 import {
-  IPlatoonStats,
-  IPlatoonSearchResult,
-  IMainStats,
-  IManagerStats,
-  ISeederServerInfo,
-  IPlatoonApplicants,
   ICurrentServer,
+  IMainStats,
+  IManagerPlayers,
+  IManagerStats,
+  IPlatoonApplicants,
+  IPlatoonSearchResult,
+  IPlatoonStats,
+  ISeederServerInfo,
 } from "./GametoolsReturnTypes";
+import JsonClient from "./JsonApi";
 
 interface IPlatoonSearch {
   name: string;
@@ -17,6 +18,10 @@ interface IPlatoonSearch {
 
 interface IServerPlayerlist {
   gameId: string;
+}
+
+interface IManagerPlayersInfo {
+  playerIds: number[];
 }
 
 interface IPlayerInfo {
@@ -143,6 +148,17 @@ export class ApiProvider extends JsonClient {
     } else {
       return null;
     }
+  }
+
+  async managerCheckPlayers({
+    playerIds,
+  }: IManagerPlayersInfo): Promise<IManagerPlayers> {
+    if (playerIds?.length <= 0) {
+      return { vban: {}, otherNames: {}, bfban: {}, bfeac: [] };
+    }
+    return await fetch(
+      `https://api.gametools.network/manager/checkbans/?personaids=${playerIds.toString()}`,
+    ).then((r) => r.json());
   }
 }
 

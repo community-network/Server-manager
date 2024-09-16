@@ -1,29 +1,28 @@
 import * as React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { PageContainer, PageColumn } from "../components";
-import { Sidebar, TopBar } from "../components";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { PageColumn, PageContainer, Sidebar, TopBar } from "../components";
 import { StatusBotInfo } from "./StatusBotInfo";
 
 // Pages
+import Developer from "../Developer/View";
+import {
+  AddGroup,
+  AddGroupAdmin,
+  AddGroupOwner,
+  AddGroupPlatoon,
+  AddGroupServer,
+  DeleteGroup,
+  EditGroup,
+  Group,
+  MakeOps,
+} from "../Group/View";
+import Manager from "../Manager/View";
+import StatusOnlyServer from "../Server/StatusOnly";
+import { DeleteServer, Server } from "../Server/View";
+import Account from "./Account";
 import CookieInfo from "./CookieInfo";
 import WebSocketTest from "./WebSocketTest";
-import Account from "./Account";
-import Developer from "../Developer/View";
-import Manager from "../Manager/View";
-import { Server, DeleteServer } from "../Server/View";
-import StatusOnlyServer from "../Server/StatusOnly";
-import {
-  Group,
-  AddGroupOwner,
-  EditGroup,
-  AddGroupAdmin,
-  AddGroup,
-  DeleteGroup,
-  AddGroupServer,
-  MakeOps,
-  AddGroupPlatoon,
-} from "../Group/View";
 
 export default function PageLayout(): React.ReactElement {
   let defaultSidebarVisible: boolean | string =
@@ -48,6 +47,7 @@ export default function PageLayout(): React.ReactElement {
     localStorage.setItem("isSideBarVisible", isVisible ? "1" : "0");
     hideSidebar(isVisible);
   };
+
   return (
     <>
       <TopBar hideSidebar={setHideSidebar} />

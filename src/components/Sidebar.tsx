@@ -2,6 +2,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, To } from "react-router-dom";
+import AdsComponent, { AdsEnabled } from "../Ads";
 import { OperationsApi } from "../api/api";
 import { IUserInfo } from "../api/ReturnTypes";
 import "../locales/config";
@@ -181,6 +182,17 @@ export function Sidebar(props: {
         {devLink}
         {manLink}
         <div className={styles.GroupLinks}>{groupLinks}</div>
+        {AdsEnabled() && (
+          <div className={styles.adSection}>
+            <h4 className="adv-label" style={{ marginBottom: ".8rem" }}>
+              {t("ads.main")}
+            </h4>
+            <AdsComponent
+              dataAdSlot="8911547346"
+              style={{ display: "block", height: "200px" }}
+            />
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -1,4 +1,3 @@
-
 .PageLink, .PageButton {
     display: flex;
     flex-direction: row;
@@ -7,10 +6,10 @@
     align-content: center;
 }
 
-.PageLink > a, .PageButton > span {
+.PageLink>a, .PageButton>span {
     text-decoration: none;
     display: flex;
-    color: var( --color-text);
+    color: var(--color-text);
     font-size: 14px;
     font-weight: 600;
     padding: 14px 24px;
@@ -22,11 +21,12 @@
 }
 
 
-.PageLink > a:hover {
+.PageLink>a:hover {
     background-color: var(--color-container);
 }
-.PageLink > .PageLinkActive, .PageLink > .PageLinkActive:hover {
-    background: var( --color-container-v2);
+
+.PageLink>.PageLinkActive, .PageLink>.PageLinkActive:hover {
+    background: var(--color-container-v2);
     color: var(--color-text-high);
 }
 
@@ -41,7 +41,7 @@
     box-sizing: border-box;
     position: relative;
     flex-shrink: 0;
-    background: var( --color-container-v4);
+    background: var(--color-container-v4);
 }
 
 .HiddenSidebar {
@@ -53,6 +53,7 @@
         position: fixed;
         width: 100%;
     }
+
     .HiddenSidebar {
         margin-left: -100%;
     }
@@ -73,10 +74,14 @@
     align-self: center;
 }
 
-.PageLink > a > span {
+.PageLink>a>span {
     flex-grow: 2;
 }
 
-.GroupLinks {
-    
+.GroupLinks {}
+
+
+.adSection {
+    margin: 0 8.33%;
+    margin-bottom: 1.5rem;
 }

@@ -12,27 +12,33 @@ import * as styles from "./PlayerList.module.css";
 
 import { useQuery } from "@tanstack/react-query";
 import { GametoolsApi } from "../api/GametoolsApi";
-import { ISeederServerPlayer } from "../api/GametoolsReturnTypes";
+import {
+  IManagerPlayers,
+  ISeederServerPlayer,
+} from "../api/GametoolsReturnTypes";
 import {
   IInGameServerInfo,
   IServerInfo,
   IServerPlayer,
+  IServerTeam,
 } from "../api/ReturnTypes";
 import { useMovePlayer } from "./Manager";
 import { PlayerStatsModal, ServerBanPlayer, ServerKickPlayer } from "./Modals";
 
-export function PlayerList(props: {
-  game: IInGameServerInfo;
-  server: IServerInfo;
-  sid: string;
-}) {
+export function PlayerList(
+  props: Readonly<{
+    game: IInGameServerInfo;
+    server: IServerInfo;
+    sid: string;
+  }>,
+) {
   const { game, server, sid } = props;
   const { t } = useTranslation();
 
   const haveGame = !!game;
   const haveServer = !!server;
-  const teams = haveGame ? game.data[0].players : false;
-  const spectators = haveGame ? game.data[0].spectators : false;
+  const teams = haveGame ? game.data[0].players : [];
+  const spectators = haveGame ? game.data[0].spectators : [];
   const gameName = haveServer ? server.game : false;
 
   let factions: IFactions = bf1Factions;
@@ -41,7 +47,7 @@ export function PlayerList(props: {
   }
 
   const havePlayers =
-    teams &&
+    teams?.length > 0 &&
     !("error" in teams[0]) &&
     (teams[0].players !== undefined || teams[1].players !== undefined);
 
@@ -54,6 +60,30 @@ export function PlayerList(props: {
         gameId: gameId,
       }),
   });
+
+  let playerIds: number[] = [];
+  if (teams?.length > 0) {
+    teams.forEach((teamInfo: IServerTeam) => {
+      playerIds = playerIds.concat(
+        teamInfo.players.map((player) => {
+          return player?.playerId;
+        }),
+      );
+    });
+  }
+
+  const {
+    isLoading: checkBanLoading,
+    isError: checkBanError,
+    data: checkBanInfo,
+  } = useQuery({
+    queryKey: ["managerCheckPlayers" + playerIds],
+    queryFn: () =>
+      GametoolsApi.managerCheckPlayers({
+        playerIds: playerIds,
+      }),
+  });
+
   const haveSeederPlayers =
     seederInfo && seederInfo.teams && seederInfo.teams.length > 0;
   let seederPlayers: Map<number, ISeederServerPlayer> = new Map<
@@ -125,93 +155,80 @@ export function PlayerList(props: {
     }
   };
 
-  const team1 = !haveGame ? (
-    <LoadingListPlayerGroup amount={16} />
-  ) : !havePlayers ? (
-    <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage>
-  ) : teams[0].players.length === 0 ? (
-    <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage>
-  ) : (
-    <ListPlayerGroup
-      seederPlayers={seederPlayers}
-      gameName={gameName}
-      players={teams[0].players}
-      team="0"
-      sid={sid}
-    />
-  );
+  const TeamInfo = (
+    fakePlayerCount: number,
+    teamId: string,
+    players: IServerPlayer[],
+  ) => {
+    if (!haveGame) {
+      return <LoadingListPlayerGroup amount={fakePlayerCount} />;
+    }
+    if (!havePlayers) {
+      return (
+        <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage>
+      );
+    }
+    if (players?.length <= 0) {
+      return (
+        <PlayerListMessage>
+          {teamId !== "spectators"
+            ? t("server.players.noPlayers")
+            : t("server.players.noSpectators")}
+        </PlayerListMessage>
+      );
+    }
+    return (
+      <ListPlayerGroup
+        seederPlayers={seederPlayers}
+        gameName={teamId !== "spectators" ? gameName : undefined}
+        players={players}
+        team={teamId !== "spectators" ? teamId : null}
+        sid={sid}
+        checkBanInfo={checkBanInfo}
+        checkBanLoading={checkBanLoading}
+        checkBanError={checkBanError}
+      />
+    );
+  };
 
-  const team2 = !haveGame ? (
-    <LoadingListPlayerGroup amount={16} />
-  ) : !havePlayers ? (
-    <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage>
-  ) : teams[1].players.length === 0 ? (
-    <PlayerListMessage>{t("server.players.noPlayers")}</PlayerListMessage>
-  ) : (
-    <ListPlayerGroup
-      seederPlayers={seederPlayers}
-      gameName={gameName}
-      players={teams[1].players}
-      team="1"
-      sid={sid}
-    />
-  );
-
-  // Message Cards here or smth
-  // Instead of plain text
-
-  const specs = !haveGame ? (
-    <LoadingListPlayerGroup amount={4} />
-  ) : !havePlayers ? (
-    <PlayerListMessage>{t("server.players.failed")}</PlayerListMessage>
-  ) : !spectators || spectators.length === 0 ? (
-    <PlayerListMessage>{t("server.players.noSpectators")}</PlayerListMessage>
-  ) : (
-    <ListPlayerGroup
-      seederPlayers={seederPlayers}
-      players={spectators}
-      team={null}
-      sid={sid}
-      gameName={undefined}
-    />
-  );
+  const team1 = TeamInfo(16, "0", teams[0]?.players);
+  const team2 = TeamInfo(16, "1", teams[1]?.players);
+  const specs = TeamInfo(16, "spectators", spectators);
 
   const [playerColumnRef, { width }] = useMeasure();
 
   return (
     <div ref={playerColumnRef}>
       {width > 2000 ? (
-        <>
-          <TopRow>
-            <PlayerListColumn>
-              <h2 className={styles.PlayerGroupName}>
-                {getFaction(0)}
-                <span className={styles.playerAmount}>
-                  {getPlayerAmountMsg(0)}
-                </span>
-              </h2>
-              {team1}
-            </PlayerListColumn>
-            <PlayerListColumn>
-              <h2 className={styles.PlayerGroupName}>
-                {getFaction(1)}
-                <span className={styles.playerAmount}>
-                  {getPlayerAmountMsg(1)}
-                </span>
-              </h2>
-              {team2}
-            </PlayerListColumn>
-            <PlayerListColumn>
-              <h2 className={styles.PlayerGroupName}>
-                {t("server.players.spectators")}{" "}
-                <span className={styles.playerAmount}>
-                  {getSectatorAmountMsg()}
-                </span>
-              </h2>
-              {specs}
-            </PlayerListColumn>
-          </TopRow>
-        </>
+        <TopRow>
+          <PlayerListColumn>
+            <h2 className={styles.PlayerGroupName}>
+              {getFaction(0)}
+              <span className={styles.playerAmount}>
+                {getPlayerAmountMsg(0)}
+              </span>
+            </h2>
+            {team1}
+          </PlayerListColumn>
+          <PlayerListColumn>
+            <h2 className={styles.PlayerGroupName}>
+              {getFaction(1)}
+              <span className={styles.playerAmount}>
+                {getPlayerAmountMsg(1)}
+              </span>
+            </h2>
+            {team2}
+          </PlayerListColumn>
+          <PlayerListColumn>
+            <h2 className={styles.PlayerGroupName}>
+              {t("server.players.spectators")}{" "}
+              <span className={styles.playerAmount}>
+                {getSectatorAmountMsg()}
+              </span>
+            </h2>
+            {specs}
+          </PlayerListColumn>
+        </TopRow>
       ) : (
         <>
           <TopRow>
@@ -251,9 +268,11 @@ export function PlayerList(props: {
   );
 }
 
-function PlayerListColumn(props: {
-  children: React.ReactElement | React.ReactElement[] | string;
-}) {
+function PlayerListColumn(
+  props: Readonly<{
+    children: React.ReactElement | React.ReactElement[] | string;
+  }>,
+) {
   const { children } = props;
   return (
     <Column>
@@ -262,7 +281,7 @@ function PlayerListColumn(props: {
   );
 }
 
-function LoadingListPlayerGroup(props: { amount: number }) {
+function LoadingListPlayerGroup(props: Readonly<{ amount: number }>) {
   const { amount } = props;
   return (
     <div>
@@ -288,13 +307,18 @@ function LoadingPlayer() {
   );
 }
 
-function ListPlayerGroup(props: {
-  seederPlayers: Map<number, ISeederServerPlayer>;
-  team: string;
-  players: IServerPlayer[];
-  sid: string;
-  gameName: string | boolean;
-}): React.ReactElement {
+function ListPlayerGroup(
+  props: Readonly<{
+    seederPlayers: Map<number, ISeederServerPlayer>;
+    team: string;
+    players: IServerPlayer[];
+    sid: string;
+    gameName: string | boolean;
+    checkBanInfo: IManagerPlayers;
+    checkBanLoading: boolean;
+    checkBanError: boolean;
+  }>,
+): React.ReactElement {
   const { team, sid, gameName, seederPlayers } = props;
   let { players } = props;
   const [playerListRef, { width }] = useMeasure();
@@ -314,10 +338,44 @@ function ListPlayerGroup(props: {
           moveTeam={moveTeam}
           width={width}
           sid={sid}
+          checkBanInfo={props.checkBanInfo}
+          checkBanLoading={props.checkBanLoading}
+          checkBanError={props.checkBanError}
         />
       ))}
     </div>
   );
+}
+
+function CheckBanInfo(
+  checkBanInfo: IManagerPlayers,
+  playerId: number,
+  t: useTranslation,
+): { color: string; hoverText: string | undefined } {
+  const playerInfo = checkBanInfo?.bfban[playerId];
+  const bfeac = checkBanInfo?.bfeac?.includes(playerId);
+  const vbanCount = Object.keys(checkBanInfo?.vban[playerId] || {})?.length;
+  const usedNameCount = checkBanInfo?.otherNames[playerId]?.usedNames?.length;
+
+  if (playerInfo?.status === 1) {
+    return { color: "#DC143C", hoverText: t("checkban.hacker.bfban") };
+  }
+  if (bfeac) {
+    return { color: "#DC143C", hoverText: t("checkban.hacker.bfeac") };
+  }
+  if (vbanCount > 0) {
+    return {
+      color: "#dc5314",
+      hoverText: t("checkban.warn.vban", { amount: vbanCount }),
+    };
+  }
+  if (usedNameCount > 5) {
+    return {
+      color: "#dc5314",
+      hoverText: t("checkban.warn.nameChange", { amount: usedNameCount }),
+    };
+  }
+  return { color: undefined, hoverText: undefined };
 }
 
 /**
@@ -331,15 +389,20 @@ function ListPlayerGroup(props: {
  *
  * @returns Player
  */
-export function Player(props: {
-  player: IServerPlayer;
-  seederPlayer: ISeederServerPlayer;
-  i: number;
-  sid: string;
-  moveTeam: string | boolean;
-  width: number;
-  gameName: string | boolean;
-}): React.ReactElement {
+export function Player(
+  props: Readonly<{
+    player: IServerPlayer;
+    seederPlayer: ISeederServerPlayer;
+    i: number;
+    sid: string;
+    moveTeam: string | boolean;
+    width: number;
+    gameName: string | boolean;
+    checkBanInfo: IManagerPlayers;
+    checkBanLoading: boolean;
+    checkBanError: boolean;
+  }>,
+): React.ReactElement {
   const { player, i, sid, moveTeam, width, gameName, seederPlayer } = props;
   const modal = useModal();
   const { t } = useTranslation();
@@ -352,6 +415,7 @@ export function Player(props: {
     );
   };
 
+  const checkban = CheckBanInfo(props.checkBanInfo, player.playerId, t);
   const timeItem = JSON.parse(t("shortChange", { change: dateAdded }));
 
   return (
@@ -375,7 +439,13 @@ export function Player(props: {
         />
       )}
 
-      <span className={styles.PlayerName} onClick={showStats} value="nickname">
+      <span
+        style={{ color: checkban.color }}
+        className={styles.PlayerName}
+        onClick={showStats}
+        title={checkban.hoverText}
+        value="nickname"
+      >
         {player.platoon === "" ? "" : `[${player.platoon}] `}
         {player.name}
       </span>
@@ -422,13 +492,15 @@ export function Player(props: {
  *
  * @returns Player Buttons React element
  */
-function PlayerButtons(props: {
-  player: IServerPlayer;
-  sid: string;
-  moveTeam: string | boolean;
-  width: number;
-  gameName: string | boolean;
-}) {
+function PlayerButtons(
+  props: Readonly<{
+    player: IServerPlayer;
+    sid: string;
+    moveTeam: string | boolean;
+    width: number;
+    gameName: string | boolean;
+  }>,
+) {
   const { player, sid, moveTeam, width, gameName } = props;
   const { t } = useTranslation();
   const modal = useModal();
