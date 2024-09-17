@@ -234,6 +234,19 @@ export interface IManagerPlayers {
   bfeac: number[];
 }
 
+export interface IManagerPlayer {
+  id: number;
+  avatar: string;
+  name: string;
+  vban: { [Key: string]: { bannedUntil: string; reason: string } };
+  ingame: string[];
+  otherNames: {
+    updateTimestamp: string;
+    usedNames: string[];
+  };
+  bfban: IBfbanPlayers;
+}
+
 export interface IPlatoonApplicant {
   id: string;
   oid: string;

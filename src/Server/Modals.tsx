@@ -362,6 +362,107 @@ export function ServerMovePlayer(props: {
   );
 }
 
+
+export function CheckBan(props: {
+  playerId: number;
+}): React.ReactElement {
+  const { t } = useTranslation();
+
+  const {
+    isLoading,
+    isError,
+    error,
+    data: stats,
+  } = useQuery({
+    queryKey: ["managerCheckPlayer" + props?.playerId],
+    queryFn: () =>
+      GametoolsApi.managerCheckPlayer({
+        playerId: props?.playerId,
+      }),
+  });
+
+  if (isError) {
+    return (
+      <>
+        <h2 className={styles.checkBanTitle}>{t("checkban.main")}</h2>
+        <p>{t("stats.error", { error: error })}</p>
+      </>
+    );
+  }
+
+  if (isLoading || stats === undefined) {
+    return (
+      <>
+        <h2 className={styles.checkBanTitle}>{t("checkban.main")}</h2>
+        <p>{t("loading")}</p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h2 className={styles.checkBanTitle}>{t("checkban.main")}</h2>
+      <table className={styles.checkBanTable}>
+        <thead>
+          <th>{t("checkban.vban.group")}</th>
+          <th>{t("checkban.vban.reason")}</th>
+        </thead>
+        <tbody>
+          {Object.keys(stats?.vban)?.length <= 0 && (
+            <>
+              <td style={{ color: "gray" }}>{t("notApplicable")}</td>
+              <td style={{ color: "gray" }}>{t("notApplicable")}</td>
+            </>
+          )}
+          {Object.entries(stats?.vban).map(
+            ([key, val], i) => {
+              return (
+                <tr key={i}>
+                  <td title={key}>{key}</td>
+                  <td title={val?.reason}>{val?.reason}</td>
+                </tr>
+              );
+            },
+          )}
+        </tbody>
+        <thead>
+          <th>{t("checkban.otherNames.main")}</th>
+          <th>{t("checkban.bannedServer.main")}</th>
+        </thead>
+        <tbody>
+          {Array.from(
+            Array(
+              Math.max(
+                stats?.ingame?.length,
+                stats?.otherNames?.usedNames?.length,
+              ),
+            ),
+            (_, i) => {
+              // Fill with N/A if not used
+              const vbanItem = Object.entries(stats?.vban)[i] || [];
+              return (
+                <tr key={i}>
+                  {i === 0 && stats?.otherNames?.usedNames?.length === 0 ? (
+                    <td style={{ color: "gray" }}>{t("notApplicable")}</td>
+                  ) : (
+                    <td title={stats?.otherNames?.usedNames[i]}>{stats?.otherNames?.usedNames[i]}</td>
+                  )}
+                  {i === 0 && stats?.ingame?.length === 0 ? (
+                    <td style={{ color: "gray" }}>{t("notApplicable")}</td>
+                  ) : (
+                    <td title={stats?.ingame[i]}>{stats?.ingame[i]}</td>
+                  )}
+                </tr>
+              );
+            },
+          )}
+        </tbody>
+      </table>
+    </>
+  );
+}
+
+
 export function PlayerStatsModal(props: {
   player: string;
   playerId: string | number;
@@ -392,10 +493,22 @@ export function PlayerStatsModal(props: {
         platform: "pc",
       }),
   });
+
   const { t } = useTranslation();
 
-  const statsBlock =
-    !isLoading && !isError ? (
+  if (isLoading || isError) {
+    return (
+      <>
+        <h2>{t("server.playerStats.main", { player: player })}</h2>
+        {t("server.playerStats.loading")}
+        <CheckBan playerId={Number(props?.playerId)} />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h2>{t("server.playerStats.main", { player: player })}</h2>
       <div className={styles.statsBlock}>
         <h5>
           {t("server.playerStats.skill")}
@@ -448,16 +561,9 @@ export function PlayerStatsModal(props: {
           {t("server.playerStats.toStatsPage")}
         </a>
       </div>
-    ) : (
-      t("server.playerStats.loading")
-    );
-
-  return (
-    <>
-      <h2>{t("server.playerStats.main", { player: player })}</h2>
-      {statsBlock}
+      <CheckBan playerId={Number(props?.playerId)} />
     </>
-  );
+  )
 }
 
 /*

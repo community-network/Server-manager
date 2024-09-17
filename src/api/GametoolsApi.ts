@@ -1,6 +1,7 @@
 import {
   ICurrentServer,
   IMainStats,
+  IManagerPlayer,
   IManagerPlayers,
   IManagerStats,
   IPlatoonApplicants,
@@ -22,6 +23,10 @@ interface IServerPlayerlist {
 
 interface IManagerPlayersInfo {
   playerIds: number[];
+}
+
+interface IManagerPlayerInfo {
+  playerId: number;
 }
 
 interface IPlayerInfo {
@@ -158,6 +163,15 @@ export class ApiProvider extends JsonClient {
     }
     return await fetch(
       `https://api.gametools.network/manager/checkbans/?personaids=${playerIds.toString()}`,
+    ).then((r) => r.json());
+  }
+
+
+  async managerCheckPlayer({
+    playerId,
+  }: IManagerPlayerInfo): Promise<IManagerPlayer> {
+    return await fetch(
+      `https://api.gametools.network/manager/checkban/?playerid=${playerId}`,
     ).then((r) => r.json());
   }
 }

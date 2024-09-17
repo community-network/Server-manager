@@ -1,4 +1,5 @@
 {
+  "$schema": "https://swc.rs/schema.json",
   "minify": true,
   "jsc": {
     "minify": {
@@ -6,7 +7,7 @@
     },
     "parser": {
       "syntax": "typescript",
-      "tsx": true,
+      "tsx": false,
       "dynamicImport": true
     },
     "externalHelpers": true

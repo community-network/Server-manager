@@ -347,7 +347,7 @@ function ListPlayerGroup(
   );
 }
 
-function CheckBanInfo(
+function CheckBanHover(
   checkBanInfo: IManagerPlayers,
   playerId: number,
   t: useTranslation,
@@ -415,7 +415,7 @@ export function Player(
     );
   };
 
-  const checkban = CheckBanInfo(props.checkBanInfo, player.playerId, t);
+  const checkban = CheckBanHover(props.checkBanInfo, player.playerId, t);
   const timeItem = JSON.parse(t("shortChange", { change: dateAdded }));
 
   return (
@@ -457,8 +457,7 @@ export function Player(
           value="jointime"
         >
           {t(
-            `shortTimeItems.${timeItem?.token}.${
-              timeItem?.count > 1 ? "other" : "one"
+            `shortTimeItems.${timeItem?.token}.${timeItem?.count > 1 ? "other" : "one"
             }`,
             { count: timeItem?.count },
           )}

@@ -26,6 +26,7 @@
     "disabled": "Ads disabled"
   },
   "checkban": {
+    "main": "Checkban",
     "warn": {
       "nameChange": "Warning, has {{ amount }} namechanges!",
       "vban": "Warning, has {{ amount }} vbans!"
@@ -33,6 +34,17 @@
     "hacker": {
       "bfban": "Is marked as hacker on BFBan",
       "bfeac": "Is marked as hacker on BFEAC"
+    },
+    "susWeapons": "Sus weapons",
+    "bannedServer": {
+      "main": "Banned in"
+    },
+    "otherNames": {
+      "main": "Other names"
+    },
+    "vban": {
+      "group": "VBAN group",
+      "reason": "Reason"
     }
   },
   "execute": "execute",
