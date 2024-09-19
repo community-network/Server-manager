@@ -418,8 +418,8 @@ export function CheckBan(props: {
             ([key, val], i) => {
               return (
                 <tr key={i}>
-                  <td title={key}>{key}</td>
-                  <td title={val?.reason}>{val?.reason}</td>
+                  <td title={key} style={{ color: "#DC143C" }}>{key}</td>
+                  <td title={val?.reason} style={{ color: "#DC143C" }}>{val?.reason}</td>
                 </tr>
               );
             },
@@ -438,14 +438,12 @@ export function CheckBan(props: {
               ),
             ),
             (_, i) => {
-              // Fill with N/A if not used
-              const vbanItem = Object.entries(stats?.vban)[i] || [];
               return (
                 <tr key={i}>
                   {i === 0 && stats?.otherNames?.usedNames?.length === 0 ? (
                     <td style={{ color: "gray" }}>{t("notApplicable")}</td>
                   ) : (
-                    <td title={stats?.otherNames?.usedNames[i]}>{stats?.otherNames?.usedNames[i]}</td>
+                    <td title={stats?.otherNames?.usedNames[i]} style={{ color: stats?.otherNames?.usedNames?.length > 5 ? "#dc5314" : null }}>{stats?.otherNames?.usedNames[i]}</td>
                   )}
                   {i === 0 && stats?.ingame?.length === 0 ? (
                     <td style={{ color: "gray" }}>{t("notApplicable")}</td>
