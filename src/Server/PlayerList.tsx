@@ -457,7 +457,8 @@ export function Player(
           value="jointime"
         >
           {t(
-            `shortTimeItems.${timeItem?.token}.${timeItem?.count > 1 ? "other" : "one"
+            `shortTimeItems.${timeItem?.token}.${
+              timeItem?.count > 1 ? "other" : "one"
             }`,
             { count: timeItem?.count },
           )}

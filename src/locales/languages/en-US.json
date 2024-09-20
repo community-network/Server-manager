@@ -965,16 +965,19 @@
     "sponsor": "Sponsor us"
   },
   "cookieInfo": {
-    "link": "Click here for info on how to get the sid and remid",
+    "link": "Click here for info on how to get the sid and remid"
+  },
+  "cookieInfoV2": {
     "main": "How to get the SID and REMID cookies",
-    "0": "1. Open ",
-    "1": " in incognito mode with Chrome or Edge.",
-    "2": "2. Login with the account you want to use, don't forget to check \"Remember me\".",
-    "3": "3. After login, click on the lock:",
-    "4": "4. In this menu choose cookies:",
-    "5": "5. Expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\"",
+    "0": "1. Install the Cookie Quick Manager extension within Firefox: ",
+    "1": "2. Open ",
+    "2": " with Firefox and logout of your account if your already logged in.",
+    "3": "3. Login with the account you want to use, don't forget to check \"Remember me\".",
+    "4": "4. Open the Cookie Quick Manager extension and select \"Manage all cookies\".",
+    "5": "5. Search for \"accounts.ea.com\" on the top-left of the page, and click on select the domain with the same name.",
     "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
-    "7": "If you logout the cookies are no longer valid."
+    "7": "If you logout the cookies are will no longer be valid.",
+    "8": "If you want to logout without invalidating the cookies for the manager, click on the trash icon for both the SID and REMID on the bottom-right."
   },
   "statusBotInfo": {
     "link": "Click here for info on how to get discord token and invite the bot to your discord",

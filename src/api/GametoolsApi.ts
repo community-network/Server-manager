@@ -166,7 +166,6 @@ export class ApiProvider extends JsonClient {
     ).then((r) => r.json());
   }
 
-
   async managerCheckPlayer({
     playerId,
   }: IManagerPlayerInfo): Promise<IManagerPlayer> {

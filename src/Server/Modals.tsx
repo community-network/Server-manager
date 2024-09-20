@@ -362,10 +362,7 @@ export function ServerMovePlayer(props: {
   );
 }
 
-
-export function CheckBan(props: {
-  playerId: number;
-}): React.ReactElement {
+export function CheckBan(props: { playerId: number }): React.ReactElement {
   const { t } = useTranslation();
 
   const {
@@ -414,16 +411,18 @@ export function CheckBan(props: {
               <td style={{ color: "gray" }}>{t("notApplicable")}</td>
             </>
           )}
-          {Object.entries(stats?.vban).map(
-            ([key, val], i) => {
-              return (
-                <tr key={i}>
-                  <td title={key} style={{ color: "#DC143C" }}>{key}</td>
-                  <td title={val?.reason} style={{ color: "#DC143C" }}>{val?.reason}</td>
-                </tr>
-              );
-            },
-          )}
+          {Object.entries(stats?.vban).map(([key, val], i) => {
+            return (
+              <tr key={i}>
+                <td title={key} style={{ color: "#DC143C" }}>
+                  {key}
+                </td>
+                <td title={val?.reason} style={{ color: "#DC143C" }}>
+                  {val?.reason}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
         <thead>
           <th>{t("checkban.otherNames.main")}</th>
@@ -443,7 +442,17 @@ export function CheckBan(props: {
                   {i === 0 && stats?.otherNames?.usedNames?.length === 0 ? (
                     <td style={{ color: "gray" }}>{t("notApplicable")}</td>
                   ) : (
-                    <td title={stats?.otherNames?.usedNames[i]} style={{ color: stats?.otherNames?.usedNames?.length > 5 ? "#dc5314" : null }}>{stats?.otherNames?.usedNames[i]}</td>
+                    <td
+                      title={stats?.otherNames?.usedNames[i]}
+                      style={{
+                        color:
+                          stats?.otherNames?.usedNames?.length > 5
+                            ? "#dc5314"
+                            : null,
+                      }}
+                    >
+                      {stats?.otherNames?.usedNames[i]}
+                    </td>
                   )}
                   {i === 0 && stats?.ingame?.length === 0 ? (
                     <td style={{ color: "gray" }}>{t("notApplicable")}</td>
@@ -459,7 +468,6 @@ export function CheckBan(props: {
     </>
   );
 }
-
 
 export function PlayerStatsModal(props: {
   player: string;
@@ -561,7 +569,7 @@ export function PlayerStatsModal(props: {
       </div>
       <CheckBan playerId={Number(props?.playerId)} />
     </>
-  )
+  );
 }
 
 /*
