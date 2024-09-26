@@ -98,10 +98,10 @@ export function ButtonLink(props: {
 
 export function ButtonRow(props: {
   children?:
-    | React.ReactElement
-    | boolean
-    | React.ReactFragment
-    | React.ReactPortal;
+  | React.ReactElement
+  | boolean
+  | React.ReactFragment
+  | React.ReactPortal;
   style?: React.CSSProperties;
 }): React.ReactElement {
   return <div className={styles.buttonRow}>{props.children}</div>;
@@ -527,7 +527,7 @@ export function ReasonDropdownButton(props: {
       {open && (
         <div className={styles.buttonDropdown}>
           <ul className={styles.ul}>
-            {options.map((option: string, index: number) => (
+            {options.sort().map((option: string, index: number) => (
               <li
                 key={index}
                 className={styles.li}
