@@ -98,10 +98,10 @@ export function ButtonLink(props: {
 
 export function ButtonRow(props: {
   children?:
-  | React.ReactElement
-  | boolean
-  | React.ReactFragment
-  | React.ReactPortal;
+    | React.ReactElement
+    | boolean
+    | React.ReactFragment
+    | React.ReactPortal;
   style?: React.CSSProperties;
 }): React.ReactElement {
   return <div className={styles.buttonRow}>{props.children}</div>;
