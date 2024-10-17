@@ -474,6 +474,7 @@ export function ServerSettings(props: {
 
   const [serverState, setServerState] = React.useState(null);
   const [canApply, setCanApply] = React.useState(false);
+  const [hasChanges, setHasChanges] = React.useState(false);
   const [applyStatus, setApplyStatus] = React.useState(null);
   const [errorUpdating, setError] = React.useState({
     code: 0,
@@ -516,6 +517,11 @@ export function ServerSettings(props: {
         let newCanApply = false;
         for (const i in originalServerState) {
           newCanApply ||= serverState[i] !== originalServerState[i];
+        }
+        setHasChanges(newCanApply);
+        // allow applying if bot isnt running and token is set, to start the bot again
+        if (serverState.discordBotToken !== "" && props.server.botInfo.state !== "running") {
+          newCanApply = true
         }
         setCanApply(newCanApply);
       }
@@ -599,37 +605,6 @@ export function ServerSettings(props: {
     return "";
   };
 
-  let server_status = (
-    <span style={{ marginLeft: "8px" }} className={styles.serverBadgePending}>
-      {t("serverBotStatus.pending")}
-    </span>
-  );
-
-  if (props.server) {
-    if (props.server.botInfo.state === "running") {
-      server_status = (
-        <span style={{ marginLeft: "8px" }} className={styles.serverBadgeOk}>
-          <span className={styles.liveUpdate}></span>
-          {t("serverBotStatus.running", {
-            worker: props.server.botInfo.serviceName,
-          })}
-        </span>
-      );
-    } else if (props.server.botInfo.state === "failed") {
-      server_status = (
-        <span style={{ marginLeft: "8px" }} className={styles.serverBadgeErr}>
-          {t("serverBotStatus.failed")}
-        </span>
-      );
-    } else {
-      server_status = (
-        <span style={{ marginLeft: "8px" }} className={styles.serverBadgeErr}>
-          {t("serverBotStatus.noService")}
-        </span>
-      );
-    }
-  }
-
   return (
     <>
       <h2 style={{ marginLeft: "20px" }}>{t("server.settings.title")}</h2>
@@ -686,7 +661,19 @@ export function ServerSettings(props: {
       )}
 
       <span className={styles.serverBot}>
-        {t("server.settings.discordBot.main")} {server_status}{" "}
+        {t("server.settings.discordBot.main")}
+        {props.server ? (
+          <span style={{ marginLeft: "8px" }} className={props.server.botInfo.state === "running" ? styles.serverBadgeOk : styles.serverBadgeErr}>
+            {(props.server.botInfo.state === "running") && (
+              <span className={styles.liveUpdate}></span>
+            )}
+            {t(`serverBotStatus.${props.server.botInfo.state}`, {
+              worker: props.server.botInfo.serviceName,
+            })}
+          </span>
+        ) : <span style={{ marginLeft: "8px" }} className={styles.serverBadgePending}>
+          {t("serverBotStatus.pending")}
+        </span>}
       </span>
       <h5 style={{ marginTop: "8px" }}>
         {t("server.settings.discordBot.tokenDesc")}
@@ -803,7 +790,7 @@ export function ServerSettings(props: {
         />
         {props.server && canApply ? (
           <Button
-            name={t("apply")}
+            name={hasChanges ? t("apply") : t("server.settings.discordBot.recreateWorker")}
             disabled={!allowedTo || applyStatus !== null}
             callback={() => editServerSettings.mutate(serverState)}
             status={applyStatus}

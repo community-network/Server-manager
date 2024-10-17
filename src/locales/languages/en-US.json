@@ -804,6 +804,7 @@
         "ownerId": "Playerid of the owner",
         "ownerIdDesc": "In Battlefield 5 and Battlefield 2042 servers are free, because of that its really easy to copy someones server. fill the playerid of the serverowner in here to prevent that.",
         "restartWorker": "Restart",
+        "recreateWorker": "Re-create the bot",
         "restartWorkerDesc": "Restart the serverstatus bot (does the same when you apply a change)"
       }
     },
