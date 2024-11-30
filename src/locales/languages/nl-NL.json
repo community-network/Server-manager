@@ -20,6 +20,33 @@
     "enabled": "geactiveerd",
     "disabled": "gedeactiveerd"
   },
+  "ads": {
+    "main": "Ad",
+    "enabled": "Ads geactiveerd",
+    "disabled": "Ads gedeactiveerd"
+  },
+  "checkban": {
+    "main": "Checkban",
+    "warn": {
+      "nameChange": "Waarschuwing, heeft {{ amount }} naam veranderingen!",
+      "vban": "Waarschuwing, heeft {{ amount }} vbans!"
+    },
+    "hacker": {
+      "bfban": "Is gemarkeerd als hacker in BFBan",
+      "bfeac": "Is gemarkeerd als hacker in BFEAC"
+    },
+    "susWeapons": "Sus wapens",
+    "bannedServer": {
+      "main": "Verbannen in"
+    },
+    "otherNames": {
+      "main": "Andere namen"
+    },
+    "vban": {
+      "group": "VBAN groep",
+      "reason": "Reden"
+    }
+  },
   "execute": "uitvoeren",
   "translation": {
     "help": "Help met vertalingen"
@@ -777,6 +804,7 @@
         "ownerId": "Playerid van de eigenaar",
         "ownerIdDesc": "In Battlefield 5 en Battlefield 2042 zijn de servers gratis, daardoor is het heel makkelijk om iemand anders zijn server na te maken. Vul het playerid in van de eigenaar om dit te voorkomen.",
         "restartWorker": "Herstart",
+        "recreateWorker": "Bot opnieuw aanmaken",
         "restartWorkerDesc": "Herstart de serverstatus bot (doet hetzelfde wanneer u op toepassen drukt)"
       }
     },
@@ -938,16 +966,19 @@
     "sponsor": "Sponsor ons"
   },
   "cookieInfo": {
-    "link": "Click here for info on how to get the sid and remid",
+    "link": "Click here for info on how to get the sid and remid"
+  },
+  "cookieInfoV2": {
     "main": "How to get the SID and REMID cookies",
-    "0": "1. Open ",
-    "1": " in incognito mode with Chrome or Edge.",
-    "2": "2. Login with the account you want to use, don't forget to check \"Remember me\".",
-    "3": "3. After login, click on the lock:",
-    "4": "4. In this menu choose cookies:",
-    "5": "5. Expand \"accounts.ea.com\" and click on sid and/or remid to view the cookie under \"Content\"",
+    "0": "1. Installeer de Cookie Quick Manager-extensie in Firefox:",
+    "1": "2. Open ",
+    "2": " met Firefox en meld u af bij uw account als u al bent ingelogd.",
+    "3": "3. Log in met het account dat u wilt gebruiken. Vergeet niet om 'Onthoud mij' aan te vinken.",
+    "4": "4. Open de Cookie Quick Manager-extensie en selecteer 'Alle cookies beheren'.",
+    "5": "5. Zoek linksboven op de pagina naar \"accounts.ea.com\" en klik op om het domein met dezelfde naam te selecteren.",
     "6": "6. After you got the SID and REMID cookie dont logout, just close the browser.",
-    "7": "If you logout the cookies are no longer valid."
+    "7": "Als u uitlogt, zijn de cookies niet meer geldig.",
+    "8": "Als u wilt uitloggen zonder de cookies voor de beheerder ongeldig te maken, klikt u op het prullenbakpictogram voor zowel de SID als de REMID rechtsonder."
   },
   "statusBotInfo": {
     "link": "Klik hier voor informatie hoe u de discord token krijgt en de bot koppeld aan uw server",
