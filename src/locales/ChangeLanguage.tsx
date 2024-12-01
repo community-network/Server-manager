@@ -28,4 +28,8 @@ const LanguageSelector = (): React.ReactElement => {
   );
 };
 
+export function humanReadableList([...array]) {
+  return array.concat(array.splice(-2, 2).join(' and ')).join(', ');
+}
+
 export default LanguageSelector;

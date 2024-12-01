@@ -499,3 +499,13 @@
         display: none;
     }
 }
+
+.numberCircle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    line-height: 1.4;
+    background: var(--color-second);
+    text-align: center;
+}

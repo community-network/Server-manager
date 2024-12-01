@@ -80,6 +80,7 @@ import { ListsLoading } from "../components/User";
 import "../locales/config";
 import { getLanguage } from "../locales/config";
 import { AddAccountModal, ChangeAccountModal } from "./Modals";
+import { humanReadableList } from "../locales/ChangeLanguage";
 
 // unused
 // const deleteIcon = (
@@ -192,9 +193,8 @@ export function Group(): React.ReactElement {
   const [listing, setListing] = React.useState("servers");
   const [settingsListing, setSettingsListing] = React.useState("account");
   const { t } = useTranslation();
-  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${
-    group?.groupName || t("loading")
-  }`;
+  document.title = `${t("pageTitle.main")} ${t("group.main")} | ${group?.groupName || t("loading")
+    }`;
 
   const catListing = {
     owners: (
@@ -397,12 +397,12 @@ function GroupAdmins(props: {
       </ButtonRow>
       {adminList
         ? adminList.map((admin: IGroupUser, i: number) => (
-            <UserStRow
-              user={admin}
-              callback={(v) => changeSelected(v, admin.id)}
-              key={admin.id || i}
-            />
-          ))
+          <UserStRow
+            user={admin}
+            callback={(v) => changeSelected(v, admin.id)}
+            key={admin.id || i}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
     </>
   );
@@ -668,18 +668,18 @@ function GroupPlatoons(props: {
                       setApplicants((b) =>
                         !v
                           ? b.filter(
-                              (item) =>
-                                item?.playerId !== member.id &&
-                                item?.platoonId != platoonId,
-                            )
+                            (item) =>
+                              item?.playerId !== member.id &&
+                              item?.platoonId != platoonId,
+                          )
                           : [
-                              ...b,
-                              {
-                                playerId: member.id,
-                                platoonId: platoonId,
-                                memberInfo: member,
-                              },
-                            ],
+                            ...b,
+                            {
+                              playerId: member.id,
+                              platoonId: platoonId,
+                              memberInfo: member,
+                            },
+                          ],
                       )
                     }
                     key={index}
@@ -769,18 +769,18 @@ function GroupPlatoons(props: {
                         setMembers((b) =>
                           !v
                             ? b.filter(
-                                (item) =>
-                                  item?.playerId !== player.id &&
-                                  item?.platoonId != player.platoonId,
-                              )
+                              (item) =>
+                                item?.playerId !== player.id &&
+                                item?.platoonId != player.platoonId,
+                            )
                             : [
-                                ...b,
-                                {
-                                  playerId: player.id,
-                                  platoonId: player.platoonId,
-                                  memberInfo: player,
-                                },
-                              ],
+                              ...b,
+                              {
+                                playerId: player.id,
+                                platoonId: player.platoonId,
+                                memberInfo: player,
+                              },
+                            ],
                         )
                       }
                     >
@@ -1001,7 +1001,7 @@ function Seeding(props: {
   const modal = useModal();
 
   let hasRights = false;
-  const [selected, setSelected] = React.useState(null);
+  const [selected, setSelected] = React.useState<number[]>([]);
   const [customServerName, setCustomServerName] = React.useState("");
   const [broadcast, setBroadcast] = React.useState("");
   const [serverAliases, setServerAliases] = React.useState({});
@@ -1096,27 +1096,68 @@ function Seeding(props: {
     }
   }, [seedingInfo, serverAliasNames]);
 
-  const isSelected = selected !== undefined;
+  const hasSelectedItem = selected.length > 0;
 
   const changeSelected = (i: number, e: string) => {
-    if (i === 90) {
-      if (e) {
-        setCustomServerName(e);
+    const hasCurrent = selected.includes(i)
+    if (i === 90 && e) {
+      setCustomServerName(e);
+      if (!hasCurrent) {
+        setSelected([...selected, i]);
       }
-      setSelected(i);
     } else {
-      setSelected(() => (i !== selected ? i : undefined));
+      if (hasCurrent) {
+        setSelected(selected.filter(item => item !== i));
+      } else {
+        setSelected([...selected, i]);
+      }
     }
   };
 
+  const MultialiveJoin = () => {
+    const fillServers = [];
+    selected.forEach(element => {
+      if (element === 90) {
+        fillServers.push(customServerName);
+      } else if (element >= 900) {
+        fillServers.push(seederServerList.at(element - 900)?.name);
+      } else {
+        fillServers.push(props.group.servers[element].name)
+      }
+    });
+    OperationsApi.setSeeding({
+      serverName: "",
+      serverId: "",
+      action: "multialive",
+      groupId: props.gid,
+      rejoin: rejoin,
+      message: "",
+      game: game,
+      fillServers: fillServers
+    });
+    setSelected([]);
+    let timeout = 300;
+    if (selected[0] === 90) {
+      timeout = 1000;
+    }
+    setTimeout(() => {
+      queryClient.invalidateQueries({
+        queryKey: ["seeding" + props.gid + game],
+      });
+    }, timeout);
+  }
+
   const joinServer = () => {
     let server: IGroupServer;
-    if (selected === 90) {
+    if (selected.length > 1 || selected.length == 0) {
+      return
+    }
+    if (selected[0] === 90) {
       server = { name: customServerName, id: "" };
-    } else if (selected >= 900) {
-      server = { name: seederServerList.at(selected - 900)?.name, id: "" };
+    } else if (selected[0] >= 900) {
+      server = { name: seederServerList.at(selected[0] - 900)?.name, id: "" };
     } else {
-      server = props.group.servers[selected];
+      server = props.group.servers[selected[0]];
     }
     OperationsApi.setSeeding({
       serverName: server.name,
@@ -1127,9 +1168,9 @@ function Seeding(props: {
       message: "",
       game: game,
     });
-    setSelected(undefined);
+    setSelected([]);
     let timeout = 300;
-    if (selected === 90) {
+    if (selected[0] === 90) {
       timeout = 1000;
     }
     setTimeout(() => {
@@ -1145,7 +1186,7 @@ function Seeding(props: {
       groupId: props.gid,
       game: game,
     });
-    setSelected(undefined);
+    setSelected([]);
     setTimeout(() => {
       queryClient.invalidateQueries({
         queryKey: ["groupId" + props.gid],
@@ -1159,7 +1200,7 @@ function Seeding(props: {
       groupId: props.gid,
       game: game,
     });
-    setSelected(undefined);
+    setSelected([]);
     setTimeout(() => {
       queryClient.invalidateQueries({
         queryKey: ["groupId" + props.gid],
@@ -1169,17 +1210,21 @@ function Seeding(props: {
 
   const scheduleSeed = () => {
     let server: IGroupServer;
-    if (selected === 90) {
+    if (selected.length > 1 || selected.length == 0) {
+      return
+    }
+
+    if (selected[0] === 90) {
       server = { name: customServerName, id: "" };
     } else {
-      server = props.group.servers[selected];
+      server = props.group.servers[selected[0]];
     }
     OperationsApi.scheduleSeeding({
       timeStamp: `${hour}:${minute}0`,
       serverName: server.name,
       groupId: props.gid,
     });
-    setSelected(undefined);
+    setSelected([]);
     setTimeout(() => {
       queryClient.invalidateQueries({
         queryKey: ["seeding" + props.gid],
@@ -1241,7 +1286,7 @@ function Seeding(props: {
           <option value="0">0</option>
           <option value="3">30</option>
         </select>
-        {hasRights && isSelected ? (
+        {hasRights && selected.length == 1 ? (
           <Button
             name={t("group.seeding.actions.schedule")}
             callback={scheduleSeed}
@@ -1288,6 +1333,15 @@ function Seeding(props: {
               })}
             </b>
           </h5>
+        ) : seedingInfo?.fillServers?.length > 0 ? (
+          <h5>
+            {t("group.seeding.status.main")}
+            <b>
+              {t("group.seeding.status.multialive", {
+                servers: humanReadableList(seedingInfo?.fillServers),
+              })}
+            </b>
+          </h5>
         ) : (
           <h5>
             {t("group.seeding.status.main")}
@@ -1311,11 +1365,20 @@ function Seeding(props: {
           <option value="true">{t("group.seeding.auto-rejoin.true")}</option>
           <option value="false">{t("group.seeding.auto-rejoin.false")}</option>
         </select>
-        {hasRights && isSelected ? (
-          <Button
-            name={t("group.seeding.actions.joinSelected")}
-            callback={joinServer}
-          />
+        {hasRights && hasSelectedItem ? (
+          <>
+            {selected.length > 1 ? (
+              <Button
+                name={t("group.seeding.actions.multialiveSelected")}
+                callback={MultialiveJoin}
+              />
+            ) : (
+              <Button
+                name={t("group.seeding.actions.joinSelected")}
+                callback={joinServer}
+              />
+            )}
+          </>
         ) : (
           <Button
             disabled={true}
@@ -1371,30 +1434,33 @@ function Seeding(props: {
       </ButtonRow>
       {props.group
         ? serverList.map((server: IGroupServer, i: number) => (
-            <SeederStRow
-              server={server}
-              selected={selected === i}
-              callback={() => changeSelected(i, undefined)}
-              key={server.id || i}
-            />
-          ))
+          <SeederStRow
+            server={server}
+            selected={selected.includes(i)}
+            callback={() => changeSelected(i, undefined)}
+            key={server.id || i}
+            selectedCount={selected.length > 1 ? selected.indexOf(i) + 1 : null}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <h2 style={{ marginTop: "6px" }}>{t("group.seeding.other.main")}</h2>
       {props.group
         ? seederServerList.map((server: ISeederServer, i: number) => (
-            <SeederStCustomRow
-              server={server}
-              selected={selected === i + 900}
-              onClick={removeSeederServer}
-              callback={() => changeSelected(i + 900, server.name)}
-              key={i + 900}
-            />
-          ))
+          <SeederStCustomRow
+            server={server}
+            selected={selected.includes(i + 900)}
+            onClick={removeSeederServer}
+            callback={() => changeSelected(i + 900, server.name)}
+            selectedCount={selected.length > 1 ? selected.indexOf(i + 900) + 1 : null}
+            key={i + 900}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
       <SeederStCustom
-        selected={selected === 90}
+        selected={selected.includes(90)}
         callback={(e) => changeSelected(90, e)}
         onClick={addSeederServer}
+        selectedCount={selected.length > 1 ? selected.indexOf(90) + 1 : null}
         key={90}
       />
       <h2 style={{ marginBottom: "4px", marginTop: "16px" }}>
@@ -1438,11 +1504,11 @@ function Seeding(props: {
       <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         {seeders && seedingInfo && props.group
           ? seeders.seeders.map((seeder: ISeeder, i: number) => (
-              <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
-            ))
+            <SeederRow seeder={seeder} key={i} seedingInfo={seedingInfo} />
+          ))
           : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
-              <EmptyRow key={i} />
-            ))}
+            <EmptyRow key={i} />
+          ))}
       </div>
       {serverAliasNames && (
         <>
@@ -1557,12 +1623,12 @@ function GroupOwners(props: {
       </ButtonRow>
       {ownerList
         ? ownerList.map((owner: IGroupUser, i: number) => (
-            <UserStRow
-              user={owner}
-              callback={(v) => changeSelected(v, owner.id)}
-              key={owner.id || i}
-            />
-          ))
+          <UserStRow
+            user={owner}
+            callback={(v) => changeSelected(v, owner.id)}
+            key={owner.id || i}
+          />
+        ))
         : fakeListing.map((_, i) => <FakeUserStRow key={i} />)}
     </>
   );
@@ -1803,9 +1869,9 @@ function GroupDiscordSettings(props: {
         </p>
       </Row>
       {props.group &&
-      (serverId !== props.group.discordGroupId ||
-        modId !== props.group.discordModRoleId ||
-        adminId !== props.group.discordAdminRoleId) ? (
+        (serverId !== props.group.discordGroupId ||
+          modId !== props.group.discordModRoleId ||
+          adminId !== props.group.discordAdminRoleId) ? (
         <ButtonRow>
           <Button
             name={t("apply")}

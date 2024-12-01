@@ -173,6 +173,8 @@ export interface ISeederInfo {
   keepAliveSeeders: IKeepAliveSeeder;
   rejoin: boolean;
   seederArr: string[];
+  fillServers: string[];
+  emptySpace: number;
   serverName: string;
   startServer: null;
   startTime: null;

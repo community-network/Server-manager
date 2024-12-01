@@ -350,8 +350,9 @@
         "confirm": "Confirm!"
       },
       "actions": {
+        "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "Join selected server",
-        "leave": "Leave current server",
+        "leave": "Leave current server(s)",
         "shutdownWindows": "Shutdown PC's (with shutdown option enabled)",
         "schedule": "Schedule seeding starttime (UTC timezone)",
         "undoSchedule": "remove seeding from schedule"
@@ -361,7 +362,8 @@
         "seedServer": "Seeding {{serverName}}",
         "leaveServer": "Not in any server",
         "shutdownPC": "Turned all PC's off with shutdown option enabled",
-        "broadcastMessage": "Broadcasted \"{{message}}\" to all servers"
+        "broadcastMessage": "Broadcasted \"{{message}}\" to all servers",
+        "multialive": "Running multialive for servers: {{servers}}"
       },
       "seeders": {
         "main": "Currently {{seeders}} seeders online with {{ingame}} in the game",

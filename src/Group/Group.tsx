@@ -111,10 +111,10 @@ export function WorkerStatus(props: {
 export function ServerRow(props: {
   server: IGroupServer;
   button?:
-    | React.ReactElement
-    | boolean
-    | React.ReactFragment
-    | React.ReactPortal;
+  | React.ReactElement
+  | boolean
+  | React.ReactFragment
+  | React.ReactPortal;
 }): React.ReactElement {
   const server = props.server;
   const { t } = useTranslation();
@@ -394,11 +394,11 @@ function GlobalBanRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.playerName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.playerName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >
@@ -480,11 +480,11 @@ export function GroupLogs(props: { gid: string }): React.ReactElement {
       <div style={{ maxHeight: "400px", overflowY: "auto", marginTop: "8px" }}>
         {logList
           ? logList.logs.map((log: ITailUserLogInfo, i: number) => (
-              <LogRow log={log} key={i} />
-            ))
+            <LogRow log={log} key={i} />
+          ))
           : Array.from({ length: 8 }, (_, id) => ({ id })).map((_, i) => (
-              <EmptyRow key={i} />
-            ))}
+            <EmptyRow key={i} />
+          ))}
       </div>
     </div>
   );
@@ -896,10 +896,10 @@ function SelectableRow(props: {
   selected: boolean;
   callback: (args0?: string) => void;
   children?:
-    | React.ReactElement
-    | boolean
-    | React.ReactFragment
-    | React.ReactPortal;
+  | React.ReactElement
+  | boolean
+  | React.ReactFragment
+  | React.ReactPortal;
 }): React.ReactElement {
   return (
     <div
@@ -918,12 +918,13 @@ export function SeederStRow(props: {
   server: IGroupServer;
   callback: (args0?: string) => void;
   selected: boolean;
+  selectedCount: number;
 }): React.ReactElement {
   const server = props.server;
 
   return (
     <SelectableRow callback={props.callback} selected={props.selected}>
-      <div className={styles.DiscordName}>{server.name}</div>
+      <div className={styles.DiscordName} style={{ display: "flex" }}>{server.name}{props.selected && props.selectedCount !== null && (<div className={styles.numberCircle}>{props.selectedCount}</div>)}</div>
     </SelectableRow>
   );
 }
@@ -932,6 +933,7 @@ export function SeederStCustom(props: {
   callback: (arg0?: string) => void;
   selected: boolean;
   onClick: (args0?: string) => void;
+  selectedCount: number;
 }): React.ReactElement {
   const { t } = useTranslation();
   const [textContent, setTextContent] = React.useState("");
@@ -951,8 +953,9 @@ export function SeederStCustom(props: {
         style={{ height: "32px" }}
         name={t("group.seeding.other.add")}
         callback={() => props.onClick(textContent)}
-        // callback={}
+      // callback={}
       />
+      {props.selected && props.selectedCount !== null && (<div className={styles.numberCircle}>{props.selectedCount}</div>)}
     </SelectableRow>
   );
 } // callback={(e) => setReason(e.target.value)}
@@ -962,18 +965,19 @@ export function SeederStCustomRow(props: {
   callback: (args0?: string) => void;
   selected: boolean;
   onClick: (args0?: string) => void;
+  selectedCount: number;
 }): React.ReactElement {
   const { t } = useTranslation();
   const server = props.server;
 
   return (
     <SelectableRow callback={props.callback} selected={props.selected}>
-      <div className={styles.DiscordName}>{server.name}</div>
+      <div className={styles.DiscordName} style={{ display: "flex" }}>{server.name}{props.selected && props.selectedCount !== null && (<div className={styles.numberCircle}>{props.selectedCount}</div>)}</div>
       <Button
         style={{ height: "32px" }}
         name={t("group.seeding.other.remove")}
         callback={() => props.onClick(server.name)}
-        // callback={}
+      // callback={}
       />
     </SelectableRow>
   );
@@ -992,7 +996,7 @@ export function SeederRow(props: {
       <span className={styles.seedingRow}>{seeder.seederName}</span>
       {seeder.isRunning ? (
         props.seedingInfo.keepAliveSeeders &&
-        props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined ? (
+          props.seedingInfo.keepAliveSeeders[seeder.seederName] !== undefined ? (
           <span className={styles.serverBadgeOk}>
             {t("group.seeding.seeders.true")} -{" "}
             {t("group.seeding.status.seedServer", {
@@ -1286,11 +1290,11 @@ function ExclusionListRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.playerName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.playerName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >
@@ -1633,11 +1637,11 @@ function TrackingListRow(props: {
       onClick={(e: any) =>
         e.target.tagName === "TD"
           ? modal.show(
-              <PlayerStatsModal
-                player={player.playerName}
-                playerId={player.id}
-              />,
-            )
+            <PlayerStatsModal
+              player={player.playerName}
+              playerId={player.id}
+            />,
+          )
           : null
       }
     >

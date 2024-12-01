@@ -1100,6 +1100,8 @@ export class ApiProvider extends JsonClient {
     rejoin,
     message,
     game,
+    fillServers = [],
+    emptySpace = 10
   }: {
     serverName: string;
     serverId: string;
@@ -1108,6 +1110,8 @@ export class ApiProvider extends JsonClient {
     rejoin: boolean;
     message: string;
     game: string;
+    fillServers?: string[],
+    emptySpace?: number;
   }): Promise<IDefaultMessage> {
     return await this.postJsonMethod("seeder", {
       servername: serverName,
@@ -1117,6 +1121,8 @@ export class ApiProvider extends JsonClient {
       rejoin: rejoin,
       message: message,
       game: game,
+      fillservers: fillServers,
+      emptyspace: emptySpace,
     });
   }
 
