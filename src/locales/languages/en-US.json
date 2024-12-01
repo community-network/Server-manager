@@ -349,6 +349,10 @@
         "broadcastInfo": "Are you sure you want to broadcast \"{{message}}\"?",
         "confirm": "Confirm!"
       },
+      "multialive": {
+        "seederCounted": "counted",
+        "seederRequested": "requested"
+      },
       "actions": {
         "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "Join selected server",
@@ -363,7 +367,7 @@
         "leaveServer": "Not in any server",
         "shutdownPC": "Turned all PC's off with shutdown option enabled",
         "broadcastMessage": "Broadcasted \"{{message}}\" to all servers",
-        "multialive": "Running multialive for servers: {{servers}}"
+        "multialive": "Running multialive for servers:"
       },
       "seeders": {
         "main": "Currently {{seeders}} seeders online with {{ingame}} in the game",

@@ -1002,6 +1002,8 @@ function Seeding(props: {
 
   let hasRights = false;
   const [selected, setSelected] = React.useState<number[]>([]);
+  const [seedersInServer, setSeederInServer] = React.useState({});
+  const [requestedSeedersInServer, setRequestedSeederInServer] = React.useState({});
   const [customServerName, setCustomServerName] = React.useState("");
   const [broadcast, setBroadcast] = React.useState("");
   const [serverAliases, setServerAliases] = React.useState({});
@@ -1069,6 +1071,19 @@ function Seeding(props: {
       if (rejoin === undefined) {
         setRejoin(seedingInfo.rejoin);
       }
+      // count the amount of seeders that are actually there
+      const servers = {}
+      // count the amount of seeders that should be there
+      const requestedServers = {}
+      Object.entries(seedingInfo.keepAliveSeeders).map(([seederName, value]) => {
+        const seederInfo = seeders?.seeders?.find((key) => key.seederName == seederName);
+        if (seederInfo !== undefined) {
+          servers[value.serverName] = (servers[value.serverName] || 0) + ((seederInfo.isRunning) ? 1 : 0)
+        }
+        requestedServers[value.serverName] = (requestedServers[value.serverName] || 0) + 1
+      });
+      setRequestedSeederInServer(requestedServers);
+      setSeederInServer(servers);
 
       if (serverAliasNames && seeders) {
         const seederlist = {};
@@ -1094,7 +1109,7 @@ function Seeding(props: {
         setServerAliases(serverAlias);
       }
     }
-  }, [seedingInfo, serverAliasNames]);
+  }, [seedingInfo, serverAliasNames, seeders]);
 
   const hasSelectedItem = selected.length > 0;
 
@@ -1337,10 +1352,11 @@ function Seeding(props: {
           <h5>
             {t("group.seeding.status.main")}
             <b>
-              {t("group.seeding.status.multialive", {
-                servers: humanReadableList(seedingInfo?.fillServers),
-              })}
+              {t("group.seeding.status.multialive")}
             </b>
+            {seedingInfo?.fillServers.map((serverName) => {
+              return <div><b>{serverName}</b>: {seedersInServer[serverName] || 0} {t("group.seeding.multialive.seederCounted")} / {requestedSeedersInServer[serverName] || 0} {t("group.seeding.multialive.seederRequested")}</div>
+            })}
           </h5>
         ) : (
           <h5>
