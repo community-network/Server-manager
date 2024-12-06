@@ -15,7 +15,7 @@ const AdsComponent = (props: {
   React.useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (_) {}
+    } catch (_) { }
   }, []);
 
   const [value] = useLocalStorage("disable-ads", true);
@@ -28,7 +28,7 @@ const AdsComponent = (props: {
       style={style}
       data-ad-client="ca-pub-6546858755151450"
       data-ad-slot={dataAdSlot}
-      data-adtest="on"
+      // data-adtest="on"
       // data-ad-format="auto"
       data-full-width-responsive="true"
     ></ins>
