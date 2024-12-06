@@ -1935,7 +1935,7 @@ function ReasonListPlayer(props: { gid: string }): React.ReactElement {
       queryClient.setQueryData(
         ["globalReasonList" + gid],
         (old: IReasonList) => {
-          old.data.push({ item: reason });
+          old?.data?.push({ item: reason });
           return old;
         },
       );

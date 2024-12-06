@@ -534,13 +534,10 @@ function GroupPlatoons(props: {
         await queryClient.cancelQueries({
           queryKey: ["platoonDetails" + gid + platoonid],
         });
-        queryClient.setQueryData(
-          ["platoonDetails" + gid + platoonid],
-          (old: IPlatoonStats) => {
-            old.members.push({ ...memberInfo, role: "Private" });
-            return old;
-          },
-        );
+        queryClient.setQueryData(["platoonDetails" + gid + platoonid], (old: IPlatoonStats) => {
+          old?.members?.push({ ...memberInfo, role: "Private" });
+          return old;
+        });
       }
       if (request == "kickMember") {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -550,11 +547,11 @@ function GroupPlatoons(props: {
         queryClient.setQueryData(
           ["platoonDetails" + gid + platoonid],
           (old: IPlatoonStats) => {
-            old.members = old.members.filter(
+            old.members = old?.members?.filter(
               (member: { id: string }) => member.id !== pid,
             );
             return old;
-          },
+          }
         );
       }
 
@@ -566,13 +563,15 @@ function GroupPlatoons(props: {
         queryClient.setQueryData(
           ["platoonApplicants" + gid + platoonid],
           (old: IPlatoonApplicants) => {
-            old.result = old.result.filter(
+            old.result = old?.result?.filter(
               (applicant: { id: string }) => applicant.id !== pid,
             );
             return old;
-          },
+          }
         );
       }
+
+      setApplicants([]);
       // Return a context object with the snapshotted value
       return { previousGroup, gid, platoonid, request, previousPlatoonInfo };
     },
@@ -692,7 +691,7 @@ function GroupPlatoons(props: {
                 <>
                   <Button
                     name={t("group.platoons.applicants.accept")}
-                    callback={() => {
+                    callback={() =>
                       applicants.map((o) =>
                         changePlatoon.mutate({
                           request: "acceptApplicant",
@@ -701,13 +700,11 @@ function GroupPlatoons(props: {
                           pid: o.playerId,
                           memberInfo: o.memberInfo,
                         }),
-                      );
-                      setApplicants([]);
-                    }}
+                      )}
                   />
                   <Button
                     name={t("group.platoons.applicants.decline")}
-                    callback={() => {
+                    callback={() =>
                       applicants.map((o) =>
                         changePlatoon.mutate({
                           request: "rejectApplicant",
@@ -716,9 +713,7 @@ function GroupPlatoons(props: {
                           pid: o.playerId,
                           memberInfo: o.memberInfo,
                         }),
-                      );
-                      setApplicants([]);
-                    }}
+                      )}
                   />
                 </>
               ) : (
@@ -799,7 +794,7 @@ function GroupPlatoons(props: {
               {hasRights && members.length > 0 ? (
                 <Button
                   name={t("group.platoons.members.remove")}
-                  callback={() => {
+                  callback={() =>
                     members.map((o) =>
                       changePlatoon.mutate({
                         request: "kickMember",
@@ -808,9 +803,7 @@ function GroupPlatoons(props: {
                         pid: o.playerId,
                         memberInfo: o.memberInfo,
                       }),
-                    );
-                    setMembers([]);
-                  }}
+                    )}
                 />
               ) : (
                 <Button
@@ -2467,7 +2460,7 @@ export function AddGroupAdmin(props: { gid: string }): React.ReactElement {
       const UTCNow = new Date(Date.now()).toUTCString();
 
       queryClient.setQueryData(["groupUsers" + gid], (old: IGroupUsers) => {
-        old.data[0].admins.push({ id: uid, name: nickname, addedAt: UTCNow });
+        old?.data[0]?.admins?.push({ id: uid, name: nickname, addedAt: UTCNow });
         return old;
       });
       // Return a context object with the snapshotted value
