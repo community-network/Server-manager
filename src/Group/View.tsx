@@ -523,7 +523,7 @@ function GroupPlatoons(props: {
     onMutate: async ({ request, gid, platoonid, pid, memberInfo }) => {
       // Snapshot the previous value
       const previousPlatoonInfo = queryClient.getQueryData([
-        "platoonDetails" + gid + platoonid,
+        "platoonDetails" + gid
       ]);
       const previousGroup = queryClient.getQueryData([
         "platoonApplicants" + gid + platoonid,
@@ -532,9 +532,9 @@ function GroupPlatoons(props: {
       if (request == "acceptApplicant") {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries({
-          queryKey: ["platoonDetails" + gid + platoonid],
+          queryKey: ["platoonDetails" + gid],
         });
-        queryClient.setQueryData(["platoonDetails" + gid + platoonid], (old: IPlatoonStats) => {
+        queryClient.setQueryData(["platoonDetails" + gid], (old: IPlatoonStats) => {
           old?.members?.push({ ...memberInfo, role: "Private" });
           return old;
         });
@@ -542,13 +542,13 @@ function GroupPlatoons(props: {
       if (request == "kickMember") {
         // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
         await queryClient.cancelQueries({
-          queryKey: ["platoonDetails" + gid + platoonid],
+          queryKey: ["platoonDetails" + gid],
         });
         queryClient.setQueryData(
-          ["platoonDetails" + gid + platoonid],
+          ["platoonDetails" + gid],
           (old: IPlatoonStats) => {
             old.members = old?.members?.filter(
-              (member: { id: string }) => member.id !== pid,
+              (member: { id: string }) => member?.id !== pid,
             );
             return old;
           }
@@ -580,13 +580,13 @@ function GroupPlatoons(props: {
     onError: (_err, _newTodo, context) => {
       if (["acceptApplicant", "kickMember"].includes(context.request)) {
         queryClient.setQueryData(
-          ["platoonDetails" + context.gid, context.platoonid],
+          ["platoonDetails" + context.gid],
           context.previousPlatoonInfo,
         );
       }
       if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
         queryClient.setQueryData(
-          ["platoonApplicants" + context.gid, context.platoonid],
+          ["platoonApplicants" + context.gid + context.platoonid],
           context.previousGroup,
         );
       }
@@ -594,16 +594,12 @@ function GroupPlatoons(props: {
 
     // Always refetch after error or success:
     onSettled: (_data, _error, _variables, context) => {
-      if (["acceptApplicant", "kickMember"].includes(context.request)) {
-        queryClient.invalidateQueries({
-          queryKey: ["platoonDetails" + context.gid, context.platoonid],
-        });
-      }
-      if (["acceptApplicant", "rejectApplicant"].includes(context.request)) {
-        queryClient.invalidateQueries({
-          queryKey: ["platoonApplicants" + context.gid, context.platoonid],
-        });
-      }
+      queryClient.invalidateQueries({
+        queryKey: ["platoonDetails" + context.gid],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["platoonApplicants" + context.gid + context.platoonid],
+      });
     },
   });
 
@@ -623,7 +619,7 @@ function GroupPlatoons(props: {
     isError,
     data: platoons,
   } = useQuery({
-    queryKey: ["platoonsDetails" + props.group?.id + platoonIds],
+    queryKey: ["platoonDetails" + props?.group?.id],
 
     queryFn: () =>
       GametoolsApi.platoons({
@@ -745,9 +741,9 @@ function GroupPlatoons(props: {
             >
               {Object.values(platoons)
                 .map((platoon: IPlatoonStats) =>
-                  platoon.members.map((player: IPlatoonPlayer) => {
-                    player.platoon = platoon.name;
-                    player.platoonId = platoon.id;
+                  platoon?.members.map((player: IPlatoonPlayer) => {
+                    player.platoon = platoon?.name;
+                    player.platoonId = platoon?.id;
                     return player;
                   }),
                 )
@@ -892,12 +888,12 @@ function PlatoonList(props: {
               callback={(v) => {
                 setSelected((b) =>
                   !v
-                    ? b.filter((item) => item !== platoon.id)
-                    : [...b, platoon.id],
+                    ? b.filter((item) => item !== platoon?.id)
+                    : [...b, platoon?.id],
                 );
               }}
             >
-              <div className={styles.DiscordName}>{platoon.name}</div>
+              <div className={styles.DiscordName}>{platoon?.name}</div>
             </SelectableRow>
           );
         })
