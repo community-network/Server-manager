@@ -20,6 +20,33 @@
     "enabled": "מופעל",
     "disabled": "מנוטרל"
   },
+  "ads": {
+    "main": "Ad",
+    "enabled": "Ads enabled",
+    "disabled": "Ads disabled"
+  },
+  "checkban": {
+    "main": "Checkban",
+    "warn": {
+      "nameChange": "Warning, has {{ amount }} namechanges!",
+      "vban": "Warning, has {{ amount }} vbans!"
+    },
+    "hacker": {
+      "bfban": "Is marked as hacker on BFBan",
+      "bfeac": "Is marked as hacker on BFEAC"
+    },
+    "susWeapons": "Sus weapons",
+    "bannedServer": {
+      "main": "Banned in"
+    },
+    "otherNames": {
+      "main": "Other names"
+    },
+    "vban": {
+      "group": "VBAN group",
+      "reason": "סיבה"
+    }
+  },
   "execute": "לבצע",
   "translation": {
     "help": "עזור עם תרגום"
@@ -238,7 +265,8 @@
     "main": "אפשרויות מפתח",
     "listGroups": "רשימת קבוצות",
     "addGroup": "הוסף קבוצה חדשה",
-    "manage": "נהל קבוצה"
+    "manage": "נהל קבוצה",
+    "groupInfo": "{{totalOwners}}/{{totalAdmins}} owners, {{totalServers}} servers"
   },
   "man": {
     "main": "אפשרויות ניהול",
@@ -250,6 +278,9 @@
     "owners": {
       "main": "בעלים",
       "createdAt": "משתמש נוצר ב"
+    },
+    "admins": {
+      "main": "אדמינים"
     },
     "servers": {
       "main": "שרתים",
@@ -318,9 +349,14 @@
         "broadcastInfo": "האם אתה בטוח שאתה רוצה לשדר \"{{message}}\"?",
         "confirm": "לְאַשֵׁר!"
       },
+      "multialive": {
+        "seederCounted": "counted",
+        "seederRequested": "requested"
+      },
       "actions": {
+        "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "הצטרף לשרת הנבחר",
-        "leave": "עזוב את השרת הנוכחי",
+        "leave": "Leave current server(s)",
         "shutdownWindows": "כיבוי מחשבים (עם אפשרות כיבוי מופעלת)",
         "schedule": "תזמון זמן התחלה של זריעה (אזור זמן UTC)",
         "undoSchedule": "להסיר זריעה מלוח הזמנים"
@@ -330,7 +366,8 @@
         "seedServer": "זריעה של {{serverName}}",
         "leaveServer": "לא באף שרת",
         "shutdownPC": "כיבה את כל המחשבים עם אפשרות כיבוי מופעלת",
-        "broadcastMessage": "שדר \"{{message}}\" לכל השרתים"
+        "broadcastMessage": "שדר \"{{message}}\" לכל השרתים",
+        "multialive": "Running multialive for servers:"
       },
       "seeders": {
         "main": "כרגע {{seeders}} זורעים מקוונים עם {{ingame}} במשחק",
@@ -773,6 +810,7 @@
         "ownerId": "מזהה השחקן של הבעלים",
         "ownerIdDesc": "ב-Battlefield 5 וב-Battlefield 2042 השרתים הם בחינם, בגלל זה ממש קל להעתיק את השרת של מישהו. מלא את ה-playerid של בעל השרת כאן כדי למנוע זאת.",
         "restartWorker": "הפעל מחדש",
+        "recreateWorker": "Re-create the bot",
         "restartWorkerDesc": "הפעל מחדש את בוט השרת סטטוס (עושה אותו דבר כאשר אתה מחיל שינוי)"
       }
     },
@@ -934,16 +972,19 @@
     "sponsor": "נותנים לנו חסות"
   },
   "cookieInfo": {
-    "link": "לחץ כאן לקבלת מידע על איך למצוא את הsid והremid",
+    "link": "לחץ כאן לקבלת מידע על איך למצוא את הsid והremid"
+  },
+  "cookieInfoV2": {
     "main": "איך למצוא את עוגיות הSID והREMID",
-    "0": "1. פתח",
-    "1": "במצב גלישה באופן פרטי עם דפדפן כרום או אדג'",
-    "2": "2. התחבר עם החשבון שאתה רוצה להשתמש, אל תשכח לסמן \"זכור אותי\".",
-    "3": "3. לאחר ההתחברות, לחץ על המנעול:",
-    "4": "4. בתפריט הזה בחר עוגיות:",
-    "5": "5. הרחב את \"accounts.ea.com\" ולחץ על sid ו\\או remid כדי לראות את העוגיה\nמתחת ל\"Content\"",
+    "0": "1. Install the Cookie Quick Manager extension within Firefox: ",
+    "1": "2. Open ",
+    "2": " with Firefox and logout of your account if your already logged in.",
+    "3": "3. Login with the account you want to use, don't forget to check \"Remember me\".",
+    "4": "4. Open the Cookie Quick Manager extension and select \"Manage all cookies\".",
+    "5": "5. Search for \"accounts.ea.com\" on the top-left of the page, and click on select the domain with the same name.",
     "6": "6. לאחר שמצאת את עוגיות הSID והREMID אל תתנתק, פשוט סגור את\nהדפדפן.",
-    "7": "אם אתה מתנתק העוגיות לא יהיו בתוקף יותר."
+    "7": "If you logout the cookies are will no longer be valid.",
+    "8": "If you want to logout without invalidating the cookies for the manager, click on the trash icon for both the SID and REMID on the bottom-right."
   },
   "statusBotInfo": {
     "link": "לחץ כאן לקבלת מידע על איך למצוא את מפתח הדיסקורד ולהזמין את הבוט\nלדיסקורד שלך",
