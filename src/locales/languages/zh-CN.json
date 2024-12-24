@@ -20,6 +20,33 @@
     "enabled": "启用",
     "disabled": "禁用"
   },
+  "ads": {
+    "main": "Ad",
+    "enabled": "Ads enabled",
+    "disabled": "Ads disabled"
+  },
+  "checkban": {
+    "main": "Checkban",
+    "warn": {
+      "nameChange": "Warning, has {{ amount }} namechanges!",
+      "vban": "Warning, has {{ amount }} vbans!"
+    },
+    "hacker": {
+      "bfban": "Is marked as hacker on BFBan",
+      "bfeac": "Is marked as hacker on BFEAC"
+    },
+    "susWeapons": "Sus weapons",
+    "bannedServer": {
+      "main": "Banned in"
+    },
+    "otherNames": {
+      "main": "Other names"
+    },
+    "vban": {
+      "group": "VBAN group",
+      "reason": "原因"
+    }
+  },
   "execute": "执行",
   "translation": {
     "help": "协助翻译"
@@ -238,7 +265,8 @@
     "main": "开发者选项",
     "listGroups": "群组列表",
     "addGroup": "添加服务器群组",
-    "manage": "管理服务器群组"
+    "manage": "管理服务器群组",
+    "groupInfo": "{{totalOwners}}/{{totalAdmins}} owners, {{totalServers}} servers"
   },
   "man": {
     "main": "管理选项",
@@ -250,6 +278,9 @@
     "owners": {
       "main": "所有者",
       "createdAt": "用户被创建于"
+    },
+    "admins": {
+      "main": "根管理员"
     },
     "servers": {
       "main": "服务器",
@@ -318,9 +349,14 @@
         "broadcastInfo": "你确定要广播\"{{message}}\"?",
         "confirm": "确定!"
       },
+      "multialive": {
+        "seederCounted": "counted",
+        "seederRequested": "requested"
+      },
       "actions": {
+        "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "加入所选服务器",
-        "leave": "离开最近的服务器",
+        "leave": "Leave current server(s)",
         "shutdownWindows": "关闭电脑 (with shutdown option enabled)",
         "schedule": "计划开始暖服时间(UTC timezone)",
         "undoSchedule": "从计划里删除暖服"
@@ -330,7 +366,8 @@
         "seedServer": "暖服中{{serverName}}",
         "leaveServer": "不在任何服务器",
         "shutdownPC": "关闭所有电脑并且开启关机选项",
-        "broadcastMessage": "广播 \"{{message}}\" 到所有服务器"
+        "broadcastMessage": "广播 \"{{message}}\" 到所有服务器",
+        "multialive": "Running multialive for servers:"
       },
       "seeders": {
         "main": "最近的 {{seeders}} 该暖服者在线 正在游玩 {{ingame}} ",
@@ -773,6 +810,7 @@
         "ownerId": "所有者的游戏ID",
         "ownerIdDesc": "在战地5中私服是免费的,所以山寨一个服务器是很简单的.在这里填写所有者游戏ID可以防止这件事.",
         "restartWorker": "重启",
+        "recreateWorker": "Re-create the bot",
         "restartWorkerDesc": "重启服务器状态机器人(当你改变设置时你也需要重启)"
       }
     },
@@ -934,16 +972,19 @@
     "sponsor": "赞助者"
   },
   "cookieInfo": {
-    "link": "点击这里查看如何获取SID和REMID cookies",
+    "link": "点击这里查看如何获取SID和REMID cookies"
+  },
+  "cookieInfoV2": {
     "main": "获取REMID和SID的方法",
-    "0": "1.打开 ",
-    "1": "在Chrome或Edge的匿名防追踪模式下",
-    "2": "2. 登录你想使用的Origin账号【严禁黑号后果自负】, 不要忘记勾选 \"记住我\".",
-    "3": "3. 在登录之后,点击地址栏的小锁:",
-    "4": "4. 在这个菜单选择cookies:",
-    "5": "5. 点击展开 \"accounts.ea.com\" 项, 并且分别点击sid和remid去查看这些cookie在 \"内容\"",
+    "0": "1. Install the Cookie Quick Manager extension within Firefox: ",
+    "1": "2. Open ",
+    "2": " with Firefox and logout of your account if your already logged in.",
+    "3": "3. Login with the account you want to use, don't forget to check \"Remember me\".",
+    "4": "4. Open the Cookie Quick Manager extension and select \"Manage all cookies\".",
+    "5": "5. Search for \"accounts.ea.com\" on the top-left of the page, and click on select the domain with the same name.",
     "6": "6. 在你得到SID和REMID cookie后不要点击Origin登出,直接关闭浏览器即可.",
-    "7": "如果你origin登出了,那么你刚才获取的cookie都会过期."
+    "7": "If you logout the cookies are will no longer be valid.",
+    "8": "If you want to logout without invalidating the cookies for the manager, click on the trash icon for both the SID and REMID on the bottom-right."
   },
   "statusBotInfo": {
     "link": "点击这里查看如何获取discord的token和如何邀请机器人进入你的频道",
