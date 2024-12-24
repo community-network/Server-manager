@@ -20,6 +20,33 @@
     "enabled": "etkin",
     "disabled": "pasif"
   },
+  "ads": {
+    "main": "Ad",
+    "enabled": "Ads enabled",
+    "disabled": "Ads disabled"
+  },
+  "checkban": {
+    "main": "Checkban",
+    "warn": {
+      "nameChange": "Warning, has {{ amount }} namechanges!",
+      "vban": "Warning, has {{ amount }} vbans!"
+    },
+    "hacker": {
+      "bfban": "Is marked as hacker on BFBan",
+      "bfeac": "Is marked as hacker on BFEAC"
+    },
+    "susWeapons": "Sus weapons",
+    "bannedServer": {
+      "main": "Banned in"
+    },
+    "otherNames": {
+      "main": "Other names"
+    },
+    "vban": {
+      "group": "VBAN group",
+      "reason": "sebep"
+    }
+  },
   "execute": "yürüt",
   "translation": {
     "help": "Çeviriye yardım"
@@ -238,7 +265,8 @@
     "main": "Geliştirici Seçenekleri",
     "listGroups": "Grup Listesi",
     "addGroup": "Yeni Grup ekle",
-    "manage": "Grubu yönet"
+    "manage": "Grubu yönet",
+    "groupInfo": "{{totalOwners}}/{{totalAdmins}} owners, {{totalServers}} servers"
   },
   "man": {
     "main": "Yönetici Seçenekleri",
@@ -250,6 +278,9 @@
     "owners": {
       "main": "Sahip",
       "createdAt": "Kullanıcı oluşturuldu"
+    },
+    "admins": {
+      "main": "Yöneticiler"
     },
     "servers": {
       "main": "Sunucular",
@@ -318,9 +349,14 @@
         "broadcastInfo": "\"{{message}} yayını yapmak istediğinizden emin misiniz?",
         "confirm": "Onayla!"
       },
+      "multialive": {
+        "seederCounted": "counted",
+        "seederRequested": "requested"
+      },
       "actions": {
+        "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "Seçilen sunucuya katıl",
-        "leave": "Mevcut sunucudan ayrıl",
+        "leave": "Leave current server(s)",
         "shutdownWindows": "PC'leri Kapatma  (kapatma seçeneği etkinken)",
         "schedule": "Başlatma başlangıç ​​zamanını programlayın (UTC saat dilimi)",
         "undoSchedule": "Başlatmayı programdan kaldır"
@@ -330,7 +366,8 @@
         "seedServer": "Seedleniyor {{serverName}}",
         "leaveServer": "Hiçbir sunucuda değil",
         "shutdownPC": "Kapatma seçeneği etkinleştirilerek tüm bilgisayarlar kapatıldı",
-        "broadcastMessage": "Tüm sunuculara \"{{message}}\" yayınladı"
+        "broadcastMessage": "Tüm sunuculara \"{{message}}\" yayınladı",
+        "multialive": "Running multialive for servers:"
       },
       "seeders": {
         "main": "Şu anda oyunda {{ingame}} ile çevrimiçi {{seeders}} başlatıcı",
@@ -773,6 +810,7 @@
         "ownerId": "Sahibin oyuncu kimliği",
         "ownerIdDesc": "Battlefield 5 + Battlefield 2042'te sunucular ücretsizdir,  birisinin sunucusunu kopyalamak gerçekten kolaydır. bunu önlemek için sunucu sahibinin playerıd'sini buraya doldurun.",
         "restartWorker": "Yeniden başlat",
+        "recreateWorker": "Re-create the bot",
         "restartWorkerDesc": "Sunucu durum botunu yeniden başlatın (bir değişiklik uyguladığınızda da aynısını yapar)"
       }
     },
@@ -934,16 +972,19 @@
     "sponsor": "Sponsor"
   },
   "cookieInfo": {
-    "link": "Sid ve remidin nasıl alınacağı hakkında bilgi için buraya tıklayın",
+    "link": "Sid ve remidin nasıl alınacağı hakkında bilgi için buraya tıklayın"
+  },
+  "cookieInfoV2": {
     "main": "SID ve REMID çerezleri nasıl alınır",
-    "0": "1. Tıkla ",
-    "1": " Chrome veya Edge ile gizli modda.",
-    "2": "2.Kullanmak istediğiniz hesapla giriş yapın, \"Beni hatırla\" seçeneğini işaretlemeyi unutmayın.",
-    "3": "3. Giriş yaptıktan sonra kilide tıklayın:",
-    "4": "4. Bu menüde çerezleri seçin:",
-    "5": "5. \"accounts.ea.com\"u genişletin ve çerezi \"İçerik\" altında görüntülemek için sid ve/veya remid'e tıklayın",
+    "0": "1. Install the Cookie Quick Manager extension within Firefox: ",
+    "1": "2. Open ",
+    "2": " with Firefox and logout of your account if your already logged in.",
+    "3": "3. Login with the account you want to use, don't forget to check \"Remember me\".",
+    "4": "4. Open the Cookie Quick Manager extension and select \"Manage all cookies\".",
+    "5": "5. Search for \"accounts.ea.com\" on the top-left of the page, and click on select the domain with the same name.",
     "6": "6. SID ve REMID çerezini aldıktan sonra oturumu kapatmayın, sadece tarayıcıyı kapatın.",
-    "7": "Oturumu kapatırsanız, çerezler artık geçerli değildir."
+    "7": "If you logout the cookies are will no longer be valid.",
+    "8": "If you want to logout without invalidating the cookies for the manager, click on the trash icon for both the SID and REMID on the bottom-right."
   },
   "statusBotInfo": {
     "link": "Anlaşmazlık jetonunu nasıl alacağınız ve botu anlaşmazlığınıza nasıl davet edeceğiniz hakkında bilgi için buraya tıklayın",
