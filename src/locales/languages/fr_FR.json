@@ -20,6 +20,33 @@
     "enabled": "activer",
     "disabled": "désactiver"
   },
+  "ads": {
+    "main": "Ad",
+    "enabled": "Ads enabled",
+    "disabled": "Ads disabled"
+  },
+  "checkban": {
+    "main": "Checkban",
+    "warn": {
+      "nameChange": "Warning, has {{ amount }} namechanges!",
+      "vban": "Warning, has {{ amount }} vbans!"
+    },
+    "hacker": {
+      "bfban": "Is marked as hacker on BFBan",
+      "bfeac": "Is marked as hacker on BFEAC"
+    },
+    "susWeapons": "Sus weapons",
+    "bannedServer": {
+      "main": "Banned in"
+    },
+    "otherNames": {
+      "main": "Other names"
+    },
+    "vban": {
+      "group": "VBAN group",
+      "reason": "Motif"
+    }
+  },
   "execute": "exécuter",
   "translation": {
     "help": "Aide à la traduction"
@@ -238,7 +265,8 @@
     "main": "Options de développeur",
     "listGroups": " Liste des groupes",
     "addGroup": "Ajouter un nouveau groupe",
-    "manage": "Gérer le groupe"
+    "manage": "Gérer le groupe",
+    "groupInfo": "{{totalOwners}}/{{totalAdmins}} owners, {{totalServers}} servers"
   },
   "man": {
     "main": "Options de gestion",
@@ -250,6 +278,9 @@
     "owners": {
       "main": "Les propriétaires",
       "createdAt": " Utilisateur créé à"
+    },
+    "admins": {
+      "main": "Admins"
     },
     "servers": {
       "main": "Serveurs",
@@ -318,9 +349,14 @@
         "broadcastInfo": "Êtes-vous sûr de vouloir diffuser « {{message}} » ?",
         "confirm": " Confirmer!"
       },
+      "multialive": {
+        "seederCounted": "counted",
+        "seederRequested": "requested"
+      },
       "actions": {
+        "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "Rejoindre le serveur sélectionné",
-        "leave": "Quitter le serveur actuel",
+        "leave": "Leave current server(s)",
         "shutdownWindows": "Arrêter les PC (avec l'option d'arrêt activée)",
         "schedule": "Planifier l’heure de début de l’amorçage (fuseau horaire UTC)",
         "undoSchedule": "remove seeding from schedule"
@@ -330,7 +366,8 @@
         "seedServer": "Seeding {{serverName}}",
         "leaveServer": "Pas sur aucun serveur",
         "shutdownPC": "J'ai éteint tous les PC avec l'option d'arrêt activée",
-        "broadcastMessage": "Diffusion de \"{{message}}\" sur tous les serveurs"
+        "broadcastMessage": "Diffusion de \"{{message}}\" sur tous les serveurs",
+        "multialive": "Running multialive for servers:"
       },
       "seeders": {
         "main": "Actuellement {{seeders}} seeders en ligne avec {{ingame}} dans le jeu",
@@ -773,6 +810,7 @@
         "ownerId": "Playerid of the owner",
         "ownerIdDesc": "In Battlefield 5 and Battlefield 2042 servers are free, because of that its really easy to copy someones server. fill the playerid of the serverowner in here to prevent that.",
         "restartWorker": "Redémarrage",
+        "recreateWorker": "Re-create the bot",
         "restartWorkerDesc": "Restart the serverstatus bot (does the same when you apply a change)"
       }
     },
@@ -934,16 +972,19 @@
     "sponsor": "Sponsor us"
   },
   "cookieInfo": {
-    "link": "Click here for info on how to get the sid and remid",
+    "link": "Click here for info on how to get the sid and remid"
+  },
+  "cookieInfoV2": {
     "main": "How to get the SID and REMID cookies",
-    "0": "1. Open ",
-    "1": "en mode navigation privée avec Chrome ou Edge.",
-    "2": "2. Connectez-vous avec le compte que vous souhaitez utiliser, n'oubliez pas de cocher « Se souvenir de moi ».",
-    "3": "3. Après vous être connecté, cliquez sur le cadenas :",
-    "4": "4. Dans ce menu choisissez cookies :",
-    "5": "5. Développez \"accounts.ea.com\" et cliquez sur sid et/ou remid pour afficher le cookie sous \"Contenu\".",
+    "0": "1. Install the Cookie Quick Manager extension within Firefox: ",
+    "1": "2. Open ",
+    "2": " with Firefox and logout of your account if your already logged in.",
+    "3": "3. Login with the account you want to use, don't forget to check \"Remember me\".",
+    "4": "4. Open the Cookie Quick Manager extension and select \"Manage all cookies\".",
+    "5": "5. Search for \"accounts.ea.com\" on the top-left of the page, and click on select the domain with the same name.",
     "6": "6. Après avoir obtenu les cookies SID et REMID, ne vous déconnectez pas, fermez simplement le navigateur.",
-    "7": "Si vous vous déconnectez, les cookies ne sont plus valides."
+    "7": "If you logout the cookies are will no longer be valid.",
+    "8": "If you want to logout without invalidating the cookies for the manager, click on the trash icon for both the SID and REMID on the bottom-right."
   },
   "statusBotInfo": {
     "link": "Cliquez ici pour savoir comment obtenir un jeton Discord et inviter le bot sur votre Discord",
