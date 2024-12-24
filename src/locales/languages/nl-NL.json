@@ -349,9 +349,14 @@
         "broadcastInfo": "Weet u zeker dat u \"{{message}}\" wilt sturen naar alle servers?",
         "confirm": "Uitvoeren!"
       },
+      "multialive": {
+        "seederCounted": "counted",
+        "seederRequested": "requested"
+      },
       "actions": {
+        "multialiveSelected": "Multialive the selected servers",
         "joinSelected": "Betreed de geselecteerde server",
-        "leave": "Verlaat huidige server",
+        "leave": "Leave current server(s)",
         "shutdownWindows": "Zet de PC's uit (Als afsluitoptie aan staat)",
         "schedule": "Begin met seeden op deze tijd (UTC tijdzone)",
         "undoSchedule": "verwijder seeden van de planning"
@@ -361,7 +366,8 @@
         "seedServer": "{{serverName}} aan het seeden",
         "leaveServer": "Niet in een server",
         "shutdownPC": "Alle PC's met de afsluitoptie aan zijn uitgeschakeld",
-        "broadcastMessage": "\"{{message}}\" verzonden naar alle servers"
+        "broadcastMessage": "\"{{message}}\" verzonden naar alle servers",
+        "multialive": "Running multialive for servers:"
       },
       "seeders": {
         "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
