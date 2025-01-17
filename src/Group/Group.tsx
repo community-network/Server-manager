@@ -73,6 +73,10 @@ export function GroupRow(props: { group: IDevGroup }): React.ReactElement {
             totalOwners: group?.totalOwners,
             totalServers: group?.totalServers,
           })}
+          {" - "}
+          {group.createdAt !== undefined
+            ? t("date", { date: new Date(group.createdAt) })
+            : "-"}
         </span>
       </span>
 

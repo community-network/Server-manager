@@ -435,6 +435,7 @@ export interface IDevGroups {
 }
 
 export interface IDevGroup {
+  createdAt: string;
   groupName: string;
   id: string;
   totalAdmins: number;
