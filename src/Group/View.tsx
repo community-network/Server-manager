@@ -3285,7 +3285,6 @@ export function MakeOps(): React.ReactElement {
     ) => {
       setError(error);
       setApplyStatus(false);
-      setTimeout(() => setApplyStatus(null), 2000);
     },
 
     onSettled: async () => {
