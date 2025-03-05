@@ -3,6 +3,7 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: "./index.tsx",
@@ -47,6 +48,10 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: "public" }],
+    }),
+    new Dotenv({
+      defaults: true,
+      systemvars: true,
     }),
   ],
 };

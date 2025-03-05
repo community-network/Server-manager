@@ -1,14 +1,6 @@
 import { IUserInfo } from "./ReturnTypes";
-// import { env } from "node:process";  // todo: allow using env
 
-const endPoints = {
-  local: "https://localhost:5051/api/",
-  dev: "https://homedev.gametools.network/api/",
-  prod: "https://manager-api.gametools.network/api/",
-};
-const MODE = "prod"; // todo: use Environment variables to set the value
-
-export const endPointName = endPoints[MODE].replace("https://", "").replace(
+export const endPointName = process.env.gametools_manager_endpoint.replace("https://", "").replace(
   "/api/",
   "",
 );
@@ -33,7 +25,7 @@ export default class JsonClient {
       paramStr += s + "=" + params[s] + "&";
     }
     if (paramStr !== "") paramStr = "?" + paramStr;
-    const apiEP = endPoints[MODE];
+    const apiEP = process.env.gametools_manager_endpoint;
     return apiEP + method + paramStr;
   }
   async fetchMethod(
