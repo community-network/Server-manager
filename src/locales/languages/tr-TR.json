@@ -604,6 +604,9 @@
     "acceptDescription0": "Bu düğmeye basarak, sunucu yönetici paneline,",
     "acceptDescription1": "hesabınızı baglamış olursunuz.",
     "accept": "Operasyonu oluşturun",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "Sunucu ",
     "owner": "sahip",
     "cookies": " Çerezler."
