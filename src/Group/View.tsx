@@ -3247,7 +3247,7 @@ export function MakeOps(): React.ReactElement {
     staleTime: 30000,
   });
   const group = groups?.data?.length > 0 ? groups?.data[0] : null;
-
+  const [autoRetryInterval, setAutoRetryInterval] = React.useState<NodeJS.Timeout | undefined>(undefined);
   const [addGroupState, changeState] = React.useState({
     variables: {
       server: "",
@@ -3259,6 +3259,8 @@ export function MakeOps(): React.ReactElement {
   });
 
   const [applyStatus, setApplyStatus] = React.useState(null);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [retryInterval, setRetryInterval] = React.useState(3);
   const [errorUpdating, setError] = React.useState({
     code: 0,
     message: "Unknown",
@@ -3277,14 +3279,17 @@ export function MakeOps(): React.ReactElement {
     },
 
     onSuccess: async () => {
+      setIsSuccess(true);
       setApplyStatus(null);
     },
 
     onError: async (
       error: React.SetStateAction<{ code: number; message: string }>,
     ) => {
+      setIsSuccess(false);
       setError(error);
       setApplyStatus(false);
+      setTimeout(() => setApplyStatus(null), 2000);
     },
 
     onSettled: async () => {
@@ -3400,11 +3405,45 @@ export function MakeOps(): React.ReactElement {
               style={{
                 marginBottom: 0,
                 alignSelf: "center",
-                opacity: applyStatus === false ? 1 : 0,
+                opacity: errorUpdating.code !== 0 ? 1 : 0,
               }}
             >
               Error {errorUpdating.code}: {errorUpdating.message}
             </h5>
+          </ButtonRow>
+          <ButtonRow>
+            <Button
+              name={t("operations.autoRetry")}
+              disabled={!addGroupState.canAdd || applyStatus !== null || autoRetryInterval !== undefined}
+              callback={() => {
+                setIsSuccess(false);
+                setAutoRetryInterval(setInterval(() => {
+                  if (isSuccess) {
+                    clearInterval(autoRetryInterval);
+                    setAutoRetryInterval(undefined);
+                  }
+                  if (applyStatus === null) {
+                    SetupOperations.mutate(addGroupState.variables);
+                  }
+                }, retryInterval * 1000));
+              }}
+            />
+            <Button
+              name={t("operations.stopRetry")}
+              disabled={autoRetryInterval === undefined}
+              callback={() => {
+                setIsSuccess(false);
+                clearInterval(autoRetryInterval);
+                setAutoRetryInterval(undefined);
+              }}
+            />
+            <h5>{t("operations.retryInterval")}</h5>
+            <TextInput
+              value={retryInterval}
+              type="number"
+              name={t("operations.retryInterval")}
+              callback={(e) => setRetryInterval(e.target.value)}
+            />
           </ButtonRow>
         </Card>
       </Column>
