@@ -604,6 +604,9 @@
     "acceptDescription0": "Door op deze knop te drukken, staat u toe",
     "acceptDescription1": "server manager tool recht te geven tot het account.",
     "accept": "Operations instellen",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "Server ",
     "owner": "eigenaar",
     "cookies": " cookies."
