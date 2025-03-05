@@ -604,6 +604,9 @@
     "acceptDescription0": "בלחיצה על כפתור זה, הינך מסכים לתת",
     "acceptDescription1": "גישה לכלי מנהל השרת לחשבון.",
     "accept": "בצע פעולות",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "שרת",
     "owner": "בעלים",
     "cookies": "עוגיות"
