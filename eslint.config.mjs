@@ -52,5 +52,6 @@ export default [...compat.extends(
                 match: true,
             },
         }],
+        "prettier/prettier": ["error", { endOfLine: "auto" }],
     },
 }];
