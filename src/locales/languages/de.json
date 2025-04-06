@@ -604,6 +604,9 @@
     "acceptDescription0": "Mit dem drücken dieses Knopfes, stimmst du zu dass",
     "acceptDescription1": "Server-Manager-Tool Zugriff auf diesen Account bekommt.",
     "accept": "Make Operations",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "Server ",
     "owner": "Besitzer",
     "cookies": " cookies."

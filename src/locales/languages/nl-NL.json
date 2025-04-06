@@ -350,13 +350,13 @@
         "confirm": "Uitvoeren!"
       },
       "multialive": {
-        "seederCounted": "counted",
-        "seederRequested": "requested"
+        "seederCounted": "geteld",
+        "seederRequested": "aangevraagd"
       },
       "actions": {
-        "multialiveSelected": "Multialive the selected servers",
+        "multialiveSelected": "Multialive de geselecteerde servers",
         "joinSelected": "Betreed de geselecteerde server",
-        "leave": "Leave current server(s)",
+        "leave": "Uit de huidige server(s) gaan",
         "shutdownWindows": "Zet de PC's uit (Als afsluitoptie aan staat)",
         "schedule": "Begin met seeden op deze tijd (UTC tijdzone)",
         "undoSchedule": "verwijder seeden van de planning"
@@ -367,7 +367,7 @@
         "leaveServer": "Niet in een server",
         "shutdownPC": "Alle PC's met de afsluitoptie aan zijn uitgeschakeld",
         "broadcastMessage": "\"{{message}}\" verzonden naar alle servers",
-        "multialive": "Running multialive for servers:"
+        "multialive": "Multialive wordt uitgevoerd voor de volgende servers:"
       },
       "seeders": {
         "main": "Er zijn {{seeders}} seeders online met {{ingame}} seeders in het spel",
@@ -604,6 +604,9 @@
     "acceptDescription0": "Door op deze knop te drukken, staat u toe",
     "acceptDescription1": "server manager tool recht te geven tot het account.",
     "accept": "Operations instellen",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "Server ",
     "owner": "eigenaar",
     "cookies": " cookies."

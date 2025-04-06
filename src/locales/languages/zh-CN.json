@@ -604,6 +604,9 @@
     "acceptDescription0": "通过这个按钮，你将同意并且继续",
     "acceptDescription1": "服管工具使用该账号.",
     "accept": "设置行动！",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "服务器 ",
     "owner": "服务器所有者账号的cookie",
     "cookies": " cookies."

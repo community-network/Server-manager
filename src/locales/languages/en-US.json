@@ -604,6 +604,9 @@
     "acceptDescription0": "By pressing this button, you agree to give",
     "acceptDescription1": "server manager tool access to the account.",
     "accept": "Make Operations",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "Server ",
     "owner": "owner",
     "cookies": " cookies."

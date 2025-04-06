@@ -604,6 +604,9 @@
     "acceptDescription0": "En appuyant sur ce bouton, vous acceptez de donner",
     "acceptDescription1": "accès de l'outil de gestion de serveur au compte.",
     "accept": "Effectuer des opérations",
+    "autoRetry": "Automatically retry",
+    "stopRetry": "Stop retrying",
+    "retryInterval": "Seconds between retries",
     "server": "Serveur",
     "owner": "propriétaire",
     "cookies": " cookies."
