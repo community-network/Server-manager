@@ -90,7 +90,7 @@
     "typescript": "^5.6.2",
     "typescript-plugin-css-modules": "^5.1.0",
     "web-vitals": "^4.2.3",
-    "webpack": "^5.94.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-middleware": "^7.4.2",
     "webpack-dev-server": "^5.1.0",
