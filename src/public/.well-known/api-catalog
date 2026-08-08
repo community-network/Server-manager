@@ -1,0 +1,17 @@
+{
+    "linkset": [
+        {
+            "anchor": "https://manager-api.gametools.network/",
+            "relations": [
+                {
+                    "rel": "service-desc",
+                    "href": "https://manager-api.gametools.network/openapi.json"
+                },
+                {
+                    "rel": "service-doc",
+                    "href": "https://manager-api.gametools.network/docs"
+                }
+            ]
+        }
+    ]
+}
