@@ -26,6 +26,7 @@ i18n
   .use(LanguageDetector)
   .init({
     fallbackLng: "en-US",
+    supportedLngs: ["de-DE", "en-US", "tr-TR", "he-IL", "el-GR", "zh-CN", "nl-NL", "de-DE", "fr_FR"],
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default,
       format: function (value, fmt, lng) {
