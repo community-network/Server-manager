@@ -5,6 +5,19 @@ import { formatDistanceToNowStrict, format } from "date-fns";
 import { enUS, tr, el, zhCN, nl, de, he, fr } from "date-fns/locale";
 import resourcesToBackend from "i18next-resources-to-backend";
 
+export const supportedLanguages = ["de-DE", "en-US", "tr-TR", "he-IL", "el-GR", "zh-CN", "nl-NL", "de-DE", "fr_FR"];
+export const defaultLanguage = "en-US";
+
+const languageDetector = new LanguageDetector(null, {
+  convertDetectedLanguage: (lng) => {
+    if (supportedLanguages.includes(lng)) {
+      return lng;
+    }
+    return defaultLanguage;
+  },
+});
+
+
 const locales = {
   "en-US": enUS,
   "tr-TR": tr,
@@ -23,10 +36,10 @@ i18n
     ),
   )
   .use(initReactI18next)
-  .use(LanguageDetector)
+  .use(languageDetector)
   .init({
-    fallbackLng: "en-US",
-    supportedLngs: ["de-DE", "en-US", "tr-TR", "he-IL", "el-GR", "zh-CN", "nl-NL", "de-DE", "fr_FR"],
+    fallbackLng: defaultLanguage,
+    supportedLngs: supportedLanguages,
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default,
       format: function (value, fmt, lng) {
